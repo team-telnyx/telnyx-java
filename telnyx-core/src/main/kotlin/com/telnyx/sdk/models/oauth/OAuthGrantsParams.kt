@@ -17,7 +17,10 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Create an OAuth authorization grant */
+/**
+ * Creates an OAuth authorization grant and returns the grant response for completing the
+ * authorization flow.
+ */
 class OAuthGrantsParams
 private constructor(
     private val body: Body,

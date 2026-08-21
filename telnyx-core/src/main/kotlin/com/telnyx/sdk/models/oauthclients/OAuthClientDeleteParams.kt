@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an OAuth client */
+/** Permanently deletes the specified OAuth client from your account. */
 class OAuthClientDeleteParams
 private constructor(
     private val id: String?,

@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates a SIM card group */
+/** Updates the specified SIM card group's attributes and returns the updated group. */
 class SimCardGroupUpdateParams
 private constructor(
     private val id: String?,

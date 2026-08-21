@@ -36,21 +36,21 @@ import kotlin.jvm.optionals.getOrNull
 class PayPromptValue
 private constructor(
     private val string: String? = null,
-    private val prompts: List<PayPrompt>? = null,
+    private val list: List<PayPrompt>? = null,
     private val _json: JsonValue? = null,
 ) {
 
     fun string(): Optional<String> = Optional.ofNullable(string)
 
-    fun prompts(): Optional<List<PayPrompt>> = Optional.ofNullable(prompts)
+    fun list(): Optional<List<PayPrompt>> = Optional.ofNullable(list)
 
     fun isString(): Boolean = string != null
 
-    fun isPrompts(): Boolean = prompts != null
+    fun isList(): Boolean = list != null
 
     fun asString(): String = string.getOrThrow("string")
 
-    fun asPrompts(): List<PayPrompt> = prompts.getOrThrow("prompts")
+    fun asList(): List<PayPrompt> = list.getOrThrow("list")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -86,7 +86,7 @@ private constructor(
     fun <T> accept(visitor: Visitor<T>): T =
         when {
             string != null -> visitor.visitString(string)
-            prompts != null -> visitor.visitPrompts(prompts)
+            list != null -> visitor.visitList(list)
             else -> visitor.unknown(_json)
         }
 
@@ -109,8 +109,8 @@ private constructor(
             object : Visitor<Unit> {
                 override fun visitString(string: String) {}
 
-                override fun visitPrompts(prompts: List<PayPrompt>) {
-                    prompts.forEach { it.validate() }
+                override fun visitList(list: List<PayPrompt>) {
+                    list.forEach { it.validate() }
                 }
             }
         )
@@ -136,8 +136,7 @@ private constructor(
             object : Visitor<Int> {
                 override fun visitString(string: String) = 1
 
-                override fun visitPrompts(prompts: List<PayPrompt>) =
-                    prompts.sumOf { it.validity().toInt() }
+                override fun visitList(list: List<PayPrompt>) = list.sumOf { it.validity().toInt() }
 
                 override fun unknown(json: JsonValue?) = 0
             }
@@ -148,15 +147,15 @@ private constructor(
             return true
         }
 
-        return other is PayPromptValue && string == other.string && prompts == other.prompts
+        return other is PayPromptValue && string == other.string && list == other.list
     }
 
-    override fun hashCode(): Int = Objects.hash(string, prompts)
+    override fun hashCode(): Int = Objects.hash(string, list)
 
     override fun toString(): String =
         when {
             string != null -> "PayPromptValue{string=$string}"
-            prompts != null -> "PayPromptValue{prompts=$prompts}"
+            list != null -> "PayPromptValue{list=$list}"
             _json != null -> "PayPromptValue{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid PayPromptValue")
         }
@@ -165,8 +164,7 @@ private constructor(
 
         @JvmStatic fun ofString(string: String) = PayPromptValue(string = string)
 
-        @JvmStatic
-        fun ofPrompts(prompts: List<PayPrompt>) = PayPromptValue(prompts = prompts.toImmutable())
+        @JvmStatic fun ofList(list: List<PayPrompt>) = PayPromptValue(list = list.toImmutable())
     }
 
     /**
@@ -176,7 +174,7 @@ private constructor(
 
         fun visitString(string: String): T
 
-        fun visitPrompts(prompts: List<PayPrompt>): T
+        fun visitList(list: List<PayPrompt>): T
 
         /**
          * Maps an unknown variant of [PayPromptValue] to a value of type [T].
@@ -204,7 +202,7 @@ private constructor(
                             PayPromptValue(string = it, _json = json)
                         },
                         tryDeserialize(node, jacksonTypeRef<List<PayPrompt>>())?.let {
-                            PayPromptValue(prompts = it, _json = json)
+                            PayPromptValue(list = it, _json = json)
                         },
                     )
                     .filterNotNull()
@@ -231,7 +229,7 @@ private constructor(
         ) {
             when {
                 value.string != null -> generator.writeObject(value.string)
-                value.prompts != null -> generator.writeObject(value.prompts)
+                value.list != null -> generator.writeObject(value.list)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid PayPromptValue")
             }
@@ -278,9 +276,7 @@ private constructor(
         fun attempt(): Optional<String> = attempt.getOptional("attempt")
 
         /**
-         * Lowercase, case-sensitive detected card type for which this prompt applies. Only the
-         * listed brands are currently detected; accepted UnionPay and Maestro test cards do not
-         * produce a card-type qualifier.
+         * Lowercase, case-sensitive detected card type for which this prompt applies.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -392,11 +388,7 @@ private constructor(
              */
             fun attempt(attempt: JsonField<String>) = apply { this.attempt = attempt }
 
-            /**
-             * Lowercase, case-sensitive detected card type for which this prompt applies. Only the
-             * listed brands are currently detected; accepted UnionPay and Maestro test cards do not
-             * produce a card-type qualifier.
-             */
+            /** Lowercase, case-sensitive detected card type for which this prompt applies. */
             fun cardType(cardType: CardType) = cardType(JsonField.of(cardType))
 
             /**
@@ -505,11 +497,7 @@ private constructor(
                 (cardType.asKnown().getOrNull()?.validity() ?: 0) +
                 (errorType.asKnown().getOrNull()?.validity() ?: 0)
 
-        /**
-         * Lowercase, case-sensitive detected card type for which this prompt applies. Only the
-         * listed brands are currently detected; accepted UnionPay and Maestro test cards do not
-         * produce a card-type qualifier.
-         */
+        /** Lowercase, case-sensitive detected card type for which this prompt applies. */
         class CardType @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
 
@@ -531,11 +519,17 @@ private constructor(
 
                 @JvmField val AMEX = of("amex")
 
+                @JvmField val OPTIMA = of("optima")
+
                 @JvmField val DISCOVER = of("discover")
 
                 @JvmField val DINERS_CLUB = of("diners-club")
 
                 @JvmField val JCB = of("jcb")
+
+                @JvmField val MAESTRO = of("maestro")
+
+                @JvmField val ENROUTE = of("enroute")
 
                 @JvmStatic fun of(value: String) = CardType(JsonField.of(value))
             }
@@ -545,9 +539,12 @@ private constructor(
                 VISA,
                 MASTERCARD,
                 AMEX,
+                OPTIMA,
                 DISCOVER,
                 DINERS_CLUB,
                 JCB,
+                MAESTRO,
+                ENROUTE,
             }
 
             /**
@@ -563,9 +560,12 @@ private constructor(
                 VISA,
                 MASTERCARD,
                 AMEX,
+                OPTIMA,
                 DISCOVER,
                 DINERS_CLUB,
                 JCB,
+                MAESTRO,
+                ENROUTE,
                 /**
                  * An enum member indicating that [CardType] was instantiated with an unknown value.
                  */
@@ -584,9 +584,12 @@ private constructor(
                     VISA -> Value.VISA
                     MASTERCARD -> Value.MASTERCARD
                     AMEX -> Value.AMEX
+                    OPTIMA -> Value.OPTIMA
                     DISCOVER -> Value.DISCOVER
                     DINERS_CLUB -> Value.DINERS_CLUB
                     JCB -> Value.JCB
+                    MAESTRO -> Value.MAESTRO
+                    ENROUTE -> Value.ENROUTE
                     else -> Value._UNKNOWN
                 }
 
@@ -604,9 +607,12 @@ private constructor(
                     VISA -> Known.VISA
                     MASTERCARD -> Known.MASTERCARD
                     AMEX -> Known.AMEX
+                    OPTIMA -> Known.OPTIMA
                     DISCOVER -> Known.DISCOVER
                     DINERS_CLUB -> Known.DINERS_CLUB
                     JCB -> Known.JCB
+                    MAESTRO -> Known.MAESTRO
+                    ENROUTE -> Known.ENROUTE
                     else -> throw TelnyxInvalidDataException("Unknown CardType: $value")
                 }
 
@@ -694,6 +700,8 @@ private constructor(
 
                 @JvmField val INVALID_CARD_NUMBER = of("invalid-card-number")
 
+                @JvmField val INVALID_CARD_TYPE = of("invalid-card-type")
+
                 @JvmField val INVALID_DATE = of("invalid-date")
 
                 @JvmField val INVALID_SECURITY_CODE = of("invalid-security-code")
@@ -713,6 +721,7 @@ private constructor(
             enum class Known {
                 TIMEOUT,
                 INVALID_CARD_NUMBER,
+                INVALID_CARD_TYPE,
                 INVALID_DATE,
                 INVALID_SECURITY_CODE,
                 INVALID_POSTAL_CODE,
@@ -733,6 +742,7 @@ private constructor(
             enum class Value {
                 TIMEOUT,
                 INVALID_CARD_NUMBER,
+                INVALID_CARD_TYPE,
                 INVALID_DATE,
                 INVALID_SECURITY_CODE,
                 INVALID_POSTAL_CODE,
@@ -757,6 +767,7 @@ private constructor(
                 when (this) {
                     TIMEOUT -> Value.TIMEOUT
                     INVALID_CARD_NUMBER -> Value.INVALID_CARD_NUMBER
+                    INVALID_CARD_TYPE -> Value.INVALID_CARD_TYPE
                     INVALID_DATE -> Value.INVALID_DATE
                     INVALID_SECURITY_CODE -> Value.INVALID_SECURITY_CODE
                     INVALID_POSTAL_CODE -> Value.INVALID_POSTAL_CODE
@@ -779,6 +790,7 @@ private constructor(
                 when (this) {
                     TIMEOUT -> Known.TIMEOUT
                     INVALID_CARD_NUMBER -> Known.INVALID_CARD_NUMBER
+                    INVALID_CARD_TYPE -> Known.INVALID_CARD_TYPE
                     INVALID_DATE -> Known.INVALID_DATE
                     INVALID_SECURITY_CODE -> Known.INVALID_SECURITY_CODE
                     INVALID_POSTAL_CODE -> Known.INVALID_POSTAL_CODE

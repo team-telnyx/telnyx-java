@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.emailblocks.EmailBlockCreateParams
-import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveExportParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -70,16 +69,9 @@ internal class EmailBlockServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val emailBlockService = client.emailBlocks()
 
-        val response =
-            emailBlockService.retrieveEvents(
-                EmailBlockRetrieveEventsParams.builder()
-                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .pageNumber(1L)
-                    .pageSize(1L)
-                    .build()
-            )
+        val page = emailBlockService.retrieveEvents("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        response.validate()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

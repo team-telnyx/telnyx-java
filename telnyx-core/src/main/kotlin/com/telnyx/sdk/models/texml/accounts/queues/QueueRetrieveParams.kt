@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a queue resource. */
+/** Returns a single queue resource for the account by its QueueSid. */
 class QueueRetrieveParams
 private constructor(
     private val accountSid: String,

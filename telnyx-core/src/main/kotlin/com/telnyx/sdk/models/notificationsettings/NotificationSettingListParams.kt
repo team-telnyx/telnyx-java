@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List notification settings. */
+/**
+ * Returns a paginated list of your notification settings, which map notification event types to
+ * profiles and channels.
+ */
 class NotificationSettingListParams
 private constructor(
     private val filter: Filter?,

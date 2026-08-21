@@ -65,7 +65,10 @@ interface BucketServiceAsync {
     ): CompletableFuture<BucketRetrieveResponse> =
         retrieve(bucketName, BucketRetrieveParams.none(), requestOptions)
 
-    /** Get all embedding buckets for a user. */
+    /**
+     * Returns the list of storage buckets that have been embedded for your account, for use with
+     * similarity search.
+     */
     fun list(): CompletableFuture<BucketListResponse> = list(BucketListParams.none())
 
     /** @see list */

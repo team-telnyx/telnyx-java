@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a Global IP health check. */
+/**
+ * Deletes the specified Global IP health check so it no longer monitors the Global IP's
+ * assignments.
+ */
 class GlobalIpHealthCheckDeleteParams
 private constructor(
     private val id: String?,

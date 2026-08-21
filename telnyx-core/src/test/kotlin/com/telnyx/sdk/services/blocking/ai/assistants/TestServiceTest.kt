@@ -20,6 +20,7 @@ internal class TestServiceTest {
         val assistantTest =
             testService.create(
                 TestCreateParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .destination("+15551234567")
                     .instructions(
                         "Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response."

@@ -24,7 +24,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update an AI Assistant's attributes. */
+/**
+ * Updates the specified AI assistant's attributes and returns the updated assistant. The request
+ * can also control how the change is promoted across assistant versions.
+ */
 class AssistantUpdateParams
 private constructor(
     private val assistantId: String?,

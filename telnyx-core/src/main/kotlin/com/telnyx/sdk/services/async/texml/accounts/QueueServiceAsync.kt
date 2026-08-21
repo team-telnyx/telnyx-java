@@ -31,7 +31,7 @@ interface QueueServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): QueueServiceAsync
 
-    /** Creates a new queue resource. */
+    /** Creates a new queue resource for the account with the provided settings and returns it. */
     fun create(accountSid: String): CompletableFuture<QueueResource> =
         create(accountSid, QueueCreateParams.none())
 
@@ -66,7 +66,7 @@ interface QueueServiceAsync {
     ): CompletableFuture<QueueResource> =
         create(accountSid, QueueCreateParams.none(), requestOptions)
 
-    /** Returns a queue resource. */
+    /** Returns a single queue resource for the account by its QueueSid. */
     fun retrieve(queueSid: String, params: QueueRetrieveParams): CompletableFuture<QueueResource> =
         retrieve(queueSid, params, RequestOptions.none())
 
@@ -88,7 +88,7 @@ interface QueueServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<QueueResource>
 
-    /** Updates a queue resource. */
+    /** Updates the specified queue resource's settings and returns the updated queue. */
     fun update(queueSid: String, params: QueueUpdateParams): CompletableFuture<QueueResource> =
         update(queueSid, params, RequestOptions.none())
 
@@ -110,7 +110,10 @@ interface QueueServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<QueueResource>
 
-    /** Lists queue resources. */
+    /**
+     * Returns a paginated list of queue resources for the account, with support for filtering by
+     * creation or update dates.
+     */
     fun list(accountSid: String): CompletableFuture<QueueListPageAsync> =
         list(accountSid, QueueListParams.none())
 
@@ -145,7 +148,7 @@ interface QueueServiceAsync {
     ): CompletableFuture<QueueListPageAsync> =
         list(accountSid, QueueListParams.none(), requestOptions)
 
-    /** Delete a queue resource. */
+    /** Permanently deletes the specified queue resource from the account. */
     fun delete(queueSid: String, params: QueueDeleteParams): CompletableFuture<Void?> =
         delete(queueSid, params, RequestOptions.none())
 

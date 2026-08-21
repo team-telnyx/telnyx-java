@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update the details of a specific IP. */
+/** Updates the details of the specified IP record and returns the updated IP. */
 class IpUpdateParams
 private constructor(
     private val id: String?,

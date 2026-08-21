@@ -47,6 +47,10 @@ internal class CallServiceAsyncTest {
                     .answeringMachineDetectionConfig(
                         CallDialParams.AnsweringMachineDetectionConfig.builder()
                             .afterGreetingSilenceMillis(1000)
+                            .beepDetectionProfile(
+                                CallDialParams.AnsweringMachineDetectionConfig.BeepDetectionProfile
+                                    .FREQ_ONLY
+                            )
                             .betweenWordsSilenceMillis(1000)
                             .greetingDurationMillis(1000)
                             .greetingSilenceDurationMillis(2000)

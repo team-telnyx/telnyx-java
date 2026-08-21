@@ -12,7 +12,7 @@ internal class EmailUnsubscribeGroupDeleteParamsTest {
     fun create() {
         EmailUnsubscribeGroupDeleteParams.builder()
             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .force(EmailUnsubscribeGroupDeleteParams.Force.UnionMember0.TRUE)
+            .force(EmailUnsubscribeGroupDeleteParams.Force.ForceString.TRUE)
             .build()
     }
 
@@ -33,7 +33,7 @@ internal class EmailUnsubscribeGroupDeleteParamsTest {
         val params =
             EmailUnsubscribeGroupDeleteParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .force(EmailUnsubscribeGroupDeleteParams.Force.UnionMember0.TRUE)
+                .force(EmailUnsubscribeGroupDeleteParams.Force.ForceString.TRUE)
                 .build()
 
         val queryParams = params._queryParams()

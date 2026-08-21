@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.emailblocks.EmailBlockDeleteParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockListPageAsync
 import com.telnyx.sdk.models.emailblocks.EmailBlockListParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockResponse
+import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsPageAsync
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsParams
-import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsResponse
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveExportParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveParams
 import com.telnyx.sdk.services.async.emailblocks.ImportServiceAsync
@@ -34,7 +34,7 @@ interface EmailBlockServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmailBlockServiceAsync
 
     /** Async CSV import of competitor suppression lists. */
-    fun import_(): ImportServiceAsync
+    fun imports(): ImportServiceAsync
 
     /**
      * Creates a suppression with `reason: manual_block` and `source: manual`. Caller-supplied
@@ -164,7 +164,7 @@ interface EmailBlockServiceAsync {
      * `sort`, no `filter`, no cursor — ordering is fixed `desc occurred_at, desc id`. Verifies the
      * block belongs to the account first (cross-account → 404).
      */
-    fun retrieveEvents(id: String): CompletableFuture<EmailBlockRetrieveEventsResponse> =
+    fun retrieveEvents(id: String): CompletableFuture<EmailBlockRetrieveEventsPageAsync> =
         retrieveEvents(id, EmailBlockRetrieveEventsParams.none())
 
     /** @see retrieveEvents */
@@ -172,33 +172,33 @@ interface EmailBlockServiceAsync {
         id: String,
         params: EmailBlockRetrieveEventsParams = EmailBlockRetrieveEventsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailBlockRetrieveEventsResponse> =
+    ): CompletableFuture<EmailBlockRetrieveEventsPageAsync> =
         retrieveEvents(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         id: String,
         params: EmailBlockRetrieveEventsParams = EmailBlockRetrieveEventsParams.none(),
-    ): CompletableFuture<EmailBlockRetrieveEventsResponse> =
+    ): CompletableFuture<EmailBlockRetrieveEventsPageAsync> =
         retrieveEvents(id, params, RequestOptions.none())
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         params: EmailBlockRetrieveEventsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailBlockRetrieveEventsResponse>
+    ): CompletableFuture<EmailBlockRetrieveEventsPageAsync>
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         params: EmailBlockRetrieveEventsParams
-    ): CompletableFuture<EmailBlockRetrieveEventsResponse> =
+    ): CompletableFuture<EmailBlockRetrieveEventsPageAsync> =
         retrieveEvents(params, RequestOptions.none())
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmailBlockRetrieveEventsResponse> =
+    ): CompletableFuture<EmailBlockRetrieveEventsPageAsync> =
         retrieveEvents(id, EmailBlockRetrieveEventsParams.none(), requestOptions)
 
     /**
@@ -249,7 +249,7 @@ interface EmailBlockServiceAsync {
         ): EmailBlockServiceAsync.WithRawResponse
 
         /** Async CSV import of competitor suppression lists. */
-        fun import_(): ImportServiceAsync.WithRawResponse
+        fun imports(): ImportServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /email_blocks`, but is otherwise the same as
@@ -379,7 +379,7 @@ interface EmailBlockServiceAsync {
          */
         fun retrieveEvents(
             id: String
-        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsPageAsync>> =
             retrieveEvents(id, EmailBlockRetrieveEventsParams.none())
 
         /** @see retrieveEvents */
@@ -387,33 +387,33 @@ interface EmailBlockServiceAsync {
             id: String,
             params: EmailBlockRetrieveEventsParams = EmailBlockRetrieveEventsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsPageAsync>> =
             retrieveEvents(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieveEvents */
         fun retrieveEvents(
             id: String,
             params: EmailBlockRetrieveEventsParams = EmailBlockRetrieveEventsParams.none(),
-        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsPageAsync>> =
             retrieveEvents(id, params, RequestOptions.none())
 
         /** @see retrieveEvents */
         fun retrieveEvents(
             params: EmailBlockRetrieveEventsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsResponse>>
+        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsPageAsync>>
 
         /** @see retrieveEvents */
         fun retrieveEvents(
             params: EmailBlockRetrieveEventsParams
-        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsPageAsync>> =
             retrieveEvents(params, RequestOptions.none())
 
         /** @see retrieveEvents */
         fun retrieveEvents(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailBlockRetrieveEventsPageAsync>> =
             retrieveEvents(id, EmailBlockRetrieveEventsParams.none(), requestOptions)
 
         /**

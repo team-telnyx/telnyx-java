@@ -31,7 +31,11 @@ interface PublicInternetGatewayServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PublicInternetGatewayServiceAsync
 
-    /** Create a new Public Internet Gateway. */
+    /**
+     * Requests creation of a public internet gateway on the specified network, giving the network
+     * internet egress. Creation is asynchronous, so the request is accepted and completes in the
+     * background.
+     */
     fun create(): CompletableFuture<PublicInternetGatewayCreateResponse> =
         create(PublicInternetGatewayCreateParams.none())
 
@@ -53,7 +57,7 @@ interface PublicInternetGatewayServiceAsync {
     ): CompletableFuture<PublicInternetGatewayCreateResponse> =
         create(PublicInternetGatewayCreateParams.none(), requestOptions)
 
-    /** Retrieve a Public Internet Gateway. */
+    /** Returns the details of a single public internet gateway by its identifier. */
     fun retrieve(id: String): CompletableFuture<PublicInternetGatewayRetrieveResponse> =
         retrieve(id, PublicInternetGatewayRetrieveParams.none())
 
@@ -91,7 +95,10 @@ interface PublicInternetGatewayServiceAsync {
     ): CompletableFuture<PublicInternetGatewayRetrieveResponse> =
         retrieve(id, PublicInternetGatewayRetrieveParams.none(), requestOptions)
 
-    /** List all Public Internet Gateways. */
+    /**
+     * Returns a paginated list of the public internet gateways on your account, with support for
+     * filtering.
+     */
     fun list(): CompletableFuture<PublicInternetGatewayListPageAsync> =
         list(PublicInternetGatewayListParams.none())
 
@@ -112,7 +119,7 @@ interface PublicInternetGatewayServiceAsync {
     ): CompletableFuture<PublicInternetGatewayListPageAsync> =
         list(PublicInternetGatewayListParams.none(), requestOptions)
 
-    /** Delete a Public Internet Gateway. */
+    /** Deletes the specified public internet gateway, removing internet egress through it. */
     fun delete(id: String): CompletableFuture<PublicInternetGatewayDeleteResponse> =
         delete(id, PublicInternetGatewayDeleteParams.none())
 

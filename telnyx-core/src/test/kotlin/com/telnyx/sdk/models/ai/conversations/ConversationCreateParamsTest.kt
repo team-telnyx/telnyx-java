@@ -11,6 +11,7 @@ internal class ConversationCreateParamsTest {
     @Test
     fun create() {
         ConversationCreateParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .metadata(
                 ConversationCreateParams.Metadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -21,9 +22,42 @@ internal class ConversationCreateParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            ConversationCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .metadata(
+                    ConversationCreateParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .name("string")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params = ConversationCreateParams.builder().build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             ConversationCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .metadata(
                     ConversationCreateParams.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

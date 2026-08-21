@@ -36,11 +36,11 @@ interface TextToSpeechService {
      * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
      *
      * The `voice` parameter provides a convenient shorthand to specify provider, model, and voice
-     * in a single string (e.g. `telnyx.NaturalHD.Alloy` or `Telnyx.Ultra.<voice_id>`).
-     * Alternatively, specify `provider` explicitly along with provider-specific parameters.
+     * in a single string (e.g. `Telnyx.Ultra.<voice_id>`). Alternatively, specify `provider`
+     * explicitly along with provider-specific parameters.
      *
-     * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`,
-     * `xai`, `humain`.
+     * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `resemble`, `xai`,
+     * `humain`.
      *
      * The Telnyx `Ultra` model supports 44 languages with emotion control, speed adjustment, and
      * volume control. Use the `telnyx` provider-specific parameters to configure these features.
@@ -94,8 +94,8 @@ interface TextToSpeechService {
      * JSON frames with text to synthesize; receive JSON frames containing base64-encoded audio
      * chunks.
      *
-     * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `rime`, `resemble`,
-     * `elevenlabs`, `xai`, `humain`.
+     * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `resemble`, `elevenlabs`,
+     * `xai`, `humain`.
      *
      * **Connection flow:**
      * 1. Open WebSocket with query parameters specifying provider, voice, and model.

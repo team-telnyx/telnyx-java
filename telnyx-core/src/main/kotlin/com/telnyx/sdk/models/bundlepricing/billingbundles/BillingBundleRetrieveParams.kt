@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a single bundle by ID. */
+/**
+ * Returns the details of a single billing bundle by its ID, so you can inspect its contents before
+ * purchasing a user bundle.
+ */
 class BillingBundleRetrieveParams
 private constructor(
     private val bundleId: String?,

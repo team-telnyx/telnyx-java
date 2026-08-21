@@ -52,7 +52,7 @@ interface UserBundleService {
     fun create(requestOptions: RequestOptions): UserBundleCreateResponse =
         create(UserBundleCreateParams.none(), requestOptions)
 
-    /** Retrieves a user bundle by its ID. */
+    /** Returns the details of a single user bundle on your account by its ID. */
     fun retrieve(userBundleId: String): UserBundleRetrieveResponse =
         retrieve(userBundleId, UserBundleRetrieveParams.none())
 
@@ -84,7 +84,9 @@ interface UserBundleService {
     fun retrieve(userBundleId: String, requestOptions: RequestOptions): UserBundleRetrieveResponse =
         retrieve(userBundleId, UserBundleRetrieveParams.none(), requestOptions)
 
-    /** Get a paginated list of user bundles. */
+    /**
+     * Returns a paginated list of the bundles active on your account, with support for filtering.
+     */
     fun list(): UserBundleListPage = list(UserBundleListParams.none())
 
     /** @see list */
@@ -101,7 +103,7 @@ interface UserBundleService {
     fun list(requestOptions: RequestOptions): UserBundleListPage =
         list(UserBundleListParams.none(), requestOptions)
 
-    /** Deactivates a user bundle by its ID. */
+    /** Deactivates the specified user bundle on your account and returns the deactivated bundle. */
     fun deactivate(userBundleId: String): UserBundleDeactivateResponse =
         deactivate(userBundleId, UserBundleDeactivateParams.none())
 

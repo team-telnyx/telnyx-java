@@ -28,7 +28,7 @@ interface ConnectionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConnectionServiceAsync
 
-    /** Get user setup integrations */
+    /** Returns the details of a single integration connection by its ID. */
     fun retrieve(userConnectionId: String): CompletableFuture<ConnectionRetrieveResponse> =
         retrieve(userConnectionId, ConnectionRetrieveParams.none())
 
@@ -64,7 +64,10 @@ interface ConnectionServiceAsync {
     ): CompletableFuture<ConnectionRetrieveResponse> =
         retrieve(userConnectionId, ConnectionRetrieveParams.none(), requestOptions)
 
-    /** List user setup integrations */
+    /**
+     * Returns the list of integration connections you have set up, linking your account to
+     * third-party services.
+     */
     fun list(): CompletableFuture<ConnectionListResponse> = list(ConnectionListParams.none())
 
     /** @see list */

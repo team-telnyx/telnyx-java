@@ -23,8 +23,9 @@ import com.telnyx.sdk.models.emailblocks.EmailBlockListPage
 import com.telnyx.sdk.models.emailblocks.EmailBlockListPageResponse
 import com.telnyx.sdk.models.emailblocks.EmailBlockListParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockResponse
+import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsPage
+import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsPageResponse
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsParams
-import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsResponse
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveExportParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveParams
 import com.telnyx.sdk.services.blocking.emailblocks.ImportService
@@ -40,7 +41,7 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
         WithRawResponseImpl(clientOptions)
     }
 
-    private val import_: ImportService by lazy { ImportServiceImpl(clientOptions) }
+    private val imports: ImportService by lazy { ImportServiceImpl(clientOptions) }
 
     override fun withRawResponse(): EmailBlockService.WithRawResponse = withRawResponse
 
@@ -48,7 +49,7 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
         EmailBlockServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     /** Async CSV import of competitor suppression lists. */
-    override fun import_(): ImportService = import_
+    override fun imports(): ImportService = imports
 
     override fun create(
         params: EmailBlockCreateParams,
@@ -81,7 +82,7 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
     override fun retrieveEvents(
         params: EmailBlockRetrieveEventsParams,
         requestOptions: RequestOptions,
-    ): EmailBlockRetrieveEventsResponse =
+    ): EmailBlockRetrieveEventsPage =
         // get /email_blocks/{id}/events
         withRawResponse().retrieveEvents(params, requestOptions).parse()
 
@@ -98,7 +99,7 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
-        private val import_: ImportService.WithRawResponse by lazy {
+        private val imports: ImportService.WithRawResponse by lazy {
             ImportServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
@@ -110,7 +111,7 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
             )
 
         /** Async CSV import of competitor suppression lists. */
-        override fun import_(): ImportService.WithRawResponse = import_
+        override fun imports(): ImportService.WithRawResponse = imports
 
         private val createHandler: Handler<EmailBlockResponse> =
             jsonHandler<EmailBlockResponse>(clientOptions.jsonMapper)
@@ -235,13 +236,13 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val retrieveEventsHandler: Handler<EmailBlockRetrieveEventsResponse> =
-            jsonHandler<EmailBlockRetrieveEventsResponse>(clientOptions.jsonMapper)
+        private val retrieveEventsHandler: Handler<EmailBlockRetrieveEventsPageResponse> =
+            jsonHandler<EmailBlockRetrieveEventsPageResponse>(clientOptions.jsonMapper)
 
         override fun retrieveEvents(
             params: EmailBlockRetrieveEventsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailBlockRetrieveEventsResponse> {
+        ): HttpResponseFor<EmailBlockRetrieveEventsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -261,6 +262,13 @@ class EmailBlockServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EmailBlockRetrieveEventsPage.builder()
+                            .service(EmailBlockServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

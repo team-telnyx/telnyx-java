@@ -66,7 +66,7 @@ interface MediaService {
     fun retrieve(mediaName: String, requestOptions: RequestOptions): MediaRetrieveResponse =
         retrieve(mediaName, MediaRetrieveParams.none(), requestOptions)
 
-    /** Updates a stored media file. */
+    /** Updates the specified stored media file and returns the updated resource. */
     fun update(mediaName: String): MediaUpdateResponse = update(mediaName, MediaUpdateParams.none())
 
     /** @see update */
@@ -96,7 +96,7 @@ interface MediaService {
     fun update(mediaName: String, requestOptions: RequestOptions): MediaUpdateResponse =
         update(mediaName, MediaUpdateParams.none(), requestOptions)
 
-    /** Returns a list of stored media files. */
+    /** Returns a list of the media files stored on your account, with support for filtering. */
     fun list(): MediaListResponse = list(MediaListParams.none())
 
     /** @see list */
@@ -113,7 +113,7 @@ interface MediaService {
     fun list(requestOptions: RequestOptions): MediaListResponse =
         list(MediaListParams.none(), requestOptions)
 
-    /** Deletes a stored media file. */
+    /** Permanently deletes the specified media file from storage. */
     fun delete(mediaName: String) = delete(mediaName, MediaDeleteParams.none())
 
     /** @see delete */
@@ -137,7 +137,7 @@ interface MediaService {
     fun delete(mediaName: String, requestOptions: RequestOptions) =
         delete(mediaName, MediaDeleteParams.none(), requestOptions)
 
-    /** Downloads a stored media file. */
+    /** Downloads the raw content of the specified stored media file. */
     @MustBeClosed
     fun download(mediaName: String): HttpResponse = download(mediaName, MediaDownloadParams.none())
 

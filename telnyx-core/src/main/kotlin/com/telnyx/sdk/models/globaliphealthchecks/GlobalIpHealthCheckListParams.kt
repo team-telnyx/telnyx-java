@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all Global IP health checks. */
+/** Returns a paginated list of the Global IP health checks configured on your account. */
 class GlobalIpHealthCheckListParams
 private constructor(
     private val pageNumber: Long?,

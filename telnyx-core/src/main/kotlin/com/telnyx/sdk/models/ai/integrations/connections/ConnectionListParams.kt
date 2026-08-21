@@ -6,7 +6,10 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** List user setup integrations */
+/**
+ * Returns the list of integration connections you have set up, linking your account to third-party
+ * services.
+ */
 class ConnectionListParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

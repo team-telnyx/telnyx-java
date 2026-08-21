@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all WireGuard peers. */
+/** Returns a paginated list of your WireGuard peers, with support for filtering. */
 class WireguardPeerListParams
 private constructor(
     private val filter: Filter?,

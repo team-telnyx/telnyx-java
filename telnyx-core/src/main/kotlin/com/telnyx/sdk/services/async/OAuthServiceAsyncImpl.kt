@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
+import com.telnyx.sdk.core.handlers.stringHandler
 import com.telnyx.sdk.core.http.HttpMethod
 import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
@@ -77,9 +77,9 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun retrieveAuthorize(
         params: OAuthRetrieveAuthorizeParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
+    ): CompletableFuture<String> =
         // get /oauth/authorize
-        withRawResponse().retrieveAuthorize(params, requestOptions).thenAccept {}
+        withRawResponse().retrieveAuthorize(params, requestOptions).thenApply { it.parse() }
 
     override fun retrieveJwks(
         params: OAuthRetrieveJwksParams,
@@ -234,17 +234,18 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val retrieveAuthorizeHandler: Handler<Void?> = emptyHandler()
+        private val retrieveAuthorizeHandler: Handler<String> = stringHandler()
 
         override fun retrieveAuthorize(
             params: OAuthRetrieveAuthorizeParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
+        ): CompletableFuture<HttpResponseFor<String>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("oauth", "authorize")
+                    .putHeader("Accept", "text/html")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

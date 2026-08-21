@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a WireGuard Interfaces. */
+/** Returns the details of a single WireGuard interface by its identifier. */
 class WireguardInterfaceRetrieveParams
 private constructor(
     private val id: String?,

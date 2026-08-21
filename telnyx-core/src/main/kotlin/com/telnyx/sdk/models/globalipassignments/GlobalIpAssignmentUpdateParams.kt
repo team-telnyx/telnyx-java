@@ -18,7 +18,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a Global IP assignment. */
+/**
+ * Updates the specified Global IP assignment with the provided fields and returns the updated
+ * assignment.
+ */
 class GlobalIpAssignmentUpdateParams
 private constructor(
     private val globalIpAssignmentId: String?,

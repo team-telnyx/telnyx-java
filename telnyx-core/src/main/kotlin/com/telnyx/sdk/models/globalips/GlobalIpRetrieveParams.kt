@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a Global IP. */
+/** Returns the details of a single Global IP, including its address and current configuration. */
 class GlobalIpRetrieveParams
 private constructor(
     private val id: String?,

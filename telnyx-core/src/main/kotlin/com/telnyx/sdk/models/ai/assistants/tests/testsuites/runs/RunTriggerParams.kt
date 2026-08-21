@@ -22,12 +22,15 @@ import kotlin.jvm.optionals.getOrNull
 class RunTriggerParams
 private constructor(
     private val suiteName: String?,
+    private val idempotencyKey: String?,
     private val body: Body,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun suiteName(): Optional<String> = Optional.ofNullable(suiteName)
+
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
     /**
      * Optional assistant version ID to use for all test runs in this suite. If provided, the
@@ -69,6 +72,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var suiteName: String? = null
+        private var idempotencyKey: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
@@ -77,6 +81,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(runTriggerParams: RunTriggerParams) = apply {
             suiteName = runTriggerParams.suiteName
+            idempotencyKey = runTriggerParams.idempotencyKey
             body = runTriggerParams.body.toBuilder()
             additionalHeaders = runTriggerParams.additionalHeaders.toBuilder()
             additionalQueryParams = runTriggerParams.additionalQueryParams.toBuilder()
@@ -86,6 +91,12 @@ private constructor(
 
         /** Alias for calling [Builder.suiteName] with `suiteName.orElse(null)`. */
         fun suiteName(suiteName: Optional<String>) = suiteName(suiteName.getOrNull())
+
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
+
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -242,6 +253,7 @@ private constructor(
         fun build(): RunTriggerParams =
             RunTriggerParams(
                 suiteName,
+                idempotencyKey,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -256,7 +268,13 @@ private constructor(
             else -> ""
         }
 
-    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers =
+        com.telnyx.sdk.core.http.Headers.builder()
+            .apply {
+                idempotencyKey?.let { put("Idempotency-Key", it) }
+                putAll(additionalHeaders)
+            }
+            .build()
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
@@ -440,14 +458,15 @@ private constructor(
 
         return other is RunTriggerParams &&
             suiteName == other.suiteName &&
+            idempotencyKey == other.idempotencyKey &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(suiteName, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(suiteName, idempotencyKey, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "RunTriggerParams{suiteName=$suiteName, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "RunTriggerParams{suiteName=$suiteName, idempotencyKey=$idempotencyKey, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

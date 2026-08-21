@@ -28,7 +28,7 @@ interface OAuthGrantServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OAuthGrantServiceAsync
 
-    /** Retrieve a single OAuth grant by ID */
+    /** Returns the details of a single OAuth grant on your account by its ID. */
     fun retrieve(id: String): CompletableFuture<OAuthGrantRetrieveResponse> =
         retrieve(id, OAuthGrantRetrieveParams.none())
 
@@ -81,7 +81,9 @@ interface OAuthGrantServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<OAuthGrantListPageAsync> =
         list(OAuthGrantListParams.none(), requestOptions)
 
-    /** Revoke an OAuth grant */
+    /**
+     * Revokes the specified OAuth grant, withdrawing the access previously granted to the client.
+     */
     fun delete(id: String): CompletableFuture<OAuthGrantDeleteResponse> =
         delete(id, OAuthGrantDeleteParams.none())
 

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get an existing sub number order. */
+/** Returns the details of an existing sub number order, with support for filtering. */
 class SubNumberOrderRetrieveParams
 private constructor(
     private val subNumberOrderId: String?,

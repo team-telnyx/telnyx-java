@@ -41,7 +41,10 @@ interface VoiceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<VoiceCreateResponse>
 
-    /** Fetch single cdr usage report by id. */
+    /**
+     * Returns a single CDR (Call Detail Record) usage report by its identifier, including its
+     * parameters and current status.
+     */
     fun retrieve(id: String): CompletableFuture<VoiceRetrieveResponse> =
         retrieve(id, VoiceRetrieveParams.none())
 

@@ -33,7 +33,7 @@ interface IpConnectionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): IpConnectionServiceAsync
 
-    /** Creates an IP connection. */
+    /** Creates a new IP-based SIP connection, which authenticates traffic by source IP address. */
     fun create(): CompletableFuture<IpConnectionCreateResponse> =
         create(IpConnectionCreateParams.none())
 
@@ -123,7 +123,10 @@ interface IpConnectionServiceAsync {
     ): CompletableFuture<IpConnectionUpdateResponse> =
         update(id, IpConnectionUpdateParams.none(), requestOptions)
 
-    /** Returns a list of your IP connections. */
+    /**
+     * Returns a paginated list of your IP-based SIP connections, with support for filtering and
+     * sorting.
+     */
     fun list(): CompletableFuture<IpConnectionListPageAsync> = list(IpConnectionListParams.none())
 
     /** @see list */
@@ -141,7 +144,7 @@ interface IpConnectionServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<IpConnectionListPageAsync> =
         list(IpConnectionListParams.none(), requestOptions)
 
-    /** Deletes an existing IP connection. */
+    /** Permanently deletes the specified IP connection from your account. */
     fun delete(id: String): CompletableFuture<IpConnectionDeleteResponse> =
         delete(id, IpConnectionDeleteParams.none())
 

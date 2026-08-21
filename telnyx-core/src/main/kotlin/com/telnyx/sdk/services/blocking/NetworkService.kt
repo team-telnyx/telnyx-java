@@ -40,7 +40,10 @@ interface NetworkService {
     /** Network operations */
     fun defaultGateway(): DefaultGatewayService
 
-    /** Create a new Network. */
+    /**
+     * Creates a new private network, the container that links your WireGuard interfaces, gateways,
+     * and cross connects.
+     */
     fun create(params: NetworkCreateParams): NetworkCreateResponse =
         create(params, RequestOptions.none())
 
@@ -61,7 +64,7 @@ interface NetworkService {
     fun create(networkCreate: NetworkCreate): NetworkCreateResponse =
         create(networkCreate, RequestOptions.none())
 
-    /** Retrieve a Network. */
+    /** Returns the details of a single network by its identifier. */
     fun retrieve(id: String): NetworkRetrieveResponse = retrieve(id, NetworkRetrieveParams.none())
 
     /** @see retrieve */
@@ -91,7 +94,7 @@ interface NetworkService {
     fun retrieve(id: String, requestOptions: RequestOptions): NetworkRetrieveResponse =
         retrieve(id, NetworkRetrieveParams.none(), requestOptions)
 
-    /** Update a Network. */
+    /** Updates the specified network's attributes and returns the updated network. */
     fun update(networkId: String, params: NetworkUpdateParams): NetworkUpdateResponse =
         update(networkId, params, RequestOptions.none())
 
@@ -113,7 +116,9 @@ interface NetworkService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): NetworkUpdateResponse
 
-    /** List all Networks. */
+    /**
+     * Returns a paginated list of the private networks on your account, with support for filtering.
+     */
     fun list(): NetworkListPage = list(NetworkListParams.none())
 
     /** @see list */
@@ -130,7 +135,7 @@ interface NetworkService {
     fun list(requestOptions: RequestOptions): NetworkListPage =
         list(NetworkListParams.none(), requestOptions)
 
-    /** Delete a Network. */
+    /** Permanently deletes the specified network from your account. */
     fun delete(id: String): NetworkDeleteResponse = delete(id, NetworkDeleteParams.none())
 
     /** @see delete */
@@ -160,7 +165,10 @@ interface NetworkService {
     fun delete(id: String, requestOptions: RequestOptions): NetworkDeleteResponse =
         delete(id, NetworkDeleteParams.none(), requestOptions)
 
-    /** List all Interfaces for a Network. */
+    /**
+     * Returns a paginated list of the interfaces attached to the specified network, with support
+     * for filtering.
+     */
     fun listInterfaces(id: String): NetworkListInterfacesPage =
         listInterfaces(id, NetworkListInterfacesParams.none())
 

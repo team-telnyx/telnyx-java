@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new mission definition */
+/**
+ * Creates a new mission definition from the provided configuration and returns the created mission.
+ * Execute the mission by starting runs against it.
+ */
 class MissionCreateParams
 private constructor(
     private val body: Body,

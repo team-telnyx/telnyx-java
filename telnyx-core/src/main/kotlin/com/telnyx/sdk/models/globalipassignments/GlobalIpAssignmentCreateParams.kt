@@ -8,7 +8,11 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Create a Global IP assignment. */
+/**
+ * Assigns a Global IP to a WireGuard peer so traffic destined for the IP is delivered over that
+ * peer's tunnel. Assignment is asynchronous, so the request is accepted and completes in the
+ * background.
+ */
 class GlobalIpAssignmentCreateParams
 private constructor(
     private val globalIpAssignment: GlobalIpAssignment,

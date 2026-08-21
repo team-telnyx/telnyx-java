@@ -12,6 +12,7 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
@@ -188,6 +189,16 @@ private constructor(
     fun transactionType(): Optional<TransactionType> = body.transactionType()
 
     /**
+     * Restricts accepted card numbers to the listed card types. When the caller enters a card
+     * number that does not match one of the listed types, Pay treats the input as invalid and
+     * re-prompts for the card number. Cannot be used together with `payment_token`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun validCardTypes(): Optional<List<ValidCardType>> = body.validCardTypes()
+
+    /**
      * Voice used for payment prompts. Accepts `male`, `female`, or a provider voice in
      * `<Provider>.<Model>.<VoiceId>` format, for example `AWS.Polly.Joanna` or
      * `Telnyx.KokoroTTS.af`.
@@ -316,6 +327,13 @@ private constructor(
      * Unlike [transactionType], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _transactionType(): JsonField<TransactionType> = body._transactionType()
+
+    /**
+     * Returns the raw JSON value of [validCardTypes].
+     *
+     * Unlike [validCardTypes], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _validCardTypes(): JsonField<List<ValidCardType>> = body._validCardTypes()
 
     /**
      * Returns the raw JSON value of [voice].
@@ -606,6 +624,35 @@ private constructor(
         }
 
         /**
+         * Restricts accepted card numbers to the listed card types. When the caller enters a card
+         * number that does not match one of the listed types, Pay treats the input as invalid and
+         * re-prompts for the card number. Cannot be used together with `payment_token`.
+         */
+        fun validCardTypes(validCardTypes: List<ValidCardType>) = apply {
+            body.validCardTypes(validCardTypes)
+        }
+
+        /**
+         * Sets [Builder.validCardTypes] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.validCardTypes] with a well-typed `List<ValidCardType>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun validCardTypes(validCardTypes: JsonField<List<ValidCardType>>) = apply {
+            body.validCardTypes(validCardTypes)
+        }
+
+        /**
+         * Adds a single [ValidCardType] to [validCardTypes].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addValidCardType(validCardType: ValidCardType) = apply {
+            body.addValidCardType(validCardType)
+        }
+
+        /**
          * Voice used for payment prompts. Accepts `male`, `female`, or a provider voice in
          * `<Provider>.<Model>.<VoiceId>` format, for example `AWS.Polly.Joanna` or
          * `Telnyx.KokoroTTS.af`.
@@ -784,6 +831,7 @@ private constructor(
         private val serviceLevel: JsonField<String>,
         private val timeoutMillis: JsonField<Int>,
         private val transactionType: JsonField<TransactionType>,
+        private val validCardTypes: JsonField<List<ValidCardType>>,
         private val voice: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -837,6 +885,9 @@ private constructor(
             @JsonProperty("transaction_type")
             @ExcludeMissing
             transactionType: JsonField<TransactionType> = JsonMissing.of(),
+            @JsonProperty("valid_card_types")
+            @ExcludeMissing
+            validCardTypes: JsonField<List<ValidCardType>> = JsonMissing.of(),
             @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
         ) : this(
             amount,
@@ -856,6 +907,7 @@ private constructor(
             serviceLevel,
             timeoutMillis,
             transactionType,
+            validCardTypes,
             voice,
             mutableMapOf(),
         )
@@ -999,6 +1051,17 @@ private constructor(
          */
         fun transactionType(): Optional<TransactionType> =
             transactionType.getOptional("transaction_type")
+
+        /**
+         * Restricts accepted card numbers to the listed card types. When the caller enters a card
+         * number that does not match one of the listed types, Pay treats the input as invalid and
+         * re-prompts for the card number. Cannot be used together with `payment_token`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun validCardTypes(): Optional<List<ValidCardType>> =
+            validCardTypes.getOptional("valid_card_types")
 
         /**
          * Voice used for payment prompts. Accepts `male`, `female`, or a provider voice in
@@ -1159,6 +1222,16 @@ private constructor(
         fun _transactionType(): JsonField<TransactionType> = transactionType
 
         /**
+         * Returns the raw JSON value of [validCardTypes].
+         *
+         * Unlike [validCardTypes], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("valid_card_types")
+        @ExcludeMissing
+        fun _validCardTypes(): JsonField<List<ValidCardType>> = validCardTypes
+
+        /**
          * Returns the raw JSON value of [voice].
          *
          * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
@@ -1203,6 +1276,7 @@ private constructor(
             private var serviceLevel: JsonField<String> = JsonMissing.of()
             private var timeoutMillis: JsonField<Int> = JsonMissing.of()
             private var transactionType: JsonField<TransactionType> = JsonMissing.of()
+            private var validCardTypes: JsonField<MutableList<ValidCardType>>? = null
             private var voice: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1225,6 +1299,7 @@ private constructor(
                 serviceLevel = body.serviceLevel
                 timeoutMillis = body.timeoutMillis
                 transactionType = body.transactionType
+                validCardTypes = body.validCardTypes.map { it.toMutableList() }
                 voice = body.voice
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -1465,6 +1540,38 @@ private constructor(
             }
 
             /**
+             * Restricts accepted card numbers to the listed card types. When the caller enters a
+             * card number that does not match one of the listed types, Pay treats the input as
+             * invalid and re-prompts for the card number. Cannot be used together with
+             * `payment_token`.
+             */
+            fun validCardTypes(validCardTypes: List<ValidCardType>) =
+                validCardTypes(JsonField.of(validCardTypes))
+
+            /**
+             * Sets [Builder.validCardTypes] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.validCardTypes] with a well-typed
+             * `List<ValidCardType>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun validCardTypes(validCardTypes: JsonField<List<ValidCardType>>) = apply {
+                this.validCardTypes = validCardTypes.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [ValidCardType] to [validCardTypes].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addValidCardType(validCardType: ValidCardType) = apply {
+                validCardTypes =
+                    (validCardTypes ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("validCardTypes", it).add(validCardType)
+                    }
+            }
+
+            /**
              * Voice used for payment prompts. Accepts `male`, `female`, or a provider voice in
              * `<Provider>.<Model>.<VoiceId>` format, for example `AWS.Polly.Joanna` or
              * `Telnyx.KokoroTTS.af`.
@@ -1523,6 +1630,7 @@ private constructor(
                     serviceLevel,
                     timeoutMillis,
                     transactionType,
+                    (validCardTypes ?: JsonMissing.of()).map { it.toImmutable() },
                     voice,
                     additionalProperties.toMutableMap(),
                 )
@@ -1561,6 +1669,7 @@ private constructor(
             serviceLevel()
             timeoutMillis()
             transactionType().ifPresent { it.validate() }
+            validCardTypes().ifPresent { it.forEach { it.validate() } }
             voice()
             validated = true
         }
@@ -1598,6 +1707,7 @@ private constructor(
                 (if (serviceLevel.asKnown().isPresent) 1 else 0) +
                 (if (timeoutMillis.asKnown().isPresent) 1 else 0) +
                 (transactionType.asKnown().getOrNull()?.validity() ?: 0) +
+                (validCardTypes.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (voice.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1623,6 +1733,7 @@ private constructor(
                 serviceLevel == other.serviceLevel &&
                 timeoutMillis == other.timeoutMillis &&
                 transactionType == other.transactionType &&
+                validCardTypes == other.validCardTypes &&
                 voice == other.voice &&
                 additionalProperties == other.additionalProperties
         }
@@ -1646,6 +1757,7 @@ private constructor(
                 serviceLevel,
                 timeoutMillis,
                 transactionType,
+                validCardTypes,
                 voice,
                 additionalProperties,
             )
@@ -1654,7 +1766,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amount=$amount, clientState=$clientState, commandId=$commandId, connectorName=$connectorName, currency=$currency, description=$description, interDigitTimeoutMillis=$interDigitTimeoutMillis, language=$language, maxAttempts=$maxAttempts, metadata=$metadata, parameters=$parameters, paymentMethod=$paymentMethod, paymentToken=$paymentToken, prompts=$prompts, serviceLevel=$serviceLevel, timeoutMillis=$timeoutMillis, transactionType=$transactionType, voice=$voice, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, clientState=$clientState, commandId=$commandId, connectorName=$connectorName, currency=$currency, description=$description, interDigitTimeoutMillis=$interDigitTimeoutMillis, language=$language, maxAttempts=$maxAttempts, metadata=$metadata, parameters=$parameters, paymentMethod=$paymentMethod, paymentToken=$paymentToken, prompts=$prompts, serviceLevel=$serviceLevel, timeoutMillis=$timeoutMillis, transactionType=$transactionType, validCardTypes=$validCardTypes, voice=$voice, additionalProperties=$additionalProperties}"
     }
 
     /** Currency used for the transaction. Pay currently supports USD only. */
@@ -1672,17 +1784,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val USD = of("USD")
+            @JvmField val USD_UPPERCASE = of("USD")
 
-            @JvmField val USD_2 = of("usd")
+            @JvmField val USD_LOWERCASE = of("usd")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
         }
 
         /** An enum containing [Currency]'s known values. */
         enum class Known {
-            USD,
-            USD_2,
+            USD_UPPERCASE,
+            USD_LOWERCASE,
         }
 
         /**
@@ -1695,8 +1807,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            USD,
-            USD_2,
+            USD_UPPERCASE,
+            USD_LOWERCASE,
             /** An enum member indicating that [Currency] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1710,8 +1822,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                USD -> Value.USD
-                USD_2 -> Value.USD_2
+                USD_UPPERCASE -> Value.USD_UPPERCASE
+                USD_LOWERCASE -> Value.USD_LOWERCASE
                 else -> Value._UNKNOWN
             }
 
@@ -1726,8 +1838,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                USD -> Known.USD
-                USD_2 -> Known.USD_2
+                USD_UPPERCASE -> Known.USD_UPPERCASE
+                USD_LOWERCASE -> Known.USD_LOWERCASE
                 else -> throw TelnyxInvalidDataException("Unknown Currency: $value")
             }
 
@@ -2362,9 +2474,9 @@ private constructor(
             fun bankAccountNumber(string: String) =
                 bankAccountNumber(PayPromptValue.ofString(string))
 
-            /** Alias for calling [bankAccountNumber] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun bankAccountNumberOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                bankAccountNumber(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [bankAccountNumber] with `PayPromptValue.ofList(list)`. */
+            fun bankAccountNumberOfList(list: List<PayPromptValue.PayPrompt>) =
+                bankAccountNumber(PayPromptValue.ofList(list))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun bankRoutingNumber(bankRoutingNumber: PayPromptValue) =
@@ -2385,9 +2497,9 @@ private constructor(
             fun bankRoutingNumber(string: String) =
                 bankRoutingNumber(PayPromptValue.ofString(string))
 
-            /** Alias for calling [bankRoutingNumber] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun bankRoutingNumberOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                bankRoutingNumber(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [bankRoutingNumber] with `PayPromptValue.ofList(list)`. */
+            fun bankRoutingNumberOfList(list: List<PayPromptValue.PayPrompt>) =
+                bankRoutingNumber(PayPromptValue.ofList(list))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun expirationDate(expirationDate: PayPromptValue) =
@@ -2407,9 +2519,9 @@ private constructor(
             /** Alias for calling [expirationDate] with `PayPromptValue.ofString(string)`. */
             fun expirationDate(string: String) = expirationDate(PayPromptValue.ofString(string))
 
-            /** Alias for calling [expirationDate] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun expirationDateOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                expirationDate(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [expirationDate] with `PayPromptValue.ofList(list)`. */
+            fun expirationDateOfList(list: List<PayPromptValue.PayPrompt>) =
+                expirationDate(PayPromptValue.ofList(list))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun paymentCardNumber(paymentCardNumber: PayPromptValue) =
@@ -2430,9 +2542,9 @@ private constructor(
             fun paymentCardNumber(string: String) =
                 paymentCardNumber(PayPromptValue.ofString(string))
 
-            /** Alias for calling [paymentCardNumber] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun paymentCardNumberOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                paymentCardNumber(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [paymentCardNumber] with `PayPromptValue.ofList(list)`. */
+            fun paymentCardNumberOfList(list: List<PayPromptValue.PayPrompt>) =
+                paymentCardNumber(PayPromptValue.ofList(list))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun postalCode(postalCode: PayPromptValue) = postalCode(JsonField.of(postalCode))
@@ -2451,9 +2563,9 @@ private constructor(
             /** Alias for calling [postalCode] with `PayPromptValue.ofString(string)`. */
             fun postalCode(string: String) = postalCode(PayPromptValue.ofString(string))
 
-            /** Alias for calling [postalCode] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun postalCodeOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                postalCode(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [postalCode] with `PayPromptValue.ofList(list)`. */
+            fun postalCodeOfList(list: List<PayPromptValue.PayPrompt>) =
+                postalCode(PayPromptValue.ofList(list))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun securityCode(securityCode: PayPromptValue) =
@@ -2473,9 +2585,9 @@ private constructor(
             /** Alias for calling [securityCode] with `PayPromptValue.ofString(string)`. */
             fun securityCode(string: String) = securityCode(PayPromptValue.ofString(string))
 
-            /** Alias for calling [securityCode] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun securityCodeOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                securityCode(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [securityCode] with `PayPromptValue.ofList(list)`. */
+            fun securityCodeOfList(list: List<PayPromptValue.PayPrompt>) =
+                securityCode(PayPromptValue.ofList(list))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2729,6 +2841,186 @@ private constructor(
             }
 
             return other is TransactionType && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    class ValidCardType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val VISA = of("visa")
+
+            @JvmField val MASTERCARD = of("mastercard")
+
+            @JvmField val AMEX = of("amex")
+
+            @JvmField val MAESTRO = of("maestro")
+
+            @JvmField val DISCOVER = of("discover")
+
+            @JvmField val OPTIMA = of("optima")
+
+            @JvmField val JCB = of("jcb")
+
+            @JvmField val DINERS_CLUB = of("diners-club")
+
+            @JvmField val ENROUTE = of("enroute")
+
+            @JvmStatic fun of(value: String) = ValidCardType(JsonField.of(value))
+        }
+
+        /** An enum containing [ValidCardType]'s known values. */
+        enum class Known {
+            VISA,
+            MASTERCARD,
+            AMEX,
+            MAESTRO,
+            DISCOVER,
+            OPTIMA,
+            JCB,
+            DINERS_CLUB,
+            ENROUTE,
+        }
+
+        /**
+         * An enum containing [ValidCardType]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [ValidCardType] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            VISA,
+            MASTERCARD,
+            AMEX,
+            MAESTRO,
+            DISCOVER,
+            OPTIMA,
+            JCB,
+            DINERS_CLUB,
+            ENROUTE,
+            /**
+             * An enum member indicating that [ValidCardType] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                VISA -> Value.VISA
+                MASTERCARD -> Value.MASTERCARD
+                AMEX -> Value.AMEX
+                MAESTRO -> Value.MAESTRO
+                DISCOVER -> Value.DISCOVER
+                OPTIMA -> Value.OPTIMA
+                JCB -> Value.JCB
+                DINERS_CLUB -> Value.DINERS_CLUB
+                ENROUTE -> Value.ENROUTE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                VISA -> Known.VISA
+                MASTERCARD -> Known.MASTERCARD
+                AMEX -> Known.AMEX
+                MAESTRO -> Known.MAESTRO
+                DISCOVER -> Known.DISCOVER
+                OPTIMA -> Known.OPTIMA
+                JCB -> Known.JCB
+                DINERS_CLUB -> Known.DINERS_CLUB
+                ENROUTE -> Known.ENROUTE
+                else -> throw TelnyxInvalidDataException("Unknown ValidCardType: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ValidCardType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ValidCardType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

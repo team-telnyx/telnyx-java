@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List the LOA configurations. */
+/**
+ * Returns a paginated list of your LOA (Letter of Authorization) configurations. LOA configurations
+ * customize the company details and branding used on generated LOA documents.
+ */
 class LoaConfigurationListParams
 private constructor(
     private val pageNumber: Long?,

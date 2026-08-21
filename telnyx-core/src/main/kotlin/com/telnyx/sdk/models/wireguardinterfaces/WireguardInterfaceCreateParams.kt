@@ -11,10 +11,10 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.networks.InterfaceStatus
-import com.telnyx.sdk.models.publicinternetgateways.NetworkInterfaceRegion
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -113,10 +113,10 @@ private constructor(
     /**
      * The region the interface should be deployed to.
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun regionCode(): Optional<String> = body.regionCode()
+    fun regionCode(): String = body.regionCode()
 
     /**
      * Returns the raw JSON value of [id].
@@ -208,11 +208,14 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): WireguardInterfaceCreateParams = builder().build()
-
         /**
          * Returns a mutable builder for constructing an instance of
          * [WireguardInterfaceCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .regionCode()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -501,6 +504,13 @@ private constructor(
          * Returns an immutable instance of [WireguardInterfaceCreateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .regionCode()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): WireguardInterfaceCreateParams =
             WireguardInterfaceCreateParams(
@@ -593,9 +603,6 @@ private constructor(
                 .publicKey(publicKey)
                 .build()
 
-        fun toNetworkInterfaceRegion(): NetworkInterfaceRegion =
-            NetworkInterfaceRegion.builder().regionCode(regionCode).build()
-
         /**
          * Identifies the resource.
          *
@@ -680,10 +687,10 @@ private constructor(
         /**
          * The region the interface should be deployed to.
          *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun regionCode(): Optional<String> = regionCode.getOptional("region_code")
+        fun regionCode(): String = regionCode.getRequired("region_code")
 
         /**
          * Returns the raw JSON value of [id].
@@ -783,7 +790,14 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Body]. */
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .regionCode()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -800,7 +814,7 @@ private constructor(
             private var enableSipTrunking: JsonField<Boolean> = JsonMissing.of()
             private var endpoint: JsonField<String> = JsonMissing.of()
             private var publicKey: JsonField<String> = JsonMissing.of()
-            private var regionCode: JsonField<String> = JsonMissing.of()
+            private var regionCode: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -977,6 +991,13 @@ private constructor(
              * Returns an immutable instance of [Body].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .regionCode()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
                 Body(
@@ -990,7 +1011,7 @@ private constructor(
                     enableSipTrunking,
                     endpoint,
                     publicKey,
-                    regionCode,
+                    checkRequired("regionCode", regionCode),
                     additionalProperties.toMutableMap(),
                 )
         }

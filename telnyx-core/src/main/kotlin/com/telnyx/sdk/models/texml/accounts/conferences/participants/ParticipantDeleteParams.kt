@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes a conference participant */
+/** Removes the specified participant from the conference, ending their leg of the call. */
 class ParticipantDeleteParams
 private constructor(
     private val accountSid: String,

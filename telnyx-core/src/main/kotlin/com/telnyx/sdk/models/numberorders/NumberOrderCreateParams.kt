@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a phone number order. */
+/**
+ * Creates an order to purchase the specified phone numbers and returns the created order. Track
+ * fulfillment through the order's status.
+ */
 class NumberOrderCreateParams
 private constructor(
     private val body: Body,

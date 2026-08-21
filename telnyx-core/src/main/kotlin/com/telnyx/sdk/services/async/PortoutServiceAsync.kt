@@ -140,7 +140,10 @@ interface PortoutServiceAsync {
     ): CompletableFuture<PortoutListRejectionCodesResponse> =
         listRejectionCodes(portoutId, PortoutListRejectionCodesParams.none(), requestOptions)
 
-    /** Authorize or reject portout request */
+    /**
+     * Updates the status of the specified port-out request, using the status path segment to
+     * authorize or reject the port-out.
+     */
     fun updateStatus(
         status: PortoutUpdateStatusParams.Status,
         params: PortoutUpdateStatusParams,

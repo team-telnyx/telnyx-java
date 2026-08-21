@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update run status and/or result */
+/**
+ * Updates a run's status and/or result and returns the updated run object. Typically used by
+ * executing agents to report progress or record the final outcome.
+ */
 class RunUpdateParams
 private constructor(
     private val missionId: String,

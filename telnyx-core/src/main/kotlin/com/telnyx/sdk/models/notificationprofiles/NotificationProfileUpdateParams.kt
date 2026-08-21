@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a notification profile. */
+/** Updates the specified notification profile and returns the updated profile. */
 class NotificationProfileUpdateParams
 private constructor(
     private val notificationProfileId: String?,

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an IP. */
+/** Permanently deletes the specified IP record from its connection. */
 class IpDeleteParams
 private constructor(
     private val id: String?,

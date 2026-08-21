@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.oauth.OAuthGrantsParams
 import com.telnyx.sdk.models.oauth.OAuthGrantsResponse
@@ -68,7 +67,10 @@ interface OAuthService {
     fun retrieve(consentToken: String, requestOptions: RequestOptions): OAuthRetrieveResponse =
         retrieve(consentToken, OAuthRetrieveParams.none(), requestOptions)
 
-    /** Create an OAuth authorization grant */
+    /**
+     * Creates an OAuth authorization grant and returns the grant response for completing the
+     * authorization flow.
+     */
     fun grants(params: OAuthGrantsParams): OAuthGrantsResponse =
         grants(params, RequestOptions.none())
 
@@ -106,14 +108,14 @@ interface OAuthService {
         register(OAuthRegisterParams.none(), requestOptions)
 
     /** OAuth 2.0 authorization endpoint for the authorization code flow */
-    fun retrieveAuthorize(params: OAuthRetrieveAuthorizeParams) =
+    fun retrieveAuthorize(params: OAuthRetrieveAuthorizeParams): String =
         retrieveAuthorize(params, RequestOptions.none())
 
     /** @see retrieveAuthorize */
     fun retrieveAuthorize(
         params: OAuthRetrieveAuthorizeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    )
+    ): String
 
     /** Retrieve the JSON Web Key Set for token verification */
     fun retrieveJwks(): OAuthRetrieveJwksResponse = retrieveJwks(OAuthRetrieveJwksParams.none())
@@ -258,7 +260,7 @@ interface OAuthService {
          * [OAuthService.retrieveAuthorize].
          */
         @MustBeClosed
-        fun retrieveAuthorize(params: OAuthRetrieveAuthorizeParams): HttpResponse =
+        fun retrieveAuthorize(params: OAuthRetrieveAuthorizeParams): HttpResponseFor<String> =
             retrieveAuthorize(params, RequestOptions.none())
 
         /** @see retrieveAuthorize */
@@ -266,7 +268,7 @@ interface OAuthService {
         fun retrieveAuthorize(
             params: OAuthRetrieveAuthorizeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<String>
 
         /**
          * Returns a raw HTTP response for `get /oauth/jwks`, but is otherwise the same as

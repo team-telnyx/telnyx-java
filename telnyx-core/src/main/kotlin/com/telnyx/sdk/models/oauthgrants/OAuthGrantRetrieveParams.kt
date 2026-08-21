@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a single OAuth grant by ID */
+/** Returns the details of a single OAuth grant on your account by its ID. */
 class OAuthGrantRetrieveParams
 private constructor(
     private val id: String?,

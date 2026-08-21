@@ -17,7 +17,10 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Creates a new order for SIM cards. */
+/**
+ * Creates a new order for physical SIM cards, including quantity and shipping details, and returns
+ * the created order.
+ */
 class SimCardOrderCreateParams
 private constructor(
     private val body: Body,

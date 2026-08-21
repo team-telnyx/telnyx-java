@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a document. */
+/** Returns the details of a single document on your account, including its metadata. */
 class DocumentRetrieveParams
 private constructor(
     private val id: String?,

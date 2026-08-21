@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftCreateParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftDeleteParams
+import com.telnyx.sdk.models.emailinboxes.drafts.DraftListPageAsync
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftListParams
-import com.telnyx.sdk.models.emailinboxes.drafts.DraftListResponse
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftPatchParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftRetrieveParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftSendParams
@@ -137,7 +137,7 @@ interface DraftServiceAsync {
      * Lists drafts newest first using stable cursor pagination. All access is scoped to the
      * authenticated account and the given inbox.
      */
-    fun list(inboxId: String): CompletableFuture<DraftListResponse> =
+    fun list(inboxId: String): CompletableFuture<DraftListPageAsync> =
         list(inboxId, DraftListParams.none())
 
     /** @see list */
@@ -145,30 +145,30 @@ interface DraftServiceAsync {
         inboxId: String,
         params: DraftListParams = DraftListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DraftListResponse> =
+    ): CompletableFuture<DraftListPageAsync> =
         list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
     /** @see list */
     fun list(
         inboxId: String,
         params: DraftListParams = DraftListParams.none(),
-    ): CompletableFuture<DraftListResponse> = list(inboxId, params, RequestOptions.none())
+    ): CompletableFuture<DraftListPageAsync> = list(inboxId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: DraftListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DraftListResponse>
+    ): CompletableFuture<DraftListPageAsync>
 
     /** @see list */
-    fun list(params: DraftListParams): CompletableFuture<DraftListResponse> =
+    fun list(params: DraftListParams): CompletableFuture<DraftListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         inboxId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DraftListResponse> = list(inboxId, DraftListParams.none(), requestOptions)
+    ): CompletableFuture<DraftListPageAsync> = list(inboxId, DraftListParams.none(), requestOptions)
 
     /**
      * Permanently deletes an unsent draft. Drafts that are being sent or have been sent cannot be
@@ -366,7 +366,7 @@ interface DraftServiceAsync {
          * Returns a raw HTTP response for `get /email_inboxes/{inbox_id}/drafts`, but is otherwise
          * the same as [DraftServiceAsync.list].
          */
-        fun list(inboxId: String): CompletableFuture<HttpResponseFor<DraftListResponse>> =
+        fun list(inboxId: String): CompletableFuture<HttpResponseFor<DraftListPageAsync>> =
             list(inboxId, DraftListParams.none())
 
         /** @see list */
@@ -374,31 +374,31 @@ interface DraftServiceAsync {
             inboxId: String,
             params: DraftListParams = DraftListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DraftListResponse>> =
+        ): CompletableFuture<HttpResponseFor<DraftListPageAsync>> =
             list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
         /** @see list */
         fun list(
             inboxId: String,
             params: DraftListParams = DraftListParams.none(),
-        ): CompletableFuture<HttpResponseFor<DraftListResponse>> =
+        ): CompletableFuture<HttpResponseFor<DraftListPageAsync>> =
             list(inboxId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: DraftListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DraftListResponse>>
+        ): CompletableFuture<HttpResponseFor<DraftListPageAsync>>
 
         /** @see list */
-        fun list(params: DraftListParams): CompletableFuture<HttpResponseFor<DraftListResponse>> =
+        fun list(params: DraftListParams): CompletableFuture<HttpResponseFor<DraftListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             inboxId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DraftListResponse>> =
+        ): CompletableFuture<HttpResponseFor<DraftListPageAsync>> =
             list(inboxId, DraftListParams.none(), requestOptions)
 
         /**

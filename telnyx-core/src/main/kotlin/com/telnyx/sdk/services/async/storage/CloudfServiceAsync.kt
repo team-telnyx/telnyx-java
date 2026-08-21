@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.storage.cloudfs.CloudfCreateParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfDeleteParams
+import com.telnyx.sdk.models.storage.cloudfs.CloudfListPageAsync
 import com.telnyx.sdk.models.storage.cloudfs.CloudfListParams
-import com.telnyx.sdk.models.storage.cloudfs.CloudfListResponse
 import com.telnyx.sdk.models.storage.cloudfs.CloudfRetrieveParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfUpdateParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfsFilesystemDetailResponseWrapper
@@ -145,21 +145,21 @@ interface CloudfServiceAsync {
      * cursor-based pagination: fetch the next page by passing `meta.cursors.after` as
      * `page[after]`, or follow the `meta.next` URL.
      */
-    fun list(): CompletableFuture<CloudfListResponse> = list(CloudfListParams.none())
+    fun list(): CompletableFuture<CloudfListPageAsync> = list(CloudfListParams.none())
 
     /** @see list */
     fun list(
         params: CloudfListParams = CloudfListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CloudfListResponse>
+    ): CompletableFuture<CloudfListPageAsync>
 
     /** @see list */
     fun list(
         params: CloudfListParams = CloudfListParams.none()
-    ): CompletableFuture<CloudfListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<CloudfListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CloudfListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CloudfListPageAsync> =
         list(CloudfListParams.none(), requestOptions)
 
     /**
@@ -331,25 +331,25 @@ interface CloudfServiceAsync {
          * Returns a raw HTTP response for `get /storage/cloudfs`, but is otherwise the same as
          * [CloudfServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CloudfListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<CloudfListPageAsync>> =
             list(CloudfListParams.none())
 
         /** @see list */
         fun list(
             params: CloudfListParams = CloudfListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CloudfListResponse>>
+        ): CompletableFuture<HttpResponseFor<CloudfListPageAsync>>
 
         /** @see list */
         fun list(
             params: CloudfListParams = CloudfListParams.none()
-        ): CompletableFuture<HttpResponseFor<CloudfListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CloudfListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CloudfListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CloudfListPageAsync>> =
             list(CloudfListParams.none(), requestOptions)
 
         /**

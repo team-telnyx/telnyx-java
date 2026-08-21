@@ -51,6 +51,9 @@ internal class TexmlServiceTest {
                     )
                     .detectionMode(TexmlInitiateAiCallParams.DetectionMode.PREMIUM)
                     .machineDetection(TexmlInitiateAiCallParams.MachineDetection.ENABLE)
+                    .machineDetectionBeepProfile(
+                        TexmlInitiateAiCallParams.MachineDetectionBeepProfile.FREQ_ONLY
+                    )
                     .machineDetectionPromptEndTimeout(5000L)
                     .machineDetectionSilenceTimeout(2000L)
                     .machineDetectionSpeechEndThreshold(2000L)

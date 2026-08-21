@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates a sub number order. */
+/** Updates the requirements of an existing sub number order and returns the updated order. */
 class SubNumberOrderUpdateParams
 private constructor(
     private val subNumberOrderId: String?,

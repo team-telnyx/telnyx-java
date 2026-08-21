@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesPage
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesPageResponse
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
-import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
 import com.telnyx.sdk.services.blocking.ai.AnthropicService
@@ -130,7 +131,7 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
         requestOptions: RequestOptions,
-    ): AiRetrieveConversationHistoriesResponse =
+    ): AiRetrieveConversationHistoriesPage =
         // get /ai/conversation_histories
         withRawResponse().retrieveConversationHistories(params, requestOptions).parse()
 
@@ -248,13 +249,13 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
         override fun anthropic(): AnthropicService.WithRawResponse = anthropic
 
         private val retrieveConversationHistoriesHandler:
-            Handler<AiRetrieveConversationHistoriesResponse> =
-            jsonHandler<AiRetrieveConversationHistoriesResponse>(clientOptions.jsonMapper)
+            Handler<AiRetrieveConversationHistoriesPageResponse> =
+            jsonHandler<AiRetrieveConversationHistoriesPageResponse>(clientOptions.jsonMapper)
 
         override fun retrieveConversationHistories(
             params: AiRetrieveConversationHistoriesParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AiRetrieveConversationHistoriesResponse> {
+        ): HttpResponseFor<AiRetrieveConversationHistoriesPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -271,6 +272,13 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AiRetrieveConversationHistoriesPage.builder()
+                            .service(AiServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

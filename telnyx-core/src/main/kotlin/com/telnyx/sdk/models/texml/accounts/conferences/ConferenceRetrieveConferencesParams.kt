@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Lists conference resources. */
+/**
+ * Returns a paginated list of conference resources for the account, with support for filtering by
+ * friendly name, status, and creation or update dates.
+ */
 class ConferenceRetrieveConferencesParams
 private constructor(
     private val accountSid: String?,

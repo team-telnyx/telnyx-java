@@ -33,7 +33,10 @@ interface TelephonyCredentialService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TelephonyCredentialService
 
-    /** Create a credential. */
+    /**
+     * Creates a new on-demand telephony credential for the specified connection. The credential can
+     * then be used to generate access tokens for SIP or WebRTC clients.
+     */
     fun create(params: TelephonyCredentialCreateParams): TelephonyCredentialCreateResponse =
         create(params, RequestOptions.none())
 
@@ -75,7 +78,7 @@ interface TelephonyCredentialService {
     fun retrieve(id: String, requestOptions: RequestOptions): TelephonyCredentialRetrieveResponse =
         retrieve(id, TelephonyCredentialRetrieveParams.none(), requestOptions)
 
-    /** Update an existing credential. */
+    /** Updates the specified telephony credential and returns the updated credential. */
     fun update(id: String): TelephonyCredentialUpdateResponse =
         update(id, TelephonyCredentialUpdateParams.none())
 
@@ -106,7 +109,10 @@ interface TelephonyCredentialService {
     fun update(id: String, requestOptions: RequestOptions): TelephonyCredentialUpdateResponse =
         update(id, TelephonyCredentialUpdateParams.none(), requestOptions)
 
-    /** List all On-demand Credentials. */
+    /**
+     * Returns a paginated list of the on-demand telephony credentials on your account, with support
+     * for filtering.
+     */
     fun list(): TelephonyCredentialListPage = list(TelephonyCredentialListParams.none())
 
     /** @see list */
@@ -124,7 +130,7 @@ interface TelephonyCredentialService {
     fun list(requestOptions: RequestOptions): TelephonyCredentialListPage =
         list(TelephonyCredentialListParams.none(), requestOptions)
 
-    /** Delete an existing credential. */
+    /** Permanently deletes the specified telephony credential, revoking any access it provided. */
     fun delete(id: String): TelephonyCredentialDeleteResponse =
         delete(id, TelephonyCredentialDeleteParams.none())
 

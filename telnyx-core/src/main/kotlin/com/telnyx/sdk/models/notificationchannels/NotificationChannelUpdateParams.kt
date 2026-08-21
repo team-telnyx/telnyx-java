@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a notification channel. */
+/** Updates the specified notification channel and returns the updated channel. */
 class NotificationChannelUpdateParams
 private constructor(
     private val notificationChannelId: String?,

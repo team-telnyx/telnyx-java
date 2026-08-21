@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new MCP server for a mission */
+/**
+ * Adds an MCP server to the specified mission, making the server's tools available to agents during
+ * runs of this mission.
+ */
 class McpServerCreateMcpServerParams
 private constructor(
     private val missionId: String?,

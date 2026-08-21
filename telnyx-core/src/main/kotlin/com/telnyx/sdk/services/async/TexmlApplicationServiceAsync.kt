@@ -33,7 +33,10 @@ interface TexmlApplicationServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlApplicationServiceAsync
 
-    /** Creates a TeXML Application. */
+    /**
+     * Creates a TeXML application, which defines the voice URLs and settings used to serve TeXML
+     * instructions for calls, and returns the created application.
+     */
     fun create(
         params: TexmlApplicationCreateParams
     ): CompletableFuture<TexmlApplicationCreateResponse> = create(params, RequestOptions.none())
@@ -125,7 +128,7 @@ interface TexmlApplicationServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<TexmlApplicationListPageAsync> =
         list(TexmlApplicationListParams.none(), requestOptions)
 
-    /** Deletes a TeXML Application. */
+    /** Permanently deletes the specified TeXML application from your account. */
     fun delete(id: String): CompletableFuture<TexmlApplicationDeleteResponse> =
         delete(id, TexmlApplicationDeleteParams.none())
 

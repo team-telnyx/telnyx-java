@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates a stored Dialogflow Connection. */
+/**
+ * Updates the stored Dialogflow connection for the specified connection and returns the updated
+ * configuration.
+ */
 class DialogflowConnectionUpdateParams
 private constructor(
     private val connectionId: String?,

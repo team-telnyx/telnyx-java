@@ -103,6 +103,9 @@ internal class CallServiceAsyncTest {
                             .fallbackUrl("https://www.example.com/instructions-fallback.xml")
                             .from("+13120001234")
                             .machineDetection(CallCallsParams.Body.WithUrl.MachineDetection.ENABLE)
+                            .machineDetectionBeepProfile(
+                                CallCallsParams.Body.WithUrl.MachineDetectionBeepProfile.FREQ_ONLY
+                            )
                             .machineDetectionPromptEndTimeout(5000L)
                             .machineDetectionSilenceTimeout(2000L)
                             .machineDetectionSpeechEndThreshold(2000L)

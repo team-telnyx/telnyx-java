@@ -69,7 +69,7 @@ interface MediaServiceAsync {
     ): CompletableFuture<MediaRetrieveResponse> =
         retrieve(mediaName, MediaRetrieveParams.none(), requestOptions)
 
-    /** Updates a stored media file. */
+    /** Updates the specified stored media file and returns the updated resource. */
     fun update(mediaName: String): CompletableFuture<MediaUpdateResponse> =
         update(mediaName, MediaUpdateParams.none())
 
@@ -104,7 +104,7 @@ interface MediaServiceAsync {
     ): CompletableFuture<MediaUpdateResponse> =
         update(mediaName, MediaUpdateParams.none(), requestOptions)
 
-    /** Returns a list of stored media files. */
+    /** Returns a list of the media files stored on your account, with support for filtering. */
     fun list(): CompletableFuture<MediaListResponse> = list(MediaListParams.none())
 
     /** @see list */
@@ -122,7 +122,7 @@ interface MediaServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<MediaListResponse> =
         list(MediaListParams.none(), requestOptions)
 
-    /** Deletes a stored media file. */
+    /** Permanently deletes the specified media file from storage. */
     fun delete(mediaName: String): CompletableFuture<Void?> =
         delete(mediaName, MediaDeleteParams.none())
 
@@ -154,7 +154,7 @@ interface MediaServiceAsync {
     fun delete(mediaName: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(mediaName, MediaDeleteParams.none(), requestOptions)
 
-    /** Downloads a stored media file. */
+    /** Downloads the raw content of the specified stored media file. */
     fun download(mediaName: String): CompletableFuture<HttpResponse> =
         download(mediaName, MediaDownloadParams.none())
 

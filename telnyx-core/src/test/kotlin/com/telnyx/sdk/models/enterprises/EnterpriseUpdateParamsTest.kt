@@ -12,7 +12,7 @@ internal class EnterpriseUpdateParamsTest {
         EnterpriseUpdateParams.builder()
             .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
             .billingAddress(
-                BillingAddress.builder()
+                PhysicalAddress.builder()
                     .administrativeArea("IL")
                     .city("Chicago")
                     .country("US")
@@ -82,7 +82,7 @@ internal class EnterpriseUpdateParamsTest {
             EnterpriseUpdateParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .billingAddress(
-                    BillingAddress.builder()
+                    PhysicalAddress.builder()
                         .administrativeArea("IL")
                         .city("Chicago")
                         .country("US")
@@ -137,7 +137,7 @@ internal class EnterpriseUpdateParamsTest {
 
         assertThat(body.billingAddress())
             .contains(
-                BillingAddress.builder()
+                PhysicalAddress.builder()
                     .administrativeArea("IL")
                     .city("Chicago")
                     .country("US")

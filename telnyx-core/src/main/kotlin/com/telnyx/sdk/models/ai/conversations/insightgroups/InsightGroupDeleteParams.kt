@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete insight group by ID */
+/** Permanently deletes the specified insight template group by its ID. */
 class InsightGroupDeleteParams
 private constructor(
     private val groupId: String?,

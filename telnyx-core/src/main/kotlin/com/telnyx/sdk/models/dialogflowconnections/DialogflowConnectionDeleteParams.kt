@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes a stored Dialogflow Connection. */
+/** Deletes the stored Dialogflow connection for the specified connection. */
 class DialogflowConnectionDeleteParams
 private constructor(
     private val connectionId: String?,

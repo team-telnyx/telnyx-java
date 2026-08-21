@@ -37,7 +37,7 @@ interface QueueService {
     /** Queue commands operations */
     fun calls(): CallService
 
-    /** Create a new call queue. */
+    /** Creates a new call queue with the provided configuration and returns the created queue. */
     fun create(params: QueueCreateParams): QueueCreateResponse =
         create(params, RequestOptions.none())
 
@@ -47,7 +47,7 @@ interface QueueService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): QueueCreateResponse
 
-    /** Retrieve an existing call queue */
+    /** Returns the details of an existing call queue, including its current configuration. */
     fun retrieve(queueName: String): QueueRetrieveResponse =
         retrieve(queueName, QueueRetrieveParams.none())
 
@@ -117,7 +117,7 @@ interface QueueService {
     fun list(requestOptions: RequestOptions): QueueListPage =
         list(QueueListParams.none(), requestOptions)
 
-    /** Delete an existing call queue. */
+    /** Permanently deletes the specified call queue from your account. */
     fun delete(queueName: String) = delete(queueName, QueueDeleteParams.none())
 
     /** @see delete */

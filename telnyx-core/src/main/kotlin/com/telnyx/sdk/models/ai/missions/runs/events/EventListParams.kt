@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List events for a run (paginated) */
+/**
+ * Returns a paginated list of events logged for the specified run, filterable by event type, plan
+ * step, and agent, so you can reconstruct exactly what happened during execution.
+ */
 class EventListParams
 private constructor(
     private val missionId: String,

@@ -29,7 +29,10 @@ interface PhoneNumberExtensionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberExtensionServiceAsync
 
-    /** Creates a new phone number extension. */
+    /**
+     * Creates a phone number extension on the porting order, mapping extension ranges to one of the
+     * order's phone numbers.
+     */
     fun create(
         portingOrderId: String,
         params: PhoneNumberExtensionCreateParams,
@@ -92,7 +95,7 @@ interface PhoneNumberExtensionServiceAsync {
     ): CompletableFuture<PhoneNumberExtensionListPageAsync> =
         list(portingOrderId, PhoneNumberExtensionListParams.none(), requestOptions)
 
-    /** Deletes a phone number extension. */
+    /** Deletes the specified phone number extension from the porting order. */
     fun delete(
         id: String,
         params: PhoneNumberExtensionDeleteParams,

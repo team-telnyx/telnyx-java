@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates one or more template fields. */
+/** Updates one or more fields of the specified email template and returns the updated template. */
 class EmailTemplateUpdateParams
 private constructor(
     private val id: String?,

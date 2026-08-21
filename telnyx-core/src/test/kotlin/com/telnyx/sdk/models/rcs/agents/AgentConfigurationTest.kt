@@ -14,7 +14,7 @@ internal class AgentConfigurationTest {
         val agentConfiguration =
             AgentConfiguration.builder()
                 .basics(
-                    AgentConfiguration.Basics.UnionMember0.builder()
+                    AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                         .phoneNumber(
                             AgentPhoneContact.builder().label("x").number("+49605132").build()
                         )
@@ -85,8 +85,8 @@ internal class AgentConfigurationTest {
 
         assertThat(agentConfiguration.basics())
             .isEqualTo(
-                AgentConfiguration.Basics.ofUnionMember0(
-                    AgentConfiguration.Basics.UnionMember0.builder()
+                AgentConfiguration.Basics.ofAgentPhoneContactRequirement(
+                    AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                         .phoneNumber(
                             AgentPhoneContact.builder().label("x").number("+49605132").build()
                         )
@@ -162,7 +162,7 @@ internal class AgentConfigurationTest {
         val agentConfiguration =
             AgentConfiguration.builder()
                 .basics(
-                    AgentConfiguration.Basics.UnionMember0.builder()
+                    AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                         .phoneNumber(
                             AgentPhoneContact.builder().label("x").number("+49605132").build()
                         )

@@ -34,7 +34,11 @@ interface GlobalIpAssignmentService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpAssignmentService
 
-    /** Create a Global IP assignment. */
+    /**
+     * Assigns a Global IP to a WireGuard peer so traffic destined for the IP is delivered over that
+     * peer's tunnel. Assignment is asynchronous, so the request is accepted and completes in the
+     * background.
+     */
     fun create(params: GlobalIpAssignmentCreateParams): GlobalIpAssignmentCreateResponse =
         create(params, RequestOptions.none())
 
@@ -58,7 +62,10 @@ interface GlobalIpAssignmentService {
     fun create(globalIpAssignment: GlobalIpAssignment): GlobalIpAssignmentCreateResponse =
         create(globalIpAssignment, RequestOptions.none())
 
-    /** Retrieve a Global IP assignment. */
+    /**
+     * Returns the details of a single Global IP assignment, including the Global IP and WireGuard
+     * peer it links.
+     */
     fun retrieve(id: String): GlobalIpAssignmentRetrieveResponse =
         retrieve(id, GlobalIpAssignmentRetrieveParams.none())
 
@@ -90,7 +97,10 @@ interface GlobalIpAssignmentService {
     fun retrieve(id: String, requestOptions: RequestOptions): GlobalIpAssignmentRetrieveResponse =
         retrieve(id, GlobalIpAssignmentRetrieveParams.none(), requestOptions)
 
-    /** Update a Global IP assignment. */
+    /**
+     * Updates the specified Global IP assignment with the provided fields and returns the updated
+     * assignment.
+     */
     fun update(globalIpAssignmentId: String): GlobalIpAssignmentUpdateResponse =
         update(globalIpAssignmentId, GlobalIpAssignmentUpdateParams.none())
 
@@ -129,7 +139,10 @@ interface GlobalIpAssignmentService {
     ): GlobalIpAssignmentUpdateResponse =
         update(globalIpAssignmentId, GlobalIpAssignmentUpdateParams.none(), requestOptions)
 
-    /** List all Global IP assignments. */
+    /**
+     * Returns a paginated list of your Global IP assignments, the links between Global IPs and the
+     * WireGuard peers that receive their traffic.
+     */
     fun list(): GlobalIpAssignmentListPage = list(GlobalIpAssignmentListParams.none())
 
     /** @see list */
@@ -147,7 +160,9 @@ interface GlobalIpAssignmentService {
     fun list(requestOptions: RequestOptions): GlobalIpAssignmentListPage =
         list(GlobalIpAssignmentListParams.none(), requestOptions)
 
-    /** Delete a Global IP assignment. */
+    /**
+     * Deletes the specified Global IP assignment, detaching the Global IP from its WireGuard peer.
+     */
     fun delete(id: String): GlobalIpAssignmentDeleteResponse =
         delete(id, GlobalIpAssignmentDeleteParams.none())
 

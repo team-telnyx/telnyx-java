@@ -23,6 +23,7 @@ internal class ConversationServiceAsyncTest {
         val conversationFuture =
             conversationServiceAsync.create(
                 ConversationCreateParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .metadata(
                         ConversationCreateParams.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -119,6 +120,7 @@ internal class ConversationServiceAsyncTest {
             conversationServiceAsync.addMessage(
                 ConversationAddMessageParams.builder()
                     .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .role("Role")
                     .content("")
                     .metadata(

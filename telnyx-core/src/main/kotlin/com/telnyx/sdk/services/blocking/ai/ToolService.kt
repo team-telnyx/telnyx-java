@@ -116,7 +116,7 @@ interface ToolService {
     fun list(requestOptions: RequestOptions): ToolListPage =
         list(ToolListParams.none(), requestOptions)
 
-    /** Delete a custom AI tool. */
+    /** Permanently deletes the specified custom AI tool from your account. */
     fun delete(toolId: String): ToolDeleteResponse = delete(toolId, ToolDeleteParams.none())
 
     /** @see delete */

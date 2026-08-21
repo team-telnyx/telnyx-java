@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get details of a specific event */
+/**
+ * Returns the details of a single event logged for the specified run, including its type and
+ * payload.
+ */
 class EventGetEventDetailsParams
 private constructor(
     private val missionId: String,

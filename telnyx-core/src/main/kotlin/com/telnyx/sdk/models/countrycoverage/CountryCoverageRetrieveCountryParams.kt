@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get coverage for a specific country */
+/**
+ * Returns Telnyx service coverage information for the specified country, including available number
+ * types and features.
+ */
 class CountryCoverageRetrieveCountryParams
 private constructor(
     private val countryCode: String?,

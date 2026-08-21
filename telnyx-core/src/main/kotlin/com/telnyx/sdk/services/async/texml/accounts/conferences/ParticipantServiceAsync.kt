@@ -32,7 +32,7 @@ interface ParticipantServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ParticipantServiceAsync
 
-    /** Gets conference participant resource */
+    /** Returns a single conference participant resource by call SID or participant label. */
     fun retrieve(
         callSidOrParticipantLabel: String,
         params: ParticipantRetrieveParams,
@@ -60,7 +60,10 @@ interface ParticipantServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ParticipantResource>
 
-    /** Updates a conference participant */
+    /**
+     * Updates the specified conference participant, for example muting or holding them, and returns
+     * the updated participant.
+     */
     fun update(
         callSidOrParticipantLabel: String,
         params: ParticipantUpdateParams,
@@ -88,7 +91,7 @@ interface ParticipantServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ParticipantResource>
 
-    /** Deletes a conference participant */
+    /** Removes the specified participant from the conference, ending their leg of the call. */
     fun delete(
         callSidOrParticipantLabel: String,
         params: ParticipantDeleteParams,
@@ -115,7 +118,10 @@ interface ParticipantServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** Dials a new conference participant */
+    /**
+     * Dials a new participant into the specified conference and returns the created participant
+     * resource.
+     */
     fun participants(
         conferenceSid: String,
         params: ParticipantParticipantsParams,
@@ -142,7 +148,7 @@ interface ParticipantServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ParticipantParticipantsResponse>
 
-    /** Lists conference participants */
+    /** Returns the list of participants currently in the specified conference. */
     fun retrieveParticipants(
         conferenceSid: String,
         params: ParticipantRetrieveParticipantsParams,

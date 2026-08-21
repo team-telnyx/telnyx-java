@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a new SIM card group object */
+/**
+ * Creates a new SIM card group and returns it. Groups let you apply shared settings to a set of SIM
+ * cards.
+ */
 class SimCardGroupCreateParams
 private constructor(
     private val body: Body,

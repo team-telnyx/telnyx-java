@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a specific LOA configuration. */
+/**
+ * Updates the specified LOA configuration with the provided fields and returns the updated
+ * configuration.
+ */
 class LoaConfigurationUpdateParams
 private constructor(
     private val id: String?,

@@ -33,12 +33,15 @@ import kotlin.jvm.optionals.getOrNull
 class AssistantSendSmsParams
 private constructor(
     private val assistantId: String?,
+    private val idempotencyKey: String?,
     private val body: Body,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun assistantId(): Optional<String> = Optional.ofNullable(assistantId)
+
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -135,6 +138,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var assistantId: String? = null
+        private var idempotencyKey: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
@@ -143,6 +147,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(assistantSendSmsParams: AssistantSendSmsParams) = apply {
             assistantId = assistantSendSmsParams.assistantId
+            idempotencyKey = assistantSendSmsParams.idempotencyKey
             body = assistantSendSmsParams.body.toBuilder()
             additionalHeaders = assistantSendSmsParams.additionalHeaders.toBuilder()
             additionalQueryParams = assistantSendSmsParams.additionalQueryParams.toBuilder()
@@ -152,6 +157,12 @@ private constructor(
 
         /** Alias for calling [Builder.assistantId] with `assistantId.orElse(null)`. */
         fun assistantId(assistantId: Optional<String>) = assistantId(assistantId.getOrNull())
+
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
+
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -361,6 +372,7 @@ private constructor(
         fun build(): AssistantSendSmsParams =
             AssistantSendSmsParams(
                 assistantId,
+                idempotencyKey,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -375,7 +387,13 @@ private constructor(
             else -> ""
         }
 
-    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers =
+        com.telnyx.sdk.core.http.Headers.builder()
+            .apply {
+                idempotencyKey?.let { put("Idempotency-Key", it) }
+                putAll(additionalHeaders)
+            }
+            .build()
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
@@ -821,14 +839,15 @@ private constructor(
 
         return other is AssistantSendSmsParams &&
             assistantId == other.assistantId &&
+            idempotencyKey == other.idempotencyKey &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(assistantId, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(assistantId, idempotencyKey, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "AssistantSendSmsParams{assistantId=$assistantId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AssistantSendSmsParams{assistantId=$assistantId, idempotencyKey=$idempotencyKey, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all tools for a mission */
+/**
+ * Returns the tools configured on the specified mission. Tools define the actions agents may invoke
+ * while executing the mission's runs.
+ */
 class ToolListToolsParams
 private constructor(
     private val missionId: String?,

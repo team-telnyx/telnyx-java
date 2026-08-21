@@ -5,7 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.emailinboxes.threads.InboundThreadListResponse
+import com.telnyx.sdk.models.emailthreads.EmailThreadListPageAsync
 import com.telnyx.sdk.models.emailthreads.EmailThreadListParams
 import com.telnyx.sdk.models.emailthreads.EmailThreadRetrieveParams
 import com.telnyx.sdk.models.emailthreads.EmailThreadRetrieveResponse
@@ -68,21 +68,21 @@ interface EmailThreadServiceAsync {
      * a thread ID can be delivered to multiple inboxes, each result is identified by its
      * `(inbox_id, id)` pair.
      */
-    fun list(): CompletableFuture<InboundThreadListResponse> = list(EmailThreadListParams.none())
+    fun list(): CompletableFuture<EmailThreadListPageAsync> = list(EmailThreadListParams.none())
 
     /** @see list */
     fun list(
         params: EmailThreadListParams = EmailThreadListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InboundThreadListResponse>
+    ): CompletableFuture<EmailThreadListPageAsync>
 
     /** @see list */
     fun list(
         params: EmailThreadListParams = EmailThreadListParams.none()
-    ): CompletableFuture<InboundThreadListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<EmailThreadListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<InboundThreadListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<EmailThreadListPageAsync> =
         list(EmailThreadListParams.none(), requestOptions)
 
     /**
@@ -134,25 +134,25 @@ interface EmailThreadServiceAsync {
          * Returns a raw HTTP response for `get /email_threads`, but is otherwise the same as
          * [EmailThreadServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<InboundThreadListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<EmailThreadListPageAsync>> =
             list(EmailThreadListParams.none())
 
         /** @see list */
         fun list(
             params: EmailThreadListParams = EmailThreadListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InboundThreadListResponse>>
+        ): CompletableFuture<HttpResponseFor<EmailThreadListPageAsync>>
 
         /** @see list */
         fun list(
             params: EmailThreadListParams = EmailThreadListParams.none()
-        ): CompletableFuture<HttpResponseFor<InboundThreadListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailThreadListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<InboundThreadListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailThreadListPageAsync>> =
             list(EmailThreadListParams.none(), requestOptions)
     }
 }

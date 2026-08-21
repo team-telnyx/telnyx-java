@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Download a porting order loa template */
+/**
+ * Downloads the Letter of Authorization (LOA) template document for this porting order, optionally
+ * rendered with a specific LOA configuration.
+ */
 class PortingOrderRetrieveLoaTemplateParams
 private constructor(
     private val id: String?,

@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create the initial plan for a run */
+/**
+ * Creates the initial plan for the specified run from the provided steps and returns the created
+ * plan steps. Progress is subsequently reported by updating individual steps.
+ */
 class PlanCreateParams
 private constructor(
     private val missionId: String,

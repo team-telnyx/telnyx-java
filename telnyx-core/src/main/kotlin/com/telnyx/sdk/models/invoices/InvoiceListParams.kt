@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a paginated list of invoices. */
+/** Returns a paginated list of your invoices, with support for sorting. */
 class InvoiceListParams
 private constructor(
     private val pageNumber: Long?,

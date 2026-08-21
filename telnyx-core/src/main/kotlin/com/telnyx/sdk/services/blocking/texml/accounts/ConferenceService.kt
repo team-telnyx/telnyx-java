@@ -36,7 +36,7 @@ interface ConferenceService {
     /** TeXML REST Commands */
     fun participants(): ParticipantService
 
-    /** Returns a conference resource. */
+    /** Returns a single conference resource for the account by its ConferenceSid. */
     fun retrieve(conferenceSid: String, params: ConferenceRetrieveParams): ConferenceResource =
         retrieve(conferenceSid, params, RequestOptions.none())
 
@@ -58,7 +58,10 @@ interface ConferenceService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConferenceResource
 
-    /** Updates a conference resource. */
+    /**
+     * Updates the specified conference resource, for example to modify its status, and returns the
+     * updated conference.
+     */
     fun update(conferenceSid: String, params: ConferenceUpdateParams): ConferenceResource =
         update(conferenceSid, params, RequestOptions.none())
 
@@ -80,7 +83,10 @@ interface ConferenceService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConferenceResource
 
-    /** Lists conference resources. */
+    /**
+     * Returns a paginated list of conference resources for the account, with support for filtering
+     * by friendly name, status, and creation or update dates.
+     */
     fun retrieveConferences(accountSid: String): ConferenceRetrieveConferencesResponse =
         retrieveConferences(accountSid, ConferenceRetrieveConferencesParams.none())
 
@@ -117,7 +123,7 @@ interface ConferenceService {
     ): ConferenceRetrieveConferencesResponse =
         retrieveConferences(accountSid, ConferenceRetrieveConferencesParams.none(), requestOptions)
 
-    /** Lists conference recordings */
+    /** Returns the list of recordings made for the specified conference. */
     fun retrieveRecordings(
         conferenceSid: String,
         params: ConferenceRetrieveRecordingsParams,

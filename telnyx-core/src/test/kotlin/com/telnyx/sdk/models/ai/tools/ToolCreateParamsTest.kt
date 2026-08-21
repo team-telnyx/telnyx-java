@@ -11,6 +11,7 @@ internal class ToolCreateParamsTest {
     @Test
     fun create() {
         ToolCreateParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .displayName("display_name")
             .type("type")
             .clientSideTool(
@@ -69,9 +70,90 @@ internal class ToolCreateParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            ToolCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .displayName("display_name")
+                .type("type")
+                .clientSideTool(
+                    ToolCreateParams.ClientSideTool.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .function(
+                    ToolCreateParams.Function.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .handoff(
+                    ToolCreateParams.Handoff.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .invite(
+                    ToolCreateParams.Invite.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .pay(
+                    PayToolParams.builder()
+                        .connectorName("connector_name")
+                        .currency("currency")
+                        .description("description")
+                        .paymentMethod("payment_method")
+                        .build()
+                )
+                .retrieval(
+                    ToolCreateParams.Retrieval.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .timeoutMs(0L)
+                .updateDynamicVariables(
+                    UpdateDynamicVariablesToolParams.builder()
+                        .description("Collect caller details into conversation variables.")
+                        .name("collect_details")
+                        .addUpdatableVariable(
+                            UpdateDynamicVariablesToolParams.UpdatableVariable.builder()
+                                .name("customer_name")
+                                .description("The caller's full name.")
+                                .type("string")
+                                .build()
+                        )
+                        .build()
+                )
+                .webhook(
+                    ToolCreateParams.Webhook.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params = ToolCreateParams.builder().displayName("display_name").type("type").build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             ToolCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .displayName("display_name")
                 .type("type")
                 .clientSideTool(

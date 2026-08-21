@@ -29,7 +29,10 @@ interface SimCardOrderService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SimCardOrderService
 
-    /** Creates a new order for SIM cards. */
+    /**
+     * Creates a new order for physical SIM cards, including quantity and shipping details, and
+     * returns the created order.
+     */
     fun create(params: SimCardOrderCreateParams): SimCardOrderCreateResponse =
         create(params, RequestOptions.none())
 
@@ -39,7 +42,7 @@ interface SimCardOrderService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimCardOrderCreateResponse
 
-    /** Get a single SIM card order by its ID. */
+    /** Returns the details of a single SIM card order by its ID, including its status. */
     fun retrieve(id: String): SimCardOrderRetrieveResponse =
         retrieve(id, SimCardOrderRetrieveParams.none())
 

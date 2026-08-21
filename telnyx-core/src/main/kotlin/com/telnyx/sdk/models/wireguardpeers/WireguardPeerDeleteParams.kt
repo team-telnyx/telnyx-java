@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete the WireGuard peer. */
+/** Deletes the specified WireGuard peer from its interface. */
 class WireguardPeerDeleteParams
 private constructor(
     private val id: String?,

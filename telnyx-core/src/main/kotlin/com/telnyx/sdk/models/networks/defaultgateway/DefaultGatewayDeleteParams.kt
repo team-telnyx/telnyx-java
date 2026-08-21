@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete Default Gateway. */
+/** Removes the default gateway from the specified network. */
 class DefaultGatewayDeleteParams
 private constructor(
     private val id: String?,

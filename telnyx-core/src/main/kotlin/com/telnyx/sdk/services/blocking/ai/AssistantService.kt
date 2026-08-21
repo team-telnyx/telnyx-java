@@ -66,7 +66,10 @@ interface AssistantService {
     /** Configure AI assistant specifications */
     fun instructions(): InstructionService
 
-    /** Create a new AI Assistant. */
+    /**
+     * Creates a new AI assistant from the provided configuration, including its model,
+     * instructions, and attached tools, and returns the created assistant.
+     */
     fun create(params: AssistantCreateParams): InferenceEmbedding =
         create(params, RequestOptions.none())
 
@@ -108,7 +111,10 @@ interface AssistantService {
     fun retrieve(assistantId: String, requestOptions: RequestOptions): InferenceEmbedding =
         retrieve(assistantId, AssistantRetrieveParams.none(), requestOptions)
 
-    /** Update an AI Assistant's attributes. */
+    /**
+     * Updates the specified AI assistant's attributes and returns the updated assistant. The
+     * request can also control how the change is promoted across assistant versions.
+     */
     fun update(assistantId: String): InferenceEmbedding =
         update(assistantId, AssistantUpdateParams.none())
 

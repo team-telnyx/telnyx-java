@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes a stored media file. */
+/** Permanently deletes the specified media file from storage. */
 class MediaDeleteParams
 private constructor(
     private val mediaName: String?,

@@ -37,30 +37,31 @@ import java.util.Optional
 class InboxActionRecipientInput
 private constructor(
     private val string: String? = null,
-    private val unionMember1: UnionMember1? = null,
-    private val emailAddressInputs: List<InboxActionEmailAddressInput>? = null,
+    private val recipientAddress: InboxRecipientAddress? = null,
+    private val recipientList: List<InboxActionEmailAddressInput>? = null,
     private val _json: JsonValue? = null,
 ) {
 
     fun string(): Optional<String> = Optional.ofNullable(string)
 
-    fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
+    fun recipientAddress(): Optional<InboxRecipientAddress> = Optional.ofNullable(recipientAddress)
 
-    fun emailAddressInputs(): Optional<List<InboxActionEmailAddressInput>> =
-        Optional.ofNullable(emailAddressInputs)
+    fun recipientList(): Optional<List<InboxActionEmailAddressInput>> =
+        Optional.ofNullable(recipientList)
 
     fun isString(): Boolean = string != null
 
-    fun isUnionMember1(): Boolean = unionMember1 != null
+    fun isRecipientAddress(): Boolean = recipientAddress != null
 
-    fun isEmailAddressInputs(): Boolean = emailAddressInputs != null
+    fun isRecipientList(): Boolean = recipientList != null
 
     fun asString(): String = string.getOrThrow("string")
 
-    fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
+    fun asRecipientAddress(): InboxRecipientAddress =
+        recipientAddress.getOrThrow("recipientAddress")
 
-    fun asEmailAddressInputs(): List<InboxActionEmailAddressInput> =
-        emailAddressInputs.getOrThrow("emailAddressInputs")
+    fun asRecipientList(): List<InboxActionEmailAddressInput> =
+        recipientList.getOrThrow("recipientList")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -96,8 +97,8 @@ private constructor(
     fun <T> accept(visitor: Visitor<T>): T =
         when {
             string != null -> visitor.visitString(string)
-            unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
-            emailAddressInputs != null -> visitor.visitEmailAddressInputs(emailAddressInputs)
+            recipientAddress != null -> visitor.visitRecipientAddress(recipientAddress)
+            recipientList != null -> visitor.visitRecipientList(recipientList)
             else -> visitor.unknown(_json)
         }
 
@@ -120,14 +121,12 @@ private constructor(
             object : Visitor<Unit> {
                 override fun visitString(string: String) {}
 
-                override fun visitUnionMember1(unionMember1: UnionMember1) {
-                    unionMember1.validate()
+                override fun visitRecipientAddress(recipientAddress: InboxRecipientAddress) {
+                    recipientAddress.validate()
                 }
 
-                override fun visitEmailAddressInputs(
-                    emailAddressInputs: List<InboxActionEmailAddressInput>
-                ) {
-                    emailAddressInputs.forEach { it.validate() }
+                override fun visitRecipientList(recipientList: List<InboxActionEmailAddressInput>) {
+                    recipientList.forEach { it.validate() }
                 }
             }
         )
@@ -153,11 +152,11 @@ private constructor(
             object : Visitor<Int> {
                 override fun visitString(string: String) = 1
 
-                override fun visitUnionMember1(unionMember1: UnionMember1) = unionMember1.validity()
+                override fun visitRecipientAddress(recipientAddress: InboxRecipientAddress) =
+                    recipientAddress.validity()
 
-                override fun visitEmailAddressInputs(
-                    emailAddressInputs: List<InboxActionEmailAddressInput>
-                ) = emailAddressInputs.sumOf { it.validity().toInt() }
+                override fun visitRecipientList(recipientList: List<InboxActionEmailAddressInput>) =
+                    recipientList.sumOf { it.validity().toInt() }
 
                 override fun unknown(json: JsonValue?) = 0
             }
@@ -170,18 +169,18 @@ private constructor(
 
         return other is InboxActionRecipientInput &&
             string == other.string &&
-            unionMember1 == other.unionMember1 &&
-            emailAddressInputs == other.emailAddressInputs
+            recipientAddress == other.recipientAddress &&
+            recipientList == other.recipientList
     }
 
-    override fun hashCode(): Int = Objects.hash(string, unionMember1, emailAddressInputs)
+    override fun hashCode(): Int = Objects.hash(string, recipientAddress, recipientList)
 
     override fun toString(): String =
         when {
             string != null -> "InboxActionRecipientInput{string=$string}"
-            unionMember1 != null -> "InboxActionRecipientInput{unionMember1=$unionMember1}"
-            emailAddressInputs != null ->
-                "InboxActionRecipientInput{emailAddressInputs=$emailAddressInputs}"
+            recipientAddress != null ->
+                "InboxActionRecipientInput{recipientAddress=$recipientAddress}"
+            recipientList != null -> "InboxActionRecipientInput{recipientList=$recipientList}"
             _json != null -> "InboxActionRecipientInput{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid InboxActionRecipientInput")
         }
@@ -191,12 +190,12 @@ private constructor(
         @JvmStatic fun ofString(string: String) = InboxActionRecipientInput(string = string)
 
         @JvmStatic
-        fun ofUnionMember1(unionMember1: UnionMember1) =
-            InboxActionRecipientInput(unionMember1 = unionMember1)
+        fun ofRecipientAddress(recipientAddress: InboxRecipientAddress) =
+            InboxActionRecipientInput(recipientAddress = recipientAddress)
 
         @JvmStatic
-        fun ofEmailAddressInputs(emailAddressInputs: List<InboxActionEmailAddressInput>) =
-            InboxActionRecipientInput(emailAddressInputs = emailAddressInputs.toImmutable())
+        fun ofRecipientList(recipientList: List<InboxActionEmailAddressInput>) =
+            InboxActionRecipientInput(recipientList = recipientList.toImmutable())
     }
 
     /**
@@ -207,9 +206,9 @@ private constructor(
 
         fun visitString(string: String): T
 
-        fun visitUnionMember1(unionMember1: UnionMember1): T
+        fun visitRecipientAddress(recipientAddress: InboxRecipientAddress): T
 
-        fun visitEmailAddressInputs(emailAddressInputs: List<InboxActionEmailAddressInput>): T
+        fun visitRecipientList(recipientList: List<InboxActionEmailAddressInput>): T
 
         /**
          * Maps an unknown variant of [InboxActionRecipientInput] to a value of type [T].
@@ -234,16 +233,14 @@ private constructor(
 
             val bestMatches =
                 sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<UnionMember1>())?.let {
-                            InboxActionRecipientInput(unionMember1 = it, _json = json)
+                        tryDeserialize(node, jacksonTypeRef<InboxRecipientAddress>())?.let {
+                            InboxActionRecipientInput(recipientAddress = it, _json = json)
                         },
                         tryDeserialize(node, jacksonTypeRef<String>())?.let {
                             InboxActionRecipientInput(string = it, _json = json)
                         },
                         tryDeserialize(node, jacksonTypeRef<List<InboxActionEmailAddressInput>>())
-                            ?.let {
-                                InboxActionRecipientInput(emailAddressInputs = it, _json = json)
-                            },
+                            ?.let { InboxActionRecipientInput(recipientList = it, _json = json) },
                     )
                     .filterNotNull()
                     .allMaxBy { it.validity() }
@@ -270,15 +267,15 @@ private constructor(
         ) {
             when {
                 value.string != null -> generator.writeObject(value.string)
-                value.unionMember1 != null -> generator.writeObject(value.unionMember1)
-                value.emailAddressInputs != null -> generator.writeObject(value.emailAddressInputs)
+                value.recipientAddress != null -> generator.writeObject(value.recipientAddress)
+                value.recipientList != null -> generator.writeObject(value.recipientList)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid InboxActionRecipientInput")
             }
         }
     }
 
-    class UnionMember1
+    class InboxRecipientAddress
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val email: JsonField<String>,
@@ -333,7 +330,7 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [UnionMember1].
+             * Returns a mutable builder for constructing an instance of [InboxRecipientAddress].
              *
              * The following fields are required:
              * ```java
@@ -343,7 +340,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [UnionMember1]. */
+        /** A builder for [InboxRecipientAddress]. */
         class Builder internal constructor() {
 
             private var email: JsonField<String>? = null
@@ -351,10 +348,10 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(unionMember1: UnionMember1) = apply {
-                email = unionMember1.email
-                name = unionMember1.name
-                additionalProperties = unionMember1.additionalProperties.toMutableMap()
+            internal fun from(inboxRecipientAddress: InboxRecipientAddress) = apply {
+                email = inboxRecipientAddress.email
+                name = inboxRecipientAddress.name
+                additionalProperties = inboxRecipientAddress.additionalProperties.toMutableMap()
             }
 
             fun email(email: String) = email(JsonField.of(email))
@@ -399,7 +396,7 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [UnionMember1].
+             * Returns an immutable instance of [InboxRecipientAddress].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
@@ -410,8 +407,8 @@ private constructor(
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): UnionMember1 =
-                UnionMember1(
+            fun build(): InboxRecipientAddress =
+                InboxRecipientAddress(
                     checkRequired("email", email),
                     name,
                     additionalProperties.toMutableMap(),
@@ -429,7 +426,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): UnionMember1 = apply {
+        fun validate(): InboxRecipientAddress = apply {
             if (validated) {
                 return@apply
             }
@@ -462,7 +459,7 @@ private constructor(
                 return true
             }
 
-            return other is UnionMember1 &&
+            return other is InboxRecipientAddress &&
                 email == other.email &&
                 name == other.name &&
                 additionalProperties == other.additionalProperties
@@ -473,6 +470,6 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "UnionMember1{email=$email, name=$name, additionalProperties=$additionalProperties}"
+            "InboxRecipientAddress{email=$email, name=$name, additionalProperties=$additionalProperties}"
     }
 }

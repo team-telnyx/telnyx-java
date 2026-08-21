@@ -28,7 +28,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a FQDN connection. */
+/**
+ * Creates a new FQDN-based SIP connection. FQDN connections authenticate by your registered domain
+ * names rather than static IP addresses.
+ */
 class FqdnConnectionCreateParams
 private constructor(
     private val body: Body,

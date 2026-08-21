@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get insight group by ID */
+/**
+ * Returns the details of a single insight template group, including the insight templates assigned
+ * to it.
+ */
 class InsightGroupRetrieveParams
 private constructor(
     private val groupId: String?,

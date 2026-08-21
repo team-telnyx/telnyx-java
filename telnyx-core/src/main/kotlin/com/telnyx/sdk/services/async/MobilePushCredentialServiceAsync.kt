@@ -30,7 +30,10 @@ interface MobilePushCredentialServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MobilePushCredentialServiceAsync
 
-    /** Creates a new mobile push credential */
+    /**
+     * Creates a new mobile push credential for delivering push notifications to iOS or Android
+     * apps, and returns the created credential.
+     */
     fun create(
         params: MobilePushCredentialCreateParams
     ): CompletableFuture<PushCredentialResponse> = create(params, RequestOptions.none())
@@ -128,7 +131,10 @@ interface MobilePushCredentialServiceAsync {
     ): CompletableFuture<PushCredentialResponse> =
         retrieve(pushCredentialId, MobilePushCredentialRetrieveParams.none(), requestOptions)
 
-    /** List mobile push credentials */
+    /**
+     * Returns a paginated list of the mobile push credentials on your account, with support for
+     * filtering.
+     */
     fun list(): CompletableFuture<MobilePushCredentialListPageAsync> =
         list(MobilePushCredentialListParams.none())
 

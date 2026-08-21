@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Assign an insight to a group */
+/** Assigns the specified insight template to the specified insight template group. */
 class InsightAssignParams
 private constructor(
     private val groupId: String,

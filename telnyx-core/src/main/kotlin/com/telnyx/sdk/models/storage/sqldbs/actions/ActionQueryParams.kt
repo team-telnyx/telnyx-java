@@ -66,7 +66,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun params(): Optional<List<Param>> = body.params()
+    fun params(): Optional<List<Param?>> = body.params()
 
     /**
      * Returns the raw JSON value of [sql].
@@ -80,7 +80,7 @@ private constructor(
      *
      * Unlike [params], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _params(): JsonField<List<Param>> = body._params()
+    fun _params(): JsonField<List<Param?>> = body._params()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -158,16 +158,16 @@ private constructor(
          * ones you left out. (Not enforced for multi-statement scripts or named parameters, where
          * the placeholder count is not the number bound.)
          */
-        fun params(params: List<Param>) = apply { body.params(params) }
+        fun params(params: List<Param?>) = apply { body.params(params) }
 
         /**
          * Sets [Builder.params] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.params] with a well-typed `List<Param>` value instead.
+         * You should usually call [Builder.params] with a well-typed `List<Param?>` value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun params(params: JsonField<List<Param>>) = apply { body.params(params) }
+        fun params(params: JsonField<List<Param?>>) = apply { body.params(params) }
 
         /**
          * Adds a single [Param] to [params].
@@ -184,9 +184,6 @@ private constructor(
 
         /** Alias for calling [addParam] with `Param.ofBool(bool)`. */
         fun addParam(bool: Boolean) = apply { body.addParam(bool) }
-
-        /** Alias for calling [addParam] with `Param.ofNull()`. */
-        fun addParamNull() = apply { body.addParamNull() }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -343,7 +340,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val sql: JsonField<String>,
-        private val params: JsonField<List<Param>>,
+        private val params: JsonField<List<Param?>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -352,7 +349,7 @@ private constructor(
             @JsonProperty("sql") @ExcludeMissing sql: JsonField<String> = JsonMissing.of(),
             @JsonProperty("params")
             @ExcludeMissing
-            params: JsonField<List<Param>> = JsonMissing.of(),
+            params: JsonField<List<Param?>> = JsonMissing.of(),
         ) : this(sql, params, mutableMapOf())
 
         /**
@@ -374,7 +371,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun params(): Optional<List<Param>> = params.getOptional("params")
+        fun params(): Optional<List<Param?>> = params.getOptional("params")
 
         /**
          * Returns the raw JSON value of [sql].
@@ -388,7 +385,7 @@ private constructor(
          *
          * Unlike [params], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("params") @ExcludeMissing fun _params(): JsonField<List<Param>> = params
+        @JsonProperty("params") @ExcludeMissing fun _params(): JsonField<List<Param?>> = params
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -419,7 +416,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var sql: JsonField<String>? = null
-            private var params: JsonField<MutableList<Param>>? = null
+            private var params: JsonField<MutableList<Param?>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -451,16 +448,16 @@ private constructor(
              * for the ones you left out. (Not enforced for multi-statement scripts or named
              * parameters, where the placeholder count is not the number bound.)
              */
-            fun params(params: List<Param>) = params(JsonField.of(params))
+            fun params(params: List<Param?>) = params(JsonField.of(params))
 
             /**
              * Sets [Builder.params] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.params] with a well-typed `List<Param>` value
+             * You should usually call [Builder.params] with a well-typed `List<Param?>` value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun params(params: JsonField<List<Param>>) = apply {
+            fun params(params: JsonField<List<Param?>>) = apply {
                 this.params = params.map { it.toMutableList() }
             }
 
@@ -484,9 +481,6 @@ private constructor(
 
             /** Alias for calling [addParam] with `Param.ofBool(bool)`. */
             fun addParam(bool: Boolean) = addParam(Param.ofBool(bool))
-
-            /** Alias for calling [addParam] with `Param.ofNull()`. */
-            fun addParamNull() = addParam(Param.ofNull())
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -544,7 +538,7 @@ private constructor(
             }
 
             sql()
-            params().ifPresent { it.forEach { it.validate() } }
+            params().ifPresent { it.forEach { it?.validate() } }
             validated = true
         }
 
@@ -565,7 +559,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (sql.asKnown().isPresent) 1 else 0) +
-                (params.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+                (params.asKnown().getOrNull()?.sumOf { (it?.validity() ?: 0).toInt() } ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -593,7 +587,6 @@ private constructor(
         private val string: String? = null,
         private val number: Double? = null,
         private val bool: Boolean? = null,
-        private val null_: JsonValue? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -603,23 +596,17 @@ private constructor(
 
         fun bool(): Optional<Boolean> = Optional.ofNullable(bool)
 
-        fun null_(): Optional<JsonValue> = Optional.ofNullable(null_)
-
         fun isString(): Boolean = string != null
 
         fun isNumber(): Boolean = number != null
 
         fun isBool(): Boolean = bool != null
 
-        fun isNull(): Boolean = null_ != null
-
         fun asString(): String = string.getOrThrow("string")
 
         fun asNumber(): Double = number.getOrThrow("number")
 
         fun asBool(): Boolean = bool.getOrThrow("bool")
-
-        fun asNull(): JsonValue = null_.getOrThrow("null_")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -657,7 +644,6 @@ private constructor(
                 string != null -> visitor.visitString(string)
                 number != null -> visitor.visitNumber(number)
                 bool != null -> visitor.visitBool(bool)
-                null_ != null -> visitor.visitNull(null_)
                 else -> visitor.unknown(_json)
             }
 
@@ -684,14 +670,6 @@ private constructor(
                     override fun visitNumber(number: Double) {}
 
                     override fun visitBool(bool: Boolean) {}
-
-                    override fun visitNull(null_: JsonValue) {
-                        null_.let {
-                            if (it != JsonValue.from(null)) {
-                                throw TelnyxInvalidDataException("'null_' is invalid, received $it")
-                            }
-                        }
-                    }
                 }
             )
             validated = true
@@ -721,9 +699,6 @@ private constructor(
 
                     override fun visitBool(bool: Boolean) = 1
 
-                    override fun visitNull(null_: JsonValue) =
-                        null_.let { if (it == JsonValue.from(null)) 1 else 0 }
-
                     override fun unknown(json: JsonValue?) = 0
                 }
             )
@@ -736,18 +711,16 @@ private constructor(
             return other is Param &&
                 string == other.string &&
                 number == other.number &&
-                bool == other.bool &&
-                null_ == other.null_
+                bool == other.bool
         }
 
-        override fun hashCode(): Int = Objects.hash(string, number, bool, null_)
+        override fun hashCode(): Int = Objects.hash(string, number, bool)
 
         override fun toString(): String =
             when {
                 string != null -> "Param{string=$string}"
                 number != null -> "Param{number=$number}"
                 bool != null -> "Param{bool=$bool}"
-                null_ != null -> "Param{null_=$null_}"
                 _json != null -> "Param{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Param")
             }
@@ -759,8 +732,6 @@ private constructor(
             @JvmStatic fun ofNumber(number: Double) = Param(number = number)
 
             @JvmStatic fun ofBool(bool: Boolean) = Param(bool = bool)
-
-            @JvmStatic fun ofNull() = Param(null_ = JsonValue.from(null))
         }
 
         /** An interface that defines how to map each variant of [Param] to a value of type [T]. */
@@ -771,8 +742,6 @@ private constructor(
             fun visitNumber(number: Double): T
 
             fun visitBool(bool: Boolean): T
-
-            fun visitNull(null_: JsonValue): T
 
             /**
              * Maps an unknown variant of [Param] to a value of type [T].
@@ -796,9 +765,6 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<JsonValue>())
-                                ?.let { Param(null_ = it, _json = json) }
-                                ?.takeIf { it.isValid() },
                             tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                 Param(string = it, _json = json)
                             },
@@ -836,7 +802,6 @@ private constructor(
                     value.string != null -> generator.writeObject(value.string)
                     value.number != null -> generator.writeObject(value.number)
                     value.bool != null -> generator.writeObject(value.bool)
-                    value.null_ != null -> generator.writeObject(value.null_)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Param")
                 }

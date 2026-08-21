@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all knowledge bases for a mission */
+/**
+ * Returns the knowledge bases attached to the specified mission. Knowledge bases provide reference
+ * content agents can draw on during runs.
+ */
 class KnowledgeBaseListKnowledgeBasesParams
 private constructor(
     private val missionId: String?,

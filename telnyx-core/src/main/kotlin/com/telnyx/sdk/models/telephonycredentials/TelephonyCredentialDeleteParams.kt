@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an existing credential. */
+/** Permanently deletes the specified telephony credential, revoking any access it provided. */
 class TelephonyCredentialDeleteParams
 private constructor(
     private val id: String?,

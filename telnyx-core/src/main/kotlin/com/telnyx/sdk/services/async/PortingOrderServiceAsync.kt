@@ -82,7 +82,10 @@ interface PortingOrderServiceAsync {
     /** Endpoints related to porting orders management. */
     fun phoneNumberExtensions(): PhoneNumberExtensionServiceAsync
 
-    /** Creates a new porting order object. */
+    /**
+     * Creates a new porting order to bring phone numbers from another carrier to Telnyx. Complete
+     * the order's requirements and then confirm it to submit the port.
+     */
     fun create(params: PortingOrderCreateParams): CompletableFuture<PortingOrderCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -172,7 +175,10 @@ interface PortingOrderServiceAsync {
     ): CompletableFuture<PortingOrderUpdateResponse> =
         update(id, PortingOrderUpdateParams.none(), requestOptions)
 
-    /** Returns a list of your porting order. */
+    /**
+     * Returns a paginated list of your porting orders. Supports filtering and sorting, and can
+     * optionally include the phone numbers attached to each order.
+     */
     fun list(): CompletableFuture<PortingOrderListPageAsync> = list(PortingOrderListParams.none())
 
     /** @see list */
@@ -293,7 +299,10 @@ interface PortingOrderServiceAsync {
     ): CompletableFuture<PortingOrderRetrieveExceptionTypesResponse> =
         retrieveExceptionTypes(PortingOrderRetrieveExceptionTypesParams.none(), requestOptions)
 
-    /** Download a porting order loa template */
+    /**
+     * Downloads the Letter of Authorization (LOA) template document for this porting order,
+     * optionally rendered with a specific LOA configuration.
+     */
     fun retrieveLoaTemplate(id: String): CompletableFuture<HttpResponse> =
         retrieveLoaTemplate(id, PortingOrderRetrieveLoaTemplateParams.none())
 

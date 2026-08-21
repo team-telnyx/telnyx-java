@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a notification setting. */
+/** Deletes the specified notification setting, disabling that notification delivery. */
 class NotificationSettingDeleteParams
 private constructor(
     private val id: String?,

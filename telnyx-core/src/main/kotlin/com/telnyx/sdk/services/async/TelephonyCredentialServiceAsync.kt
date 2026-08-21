@@ -33,7 +33,10 @@ interface TelephonyCredentialServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TelephonyCredentialServiceAsync
 
-    /** Create a credential. */
+    /**
+     * Creates a new on-demand telephony credential for the specified connection. The credential can
+     * then be used to generate access tokens for SIP or WebRTC clients.
+     */
     fun create(
         params: TelephonyCredentialCreateParams
     ): CompletableFuture<TelephonyCredentialCreateResponse> = create(params, RequestOptions.none())
@@ -82,7 +85,7 @@ interface TelephonyCredentialServiceAsync {
     ): CompletableFuture<TelephonyCredentialRetrieveResponse> =
         retrieve(id, TelephonyCredentialRetrieveParams.none(), requestOptions)
 
-    /** Update an existing credential. */
+    /** Updates the specified telephony credential and returns the updated credential. */
     fun update(id: String): CompletableFuture<TelephonyCredentialUpdateResponse> =
         update(id, TelephonyCredentialUpdateParams.none())
 
@@ -119,7 +122,10 @@ interface TelephonyCredentialServiceAsync {
     ): CompletableFuture<TelephonyCredentialUpdateResponse> =
         update(id, TelephonyCredentialUpdateParams.none(), requestOptions)
 
-    /** List all On-demand Credentials. */
+    /**
+     * Returns a paginated list of the on-demand telephony credentials on your account, with support
+     * for filtering.
+     */
     fun list(): CompletableFuture<TelephonyCredentialListPageAsync> =
         list(TelephonyCredentialListParams.none())
 
@@ -138,7 +144,7 @@ interface TelephonyCredentialServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<TelephonyCredentialListPageAsync> =
         list(TelephonyCredentialListParams.none(), requestOptions)
 
-    /** Delete an existing credential. */
+    /** Permanently deletes the specified telephony credential, revoking any access it provided. */
     fun delete(id: String): CompletableFuture<TelephonyCredentialDeleteResponse> =
         delete(id, TelephonyCredentialDeleteParams.none())
 

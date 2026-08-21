@@ -778,7 +778,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        @Deprecated("deprecated")
+        @Deprecated("Use scheduled_at instead.")
         fun sendAt(): Optional<OffsetDateTime> = sendAt.getOptional("send_at")
 
         /**
@@ -956,7 +956,7 @@ private constructor(
          *
          * Unlike [sendAt], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @Deprecated("deprecated")
+        @Deprecated("Use scheduled_at instead.")
         @JsonProperty("send_at")
         @ExcludeMissing
         fun _sendAt(): JsonField<OffsetDateTime> = sendAt
@@ -1387,7 +1387,7 @@ private constructor(
             }
 
             /** Deprecated alias for `scheduled_at`. */
-            @Deprecated("deprecated")
+            @Deprecated("Use scheduled_at instead.")
             fun sendAt(sendAt: OffsetDateTime) = sendAt(JsonField.of(sendAt))
 
             /**
@@ -1397,7 +1397,7 @@ private constructor(
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            @Deprecated("deprecated")
+            @Deprecated("Use scheduled_at instead.")
             fun sendAt(sendAt: JsonField<OffsetDateTime>) = apply { this.sendAt = sendAt }
 
             /**

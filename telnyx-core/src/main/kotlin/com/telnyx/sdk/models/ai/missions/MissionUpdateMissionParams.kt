@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a mission definition */
+/**
+ * Replaces the specified mission's definition with the provided configuration and returns the
+ * updated mission.
+ */
 class MissionUpdateMissionParams
 private constructor(
     private val missionId: String?,

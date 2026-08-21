@@ -12,7 +12,6 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
-import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.calls.CustomSipHeader
@@ -446,7 +445,7 @@ private constructor(
         private val hangupCause: JsonField<HangupCause>,
         private val hangupSource: JsonField<HangupSource>,
         private val sipHangupCause: JsonField<String>,
-        private val sipHeaders: JsonField<List<SipHeader>>,
+        private val sipHeaders: JsonField<List<InboundSipHeader>>,
         private val startTime: JsonField<OffsetDateTime>,
         private val state: JsonField<State>,
         private val tags: JsonField<List<String>>,
@@ -489,7 +488,7 @@ private constructor(
             sipHangupCause: JsonField<String> = JsonMissing.of(),
             @JsonProperty("sip_headers")
             @ExcludeMissing
-            sipHeaders: JsonField<List<SipHeader>> = JsonMissing.of(),
+            sipHeaders: JsonField<List<InboundSipHeader>> = JsonMissing.of(),
             @JsonProperty("start_time")
             @ExcludeMissing
             startTime: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -618,7 +617,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun sipHeaders(): Optional<List<SipHeader>> = sipHeaders.getOptional("sip_headers")
+        fun sipHeaders(): Optional<List<InboundSipHeader>> = sipHeaders.getOptional("sip_headers")
 
         /**
          * ISO 8601 datetime of when the call started.
@@ -761,7 +760,7 @@ private constructor(
          */
         @JsonProperty("sip_headers")
         @ExcludeMissing
-        fun _sipHeaders(): JsonField<List<SipHeader>> = sipHeaders
+        fun _sipHeaders(): JsonField<List<InboundSipHeader>> = sipHeaders
 
         /**
          * Returns the raw JSON value of [startTime].
@@ -825,7 +824,7 @@ private constructor(
             private var hangupCause: JsonField<HangupCause> = JsonMissing.of()
             private var hangupSource: JsonField<HangupSource> = JsonMissing.of()
             private var sipHangupCause: JsonField<String> = JsonMissing.of()
-            private var sipHeaders: JsonField<MutableList<SipHeader>>? = null
+            private var sipHeaders: JsonField<MutableList<InboundSipHeader>>? = null
             private var startTime: JsonField<OffsetDateTime> = JsonMissing.of()
             private var state: JsonField<State> = JsonMissing.of()
             private var tags: JsonField<MutableList<String>>? = null
@@ -1040,25 +1039,26 @@ private constructor(
             }
 
             /** User-to-User and Diversion headers from sip invite. */
-            fun sipHeaders(sipHeaders: List<SipHeader>) = sipHeaders(JsonField.of(sipHeaders))
+            fun sipHeaders(sipHeaders: List<InboundSipHeader>) =
+                sipHeaders(JsonField.of(sipHeaders))
 
             /**
              * Sets [Builder.sipHeaders] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.sipHeaders] with a well-typed `List<SipHeader>`
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.sipHeaders] with a well-typed
+             * `List<InboundSipHeader>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
-            fun sipHeaders(sipHeaders: JsonField<List<SipHeader>>) = apply {
+            fun sipHeaders(sipHeaders: JsonField<List<InboundSipHeader>>) = apply {
                 this.sipHeaders = sipHeaders.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [SipHeader] to [sipHeaders].
+             * Adds a single [InboundSipHeader] to [sipHeaders].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addSipHeader(sipHeader: SipHeader) = apply {
+            fun addSipHeader(sipHeader: InboundSipHeader) = apply {
                 sipHeaders =
                     (sipHeaders ?: JsonField.of(mutableListOf())).also {
                         checkKnown("sipHeaders", it).add(sipHeader)
@@ -2340,360 +2340,6 @@ private constructor(
             override fun hashCode() = value.hashCode()
 
             override fun toString() = value.toString()
-        }
-
-        class SipHeader
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val name: JsonField<Name>,
-            private val value: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("name") @ExcludeMissing name: JsonField<Name> = JsonMissing.of(),
-                @JsonProperty("value") @ExcludeMissing value: JsonField<String> = JsonMissing.of(),
-            ) : this(name, value, mutableMapOf())
-
-            /**
-             * The name of the header received from the SIP INVITE.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun name(): Name = name.getRequired("name")
-
-            /**
-             * The value of the header.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun value(): String = value.getRequired("value")
-
-            /**
-             * Returns the raw JSON value of [name].
-             *
-             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<Name> = name
-
-            /**
-             * Returns the raw JSON value of [value].
-             *
-             * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of [SipHeader].
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .name()
-                 * .value()
-                 * ```
-                 */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [SipHeader]. */
-            class Builder internal constructor() {
-
-                private var name: JsonField<Name>? = null
-                private var value: JsonField<String>? = null
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(sipHeader: SipHeader) = apply {
-                    name = sipHeader.name
-                    value = sipHeader.value
-                    additionalProperties = sipHeader.additionalProperties.toMutableMap()
-                }
-
-                /** The name of the header received from the SIP INVITE. */
-                fun name(name: Name) = name(JsonField.of(name))
-
-                /**
-                 * Sets [Builder.name] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.name] with a well-typed [Name] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun name(name: JsonField<Name>) = apply { this.name = name }
-
-                /** The value of the header. */
-                fun value(value: String) = value(JsonField.of(value))
-
-                /**
-                 * Sets [Builder.value] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.value] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun value(value: JsonField<String>) = apply { this.value = value }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [SipHeader].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .name()
-                 * .value()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): SipHeader =
-                    SipHeader(
-                        checkRequired("name", name),
-                        checkRequired("value", value),
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): SipHeader = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                name().validate()
-                value()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (name.asKnown().getOrNull()?.validity() ?: 0) +
-                    (if (value.asKnown().isPresent) 1 else 0)
-
-            /** The name of the header received from the SIP INVITE. */
-            class Name @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val USER_TO_USER = of("User-to-User")
-
-                    @JvmField val DIVERSION = of("Diversion")
-
-                    @JvmStatic fun of(value: String) = Name(JsonField.of(value))
-                }
-
-                /** An enum containing [Name]'s known values. */
-                enum class Known {
-                    USER_TO_USER,
-                    DIVERSION,
-                }
-
-                /**
-                 * An enum containing [Name]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Name] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    USER_TO_USER,
-                    DIVERSION,
-                    /**
-                     * An enum member indicating that [Name] was instantiated with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        USER_TO_USER -> Value.USER_TO_USER
-                        DIVERSION -> Value.DIVERSION
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        USER_TO_USER -> Known.USER_TO_USER
-                        DIVERSION -> Known.DIVERSION
-                        else -> throw TelnyxInvalidDataException("Unknown Name: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
-                 *   its expected type.
-                 */
-                fun validate(): Name = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Name && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is SipHeader &&
-                    name == other.name &&
-                    value == other.value &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(name, value, additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "SipHeader{name=$name, value=$value, additionalProperties=$additionalProperties}"
         }
 
         /** State received from a command. */

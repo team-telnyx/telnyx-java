@@ -47,6 +47,7 @@ internal class RunServiceAsyncTest {
             runServiceAsync.trigger(
                 RunTriggerParams.builder()
                     .testId("test_id")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .destinationVersionId("123e4567-e89b-12d3-a456-426614174000")
                     .build()
             )

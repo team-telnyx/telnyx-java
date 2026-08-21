@@ -61,7 +61,7 @@ interface ConferenceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ConferenceCreateResponse>
 
-    /** Retrieve an existing conference */
+    /** Returns the details of an existing conference, including its current status. */
     fun retrieve(id: String): CompletableFuture<ConferenceRetrieveResponse> =
         retrieve(id, ConferenceRetrieveParams.none())
 
@@ -118,7 +118,10 @@ interface ConferenceServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<ConferenceListPageAsync> =
         list(ConferenceListParams.none(), requestOptions)
 
-    /** Lists conference participants */
+    /**
+     * Returns a paginated list of participants in the specified conference, with support for
+     * filtering.
+     */
     fun listParticipants(
         conferenceId: String
     ): CompletableFuture<ConferenceListParticipantsPageAsync> =

@@ -48,6 +48,9 @@ internal class ParticipantParticipantsParamsTest {
             .from("+12065550200")
             .label("customer")
             .machineDetection(ParticipantParticipantsParams.MachineDetection.ENABLE)
+            .machineDetectionBeepProfile(
+                ParticipantParticipantsParams.MachineDetectionBeepProfile.FREQ_ONLY
+            )
             .machineDetectionSilenceTimeout(2000L)
             .machineDetectionSpeechEndThreshold(2000L)
             .machineDetectionSpeechThreshold(2000L)
@@ -132,6 +135,9 @@ internal class ParticipantParticipantsParamsTest {
                 .from("+12065550200")
                 .label("customer")
                 .machineDetection(ParticipantParticipantsParams.MachineDetection.ENABLE)
+                .machineDetectionBeepProfile(
+                    ParticipantParticipantsParams.MachineDetectionBeepProfile.FREQ_ONLY
+                )
                 .machineDetectionSilenceTimeout(2000L)
                 .machineDetectionSpeechEndThreshold(2000L)
                 .machineDetectionSpeechThreshold(2000L)
@@ -202,6 +208,8 @@ internal class ParticipantParticipantsParamsTest {
         assertThat(body.label()).contains("customer")
         assertThat(body.machineDetection())
             .contains(ParticipantParticipantsParams.MachineDetection.ENABLE)
+        assertThat(body.machineDetectionBeepProfile())
+            .contains(ParticipantParticipantsParams.MachineDetectionBeepProfile.FREQ_ONLY)
         assertThat(body.machineDetectionSilenceTimeout()).contains(2000L)
         assertThat(body.machineDetectionSpeechEndThreshold()).contains(2000L)
         assertThat(body.machineDetectionSpeechThreshold()).contains(2000L)

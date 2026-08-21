@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a Network. */
+/** Updates the specified network's attributes and returns the updated network. */
 class NetworkUpdateParams
 private constructor(
     private val networkId: String?,

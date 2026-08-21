@@ -47,7 +47,7 @@ internal class AgentResponseTest {
                 .configuration(
                     AgentConfiguration.builder()
                         .basics(
-                            AgentConfiguration.Basics.UnionMember0.builder()
+                            AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                                 .email(
                                     AgentEmailContact.builder()
                                         .address("support@example.com")
@@ -171,7 +171,7 @@ internal class AgentResponseTest {
             .isEqualTo(
                 AgentConfiguration.builder()
                     .basics(
-                        AgentConfiguration.Basics.UnionMember0.builder()
+                        AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                             .email(
                                 AgentEmailContact.builder()
                                     .address("support@example.com")
@@ -293,7 +293,7 @@ internal class AgentResponseTest {
                 .configuration(
                     AgentConfiguration.builder()
                         .basics(
-                            AgentConfiguration.Basics.UnionMember0.builder()
+                            AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                                 .email(
                                     AgentEmailContact.builder()
                                         .address("support@example.com")

@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List notification channels. */
+/**
+ * Returns a paginated list of your notification channels, the destinations that receive
+ * notifications.
+ */
 class NotificationChannelListParams
 private constructor(
     private val filter: Filter?,

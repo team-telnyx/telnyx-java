@@ -29,7 +29,7 @@ interface EventService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventService
 
-    /** Show a specific porting event. */
+    /** Returns the details of a single porting event, including its type and payload. */
     fun retrieve(id: String): EventRetrieveResponse = retrieve(id, EventRetrieveParams.none())
 
     /** @see retrieve */
@@ -59,7 +59,11 @@ interface EventService {
     fun retrieve(id: String, requestOptions: RequestOptions): EventRetrieveResponse =
         retrieve(id, EventRetrieveParams.none(), requestOptions)
 
-    /** Returns a list of all porting events. */
+    /**
+     * Returns a paginated list of porting-related events on your account, such as status changes on
+     * porting orders. Supports filtering and is useful for auditing or reconciling webhook
+     * deliveries.
+     */
     fun list(): EventListPage = list(EventListParams.none())
 
     /** @see list */
@@ -76,7 +80,10 @@ interface EventService {
     fun list(requestOptions: RequestOptions): EventListPage =
         list(EventListParams.none(), requestOptions)
 
-    /** Republish a specific porting event. */
+    /**
+     * Republishes the specified porting event, triggering re-delivery of the corresponding webhook
+     * to your account.
+     */
     fun republish(id: String) = republish(id, EventRepublishParams.none())
 
     /** @see republish */

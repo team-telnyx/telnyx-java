@@ -11,6 +11,7 @@ internal class RunTriggerParamsTest {
     fun create() {
         RunTriggerParams.builder()
             .testId("test_id")
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .destinationVersionId("123e4567-e89b-12d3-a456-426614174000")
             .build()
     }
@@ -25,10 +26,39 @@ internal class RunTriggerParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            RunTriggerParams.builder()
+                .testId("test_id")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .destinationVersionId("123e4567-e89b-12d3-a456-426614174000")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params = RunTriggerParams.builder().testId("test_id").build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             RunTriggerParams.builder()
                 .testId("test_id")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .destinationVersionId("123e4567-e89b-12d3-a456-426614174000")
                 .build()
 

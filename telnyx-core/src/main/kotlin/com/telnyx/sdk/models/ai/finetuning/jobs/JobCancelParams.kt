@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Cancel a fine tuning job. */
+/** Cancels the specified in-progress fine-tuning job and returns the updated job. */
 class JobCancelParams
 private constructor(
     private val jobId: String?,

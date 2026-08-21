@@ -12,7 +12,7 @@ internal class MessageUpdateParamsTest {
         MessageUpdateParams.builder()
             .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .messageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .readAt(MessageUpdateParams.ReadAt.UnionMember0.TRUE)
+            .readAt(MessageUpdateParams.ReadAt.ServerReadTime.TRUE)
             .build()
     }
 
@@ -22,7 +22,7 @@ internal class MessageUpdateParamsTest {
             MessageUpdateParams.builder()
                 .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .messageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .readAt(MessageUpdateParams.ReadAt.UnionMember0.TRUE)
+                .readAt(MessageUpdateParams.ReadAt.ServerReadTime.TRUE)
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -37,15 +37,15 @@ internal class MessageUpdateParamsTest {
             MessageUpdateParams.builder()
                 .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .messageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .readAt(MessageUpdateParams.ReadAt.UnionMember0.TRUE)
+                .readAt(MessageUpdateParams.ReadAt.ServerReadTime.TRUE)
                 .build()
 
         val body = params._body()
 
         assertThat(body.readAt())
             .isEqualTo(
-                MessageUpdateParams.ReadAt.ofUnionMember0(
-                    MessageUpdateParams.ReadAt.UnionMember0.TRUE
+                MessageUpdateParams.ReadAt.ofServerReadTime(
+                    MessageUpdateParams.ReadAt.ServerReadTime.TRUE
                 )
             )
     }

@@ -6,7 +6,10 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** List available carriers in the UK. */
+/**
+ * Returns the list of UK carriers available for porting, for use when preparing porting orders for
+ * UK numbers.
+ */
 class PortingListUkCarriersParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

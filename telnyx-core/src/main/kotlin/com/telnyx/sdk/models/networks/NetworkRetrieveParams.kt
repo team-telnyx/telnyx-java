@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a Network. */
+/** Returns the details of a single network by its identifier. */
 class NetworkRetrieveParams
 private constructor(
     private val id: String?,

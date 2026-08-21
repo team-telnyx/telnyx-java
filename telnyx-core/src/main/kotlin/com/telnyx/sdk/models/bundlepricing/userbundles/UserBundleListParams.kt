@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a paginated list of user bundles. */
+/** Returns a paginated list of the bundles active on your account, with support for filtering. */
 class UserBundleListParams
 private constructor(
     private val filter: Filter?,

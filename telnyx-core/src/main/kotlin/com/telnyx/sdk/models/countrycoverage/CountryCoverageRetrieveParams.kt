@@ -6,7 +6,10 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Get country coverage */
+/**
+ * Returns Telnyx service coverage information for every country, including which number types and
+ * features are available in each.
+ */
 class CountryCoverageRetrieveParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

@@ -32,7 +32,11 @@ interface GlobalIpHealthCheckServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpHealthCheckServiceAsync
 
-    /** Create a Global IP health check. */
+    /**
+     * Creates a health check for a Global IP to monitor the health of its assignments. Creation is
+     * asynchronous, so the request is accepted and the health check becomes active once
+     * provisioning completes.
+     */
     fun create(
         params: GlobalIpHealthCheckCreateParams
     ): CompletableFuture<GlobalIpHealthCheckCreateResponse> = create(params, RequestOptions.none())
@@ -61,7 +65,9 @@ interface GlobalIpHealthCheckServiceAsync {
     ): CompletableFuture<GlobalIpHealthCheckCreateResponse> =
         create(globalIpHealthCheck, RequestOptions.none())
 
-    /** Retrieve a Global IP health check. */
+    /**
+     * Returns the details of a single Global IP health check, including its type and configuration.
+     */
     fun retrieve(id: String): CompletableFuture<GlobalIpHealthCheckRetrieveResponse> =
         retrieve(id, GlobalIpHealthCheckRetrieveParams.none())
 
@@ -99,7 +105,7 @@ interface GlobalIpHealthCheckServiceAsync {
     ): CompletableFuture<GlobalIpHealthCheckRetrieveResponse> =
         retrieve(id, GlobalIpHealthCheckRetrieveParams.none(), requestOptions)
 
-    /** List all Global IP health checks. */
+    /** Returns a paginated list of the Global IP health checks configured on your account. */
     fun list(): CompletableFuture<GlobalIpHealthCheckListPageAsync> =
         list(GlobalIpHealthCheckListParams.none())
 
@@ -118,7 +124,10 @@ interface GlobalIpHealthCheckServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<GlobalIpHealthCheckListPageAsync> =
         list(GlobalIpHealthCheckListParams.none(), requestOptions)
 
-    /** Delete a Global IP health check. */
+    /**
+     * Deletes the specified Global IP health check so it no longer monitors the Global IP's
+     * assignments.
+     */
     fun delete(id: String): CompletableFuture<GlobalIpHealthCheckDeleteResponse> =
         delete(id, GlobalIpHealthCheckDeleteParams.none())
 

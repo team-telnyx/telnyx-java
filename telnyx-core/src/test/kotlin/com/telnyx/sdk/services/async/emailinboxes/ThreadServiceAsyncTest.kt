@@ -3,7 +3,6 @@
 package com.telnyx.sdk.services.async.emailinboxes
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.emailinboxes.threads.ThreadListParams
 import com.telnyx.sdk.models.emailinboxes.threads.ThreadRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -36,17 +35,9 @@ internal class ThreadServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val threadServiceAsync = client.emailInboxes().threads()
 
-        val inboundThreadListResponseFuture =
-            threadServiceAsync.list(
-                ThreadListParams.builder()
-                    .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .filterLabel("filter[label]")
-                    .pageAfter("page[after]")
-                    .pageSize(1L)
-                    .build()
-            )
+        val pageFuture = threadServiceAsync.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val inboundThreadListResponse = inboundThreadListResponseFuture.get()
-        inboundThreadListResponse.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

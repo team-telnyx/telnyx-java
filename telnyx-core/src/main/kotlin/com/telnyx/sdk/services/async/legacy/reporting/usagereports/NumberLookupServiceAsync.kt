@@ -31,7 +31,10 @@ interface NumberLookupServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberLookupServiceAsync
 
-    /** Submit a new telco data usage report */
+    /**
+     * Submits a new telco data (number lookup) usage report request. The report is generated
+     * asynchronously; retrieve it by its identifier once ready.
+     */
     fun create(): CompletableFuture<NumberLookupCreateResponse> =
         create(NumberLookupCreateParams.none())
 

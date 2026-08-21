@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a Global IP. */
+/** Deletes the specified Global IP and releases its address back to Telnyx. */
 class GlobalIpDeleteParams
 private constructor(
     private val id: String?,

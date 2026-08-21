@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a mission */
+/** Permanently deletes the specified mission definition and returns no content on success. */
 class MissionDeleteMissionParams
 private constructor(
     private val missionId: String?,

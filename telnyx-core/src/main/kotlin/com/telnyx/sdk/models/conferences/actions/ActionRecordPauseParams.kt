@@ -18,7 +18,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Pause conference recording. */
+/**
+ * Pauses the active recording of the specified conference. Resume it later with the record_resume
+ * action.
+ */
 class ActionRecordPauseParams
 private constructor(
     private val id: String?,

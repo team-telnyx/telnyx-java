@@ -6182,6 +6182,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val afterGreetingSilenceMillis: JsonField<Int>,
+        private val beepDetectionProfile: JsonField<BeepDetectionProfile>,
         private val betweenWordsSilenceMillis: JsonField<Int>,
         private val greetingDurationMillis: JsonField<Int>,
         private val greetingSilenceDurationMillis: JsonField<Int>,
@@ -6199,6 +6200,9 @@ private constructor(
             @JsonProperty("after_greeting_silence_millis")
             @ExcludeMissing
             afterGreetingSilenceMillis: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("beep_detection_profile")
+            @ExcludeMissing
+            beepDetectionProfile: JsonField<BeepDetectionProfile> = JsonMissing.of(),
             @JsonProperty("between_words_silence_millis")
             @ExcludeMissing
             betweenWordsSilenceMillis: JsonField<Int> = JsonMissing.of(),
@@ -6228,6 +6232,7 @@ private constructor(
             totalAnalysisTimeMillis: JsonField<Int> = JsonMissing.of(),
         ) : this(
             afterGreetingSilenceMillis,
+            beepDetectionProfile,
             betweenWordsSilenceMillis,
             greetingDurationMillis,
             greetingSilenceDurationMillis,
@@ -6248,6 +6253,17 @@ private constructor(
          */
         fun afterGreetingSilenceMillis(): Optional<Int> =
             afterGreetingSilenceMillis.getOptional("after_greeting_silence_millis")
+
+        /**
+         * Selects which detectors must validate a beep. `both` requires the amplitude and frequency
+         * detectors to agree. `freq_only` uses the frequency detector alone, for beeps whose volume
+         * is too unsteady for the default profile.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun beepDetectionProfile(): Optional<BeepDetectionProfile> =
+            beepDetectionProfile.getOptional("beep_detection_profile")
 
         /**
          * Maximum threshold for silence between words.
@@ -6341,6 +6357,16 @@ private constructor(
         @JsonProperty("after_greeting_silence_millis")
         @ExcludeMissing
         fun _afterGreetingSilenceMillis(): JsonField<Int> = afterGreetingSilenceMillis
+
+        /**
+         * Returns the raw JSON value of [beepDetectionProfile].
+         *
+         * Unlike [beepDetectionProfile], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("beep_detection_profile")
+        @ExcludeMissing
+        fun _beepDetectionProfile(): JsonField<BeepDetectionProfile> = beepDetectionProfile
 
         /**
          * Returns the raw JSON value of [betweenWordsSilenceMillis].
@@ -6457,6 +6483,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var afterGreetingSilenceMillis: JsonField<Int> = JsonMissing.of()
+            private var beepDetectionProfile: JsonField<BeepDetectionProfile> = JsonMissing.of()
             private var betweenWordsSilenceMillis: JsonField<Int> = JsonMissing.of()
             private var greetingDurationMillis: JsonField<Int> = JsonMissing.of()
             private var greetingSilenceDurationMillis: JsonField<Int> = JsonMissing.of()
@@ -6473,6 +6500,7 @@ private constructor(
                 apply {
                     afterGreetingSilenceMillis =
                         answeringMachineDetectionConfig.afterGreetingSilenceMillis
+                    beepDetectionProfile = answeringMachineDetectionConfig.beepDetectionProfile
                     betweenWordsSilenceMillis =
                         answeringMachineDetectionConfig.betweenWordsSilenceMillis
                     greetingDurationMillis = answeringMachineDetectionConfig.greetingDurationMillis
@@ -6508,6 +6536,26 @@ private constructor(
             fun afterGreetingSilenceMillis(afterGreetingSilenceMillis: JsonField<Int>) = apply {
                 this.afterGreetingSilenceMillis = afterGreetingSilenceMillis
             }
+
+            /**
+             * Selects which detectors must validate a beep. `both` requires the amplitude and
+             * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+             * beeps whose volume is too unsteady for the default profile.
+             */
+            fun beepDetectionProfile(beepDetectionProfile: BeepDetectionProfile) =
+                beepDetectionProfile(JsonField.of(beepDetectionProfile))
+
+            /**
+             * Sets [Builder.beepDetectionProfile] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beepDetectionProfile] with a well-typed
+             * [BeepDetectionProfile] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun beepDetectionProfile(beepDetectionProfile: JsonField<BeepDetectionProfile>) =
+                apply {
+                    this.beepDetectionProfile = beepDetectionProfile
+                }
 
             /** Maximum threshold for silence between words. */
             fun betweenWordsSilenceMillis(betweenWordsSilenceMillis: Int) =
@@ -6682,6 +6730,7 @@ private constructor(
             fun build(): AnsweringMachineDetectionConfig =
                 AnsweringMachineDetectionConfig(
                     afterGreetingSilenceMillis,
+                    beepDetectionProfile,
                     betweenWordsSilenceMillis,
                     greetingDurationMillis,
                     greetingSilenceDurationMillis,
@@ -6712,6 +6761,7 @@ private constructor(
             }
 
             afterGreetingSilenceMillis()
+            beepDetectionProfile().ifPresent { it.validate() }
             betweenWordsSilenceMillis()
             greetingDurationMillis()
             greetingSilenceDurationMillis()
@@ -6741,6 +6791,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (afterGreetingSilenceMillis.asKnown().isPresent) 1 else 0) +
+                (beepDetectionProfile.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (betweenWordsSilenceMillis.asKnown().isPresent) 1 else 0) +
                 (if (greetingDurationMillis.asKnown().isPresent) 1 else 0) +
                 (if (greetingSilenceDurationMillis.asKnown().isPresent) 1 else 0) +
@@ -6751,6 +6802,155 @@ private constructor(
                 (if (silenceThreshold.asKnown().isPresent) 1 else 0) +
                 (if (totalAnalysisTimeMillis.asKnown().isPresent) 1 else 0)
 
+        /**
+         * Selects which detectors must validate a beep. `both` requires the amplitude and frequency
+         * detectors to agree. `freq_only` uses the frequency detector alone, for beeps whose volume
+         * is too unsteady for the default profile.
+         */
+        class BeepDetectionProfile
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val BOTH = of("both")
+
+                @JvmField val FREQ_ONLY = of("freq_only")
+
+                @JvmStatic fun of(value: String) = BeepDetectionProfile(JsonField.of(value))
+            }
+
+            /** An enum containing [BeepDetectionProfile]'s known values. */
+            enum class Known {
+                BOTH,
+                FREQ_ONLY,
+            }
+
+            /**
+             * An enum containing [BeepDetectionProfile]'s known values, as well as an [_UNKNOWN]
+             * member.
+             *
+             * An instance of [BeepDetectionProfile] can contain an unknown value in a couple of
+             * cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                BOTH,
+                FREQ_ONLY,
+                /**
+                 * An enum member indicating that [BeepDetectionProfile] was instantiated with an
+                 * unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    BOTH -> Value.BOTH
+                    FREQ_ONLY -> Value.FREQ_ONLY
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    BOTH -> Known.BOTH
+                    FREQ_ONLY -> Known.FREQ_ONLY
+                    else -> throw TelnyxInvalidDataException("Unknown BeepDetectionProfile: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): BeepDetectionProfile = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is BeepDetectionProfile && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -6758,6 +6958,7 @@ private constructor(
 
             return other is AnsweringMachineDetectionConfig &&
                 afterGreetingSilenceMillis == other.afterGreetingSilenceMillis &&
+                beepDetectionProfile == other.beepDetectionProfile &&
                 betweenWordsSilenceMillis == other.betweenWordsSilenceMillis &&
                 greetingDurationMillis == other.greetingDurationMillis &&
                 greetingSilenceDurationMillis == other.greetingSilenceDurationMillis &&
@@ -6773,6 +6974,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 afterGreetingSilenceMillis,
+                beepDetectionProfile,
                 betweenWordsSilenceMillis,
                 greetingDurationMillis,
                 greetingSilenceDurationMillis,
@@ -6789,7 +6991,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AnsweringMachineDetectionConfig{afterGreetingSilenceMillis=$afterGreetingSilenceMillis, betweenWordsSilenceMillis=$betweenWordsSilenceMillis, greetingDurationMillis=$greetingDurationMillis, greetingSilenceDurationMillis=$greetingSilenceDurationMillis, greetingTotalAnalysisTimeMillis=$greetingTotalAnalysisTimeMillis, initialSilenceMillis=$initialSilenceMillis, maximumNumberOfWords=$maximumNumberOfWords, maximumWordLengthMillis=$maximumWordLengthMillis, silenceThreshold=$silenceThreshold, totalAnalysisTimeMillis=$totalAnalysisTimeMillis, additionalProperties=$additionalProperties}"
+            "AnsweringMachineDetectionConfig{afterGreetingSilenceMillis=$afterGreetingSilenceMillis, beepDetectionProfile=$beepDetectionProfile, betweenWordsSilenceMillis=$betweenWordsSilenceMillis, greetingDurationMillis=$greetingDurationMillis, greetingSilenceDurationMillis=$greetingSilenceDurationMillis, greetingTotalAnalysisTimeMillis=$greetingTotalAnalysisTimeMillis, initialSilenceMillis=$initialSilenceMillis, maximumNumberOfWords=$maximumNumberOfWords, maximumWordLengthMillis=$maximumWordLengthMillis, silenceThreshold=$silenceThreshold, totalAnalysisTimeMillis=$totalAnalysisTimeMillis, additionalProperties=$additionalProperties}"
     }
 
     /** Optional configuration parameters to dial new participant into a conference. */

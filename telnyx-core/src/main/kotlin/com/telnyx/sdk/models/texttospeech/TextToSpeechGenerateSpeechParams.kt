@@ -29,11 +29,11 @@ import kotlin.jvm.optionals.getOrNull
  * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
  *
  * The `voice` parameter provides a convenient shorthand to specify provider, model, and voice in a
- * single string (e.g. `telnyx.NaturalHD.Alloy` or `Telnyx.Ultra.<voice_id>`). Alternatively,
- * specify `provider` explicitly along with provider-specific parameters.
+ * single string (e.g. `Telnyx.Ultra.<voice_id>`). Alternatively, specify `provider` explicitly
+ * along with provider-specific parameters.
  *
- * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`,
- * `xai`, `humain`.
+ * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `resemble`, `xai`,
+ * `humain`.
  *
  * The Telnyx `Ultra` model supports 44 languages with emotion control, speed adjustment, and volume
  * control. Use the `telnyx` provider-specific parameters to configure these features.
@@ -129,18 +129,10 @@ private constructor(
     fun resemble(): Optional<Resemble> = body.resemble()
 
     /**
-     * Rime provider-specific parameters.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun rime(): Optional<Rime> = body.rime()
-
-    /**
-     * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural` and
-     * `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and `emotion`.
-     * `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and don't support
-     * `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm` (no `wav`).
+     * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`, `volume`, and
+     * `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and don't
+     * support `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm` (no
+     * `wav`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -165,10 +157,10 @@ private constructor(
 
     /**
      * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`. Examples:
-     * `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
-     * `Telnyx.Sukhan.urdu-professor`, `azure.en-US-AvaMultilingualNeural`,
-     * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id` are
-     * extracted automatically and take precedence over individual parameters.
+     * `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`, `Telnyx.Sukhan.urdu-professor`,
+     * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When provided, `provider`,
+     * `model_id`, and `voice_id` are extracted automatically and take precedence over individual
+     * parameters.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -261,13 +253,6 @@ private constructor(
      * Unlike [resemble], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _resemble(): JsonField<Resemble> = body._resemble()
-
-    /**
-     * Returns the raw JSON value of [rime].
-     *
-     * Unlike [rime], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _rime(): JsonField<Rime> = body._rime()
 
     /**
      * Returns the raw JSON value of [telnyx].
@@ -487,21 +472,9 @@ private constructor(
          */
         fun resemble(resemble: JsonField<Resemble>) = apply { body.resemble(resemble) }
 
-        /** Rime provider-specific parameters. */
-        fun rime(rime: Rime) = apply { body.rime(rime) }
-
         /**
-         * Sets [Builder.rime] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.rime] with a well-typed [Rime] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun rime(rime: JsonField<Rime>) = apply { body.rime(rime) }
-
-        /**
-         * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural`
-         * and `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and
-         * `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and
+         * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`, `volume`,
+         * and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and
          * don't support `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm`
          * (no `wav`).
          */
@@ -540,7 +513,7 @@ private constructor(
 
         /**
          * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`.
-         * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
+         * Examples: `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
          * `Telnyx.Sukhan.urdu-professor`, `azure.en-US-AvaMultilingualNeural`,
          * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id` are
          * extracted automatically and take precedence over individual parameters.
@@ -736,7 +709,6 @@ private constructor(
         private val outputType: JsonField<OutputType>,
         private val provider: JsonField<Provider>,
         private val resemble: JsonField<Resemble>,
-        private val rime: JsonField<Rime>,
         private val telnyx: JsonField<Telnyx>,
         private val text: JsonField<String>,
         private val textType: JsonField<TextType>,
@@ -770,7 +742,6 @@ private constructor(
             @JsonProperty("resemble")
             @ExcludeMissing
             resemble: JsonField<Resemble> = JsonMissing.of(),
-            @JsonProperty("rime") @ExcludeMissing rime: JsonField<Rime> = JsonMissing.of(),
             @JsonProperty("telnyx") @ExcludeMissing telnyx: JsonField<Telnyx> = JsonMissing.of(),
             @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
             @JsonProperty("text_type")
@@ -792,7 +763,6 @@ private constructor(
             outputType,
             provider,
             resemble,
-            rime,
             telnyx,
             text,
             textType,
@@ -886,17 +856,8 @@ private constructor(
         fun resemble(): Optional<Resemble> = resemble.getOptional("resemble")
 
         /**
-         * Rime provider-specific parameters.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun rime(): Optional<Rime> = rime.getOptional("rime")
-
-        /**
-         * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural`
-         * and `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and
-         * `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and
+         * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`, `volume`,
+         * and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and
          * don't support `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm`
          * (no `wav`).
          *
@@ -923,7 +884,7 @@ private constructor(
 
         /**
          * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`.
-         * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
+         * Examples: `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
          * `Telnyx.Sukhan.urdu-professor`, `azure.en-US-AvaMultilingualNeural`,
          * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id` are
          * extracted automatically and take precedence over individual parameters.
@@ -1028,13 +989,6 @@ private constructor(
         @JsonProperty("resemble") @ExcludeMissing fun _resemble(): JsonField<Resemble> = resemble
 
         /**
-         * Returns the raw JSON value of [rime].
-         *
-         * Unlike [rime], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("rime") @ExcludeMissing fun _rime(): JsonField<Rime> = rime
-
-        /**
          * Returns the raw JSON value of [telnyx].
          *
          * Unlike [telnyx], this method doesn't throw if the JSON field has an unexpected type.
@@ -1110,7 +1064,6 @@ private constructor(
             private var outputType: JsonField<OutputType> = JsonMissing.of()
             private var provider: JsonField<Provider> = JsonMissing.of()
             private var resemble: JsonField<Resemble> = JsonMissing.of()
-            private var rime: JsonField<Rime> = JsonMissing.of()
             private var telnyx: JsonField<Telnyx> = JsonMissing.of()
             private var text: JsonField<String> = JsonMissing.of()
             private var textType: JsonField<TextType> = JsonMissing.of()
@@ -1131,7 +1084,6 @@ private constructor(
                 outputType = body.outputType
                 provider = body.provider
                 resemble = body.resemble
-                rime = body.rime
                 telnyx = body.telnyx
                 text = body.text
                 textType = body.textType
@@ -1274,24 +1226,11 @@ private constructor(
              */
             fun resemble(resemble: JsonField<Resemble>) = apply { this.resemble = resemble }
 
-            /** Rime provider-specific parameters. */
-            fun rime(rime: Rime) = rime(JsonField.of(rime))
-
             /**
-             * Sets [Builder.rime] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.rime] with a well-typed [Rime] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun rime(rime: JsonField<Rime>) = apply { this.rime = rime }
-
-            /**
-             * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for
-             * `Natural` and `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`,
-             * and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`,
-             * and don't support `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3`
-             * or `pcm` (no `wav`).
+             * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`,
+             * `volume`, and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or
+             * `emotion`, and don't support `voice_speed`. `Sukhan`'s `response_format` is
+             * restricted to `mp3` or `pcm` (no `wav`).
              */
             fun telnyx(telnyx: Telnyx) = telnyx(JsonField.of(telnyx))
 
@@ -1330,7 +1269,7 @@ private constructor(
 
             /**
              * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`.
-             * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
+             * Examples: `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
              * `Telnyx.Sukhan.urdu-professor`, `azure.en-US-AvaMultilingualNeural`,
              * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id`
              * are extracted automatically and take precedence over individual parameters.
@@ -1412,7 +1351,6 @@ private constructor(
                     outputType,
                     provider,
                     resemble,
-                    rime,
                     telnyx,
                     text,
                     textType,
@@ -1449,7 +1387,6 @@ private constructor(
             outputType().ifPresent { it.validate() }
             provider().ifPresent { it.validate() }
             resemble().ifPresent { it.validate() }
-            rime().ifPresent { it.validate() }
             telnyx().ifPresent { it.validate() }
             text()
             textType().ifPresent { it.validate() }
@@ -1485,7 +1422,6 @@ private constructor(
                 (outputType.asKnown().getOrNull()?.validity() ?: 0) +
                 (provider.asKnown().getOrNull()?.validity() ?: 0) +
                 (resemble.asKnown().getOrNull()?.validity() ?: 0) +
-                (rime.asKnown().getOrNull()?.validity() ?: 0) +
                 (telnyx.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (text.asKnown().isPresent) 1 else 0) +
                 (textType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1509,7 +1445,6 @@ private constructor(
                 outputType == other.outputType &&
                 provider == other.provider &&
                 resemble == other.resemble &&
-                rime == other.rime &&
                 telnyx == other.telnyx &&
                 text == other.text &&
                 textType == other.textType &&
@@ -1531,7 +1466,6 @@ private constructor(
                 outputType,
                 provider,
                 resemble,
-                rime,
                 telnyx,
                 text,
                 textType,
@@ -1545,7 +1479,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, humain=$humain, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, rime=$rime, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, xai=$xai, additionalProperties=$additionalProperties}"
+            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, humain=$humain, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, xai=$xai, additionalProperties=$additionalProperties}"
     }
 
     /** AWS Polly provider-specific parameters. */
@@ -3839,8 +3773,6 @@ private constructor(
 
             @JvmField val MINIMAX = of("minimax")
 
-            @JvmField val RIME = of("rime")
-
             @JvmField val RESEMBLE = of("resemble")
 
             @JvmField val XAI = of("xai")
@@ -3857,7 +3789,6 @@ private constructor(
             AZURE,
             ELEVENLABS,
             MINIMAX,
-            RIME,
             RESEMBLE,
             XAI,
             HUMAIN,
@@ -3878,7 +3809,6 @@ private constructor(
             AZURE,
             ELEVENLABS,
             MINIMAX,
-            RIME,
             RESEMBLE,
             XAI,
             HUMAIN,
@@ -3900,7 +3830,6 @@ private constructor(
                 AZURE -> Value.AZURE
                 ELEVENLABS -> Value.ELEVENLABS
                 MINIMAX -> Value.MINIMAX
-                RIME -> Value.RIME
                 RESEMBLE -> Value.RESEMBLE
                 XAI -> Value.XAI
                 HUMAIN -> Value.HUMAIN
@@ -3923,7 +3852,6 @@ private constructor(
                 AZURE -> Known.AZURE
                 ELEVENLABS -> Known.ELEVENLABS
                 MINIMAX -> Known.MINIMAX
-                RIME -> Known.RIME
                 RESEMBLE -> Known.RESEMBLE
                 XAI -> Known.XAI
                 HUMAIN -> Known.HUMAIN
@@ -4255,254 +4183,11 @@ private constructor(
             "Resemble{apiKey=$apiKey, format=$format, precision=$precision, sampleRate=$sampleRate, additionalProperties=$additionalProperties}"
     }
 
-    /** Rime provider-specific parameters. */
-    class Rime
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val responseFormat: JsonField<String>,
-        private val samplingRate: JsonField<Long>,
-        private val voiceSpeed: JsonField<Float>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("response_format")
-            @ExcludeMissing
-            responseFormat: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("sampling_rate")
-            @ExcludeMissing
-            samplingRate: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("voice_speed")
-            @ExcludeMissing
-            voiceSpeed: JsonField<Float> = JsonMissing.of(),
-        ) : this(responseFormat, samplingRate, voiceSpeed, mutableMapOf())
-
-        /**
-         * Audio output format.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun responseFormat(): Optional<String> = responseFormat.getOptional("response_format")
-
-        /**
-         * Audio sampling rate in Hz.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun samplingRate(): Optional<Long> = samplingRate.getOptional("sampling_rate")
-
-        /**
-         * Voice speed multiplier.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun voiceSpeed(): Optional<Float> = voiceSpeed.getOptional("voice_speed")
-
-        /**
-         * Returns the raw JSON value of [responseFormat].
-         *
-         * Unlike [responseFormat], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("response_format")
-        @ExcludeMissing
-        fun _responseFormat(): JsonField<String> = responseFormat
-
-        /**
-         * Returns the raw JSON value of [samplingRate].
-         *
-         * Unlike [samplingRate], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("sampling_rate")
-        @ExcludeMissing
-        fun _samplingRate(): JsonField<Long> = samplingRate
-
-        /**
-         * Returns the raw JSON value of [voiceSpeed].
-         *
-         * Unlike [voiceSpeed], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("voice_speed")
-        @ExcludeMissing
-        fun _voiceSpeed(): JsonField<Float> = voiceSpeed
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Rime]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Rime]. */
-        class Builder internal constructor() {
-
-            private var responseFormat: JsonField<String> = JsonMissing.of()
-            private var samplingRate: JsonField<Long> = JsonMissing.of()
-            private var voiceSpeed: JsonField<Float> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(rime: Rime) = apply {
-                responseFormat = rime.responseFormat
-                samplingRate = rime.samplingRate
-                voiceSpeed = rime.voiceSpeed
-                additionalProperties = rime.additionalProperties.toMutableMap()
-            }
-
-            /** Audio output format. */
-            fun responseFormat(responseFormat: String) =
-                responseFormat(JsonField.of(responseFormat))
-
-            /**
-             * Sets [Builder.responseFormat] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.responseFormat] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun responseFormat(responseFormat: JsonField<String>) = apply {
-                this.responseFormat = responseFormat
-            }
-
-            /** Audio sampling rate in Hz. */
-            fun samplingRate(samplingRate: Long) = samplingRate(JsonField.of(samplingRate))
-
-            /**
-             * Sets [Builder.samplingRate] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.samplingRate] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun samplingRate(samplingRate: JsonField<Long>) = apply {
-                this.samplingRate = samplingRate
-            }
-
-            /** Voice speed multiplier. */
-            fun voiceSpeed(voiceSpeed: Float) = voiceSpeed(JsonField.of(voiceSpeed))
-
-            /**
-             * Sets [Builder.voiceSpeed] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.voiceSpeed] with a well-typed [Float] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun voiceSpeed(voiceSpeed: JsonField<Float>) = apply { this.voiceSpeed = voiceSpeed }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Rime].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Rime =
-                Rime(responseFormat, samplingRate, voiceSpeed, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Rime = apply {
-            if (validated) {
-                return@apply
-            }
-
-            responseFormat()
-            samplingRate()
-            voiceSpeed()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (responseFormat.asKnown().isPresent) 1 else 0) +
-                (if (samplingRate.asKnown().isPresent) 1 else 0) +
-                (if (voiceSpeed.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Rime &&
-                responseFormat == other.responseFormat &&
-                samplingRate == other.samplingRate &&
-                voiceSpeed == other.voiceSpeed &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(responseFormat, samplingRate, voiceSpeed, additionalProperties)
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Rime{responseFormat=$responseFormat, samplingRate=$samplingRate, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
-    }
-
     /**
-     * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural` and
-     * `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and `emotion`.
-     * `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and don't support
-     * `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm` (no `wav`).
+     * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`, `volume`, and
+     * `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and don't
+     * support `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm` (no
+     * `wav`).
      */
     class Telnyx
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -4510,7 +4195,6 @@ private constructor(
         private val emotion: JsonField<Emotion>,
         private val responseFormat: JsonField<String>,
         private val samplingRate: JsonField<Long>,
-        private val temperature: JsonField<Float>,
         private val voiceSpeed: JsonField<Float>,
         private val volume: JsonField<Float>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -4525,22 +4209,11 @@ private constructor(
             @JsonProperty("sampling_rate")
             @ExcludeMissing
             samplingRate: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("temperature")
-            @ExcludeMissing
-            temperature: JsonField<Float> = JsonMissing.of(),
             @JsonProperty("voice_speed")
             @ExcludeMissing
             voiceSpeed: JsonField<Float> = JsonMissing.of(),
             @JsonProperty("volume") @ExcludeMissing volume: JsonField<Float> = JsonMissing.of(),
-        ) : this(
-            emotion,
-            responseFormat,
-            samplingRate,
-            temperature,
-            voiceSpeed,
-            volume,
-            mutableMapOf(),
-        )
+        ) : this(emotion, responseFormat, samplingRate, voiceSpeed, volume, mutableMapOf())
 
         /**
          * Emotion control for the Ultra model. Adjusts the emotional tone of the synthesized
@@ -4566,14 +4239,6 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun samplingRate(): Optional<Long> = samplingRate.getOptional("sampling_rate")
-
-        /**
-         * Sampling temperature. Applies to `Natural` and `NaturalHD` models only.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun temperature(): Optional<Float> = temperature.getOptional("temperature")
 
         /**
          * Voice speed multiplier. Applies to all models except `Bayan` and `Sukhan`, which don't
@@ -4620,15 +4285,6 @@ private constructor(
         fun _samplingRate(): JsonField<Long> = samplingRate
 
         /**
-         * Returns the raw JSON value of [temperature].
-         *
-         * Unlike [temperature], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("temperature")
-        @ExcludeMissing
-        fun _temperature(): JsonField<Float> = temperature
-
-        /**
          * Returns the raw JSON value of [voiceSpeed].
          *
          * Unlike [voiceSpeed], this method doesn't throw if the JSON field has an unexpected type.
@@ -4668,7 +4324,6 @@ private constructor(
             private var emotion: JsonField<Emotion> = JsonMissing.of()
             private var responseFormat: JsonField<String> = JsonMissing.of()
             private var samplingRate: JsonField<Long> = JsonMissing.of()
-            private var temperature: JsonField<Float> = JsonMissing.of()
             private var voiceSpeed: JsonField<Float> = JsonMissing.of()
             private var volume: JsonField<Float> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -4678,7 +4333,6 @@ private constructor(
                 emotion = telnyx.emotion
                 responseFormat = telnyx.responseFormat
                 samplingRate = telnyx.samplingRate
-                temperature = telnyx.temperature
                 voiceSpeed = telnyx.voiceSpeed
                 volume = telnyx.volume
                 additionalProperties = telnyx.additionalProperties.toMutableMap()
@@ -4726,20 +4380,6 @@ private constructor(
              */
             fun samplingRate(samplingRate: JsonField<Long>) = apply {
                 this.samplingRate = samplingRate
-            }
-
-            /** Sampling temperature. Applies to `Natural` and `NaturalHD` models only. */
-            fun temperature(temperature: Float) = temperature(JsonField.of(temperature))
-
-            /**
-             * Sets [Builder.temperature] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.temperature] with a well-typed [Float] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun temperature(temperature: JsonField<Float>) = apply {
-                this.temperature = temperature
             }
 
             /**
@@ -4798,7 +4438,6 @@ private constructor(
                     emotion,
                     responseFormat,
                     samplingRate,
-                    temperature,
                     voiceSpeed,
                     volume,
                     additionalProperties.toMutableMap(),
@@ -4824,7 +4463,6 @@ private constructor(
             emotion().ifPresent { it.validate() }
             responseFormat()
             samplingRate()
-            temperature()
             voiceSpeed()
             volume()
             validated = true
@@ -4849,7 +4487,6 @@ private constructor(
             (emotion.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (responseFormat.asKnown().isPresent) 1 else 0) +
                 (if (samplingRate.asKnown().isPresent) 1 else 0) +
-                (if (temperature.asKnown().isPresent) 1 else 0) +
                 (if (voiceSpeed.asKnown().isPresent) 1 else 0) +
                 (if (volume.asKnown().isPresent) 1 else 0)
 
@@ -5036,7 +4673,6 @@ private constructor(
                 emotion == other.emotion &&
                 responseFormat == other.responseFormat &&
                 samplingRate == other.samplingRate &&
-                temperature == other.temperature &&
                 voiceSpeed == other.voiceSpeed &&
                 volume == other.volume &&
                 additionalProperties == other.additionalProperties
@@ -5047,7 +4683,6 @@ private constructor(
                 emotion,
                 responseFormat,
                 samplingRate,
-                temperature,
                 voiceSpeed,
                 volume,
                 additionalProperties,
@@ -5057,7 +4692,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Telnyx{emotion=$emotion, responseFormat=$responseFormat, samplingRate=$samplingRate, temperature=$temperature, voiceSpeed=$voiceSpeed, volume=$volume, additionalProperties=$additionalProperties}"
+            "Telnyx{emotion=$emotion, responseFormat=$responseFormat, samplingRate=$samplingRate, voiceSpeed=$voiceSpeed, volume=$volume, additionalProperties=$additionalProperties}"
     }
 
     /** Text type. Use `ssml` for SSML-formatted input (supported by AWS and Azure). */

@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new fine tuning job. */
+/**
+ * Creates a new fine-tuning job that trains a model on the provided dataset, and returns the
+ * created job.
+ */
 class JobCreateParams
 private constructor(
     private val body: Body,

@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new FQDN object. */
+/** Creates a new FQDN record and attaches it to the specified connection. */
 class FqdnCreateParams
 private constructor(
     private val body: Body,

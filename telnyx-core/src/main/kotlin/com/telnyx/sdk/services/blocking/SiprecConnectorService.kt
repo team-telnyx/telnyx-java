@@ -95,7 +95,7 @@ interface SiprecConnectorService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SiprecConnectorResponse
 
-    /** Deletes a stored SIPREC connector. */
+    /** Deletes the stored SIPREC connector with the specified connector name. */
     fun delete(connectorName: String) = delete(connectorName, SiprecConnectorDeleteParams.none())
 
     /** @see delete */

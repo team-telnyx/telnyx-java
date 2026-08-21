@@ -52,7 +52,10 @@ interface ConversationService {
     /** Manage historical AI assistant conversations */
     fun conversationInsights(): ConversationInsightService
 
-    /** Create a new AI Conversation. */
+    /**
+     * Creates a new AI conversation, the container for messages exchanged with an assistant, and
+     * returns the created conversation.
+     */
     fun create(): Conversation = create(ConversationCreateParams.none())
 
     /** @see create */

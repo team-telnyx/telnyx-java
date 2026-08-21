@@ -34,7 +34,10 @@ interface NotificationChannelServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NotificationChannelServiceAsync
 
-    /** Create a notification channel. */
+    /**
+     * Creates a new notification channel defining where notifications are delivered, and returns
+     * the created channel.
+     */
     fun create(): CompletableFuture<NotificationChannelCreateResponse> =
         create(NotificationChannelCreateParams.none())
 
@@ -73,7 +76,7 @@ interface NotificationChannelServiceAsync {
     ): CompletableFuture<NotificationChannelCreateResponse> =
         create(NotificationChannelCreateParams.none(), requestOptions)
 
-    /** Get a notification channel. */
+    /** Returns the details of a single notification channel by its identifier. */
     fun retrieve(id: String): CompletableFuture<NotificationChannelRetrieveResponse> =
         retrieve(id, NotificationChannelRetrieveParams.none())
 
@@ -111,7 +114,7 @@ interface NotificationChannelServiceAsync {
     ): CompletableFuture<NotificationChannelRetrieveResponse> =
         retrieve(id, NotificationChannelRetrieveParams.none(), requestOptions)
 
-    /** Update a notification channel. */
+    /** Updates the specified notification channel and returns the updated channel. */
     fun update(
         notificationChannelId: String,
         params: NotificationChannelUpdateParams,
@@ -140,7 +143,10 @@ interface NotificationChannelServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<NotificationChannelUpdateResponse>
 
-    /** List notification channels. */
+    /**
+     * Returns a paginated list of your notification channels, the destinations that receive
+     * notifications.
+     */
     fun list(): CompletableFuture<NotificationChannelListPageAsync> =
         list(NotificationChannelListParams.none())
 
@@ -159,7 +165,9 @@ interface NotificationChannelServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<NotificationChannelListPageAsync> =
         list(NotificationChannelListParams.none(), requestOptions)
 
-    /** Delete a notification channel. */
+    /**
+     * Deletes the specified notification channel so notifications are no longer delivered to it.
+     */
     fun delete(id: String): CompletableFuture<NotificationChannelDeleteResponse> =
         delete(id, NotificationChannelDeleteParams.none())
 

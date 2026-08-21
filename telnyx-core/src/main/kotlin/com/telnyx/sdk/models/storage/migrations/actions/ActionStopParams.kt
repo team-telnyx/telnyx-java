@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Stop an in-progress storage migration. */
+/** Stops the specified in-progress storage migration and returns the updated migration. */
 class ActionStopParams
 private constructor(
     private val id: String?,

@@ -8,7 +8,9 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a specific LOA configuration. */
+/**
+ * Returns the details of a single LOA (Letter of Authorization) configuration by its identifier.
+ */
 class LoaConfigurationRetrieveParams
 private constructor(
     private val id: String?,

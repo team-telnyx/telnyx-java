@@ -34,7 +34,10 @@ interface NotificationProfileService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NotificationProfileService
 
-    /** Create a notification profile. */
+    /**
+     * Creates a new notification profile, a named grouping used to organize notification settings,
+     * and returns it.
+     */
     fun create(): NotificationProfileCreateResponse = create(NotificationProfileCreateParams.none())
 
     /** @see create */
@@ -68,7 +71,7 @@ interface NotificationProfileService {
     fun create(requestOptions: RequestOptions): NotificationProfileCreateResponse =
         create(NotificationProfileCreateParams.none(), requestOptions)
 
-    /** Get a notification profile. */
+    /** Returns the details of a single notification profile by its identifier. */
     fun retrieve(id: String): NotificationProfileRetrieveResponse =
         retrieve(id, NotificationProfileRetrieveParams.none())
 
@@ -100,7 +103,7 @@ interface NotificationProfileService {
     fun retrieve(id: String, requestOptions: RequestOptions): NotificationProfileRetrieveResponse =
         retrieve(id, NotificationProfileRetrieveParams.none(), requestOptions)
 
-    /** Update a notification profile. */
+    /** Updates the specified notification profile and returns the updated profile. */
     fun update(
         notificationProfileId: String,
         params: NotificationProfileUpdateParams,
@@ -146,7 +149,7 @@ interface NotificationProfileService {
     fun list(requestOptions: RequestOptions): NotificationProfileListPage =
         list(NotificationProfileListParams.none(), requestOptions)
 
-    /** Delete a notification profile. */
+    /** Deletes the specified notification profile from your account. */
     fun delete(id: String): NotificationProfileDeleteResponse =
         delete(id, NotificationProfileDeleteParams.none())
 

@@ -6,7 +6,10 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** List all Global IP Protocols */
+/**
+ * Returns the network protocols supported for Global IP traffic, for use when configuring Global IP
+ * resources.
+ */
 class GlobalIpProtocolListParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

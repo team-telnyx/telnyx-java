@@ -70,7 +70,7 @@ interface VirtualCrossConnectServiceAsync {
     ): CompletableFuture<VirtualCrossConnectCreateResponse> =
         create(virtualCrossConnectCreate, RequestOptions.none())
 
-    /** Retrieve a Virtual Cross Connect. */
+    /** Returns the details of a single virtual cross connect by its identifier. */
     fun retrieve(id: String): CompletableFuture<VirtualCrossConnectRetrieveResponse> =
         retrieve(id, VirtualCrossConnectRetrieveParams.none())
 
@@ -141,7 +141,10 @@ interface VirtualCrossConnectServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<VirtualCrossConnectUpdateResponse>
 
-    /** List all Virtual Cross Connects. */
+    /**
+     * Returns a paginated list of the virtual cross connects on your account, with support for
+     * filtering.
+     */
     fun list(): CompletableFuture<VirtualCrossConnectListPageAsync> =
         list(VirtualCrossConnectListParams.none())
 
@@ -160,7 +163,7 @@ interface VirtualCrossConnectServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<VirtualCrossConnectListPageAsync> =
         list(VirtualCrossConnectListParams.none(), requestOptions)
 
-    /** Delete a Virtual Cross Connect. */
+    /** Deletes the specified virtual cross connect from your account. */
     fun delete(id: String): CompletableFuture<VirtualCrossConnectDeleteResponse> =
         delete(id, VirtualCrossConnectDeleteParams.none())
 

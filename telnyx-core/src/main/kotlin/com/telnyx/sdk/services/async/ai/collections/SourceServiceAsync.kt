@@ -34,7 +34,10 @@ interface SourceServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SourceServiceAsync
 
-    /** Attaches a new source to a collection. */
+    /**
+     * Attaches a new content source to the specified collection and returns the created source. The
+     * source's content is ingested and embedded so it becomes searchable within the collection.
+     */
     fun create(uuid: String, params: SourceCreateParams): CompletableFuture<SourceCreateResponse> =
         create(uuid, params, RequestOptions.none())
 

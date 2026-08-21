@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async.storage
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.storage.cloudfs.CloudfCreateParams
-import com.telnyx.sdk.models.storage.cloudfs.CloudfListParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -69,21 +68,10 @@ internal class CloudfServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val cloudfServiceAsync = client.storage().cloudfs()
 
-        val cloudfsFuture =
-            cloudfServiceAsync.list(
-                CloudfListParams.builder()
-                    .filterName("filter[name]")
-                    .filterRegion("us-east-1")
-                    .filterStatus(CloudfListParams.FilterStatus.PROVISIONING)
-                    .pageAfter("page[after]")
-                    .pageBefore("page[before]")
-                    .pageLimit(1L)
-                    .sort(CloudfListParams.Sort.CREATED_AT)
-                    .build()
-            )
+        val pageFuture = cloudfServiceAsync.list()
 
-        val cloudfs = cloudfsFuture.get()
-        cloudfs.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

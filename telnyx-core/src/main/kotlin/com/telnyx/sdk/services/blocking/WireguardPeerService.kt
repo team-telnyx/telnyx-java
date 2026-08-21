@@ -52,7 +52,7 @@ interface WireguardPeerService {
     fun create(requestOptions: RequestOptions): WireguardPeerCreateResponse =
         create(WireguardPeerCreateParams.none(), requestOptions)
 
-    /** Retrieve the WireGuard peer. */
+    /** Returns the details of a single WireGuard peer by its identifier. */
     fun retrieve(id: String): WireguardPeerRetrieveResponse =
         retrieve(id, WireguardPeerRetrieveParams.none())
 
@@ -83,7 +83,7 @@ interface WireguardPeerService {
     fun retrieve(id: String, requestOptions: RequestOptions): WireguardPeerRetrieveResponse =
         retrieve(id, WireguardPeerRetrieveParams.none(), requestOptions)
 
-    /** Update the WireGuard peer. */
+    /** Updates the specified WireGuard peer and returns the updated peer. */
     fun update(id: String, params: WireguardPeerUpdateParams): WireguardPeerUpdateResponse =
         update(id, params, RequestOptions.none())
 
@@ -104,7 +104,7 @@ interface WireguardPeerService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireguardPeerUpdateResponse
 
-    /** List all WireGuard peers. */
+    /** Returns a paginated list of your WireGuard peers, with support for filtering. */
     fun list(): WireguardPeerListPage = list(WireguardPeerListParams.none())
 
     /** @see list */
@@ -122,7 +122,7 @@ interface WireguardPeerService {
     fun list(requestOptions: RequestOptions): WireguardPeerListPage =
         list(WireguardPeerListParams.none(), requestOptions)
 
-    /** Delete the WireGuard peer. */
+    /** Deletes the specified WireGuard peer from its interface. */
     fun delete(id: String): WireguardPeerDeleteResponse =
         delete(id, WireguardPeerDeleteParams.none())
 

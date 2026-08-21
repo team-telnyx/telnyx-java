@@ -149,14 +149,26 @@ private constructor(
          */
         fun basics(basics: JsonField<Basics>) = apply { this.basics = basics }
 
-        /** Alias for calling [basics] with `Basics.ofUnionMember0(unionMember0)`. */
-        fun basics(unionMember0: Basics.UnionMember0) = basics(Basics.ofUnionMember0(unionMember0))
+        /**
+         * Alias for calling [basics] with
+         * `Basics.ofAgentPhoneContactRequirement(agentPhoneContactRequirement)`.
+         */
+        fun basics(agentPhoneContactRequirement: Basics.AgentPhoneContactRequirement) =
+            basics(Basics.ofAgentPhoneContactRequirement(agentPhoneContactRequirement))
 
-        /** Alias for calling [basics] with `Basics.ofUnionMember1(unionMember1)`. */
-        fun basics(unionMember1: Basics.UnionMember1) = basics(Basics.ofUnionMember1(unionMember1))
+        /**
+         * Alias for calling [basics] with
+         * `Basics.ofAgentWebhookContactRequirement(agentWebhookContactRequirement)`.
+         */
+        fun basics(agentWebhookContactRequirement: Basics.AgentWebhookContactRequirement) =
+            basics(Basics.ofAgentWebhookContactRequirement(agentWebhookContactRequirement))
 
-        /** Alias for calling [basics] with `Basics.ofUnionMember2(unionMember2)`. */
-        fun basics(unionMember2: Basics.UnionMember2) = basics(Basics.ofUnionMember2(unionMember2))
+        /**
+         * Alias for calling [basics] with
+         * `Basics.ofAgentProfileContactRequirement(agentProfileContactRequirement)`.
+         */
+        fun basics(agentProfileContactRequirement: Basics.AgentProfileContactRequirement) =
+            basics(Basics.ofAgentProfileContactRequirement(agentProfileContactRequirement))
 
         fun campaign(campaign: AgentCampaignConfiguration?) =
             campaign(JsonField.ofNullable(campaign))
@@ -280,29 +292,35 @@ private constructor(
     @JsonSerialize(using = Basics.Serializer::class)
     class Basics
     private constructor(
-        private val unionMember0: UnionMember0? = null,
-        private val unionMember1: UnionMember1? = null,
-        private val unionMember2: UnionMember2? = null,
+        private val agentPhoneContactRequirement: AgentPhoneContactRequirement? = null,
+        private val agentWebhookContactRequirement: AgentWebhookContactRequirement? = null,
+        private val agentProfileContactRequirement: AgentProfileContactRequirement? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun unionMember0(): Optional<UnionMember0> = Optional.ofNullable(unionMember0)
+        fun agentPhoneContactRequirement(): Optional<AgentPhoneContactRequirement> =
+            Optional.ofNullable(agentPhoneContactRequirement)
 
-        fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
+        fun agentWebhookContactRequirement(): Optional<AgentWebhookContactRequirement> =
+            Optional.ofNullable(agentWebhookContactRequirement)
 
-        fun unionMember2(): Optional<UnionMember2> = Optional.ofNullable(unionMember2)
+        fun agentProfileContactRequirement(): Optional<AgentProfileContactRequirement> =
+            Optional.ofNullable(agentProfileContactRequirement)
 
-        fun isUnionMember0(): Boolean = unionMember0 != null
+        fun isAgentPhoneContactRequirement(): Boolean = agentPhoneContactRequirement != null
 
-        fun isUnionMember1(): Boolean = unionMember1 != null
+        fun isAgentWebhookContactRequirement(): Boolean = agentWebhookContactRequirement != null
 
-        fun isUnionMember2(): Boolean = unionMember2 != null
+        fun isAgentProfileContactRequirement(): Boolean = agentProfileContactRequirement != null
 
-        fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
+        fun asAgentPhoneContactRequirement(): AgentPhoneContactRequirement =
+            agentPhoneContactRequirement.getOrThrow("agentPhoneContactRequirement")
 
-        fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
+        fun asAgentWebhookContactRequirement(): AgentWebhookContactRequirement =
+            agentWebhookContactRequirement.getOrThrow("agentWebhookContactRequirement")
 
-        fun asUnionMember2(): UnionMember2 = unionMember2.getOrThrow("unionMember2")
+        fun asAgentProfileContactRequirement(): AgentProfileContactRequirement =
+            agentProfileContactRequirement.getOrThrow("agentProfileContactRequirement")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -318,8 +336,8 @@ private constructor(
          *
          * Optional<String> result = basics.accept(new Basics.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitUnionMember0(UnionMember0 unionMember0) {
-         *         return Optional.of(unionMember0.toString());
+         *     public Optional<String> visitAgentPhoneContactRequirement(AgentPhoneContactRequirement agentPhoneContactRequirement) {
+         *         return Optional.of(agentPhoneContactRequirement.toString());
          *     }
          *
          *     // ...
@@ -337,9 +355,12 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
-                unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
-                unionMember2 != null -> visitor.visitUnionMember2(unionMember2)
+                agentPhoneContactRequirement != null ->
+                    visitor.visitAgentPhoneContactRequirement(agentPhoneContactRequirement)
+                agentWebhookContactRequirement != null ->
+                    visitor.visitAgentWebhookContactRequirement(agentWebhookContactRequirement)
+                agentProfileContactRequirement != null ->
+                    visitor.visitAgentProfileContactRequirement(agentProfileContactRequirement)
                 else -> visitor.unknown(_json)
             }
 
@@ -361,16 +382,22 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitUnionMember0(unionMember0: UnionMember0) {
-                        unionMember0.validate()
+                    override fun visitAgentPhoneContactRequirement(
+                        agentPhoneContactRequirement: AgentPhoneContactRequirement
+                    ) {
+                        agentPhoneContactRequirement.validate()
                     }
 
-                    override fun visitUnionMember1(unionMember1: UnionMember1) {
-                        unionMember1.validate()
+                    override fun visitAgentWebhookContactRequirement(
+                        agentWebhookContactRequirement: AgentWebhookContactRequirement
+                    ) {
+                        agentWebhookContactRequirement.validate()
                     }
 
-                    override fun visitUnionMember2(unionMember2: UnionMember2) {
-                        unionMember2.validate()
+                    override fun visitAgentProfileContactRequirement(
+                        agentProfileContactRequirement: AgentProfileContactRequirement
+                    ) {
+                        agentProfileContactRequirement.validate()
                     }
                 }
             )
@@ -395,14 +422,17 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitUnionMember0(unionMember0: UnionMember0) =
-                        unionMember0.validity()
+                    override fun visitAgentPhoneContactRequirement(
+                        agentPhoneContactRequirement: AgentPhoneContactRequirement
+                    ) = agentPhoneContactRequirement.validity()
 
-                    override fun visitUnionMember1(unionMember1: UnionMember1) =
-                        unionMember1.validity()
+                    override fun visitAgentWebhookContactRequirement(
+                        agentWebhookContactRequirement: AgentWebhookContactRequirement
+                    ) = agentWebhookContactRequirement.validity()
 
-                    override fun visitUnionMember2(unionMember2: UnionMember2) =
-                        unionMember2.validity()
+                    override fun visitAgentProfileContactRequirement(
+                        agentProfileContactRequirement: AgentProfileContactRequirement
+                    ) = agentProfileContactRequirement.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -414,18 +444,26 @@ private constructor(
             }
 
             return other is Basics &&
-                unionMember0 == other.unionMember0 &&
-                unionMember1 == other.unionMember1 &&
-                unionMember2 == other.unionMember2
+                agentPhoneContactRequirement == other.agentPhoneContactRequirement &&
+                agentWebhookContactRequirement == other.agentWebhookContactRequirement &&
+                agentProfileContactRequirement == other.agentProfileContactRequirement
         }
 
-        override fun hashCode(): Int = Objects.hash(unionMember0, unionMember1, unionMember2)
+        override fun hashCode(): Int =
+            Objects.hash(
+                agentPhoneContactRequirement,
+                agentWebhookContactRequirement,
+                agentProfileContactRequirement,
+            )
 
         override fun toString(): String =
             when {
-                unionMember0 != null -> "Basics{unionMember0=$unionMember0}"
-                unionMember1 != null -> "Basics{unionMember1=$unionMember1}"
-                unionMember2 != null -> "Basics{unionMember2=$unionMember2}"
+                agentPhoneContactRequirement != null ->
+                    "Basics{agentPhoneContactRequirement=$agentPhoneContactRequirement}"
+                agentWebhookContactRequirement != null ->
+                    "Basics{agentWebhookContactRequirement=$agentWebhookContactRequirement}"
+                agentProfileContactRequirement != null ->
+                    "Basics{agentProfileContactRequirement=$agentProfileContactRequirement}"
                 _json != null -> "Basics{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Basics")
             }
@@ -433,23 +471,35 @@ private constructor(
         companion object {
 
             @JvmStatic
-            fun ofUnionMember0(unionMember0: UnionMember0) = Basics(unionMember0 = unionMember0)
+            fun ofAgentPhoneContactRequirement(
+                agentPhoneContactRequirement: AgentPhoneContactRequirement
+            ) = Basics(agentPhoneContactRequirement = agentPhoneContactRequirement)
 
             @JvmStatic
-            fun ofUnionMember1(unionMember1: UnionMember1) = Basics(unionMember1 = unionMember1)
+            fun ofAgentWebhookContactRequirement(
+                agentWebhookContactRequirement: AgentWebhookContactRequirement
+            ) = Basics(agentWebhookContactRequirement = agentWebhookContactRequirement)
 
             @JvmStatic
-            fun ofUnionMember2(unionMember2: UnionMember2) = Basics(unionMember2 = unionMember2)
+            fun ofAgentProfileContactRequirement(
+                agentProfileContactRequirement: AgentProfileContactRequirement
+            ) = Basics(agentProfileContactRequirement = agentProfileContactRequirement)
         }
 
         /** An interface that defines how to map each variant of [Basics] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitUnionMember0(unionMember0: UnionMember0): T
+            fun visitAgentPhoneContactRequirement(
+                agentPhoneContactRequirement: AgentPhoneContactRequirement
+            ): T
 
-            fun visitUnionMember1(unionMember1: UnionMember1): T
+            fun visitAgentWebhookContactRequirement(
+                agentWebhookContactRequirement: AgentWebhookContactRequirement
+            ): T
 
-            fun visitUnionMember2(unionMember2: UnionMember2): T
+            fun visitAgentProfileContactRequirement(
+                agentProfileContactRequirement: AgentProfileContactRequirement
+            ): T
 
             /**
              * Maps an unknown variant of [Basics] to a value of type [T].
@@ -473,15 +523,12 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<UnionMember0>())?.let {
-                                Basics(unionMember0 = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<UnionMember1>())?.let {
-                                Basics(unionMember1 = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<UnionMember2>())?.let {
-                                Basics(unionMember2 = it, _json = json)
-                            },
+                            tryDeserialize(node, jacksonTypeRef<AgentPhoneContactRequirement>())
+                                ?.let { Basics(agentPhoneContactRequirement = it, _json = json) },
+                            tryDeserialize(node, jacksonTypeRef<AgentWebhookContactRequirement>())
+                                ?.let { Basics(agentWebhookContactRequirement = it, _json = json) },
+                            tryDeserialize(node, jacksonTypeRef<AgentProfileContactRequirement>())
+                                ?.let { Basics(agentProfileContactRequirement = it, _json = json) },
                         )
                         .filterNotNull()
                         .allMaxBy { it.validity() }
@@ -507,16 +554,19 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.unionMember0 != null -> generator.writeObject(value.unionMember0)
-                    value.unionMember1 != null -> generator.writeObject(value.unionMember1)
-                    value.unionMember2 != null -> generator.writeObject(value.unionMember2)
+                    value.agentPhoneContactRequirement != null ->
+                        generator.writeObject(value.agentPhoneContactRequirement)
+                    value.agentWebhookContactRequirement != null ->
+                        generator.writeObject(value.agentWebhookContactRequirement)
+                    value.agentProfileContactRequirement != null ->
+                        generator.writeObject(value.agentProfileContactRequirement)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Basics")
                 }
             }
         }
 
-        class UnionMember0
+        class AgentPhoneContactRequirement
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val phoneNumber: JsonField<AgentPhoneContact>,
@@ -727,7 +777,8 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [UnionMember0].
+                 * Returns a mutable builder for constructing an instance of
+                 * [AgentPhoneContactRequirement].
                  *
                  * The following fields are required:
                  * ```java
@@ -737,7 +788,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [UnionMember0]. */
+            /** A builder for [AgentPhoneContactRequirement]. */
             class Builder internal constructor() {
 
                 private var phoneNumber: JsonField<AgentPhoneContact>? = null
@@ -752,18 +803,20 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(unionMember0: UnionMember0) = apply {
-                    phoneNumber = unionMember0.phoneNumber
-                    brandColor = unionMember0.brandColor
-                    description = unionMember0.description
-                    email = unionMember0.email
-                    heroUrl = unionMember0.heroUrl
-                    logoUrl = unionMember0.logoUrl
-                    privacyPolicyUrl = unionMember0.privacyPolicyUrl
-                    termsAndConditionsUrl = unionMember0.termsAndConditionsUrl
-                    website = unionMember0.website
-                    additionalProperties = unionMember0.additionalProperties.toMutableMap()
-                }
+                internal fun from(agentPhoneContactRequirement: AgentPhoneContactRequirement) =
+                    apply {
+                        phoneNumber = agentPhoneContactRequirement.phoneNumber
+                        brandColor = agentPhoneContactRequirement.brandColor
+                        description = agentPhoneContactRequirement.description
+                        email = agentPhoneContactRequirement.email
+                        heroUrl = agentPhoneContactRequirement.heroUrl
+                        logoUrl = agentPhoneContactRequirement.logoUrl
+                        privacyPolicyUrl = agentPhoneContactRequirement.privacyPolicyUrl
+                        termsAndConditionsUrl = agentPhoneContactRequirement.termsAndConditionsUrl
+                        website = agentPhoneContactRequirement.website
+                        additionalProperties =
+                            agentPhoneContactRequirement.additionalProperties.toMutableMap()
+                    }
 
                 fun phoneNumber(phoneNumber: AgentPhoneContact) =
                     phoneNumber(JsonField.of(phoneNumber))
@@ -908,7 +961,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [UnionMember0].
+                 * Returns an immutable instance of [AgentPhoneContactRequirement].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -919,8 +972,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): UnionMember0 =
-                    UnionMember0(
+                fun build(): AgentPhoneContactRequirement =
+                    AgentPhoneContactRequirement(
                         checkRequired("phoneNumber", phoneNumber),
                         brandColor,
                         description,
@@ -946,7 +999,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnionMember0 = apply {
+            fun validate(): AgentPhoneContactRequirement = apply {
                 if (validated) {
                     return@apply
                 }
@@ -994,7 +1047,7 @@ private constructor(
                     return true
                 }
 
-                return other is UnionMember0 &&
+                return other is AgentPhoneContactRequirement &&
                     phoneNumber == other.phoneNumber &&
                     brandColor == other.brandColor &&
                     description == other.description &&
@@ -1025,10 +1078,10 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "UnionMember0{phoneNumber=$phoneNumber, brandColor=$brandColor, description=$description, email=$email, heroUrl=$heroUrl, logoUrl=$logoUrl, privacyPolicyUrl=$privacyPolicyUrl, termsAndConditionsUrl=$termsAndConditionsUrl, website=$website, additionalProperties=$additionalProperties}"
+                "AgentPhoneContactRequirement{phoneNumber=$phoneNumber, brandColor=$brandColor, description=$description, email=$email, heroUrl=$heroUrl, logoUrl=$logoUrl, privacyPolicyUrl=$privacyPolicyUrl, termsAndConditionsUrl=$termsAndConditionsUrl, website=$website, additionalProperties=$additionalProperties}"
         }
 
-        class UnionMember1
+        class AgentWebhookContactRequirement
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val website: JsonField<AgentWebsiteContact>,
@@ -1239,7 +1292,8 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [UnionMember1].
+                 * Returns a mutable builder for constructing an instance of
+                 * [AgentWebhookContactRequirement].
                  *
                  * The following fields are required:
                  * ```java
@@ -1249,7 +1303,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [UnionMember1]. */
+            /** A builder for [AgentWebhookContactRequirement]. */
             class Builder internal constructor() {
 
                 private var website: JsonField<AgentWebsiteContact>? = null
@@ -1264,18 +1318,20 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(unionMember1: UnionMember1) = apply {
-                    website = unionMember1.website
-                    brandColor = unionMember1.brandColor
-                    description = unionMember1.description
-                    email = unionMember1.email
-                    heroUrl = unionMember1.heroUrl
-                    logoUrl = unionMember1.logoUrl
-                    phoneNumber = unionMember1.phoneNumber
-                    privacyPolicyUrl = unionMember1.privacyPolicyUrl
-                    termsAndConditionsUrl = unionMember1.termsAndConditionsUrl
-                    additionalProperties = unionMember1.additionalProperties.toMutableMap()
-                }
+                internal fun from(agentWebhookContactRequirement: AgentWebhookContactRequirement) =
+                    apply {
+                        website = agentWebhookContactRequirement.website
+                        brandColor = agentWebhookContactRequirement.brandColor
+                        description = agentWebhookContactRequirement.description
+                        email = agentWebhookContactRequirement.email
+                        heroUrl = agentWebhookContactRequirement.heroUrl
+                        logoUrl = agentWebhookContactRequirement.logoUrl
+                        phoneNumber = agentWebhookContactRequirement.phoneNumber
+                        privacyPolicyUrl = agentWebhookContactRequirement.privacyPolicyUrl
+                        termsAndConditionsUrl = agentWebhookContactRequirement.termsAndConditionsUrl
+                        additionalProperties =
+                            agentWebhookContactRequirement.additionalProperties.toMutableMap()
+                    }
 
                 fun website(website: AgentWebsiteContact) = website(JsonField.of(website))
 
@@ -1421,7 +1477,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [UnionMember1].
+                 * Returns an immutable instance of [AgentWebhookContactRequirement].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -1432,8 +1488,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): UnionMember1 =
-                    UnionMember1(
+                fun build(): AgentWebhookContactRequirement =
+                    AgentWebhookContactRequirement(
                         checkRequired("website", website),
                         brandColor,
                         description,
@@ -1459,7 +1515,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnionMember1 = apply {
+            fun validate(): AgentWebhookContactRequirement = apply {
                 if (validated) {
                     return@apply
                 }
@@ -1507,7 +1563,7 @@ private constructor(
                     return true
                 }
 
-                return other is UnionMember1 &&
+                return other is AgentWebhookContactRequirement &&
                     website == other.website &&
                     brandColor == other.brandColor &&
                     description == other.description &&
@@ -1538,10 +1594,10 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "UnionMember1{website=$website, brandColor=$brandColor, description=$description, email=$email, heroUrl=$heroUrl, logoUrl=$logoUrl, phoneNumber=$phoneNumber, privacyPolicyUrl=$privacyPolicyUrl, termsAndConditionsUrl=$termsAndConditionsUrl, additionalProperties=$additionalProperties}"
+                "AgentWebhookContactRequirement{website=$website, brandColor=$brandColor, description=$description, email=$email, heroUrl=$heroUrl, logoUrl=$logoUrl, phoneNumber=$phoneNumber, privacyPolicyUrl=$privacyPolicyUrl, termsAndConditionsUrl=$termsAndConditionsUrl, additionalProperties=$additionalProperties}"
         }
 
-        class UnionMember2
+        class AgentProfileContactRequirement
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val email: JsonField<AgentEmailContact>,
@@ -1752,7 +1808,8 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [UnionMember2].
+                 * Returns a mutable builder for constructing an instance of
+                 * [AgentProfileContactRequirement].
                  *
                  * The following fields are required:
                  * ```java
@@ -1762,7 +1819,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [UnionMember2]. */
+            /** A builder for [AgentProfileContactRequirement]. */
             class Builder internal constructor() {
 
                 private var email: JsonField<AgentEmailContact>? = null
@@ -1777,18 +1834,20 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(unionMember2: UnionMember2) = apply {
-                    email = unionMember2.email
-                    brandColor = unionMember2.brandColor
-                    description = unionMember2.description
-                    heroUrl = unionMember2.heroUrl
-                    logoUrl = unionMember2.logoUrl
-                    phoneNumber = unionMember2.phoneNumber
-                    privacyPolicyUrl = unionMember2.privacyPolicyUrl
-                    termsAndConditionsUrl = unionMember2.termsAndConditionsUrl
-                    website = unionMember2.website
-                    additionalProperties = unionMember2.additionalProperties.toMutableMap()
-                }
+                internal fun from(agentProfileContactRequirement: AgentProfileContactRequirement) =
+                    apply {
+                        email = agentProfileContactRequirement.email
+                        brandColor = agentProfileContactRequirement.brandColor
+                        description = agentProfileContactRequirement.description
+                        heroUrl = agentProfileContactRequirement.heroUrl
+                        logoUrl = agentProfileContactRequirement.logoUrl
+                        phoneNumber = agentProfileContactRequirement.phoneNumber
+                        privacyPolicyUrl = agentProfileContactRequirement.privacyPolicyUrl
+                        termsAndConditionsUrl = agentProfileContactRequirement.termsAndConditionsUrl
+                        website = agentProfileContactRequirement.website
+                        additionalProperties =
+                            agentProfileContactRequirement.additionalProperties.toMutableMap()
+                    }
 
                 fun email(email: AgentEmailContact) = email(JsonField.of(email))
 
@@ -1934,7 +1993,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [UnionMember2].
+                 * Returns an immutable instance of [AgentProfileContactRequirement].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -1945,8 +2004,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): UnionMember2 =
-                    UnionMember2(
+                fun build(): AgentProfileContactRequirement =
+                    AgentProfileContactRequirement(
                         checkRequired("email", email),
                         brandColor,
                         description,
@@ -1972,7 +2031,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnionMember2 = apply {
+            fun validate(): AgentProfileContactRequirement = apply {
                 if (validated) {
                     return@apply
                 }
@@ -2020,7 +2079,7 @@ private constructor(
                     return true
                 }
 
-                return other is UnionMember2 &&
+                return other is AgentProfileContactRequirement &&
                     email == other.email &&
                     brandColor == other.brandColor &&
                     description == other.description &&
@@ -2051,7 +2110,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "UnionMember2{email=$email, brandColor=$brandColor, description=$description, heroUrl=$heroUrl, logoUrl=$logoUrl, phoneNumber=$phoneNumber, privacyPolicyUrl=$privacyPolicyUrl, termsAndConditionsUrl=$termsAndConditionsUrl, website=$website, additionalProperties=$additionalProperties}"
+                "AgentProfileContactRequirement{email=$email, brandColor=$brandColor, description=$description, heroUrl=$heroUrl, logoUrl=$logoUrl, phoneNumber=$phoneNumber, privacyPolicyUrl=$privacyPolicyUrl, termsAndConditionsUrl=$termsAndConditionsUrl, website=$website, additionalProperties=$additionalProperties}"
         }
     }
 

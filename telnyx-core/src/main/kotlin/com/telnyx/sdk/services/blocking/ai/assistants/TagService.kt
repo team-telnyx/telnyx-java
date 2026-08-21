@@ -64,7 +64,9 @@ interface TagService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TagsResponse
 
-    /** Remove a tag from an AI assistant. */
+    /**
+     * Removes the specified tag from the AI assistant and returns the assistant's updated tag list.
+     */
     fun remove(tag: String, params: TagRemoveParams): TagsResponse =
         remove(tag, params, RequestOptions.none())
 

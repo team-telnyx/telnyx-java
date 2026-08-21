@@ -16,6 +16,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.emailinboxes.threads.InboundThreadListResponse
+import com.telnyx.sdk.models.emailthreads.EmailThreadListPage
 import com.telnyx.sdk.models.emailthreads.EmailThreadListParams
 import com.telnyx.sdk.models.emailthreads.EmailThreadRetrieveParams
 import com.telnyx.sdk.models.emailthreads.EmailThreadRetrieveResponse
@@ -47,7 +48,7 @@ class EmailThreadServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: EmailThreadListParams,
         requestOptions: RequestOptions,
-    ): InboundThreadListResponse =
+    ): EmailThreadListPage =
         // get /email_threads
         withRawResponse().list(params, requestOptions).parse()
 
@@ -100,7 +101,7 @@ class EmailThreadServiceImpl internal constructor(private val clientOptions: Cli
         override fun list(
             params: EmailThreadListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundThreadListResponse> {
+        ): HttpResponseFor<EmailThreadListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -117,6 +118,13 @@ class EmailThreadServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EmailThreadListPage.builder()
+                            .service(EmailThreadServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

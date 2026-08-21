@@ -51,9 +51,6 @@ private constructor(
     fun messageId(): Optional<String> = Optional.ofNullable(messageId)
 
     /**
-     * Set to `true` for server time, an ISO 8601 timestamp for an explicit read time, or `null` to
-     * mark unread.
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -125,10 +122,6 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /**
-         * Set to `true` for server time, an ISO 8601 timestamp for an explicit read time, or `null`
-         * to mark unread.
-         */
         fun readAt(readAt: ReadAt) = apply { body.readAt(readAt) }
 
         /**
@@ -139,8 +132,8 @@ private constructor(
          */
         fun readAt(readAt: JsonField<ReadAt>) = apply { body.readAt(readAt) }
 
-        /** Alias for calling [readAt] with `ReadAt.ofUnionMember0(unionMember0)`. */
-        fun readAt(unionMember0: ReadAt.UnionMember0) = apply { body.readAt(unionMember0) }
+        /** Alias for calling [readAt] with `ReadAt.ofServerReadTime(serverReadTime)`. */
+        fun readAt(serverReadTime: ReadAt.ServerReadTime) = apply { body.readAt(serverReadTime) }
 
         /** Alias for calling [readAt] with `ReadAt.ofOffsetDateTime(offsetDateTime)`. */
         fun readAt(offsetDateTime: OffsetDateTime) = apply { body.readAt(offsetDateTime) }
@@ -312,9 +305,6 @@ private constructor(
         ) : this(readAt, mutableMapOf())
 
         /**
-         * Set to `true` for server time, an ISO 8601 timestamp for an explicit read time, or `null`
-         * to mark unread.
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
@@ -364,10 +354,6 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /**
-             * Set to `true` for server time, an ISO 8601 timestamp for an explicit read time, or
-             * `null` to mark unread.
-             */
             fun readAt(readAt: ReadAt) = readAt(JsonField.of(readAt))
 
             /**
@@ -379,9 +365,9 @@ private constructor(
              */
             fun readAt(readAt: JsonField<ReadAt>) = apply { this.readAt = readAt }
 
-            /** Alias for calling [readAt] with `ReadAt.ofUnionMember0(unionMember0)`. */
-            fun readAt(unionMember0: ReadAt.UnionMember0) =
-                readAt(ReadAt.ofUnionMember0(unionMember0))
+            /** Alias for calling [readAt] with `ReadAt.ofServerReadTime(serverReadTime)`. */
+            fun readAt(serverReadTime: ReadAt.ServerReadTime) =
+                readAt(ReadAt.ofServerReadTime(serverReadTime))
 
             /** Alias for calling [readAt] with `ReadAt.ofOffsetDateTime(offsetDateTime)`. */
             fun readAt(offsetDateTime: OffsetDateTime) =
@@ -475,28 +461,24 @@ private constructor(
         override fun toString() = "Body{readAt=$readAt, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * Set to `true` for server time, an ISO 8601 timestamp for an explicit read time, or `null` to
-     * mark unread.
-     */
     @JsonDeserialize(using = ReadAt.Deserializer::class)
     @JsonSerialize(using = ReadAt.Serializer::class)
     class ReadAt
     private constructor(
-        private val unionMember0: UnionMember0? = null,
+        private val serverReadTime: ServerReadTime? = null,
         private val offsetDateTime: OffsetDateTime? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun unionMember0(): Optional<UnionMember0> = Optional.ofNullable(unionMember0)
+        fun serverReadTime(): Optional<ServerReadTime> = Optional.ofNullable(serverReadTime)
 
         fun offsetDateTime(): Optional<OffsetDateTime> = Optional.ofNullable(offsetDateTime)
 
-        fun isUnionMember0(): Boolean = unionMember0 != null
+        fun isServerReadTime(): Boolean = serverReadTime != null
 
         fun isOffsetDateTime(): Boolean = offsetDateTime != null
 
-        fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
+        fun asServerReadTime(): ServerReadTime = serverReadTime.getOrThrow("serverReadTime")
 
         fun asOffsetDateTime(): OffsetDateTime = offsetDateTime.getOrThrow("offsetDateTime")
 
@@ -514,8 +496,8 @@ private constructor(
          *
          * Optional<String> result = readAt.accept(new ReadAt.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitUnionMember0(UnionMember0 unionMember0) {
-         *         return Optional.of(unionMember0.toString());
+         *     public Optional<String> visitServerReadTime(ServerReadTime serverReadTime) {
+         *         return Optional.of(serverReadTime.toString());
          *     }
          *
          *     // ...
@@ -533,7 +515,7 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
+                serverReadTime != null -> visitor.visitServerReadTime(serverReadTime)
                 offsetDateTime != null -> visitor.visitOffsetDateTime(offsetDateTime)
                 else -> visitor.unknown(_json)
             }
@@ -556,8 +538,8 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitUnionMember0(unionMember0: UnionMember0) {
-                        unionMember0.validate()
+                    override fun visitServerReadTime(serverReadTime: ServerReadTime) {
+                        serverReadTime.validate()
                     }
 
                     override fun visitOffsetDateTime(offsetDateTime: OffsetDateTime) {}
@@ -584,8 +566,8 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitUnionMember0(unionMember0: UnionMember0) =
-                        unionMember0.validity()
+                    override fun visitServerReadTime(serverReadTime: ServerReadTime) =
+                        serverReadTime.validity()
 
                     override fun visitOffsetDateTime(offsetDateTime: OffsetDateTime) = 1
 
@@ -599,15 +581,15 @@ private constructor(
             }
 
             return other is ReadAt &&
-                unionMember0 == other.unionMember0 &&
+                serverReadTime == other.serverReadTime &&
                 offsetDateTime == other.offsetDateTime
         }
 
-        override fun hashCode(): Int = Objects.hash(unionMember0, offsetDateTime)
+        override fun hashCode(): Int = Objects.hash(serverReadTime, offsetDateTime)
 
         override fun toString(): String =
             when {
-                unionMember0 != null -> "ReadAt{unionMember0=$unionMember0}"
+                serverReadTime != null -> "ReadAt{serverReadTime=$serverReadTime}"
                 offsetDateTime != null -> "ReadAt{offsetDateTime=$offsetDateTime}"
                 _json != null -> "ReadAt{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid ReadAt")
@@ -616,7 +598,8 @@ private constructor(
         companion object {
 
             @JvmStatic
-            fun ofUnionMember0(unionMember0: UnionMember0) = ReadAt(unionMember0 = unionMember0)
+            fun ofServerReadTime(serverReadTime: ServerReadTime) =
+                ReadAt(serverReadTime = serverReadTime)
 
             @JvmStatic
             fun ofOffsetDateTime(offsetDateTime: OffsetDateTime) =
@@ -626,7 +609,7 @@ private constructor(
         /** An interface that defines how to map each variant of [ReadAt] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitUnionMember0(unionMember0: UnionMember0): T
+            fun visitServerReadTime(serverReadTime: ServerReadTime): T
 
             fun visitOffsetDateTime(offsetDateTime: OffsetDateTime): T
 
@@ -652,8 +635,8 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<UnionMember0>())?.let {
-                                ReadAt(unionMember0 = it, _json = json)
+                            tryDeserialize(node, jacksonTypeRef<ServerReadTime>())?.let {
+                                ReadAt(serverReadTime = it, _json = json)
                             },
                             tryDeserialize(node, jacksonTypeRef<OffsetDateTime>())?.let {
                                 ReadAt(offsetDateTime = it, _json = json)
@@ -683,7 +666,7 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.unionMember0 != null -> generator.writeObject(value.unionMember0)
+                    value.serverReadTime != null -> generator.writeObject(value.serverReadTime)
                     value.offsetDateTime != null -> generator.writeObject(value.offsetDateTime)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid ReadAt")
@@ -691,8 +674,9 @@ private constructor(
             }
         }
 
-        class UnionMember0 @JsonCreator private constructor(private val value: JsonField<Boolean>) :
-            Enum {
+        class ServerReadTime
+        @JsonCreator
+        private constructor(private val value: JsonField<Boolean>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -708,18 +692,18 @@ private constructor(
 
                 @JvmField val TRUE = of(true)
 
-                @JvmStatic fun of(value: Boolean) = UnionMember0(JsonField.of(value))
+                @JvmStatic fun of(value: Boolean) = ServerReadTime(JsonField.of(value))
             }
 
-            /** An enum containing [UnionMember0]'s known values. */
+            /** An enum containing [ServerReadTime]'s known values. */
             enum class Known {
                 TRUE
             }
 
             /**
-             * An enum containing [UnionMember0]'s known values, as well as an [_UNKNOWN] member.
+             * An enum containing [ServerReadTime]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [UnionMember0] can contain an unknown value in a couple of cases:
+             * An instance of [ServerReadTime] can contain an unknown value in a couple of cases:
              * - It was deserialized from data that doesn't match any known member. For example, if
              *   the SDK is on an older version than the API, then the API may respond with new
              *   members that the SDK is unaware of.
@@ -728,7 +712,7 @@ private constructor(
             enum class Value {
                 TRUE,
                 /**
-                 * An enum member indicating that [UnionMember0] was instantiated with an unknown
+                 * An enum member indicating that [ServerReadTime] was instantiated with an unknown
                  * value.
                  */
                 _UNKNOWN,
@@ -759,7 +743,7 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     TRUE -> Known.TRUE
-                    else -> throw TelnyxInvalidDataException("Unknown UnionMember0: $value")
+                    else -> throw TelnyxInvalidDataException("Unknown ServerReadTime: $value")
                 }
 
             /**
@@ -785,7 +769,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnionMember0 = apply {
+            fun validate(): ServerReadTime = apply {
                 if (validated) {
                     return@apply
                 }
@@ -815,7 +799,7 @@ private constructor(
                     return true
                 }
 
-                return other is UnionMember0 && value == other.value
+                return other is ServerReadTime && value == other.value
             }
 
             override fun hashCode() = value.hashCode()

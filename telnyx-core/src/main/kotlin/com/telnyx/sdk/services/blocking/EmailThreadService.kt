@@ -6,7 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.emailinboxes.threads.InboundThreadListResponse
+import com.telnyx.sdk.models.emailthreads.EmailThreadListPage
 import com.telnyx.sdk.models.emailthreads.EmailThreadListParams
 import com.telnyx.sdk.models.emailthreads.EmailThreadRetrieveParams
 import com.telnyx.sdk.models.emailthreads.EmailThreadRetrieveResponse
@@ -64,21 +64,20 @@ interface EmailThreadService {
      * a thread ID can be delivered to multiple inboxes, each result is identified by its
      * `(inbox_id, id)` pair.
      */
-    fun list(): InboundThreadListResponse = list(EmailThreadListParams.none())
+    fun list(): EmailThreadListPage = list(EmailThreadListParams.none())
 
     /** @see list */
     fun list(
         params: EmailThreadListParams = EmailThreadListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundThreadListResponse
+    ): EmailThreadListPage
 
     /** @see list */
-    fun list(
-        params: EmailThreadListParams = EmailThreadListParams.none()
-    ): InboundThreadListResponse = list(params, RequestOptions.none())
+    fun list(params: EmailThreadListParams = EmailThreadListParams.none()): EmailThreadListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InboundThreadListResponse =
+    fun list(requestOptions: RequestOptions): EmailThreadListPage =
         list(EmailThreadListParams.none(), requestOptions)
 
     /**
@@ -133,24 +132,24 @@ interface EmailThreadService {
          * [EmailThreadService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<InboundThreadListResponse> = list(EmailThreadListParams.none())
+        fun list(): HttpResponseFor<EmailThreadListPage> = list(EmailThreadListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailThreadListParams = EmailThreadListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundThreadListResponse>
+        ): HttpResponseFor<EmailThreadListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailThreadListParams = EmailThreadListParams.none()
-        ): HttpResponseFor<InboundThreadListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<EmailThreadListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundThreadListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailThreadListPage> =
             list(EmailThreadListParams.none(), requestOptions)
     }
 }

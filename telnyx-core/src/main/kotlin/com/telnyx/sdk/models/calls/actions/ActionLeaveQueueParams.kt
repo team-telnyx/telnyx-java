@@ -18,7 +18,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Removes the call from a queue. */
+/**
+ * Removes the call from the queue it is currently waiting in. The call remains active and can be
+ * directed with further call commands.
+ */
 class ActionLeaveQueueParams
 private constructor(
     private val callControlId: String?,

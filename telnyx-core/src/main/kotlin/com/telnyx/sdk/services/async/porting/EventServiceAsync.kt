@@ -29,7 +29,7 @@ interface EventServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventServiceAsync
 
-    /** Show a specific porting event. */
+    /** Returns the details of a single porting event, including its type and payload. */
     fun retrieve(id: String): CompletableFuture<EventRetrieveResponse> =
         retrieve(id, EventRetrieveParams.none())
 
@@ -64,7 +64,11 @@ interface EventServiceAsync {
     ): CompletableFuture<EventRetrieveResponse> =
         retrieve(id, EventRetrieveParams.none(), requestOptions)
 
-    /** Returns a list of all porting events. */
+    /**
+     * Returns a paginated list of porting-related events on your account, such as status changes on
+     * porting orders. Supports filtering and is useful for auditing or reconciling webhook
+     * deliveries.
+     */
     fun list(): CompletableFuture<EventListPageAsync> = list(EventListParams.none())
 
     /** @see list */
@@ -82,7 +86,10 @@ interface EventServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<EventListPageAsync> =
         list(EventListParams.none(), requestOptions)
 
-    /** Republish a specific porting event. */
+    /**
+     * Republishes the specified porting event, triggering re-delivery of the corresponding webhook
+     * to your account.
+     */
     fun republish(id: String): CompletableFuture<Void?> = republish(id, EventRepublishParams.none())
 
     /** @see republish */

@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update an MCP server definition */
+/** Replaces the configuration of the specified MCP server on this mission. */
 class McpServerUpdateMcpServerParams
 private constructor(
     private val missionId: String,

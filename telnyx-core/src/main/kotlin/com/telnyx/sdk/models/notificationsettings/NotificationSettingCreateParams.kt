@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Add a notification setting. */
+/**
+ * Adds a notification setting that enables delivery of a notification event type to a notification
+ * profile.
+ */
 class NotificationSettingCreateParams
 private constructor(
     private val notificationSetting: NotificationSetting?,

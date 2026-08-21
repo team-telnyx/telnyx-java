@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes an existing address. */
+/** Permanently deletes the specified address from your account. */
 class AddressDeleteParams
 private constructor(
     private val id: String?,

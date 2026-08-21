@@ -67,7 +67,7 @@ interface FaxServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<FaxCreateResponse>
 
-    /** Retrieve the details of a single fax. */
+    /** Returns the details of a single fax, including its current status. */
     fun retrieve(id: String): CompletableFuture<FaxRetrieveResponse> =
         retrieve(id, FaxRetrieveParams.none())
 

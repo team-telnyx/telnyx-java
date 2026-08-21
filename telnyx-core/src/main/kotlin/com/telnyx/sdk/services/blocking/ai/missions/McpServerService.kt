@@ -32,7 +32,10 @@ interface McpServerService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): McpServerService
 
-    /** Create a new MCP server for a mission */
+    /**
+     * Adds an MCP server to the specified mission, making the server's tools available to agents
+     * during runs of this mission.
+     */
     fun createMcpServer(missionId: String): McpServerCreateMcpServerResponse =
         createMcpServer(missionId, McpServerCreateMcpServerParams.none())
 
@@ -67,7 +70,10 @@ interface McpServerService {
     ): McpServerCreateMcpServerResponse =
         createMcpServer(missionId, McpServerCreateMcpServerParams.none(), requestOptions)
 
-    /** Delete an MCP server from a mission */
+    /**
+     * Removes the specified MCP server from the mission, revoking agent access to its tools in
+     * subsequent runs.
+     */
     fun deleteMcpServer(mcpServerId: String, params: McpServerDeleteMcpServerParams) =
         deleteMcpServer(mcpServerId, params, RequestOptions.none())
 
@@ -88,7 +94,7 @@ interface McpServerService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** Get a specific MCP server by ID */
+    /** Returns the configuration of a single MCP server attached to the specified mission. */
     fun getMcpServer(
         mcpServerId: String,
         params: McpServerGetMcpServerParams,
@@ -112,7 +118,10 @@ interface McpServerService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): McpServerGetMcpServerResponse
 
-    /** List all MCP servers for a mission */
+    /**
+     * Returns the MCP servers configured on the specified mission. MCP servers expose external
+     * tools and data sources agents can use during runs.
+     */
     fun listMcpServers(missionId: String): McpServerListMcpServersResponse =
         listMcpServers(missionId, McpServerListMcpServersParams.none())
 
@@ -147,7 +156,7 @@ interface McpServerService {
     ): McpServerListMcpServersResponse =
         listMcpServers(missionId, McpServerListMcpServersParams.none(), requestOptions)
 
-    /** Update an MCP server definition */
+    /** Replaces the configuration of the specified MCP server on this mission. */
     fun updateMcpServer(
         mcpServerId: String,
         params: McpServerUpdateMcpServerParams,

@@ -28,7 +28,10 @@ interface TelnyxAgentServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TelnyxAgentServiceAsync
 
-    /** List all Telnyx agents linked to a run */
+    /**
+     * Returns the Telnyx agents currently linked to the specified run. Linked agents participate in
+     * executing the run's plan.
+     */
     fun list(
         runId: String,
         params: TelnyxAgentListParams,
@@ -76,7 +79,10 @@ interface TelnyxAgentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TelnyxAgentLinkResponse>
 
-    /** Unlink a Telnyx agent from a run */
+    /**
+     * Unlinks the specified Telnyx agent from the run so it no longer participates in execution.
+     * The run itself and its history are unaffected.
+     */
     fun unlink(telnyxAgentId: String, params: TelnyxAgentUnlinkParams): CompletableFuture<Void?> =
         unlink(telnyxAgentId, params, RequestOptions.none())
 

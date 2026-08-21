@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesPage
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
-import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
 import com.telnyx.sdk.services.blocking.ai.AnthropicService
@@ -125,14 +125,14 @@ interface AiService {
      */
     fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams
-    ): AiRetrieveConversationHistoriesResponse =
+    ): AiRetrieveConversationHistoriesPage =
         retrieveConversationHistories(params, RequestOptions.none())
 
     /** @see retrieveConversationHistories */
     fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AiRetrieveConversationHistoriesResponse
+    ): AiRetrieveConversationHistoriesPage
 
     /**
      * Generate a summary of a file's contents.
@@ -207,7 +207,7 @@ interface AiService {
         @MustBeClosed
         fun retrieveConversationHistories(
             params: AiRetrieveConversationHistoriesParams
-        ): HttpResponseFor<AiRetrieveConversationHistoriesResponse> =
+        ): HttpResponseFor<AiRetrieveConversationHistoriesPage> =
             retrieveConversationHistories(params, RequestOptions.none())
 
         /** @see retrieveConversationHistories */
@@ -215,7 +215,7 @@ interface AiService {
         fun retrieveConversationHistories(
             params: AiRetrieveConversationHistoriesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AiRetrieveConversationHistoriesResponse>
+        ): HttpResponseFor<AiRetrieveConversationHistoriesPage>
 
         /**
          * Returns a raw HTTP response for `post /ai/summarize`, but is otherwise the same as

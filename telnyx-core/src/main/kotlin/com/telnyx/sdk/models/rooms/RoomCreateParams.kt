@@ -17,7 +17,10 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Synchronously create a Room. */
+/**
+ * Synchronously creates a new video room with the provided configuration and returns the created
+ * room.
+ */
 class RoomCreateParams
 private constructor(
     private val body: Body,

@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a single managed account. */
+/** Updates the specified managed account's attributes and returns the updated account. */
 class ManagedAccountUpdateParams
 private constructor(
     private val id: String?,

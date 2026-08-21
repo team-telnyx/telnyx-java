@@ -14,6 +14,7 @@ internal class ConversationAddMessageParamsTest {
     fun create() {
         ConversationAddMessageParams.builder()
             .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .role("Role")
             .content("")
             .metadata(
@@ -47,10 +48,58 @@ internal class ConversationAddMessageParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            ConversationAddMessageParams.builder()
+                .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .role("Role")
+                .content("")
+                .metadata(
+                    ConversationAddMessageParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .name("Name")
+                .sentAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
+                .toolCallId("Tool Call Id")
+                .addToolCall(
+                    ConversationAddMessageParams.ToolCall.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .toolChoice("string")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params =
+            ConversationAddMessageParams.builder()
+                .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .role("Role")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             ConversationAddMessageParams.builder()
                 .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .role("Role")
                 .content("")
                 .metadata(

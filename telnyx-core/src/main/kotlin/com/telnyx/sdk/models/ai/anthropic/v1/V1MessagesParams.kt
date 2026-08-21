@@ -618,11 +618,11 @@ private constructor(
 
         /**
          * Alias for calling [system] with
-         * `System.ofUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s)`.
+         * `System.ofAnthropicSystemContentItems(anthropicSystemContentItems)`.
          */
-        fun systemOfUnnamedSchemaWithArrayParent1s(
-            unnamedSchemaWithArrayParent1s: List<System.UnnamedSchemaWithArrayParent1>
-        ) = apply { body.systemOfUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s) }
+        fun systemOfAnthropicSystemContentItems(
+            anthropicSystemContentItems: List<System.AnthropicSystemContentItem>
+        ) = apply { body.systemOfAnthropicSystemContentItems(anthropicSystemContentItems) }
 
         /** Amount of randomness injected into the response. Ranges from 0 to 1. */
         fun temperature(temperature: Double) = apply { body.temperature(temperature) }
@@ -1594,11 +1594,11 @@ private constructor(
 
             /**
              * Alias for calling [system] with
-             * `System.ofUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s)`.
+             * `System.ofAnthropicSystemContentItems(anthropicSystemContentItems)`.
              */
-            fun systemOfUnnamedSchemaWithArrayParent1s(
-                unnamedSchemaWithArrayParent1s: List<System.UnnamedSchemaWithArrayParent1>
-            ) = system(System.ofUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s))
+            fun systemOfAnthropicSystemContentItems(
+                anthropicSystemContentItems: List<System.AnthropicSystemContentItem>
+            ) = system(System.ofAnthropicSystemContentItems(anthropicSystemContentItems))
 
             /** Amount of randomness injected into the response. Ranges from 0 to 1. */
             fun temperature(temperature: Double) = temperature(JsonField.of(temperature))
@@ -2347,23 +2347,23 @@ private constructor(
     class System
     private constructor(
         private val string: String? = null,
-        private val unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>? = null,
+        private val anthropicSystemContentItems: List<AnthropicSystemContentItem>? = null,
         private val _json: JsonValue? = null,
     ) {
 
         fun string(): Optional<String> = Optional.ofNullable(string)
 
-        fun unnamedSchemaWithArrayParent1s(): Optional<List<UnnamedSchemaWithArrayParent1>> =
-            Optional.ofNullable(unnamedSchemaWithArrayParent1s)
+        fun anthropicSystemContentItems(): Optional<List<AnthropicSystemContentItem>> =
+            Optional.ofNullable(anthropicSystemContentItems)
 
         fun isString(): Boolean = string != null
 
-        fun isUnnamedSchemaWithArrayParent1s(): Boolean = unnamedSchemaWithArrayParent1s != null
+        fun isAnthropicSystemContentItems(): Boolean = anthropicSystemContentItems != null
 
         fun asString(): String = string.getOrThrow("string")
 
-        fun asUnnamedSchemaWithArrayParent1s(): List<UnnamedSchemaWithArrayParent1> =
-            unnamedSchemaWithArrayParent1s.getOrThrow("unnamedSchemaWithArrayParent1s")
+        fun asAnthropicSystemContentItems(): List<AnthropicSystemContentItem> =
+            anthropicSystemContentItems.getOrThrow("anthropicSystemContentItems")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -2399,8 +2399,8 @@ private constructor(
         fun <T> accept(visitor: Visitor<T>): T =
             when {
                 string != null -> visitor.visitString(string)
-                unnamedSchemaWithArrayParent1s != null ->
-                    visitor.visitUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s)
+                anthropicSystemContentItems != null ->
+                    visitor.visitAnthropicSystemContentItems(anthropicSystemContentItems)
                 else -> visitor.unknown(_json)
             }
 
@@ -2424,10 +2424,10 @@ private constructor(
                 object : Visitor<Unit> {
                     override fun visitString(string: String) {}
 
-                    override fun visitUnnamedSchemaWithArrayParent1s(
-                        unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
+                    override fun visitAnthropicSystemContentItems(
+                        anthropicSystemContentItems: List<AnthropicSystemContentItem>
                     ) {
-                        unnamedSchemaWithArrayParent1s.forEach { it.validate() }
+                        anthropicSystemContentItems.forEach { it.validate() }
                     }
                 }
             )
@@ -2454,9 +2454,9 @@ private constructor(
                 object : Visitor<Int> {
                     override fun visitString(string: String) = 1
 
-                    override fun visitUnnamedSchemaWithArrayParent1s(
-                        unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
-                    ) = unnamedSchemaWithArrayParent1s.sumOf { it.validity().toInt() }
+                    override fun visitAnthropicSystemContentItems(
+                        anthropicSystemContentItems: List<AnthropicSystemContentItem>
+                    ) = anthropicSystemContentItems.sumOf { it.validity().toInt() }
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -2469,16 +2469,16 @@ private constructor(
 
             return other is System &&
                 string == other.string &&
-                unnamedSchemaWithArrayParent1s == other.unnamedSchemaWithArrayParent1s
+                anthropicSystemContentItems == other.anthropicSystemContentItems
         }
 
-        override fun hashCode(): Int = Objects.hash(string, unnamedSchemaWithArrayParent1s)
+        override fun hashCode(): Int = Objects.hash(string, anthropicSystemContentItems)
 
         override fun toString(): String =
             when {
                 string != null -> "System{string=$string}"
-                unnamedSchemaWithArrayParent1s != null ->
-                    "System{unnamedSchemaWithArrayParent1s=$unnamedSchemaWithArrayParent1s}"
+                anthropicSystemContentItems != null ->
+                    "System{anthropicSystemContentItems=$anthropicSystemContentItems}"
                 _json != null -> "System{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid System")
             }
@@ -2488,12 +2488,9 @@ private constructor(
             @JvmStatic fun ofString(string: String) = System(string = string)
 
             @JvmStatic
-            fun ofUnnamedSchemaWithArrayParent1s(
-                unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
-            ) =
-                System(
-                    unnamedSchemaWithArrayParent1s = unnamedSchemaWithArrayParent1s.toImmutable()
-                )
+            fun ofAnthropicSystemContentItems(
+                anthropicSystemContentItems: List<AnthropicSystemContentItem>
+            ) = System(anthropicSystemContentItems = anthropicSystemContentItems.toImmutable())
         }
 
         /** An interface that defines how to map each variant of [System] to a value of type [T]. */
@@ -2501,8 +2498,8 @@ private constructor(
 
             fun visitString(string: String): T
 
-            fun visitUnnamedSchemaWithArrayParent1s(
-                unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
+            fun visitAnthropicSystemContentItems(
+                anthropicSystemContentItems: List<AnthropicSystemContentItem>
             ): T
 
             /**
@@ -2530,11 +2527,8 @@ private constructor(
                             tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                 System(string = it, _json = json)
                             },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<List<UnnamedSchemaWithArrayParent1>>(),
-                                )
-                                ?.let { System(unnamedSchemaWithArrayParent1s = it, _json = json) },
+                            tryDeserialize(node, jacksonTypeRef<List<AnthropicSystemContentItem>>())
+                                ?.let { System(anthropicSystemContentItems = it, _json = json) },
                         )
                         .filterNotNull()
                         .allMaxBy { it.validity() }
@@ -2561,15 +2555,15 @@ private constructor(
             ) {
                 when {
                     value.string != null -> generator.writeObject(value.string)
-                    value.unnamedSchemaWithArrayParent1s != null ->
-                        generator.writeObject(value.unnamedSchemaWithArrayParent1s)
+                    value.anthropicSystemContentItems != null ->
+                        generator.writeObject(value.anthropicSystemContentItems)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid System")
                 }
             }
         }
 
-        class UnnamedSchemaWithArrayParent1
+        class AnthropicSystemContentItem
         @JsonCreator
         private constructor(
             @com.fasterxml.jackson.annotation.JsonValue
@@ -2586,22 +2580,21 @@ private constructor(
 
                 /**
                  * Returns a mutable builder for constructing an instance of
-                 * [UnnamedSchemaWithArrayParent1].
+                 * [AnthropicSystemContentItem].
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [UnnamedSchemaWithArrayParent1]. */
+            /** A builder for [AnthropicSystemContentItem]. */
             class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(unnamedSchemaWithArrayParent1: UnnamedSchemaWithArrayParent1) =
-                    apply {
-                        additionalProperties =
-                            unnamedSchemaWithArrayParent1.additionalProperties.toMutableMap()
-                    }
+                internal fun from(anthropicSystemContentItem: AnthropicSystemContentItem) = apply {
+                    additionalProperties =
+                        anthropicSystemContentItem.additionalProperties.toMutableMap()
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2626,12 +2619,12 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [UnnamedSchemaWithArrayParent1].
+                 * Returns an immutable instance of [AnthropicSystemContentItem].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): UnnamedSchemaWithArrayParent1 =
-                    UnnamedSchemaWithArrayParent1(additionalProperties.toImmutable())
+                fun build(): AnthropicSystemContentItem =
+                    AnthropicSystemContentItem(additionalProperties.toImmutable())
             }
 
             private var validated: Boolean = false
@@ -2646,7 +2639,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnnamedSchemaWithArrayParent1 = apply {
+            fun validate(): AnthropicSystemContentItem = apply {
                 if (validated) {
                     return@apply
                 }
@@ -2677,7 +2670,7 @@ private constructor(
                     return true
                 }
 
-                return other is UnnamedSchemaWithArrayParent1 &&
+                return other is AnthropicSystemContentItem &&
                     additionalProperties == other.additionalProperties
             }
 
@@ -2686,7 +2679,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "UnnamedSchemaWithArrayParent1{additionalProperties=$additionalProperties}"
+                "AnthropicSystemContentItem{additionalProperties=$additionalProperties}"
         }
     }
 

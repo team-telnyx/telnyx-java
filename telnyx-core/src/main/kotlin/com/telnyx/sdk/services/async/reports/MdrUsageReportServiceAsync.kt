@@ -106,7 +106,7 @@ interface MdrUsageReportServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<MdrUsageReportListPageAsync> =
         list(MdrUsageReportListParams.none(), requestOptions)
 
-    /** Delete messaging usage report by id */
+    /** Permanently deletes the specified messaging usage report by its identifier. */
     fun delete(id: String): CompletableFuture<MdrUsageReportDeleteResponse> =
         delete(id, MdrUsageReportDeleteParams.none())
 

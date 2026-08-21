@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Preview a specific LOA configuration. */
+/**
+ * Renders a preview of the LOA document produced by this configuration so you can verify company
+ * details and branding before using it on porting orders.
+ */
 class LoaConfigurationPreview1Params
 private constructor(
     private val id: String?,

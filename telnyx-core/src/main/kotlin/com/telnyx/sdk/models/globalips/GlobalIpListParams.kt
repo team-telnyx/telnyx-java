@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all Global IPs. */
+/**
+ * Returns a paginated list of the Global IPs on your account, including each IP's address and
+ * configuration.
+ */
 class GlobalIpListParams
 private constructor(
     private val pageNumber: Long?,

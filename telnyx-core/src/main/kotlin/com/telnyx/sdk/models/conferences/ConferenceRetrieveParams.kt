@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve an existing conference */
+/** Returns the details of an existing conference, including its current status. */
 class ConferenceRetrieveParams
 private constructor(
     private val id: String?,

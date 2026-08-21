@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateCreateParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateDeleteParams
+import com.telnyx.sdk.models.emailtemplates.EmailTemplateListPageAsync
+import com.telnyx.sdk.models.emailtemplates.EmailTemplateListPageResponse
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateListParams
-import com.telnyx.sdk.models.emailtemplates.EmailTemplateListResponse
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateRenderParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateRenderResponse
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateReplaceParams
@@ -68,7 +69,7 @@ class EmailTemplateServiceAsyncImpl internal constructor(private val clientOptio
     override fun list(
         params: EmailTemplateListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmailTemplateListResponse> =
+    ): CompletableFuture<EmailTemplateListPageAsync> =
         // get /email_templates
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -204,13 +205,13 @@ class EmailTemplateServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val listHandler: Handler<EmailTemplateListResponse> =
-            jsonHandler<EmailTemplateListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EmailTemplateListPageResponse> =
+            jsonHandler<EmailTemplateListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EmailTemplateListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmailTemplateListResponse>> {
+        ): CompletableFuture<HttpResponseFor<EmailTemplateListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -229,6 +230,14 @@ class EmailTemplateServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                EmailTemplateListPageAsync.builder()
+                                    .service(EmailTemplateServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

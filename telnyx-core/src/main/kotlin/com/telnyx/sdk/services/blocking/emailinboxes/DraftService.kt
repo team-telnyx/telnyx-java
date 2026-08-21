@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftCreateParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftDeleteParams
+import com.telnyx.sdk.models.emailinboxes.drafts.DraftListPage
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftListParams
-import com.telnyx.sdk.models.emailinboxes.drafts.DraftListResponse
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftPatchParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftRetrieveParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftSendParams
@@ -128,30 +128,30 @@ interface DraftService {
      * Lists drafts newest first using stable cursor pagination. All access is scoped to the
      * authenticated account and the given inbox.
      */
-    fun list(inboxId: String): DraftListResponse = list(inboxId, DraftListParams.none())
+    fun list(inboxId: String): DraftListPage = list(inboxId, DraftListParams.none())
 
     /** @see list */
     fun list(
         inboxId: String,
         params: DraftListParams = DraftListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DraftListResponse = list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
+    ): DraftListPage = list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
     /** @see list */
-    fun list(inboxId: String, params: DraftListParams = DraftListParams.none()): DraftListResponse =
+    fun list(inboxId: String, params: DraftListParams = DraftListParams.none()): DraftListPage =
         list(inboxId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: DraftListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DraftListResponse
+    ): DraftListPage
 
     /** @see list */
-    fun list(params: DraftListParams): DraftListResponse = list(params, RequestOptions.none())
+    fun list(params: DraftListParams): DraftListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(inboxId: String, requestOptions: RequestOptions): DraftListResponse =
+    fun list(inboxId: String, requestOptions: RequestOptions): DraftListPage =
         list(inboxId, DraftListParams.none(), requestOptions)
 
     /**
@@ -345,7 +345,7 @@ interface DraftService {
          * the same as [DraftService.list].
          */
         @MustBeClosed
-        fun list(inboxId: String): HttpResponseFor<DraftListResponse> =
+        fun list(inboxId: String): HttpResponseFor<DraftListPage> =
             list(inboxId, DraftListParams.none())
 
         /** @see list */
@@ -354,7 +354,7 @@ interface DraftService {
             inboxId: String,
             params: DraftListParams = DraftListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DraftListResponse> =
+        ): HttpResponseFor<DraftListPage> =
             list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
         /** @see list */
@@ -362,26 +362,23 @@ interface DraftService {
         fun list(
             inboxId: String,
             params: DraftListParams = DraftListParams.none(),
-        ): HttpResponseFor<DraftListResponse> = list(inboxId, params, RequestOptions.none())
+        ): HttpResponseFor<DraftListPage> = list(inboxId, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DraftListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DraftListResponse>
+        ): HttpResponseFor<DraftListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: DraftListParams): HttpResponseFor<DraftListResponse> =
+        fun list(params: DraftListParams): HttpResponseFor<DraftListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            inboxId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<DraftListResponse> =
+        fun list(inboxId: String, requestOptions: RequestOptions): HttpResponseFor<DraftListPage> =
             list(inboxId, DraftListParams.none(), requestOptions)
 
         /**

@@ -39,7 +39,7 @@ interface DocumentService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DocumentService
 
-    /** Retrieve a document. */
+    /** Returns the details of a single document on your account, including its metadata. */
     fun retrieve(id: String): DocumentRetrieveResponse = retrieve(id, DocumentRetrieveParams.none())
 
     /** @see retrieve */
@@ -69,7 +69,7 @@ interface DocumentService {
     fun retrieve(id: String, requestOptions: RequestOptions): DocumentRetrieveResponse =
         retrieve(id, DocumentRetrieveParams.none(), requestOptions)
 
-    /** Update a document. */
+    /** Updates the specified document's attributes and returns the updated document. */
     fun update(documentId: String, params: DocumentUpdateParams): DocumentUpdateResponse =
         update(documentId, params, RequestOptions.none())
 
@@ -141,7 +141,7 @@ interface DocumentService {
     fun delete(id: String, requestOptions: RequestOptions): DocumentDeleteResponse =
         delete(id, DocumentDeleteParams.none(), requestOptions)
 
-    /** Download a document. */
+    /** Downloads the raw file content of the specified document as originally uploaded. */
     @MustBeClosed
     fun download(id: String): HttpResponse = download(id, DocumentDownloadParams.none())
 

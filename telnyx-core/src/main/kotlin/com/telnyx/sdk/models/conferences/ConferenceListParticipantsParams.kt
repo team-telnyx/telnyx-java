@@ -12,7 +12,9 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Lists conference participants */
+/**
+ * Returns a paginated list of participants in the specified conference, with support for filtering.
+ */
 class ConferenceListParticipantsParams
 private constructor(
     private val conferenceId: String?,

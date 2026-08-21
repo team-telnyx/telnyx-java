@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.pricing.products.ProductListPageAsync
 import com.telnyx.sdk.models.pricing.products.ProductListPageResponse
 import com.telnyx.sdk.models.pricing.products.ProductListParams
+import com.telnyx.sdk.models.pricing.products.ProductRetrievePageAsync
+import com.telnyx.sdk.models.pricing.products.ProductRetrievePageResponse
 import com.telnyx.sdk.models.pricing.products.ProductRetrieveParams
-import com.telnyx.sdk.models.pricing.products.ProductRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -40,7 +41,7 @@ class ProductServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun retrieve(
         params: ProductRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ProductRetrieveResponse> =
+    ): CompletableFuture<ProductRetrievePageAsync> =
         // get /pricing/products/{slug}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
@@ -64,13 +65,13 @@ class ProductServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<ProductRetrieveResponse> =
-            jsonHandler<ProductRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<ProductRetrievePageResponse> =
+            jsonHandler<ProductRetrievePageResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: ProductRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ProductRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<ProductRetrievePageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("slug", params.slug().getOrNull())
@@ -92,6 +93,14 @@ class ProductServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ProductRetrievePageAsync.builder()
+                                    .service(ProductServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

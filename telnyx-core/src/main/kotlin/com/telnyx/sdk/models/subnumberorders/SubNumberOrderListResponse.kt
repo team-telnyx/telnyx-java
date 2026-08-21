@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class SubNumberOrderListResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<SubNumberOrder>>,
+    private val data: JsonField<List<NumbersSubNumberOrder>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<SubNumberOrder>> = JsonMissing.of(),
+        data: JsonField<List<NumbersSubNumberOrder>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<SubNumberOrder>> = data.getOptional("data")
+    fun data(): Optional<List<NumbersSubNumberOrder>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -52,7 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<SubNumberOrder>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<NumbersSubNumberOrder>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -84,7 +84,7 @@ private constructor(
     /** A builder for [SubNumberOrderListResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<SubNumberOrder>>? = null
+        private var data: JsonField<MutableList<NumbersSubNumberOrder>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -95,25 +95,25 @@ private constructor(
             additionalProperties = subNumberOrderListResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<SubNumberOrder>) = data(JsonField.of(data))
+        fun data(data: List<NumbersSubNumberOrder>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<SubNumberOrder>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed `List<NumbersSubNumberOrder>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<List<SubNumberOrder>>) = apply {
+        fun data(data: JsonField<List<NumbersSubNumberOrder>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [SubNumberOrder] to [Builder.data].
+         * Adds a single [NumbersSubNumberOrder] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: SubNumberOrder) = apply {
+        fun addData(data: NumbersSubNumberOrder) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

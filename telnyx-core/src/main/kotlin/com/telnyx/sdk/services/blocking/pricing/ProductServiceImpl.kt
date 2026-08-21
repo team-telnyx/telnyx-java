@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.pricing.products.ProductListPage
 import com.telnyx.sdk.models.pricing.products.ProductListPageResponse
 import com.telnyx.sdk.models.pricing.products.ProductListParams
+import com.telnyx.sdk.models.pricing.products.ProductRetrievePage
+import com.telnyx.sdk.models.pricing.products.ProductRetrievePageResponse
 import com.telnyx.sdk.models.pricing.products.ProductRetrieveParams
-import com.telnyx.sdk.models.pricing.products.ProductRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -39,7 +40,7 @@ class ProductServiceImpl internal constructor(private val clientOptions: ClientO
     override fun retrieve(
         params: ProductRetrieveParams,
         requestOptions: RequestOptions,
-    ): ProductRetrieveResponse =
+    ): ProductRetrievePage =
         // get /pricing/products/{slug}
         withRawResponse().retrieve(params, requestOptions).parse()
 
@@ -60,13 +61,13 @@ class ProductServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<ProductRetrieveResponse> =
-            jsonHandler<ProductRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<ProductRetrievePageResponse> =
+            jsonHandler<ProductRetrievePageResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: ProductRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ProductRetrieveResponse> {
+        ): HttpResponseFor<ProductRetrievePage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("slug", params.slug().getOrNull())
@@ -86,6 +87,13 @@ class ProductServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ProductRetrievePage.builder()
+                            .service(ProductServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

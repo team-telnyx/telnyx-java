@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a WireGuard Interface. */
+/** Deletes the specified WireGuard interface from its network. */
 class WireguardInterfaceDeleteParams
 private constructor(
     private val id: String?,

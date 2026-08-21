@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update an insight template group */
+/** Updates the specified insight template group and returns the updated group. */
 class InsightGroupUpdateParams
 private constructor(
     private val groupId: String?,

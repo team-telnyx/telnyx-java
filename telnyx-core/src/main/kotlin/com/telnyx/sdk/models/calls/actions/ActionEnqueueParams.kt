@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Put the call in a queue. */
+/**
+ * Places the call into a queue, where it waits until it is removed or bridged to another leg. Queue
+ * behavior is configured through the request body.
+ */
 class ActionEnqueueParams
 private constructor(
     private val callControlId: String?,

@@ -11,13 +11,22 @@ internal class ActionAcceptedResponseTest {
 
     @Test
     fun create() {
-        val actionAcceptedResponse = ActionAcceptedResponse.builder().build()
+        val actionAcceptedResponse =
+            ActionAcceptedResponse.builder()
+                .data(ActionAcceptedResponse.Data.builder().accepted(true).build())
+                .build()
+
+        assertThat(actionAcceptedResponse.data())
+            .isEqualTo(ActionAcceptedResponse.Data.builder().accepted(true).build())
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val actionAcceptedResponse = ActionAcceptedResponse.builder().build()
+        val actionAcceptedResponse =
+            ActionAcceptedResponse.builder()
+                .data(ActionAcceptedResponse.Data.builder().accepted(true).build())
+                .build()
 
         val roundtrippedActionAcceptedResponse =
             jsonMapper.readValue(

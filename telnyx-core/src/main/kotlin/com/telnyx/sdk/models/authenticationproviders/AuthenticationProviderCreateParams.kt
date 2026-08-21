@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates an authentication provider. */
+/**
+ * Creates a new authentication provider for single sign-on, configured from the provided identity
+ * provider details, and returns the created resource.
+ */
 class AuthenticationProviderCreateParams
 private constructor(
     private val body: Body,

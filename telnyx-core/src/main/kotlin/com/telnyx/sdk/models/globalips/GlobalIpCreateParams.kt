@@ -8,7 +8,11 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Create a Global IP. */
+/**
+ * Requests creation of a new Global IP, a static IP address announced from the Telnyx network.
+ * Provisioning is asynchronous, so the request is accepted and the Global IP becomes available once
+ * provisioning completes.
+ */
 class GlobalIpCreateParams
 private constructor(
     private val globalIp: GlobalIp,

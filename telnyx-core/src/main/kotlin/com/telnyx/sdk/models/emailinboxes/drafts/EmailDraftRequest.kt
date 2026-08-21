@@ -27,7 +27,7 @@ import kotlin.jvm.optionals.getOrNull
 class EmailDraftRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val attachments: JsonField<List<JsonValue>>,
+    private val attachments: JsonField<List<Attachment>>,
     private val bcc: JsonField<List<EmailAddressInput>>,
     private val cc: JsonField<List<EmailAddressInput>>,
     private val fromEmail: JsonField<String>,
@@ -36,7 +36,7 @@ private constructor(
     private val html: JsonField<String>,
     private val htmlBody: JsonField<String>,
     private val labels: JsonField<List<String>>,
-    private val metadata: JsonValue,
+    private val metadata: JsonField<Metadata>,
     private val replyTo: JsonField<String>,
     private val subject: JsonField<String>,
     private val tags: JsonField<List<String>>,
@@ -50,7 +50,7 @@ private constructor(
     private constructor(
         @JsonProperty("attachments")
         @ExcludeMissing
-        attachments: JsonField<List<JsonValue>> = JsonMissing.of(),
+        attachments: JsonField<List<Attachment>> = JsonMissing.of(),
         @JsonProperty("bcc")
         @ExcludeMissing
         bcc: JsonField<List<EmailAddressInput>> = JsonMissing.of(),
@@ -63,7 +63,7 @@ private constructor(
         @JsonProperty("html") @ExcludeMissing html: JsonField<String> = JsonMissing.of(),
         @JsonProperty("html_body") @ExcludeMissing htmlBody: JsonField<String> = JsonMissing.of(),
         @JsonProperty("labels") @ExcludeMissing labels: JsonField<List<String>> = JsonMissing.of(),
-        @JsonProperty("metadata") @ExcludeMissing metadata: JsonValue = JsonMissing.of(),
+        @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("reply_to") @ExcludeMissing replyTo: JsonField<String> = JsonMissing.of(),
         @JsonProperty("subject") @ExcludeMissing subject: JsonField<String> = JsonMissing.of(),
         @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
@@ -96,7 +96,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun attachments(): Optional<List<JsonValue>> = attachments.getOptional("attachments")
+    fun attachments(): Optional<List<Attachment>> = attachments.getOptional("attachments")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -149,12 +149,10 @@ private constructor(
     fun labels(): Optional<List<String>> = labels.getOptional("labels")
 
     /**
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```java
-     * MyClass myObject = emailDraftRequest.metadata().convert(MyClass.class);
-     * ```
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonValue = metadata
+    fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -201,7 +199,7 @@ private constructor(
      */
     @JsonProperty("attachments")
     @ExcludeMissing
-    fun _attachments(): JsonField<List<JsonValue>> = attachments
+    fun _attachments(): JsonField<List<Attachment>> = attachments
 
     /**
      * Returns the raw JSON value of [bcc].
@@ -258,6 +256,13 @@ private constructor(
      * Unlike [labels], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("labels") @ExcludeMissing fun _labels(): JsonField<List<String>> = labels
+
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     /**
      * Returns the raw JSON value of [replyTo].
@@ -322,7 +327,7 @@ private constructor(
     /** A builder for [EmailDraftRequest]. */
     class Builder internal constructor() {
 
-        private var attachments: JsonField<MutableList<JsonValue>>? = null
+        private var attachments: JsonField<MutableList<Attachment>>? = null
         private var bcc: JsonField<MutableList<EmailAddressInput>>? = null
         private var cc: JsonField<MutableList<EmailAddressInput>>? = null
         private var fromEmail: JsonField<String> = JsonMissing.of()
@@ -331,7 +336,7 @@ private constructor(
         private var html: JsonField<String> = JsonMissing.of()
         private var htmlBody: JsonField<String> = JsonMissing.of()
         private var labels: JsonField<MutableList<String>>? = null
-        private var metadata: JsonValue = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var replyTo: JsonField<String> = JsonMissing.of()
         private var subject: JsonField<String> = JsonMissing.of()
         private var tags: JsonField<MutableList<String>>? = null
@@ -361,25 +366,25 @@ private constructor(
             additionalProperties = emailDraftRequest.additionalProperties.toMutableMap()
         }
 
-        fun attachments(attachments: List<JsonValue>) = attachments(JsonField.of(attachments))
+        fun attachments(attachments: List<Attachment>) = attachments(JsonField.of(attachments))
 
         /**
          * Sets [Builder.attachments] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.attachments] with a well-typed `List<JsonValue>` value
+         * You should usually call [Builder.attachments] with a well-typed `List<Attachment>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun attachments(attachments: JsonField<List<JsonValue>>) = apply {
+        fun attachments(attachments: JsonField<List<Attachment>>) = apply {
             this.attachments = attachments.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [JsonValue] to [attachments].
+         * Adds a single [Attachment] to [attachments].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addAttachment(attachment: JsonValue) = apply {
+        fun addAttachment(attachment: Attachment) = apply {
             attachments =
                 (attachments ?: JsonField.of(mutableListOf())).also {
                     checkKnown("attachments", it).add(attachment)
@@ -523,7 +528,16 @@ private constructor(
                 }
         }
 
-        fun metadata(metadata: JsonValue) = apply { this.metadata = metadata }
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+        /**
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         fun replyTo(replyTo: String) = replyTo(JsonField.of(replyTo))
 
@@ -679,7 +693,7 @@ private constructor(
             return@apply
         }
 
-        attachments()
+        attachments().ifPresent { it.forEach { it.validate() } }
         bcc().ifPresent { it.forEach { it.validate() } }
         cc().ifPresent { it.forEach { it.validate() } }
         fromEmail()
@@ -688,6 +702,7 @@ private constructor(
         html()
         htmlBody()
         labels()
+        metadata().ifPresent { it.validate() }
         replyTo()
         subject()
         tags()
@@ -712,7 +727,7 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (attachments.asKnown().getOrNull()?.size ?: 0) +
+        (attachments.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (bcc.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (cc.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (fromEmail.asKnown().isPresent) 1 else 0) +
@@ -721,12 +736,121 @@ private constructor(
             (if (html.asKnown().isPresent) 1 else 0) +
             (if (htmlBody.asKnown().isPresent) 1 else 0) +
             (labels.asKnown().getOrNull()?.size ?: 0) +
+            (metadata.asKnown().getOrNull()?.validity() ?: 0) +
             (if (replyTo.asKnown().isPresent) 1 else 0) +
             (if (subject.asKnown().isPresent) 1 else 0) +
             (tags.asKnown().getOrNull()?.size ?: 0) +
             (if (text.asKnown().isPresent) 1 else 0) +
             (if (textBody.asKnown().isPresent) 1 else 0) +
             (to.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+
+    class Attachment
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Attachment]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Attachment]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(attachment: Attachment) = apply {
+                additionalProperties = attachment.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Attachment].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Attachment = Attachment(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Attachment = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Attachment && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Attachment{additionalProperties=$additionalProperties}"
+    }
 
     class Headers
     @JsonCreator
@@ -834,6 +958,114 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() = "Headers{additionalProperties=$additionalProperties}"
+    }
+
+    class Metadata
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties = metadata.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

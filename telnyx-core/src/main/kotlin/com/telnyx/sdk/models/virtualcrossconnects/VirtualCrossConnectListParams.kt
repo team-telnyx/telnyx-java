@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all Virtual Cross Connects. */
+/**
+ * Returns a paginated list of the virtual cross connects on your account, with support for
+ * filtering.
+ */
 class VirtualCrossConnectListParams
 private constructor(
     private val filter: Filter?,

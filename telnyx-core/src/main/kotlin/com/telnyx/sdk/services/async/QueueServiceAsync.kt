@@ -37,7 +37,7 @@ interface QueueServiceAsync {
     /** Queue commands operations */
     fun calls(): CallServiceAsync
 
-    /** Create a new call queue. */
+    /** Creates a new call queue with the provided configuration and returns the created queue. */
     fun create(params: QueueCreateParams): CompletableFuture<QueueCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -47,7 +47,7 @@ interface QueueServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<QueueCreateResponse>
 
-    /** Retrieve an existing call queue */
+    /** Returns the details of an existing call queue, including its current configuration. */
     fun retrieve(queueName: String): CompletableFuture<QueueRetrieveResponse> =
         retrieve(queueName, QueueRetrieveParams.none())
 
@@ -124,7 +124,7 @@ interface QueueServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<QueueListPageAsync> =
         list(QueueListParams.none(), requestOptions)
 
-    /** Delete an existing call queue. */
+    /** Permanently deletes the specified call queue from your account. */
     fun delete(queueName: String): CompletableFuture<Void?> =
         delete(queueName, QueueDeleteParams.none())
 

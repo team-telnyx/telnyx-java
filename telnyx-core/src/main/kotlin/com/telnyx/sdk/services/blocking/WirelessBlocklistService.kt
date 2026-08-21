@@ -75,7 +75,10 @@ interface WirelessBlocklistService {
     fun retrieve(id: String, requestOptions: RequestOptions): WirelessBlocklistRetrieveResponse =
         retrieve(id, WirelessBlocklistRetrieveParams.none(), requestOptions)
 
-    /** Update a Wireless Blocklist. */
+    /**
+     * Updates the specified wireless blocklist. The update is processed asynchronously, so the
+     * request is accepted and completes in the background.
+     */
     fun update(id: String): WirelessBlocklistUpdateResponse =
         update(id, WirelessBlocklistUpdateParams.none())
 
@@ -124,7 +127,7 @@ interface WirelessBlocklistService {
     fun list(requestOptions: RequestOptions): WirelessBlocklistListPage =
         list(WirelessBlocklistListParams.none(), requestOptions)
 
-    /** Deletes the Wireless Blocklist. */
+    /** Permanently deletes the specified wireless blocklist from your account. */
     fun delete(id: String): WirelessBlocklistDeleteResponse =
         delete(id, WirelessBlocklistDeleteParams.none())
 

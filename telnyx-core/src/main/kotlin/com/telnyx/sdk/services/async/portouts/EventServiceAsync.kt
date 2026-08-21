@@ -29,7 +29,7 @@ interface EventServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventServiceAsync
 
-    /** Show a specific port-out event. */
+    /** Returns the details of a single port-out event, including its type and payload. */
     fun retrieve(id: String): CompletableFuture<EventRetrieveResponse> =
         retrieve(id, EventRetrieveParams.none())
 
@@ -64,7 +64,10 @@ interface EventServiceAsync {
     ): CompletableFuture<EventRetrieveResponse> =
         retrieve(id, EventRetrieveParams.none(), requestOptions)
 
-    /** Returns a list of all port-out events. */
+    /**
+     * Returns a paginated list of port-out events on your account, such as status changes on
+     * port-out requests, with support for filtering.
+     */
     fun list(): CompletableFuture<EventListPageAsync> = list(EventListParams.none())
 
     /** @see list */
@@ -82,7 +85,10 @@ interface EventServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<EventListPageAsync> =
         list(EventListParams.none(), requestOptions)
 
-    /** Republish a specific port-out event. */
+    /**
+     * Republishes the specified port-out event, triggering re-delivery of the corresponding webhook
+     * to your account.
+     */
     fun republish(id: String): CompletableFuture<Void?> = republish(id, EventRepublishParams.none())
 
     /** @see republish */

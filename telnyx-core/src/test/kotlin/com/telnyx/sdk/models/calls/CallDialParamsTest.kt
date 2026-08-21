@@ -27,6 +27,10 @@ internal class CallDialParamsTest {
             .answeringMachineDetectionConfig(
                 CallDialParams.AnsweringMachineDetectionConfig.builder()
                     .afterGreetingSilenceMillis(1000)
+                    .beepDetectionProfile(
+                        CallDialParams.AnsweringMachineDetectionConfig.BeepDetectionProfile
+                            .FREQ_ONLY
+                    )
                     .betweenWordsSilenceMillis(1000)
                     .greetingDurationMillis(1000)
                     .greetingSilenceDurationMillis(2000)
@@ -364,6 +368,10 @@ internal class CallDialParamsTest {
                 .answeringMachineDetectionConfig(
                     CallDialParams.AnsweringMachineDetectionConfig.builder()
                         .afterGreetingSilenceMillis(1000)
+                        .beepDetectionProfile(
+                            CallDialParams.AnsweringMachineDetectionConfig.BeepDetectionProfile
+                                .FREQ_ONLY
+                        )
                         .betweenWordsSilenceMillis(1000)
                         .greetingDurationMillis(1000)
                         .greetingSilenceDurationMillis(2000)
@@ -707,6 +715,10 @@ internal class CallDialParamsTest {
             .contains(
                 CallDialParams.AnsweringMachineDetectionConfig.builder()
                     .afterGreetingSilenceMillis(1000)
+                    .beepDetectionProfile(
+                        CallDialParams.AnsweringMachineDetectionConfig.BeepDetectionProfile
+                            .FREQ_ONLY
+                    )
                     .betweenWordsSilenceMillis(1000)
                     .greetingDurationMillis(1000)
                     .greetingSilenceDurationMillis(2000)

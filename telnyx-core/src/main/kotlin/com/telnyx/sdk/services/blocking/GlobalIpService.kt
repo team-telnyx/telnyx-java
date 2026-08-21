@@ -32,7 +32,11 @@ interface GlobalIpService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpService
 
-    /** Create a Global IP. */
+    /**
+     * Requests creation of a new Global IP, a static IP address announced from the Telnyx network.
+     * Provisioning is asynchronous, so the request is accepted and the Global IP becomes available
+     * once provisioning completes.
+     */
     fun create(params: GlobalIpCreateParams): GlobalIpCreateResponse =
         create(params, RequestOptions.none())
 
@@ -52,7 +56,9 @@ interface GlobalIpService {
     /** @see create */
     fun create(globalIp: GlobalIp): GlobalIpCreateResponse = create(globalIp, RequestOptions.none())
 
-    /** Retrieve a Global IP. */
+    /**
+     * Returns the details of a single Global IP, including its address and current configuration.
+     */
     fun retrieve(id: String): GlobalIpRetrieveResponse = retrieve(id, GlobalIpRetrieveParams.none())
 
     /** @see retrieve */
@@ -82,7 +88,10 @@ interface GlobalIpService {
     fun retrieve(id: String, requestOptions: RequestOptions): GlobalIpRetrieveResponse =
         retrieve(id, GlobalIpRetrieveParams.none(), requestOptions)
 
-    /** List all Global IPs. */
+    /**
+     * Returns a paginated list of the Global IPs on your account, including each IP's address and
+     * configuration.
+     */
     fun list(): GlobalIpListPage = list(GlobalIpListParams.none())
 
     /** @see list */
@@ -99,7 +108,7 @@ interface GlobalIpService {
     fun list(requestOptions: RequestOptions): GlobalIpListPage =
         list(GlobalIpListParams.none(), requestOptions)
 
-    /** Delete a Global IP. */
+    /** Deletes the specified Global IP and releases its address back to Telnyx. */
     fun delete(id: String): GlobalIpDeleteResponse = delete(id, GlobalIpDeleteParams.none())
 
     /** @see delete */

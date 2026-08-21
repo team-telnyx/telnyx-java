@@ -19,27 +19,29 @@ import kotlin.jvm.optionals.getOrNull
 class SubNumberOrderRetrieveResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<SubNumberOrder>,
+    private val data: JsonField<NumbersSubNumberOrder>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<SubNumberOrder> = JsonMissing.of()
+        @JsonProperty("data")
+        @ExcludeMissing
+        data: JsonField<NumbersSubNumberOrder> = JsonMissing.of()
     ) : this(data, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<SubNumberOrder> = data.getOptional("data")
+    fun data(): Optional<NumbersSubNumberOrder> = data.getOptional("data")
 
     /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<SubNumberOrder> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<NumbersSubNumberOrder> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -65,7 +67,7 @@ private constructor(
     /** A builder for [SubNumberOrderRetrieveResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<SubNumberOrder> = JsonMissing.of()
+        private var data: JsonField<NumbersSubNumberOrder> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -75,16 +77,16 @@ private constructor(
                 subNumberOrderRetrieveResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: SubNumberOrder) = data(JsonField.of(data))
+        fun data(data: NumbersSubNumberOrder) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed [SubNumberOrder] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.data] with a well-typed [NumbersSubNumberOrder] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun data(data: JsonField<SubNumberOrder>) = apply { this.data = data }
+        fun data(data: JsonField<NumbersSubNumberOrder>) = apply { this.data = data }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

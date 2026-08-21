@@ -69,7 +69,7 @@ interface ActionServiceAsync {
     ): CompletableFuture<ActionActivateResponse> =
         activate(id, ActionActivateParams.none(), requestOptions)
 
-    /** Cancel a porting order */
+    /** Requests cancellation of the porting order and returns the updated order. */
     fun cancel(id: String): CompletableFuture<ActionCancelResponse> =
         cancel(id, ActionCancelParams.none())
 
@@ -104,7 +104,10 @@ interface ActionServiceAsync {
     ): CompletableFuture<ActionCancelResponse> =
         cancel(id, ActionCancelParams.none(), requestOptions)
 
-    /** Confirm and submit your porting order. */
+    /**
+     * Confirms the porting order and submits it for processing. Make sure all required information
+     * and documents are attached before confirming.
+     */
     fun confirm(id: String): CompletableFuture<ActionConfirmResponse> =
         confirm(id, ActionConfirmParams.none())
 

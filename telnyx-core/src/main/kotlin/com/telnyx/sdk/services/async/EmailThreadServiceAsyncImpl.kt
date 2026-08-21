@@ -16,6 +16,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emailinboxes.threads.InboundThreadListResponse
+import com.telnyx.sdk.models.emailthreads.EmailThreadListPageAsync
 import com.telnyx.sdk.models.emailthreads.EmailThreadListParams
 import com.telnyx.sdk.models.emailthreads.EmailThreadRetrieveParams
 import com.telnyx.sdk.models.emailthreads.EmailThreadRetrieveResponse
@@ -48,7 +49,7 @@ class EmailThreadServiceAsyncImpl internal constructor(private val clientOptions
     override fun list(
         params: EmailThreadListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InboundThreadListResponse> =
+    ): CompletableFuture<EmailThreadListPageAsync> =
         // get /email_threads
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -104,7 +105,7 @@ class EmailThreadServiceAsyncImpl internal constructor(private val clientOptions
         override fun list(
             params: EmailThreadListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InboundThreadListResponse>> {
+        ): CompletableFuture<HttpResponseFor<EmailThreadListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -123,6 +124,14 @@ class EmailThreadServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                EmailThreadListPageAsync.builder()
+                                    .service(EmailThreadServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

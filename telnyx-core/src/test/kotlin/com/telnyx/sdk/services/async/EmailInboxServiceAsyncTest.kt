@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.emailinboxes.EmailInboxCreateParams
-import com.telnyx.sdk.models.emailinboxes.EmailInboxListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -47,13 +46,10 @@ internal class EmailInboxServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val emailInboxServiceAsync = client.emailInboxes()
 
-        val emailInboxesFuture =
-            emailInboxServiceAsync.list(
-                EmailInboxListParams.builder().pageCursor("page_cursor").pageSize(1L).build()
-            )
+        val pageFuture = emailInboxServiceAsync.list()
 
-        val emailInboxes = emailInboxesFuture.get()
-        emailInboxes.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

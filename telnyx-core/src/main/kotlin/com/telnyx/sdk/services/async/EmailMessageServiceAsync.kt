@@ -13,10 +13,10 @@ import com.telnyx.sdk.models.emailmessages.EmailMessageCreateParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteAllParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteScheduleParams
+import com.telnyx.sdk.models.emailmessages.EmailMessageListPageAsync
 import com.telnyx.sdk.models.emailmessages.EmailMessageListParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageListResponse
+import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPageAsync
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveResponse
 import com.telnyx.sdk.services.async.emailmessages.RecipientServiceAsync
@@ -103,21 +103,21 @@ interface EmailMessageServiceAsync {
      * cursor pagination are implemented. The legacy `/v2/emails` GET route is a backward-compatible
      * alias for this operation.
      */
-    fun list(): CompletableFuture<EmailMessageListResponse> = list(EmailMessageListParams.none())
+    fun list(): CompletableFuture<EmailMessageListPageAsync> = list(EmailMessageListParams.none())
 
     /** @see list */
     fun list(
         params: EmailMessageListParams = EmailMessageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailMessageListResponse>
+    ): CompletableFuture<EmailMessageListPageAsync>
 
     /** @see list */
     fun list(
         params: EmailMessageListParams = EmailMessageListParams.none()
-    ): CompletableFuture<EmailMessageListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<EmailMessageListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<EmailMessageListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<EmailMessageListPageAsync> =
         list(EmailMessageListParams.none(), requestOptions)
 
     /**
@@ -224,7 +224,7 @@ interface EmailMessageServiceAsync {
      * Lists events for a single message sorted oldest first by `occurred_at asc, id asc`. The
      * legacy `/v2/emails/{id}/events` GET route is a backward-compatible alias.
      */
-    fun retrieveEvents(emailId: String): CompletableFuture<EmailMessageRetrieveEventsResponse> =
+    fun retrieveEvents(emailId: String): CompletableFuture<EmailMessageRetrieveEventsPageAsync> =
         retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none())
 
     /** @see retrieveEvents */
@@ -232,33 +232,33 @@ interface EmailMessageServiceAsync {
         emailId: String,
         params: EmailMessageRetrieveEventsParams = EmailMessageRetrieveEventsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailMessageRetrieveEventsResponse> =
+    ): CompletableFuture<EmailMessageRetrieveEventsPageAsync> =
         retrieveEvents(params.toBuilder().emailId(emailId).build(), requestOptions)
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         emailId: String,
         params: EmailMessageRetrieveEventsParams = EmailMessageRetrieveEventsParams.none(),
-    ): CompletableFuture<EmailMessageRetrieveEventsResponse> =
+    ): CompletableFuture<EmailMessageRetrieveEventsPageAsync> =
         retrieveEvents(emailId, params, RequestOptions.none())
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         params: EmailMessageRetrieveEventsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailMessageRetrieveEventsResponse>
+    ): CompletableFuture<EmailMessageRetrieveEventsPageAsync>
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         params: EmailMessageRetrieveEventsParams
-    ): CompletableFuture<EmailMessageRetrieveEventsResponse> =
+    ): CompletableFuture<EmailMessageRetrieveEventsPageAsync> =
         retrieveEvents(params, RequestOptions.none())
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         emailId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmailMessageRetrieveEventsResponse> =
+    ): CompletableFuture<EmailMessageRetrieveEventsPageAsync> =
         retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none(), requestOptions)
 
     /**
@@ -342,25 +342,25 @@ interface EmailMessageServiceAsync {
          * Returns a raw HTTP response for `get /email_messages`, but is otherwise the same as
          * [EmailMessageServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<EmailMessageListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<EmailMessageListPageAsync>> =
             list(EmailMessageListParams.none())
 
         /** @see list */
         fun list(
             params: EmailMessageListParams = EmailMessageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailMessageListResponse>>
+        ): CompletableFuture<HttpResponseFor<EmailMessageListPageAsync>>
 
         /** @see list */
         fun list(
             params: EmailMessageListParams = EmailMessageListParams.none()
-        ): CompletableFuture<HttpResponseFor<EmailMessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<EmailMessageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageListPageAsync>> =
             list(EmailMessageListParams.none(), requestOptions)
 
         /**
@@ -475,7 +475,7 @@ interface EmailMessageServiceAsync {
          */
         fun retrieveEvents(
             emailId: String
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsPageAsync>> =
             retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none())
 
         /** @see retrieveEvents */
@@ -483,33 +483,33 @@ interface EmailMessageServiceAsync {
             emailId: String,
             params: EmailMessageRetrieveEventsParams = EmailMessageRetrieveEventsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsPageAsync>> =
             retrieveEvents(params.toBuilder().emailId(emailId).build(), requestOptions)
 
         /** @see retrieveEvents */
         fun retrieveEvents(
             emailId: String,
             params: EmailMessageRetrieveEventsParams = EmailMessageRetrieveEventsParams.none(),
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsPageAsync>> =
             retrieveEvents(emailId, params, RequestOptions.none())
 
         /** @see retrieveEvents */
         fun retrieveEvents(
             params: EmailMessageRetrieveEventsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsResponse>>
+        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsPageAsync>>
 
         /** @see retrieveEvents */
         fun retrieveEvents(
             params: EmailMessageRetrieveEventsParams
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsPageAsync>> =
             retrieveEvents(params, RequestOptions.none())
 
         /** @see retrieveEvents */
         fun retrieveEvents(
             emailId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsPageAsync>> =
             retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none(), requestOptions)
     }
 }
