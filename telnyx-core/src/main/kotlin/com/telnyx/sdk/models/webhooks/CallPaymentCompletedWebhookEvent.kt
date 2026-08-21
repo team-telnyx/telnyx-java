@@ -1362,12 +1362,9 @@ private constructor(
                 /** Alias for calling [connectorError] with `ConnectorError.ofString(string)`. */
                 fun connectorError(string: String) = connectorError(ConnectorError.ofString(string))
 
-                /**
-                 * Alias for calling [connectorError] with
-                 * `ConnectorError.ofUnionMember1(unionMember1)`.
-                 */
-                fun connectorError(unionMember1: ConnectorError.UnionMember1) =
-                    connectorError(ConnectorError.ofUnionMember1(unionMember1))
+                /** Alias for calling [connectorError] with `ConnectorError.ofDetails(details)`. */
+                fun connectorError(details: ConnectorError.ConnectorErrorDetails) =
+                    connectorError(ConnectorError.ofDetails(details))
 
                 /** Card expiration date in MMYY format. */
                 fun expirationDate(expirationDate: String) =
@@ -1712,21 +1709,21 @@ private constructor(
             class ConnectorError
             private constructor(
                 private val string: String? = null,
-                private val unionMember1: UnionMember1? = null,
+                private val details: ConnectorErrorDetails? = null,
                 private val _json: JsonValue? = null,
             ) {
 
                 fun string(): Optional<String> = Optional.ofNullable(string)
 
-                fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
+                fun details(): Optional<ConnectorErrorDetails> = Optional.ofNullable(details)
 
                 fun isString(): Boolean = string != null
 
-                fun isUnionMember1(): Boolean = unionMember1 != null
+                fun isDetails(): Boolean = details != null
 
                 fun asString(): String = string.getOrThrow("string")
 
-                fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
+                fun asDetails(): ConnectorErrorDetails = details.getOrThrow("details")
 
                 fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1763,7 +1760,7 @@ private constructor(
                 fun <T> accept(visitor: Visitor<T>): T =
                     when {
                         string != null -> visitor.visitString(string)
-                        unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
+                        details != null -> visitor.visitDetails(details)
                         else -> visitor.unknown(_json)
                     }
 
@@ -1788,8 +1785,8 @@ private constructor(
                         object : Visitor<Unit> {
                             override fun visitString(string: String) {}
 
-                            override fun visitUnionMember1(unionMember1: UnionMember1) {
-                                unionMember1.validate()
+                            override fun visitDetails(details: ConnectorErrorDetails) {
+                                details.validate()
                             }
                         }
                     )
@@ -1816,8 +1813,8 @@ private constructor(
                         object : Visitor<Int> {
                             override fun visitString(string: String) = 1
 
-                            override fun visitUnionMember1(unionMember1: UnionMember1) =
-                                unionMember1.validity()
+                            override fun visitDetails(details: ConnectorErrorDetails) =
+                                details.validity()
 
                             override fun unknown(json: JsonValue?) = 0
                         }
@@ -1830,15 +1827,15 @@ private constructor(
 
                     return other is ConnectorError &&
                         string == other.string &&
-                        unionMember1 == other.unionMember1
+                        details == other.details
                 }
 
-                override fun hashCode(): Int = Objects.hash(string, unionMember1)
+                override fun hashCode(): Int = Objects.hash(string, details)
 
                 override fun toString(): String =
                     when {
                         string != null -> "ConnectorError{string=$string}"
-                        unionMember1 != null -> "ConnectorError{unionMember1=$unionMember1}"
+                        details != null -> "ConnectorError{details=$details}"
                         _json != null -> "ConnectorError{_unknown=$_json}"
                         else -> throw IllegalStateException("Invalid ConnectorError")
                     }
@@ -1848,8 +1845,8 @@ private constructor(
                     @JvmStatic fun ofString(string: String) = ConnectorError(string = string)
 
                     @JvmStatic
-                    fun ofUnionMember1(unionMember1: UnionMember1) =
-                        ConnectorError(unionMember1 = unionMember1)
+                    fun ofDetails(details: ConnectorErrorDetails) =
+                        ConnectorError(details = details)
                 }
 
                 /**
@@ -1860,7 +1857,7 @@ private constructor(
 
                     fun visitString(string: String): T
 
-                    fun visitUnionMember1(unionMember1: UnionMember1): T
+                    fun visitDetails(details: ConnectorErrorDetails): T
 
                     /**
                      * Maps an unknown variant of [ConnectorError] to a value of type [T].
@@ -1885,9 +1882,8 @@ private constructor(
 
                         val bestMatches =
                             sequenceOf(
-                                    tryDeserialize(node, jacksonTypeRef<UnionMember1>())?.let {
-                                        ConnectorError(unionMember1 = it, _json = json)
-                                    },
+                                    tryDeserialize(node, jacksonTypeRef<ConnectorErrorDetails>())
+                                        ?.let { ConnectorError(details = it, _json = json) },
                                     tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                         ConnectorError(string = it, _json = json)
                                     },
@@ -1918,14 +1914,14 @@ private constructor(
                     ) {
                         when {
                             value.string != null -> generator.writeObject(value.string)
-                            value.unionMember1 != null -> generator.writeObject(value.unionMember1)
+                            value.details != null -> generator.writeObject(value.details)
                             value._json != null -> generator.writeObject(value._json)
                             else -> throw IllegalStateException("Invalid ConnectorError")
                         }
                     }
                 }
 
-                class UnionMember1
+                class ConnectorErrorDetails
                 @JsonCreator
                 private constructor(
                     @com.fasterxml.jackson.annotation.JsonValue
@@ -1941,20 +1937,22 @@ private constructor(
                     companion object {
 
                         /**
-                         * Returns a mutable builder for constructing an instance of [UnionMember1].
+                         * Returns a mutable builder for constructing an instance of
+                         * [ConnectorErrorDetails].
                          */
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    /** A builder for [UnionMember1]. */
+                    /** A builder for [ConnectorErrorDetails]. */
                     class Builder internal constructor() {
 
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         @JvmSynthetic
-                        internal fun from(unionMember1: UnionMember1) = apply {
-                            additionalProperties = unionMember1.additionalProperties.toMutableMap()
+                        internal fun from(connectorErrorDetails: ConnectorErrorDetails) = apply {
+                            additionalProperties =
+                                connectorErrorDetails.additionalProperties.toMutableMap()
                         }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -1980,11 +1978,12 @@ private constructor(
                         }
 
                         /**
-                         * Returns an immutable instance of [UnionMember1].
+                         * Returns an immutable instance of [ConnectorErrorDetails].
                          *
                          * Further updates to this [Builder] will not mutate the returned instance.
                          */
-                        fun build(): UnionMember1 = UnionMember1(additionalProperties.toImmutable())
+                        fun build(): ConnectorErrorDetails =
+                            ConnectorErrorDetails(additionalProperties.toImmutable())
                     }
 
                     private var validated: Boolean = false
@@ -1999,7 +1998,7 @@ private constructor(
                      * @throws TelnyxInvalidDataException if any value type in this object doesn't
                      *   match its expected type.
                      */
-                    fun validate(): UnionMember1 = apply {
+                    fun validate(): ConnectorErrorDetails = apply {
                         if (validated) {
                             return@apply
                         }
@@ -2032,7 +2031,7 @@ private constructor(
                             return true
                         }
 
-                        return other is UnionMember1 &&
+                        return other is ConnectorErrorDetails &&
                             additionalProperties == other.additionalProperties
                     }
 
@@ -2041,7 +2040,7 @@ private constructor(
                     override fun hashCode(): Int = hashCode
 
                     override fun toString() =
-                        "UnionMember1{additionalProperties=$additionalProperties}"
+                        "ConnectorErrorDetails{additionalProperties=$additionalProperties}"
                 }
             }
 

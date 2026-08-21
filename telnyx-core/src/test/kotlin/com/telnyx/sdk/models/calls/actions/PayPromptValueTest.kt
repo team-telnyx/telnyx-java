@@ -21,7 +21,7 @@ internal class PayPromptValueTest {
         val payPromptValue = PayPromptValue.ofString(string)
 
         assertThat(payPromptValue.string()).contains(string)
-        assertThat(payPromptValue.prompts()).isEmpty
+        assertThat(payPromptValue.list()).isEmpty
     }
 
     @Test
@@ -40,8 +40,8 @@ internal class PayPromptValueTest {
     }
 
     @Test
-    fun ofPrompts() {
-        val prompts =
+    fun ofList() {
+        val list =
             listOf(
                 PayPromptValue.PayPrompt.builder()
                     .text("Please enter your card number.")
@@ -51,17 +51,17 @@ internal class PayPromptValueTest {
                     .build()
             )
 
-        val payPromptValue = PayPromptValue.ofPrompts(prompts)
+        val payPromptValue = PayPromptValue.ofList(list)
 
         assertThat(payPromptValue.string()).isEmpty
-        assertThat(payPromptValue.prompts()).contains(prompts)
+        assertThat(payPromptValue.list()).contains(list)
     }
 
     @Test
-    fun ofPromptsRoundtrip() {
+    fun ofListRoundtrip() {
         val jsonMapper = jsonMapper()
         val payPromptValue =
-            PayPromptValue.ofPrompts(
+            PayPromptValue.ofList(
                 listOf(
                     PayPromptValue.PayPrompt.builder()
                         .text("Please enter your card number.")

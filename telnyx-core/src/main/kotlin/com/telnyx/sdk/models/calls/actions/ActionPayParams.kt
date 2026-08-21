@@ -2362,9 +2362,9 @@ private constructor(
             fun bankAccountNumber(string: String) =
                 bankAccountNumber(PayPromptValue.ofString(string))
 
-            /** Alias for calling [bankAccountNumber] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun bankAccountNumberOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                bankAccountNumber(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [bankAccountNumber] with `PayPromptValue.ofList(list)`. */
+            fun bankAccountNumberOfList(list: List<PayPromptValue.PayPrompt>) =
+                bankAccountNumber(PayPromptValue.ofList(list))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun bankRoutingNumber(bankRoutingNumber: PayPromptValue) =
@@ -2385,9 +2385,9 @@ private constructor(
             fun bankRoutingNumber(string: String) =
                 bankRoutingNumber(PayPromptValue.ofString(string))
 
-            /** Alias for calling [bankRoutingNumber] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun bankRoutingNumberOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                bankRoutingNumber(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [bankRoutingNumber] with `PayPromptValue.ofList(list)`. */
+            fun bankRoutingNumberOfList(list: List<PayPromptValue.PayPrompt>) =
+                bankRoutingNumber(PayPromptValue.ofList(list))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun expirationDate(expirationDate: PayPromptValue) =
@@ -2407,9 +2407,9 @@ private constructor(
             /** Alias for calling [expirationDate] with `PayPromptValue.ofString(string)`. */
             fun expirationDate(string: String) = expirationDate(PayPromptValue.ofString(string))
 
-            /** Alias for calling [expirationDate] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun expirationDateOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                expirationDate(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [expirationDate] with `PayPromptValue.ofList(list)`. */
+            fun expirationDateOfList(list: List<PayPromptValue.PayPrompt>) =
+                expirationDate(PayPromptValue.ofList(list))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun paymentCardNumber(paymentCardNumber: PayPromptValue) =
@@ -2430,9 +2430,9 @@ private constructor(
             fun paymentCardNumber(string: String) =
                 paymentCardNumber(PayPromptValue.ofString(string))
 
-            /** Alias for calling [paymentCardNumber] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun paymentCardNumberOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                paymentCardNumber(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [paymentCardNumber] with `PayPromptValue.ofList(list)`. */
+            fun paymentCardNumberOfList(list: List<PayPromptValue.PayPrompt>) =
+                paymentCardNumber(PayPromptValue.ofList(list))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun postalCode(postalCode: PayPromptValue) = postalCode(JsonField.of(postalCode))
@@ -2451,9 +2451,9 @@ private constructor(
             /** Alias for calling [postalCode] with `PayPromptValue.ofString(string)`. */
             fun postalCode(string: String) = postalCode(PayPromptValue.ofString(string))
 
-            /** Alias for calling [postalCode] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun postalCodeOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                postalCode(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [postalCode] with `PayPromptValue.ofList(list)`. */
+            fun postalCodeOfList(list: List<PayPromptValue.PayPrompt>) =
+                postalCode(PayPromptValue.ofList(list))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun securityCode(securityCode: PayPromptValue) =
@@ -2473,9 +2473,9 @@ private constructor(
             /** Alias for calling [securityCode] with `PayPromptValue.ofString(string)`. */
             fun securityCode(string: String) = securityCode(PayPromptValue.ofString(string))
 
-            /** Alias for calling [securityCode] with `PayPromptValue.ofPrompts(prompts)`. */
-            fun securityCodeOfPrompts(prompts: List<PayPromptValue.PayPrompt>) =
-                securityCode(PayPromptValue.ofPrompts(prompts))
+            /** Alias for calling [securityCode] with `PayPromptValue.ofList(list)`. */
+            fun securityCodeOfList(list: List<PayPromptValue.PayPrompt>) =
+                securityCode(PayPromptValue.ofList(list))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

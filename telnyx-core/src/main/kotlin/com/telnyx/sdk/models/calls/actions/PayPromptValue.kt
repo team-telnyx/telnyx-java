@@ -36,21 +36,21 @@ import kotlin.jvm.optionals.getOrNull
 class PayPromptValue
 private constructor(
     private val string: String? = null,
-    private val prompts: List<PayPrompt>? = null,
+    private val list: List<PayPrompt>? = null,
     private val _json: JsonValue? = null,
 ) {
 
     fun string(): Optional<String> = Optional.ofNullable(string)
 
-    fun prompts(): Optional<List<PayPrompt>> = Optional.ofNullable(prompts)
+    fun list(): Optional<List<PayPrompt>> = Optional.ofNullable(list)
 
     fun isString(): Boolean = string != null
 
-    fun isPrompts(): Boolean = prompts != null
+    fun isList(): Boolean = list != null
 
     fun asString(): String = string.getOrThrow("string")
 
-    fun asPrompts(): List<PayPrompt> = prompts.getOrThrow("prompts")
+    fun asList(): List<PayPrompt> = list.getOrThrow("list")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -86,7 +86,7 @@ private constructor(
     fun <T> accept(visitor: Visitor<T>): T =
         when {
             string != null -> visitor.visitString(string)
-            prompts != null -> visitor.visitPrompts(prompts)
+            list != null -> visitor.visitList(list)
             else -> visitor.unknown(_json)
         }
 
@@ -109,8 +109,8 @@ private constructor(
             object : Visitor<Unit> {
                 override fun visitString(string: String) {}
 
-                override fun visitPrompts(prompts: List<PayPrompt>) {
-                    prompts.forEach { it.validate() }
+                override fun visitList(list: List<PayPrompt>) {
+                    list.forEach { it.validate() }
                 }
             }
         )
@@ -136,8 +136,7 @@ private constructor(
             object : Visitor<Int> {
                 override fun visitString(string: String) = 1
 
-                override fun visitPrompts(prompts: List<PayPrompt>) =
-                    prompts.sumOf { it.validity().toInt() }
+                override fun visitList(list: List<PayPrompt>) = list.sumOf { it.validity().toInt() }
 
                 override fun unknown(json: JsonValue?) = 0
             }
@@ -148,15 +147,15 @@ private constructor(
             return true
         }
 
-        return other is PayPromptValue && string == other.string && prompts == other.prompts
+        return other is PayPromptValue && string == other.string && list == other.list
     }
 
-    override fun hashCode(): Int = Objects.hash(string, prompts)
+    override fun hashCode(): Int = Objects.hash(string, list)
 
     override fun toString(): String =
         when {
             string != null -> "PayPromptValue{string=$string}"
-            prompts != null -> "PayPromptValue{prompts=$prompts}"
+            list != null -> "PayPromptValue{list=$list}"
             _json != null -> "PayPromptValue{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid PayPromptValue")
         }
@@ -165,8 +164,7 @@ private constructor(
 
         @JvmStatic fun ofString(string: String) = PayPromptValue(string = string)
 
-        @JvmStatic
-        fun ofPrompts(prompts: List<PayPrompt>) = PayPromptValue(prompts = prompts.toImmutable())
+        @JvmStatic fun ofList(list: List<PayPrompt>) = PayPromptValue(list = list.toImmutable())
     }
 
     /**
@@ -176,7 +174,7 @@ private constructor(
 
         fun visitString(string: String): T
 
-        fun visitPrompts(prompts: List<PayPrompt>): T
+        fun visitList(list: List<PayPrompt>): T
 
         /**
          * Maps an unknown variant of [PayPromptValue] to a value of type [T].
@@ -204,7 +202,7 @@ private constructor(
                             PayPromptValue(string = it, _json = json)
                         },
                         tryDeserialize(node, jacksonTypeRef<List<PayPrompt>>())?.let {
-                            PayPromptValue(prompts = it, _json = json)
+                            PayPromptValue(list = it, _json = json)
                         },
                     )
                     .filterNotNull()
@@ -231,7 +229,7 @@ private constructor(
         ) {
             when {
                 value.string != null -> generator.writeObject(value.string)
-                value.prompts != null -> generator.writeObject(value.prompts)
+                value.list != null -> generator.writeObject(value.list)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid PayPromptValue")
             }

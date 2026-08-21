@@ -13,13 +13,11 @@ internal class ActionForwardParamsTest {
             .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .messageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .to("new@example.com")
-            .bccOfEmailAddressInputs(
-                listOf(InboxActionEmailAddressInput.ofString("blind@example.com"))
-            )
-            .ccOfEmailAddressInputs(
+            .bccOfRecipientList(listOf(InboxActionEmailAddressInput.ofString("blind@example.com")))
+            .ccOfRecipientList(
                 listOf(
-                    InboxActionEmailAddressInput.ofUnionMember1(
-                        InboxActionEmailAddressInput.UnionMember1.builder()
+                    InboxActionEmailAddressInput.ofRecipientAddress(
+                        InboxActionEmailAddressInput.InboxRecipientAddress.builder()
                             .email("copy@example.com")
                             .name("name")
                             .build()
@@ -53,13 +51,13 @@ internal class ActionForwardParamsTest {
                 .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .messageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .to("new@example.com")
-                .bccOfEmailAddressInputs(
+                .bccOfRecipientList(
                     listOf(InboxActionEmailAddressInput.ofString("blind@example.com"))
                 )
-                .ccOfEmailAddressInputs(
+                .ccOfRecipientList(
                     listOf(
-                        InboxActionEmailAddressInput.ofUnionMember1(
-                            InboxActionEmailAddressInput.UnionMember1.builder()
+                        InboxActionEmailAddressInput.ofRecipientAddress(
+                            InboxActionEmailAddressInput.InboxRecipientAddress.builder()
                                 .email("copy@example.com")
                                 .name("name")
                                 .build()
@@ -75,16 +73,16 @@ internal class ActionForwardParamsTest {
         assertThat(body.to()).isEqualTo(ActionForwardParams.To.ofString("new@example.com"))
         assertThat(body.bcc())
             .contains(
-                InboxActionRecipientInput.ofEmailAddressInputs(
+                InboxActionRecipientInput.ofRecipientList(
                     listOf(InboxActionEmailAddressInput.ofString("blind@example.com"))
                 )
             )
         assertThat(body.cc())
             .contains(
-                InboxActionRecipientInput.ofEmailAddressInputs(
+                InboxActionRecipientInput.ofRecipientList(
                     listOf(
-                        InboxActionEmailAddressInput.ofUnionMember1(
-                            InboxActionEmailAddressInput.UnionMember1.builder()
+                        InboxActionEmailAddressInput.ofRecipientAddress(
+                            InboxActionEmailAddressInput.InboxRecipientAddress.builder()
                                 .email("copy@example.com")
                                 .name("name")
                                 .build()

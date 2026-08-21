@@ -35,7 +35,7 @@ internal class AgentServiceTest {
                     .configuration(
                         AgentConfiguration.builder()
                             .basics(
-                                AgentConfiguration.Basics.UnionMember0.builder()
+                                AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                                     .email(
                                         AgentEmailContact.builder()
                                             .address("support@example.com")
@@ -144,7 +144,7 @@ internal class AgentServiceTest {
                     .configuration(
                         AgentConfiguration.builder()
                             .basics(
-                                AgentConfiguration.Basics.UnionMember0.builder()
+                                AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                                     .phoneNumber(
                                         AgentPhoneContact.builder()
                                             .label("x")

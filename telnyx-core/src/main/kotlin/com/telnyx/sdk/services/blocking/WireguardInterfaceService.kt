@@ -35,22 +35,14 @@ interface WireguardInterfaceService {
      * Create a new WireGuard Interface. Current limitation of 10 interfaces per user can be
      * created.
      */
-    fun create(): WireguardInterfaceCreateResponse = create(WireguardInterfaceCreateParams.none())
+    fun create(params: WireguardInterfaceCreateParams): WireguardInterfaceCreateResponse =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: WireguardInterfaceCreateParams = WireguardInterfaceCreateParams.none(),
+        params: WireguardInterfaceCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireguardInterfaceCreateResponse
-
-    /** @see create */
-    fun create(
-        params: WireguardInterfaceCreateParams = WireguardInterfaceCreateParams.none()
-    ): WireguardInterfaceCreateResponse = create(params, RequestOptions.none())
-
-    /** @see create */
-    fun create(requestOptions: RequestOptions): WireguardInterfaceCreateResponse =
-        create(WireguardInterfaceCreateParams.none(), requestOptions)
 
     /** Returns the details of a single WireGuard interface by its identifier. */
     fun retrieve(id: String): WireguardInterfaceRetrieveResponse =
@@ -156,28 +148,16 @@ interface WireguardInterfaceService {
          * as [WireguardInterfaceService.create].
          */
         @MustBeClosed
-        fun create(): HttpResponseFor<WireguardInterfaceCreateResponse> =
-            create(WireguardInterfaceCreateParams.none())
-
-        /** @see create */
-        @MustBeClosed
         fun create(
-            params: WireguardInterfaceCreateParams = WireguardInterfaceCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<WireguardInterfaceCreateResponse>
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            params: WireguardInterfaceCreateParams = WireguardInterfaceCreateParams.none()
+            params: WireguardInterfaceCreateParams
         ): HttpResponseFor<WireguardInterfaceCreateResponse> = create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<WireguardInterfaceCreateResponse> =
-            create(WireguardInterfaceCreateParams.none(), requestOptions)
+            params: WireguardInterfaceCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireguardInterfaceCreateResponse>
 
         /**
          * Returns a raw HTTP response for `get /wireguard_interfaces/{id}`, but is otherwise the

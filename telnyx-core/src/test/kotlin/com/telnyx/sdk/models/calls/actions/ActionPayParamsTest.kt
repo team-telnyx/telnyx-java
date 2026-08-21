@@ -38,7 +38,7 @@ internal class ActionPayParamsTest {
                     .bankAccountNumber("x")
                     .bankRoutingNumber("x")
                     .expirationDate("x")
-                    .paymentCardNumberOfPrompts(
+                    .paymentCardNumberOfList(
                         listOf(
                             PayPromptValue.PayPrompt.builder()
                                 .text("Please enter your card number.")
@@ -105,7 +105,7 @@ internal class ActionPayParamsTest {
                         .bankAccountNumber("x")
                         .bankRoutingNumber("x")
                         .expirationDate("x")
-                        .paymentCardNumberOfPrompts(
+                        .paymentCardNumberOfList(
                             listOf(
                                 PayPromptValue.PayPrompt.builder()
                                     .text("Please enter your card number.")
@@ -166,7 +166,7 @@ internal class ActionPayParamsTest {
                     .bankAccountNumber("x")
                     .bankRoutingNumber("x")
                     .expirationDate("x")
-                    .paymentCardNumberOfPrompts(
+                    .paymentCardNumberOfList(
                         listOf(
                             PayPromptValue.PayPrompt.builder()
                                 .text("Please enter your card number.")

@@ -97,8 +97,8 @@ private constructor(
         /** Alias for calling [Builder.force] with `force.orElse(null)`. */
         fun force(force: Optional<Force>) = force(force.getOrNull())
 
-        /** Alias for calling [force] with `Force.ofUnionMember0(unionMember0)`. */
-        fun force(unionMember0: Force.UnionMember0) = force(Force.ofUnionMember0(unionMember0))
+        /** Alias for calling [force] with `Force.ofString(string)`. */
+        fun force(string: Force.ForceString) = force(Force.ofString(string))
 
         /** Alias for calling [force] with `Force.ofBool(bool)`. */
         fun force(bool: Boolean) = force(Force.ofBool(bool))
@@ -255,8 +255,8 @@ private constructor(
             .apply {
                 force?.accept(
                     object : Force.Visitor<Unit> {
-                        override fun visitUnionMember0(unionMember0: Force.UnionMember0) {
-                            put("force", unionMember0.toString())
+                        override fun visitString(string: Force.ForceString) {
+                            put("force", string.toString())
                         }
 
                         override fun visitBool(bool: Boolean) {
@@ -274,19 +274,19 @@ private constructor(
      */
     class Force
     private constructor(
-        private val unionMember0: UnionMember0? = null,
+        private val string: ForceString? = null,
         private val bool: Boolean? = null,
     ) {
 
-        fun unionMember0(): Optional<UnionMember0> = Optional.ofNullable(unionMember0)
+        fun string(): Optional<ForceString> = Optional.ofNullable(string)
 
         fun bool(): Optional<Boolean> = Optional.ofNullable(bool)
 
-        fun isUnionMember0(): Boolean = unionMember0 != null
+        fun isString(): Boolean = string != null
 
         fun isBool(): Boolean = bool != null
 
-        fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
+        fun asString(): ForceString = string.getOrThrow("string")
 
         fun asBool(): Boolean = bool.getOrThrow("bool")
 
@@ -295,7 +295,7 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
+                string != null -> visitor.visitString(string)
                 bool != null -> visitor.visitBool(bool)
                 else -> throw IllegalStateException("Invalid Force")
             }
@@ -305,22 +305,21 @@ private constructor(
                 return true
             }
 
-            return other is Force && unionMember0 == other.unionMember0 && bool == other.bool
+            return other is Force && string == other.string && bool == other.bool
         }
 
-        override fun hashCode(): Int = Objects.hash(unionMember0, bool)
+        override fun hashCode(): Int = Objects.hash(string, bool)
 
         override fun toString(): String =
             when {
-                unionMember0 != null -> "Force{unionMember0=$unionMember0}"
+                string != null -> "Force{string=$string}"
                 bool != null -> "Force{bool=$bool}"
                 else -> throw IllegalStateException("Invalid Force")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofUnionMember0(unionMember0: UnionMember0) = Force(unionMember0 = unionMember0)
+            @JvmStatic fun ofString(string: ForceString) = Force(string = string)
 
             @JvmStatic fun ofBool(bool: Boolean) = Force(bool = bool)
         }
@@ -328,12 +327,12 @@ private constructor(
         /** An interface that defines how to map each variant of [Force] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitUnionMember0(unionMember0: UnionMember0): T
+            fun visitString(string: ForceString): T
 
             fun visitBool(bool: Boolean): T
         }
 
-        class UnionMember0 @JsonCreator private constructor(private val value: JsonField<String>) :
+        class ForceString @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
 
             /**
@@ -352,19 +351,19 @@ private constructor(
 
                 @JvmField val FALSE = of("false")
 
-                @JvmStatic fun of(value: String) = UnionMember0(JsonField.of(value))
+                @JvmStatic fun of(value: String) = ForceString(JsonField.of(value))
             }
 
-            /** An enum containing [UnionMember0]'s known values. */
+            /** An enum containing [ForceString]'s known values. */
             enum class Known {
                 TRUE,
                 FALSE,
             }
 
             /**
-             * An enum containing [UnionMember0]'s known values, as well as an [_UNKNOWN] member.
+             * An enum containing [ForceString]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [UnionMember0] can contain an unknown value in a couple of cases:
+             * An instance of [ForceString] can contain an unknown value in a couple of cases:
              * - It was deserialized from data that doesn't match any known member. For example, if
              *   the SDK is on an older version than the API, then the API may respond with new
              *   members that the SDK is unaware of.
@@ -374,7 +373,7 @@ private constructor(
                 TRUE,
                 FALSE,
                 /**
-                 * An enum member indicating that [UnionMember0] was instantiated with an unknown
+                 * An enum member indicating that [ForceString] was instantiated with an unknown
                  * value.
                  */
                 _UNKNOWN,
@@ -407,7 +406,7 @@ private constructor(
                 when (this) {
                     TRUE -> Known.TRUE
                     FALSE -> Known.FALSE
-                    else -> throw TelnyxInvalidDataException("Unknown UnionMember0: $value")
+                    else -> throw TelnyxInvalidDataException("Unknown ForceString: $value")
                 }
 
             /**
@@ -436,7 +435,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnionMember0 = apply {
+            fun validate(): ForceString = apply {
                 if (validated) {
                     return@apply
                 }
@@ -466,7 +465,7 @@ private constructor(
                     return true
                 }
 
-                return other is UnionMember0 && value == other.value
+                return other is ForceString && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
