@@ -14,7 +14,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a list of all port-out events. */
+/**
+ * Returns a paginated list of port-out events on your account, such as status changes on port-out
+ * requests, with support for filtering.
+ */
 class EventListParams
 private constructor(
     private val filter: Filter?,

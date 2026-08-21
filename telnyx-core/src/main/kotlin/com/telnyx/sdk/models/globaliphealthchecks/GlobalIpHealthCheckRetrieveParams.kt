@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a Global IP health check. */
+/** Returns the details of a single Global IP health check, including its type and configuration. */
 class GlobalIpHealthCheckRetrieveParams
 private constructor(
     private val id: String?,

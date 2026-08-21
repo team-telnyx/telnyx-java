@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve integration details */
+/** Returns the details of a single available integration, including its configuration details. */
 class IntegrationRetrieveParams
 private constructor(
     private val integrationId: String?,

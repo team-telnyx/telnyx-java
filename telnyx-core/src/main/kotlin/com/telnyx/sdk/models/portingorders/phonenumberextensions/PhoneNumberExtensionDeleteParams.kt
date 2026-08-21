@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes a phone number extension. */
+/** Deletes the specified phone number extension from the porting order. */
 class PhoneNumberExtensionDeleteParams
 private constructor(
     private val portingOrderId: String,

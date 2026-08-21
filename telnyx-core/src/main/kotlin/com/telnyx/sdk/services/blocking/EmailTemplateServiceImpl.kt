@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateCreateParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateDeleteParams
+import com.telnyx.sdk.models.emailtemplates.EmailTemplateListPage
+import com.telnyx.sdk.models.emailtemplates.EmailTemplateListPageResponse
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateListParams
-import com.telnyx.sdk.models.emailtemplates.EmailTemplateListResponse
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateRenderParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateRenderResponse
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateReplaceParams
@@ -67,7 +68,7 @@ class EmailTemplateServiceImpl internal constructor(private val clientOptions: C
     override fun list(
         params: EmailTemplateListParams,
         requestOptions: RequestOptions,
-    ): EmailTemplateListResponse =
+    ): EmailTemplateListPage =
         // get /email_templates
         withRawResponse().list(params, requestOptions).parse()
 
@@ -192,13 +193,13 @@ class EmailTemplateServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<EmailTemplateListResponse> =
-            jsonHandler<EmailTemplateListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EmailTemplateListPageResponse> =
+            jsonHandler<EmailTemplateListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EmailTemplateListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailTemplateListResponse> {
+        ): HttpResponseFor<EmailTemplateListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -215,6 +216,13 @@ class EmailTemplateServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EmailTemplateListPage.builder()
+                            .service(EmailTemplateServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -37,7 +37,10 @@ interface CredentialConnectionServiceAsync {
     /** Credential connection operations */
     fun actions(): ActionServiceAsync
 
-    /** Creates a credential connection. */
+    /**
+     * Creates a new credential-based SIP connection. Credential connections authenticate with a
+     * username and password rather than by IP address.
+     */
     fun create(
         params: CredentialConnectionCreateParams
     ): CompletableFuture<CredentialConnectionCreateResponse> = create(params, RequestOptions.none())

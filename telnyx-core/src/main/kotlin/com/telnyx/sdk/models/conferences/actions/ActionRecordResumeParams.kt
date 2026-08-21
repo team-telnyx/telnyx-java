@@ -18,7 +18,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Resume conference recording. */
+/**
+ * Resumes a previously paused recording of the specified conference, continuing capture from the
+ * point it was paused.
+ */
 class ActionRecordResumeParams
 private constructor(
     private val id: String?,

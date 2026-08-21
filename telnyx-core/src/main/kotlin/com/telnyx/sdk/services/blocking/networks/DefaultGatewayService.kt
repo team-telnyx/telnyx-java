@@ -29,7 +29,10 @@ interface DefaultGatewayService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DefaultGatewayService
 
-    /** Create Default Gateway. */
+    /**
+     * Creates a default gateway on the specified network, directing the network's outbound traffic
+     * through the chosen gateway.
+     */
     fun create(
         networkIdentifier: String,
         params: DefaultGatewayCreateParams,
@@ -53,7 +56,7 @@ interface DefaultGatewayService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DefaultGatewayCreateResponse
 
-    /** Get Default Gateway status. */
+    /** Returns the status of the default gateway configured on the specified network. */
     fun retrieve(id: String): DefaultGatewayRetrieveResponse =
         retrieve(id, DefaultGatewayRetrieveParams.none())
 
@@ -84,7 +87,7 @@ interface DefaultGatewayService {
     fun retrieve(id: String, requestOptions: RequestOptions): DefaultGatewayRetrieveResponse =
         retrieve(id, DefaultGatewayRetrieveParams.none(), requestOptions)
 
-    /** Delete Default Gateway. */
+    /** Removes the default gateway from the specified network. */
     fun delete(id: String): DefaultGatewayDeleteResponse =
         delete(id, DefaultGatewayDeleteParams.none())
 

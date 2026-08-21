@@ -14,9 +14,9 @@ internal class ConversationalComponentPatchAllResponseTest {
         val conversationalComponentPatchAllResponse =
             ConversationalComponentPatchAllResponse.builder()
                 .data(
-                    ConversationalComponentPatchAllResponse.Data.builder()
+                    WhatsappConversationalComponent.builder()
                         .addCommand(
-                            ConversationalComponentPatchAllResponse.Data.Command.builder()
+                            WhatsappConversationalComponent.Command.builder()
                                 .command("command")
                                 .description("description")
                                 .build()
@@ -30,9 +30,9 @@ internal class ConversationalComponentPatchAllResponseTest {
 
         assertThat(conversationalComponentPatchAllResponse.data())
             .contains(
-                ConversationalComponentPatchAllResponse.Data.builder()
+                WhatsappConversationalComponent.builder()
                     .addCommand(
-                        ConversationalComponentPatchAllResponse.Data.Command.builder()
+                        WhatsappConversationalComponent.Command.builder()
                             .command("command")
                             .description("description")
                             .build()
@@ -50,9 +50,9 @@ internal class ConversationalComponentPatchAllResponseTest {
         val conversationalComponentPatchAllResponse =
             ConversationalComponentPatchAllResponse.builder()
                 .data(
-                    ConversationalComponentPatchAllResponse.Data.builder()
+                    WhatsappConversationalComponent.builder()
                         .addCommand(
-                            ConversationalComponentPatchAllResponse.Data.Command.builder()
+                            WhatsappConversationalComponent.Command.builder()
                                 .command("command")
                                 .description("description")
                                 .build()

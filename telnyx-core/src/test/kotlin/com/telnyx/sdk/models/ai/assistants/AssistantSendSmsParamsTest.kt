@@ -12,6 +12,7 @@ internal class AssistantSendSmsParamsTest {
     fun create() {
         AssistantSendSmsParams.builder()
             .assistantId("assistant_id")
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .from("From")
             .to("To")
             .conversationMetadata(
@@ -39,10 +40,52 @@ internal class AssistantSendSmsParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            AssistantSendSmsParams.builder()
+                .assistantId("assistant_id")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .from("From")
+                .to("To")
+                .conversationMetadata(
+                    AssistantSendSmsParams.ConversationMetadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .shouldCreateConversation(false)
+                .text("Text")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params =
+            AssistantSendSmsParams.builder()
+                .assistantId("assistant_id")
+                .from("From")
+                .to("To")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             AssistantSendSmsParams.builder()
                 .assistantId("assistant_id")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .from("From")
                 .to("To")
                 .conversationMetadata(

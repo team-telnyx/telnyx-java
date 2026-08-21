@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a call control application. */
+/**
+ * Creates a call control application, which defines the webhook endpoints and settings used to
+ * control calls on associated connections.
+ */
 class CallControlApplicationCreateParams
 private constructor(
     private val body: Body,

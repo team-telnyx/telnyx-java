@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new mobile voice connection. */
+/**
+ * Creates a new mobile voice connection with the provided configuration and returns the created
+ * connection.
+ */
 class MobileVoiceConnectionCreateParams
 private constructor(
     private val body: Body,

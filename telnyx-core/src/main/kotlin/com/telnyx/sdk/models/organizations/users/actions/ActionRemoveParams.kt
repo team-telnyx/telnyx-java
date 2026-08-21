@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes a user in your organization. */
+/** Removes the specified user from your organization and returns the result of the removal. */
 class ActionRemoveParams
 private constructor(
     private val id: String?,

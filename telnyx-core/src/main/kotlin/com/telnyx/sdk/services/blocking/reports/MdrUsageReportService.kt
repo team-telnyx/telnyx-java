@@ -98,7 +98,7 @@ interface MdrUsageReportService {
     fun list(requestOptions: RequestOptions): MdrUsageReportListPage =
         list(MdrUsageReportListParams.none(), requestOptions)
 
-    /** Delete messaging usage report by id */
+    /** Permanently deletes the specified messaging usage report by its identifier. */
     fun delete(id: String): MdrUsageReportDeleteResponse =
         delete(id, MdrUsageReportDeleteParams.none())
 

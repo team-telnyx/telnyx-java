@@ -509,6 +509,7 @@ private constructor(
             private val fallbackUrl: JsonField<String>,
             private val from: JsonField<String>,
             private val machineDetection: JsonField<MachineDetection>,
+            private val machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile>,
             private val machineDetectionPromptEndTimeout: JsonField<Long>,
             private val machineDetectionSilenceTimeout: JsonField<Long>,
             private val machineDetectionSpeechEndThreshold: JsonField<Long>,
@@ -589,6 +590,10 @@ private constructor(
                 @JsonProperty("MachineDetection")
                 @ExcludeMissing
                 machineDetection: JsonField<MachineDetection> = JsonMissing.of(),
+                @JsonProperty("MachineDetectionBeepProfile")
+                @ExcludeMissing
+                machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile> =
+                    JsonMissing.of(),
                 @JsonProperty("MachineDetectionPromptEndTimeout")
                 @ExcludeMissing
                 machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of(),
@@ -688,6 +693,7 @@ private constructor(
                 fallbackUrl,
                 from,
                 machineDetection,
+                machineDetectionBeepProfile,
                 machineDetectionPromptEndTimeout,
                 machineDetectionSilenceTimeout,
                 machineDetectionSpeechEndThreshold,
@@ -871,6 +877,18 @@ private constructor(
              */
             fun machineDetection(): Optional<MachineDetection> =
                 machineDetection.getOptional("MachineDetection")
+
+            /**
+             * Selects which detectors must validate a beep. `both` requires the amplitude and
+             * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+             * beeps whose volume is too unsteady for the default profile. Only used when
+             * MachineDetection is enabled.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun machineDetectionBeepProfile(): Optional<MachineDetectionBeepProfile> =
+                machineDetectionBeepProfile.getOptional("MachineDetectionBeepProfile")
 
             /**
              * Silence duration threshold after a call screening prompt before ending prompt
@@ -1297,6 +1315,17 @@ private constructor(
             fun _machineDetection(): JsonField<MachineDetection> = machineDetection
 
             /**
+             * Returns the raw JSON value of [machineDetectionBeepProfile].
+             *
+             * Unlike [machineDetectionBeepProfile], this method doesn't throw if the JSON field has
+             * an unexpected type.
+             */
+            @JsonProperty("MachineDetectionBeepProfile")
+            @ExcludeMissing
+            fun _machineDetectionBeepProfile(): JsonField<MachineDetectionBeepProfile> =
+                machineDetectionBeepProfile
+
+            /**
              * Returns the raw JSON value of [machineDetectionPromptEndTimeout].
              *
              * Unlike [machineDetectionPromptEndTimeout], this method doesn't throw if the JSON
@@ -1620,6 +1649,8 @@ private constructor(
                 private var fallbackUrl: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
                 private var machineDetection: JsonField<MachineDetection> = JsonMissing.of()
+                private var machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile> =
+                    JsonMissing.of()
                 private var machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSpeechEndThreshold: JsonField<Long> = JsonMissing.of()
@@ -1671,6 +1702,7 @@ private constructor(
                     fallbackUrl = withUrl.fallbackUrl
                     from = withUrl.from
                     machineDetection = withUrl.machineDetection
+                    machineDetectionBeepProfile = withUrl.machineDetectionBeepProfile
                     machineDetectionPromptEndTimeout = withUrl.machineDetectionPromptEndTimeout
                     machineDetectionSilenceTimeout = withUrl.machineDetectionSilenceTimeout
                     machineDetectionSpeechEndThreshold = withUrl.machineDetectionSpeechEndThreshold
@@ -1984,6 +2016,27 @@ private constructor(
                 fun machineDetection(machineDetection: JsonField<MachineDetection>) = apply {
                     this.machineDetection = machineDetection
                 }
+
+                /**
+                 * Selects which detectors must validate a beep. `both` requires the amplitude and
+                 * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+                 * beeps whose volume is too unsteady for the default profile. Only used when
+                 * MachineDetection is enabled.
+                 */
+                fun machineDetectionBeepProfile(
+                    machineDetectionBeepProfile: MachineDetectionBeepProfile
+                ) = machineDetectionBeepProfile(JsonField.of(machineDetectionBeepProfile))
+
+                /**
+                 * Sets [Builder.machineDetectionBeepProfile] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.machineDetectionBeepProfile] with a well-typed
+                 * [MachineDetectionBeepProfile] value instead. This method is primarily for setting
+                 * the field to an undocumented or not yet supported value.
+                 */
+                fun machineDetectionBeepProfile(
+                    machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile>
+                ) = apply { this.machineDetectionBeepProfile = machineDetectionBeepProfile }
 
                 /**
                  * Silence duration threshold after a call screening prompt before ending prompt
@@ -2516,6 +2569,7 @@ private constructor(
                         fallbackUrl,
                         from,
                         machineDetection,
+                        machineDetectionBeepProfile,
                         machineDetectionPromptEndTimeout,
                         machineDetectionSilenceTimeout,
                         machineDetectionSpeechEndThreshold,
@@ -2582,6 +2636,7 @@ private constructor(
                 fallbackUrl()
                 from()
                 machineDetection().ifPresent { it.validate() }
+                machineDetectionBeepProfile().ifPresent { it.validate() }
                 machineDetectionPromptEndTimeout()
                 machineDetectionSilenceTimeout()
                 machineDetectionSpeechEndThreshold()
@@ -2646,6 +2701,7 @@ private constructor(
                     (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
                     (machineDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                    (machineDetectionBeepProfile.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (machineDetectionPromptEndTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSilenceTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSpeechEndThreshold.asKnown().isPresent) 1 else 0) +
@@ -3640,6 +3696,160 @@ private constructor(
                     }
 
                     return other is MachineDetection && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * Selects which detectors must validate a beep. `both` requires the amplitude and
+             * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+             * beeps whose volume is too unsteady for the default profile. Only used when
+             * MachineDetection is enabled.
+             */
+            class MachineDetectionBeepProfile
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val BOTH = of("both")
+
+                    @JvmField val FREQ_ONLY = of("freq_only")
+
+                    @JvmStatic
+                    fun of(value: String) = MachineDetectionBeepProfile(JsonField.of(value))
+                }
+
+                /** An enum containing [MachineDetectionBeepProfile]'s known values. */
+                enum class Known {
+                    BOTH,
+                    FREQ_ONLY,
+                }
+
+                /**
+                 * An enum containing [MachineDetectionBeepProfile]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [MachineDetectionBeepProfile] can contain an unknown value in a
+                 * couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    BOTH,
+                    FREQ_ONLY,
+                    /**
+                     * An enum member indicating that [MachineDetectionBeepProfile] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        BOTH -> Value.BOTH
+                        FREQ_ONLY -> Value.FREQ_ONLY
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        BOTH -> Known.BOTH
+                        FREQ_ONLY -> Known.FREQ_ONLY
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown MachineDetectionBeepProfile: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): MachineDetectionBeepProfile = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is MachineDetectionBeepProfile && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -5021,6 +5231,7 @@ private constructor(
                     fallbackUrl == other.fallbackUrl &&
                     from == other.from &&
                     machineDetection == other.machineDetection &&
+                    machineDetectionBeepProfile == other.machineDetectionBeepProfile &&
                     machineDetectionPromptEndTimeout == other.machineDetectionPromptEndTimeout &&
                     machineDetectionSilenceTimeout == other.machineDetectionSilenceTimeout &&
                     machineDetectionSpeechEndThreshold ==
@@ -5072,6 +5283,7 @@ private constructor(
                     fallbackUrl,
                     from,
                     machineDetection,
+                    machineDetectionBeepProfile,
                     machineDetectionPromptEndTimeout,
                     machineDetectionSilenceTimeout,
                     machineDetectionSpeechEndThreshold,
@@ -5108,7 +5320,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WithUrl{url=$url, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "WithUrl{url=$url, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
 
         class WithTeXml
@@ -5130,6 +5342,7 @@ private constructor(
             private val fallbackUrl: JsonField<String>,
             private val from: JsonField<String>,
             private val machineDetection: JsonField<MachineDetection>,
+            private val machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile>,
             private val machineDetectionPromptEndTimeout: JsonField<Long>,
             private val machineDetectionSilenceTimeout: JsonField<Long>,
             private val machineDetectionSpeechEndThreshold: JsonField<Long>,
@@ -5210,6 +5423,10 @@ private constructor(
                 @JsonProperty("MachineDetection")
                 @ExcludeMissing
                 machineDetection: JsonField<MachineDetection> = JsonMissing.of(),
+                @JsonProperty("MachineDetectionBeepProfile")
+                @ExcludeMissing
+                machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile> =
+                    JsonMissing.of(),
                 @JsonProperty("MachineDetectionPromptEndTimeout")
                 @ExcludeMissing
                 machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of(),
@@ -5309,6 +5526,7 @@ private constructor(
                 fallbackUrl,
                 from,
                 machineDetection,
+                machineDetectionBeepProfile,
                 machineDetectionPromptEndTimeout,
                 machineDetectionSilenceTimeout,
                 machineDetectionSpeechEndThreshold,
@@ -5493,6 +5711,18 @@ private constructor(
              */
             fun machineDetection(): Optional<MachineDetection> =
                 machineDetection.getOptional("MachineDetection")
+
+            /**
+             * Selects which detectors must validate a beep. `both` requires the amplitude and
+             * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+             * beeps whose volume is too unsteady for the default profile. Only used when
+             * MachineDetection is enabled.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun machineDetectionBeepProfile(): Optional<MachineDetectionBeepProfile> =
+                machineDetectionBeepProfile.getOptional("MachineDetectionBeepProfile")
 
             /**
              * Silence duration threshold after a call screening prompt before ending prompt
@@ -5919,6 +6149,17 @@ private constructor(
             fun _machineDetection(): JsonField<MachineDetection> = machineDetection
 
             /**
+             * Returns the raw JSON value of [machineDetectionBeepProfile].
+             *
+             * Unlike [machineDetectionBeepProfile], this method doesn't throw if the JSON field has
+             * an unexpected type.
+             */
+            @JsonProperty("MachineDetectionBeepProfile")
+            @ExcludeMissing
+            fun _machineDetectionBeepProfile(): JsonField<MachineDetectionBeepProfile> =
+                machineDetectionBeepProfile
+
+            /**
              * Returns the raw JSON value of [machineDetectionPromptEndTimeout].
              *
              * Unlike [machineDetectionPromptEndTimeout], this method doesn't throw if the JSON
@@ -6242,6 +6483,8 @@ private constructor(
                 private var fallbackUrl: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
                 private var machineDetection: JsonField<MachineDetection> = JsonMissing.of()
+                private var machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile> =
+                    JsonMissing.of()
                 private var machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSpeechEndThreshold: JsonField<Long> = JsonMissing.of()
@@ -6293,6 +6536,7 @@ private constructor(
                     fallbackUrl = withTeXml.fallbackUrl
                     from = withTeXml.from
                     machineDetection = withTeXml.machineDetection
+                    machineDetectionBeepProfile = withTeXml.machineDetectionBeepProfile
                     machineDetectionPromptEndTimeout = withTeXml.machineDetectionPromptEndTimeout
                     machineDetectionSilenceTimeout = withTeXml.machineDetectionSilenceTimeout
                     machineDetectionSpeechEndThreshold =
@@ -6610,6 +6854,27 @@ private constructor(
                 fun machineDetection(machineDetection: JsonField<MachineDetection>) = apply {
                     this.machineDetection = machineDetection
                 }
+
+                /**
+                 * Selects which detectors must validate a beep. `both` requires the amplitude and
+                 * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+                 * beeps whose volume is too unsteady for the default profile. Only used when
+                 * MachineDetection is enabled.
+                 */
+                fun machineDetectionBeepProfile(
+                    machineDetectionBeepProfile: MachineDetectionBeepProfile
+                ) = machineDetectionBeepProfile(JsonField.of(machineDetectionBeepProfile))
+
+                /**
+                 * Sets [Builder.machineDetectionBeepProfile] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.machineDetectionBeepProfile] with a well-typed
+                 * [MachineDetectionBeepProfile] value instead. This method is primarily for setting
+                 * the field to an undocumented or not yet supported value.
+                 */
+                fun machineDetectionBeepProfile(
+                    machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile>
+                ) = apply { this.machineDetectionBeepProfile = machineDetectionBeepProfile }
 
                 /**
                  * Silence duration threshold after a call screening prompt before ending prompt
@@ -7142,6 +7407,7 @@ private constructor(
                         fallbackUrl,
                         from,
                         machineDetection,
+                        machineDetectionBeepProfile,
                         machineDetectionPromptEndTimeout,
                         machineDetectionSilenceTimeout,
                         machineDetectionSpeechEndThreshold,
@@ -7208,6 +7474,7 @@ private constructor(
                 fallbackUrl()
                 from()
                 machineDetection().ifPresent { it.validate() }
+                machineDetectionBeepProfile().ifPresent { it.validate() }
                 machineDetectionPromptEndTimeout()
                 machineDetectionSilenceTimeout()
                 machineDetectionSpeechEndThreshold()
@@ -7272,6 +7539,7 @@ private constructor(
                     (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
                     (machineDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                    (machineDetectionBeepProfile.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (machineDetectionPromptEndTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSilenceTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSpeechEndThreshold.asKnown().isPresent) 1 else 0) +
@@ -8266,6 +8534,160 @@ private constructor(
                     }
 
                     return other is MachineDetection && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * Selects which detectors must validate a beep. `both` requires the amplitude and
+             * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+             * beeps whose volume is too unsteady for the default profile. Only used when
+             * MachineDetection is enabled.
+             */
+            class MachineDetectionBeepProfile
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val BOTH = of("both")
+
+                    @JvmField val FREQ_ONLY = of("freq_only")
+
+                    @JvmStatic
+                    fun of(value: String) = MachineDetectionBeepProfile(JsonField.of(value))
+                }
+
+                /** An enum containing [MachineDetectionBeepProfile]'s known values. */
+                enum class Known {
+                    BOTH,
+                    FREQ_ONLY,
+                }
+
+                /**
+                 * An enum containing [MachineDetectionBeepProfile]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [MachineDetectionBeepProfile] can contain an unknown value in a
+                 * couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    BOTH,
+                    FREQ_ONLY,
+                    /**
+                     * An enum member indicating that [MachineDetectionBeepProfile] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        BOTH -> Value.BOTH
+                        FREQ_ONLY -> Value.FREQ_ONLY
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        BOTH -> Known.BOTH
+                        FREQ_ONLY -> Known.FREQ_ONLY
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown MachineDetectionBeepProfile: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): MachineDetectionBeepProfile = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is MachineDetectionBeepProfile && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -9647,6 +10069,7 @@ private constructor(
                     fallbackUrl == other.fallbackUrl &&
                     from == other.from &&
                     machineDetection == other.machineDetection &&
+                    machineDetectionBeepProfile == other.machineDetectionBeepProfile &&
                     machineDetectionPromptEndTimeout == other.machineDetectionPromptEndTimeout &&
                     machineDetectionSilenceTimeout == other.machineDetectionSilenceTimeout &&
                     machineDetectionSpeechEndThreshold ==
@@ -9698,6 +10121,7 @@ private constructor(
                     fallbackUrl,
                     from,
                     machineDetection,
+                    machineDetectionBeepProfile,
                     machineDetectionPromptEndTimeout,
                     machineDetectionSilenceTimeout,
                     machineDetectionSpeechEndThreshold,
@@ -9734,7 +10158,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WithTeXml{texml=$texml, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "WithTeXml{texml=$texml, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
 
         class ApplicationDefault
@@ -9755,6 +10179,7 @@ private constructor(
             private val fallbackUrl: JsonField<String>,
             private val from: JsonField<String>,
             private val machineDetection: JsonField<MachineDetection>,
+            private val machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile>,
             private val machineDetectionPromptEndTimeout: JsonField<Long>,
             private val machineDetectionSilenceTimeout: JsonField<Long>,
             private val machineDetectionSpeechEndThreshold: JsonField<Long>,
@@ -9835,6 +10260,10 @@ private constructor(
                 @JsonProperty("MachineDetection")
                 @ExcludeMissing
                 machineDetection: JsonField<MachineDetection> = JsonMissing.of(),
+                @JsonProperty("MachineDetectionBeepProfile")
+                @ExcludeMissing
+                machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile> =
+                    JsonMissing.of(),
                 @JsonProperty("MachineDetectionPromptEndTimeout")
                 @ExcludeMissing
                 machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of(),
@@ -9934,6 +10363,7 @@ private constructor(
                 fallbackUrl,
                 from,
                 machineDetection,
+                machineDetectionBeepProfile,
                 machineDetectionPromptEndTimeout,
                 machineDetectionSilenceTimeout,
                 machineDetectionSpeechEndThreshold,
@@ -10109,6 +10539,18 @@ private constructor(
              */
             fun machineDetection(): Optional<MachineDetection> =
                 machineDetection.getOptional("MachineDetection")
+
+            /**
+             * Selects which detectors must validate a beep. `both` requires the amplitude and
+             * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+             * beeps whose volume is too unsteady for the default profile. Only used when
+             * MachineDetection is enabled.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun machineDetectionBeepProfile(): Optional<MachineDetectionBeepProfile> =
+                machineDetectionBeepProfile.getOptional("MachineDetectionBeepProfile")
 
             /**
              * Silence duration threshold after a call screening prompt before ending prompt
@@ -10534,6 +10976,17 @@ private constructor(
             fun _machineDetection(): JsonField<MachineDetection> = machineDetection
 
             /**
+             * Returns the raw JSON value of [machineDetectionBeepProfile].
+             *
+             * Unlike [machineDetectionBeepProfile], this method doesn't throw if the JSON field has
+             * an unexpected type.
+             */
+            @JsonProperty("MachineDetectionBeepProfile")
+            @ExcludeMissing
+            fun _machineDetectionBeepProfile(): JsonField<MachineDetectionBeepProfile> =
+                machineDetectionBeepProfile
+
+            /**
              * Returns the raw JSON value of [machineDetectionPromptEndTimeout].
              *
              * Unlike [machineDetectionPromptEndTimeout], this method doesn't throw if the JSON
@@ -10858,6 +11311,8 @@ private constructor(
                 private var fallbackUrl: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
                 private var machineDetection: JsonField<MachineDetection> = JsonMissing.of()
+                private var machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile> =
+                    JsonMissing.of()
                 private var machineDetectionPromptEndTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of()
                 private var machineDetectionSpeechEndThreshold: JsonField<Long> = JsonMissing.of()
@@ -10912,6 +11367,7 @@ private constructor(
                     fallbackUrl = applicationDefault.fallbackUrl
                     from = applicationDefault.from
                     machineDetection = applicationDefault.machineDetection
+                    machineDetectionBeepProfile = applicationDefault.machineDetectionBeepProfile
                     machineDetectionPromptEndTimeout =
                         applicationDefault.machineDetectionPromptEndTimeout
                     machineDetectionSilenceTimeout =
@@ -11218,6 +11674,27 @@ private constructor(
                 fun machineDetection(machineDetection: JsonField<MachineDetection>) = apply {
                     this.machineDetection = machineDetection
                 }
+
+                /**
+                 * Selects which detectors must validate a beep. `both` requires the amplitude and
+                 * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+                 * beeps whose volume is too unsteady for the default profile. Only used when
+                 * MachineDetection is enabled.
+                 */
+                fun machineDetectionBeepProfile(
+                    machineDetectionBeepProfile: MachineDetectionBeepProfile
+                ) = machineDetectionBeepProfile(JsonField.of(machineDetectionBeepProfile))
+
+                /**
+                 * Sets [Builder.machineDetectionBeepProfile] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.machineDetectionBeepProfile] with a well-typed
+                 * [MachineDetectionBeepProfile] value instead. This method is primarily for setting
+                 * the field to an undocumented or not yet supported value.
+                 */
+                fun machineDetectionBeepProfile(
+                    machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile>
+                ) = apply { this.machineDetectionBeepProfile = machineDetectionBeepProfile }
 
                 /**
                  * Silence duration threshold after a call screening prompt before ending prompt
@@ -11756,6 +12233,7 @@ private constructor(
                         fallbackUrl,
                         from,
                         machineDetection,
+                        machineDetectionBeepProfile,
                         machineDetectionPromptEndTimeout,
                         machineDetectionSilenceTimeout,
                         machineDetectionSpeechEndThreshold,
@@ -11822,6 +12300,7 @@ private constructor(
                 fallbackUrl()
                 from()
                 machineDetection().ifPresent { it.validate() }
+                machineDetectionBeepProfile().ifPresent { it.validate() }
                 machineDetectionPromptEndTimeout()
                 machineDetectionSilenceTimeout()
                 machineDetectionSpeechEndThreshold()
@@ -11886,6 +12365,7 @@ private constructor(
                     (if (fallbackUrl.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
                     (machineDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                    (machineDetectionBeepProfile.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (machineDetectionPromptEndTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSilenceTimeout.asKnown().isPresent) 1 else 0) +
                     (if (machineDetectionSpeechEndThreshold.asKnown().isPresent) 1 else 0) +
@@ -12881,6 +13361,160 @@ private constructor(
                     }
 
                     return other is MachineDetection && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * Selects which detectors must validate a beep. `both` requires the amplitude and
+             * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+             * beeps whose volume is too unsteady for the default profile. Only used when
+             * MachineDetection is enabled.
+             */
+            class MachineDetectionBeepProfile
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val BOTH = of("both")
+
+                    @JvmField val FREQ_ONLY = of("freq_only")
+
+                    @JvmStatic
+                    fun of(value: String) = MachineDetectionBeepProfile(JsonField.of(value))
+                }
+
+                /** An enum containing [MachineDetectionBeepProfile]'s known values. */
+                enum class Known {
+                    BOTH,
+                    FREQ_ONLY,
+                }
+
+                /**
+                 * An enum containing [MachineDetectionBeepProfile]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [MachineDetectionBeepProfile] can contain an unknown value in a
+                 * couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    BOTH,
+                    FREQ_ONLY,
+                    /**
+                     * An enum member indicating that [MachineDetectionBeepProfile] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        BOTH -> Value.BOTH
+                        FREQ_ONLY -> Value.FREQ_ONLY
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        BOTH -> Known.BOTH
+                        FREQ_ONLY -> Known.FREQ_ONLY
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown MachineDetectionBeepProfile: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): MachineDetectionBeepProfile = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is MachineDetectionBeepProfile && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -14261,6 +14895,7 @@ private constructor(
                     fallbackUrl == other.fallbackUrl &&
                     from == other.from &&
                     machineDetection == other.machineDetection &&
+                    machineDetectionBeepProfile == other.machineDetectionBeepProfile &&
                     machineDetectionPromptEndTimeout == other.machineDetectionPromptEndTimeout &&
                     machineDetectionSilenceTimeout == other.machineDetectionSilenceTimeout &&
                     machineDetectionSpeechEndThreshold ==
@@ -14312,6 +14947,7 @@ private constructor(
                     fallbackUrl,
                     from,
                     machineDetection,
+                    machineDetectionBeepProfile,
                     machineDetectionPromptEndTimeout,
                     machineDetectionSilenceTimeout,
                     machineDetectionSpeechEndThreshold,
@@ -14349,7 +14985,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "ApplicationDefault{applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "ApplicationDefault{applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
     }
 

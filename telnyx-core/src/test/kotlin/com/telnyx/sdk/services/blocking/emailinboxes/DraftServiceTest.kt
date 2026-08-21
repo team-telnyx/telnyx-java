@@ -6,7 +6,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftCreateParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftDeleteParams
-import com.telnyx.sdk.models.emailinboxes.drafts.DraftListParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftPatchParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftRetrieveParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftSendParams
@@ -30,7 +29,11 @@ internal class DraftServiceTest {
                     .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .emailDraftRequest(
                         EmailDraftRequest.builder()
-                            .addAttachment(JsonValue.from(mapOf<String, Any>()))
+                            .addAttachment(
+                                EmailDraftRequest.Attachment.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .addBcc("string")
                             .addCc("string")
                             .fromEmail("from_email")
@@ -43,7 +46,11 @@ internal class DraftServiceTest {
                             .html("html")
                             .htmlBody("html_body")
                             .addLabel("important")
-                            .metadata(JsonValue.from(mapOf<String, Any>()))
+                            .metadata(
+                                EmailDraftRequest.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .replyTo("reply_to")
                             .subject("Quarterly update")
                             .addTag("string")
@@ -93,7 +100,11 @@ internal class DraftServiceTest {
                     .draftId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .emailDraftRequest(
                         EmailDraftRequest.builder()
-                            .addAttachment(JsonValue.from(mapOf<String, Any>()))
+                            .addAttachment(
+                                EmailDraftRequest.Attachment.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .addBcc("string")
                             .addCc("string")
                             .fromEmail("from_email")
@@ -106,7 +117,11 @@ internal class DraftServiceTest {
                             .html("html")
                             .htmlBody("html_body")
                             .addLabel("string")
-                            .metadata(JsonValue.from(mapOf<String, Any>()))
+                            .metadata(
+                                EmailDraftRequest.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .replyTo("reply_to")
                             .subject("Quarterly update (revised)")
                             .addTag("string")
@@ -127,17 +142,9 @@ internal class DraftServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val draftService = client.emailInboxes().drafts()
 
-        val drafts =
-            draftService.list(
-                DraftListParams.builder()
-                    .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .filterStatus(DraftListParams.FilterStatus.DRAFT)
-                    .pageAfter("page[after]")
-                    .pageSize(1L)
-                    .build()
-            )
+        val page = draftService.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        drafts.validate()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -167,7 +174,11 @@ internal class DraftServiceTest {
                     .draftId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .emailDraftRequest(
                         EmailDraftRequest.builder()
-                            .addAttachment(JsonValue.from(mapOf<String, Any>()))
+                            .addAttachment(
+                                EmailDraftRequest.Attachment.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .addBcc("string")
                             .addCc("string")
                             .fromEmail("from_email")
@@ -180,7 +191,11 @@ internal class DraftServiceTest {
                             .html("html")
                             .htmlBody("html_body")
                             .addLabel("string")
-                            .metadata(JsonValue.from(mapOf<String, Any>()))
+                            .metadata(
+                                EmailDraftRequest.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .replyTo("reply_to")
                             .subject("Quarterly update (revised)")
                             .addTag("string")

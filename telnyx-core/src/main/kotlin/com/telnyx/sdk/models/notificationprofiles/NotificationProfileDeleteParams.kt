@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a notification profile. */
+/** Deletes the specified notification profile from your account. */
 class NotificationProfileDeleteParams
 private constructor(
     private val id: String?,

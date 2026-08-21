@@ -19,6 +19,7 @@ internal class InsightServiceTest {
         val insightTemplateDetail =
             insightService.create(
                 InsightCreateParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .instructions("Instructions")
                     .name("Name")
                     .jsonSchema("string")

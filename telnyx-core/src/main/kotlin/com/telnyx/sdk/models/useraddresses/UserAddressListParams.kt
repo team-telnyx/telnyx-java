@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a list of your user addresses. */
+/** Returns a paginated list of your user addresses, with support for filtering and sorting. */
 class UserAddressListParams
 private constructor(
     private val filter: Filter?,

@@ -142,7 +142,7 @@ private constructor(
         fun configuration(s3: S3ConfigurationData) = configuration(Configuration.ofS3(s3))
 
         /** Alias for calling [configuration] with `Configuration.ofS3Generic(s3Generic)`. */
-        fun configuration(s3Generic: Configuration.S3Generic) =
+        fun configuration(s3Generic: S3GenericConfigurationData) =
             configuration(Configuration.ofS3Generic(s3Generic))
 
         /** Alias for calling [configuration] with `Configuration.ofAzure(azure)`. */
@@ -379,7 +379,7 @@ private constructor(
     private constructor(
         private val gcs: GcsConfigurationData? = null,
         private val s3: S3ConfigurationData? = null,
-        private val s3Generic: S3Generic? = null,
+        private val s3Generic: S3GenericConfigurationData? = null,
         private val azure: AzureConfigurationData? = null,
         private val _json: JsonValue? = null,
     ) {
@@ -388,7 +388,7 @@ private constructor(
 
         fun s3(): Optional<S3ConfigurationData> = Optional.ofNullable(s3)
 
-        fun s3Generic(): Optional<S3Generic> = Optional.ofNullable(s3Generic)
+        fun s3Generic(): Optional<S3GenericConfigurationData> = Optional.ofNullable(s3Generic)
 
         fun azure(): Optional<AzureConfigurationData> = Optional.ofNullable(azure)
 
@@ -404,7 +404,7 @@ private constructor(
 
         fun asS3(): S3ConfigurationData = s3.getOrThrow("s3")
 
-        fun asS3Generic(): S3Generic = s3Generic.getOrThrow("s3Generic")
+        fun asS3Generic(): S3GenericConfigurationData = s3Generic.getOrThrow("s3Generic")
 
         fun asAzure(): AzureConfigurationData = azure.getOrThrow("azure")
 
@@ -474,7 +474,7 @@ private constructor(
                         s3.validate()
                     }
 
-                    override fun visitS3Generic(s3Generic: S3Generic) {
+                    override fun visitS3Generic(s3Generic: S3GenericConfigurationData) {
                         s3Generic.validate()
                     }
 
@@ -508,7 +508,8 @@ private constructor(
 
                     override fun visitS3(s3: S3ConfigurationData) = s3.validity()
 
-                    override fun visitS3Generic(s3Generic: S3Generic) = s3Generic.validity()
+                    override fun visitS3Generic(s3Generic: S3GenericConfigurationData) =
+                        s3Generic.validity()
 
                     override fun visitAzure(azure: AzureConfigurationData) = azure.validity()
 
@@ -546,7 +547,9 @@ private constructor(
 
             @JvmStatic fun ofS3(s3: S3ConfigurationData) = Configuration(s3 = s3)
 
-            @JvmStatic fun ofS3Generic(s3Generic: S3Generic) = Configuration(s3Generic = s3Generic)
+            @JvmStatic
+            fun ofS3Generic(s3Generic: S3GenericConfigurationData) =
+                Configuration(s3Generic = s3Generic)
 
             @JvmStatic fun ofAzure(azure: AzureConfigurationData) = Configuration(azure = azure)
         }
@@ -561,7 +564,7 @@ private constructor(
 
             fun visitS3(s3: S3ConfigurationData): T
 
-            fun visitS3Generic(s3Generic: S3Generic): T
+            fun visitS3Generic(s3Generic: S3GenericConfigurationData): T
 
             fun visitAzure(azure: AzureConfigurationData): T
 
@@ -598,9 +601,9 @@ private constructor(
                         } ?: Configuration(_json = json)
                     }
                     "s3-generic" -> {
-                        return tryDeserialize(node, jacksonTypeRef<S3Generic>())?.let {
-                            Configuration(s3Generic = it, _json = json)
-                        } ?: Configuration(_json = json)
+                        return tryDeserialize(node, jacksonTypeRef<S3GenericConfigurationData>())
+                            ?.let { Configuration(s3Generic = it, _json = json) }
+                            ?: Configuration(_json = json)
                     }
                     "azure" -> {
                         return tryDeserialize(node, jacksonTypeRef<AzureConfigurationData>())?.let {
@@ -629,422 +632,6 @@ private constructor(
                     else -> throw IllegalStateException("Invalid Configuration")
                 }
             }
-        }
-
-        class S3Generic
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val awsAccessKeyId: JsonField<String>,
-            private val awsSecretAccessKey: JsonField<String>,
-            private val backend: JsonValue,
-            private val bucket: JsonField<String>,
-            private val endpoint: JsonField<String>,
-            private val region: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("aws_access_key_id")
-                @ExcludeMissing
-                awsAccessKeyId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("aws_secret_access_key")
-                @ExcludeMissing
-                awsSecretAccessKey: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("backend") @ExcludeMissing backend: JsonValue = JsonMissing.of(),
-                @JsonProperty("bucket")
-                @ExcludeMissing
-                bucket: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("endpoint")
-                @ExcludeMissing
-                endpoint: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
-            ) : this(
-                awsAccessKeyId,
-                awsSecretAccessKey,
-                backend,
-                bucket,
-                endpoint,
-                region,
-                mutableMapOf(),
-            )
-
-            /**
-             * AWS credentials access key id.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun awsAccessKeyId(): String = awsAccessKeyId.getRequired("aws_access_key_id")
-
-            /**
-             * AWS secret access key.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun awsSecretAccessKey(): String =
-                awsSecretAccessKey.getRequired("aws_secret_access_key")
-
-            /**
-             * Storage backend type
-             *
-             * Expected to always return the following:
-             * ```java
-             * JsonValue.from("s3-generic")
-             * ```
-             *
-             * However, this method can be useful for debugging and logging (e.g. if the server
-             * responded with an unexpected value).
-             */
-            @JsonProperty("backend") @ExcludeMissing fun _backend(): JsonValue = backend
-
-            /**
-             * Name of the bucket to be used to store recording files.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun bucket(): String = bucket.getRequired("bucket")
-
-            /**
-             * URL of an S3-compatible storage endpoint, used to direct uploads and presigned
-             * download URLs to a non-AWS store (for example MinIO, Cloudflare R2, Wasabi, Backblaze
-             * B2, or Supabase). A bare host (https://s3.example.com) or a path-prefixed URL
-             * (https://xyz.supabase.co/storage/v1/s3) is accepted, and must use the http or https
-             * scheme.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun endpoint(): String = endpoint.getRequired("endpoint")
-
-            /**
-             * Region where the bucket is located.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun region(): String = region.getRequired("region")
-
-            /**
-             * Returns the raw JSON value of [awsAccessKeyId].
-             *
-             * Unlike [awsAccessKeyId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("aws_access_key_id")
-            @ExcludeMissing
-            fun _awsAccessKeyId(): JsonField<String> = awsAccessKeyId
-
-            /**
-             * Returns the raw JSON value of [awsSecretAccessKey].
-             *
-             * Unlike [awsSecretAccessKey], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("aws_secret_access_key")
-            @ExcludeMissing
-            fun _awsSecretAccessKey(): JsonField<String> = awsSecretAccessKey
-
-            /**
-             * Returns the raw JSON value of [bucket].
-             *
-             * Unlike [bucket], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("bucket") @ExcludeMissing fun _bucket(): JsonField<String> = bucket
-
-            /**
-             * Returns the raw JSON value of [endpoint].
-             *
-             * Unlike [endpoint], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("endpoint") @ExcludeMissing fun _endpoint(): JsonField<String> = endpoint
-
-            /**
-             * Returns the raw JSON value of [region].
-             *
-             * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of [S3Generic].
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .awsAccessKeyId()
-                 * .awsSecretAccessKey()
-                 * .bucket()
-                 * .endpoint()
-                 * .region()
-                 * ```
-                 */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [S3Generic]. */
-            class Builder internal constructor() {
-
-                private var awsAccessKeyId: JsonField<String>? = null
-                private var awsSecretAccessKey: JsonField<String>? = null
-                private var backend: JsonValue = JsonValue.from("s3-generic")
-                private var bucket: JsonField<String>? = null
-                private var endpoint: JsonField<String>? = null
-                private var region: JsonField<String>? = null
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(s3Generic: S3Generic) = apply {
-                    awsAccessKeyId = s3Generic.awsAccessKeyId
-                    awsSecretAccessKey = s3Generic.awsSecretAccessKey
-                    backend = s3Generic.backend
-                    bucket = s3Generic.bucket
-                    endpoint = s3Generic.endpoint
-                    region = s3Generic.region
-                    additionalProperties = s3Generic.additionalProperties.toMutableMap()
-                }
-
-                /** AWS credentials access key id. */
-                fun awsAccessKeyId(awsAccessKeyId: String) =
-                    awsAccessKeyId(JsonField.of(awsAccessKeyId))
-
-                /**
-                 * Sets [Builder.awsAccessKeyId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.awsAccessKeyId] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun awsAccessKeyId(awsAccessKeyId: JsonField<String>) = apply {
-                    this.awsAccessKeyId = awsAccessKeyId
-                }
-
-                /** AWS secret access key. */
-                fun awsSecretAccessKey(awsSecretAccessKey: String) =
-                    awsSecretAccessKey(JsonField.of(awsSecretAccessKey))
-
-                /**
-                 * Sets [Builder.awsSecretAccessKey] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.awsSecretAccessKey] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun awsSecretAccessKey(awsSecretAccessKey: JsonField<String>) = apply {
-                    this.awsSecretAccessKey = awsSecretAccessKey
-                }
-
-                /**
-                 * Sets the field to an arbitrary JSON value.
-                 *
-                 * It is usually unnecessary to call this method because the field defaults to the
-                 * following:
-                 * ```java
-                 * JsonValue.from("s3-generic")
-                 * ```
-                 *
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun backend(backend: JsonValue) = apply { this.backend = backend }
-
-                /** Name of the bucket to be used to store recording files. */
-                fun bucket(bucket: String) = bucket(JsonField.of(bucket))
-
-                /**
-                 * Sets [Builder.bucket] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.bucket] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun bucket(bucket: JsonField<String>) = apply { this.bucket = bucket }
-
-                /**
-                 * URL of an S3-compatible storage endpoint, used to direct uploads and presigned
-                 * download URLs to a non-AWS store (for example MinIO, Cloudflare R2, Wasabi,
-                 * Backblaze B2, or Supabase). A bare host (https://s3.example.com) or a
-                 * path-prefixed URL (https://xyz.supabase.co/storage/v1/s3) is accepted, and must
-                 * use the http or https scheme.
-                 */
-                fun endpoint(endpoint: String) = endpoint(JsonField.of(endpoint))
-
-                /**
-                 * Sets [Builder.endpoint] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.endpoint] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun endpoint(endpoint: JsonField<String>) = apply { this.endpoint = endpoint }
-
-                /** Region where the bucket is located. */
-                fun region(region: String) = region(JsonField.of(region))
-
-                /**
-                 * Sets [Builder.region] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.region] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun region(region: JsonField<String>) = apply { this.region = region }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [S3Generic].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .awsAccessKeyId()
-                 * .awsSecretAccessKey()
-                 * .bucket()
-                 * .endpoint()
-                 * .region()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): S3Generic =
-                    S3Generic(
-                        checkRequired("awsAccessKeyId", awsAccessKeyId),
-                        checkRequired("awsSecretAccessKey", awsSecretAccessKey),
-                        backend,
-                        checkRequired("bucket", bucket),
-                        checkRequired("endpoint", endpoint),
-                        checkRequired("region", region),
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): S3Generic = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                awsAccessKeyId()
-                awsSecretAccessKey()
-                _backend().let {
-                    if (it != JsonValue.from("s3-generic")) {
-                        throw TelnyxInvalidDataException("'backend' is invalid, received $it")
-                    }
-                }
-                bucket()
-                endpoint()
-                region()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (awsAccessKeyId.asKnown().isPresent) 1 else 0) +
-                    (if (awsSecretAccessKey.asKnown().isPresent) 1 else 0) +
-                    backend.let { if (it == JsonValue.from("s3-generic")) 1 else 0 } +
-                    (if (bucket.asKnown().isPresent) 1 else 0) +
-                    (if (endpoint.asKnown().isPresent) 1 else 0) +
-                    (if (region.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is S3Generic &&
-                    awsAccessKeyId == other.awsAccessKeyId &&
-                    awsSecretAccessKey == other.awsSecretAccessKey &&
-                    backend == other.backend &&
-                    bucket == other.bucket &&
-                    endpoint == other.endpoint &&
-                    region == other.region &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(
-                    awsAccessKeyId,
-                    awsSecretAccessKey,
-                    backend,
-                    bucket,
-                    endpoint,
-                    region,
-                    additionalProperties,
-                )
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "S3Generic{awsAccessKeyId=$awsAccessKeyId, awsSecretAccessKey=$awsSecretAccessKey, backend=$backend, bucket=$bucket, endpoint=$endpoint, region=$region, additionalProperties=$additionalProperties}"
         }
     }
 

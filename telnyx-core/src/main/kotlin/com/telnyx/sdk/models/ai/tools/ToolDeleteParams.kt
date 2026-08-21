@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a custom AI tool. */
+/** Permanently deletes the specified custom AI tool from your account. */
 class ToolDeleteParams
 private constructor(
     private val toolId: String?,

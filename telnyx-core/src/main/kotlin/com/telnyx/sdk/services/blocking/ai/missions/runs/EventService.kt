@@ -27,7 +27,10 @@ interface EventService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventService
 
-    /** List events for a run (paginated) */
+    /**
+     * Returns a paginated list of events logged for the specified run, filterable by event type,
+     * plan step, and agent, so you can reconstruct exactly what happened during execution.
+     */
     fun list(runId: String, params: EventListParams): EventListPage =
         list(runId, params, RequestOptions.none())
 
@@ -47,7 +50,10 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventListPage
 
-    /** Get details of a specific event */
+    /**
+     * Returns the details of a single event logged for the specified run, including its type and
+     * payload.
+     */
     fun getEventDetails(eventId: String, params: EventGetEventDetailsParams): EventResponse =
         getEventDetails(eventId, params, RequestOptions.none())
 
@@ -68,7 +74,10 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventResponse
 
-    /** Log an event for a run */
+    /**
+     * Logs a new event against the specified run and returns the created event. Events form the
+     * run's audit trail and can reference a plan step or agent.
+     */
     fun log(runId: String, params: EventLogParams): EventResponse =
         log(runId, params, RequestOptions.none())
 

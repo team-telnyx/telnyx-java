@@ -30,7 +30,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a new mobile push credential */
+/**
+ * Creates a new mobile push credential for delivering push notifications to iOS or Android apps,
+ * and returns the created credential.
+ */
 class MobilePushCredentialCreateParams
 private constructor(
     private val createMobilePushCredentialRequest: CreateMobilePushCredentialRequest,

@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a new phone number block. */
+/**
+ * Creates a phone number block on the porting order, representing a contiguous range of phone
+ * numbers to be ported together.
+ */
 class PhoneNumberBlockCreateParams
 private constructor(
     private val portingOrderId: String?,

@@ -17,7 +17,11 @@ internal class MessagingError0b38e7044bTest {
                 .code("code")
                 .title("title")
                 .detail("detail")
-                .meta(JsonValue.from(mapOf<String, Any>()))
+                .meta(
+                    MessagingError0b38e7044b.Meta.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .source(
                     MessagingError0b38e7044b.Source.builder()
                         .parameter("parameter")
@@ -29,7 +33,12 @@ internal class MessagingError0b38e7044bTest {
         assertThat(messagingError0b38e7044b.code()).isEqualTo("code")
         assertThat(messagingError0b38e7044b.title()).isEqualTo("title")
         assertThat(messagingError0b38e7044b.detail()).contains("detail")
-        assertThat(messagingError0b38e7044b._meta()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(messagingError0b38e7044b.meta())
+            .contains(
+                MessagingError0b38e7044b.Meta.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(messagingError0b38e7044b.source())
             .contains(
                 MessagingError0b38e7044b.Source.builder()
@@ -47,7 +56,11 @@ internal class MessagingError0b38e7044bTest {
                 .code("code")
                 .title("title")
                 .detail("detail")
-                .meta(JsonValue.from(mapOf<String, Any>()))
+                .meta(
+                    MessagingError0b38e7044b.Meta.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .source(
                     MessagingError0b38e7044b.Source.builder()
                         .parameter("parameter")

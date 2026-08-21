@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.emailblocks.EmailBlockDeleteParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockListPage
 import com.telnyx.sdk.models.emailblocks.EmailBlockListParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockResponse
+import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsPage
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsParams
-import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveEventsResponse
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveExportParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockRetrieveParams
 import com.telnyx.sdk.services.blocking.emailblocks.ImportService
@@ -34,7 +34,7 @@ interface EmailBlockService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmailBlockService
 
     /** Async CSV import of competitor suppression lists. */
-    fun import_(): ImportService
+    fun imports(): ImportService
 
     /**
      * Creates a suppression with `reason: manual_block` and `source: manual`. Caller-supplied
@@ -156,7 +156,7 @@ interface EmailBlockService {
      * `sort`, no `filter`, no cursor — ordering is fixed `desc occurred_at, desc id`. Verifies the
      * block belongs to the account first (cross-account → 404).
      */
-    fun retrieveEvents(id: String): EmailBlockRetrieveEventsResponse =
+    fun retrieveEvents(id: String): EmailBlockRetrieveEventsPage =
         retrieveEvents(id, EmailBlockRetrieveEventsParams.none())
 
     /** @see retrieveEvents */
@@ -164,30 +164,27 @@ interface EmailBlockService {
         id: String,
         params: EmailBlockRetrieveEventsParams = EmailBlockRetrieveEventsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailBlockRetrieveEventsResponse =
+    ): EmailBlockRetrieveEventsPage =
         retrieveEvents(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         id: String,
         params: EmailBlockRetrieveEventsParams = EmailBlockRetrieveEventsParams.none(),
-    ): EmailBlockRetrieveEventsResponse = retrieveEvents(id, params, RequestOptions.none())
+    ): EmailBlockRetrieveEventsPage = retrieveEvents(id, params, RequestOptions.none())
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         params: EmailBlockRetrieveEventsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailBlockRetrieveEventsResponse
+    ): EmailBlockRetrieveEventsPage
 
     /** @see retrieveEvents */
-    fun retrieveEvents(params: EmailBlockRetrieveEventsParams): EmailBlockRetrieveEventsResponse =
+    fun retrieveEvents(params: EmailBlockRetrieveEventsParams): EmailBlockRetrieveEventsPage =
         retrieveEvents(params, RequestOptions.none())
 
     /** @see retrieveEvents */
-    fun retrieveEvents(
-        id: String,
-        requestOptions: RequestOptions,
-    ): EmailBlockRetrieveEventsResponse =
+    fun retrieveEvents(id: String, requestOptions: RequestOptions): EmailBlockRetrieveEventsPage =
         retrieveEvents(id, EmailBlockRetrieveEventsParams.none(), requestOptions)
 
     /**
@@ -234,7 +231,7 @@ interface EmailBlockService {
         ): EmailBlockService.WithRawResponse
 
         /** Async CSV import of competitor suppression lists. */
-        fun import_(): ImportService.WithRawResponse
+        fun imports(): ImportService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /email_blocks`, but is otherwise the same as
@@ -369,7 +366,7 @@ interface EmailBlockService {
          * same as [EmailBlockService.retrieveEvents].
          */
         @MustBeClosed
-        fun retrieveEvents(id: String): HttpResponseFor<EmailBlockRetrieveEventsResponse> =
+        fun retrieveEvents(id: String): HttpResponseFor<EmailBlockRetrieveEventsPage> =
             retrieveEvents(id, EmailBlockRetrieveEventsParams.none())
 
         /** @see retrieveEvents */
@@ -378,7 +375,7 @@ interface EmailBlockService {
             id: String,
             params: EmailBlockRetrieveEventsParams = EmailBlockRetrieveEventsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailBlockRetrieveEventsResponse> =
+        ): HttpResponseFor<EmailBlockRetrieveEventsPage> =
             retrieveEvents(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieveEvents */
@@ -386,7 +383,7 @@ interface EmailBlockService {
         fun retrieveEvents(
             id: String,
             params: EmailBlockRetrieveEventsParams = EmailBlockRetrieveEventsParams.none(),
-        ): HttpResponseFor<EmailBlockRetrieveEventsResponse> =
+        ): HttpResponseFor<EmailBlockRetrieveEventsPage> =
             retrieveEvents(id, params, RequestOptions.none())
 
         /** @see retrieveEvents */
@@ -394,13 +391,13 @@ interface EmailBlockService {
         fun retrieveEvents(
             params: EmailBlockRetrieveEventsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailBlockRetrieveEventsResponse>
+        ): HttpResponseFor<EmailBlockRetrieveEventsPage>
 
         /** @see retrieveEvents */
         @MustBeClosed
         fun retrieveEvents(
             params: EmailBlockRetrieveEventsParams
-        ): HttpResponseFor<EmailBlockRetrieveEventsResponse> =
+        ): HttpResponseFor<EmailBlockRetrieveEventsPage> =
             retrieveEvents(params, RequestOptions.none())
 
         /** @see retrieveEvents */
@@ -408,7 +405,7 @@ interface EmailBlockService {
         fun retrieveEvents(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailBlockRetrieveEventsResponse> =
+        ): HttpResponseFor<EmailBlockRetrieveEventsPage> =
             retrieveEvents(id, EmailBlockRetrieveEventsParams.none(), requestOptions)
 
         /**

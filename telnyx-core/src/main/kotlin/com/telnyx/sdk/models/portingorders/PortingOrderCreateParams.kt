@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a new porting order object. */
+/**
+ * Creates a new porting order to bring phone numbers from another carrier to Telnyx. Complete the
+ * order's requirements and then confirm it to submit the port.
+ */
 class PortingOrderCreateParams
 private constructor(
     private val body: Body,

@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking.storage
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.storage.cloudfs.CloudfCreateParams
-import com.telnyx.sdk.models.storage.cloudfs.CloudfListParams
 import com.telnyx.sdk.models.storage.cloudfs.CloudfUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -64,20 +63,9 @@ internal class CloudfServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val cloudfService = client.storage().cloudfs()
 
-        val cloudfs =
-            cloudfService.list(
-                CloudfListParams.builder()
-                    .filterName("filter[name]")
-                    .filterRegion("us-east-1")
-                    .filterStatus(CloudfListParams.FilterStatus.PROVISIONING)
-                    .pageAfter("page[after]")
-                    .pageBefore("page[before]")
-                    .pageLimit(1L)
-                    .sort(CloudfListParams.Sort.CREATED_AT)
-                    .build()
-            )
+        val page = cloudfService.list()
 
-        cloudfs.validate()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

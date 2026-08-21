@@ -25,7 +25,10 @@ interface GlobalIpHealthCheckTypeServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpHealthCheckTypeServiceAsync
 
-    /** List all Global IP Health check types. */
+    /**
+     * Returns the health check types available for Global IPs, for use when creating Global IP
+     * health checks.
+     */
     fun list(): CompletableFuture<GlobalIpHealthCheckTypeListResponse> =
         list(GlobalIpHealthCheckTypeListParams.none())
 

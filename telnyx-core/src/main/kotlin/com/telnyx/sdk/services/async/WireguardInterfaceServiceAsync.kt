@@ -35,27 +35,17 @@ interface WireguardInterfaceServiceAsync {
      * Create a new WireGuard Interface. Current limitation of 10 interfaces per user can be
      * created.
      */
-    fun create(): CompletableFuture<WireguardInterfaceCreateResponse> =
-        create(WireguardInterfaceCreateParams.none())
-
-    /** @see create */
     fun create(
-        params: WireguardInterfaceCreateParams = WireguardInterfaceCreateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<WireguardInterfaceCreateResponse>
-
-    /** @see create */
-    fun create(
-        params: WireguardInterfaceCreateParams = WireguardInterfaceCreateParams.none()
+        params: WireguardInterfaceCreateParams
     ): CompletableFuture<WireguardInterfaceCreateResponse> = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        requestOptions: RequestOptions
-    ): CompletableFuture<WireguardInterfaceCreateResponse> =
-        create(WireguardInterfaceCreateParams.none(), requestOptions)
+        params: WireguardInterfaceCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<WireguardInterfaceCreateResponse>
 
-    /** Retrieve a WireGuard Interfaces. */
+    /** Returns the details of a single WireGuard interface by its identifier. */
     fun retrieve(id: String): CompletableFuture<WireguardInterfaceRetrieveResponse> =
         retrieve(id, WireguardInterfaceRetrieveParams.none())
 
@@ -93,7 +83,10 @@ interface WireguardInterfaceServiceAsync {
     ): CompletableFuture<WireguardInterfaceRetrieveResponse> =
         retrieve(id, WireguardInterfaceRetrieveParams.none(), requestOptions)
 
-    /** List all WireGuard Interfaces. */
+    /**
+     * Returns a paginated list of the WireGuard interfaces on your account, with support for
+     * filtering.
+     */
     fun list(): CompletableFuture<WireguardInterfaceListPageAsync> =
         list(WireguardInterfaceListParams.none())
 
@@ -112,7 +105,7 @@ interface WireguardInterfaceServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<WireguardInterfaceListPageAsync> =
         list(WireguardInterfaceListParams.none(), requestOptions)
 
-    /** Delete a WireGuard Interface. */
+    /** Deletes the specified WireGuard interface from its network. */
     fun delete(id: String): CompletableFuture<WireguardInterfaceDeleteResponse> =
         delete(id, WireguardInterfaceDeleteParams.none())
 
@@ -168,26 +161,16 @@ interface WireguardInterfaceServiceAsync {
          * Returns a raw HTTP response for `post /wireguard_interfaces`, but is otherwise the same
          * as [WireguardInterfaceServiceAsync.create].
          */
-        fun create(): CompletableFuture<HttpResponseFor<WireguardInterfaceCreateResponse>> =
-            create(WireguardInterfaceCreateParams.none())
-
-        /** @see create */
         fun create(
-            params: WireguardInterfaceCreateParams = WireguardInterfaceCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WireguardInterfaceCreateResponse>>
-
-        /** @see create */
-        fun create(
-            params: WireguardInterfaceCreateParams = WireguardInterfaceCreateParams.none()
+            params: WireguardInterfaceCreateParams
         ): CompletableFuture<HttpResponseFor<WireguardInterfaceCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<WireguardInterfaceCreateResponse>> =
-            create(WireguardInterfaceCreateParams.none(), requestOptions)
+            params: WireguardInterfaceCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireguardInterfaceCreateResponse>>
 
         /**
          * Returns a raw HTTP response for `get /wireguard_interfaces/{id}`, but is otherwise the

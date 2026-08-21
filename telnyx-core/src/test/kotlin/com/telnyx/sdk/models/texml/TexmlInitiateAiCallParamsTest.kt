@@ -41,6 +41,9 @@ internal class TexmlInitiateAiCallParamsTest {
             )
             .detectionMode(TexmlInitiateAiCallParams.DetectionMode.PREMIUM)
             .machineDetection(TexmlInitiateAiCallParams.MachineDetection.ENABLE)
+            .machineDetectionBeepProfile(
+                TexmlInitiateAiCallParams.MachineDetectionBeepProfile.FREQ_ONLY
+            )
             .machineDetectionPromptEndTimeout(5000L)
             .machineDetectionSilenceTimeout(2000L)
             .machineDetectionSpeechEndThreshold(2000L)
@@ -122,6 +125,9 @@ internal class TexmlInitiateAiCallParamsTest {
                 )
                 .detectionMode(TexmlInitiateAiCallParams.DetectionMode.PREMIUM)
                 .machineDetection(TexmlInitiateAiCallParams.MachineDetection.ENABLE)
+                .machineDetectionBeepProfile(
+                    TexmlInitiateAiCallParams.MachineDetectionBeepProfile.FREQ_ONLY
+                )
                 .machineDetectionPromptEndTimeout(5000L)
                 .machineDetectionSilenceTimeout(2000L)
                 .machineDetectionSpeechEndThreshold(2000L)
@@ -189,6 +195,8 @@ internal class TexmlInitiateAiCallParamsTest {
         assertThat(body.detectionMode()).contains(TexmlInitiateAiCallParams.DetectionMode.PREMIUM)
         assertThat(body.machineDetection())
             .contains(TexmlInitiateAiCallParams.MachineDetection.ENABLE)
+        assertThat(body.machineDetectionBeepProfile())
+            .contains(TexmlInitiateAiCallParams.MachineDetectionBeepProfile.FREQ_ONLY)
         assertThat(body.machineDetectionPromptEndTimeout()).contains(5000L)
         assertThat(body.machineDetectionSilenceTimeout()).contains(2000L)
         assertThat(body.machineDetectionSpeechEndThreshold()).contains(2000L)

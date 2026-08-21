@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates SIM card data */
+/** Updates the specified SIM card's attributes and returns the updated SIM card. */
 class SimCardUpdateParams
 private constructor(
     private val simCardId: String?,

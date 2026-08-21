@@ -128,7 +128,7 @@ interface ToolServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<ToolListPageAsync> =
         list(ToolListParams.none(), requestOptions)
 
-    /** Delete a custom AI tool. */
+    /** Permanently deletes the specified custom AI tool from your account. */
     fun delete(toolId: String): CompletableFuture<ToolDeleteResponse> =
         delete(toolId, ToolDeleteParams.none())
 

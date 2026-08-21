@@ -28,7 +28,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates an IP connection. */
+/** Creates a new IP-based SIP connection, which authenticates traffic by source IP address. */
 class IpConnectionCreateParams
 private constructor(
     private val body: Body,

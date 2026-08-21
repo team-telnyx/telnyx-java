@@ -99,7 +99,7 @@ interface PrivateWirelessGatewayService {
     fun list(requestOptions: RequestOptions): PrivateWirelessGatewayListPage =
         list(PrivateWirelessGatewayListParams.none(), requestOptions)
 
-    /** Deletes the Private Wireless Gateway. */
+    /** Permanently deletes the specified Private Wireless Gateway from your account. */
     fun delete(id: String): PrivateWirelessGatewayDeleteResponse =
         delete(id, PrivateWirelessGatewayDeleteParams.none())
 

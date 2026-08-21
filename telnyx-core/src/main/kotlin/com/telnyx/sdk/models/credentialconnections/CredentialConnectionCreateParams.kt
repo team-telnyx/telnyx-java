@@ -24,7 +24,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a credential connection. */
+/**
+ * Creates a new credential-based SIP connection. Credential connections authenticate with a
+ * username and password rather than by IP address.
+ */
 class CredentialConnectionCreateParams
 private constructor(
     private val body: Body,

@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesPageAsync
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
-import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
 import com.telnyx.sdk.services.async.ai.AnthropicServiceAsync
@@ -125,14 +125,14 @@ interface AiServiceAsync {
      */
     fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams
-    ): CompletableFuture<AiRetrieveConversationHistoriesResponse> =
+    ): CompletableFuture<AiRetrieveConversationHistoriesPageAsync> =
         retrieveConversationHistories(params, RequestOptions.none())
 
     /** @see retrieveConversationHistories */
     fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AiRetrieveConversationHistoriesResponse>
+    ): CompletableFuture<AiRetrieveConversationHistoriesPageAsync>
 
     /**
      * Generate a summary of a file's contents.
@@ -206,14 +206,14 @@ interface AiServiceAsync {
          */
         fun retrieveConversationHistories(
             params: AiRetrieveConversationHistoriesParams
-        ): CompletableFuture<HttpResponseFor<AiRetrieveConversationHistoriesResponse>> =
+        ): CompletableFuture<HttpResponseFor<AiRetrieveConversationHistoriesPageAsync>> =
             retrieveConversationHistories(params, RequestOptions.none())
 
         /** @see retrieveConversationHistories */
         fun retrieveConversationHistories(
             params: AiRetrieveConversationHistoriesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AiRetrieveConversationHistoriesResponse>>
+        ): CompletableFuture<HttpResponseFor<AiRetrieveConversationHistoriesPageAsync>>
 
         /**
          * Returns a raw HTTP response for `post /ai/summarize`, but is otherwise the same as

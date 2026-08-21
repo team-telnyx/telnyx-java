@@ -427,7 +427,7 @@ private constructor(
 
             @JvmField val DISPLAY_NAME = of("display_name")
 
-            @JvmField val minus_DISPLAY_NAME = of("-display_name")
+            @JvmField val MINUS_DISPLAY_NAME = of("-display_name")
 
             @JvmField val STATUS = of("status")
 
@@ -435,15 +435,15 @@ private constructor(
 
             @JvmField val SUBMITTED_AT = of("submitted_at")
 
-            @JvmField val minus_SUBMITTED_AT = of("-submitted_at")
+            @JvmField val MINUS_SUBMITTED_AT = of("-submitted_at")
 
             @JvmField val VERIFIED_AT = of("verified_at")
 
-            @JvmField val minus_VERIFIED_AT = of("-verified_at")
+            @JvmField val MINUS_VERIFIED_AT = of("-verified_at")
 
             @JvmField val EXPIRING_AT = of("expiring_at")
 
-            @JvmField val minus_EXPIRING_AT = of("-expiring_at")
+            @JvmField val MINUS_EXPIRING_AT = of("-expiring_at")
 
             @JvmStatic fun of(value: String) = Sort(JsonField.of(value))
         }
@@ -455,15 +455,15 @@ private constructor(
             UPDATED_AT,
             UPDATED_AT_DESC,
             DISPLAY_NAME,
-            minus_DISPLAY_NAME,
+            MINUS_DISPLAY_NAME,
             STATUS,
             STATUS_DESC,
             SUBMITTED_AT,
-            minus_SUBMITTED_AT,
+            MINUS_SUBMITTED_AT,
             VERIFIED_AT,
-            minus_VERIFIED_AT,
+            MINUS_VERIFIED_AT,
             EXPIRING_AT,
-            minus_EXPIRING_AT,
+            MINUS_EXPIRING_AT,
         }
 
         /**
@@ -481,15 +481,15 @@ private constructor(
             UPDATED_AT,
             UPDATED_AT_DESC,
             DISPLAY_NAME,
-            minus_DISPLAY_NAME,
+            MINUS_DISPLAY_NAME,
             STATUS,
             STATUS_DESC,
             SUBMITTED_AT,
-            minus_SUBMITTED_AT,
+            MINUS_SUBMITTED_AT,
             VERIFIED_AT,
-            minus_VERIFIED_AT,
+            MINUS_VERIFIED_AT,
             EXPIRING_AT,
-            minus_EXPIRING_AT,
+            MINUS_EXPIRING_AT,
             /** An enum member indicating that [Sort] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -508,15 +508,15 @@ private constructor(
                 UPDATED_AT -> Value.UPDATED_AT
                 UPDATED_AT_DESC -> Value.UPDATED_AT_DESC
                 DISPLAY_NAME -> Value.DISPLAY_NAME
-                minus_DISPLAY_NAME -> Value.minus_DISPLAY_NAME
+                MINUS_DISPLAY_NAME -> Value.MINUS_DISPLAY_NAME
                 STATUS -> Value.STATUS
                 STATUS_DESC -> Value.STATUS_DESC
                 SUBMITTED_AT -> Value.SUBMITTED_AT
-                minus_SUBMITTED_AT -> Value.minus_SUBMITTED_AT
+                MINUS_SUBMITTED_AT -> Value.MINUS_SUBMITTED_AT
                 VERIFIED_AT -> Value.VERIFIED_AT
-                minus_VERIFIED_AT -> Value.minus_VERIFIED_AT
+                MINUS_VERIFIED_AT -> Value.MINUS_VERIFIED_AT
                 EXPIRING_AT -> Value.EXPIRING_AT
-                minus_EXPIRING_AT -> Value.minus_EXPIRING_AT
+                MINUS_EXPIRING_AT -> Value.MINUS_EXPIRING_AT
                 else -> Value._UNKNOWN
             }
 
@@ -536,15 +536,15 @@ private constructor(
                 UPDATED_AT -> Known.UPDATED_AT
                 UPDATED_AT_DESC -> Known.UPDATED_AT_DESC
                 DISPLAY_NAME -> Known.DISPLAY_NAME
-                minus_DISPLAY_NAME -> Known.minus_DISPLAY_NAME
+                MINUS_DISPLAY_NAME -> Known.MINUS_DISPLAY_NAME
                 STATUS -> Known.STATUS
                 STATUS_DESC -> Known.STATUS_DESC
                 SUBMITTED_AT -> Known.SUBMITTED_AT
-                minus_SUBMITTED_AT -> Known.minus_SUBMITTED_AT
+                MINUS_SUBMITTED_AT -> Known.MINUS_SUBMITTED_AT
                 VERIFIED_AT -> Known.VERIFIED_AT
-                minus_VERIFIED_AT -> Known.minus_VERIFIED_AT
+                MINUS_VERIFIED_AT -> Known.MINUS_VERIFIED_AT
                 EXPIRING_AT -> Known.EXPIRING_AT
-                minus_EXPIRING_AT -> Known.minus_EXPIRING_AT
+                MINUS_EXPIRING_AT -> Known.MINUS_EXPIRING_AT
                 else -> throw TelnyxInvalidDataException("Unknown Sort: $value")
             }
 

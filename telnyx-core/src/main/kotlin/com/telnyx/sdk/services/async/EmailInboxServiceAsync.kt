@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.emailinboxes.EmailInboxCreateParams
 import com.telnyx.sdk.models.emailinboxes.EmailInboxDeleteParams
+import com.telnyx.sdk.models.emailinboxes.EmailInboxListPageAsync
 import com.telnyx.sdk.models.emailinboxes.EmailInboxListParams
-import com.telnyx.sdk.models.emailinboxes.EmailInboxListResponse
 import com.telnyx.sdk.models.emailinboxes.EmailInboxResponse
 import com.telnyx.sdk.models.emailinboxes.EmailInboxRetrieveParams
 import com.telnyx.sdk.services.async.emailinboxes.DraftServiceAsync
@@ -118,21 +118,21 @@ interface EmailInboxServiceAsync {
         retrieve(id, EmailInboxRetrieveParams.none(), requestOptions)
 
     /** Lists the account's non-deleted inboxes newest first using stable cursor pagination. */
-    fun list(): CompletableFuture<EmailInboxListResponse> = list(EmailInboxListParams.none())
+    fun list(): CompletableFuture<EmailInboxListPageAsync> = list(EmailInboxListParams.none())
 
     /** @see list */
     fun list(
         params: EmailInboxListParams = EmailInboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailInboxListResponse>
+    ): CompletableFuture<EmailInboxListPageAsync>
 
     /** @see list */
     fun list(
         params: EmailInboxListParams = EmailInboxListParams.none()
-    ): CompletableFuture<EmailInboxListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<EmailInboxListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<EmailInboxListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<EmailInboxListPageAsync> =
         list(EmailInboxListParams.none(), requestOptions)
 
     /**
@@ -273,25 +273,25 @@ interface EmailInboxServiceAsync {
          * Returns a raw HTTP response for `get /email_inboxes`, but is otherwise the same as
          * [EmailInboxServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<EmailInboxListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<EmailInboxListPageAsync>> =
             list(EmailInboxListParams.none())
 
         /** @see list */
         fun list(
             params: EmailInboxListParams = EmailInboxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailInboxListResponse>>
+        ): CompletableFuture<HttpResponseFor<EmailInboxListPageAsync>>
 
         /** @see list */
         fun list(
             params: EmailInboxListParams = EmailInboxListParams.none()
-        ): CompletableFuture<HttpResponseFor<EmailInboxListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailInboxListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<EmailInboxListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailInboxListPageAsync>> =
             list(EmailInboxListParams.none(), requestOptions)
 
         /**

@@ -41,7 +41,10 @@ interface MessagingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessagingCreateResponse>
 
-    /** Fetch single MDR usage report by id. */
+    /**
+     * Returns a single MDR (Message Detail Record) usage report by its identifier, including its
+     * parameters and current status.
+     */
     fun retrieve(id: String): CompletableFuture<MessagingRetrieveResponse> =
         retrieve(id, MessagingRetrieveParams.none())
 

@@ -15,7 +15,7 @@ internal class CloudfsFilesystemResponseWrapperTest {
         val cloudfsFilesystemResponseWrapper =
             CloudfsFilesystemResponseWrapper.builder()
                 .data(
-                    CloudfsFilesystemResponseWrapper.Data.builder()
+                    CloudfsFilesystem.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
                         .metaToken("cloudfs_tok_0123456789abcdef0123456789abcdef")
@@ -35,7 +35,7 @@ internal class CloudfsFilesystemResponseWrapperTest {
 
         assertThat(cloudfsFilesystemResponseWrapper.data())
             .contains(
-                CloudfsFilesystemResponseWrapper.Data.builder()
+                CloudfsFilesystem.builder()
                     .id("550e8400-e29b-41d4-a716-446655440000")
                     .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
                     .metaToken("cloudfs_tok_0123456789abcdef0123456789abcdef")
@@ -59,7 +59,7 @@ internal class CloudfsFilesystemResponseWrapperTest {
         val cloudfsFilesystemResponseWrapper =
             CloudfsFilesystemResponseWrapper.builder()
                 .data(
-                    CloudfsFilesystemResponseWrapper.Data.builder()
+                    CloudfsFilesystem.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2026-07-14T21:42:01Z"))
                         .metaToken("cloudfs_tok_0123456789abcdef0123456789abcdef")

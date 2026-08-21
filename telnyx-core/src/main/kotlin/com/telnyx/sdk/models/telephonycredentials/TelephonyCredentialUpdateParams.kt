@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update an existing credential. */
+/** Updates the specified telephony credential and returns the updated credential. */
 class TelephonyCredentialUpdateParams
 private constructor(
     private val id: String?,

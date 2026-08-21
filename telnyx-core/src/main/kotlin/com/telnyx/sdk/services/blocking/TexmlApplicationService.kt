@@ -33,7 +33,10 @@ interface TexmlApplicationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlApplicationService
 
-    /** Creates a TeXML Application. */
+    /**
+     * Creates a TeXML application, which defines the voice URLs and settings used to serve TeXML
+     * instructions for calls, and returns the created application.
+     */
     fun create(params: TexmlApplicationCreateParams): TexmlApplicationCreateResponse =
         create(params, RequestOptions.none())
 
@@ -114,7 +117,7 @@ interface TexmlApplicationService {
     fun list(requestOptions: RequestOptions): TexmlApplicationListPage =
         list(TexmlApplicationListParams.none(), requestOptions)
 
-    /** Deletes a TeXML Application. */
+    /** Permanently deletes the specified TeXML application from your account. */
     fun delete(id: String): TexmlApplicationDeleteResponse =
         delete(id, TexmlApplicationDeleteParams.none())
 

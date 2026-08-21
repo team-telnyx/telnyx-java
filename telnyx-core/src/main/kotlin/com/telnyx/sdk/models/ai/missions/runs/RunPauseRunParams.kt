@@ -11,7 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Pause a running run */
+/**
+ * Pauses a currently running run and returns the updated run object. Execution halts until the run
+ * is resumed.
+ */
 class RunPauseRunParams
 private constructor(
     private val missionId: String,

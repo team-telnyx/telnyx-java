@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a specific MCP server. */
+/** Permanently deletes the specified MCP server configuration from your account. */
 class McpServerDeleteParams
 private constructor(
     private val mcpServerId: String?,

@@ -13,6 +13,7 @@ internal class ScheduledEventCreateParamsTest {
     fun create() {
         ScheduledEventCreateParams.builder()
             .assistantId("assistant_id")
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .scheduledAtFixedDatetime(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
             .telnyxAgentTarget("telnyx_agent_target")
             .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)
@@ -55,10 +56,67 @@ internal class ScheduledEventCreateParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            ScheduledEventCreateParams.builder()
+                .assistantId("assistant_id")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .scheduledAtFixedDatetime(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
+                .telnyxAgentTarget("telnyx_agent_target")
+                .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)
+                .telnyxEndUserTarget("telnyx_end_user_target")
+                .callSettings(
+                    ScheduledCallSettings.builder()
+                        .sipRegion(ScheduledCallSettings.SipRegion.US)
+                        .build()
+                )
+                .conversationMetadata(
+                    ScheduledEventCreateParams.ConversationMetadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .dynamicVariables(
+                    ScheduledEventCreateParams.DynamicVariables.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .maxRetriesClientErrors(0L)
+                .retryIntervalSecs(60L)
+                .text("text")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params =
+            ScheduledEventCreateParams.builder()
+                .assistantId("assistant_id")
+                .scheduledAtFixedDatetime(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
+                .telnyxAgentTarget("telnyx_agent_target")
+                .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)
+                .telnyxEndUserTarget("telnyx_end_user_target")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             ScheduledEventCreateParams.builder()
                 .assistantId("assistant_id")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .scheduledAtFixedDatetime(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
                 .telnyxAgentTarget("telnyx_agent_target")
                 .telnyxConversationChannel(ConversationChannelType.PHONE_CALL)

@@ -15,7 +15,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List customer service records. */
+/**
+ * Returns a paginated list of your customer service record (CSR) requests, with support for
+ * filtering and sorting.
+ */
 class CustomerServiceRecordListParams
 private constructor(
     private val filter: Filter?,

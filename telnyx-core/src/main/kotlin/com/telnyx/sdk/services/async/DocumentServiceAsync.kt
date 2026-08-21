@@ -39,7 +39,7 @@ interface DocumentServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DocumentServiceAsync
 
-    /** Retrieve a document. */
+    /** Returns the details of a single document on your account, including its metadata. */
     fun retrieve(id: String): CompletableFuture<DocumentRetrieveResponse> =
         retrieve(id, DocumentRetrieveParams.none())
 
@@ -74,7 +74,7 @@ interface DocumentServiceAsync {
     ): CompletableFuture<DocumentRetrieveResponse> =
         retrieve(id, DocumentRetrieveParams.none(), requestOptions)
 
-    /** Update a document. */
+    /** Updates the specified document's attributes and returns the updated document. */
     fun update(
         documentId: String,
         params: DocumentUpdateParams,
@@ -154,7 +154,7 @@ interface DocumentServiceAsync {
     ): CompletableFuture<DocumentDeleteResponse> =
         delete(id, DocumentDeleteParams.none(), requestOptions)
 
-    /** Download a document. */
+    /** Downloads the raw file content of the specified document as originally uploaded. */
     fun download(id: String): CompletableFuture<HttpResponse> =
         download(id, DocumentDownloadParams.none())
 

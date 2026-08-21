@@ -27,7 +27,10 @@ interface RequirementTypeServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RequirementTypeServiceAsync
 
-    /** Retrieve a requirement type by id */
+    /**
+     * Returns the details of a single requirement type by its identifier, describing a kind of
+     * documentation needed for regulatory purposes.
+     */
     fun retrieve(id: String): CompletableFuture<RequirementTypeRetrieveResponse> =
         retrieve(id, RequirementTypeRetrieveParams.none())
 

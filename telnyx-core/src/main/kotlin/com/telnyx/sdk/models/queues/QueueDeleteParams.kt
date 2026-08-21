@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an existing call queue. */
+/** Permanently deletes the specified call queue from your account. */
 class QueueDeleteParams
 private constructor(
     private val queueName: String?,

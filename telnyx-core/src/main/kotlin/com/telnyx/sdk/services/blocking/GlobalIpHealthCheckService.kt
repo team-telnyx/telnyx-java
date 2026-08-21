@@ -32,7 +32,11 @@ interface GlobalIpHealthCheckService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): GlobalIpHealthCheckService
 
-    /** Create a Global IP health check. */
+    /**
+     * Creates a health check for a Global IP to monitor the health of its assignments. Creation is
+     * asynchronous, so the request is accepted and the health check becomes active once
+     * provisioning completes.
+     */
     fun create(params: GlobalIpHealthCheckCreateParams): GlobalIpHealthCheckCreateResponse =
         create(params, RequestOptions.none())
 
@@ -58,7 +62,9 @@ interface GlobalIpHealthCheckService {
     fun create(globalIpHealthCheck: GlobalIpHealthCheck): GlobalIpHealthCheckCreateResponse =
         create(globalIpHealthCheck, RequestOptions.none())
 
-    /** Retrieve a Global IP health check. */
+    /**
+     * Returns the details of a single Global IP health check, including its type and configuration.
+     */
     fun retrieve(id: String): GlobalIpHealthCheckRetrieveResponse =
         retrieve(id, GlobalIpHealthCheckRetrieveParams.none())
 
@@ -90,7 +96,7 @@ interface GlobalIpHealthCheckService {
     fun retrieve(id: String, requestOptions: RequestOptions): GlobalIpHealthCheckRetrieveResponse =
         retrieve(id, GlobalIpHealthCheckRetrieveParams.none(), requestOptions)
 
-    /** List all Global IP health checks. */
+    /** Returns a paginated list of the Global IP health checks configured on your account. */
     fun list(): GlobalIpHealthCheckListPage = list(GlobalIpHealthCheckListParams.none())
 
     /** @see list */
@@ -108,7 +114,10 @@ interface GlobalIpHealthCheckService {
     fun list(requestOptions: RequestOptions): GlobalIpHealthCheckListPage =
         list(GlobalIpHealthCheckListParams.none(), requestOptions)
 
-    /** Delete a Global IP health check. */
+    /**
+     * Deletes the specified Global IP health check so it no longer monitors the Global IP's
+     * assignments.
+     */
     fun delete(id: String): GlobalIpHealthCheckDeleteResponse =
         delete(id, GlobalIpHealthCheckDeleteParams.none())
 

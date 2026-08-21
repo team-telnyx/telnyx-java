@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a specific knowledge base by ID */
+/** Returns the details of a single knowledge base attached to the specified mission. */
 class KnowledgeBaseGetKnowledgeBaseParams
 private constructor(
     private val missionId: String,

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deactivates a user bundle by its ID. */
+/** Deactivates the specified user bundle on your account and returns the deactivated bundle. */
 class UserBundleDeactivateParams
 private constructor(
     private val userBundleId: String?,

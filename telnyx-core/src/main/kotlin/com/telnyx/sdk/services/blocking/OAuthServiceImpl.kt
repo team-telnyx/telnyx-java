@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
+import com.telnyx.sdk.core.handlers.stringHandler
 import com.telnyx.sdk.core.http.HttpMethod
 import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
@@ -76,10 +76,9 @@ class OAuthServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun retrieveAuthorize(
         params: OAuthRetrieveAuthorizeParams,
         requestOptions: RequestOptions,
-    ) {
+    ): String =
         // get /oauth/authorize
-        withRawResponse().retrieveAuthorize(params, requestOptions)
-    }
+        withRawResponse().retrieveAuthorize(params, requestOptions).parse()
 
     override fun retrieveJwks(
         params: OAuthRetrieveJwksParams,
@@ -222,17 +221,18 @@ class OAuthServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val retrieveAuthorizeHandler: Handler<Void?> = emptyHandler()
+        private val retrieveAuthorizeHandler: Handler<String> = stringHandler()
 
         override fun retrieveAuthorize(
             params: OAuthRetrieveAuthorizeParams,
             requestOptions: RequestOptions,
-        ): HttpResponse {
+        ): HttpResponseFor<String> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("oauth", "authorize")
+                    .putHeader("Accept", "text/html")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

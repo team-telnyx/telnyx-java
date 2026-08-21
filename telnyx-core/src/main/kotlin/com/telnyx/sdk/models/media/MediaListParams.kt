@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a list of stored media files. */
+/** Returns a list of the media files stored on your account, with support for filtering. */
 class MediaListParams
 private constructor(
     private val filter: Filter?,

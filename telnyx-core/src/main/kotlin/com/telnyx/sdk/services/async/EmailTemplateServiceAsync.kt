@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateCreateParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateDeleteParams
+import com.telnyx.sdk.models.emailtemplates.EmailTemplateListPageAsync
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateListParams
-import com.telnyx.sdk.models.emailtemplates.EmailTemplateListResponse
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateRenderParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateRenderResponse
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateReplaceParams
@@ -82,7 +82,9 @@ interface EmailTemplateServiceAsync {
     ): CompletableFuture<EmailTemplateResponse> =
         retrieve(id, EmailTemplateRetrieveParams.none(), requestOptions)
 
-    /** Updates one or more template fields. */
+    /**
+     * Updates one or more fields of the specified email template and returns the updated template.
+     */
     fun update(
         id: String,
         params: EmailTemplateUpdateParams,
@@ -107,21 +109,21 @@ interface EmailTemplateServiceAsync {
     ): CompletableFuture<EmailTemplateResponse>
 
     /** Lists templates sorted newest first by `created_at desc, id desc`. */
-    fun list(): CompletableFuture<EmailTemplateListResponse> = list(EmailTemplateListParams.none())
+    fun list(): CompletableFuture<EmailTemplateListPageAsync> = list(EmailTemplateListParams.none())
 
     /** @see list */
     fun list(
         params: EmailTemplateListParams = EmailTemplateListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailTemplateListResponse>
+    ): CompletableFuture<EmailTemplateListPageAsync>
 
     /** @see list */
     fun list(
         params: EmailTemplateListParams = EmailTemplateListParams.none()
-    ): CompletableFuture<EmailTemplateListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<EmailTemplateListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<EmailTemplateListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<EmailTemplateListPageAsync> =
         list(EmailTemplateListParams.none(), requestOptions)
 
     /**
@@ -327,25 +329,25 @@ interface EmailTemplateServiceAsync {
          * Returns a raw HTTP response for `get /email_templates`, but is otherwise the same as
          * [EmailTemplateServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<EmailTemplateListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<EmailTemplateListPageAsync>> =
             list(EmailTemplateListParams.none())
 
         /** @see list */
         fun list(
             params: EmailTemplateListParams = EmailTemplateListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailTemplateListResponse>>
+        ): CompletableFuture<HttpResponseFor<EmailTemplateListPageAsync>>
 
         /** @see list */
         fun list(
             params: EmailTemplateListParams = EmailTemplateListParams.none()
-        ): CompletableFuture<HttpResponseFor<EmailTemplateListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailTemplateListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<EmailTemplateListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailTemplateListPageAsync>> =
             list(EmailTemplateListParams.none(), requestOptions)
 
         /**

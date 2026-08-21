@@ -3,7 +3,6 @@
 package com.telnyx.sdk.services.blocking.emailmessages
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.emailmessages.recipients.RecipientListParams
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -33,17 +32,8 @@ internal class RecipientServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val recipientService = client.emailMessages().recipients()
 
-        val recipients =
-            recipientService.list(
-                RecipientListParams.builder()
-                    .emailId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .kind(RecipientListParams.Kind.TO)
-                    .pageCursor("page_cursor")
-                    .pageSize(1L)
-                    .status(RecipientListParams.Status.QUEUED)
-                    .build()
-            )
+        val page = recipientService.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        recipients.validate()
+        page.response().validate()
     }
 }

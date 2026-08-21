@@ -39,7 +39,10 @@ interface ReportService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReportCreateResponse
 
-    /** Retrieve a specific report generated. */
+    /**
+     * Returns the details of a previously requested port-out report, including its status and
+     * parameters.
+     */
     fun retrieve(id: String): ReportRetrieveResponse = retrieve(id, ReportRetrieveParams.none())
 
     /** @see retrieve */

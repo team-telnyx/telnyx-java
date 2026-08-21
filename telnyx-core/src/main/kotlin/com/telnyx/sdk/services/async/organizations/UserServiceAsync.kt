@@ -33,7 +33,10 @@ interface UserServiceAsync {
     /** Operations related to users in your organization */
     fun actions(): ActionServiceAsync
 
-    /** Returns a user in your organization. */
+    /**
+     * Returns the details of a user in your organization, optionally including the groups the user
+     * belongs to.
+     */
     fun retrieve(id: String): CompletableFuture<UserRetrieveResponse> =
         retrieve(id, UserRetrieveParams.none())
 

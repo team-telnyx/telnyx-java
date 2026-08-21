@@ -14,20 +14,20 @@ internal class FilterAddResponseTest {
         val filterAddResponse =
             FilterAddResponse.builder()
                 .data(
-                    FilterAddResponse.Data.builder()
+                    InboxFilters.builder()
                         .addAllowlist("@example.com")
                         .addBlocklist("@example.com")
-                        .recordType(FilterAddResponse.Data.RecordType.EMAIL_INBOX_FILTERS)
+                        .recordType(InboxFilters.RecordType.EMAIL_INBOX_FILTERS)
                         .build()
                 )
                 .build()
 
         assertThat(filterAddResponse.data())
             .isEqualTo(
-                FilterAddResponse.Data.builder()
+                InboxFilters.builder()
                     .addAllowlist("@example.com")
                     .addBlocklist("@example.com")
-                    .recordType(FilterAddResponse.Data.RecordType.EMAIL_INBOX_FILTERS)
+                    .recordType(InboxFilters.RecordType.EMAIL_INBOX_FILTERS)
                     .build()
             )
     }
@@ -38,10 +38,10 @@ internal class FilterAddResponseTest {
         val filterAddResponse =
             FilterAddResponse.builder()
                 .data(
-                    FilterAddResponse.Data.builder()
+                    InboxFilters.builder()
                         .addAllowlist("@example.com")
                         .addBlocklist("@example.com")
-                        .recordType(FilterAddResponse.Data.RecordType.EMAIL_INBOX_FILTERS)
+                        .recordType(InboxFilters.RecordType.EMAIL_INBOX_FILTERS)
                         .build()
                 )
                 .build()

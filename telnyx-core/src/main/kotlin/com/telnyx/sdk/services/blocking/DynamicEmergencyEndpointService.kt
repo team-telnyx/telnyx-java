@@ -32,7 +32,10 @@ interface DynamicEmergencyEndpointService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DynamicEmergencyEndpointService
 
-    /** Creates a dynamic emergency endpoints. */
+    /**
+     * Creates a dynamic emergency endpoint, associating a callback number and location with a
+     * device for emergency calling.
+     */
     fun create(
         params: DynamicEmergencyEndpointCreateParams
     ): DynamicEmergencyEndpointCreateResponse = create(params, RequestOptions.none())

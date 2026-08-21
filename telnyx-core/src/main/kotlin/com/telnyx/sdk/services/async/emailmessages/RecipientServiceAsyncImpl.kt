@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.emailmessages.recipients.RecipientListPageAsync
+import com.telnyx.sdk.models.emailmessages.recipients.RecipientListPageResponse
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientListParams
-import com.telnyx.sdk.models.emailmessages.recipients.RecipientListResponse
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientRetrieveParams
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -46,7 +47,7 @@ class RecipientServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun list(
         params: RecipientListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RecipientListResponse> =
+    ): CompletableFuture<RecipientListPageAsync> =
         // get /email_messages/{email_id}/recipients
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -101,13 +102,13 @@ class RecipientServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val listHandler: Handler<RecipientListResponse> =
-            jsonHandler<RecipientListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RecipientListPageResponse> =
+            jsonHandler<RecipientListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RecipientListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecipientListResponse>> {
+        ): CompletableFuture<HttpResponseFor<RecipientListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("emailId", params.emailId().getOrNull())
@@ -129,6 +130,14 @@ class RecipientServiceAsyncImpl internal constructor(private val clientOptions: 
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                RecipientListPageAsync.builder()
+                                    .service(RecipientServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

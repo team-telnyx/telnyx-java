@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a single OAuth client by ID */
+/** Returns the details of a single OAuth client on your account by its ID. */
 class OAuthClientRetrieveParams
 private constructor(
     private val id: String?,

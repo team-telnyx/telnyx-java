@@ -31,7 +31,10 @@ interface NumberOrderServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberOrderServiceAsync
 
-    /** Creates a phone number order. */
+    /**
+     * Creates an order to purchase the specified phone numbers and returns the created order. Track
+     * fulfillment through the order's status.
+     */
     fun create(): CompletableFuture<NumberOrderCreateResponse> =
         create(NumberOrderCreateParams.none())
 
@@ -50,7 +53,10 @@ interface NumberOrderServiceAsync {
     fun create(requestOptions: RequestOptions): CompletableFuture<NumberOrderCreateResponse> =
         create(NumberOrderCreateParams.none(), requestOptions)
 
-    /** Get an existing phone number order. */
+    /**
+     * Returns the details of an existing phone number order, including its status and the numbers
+     * included.
+     */
     fun retrieve(numberOrderId: String): CompletableFuture<NumberOrderRetrieveResponse> =
         retrieve(numberOrderId, NumberOrderRetrieveParams.none())
 
@@ -87,7 +93,10 @@ interface NumberOrderServiceAsync {
     ): CompletableFuture<NumberOrderRetrieveResponse> =
         retrieve(numberOrderId, NumberOrderRetrieveParams.none(), requestOptions)
 
-    /** Updates a phone number order. */
+    /**
+     * Updates an existing phone number order, for example to satisfy regulatory requirements
+     * attached to the order, and returns the updated order.
+     */
     fun update(numberOrderId: String): CompletableFuture<NumberOrderUpdateResponse> =
         update(numberOrderId, NumberOrderUpdateParams.none())
 
@@ -123,7 +132,7 @@ interface NumberOrderServiceAsync {
     ): CompletableFuture<NumberOrderUpdateResponse> =
         update(numberOrderId, NumberOrderUpdateParams.none(), requestOptions)
 
-    /** Get a paginated list of number orders. */
+    /** Returns a paginated list of your phone number orders, with support for filtering. */
     fun list(): CompletableFuture<NumberOrderListPageAsync> = list(NumberOrderListParams.none())
 
     /** @see list */

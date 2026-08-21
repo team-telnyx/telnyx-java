@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a list of your call recordings. */
+/**
+ * Returns a paginated list of your call recordings, with support for filtering to locate specific
+ * recordings.
+ */
 class RecordingListParams
 private constructor(
     private val filter: Filter?,

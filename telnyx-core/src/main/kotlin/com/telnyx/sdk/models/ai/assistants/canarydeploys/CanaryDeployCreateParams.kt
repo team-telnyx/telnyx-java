@@ -19,12 +19,15 @@ import kotlin.jvm.optionals.getOrNull
 class CanaryDeployCreateParams
 private constructor(
     private val assistantId: String?,
+    private val idempotencyKey: String?,
     private val canaryDeploy: CanaryDeploy,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun assistantId(): Optional<String> = Optional.ofNullable(assistantId)
+
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
     /**
      * Create/update request body. Accepts:
@@ -59,6 +62,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var assistantId: String? = null
+        private var idempotencyKey: String? = null
         private var canaryDeploy: CanaryDeploy? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
@@ -67,6 +71,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(canaryDeployCreateParams: CanaryDeployCreateParams) = apply {
             assistantId = canaryDeployCreateParams.assistantId
+            idempotencyKey = canaryDeployCreateParams.idempotencyKey
             canaryDeploy = canaryDeployCreateParams.canaryDeploy
             additionalHeaders = canaryDeployCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = canaryDeployCreateParams.additionalQueryParams.toBuilder()
@@ -76,6 +81,12 @@ private constructor(
 
         /** Alias for calling [Builder.assistantId] with `assistantId.orElse(null)`. */
         fun assistantId(assistantId: Optional<String>) = assistantId(assistantId.getOrNull())
+
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
+
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * Create/update request body. Accepts:
@@ -197,6 +208,7 @@ private constructor(
         fun build(): CanaryDeployCreateParams =
             CanaryDeployCreateParams(
                 assistantId,
+                idempotencyKey,
                 checkRequired("canaryDeploy", canaryDeploy),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -211,7 +223,13 @@ private constructor(
             else -> ""
         }
 
-    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers =
+        com.telnyx.sdk.core.http.Headers.builder()
+            .apply {
+                idempotencyKey?.let { put("Idempotency-Key", it) }
+                putAll(additionalHeaders)
+            }
+            .build()
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
@@ -222,14 +240,21 @@ private constructor(
 
         return other is CanaryDeployCreateParams &&
             assistantId == other.assistantId &&
+            idempotencyKey == other.idempotencyKey &&
             canaryDeploy == other.canaryDeploy &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(assistantId, canaryDeploy, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            assistantId,
+            idempotencyKey,
+            canaryDeploy,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "CanaryDeployCreateParams{assistantId=$assistantId, canaryDeploy=$canaryDeploy, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CanaryDeployCreateParams{assistantId=$assistantId, idempotencyKey=$idempotencyKey, canaryDeploy=$canaryDeploy, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

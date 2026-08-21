@@ -147,7 +147,7 @@ interface UacConnectionServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<UacConnectionListPageAsync> =
         list(UacConnectionListParams.none(), requestOptions)
 
-    /** Deletes an existing UAC connection. */
+    /** Permanently deletes the specified UAC connection from your account. */
     fun delete(id: String): CompletableFuture<UacConnectionDeleteResponse> =
         delete(id, UacConnectionDeleteParams.none())
 

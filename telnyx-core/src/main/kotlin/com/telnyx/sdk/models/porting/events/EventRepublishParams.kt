@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Republish a specific porting event. */
+/**
+ * Republishes the specified porting event, triggering re-delivery of the corresponding webhook to
+ * your account.
+ */
 class EventRepublishParams
 private constructor(
     private val id: String?,

@@ -15,7 +15,7 @@ internal class RemediationRequestWrappedTest {
         val remediationRequestWrapped =
             RemediationRequestWrapped.builder()
                 .data(
-                    RemediationRequestWrapped.Data.builder()
+                    RemediationRequest.builder()
                         .id("b7c1f1c0-7a9d-4f0a-9d3e-2f6a1c4b8e21")
                         .callPurpose("Appointment reminders for our dental clinic.")
                         .createdAt(OffsetDateTime.parse("2026-06-01T12:00:00Z"))
@@ -26,7 +26,7 @@ internal class RemediationRequestWrappedTest {
                         .updatedAt(OffsetDateTime.parse("2026-06-01T12:05:00Z"))
                         .contactEmail("ops@example.com")
                         .results(
-                            RemediationRequestWrapped.Data.Results.builder()
+                            RemediationPerNumberResults.builder()
                                 .addIneligible("string")
                                 .addNotFlagged("string")
                                 .addRefused("string")
@@ -43,7 +43,7 @@ internal class RemediationRequestWrappedTest {
 
         assertThat(remediationRequestWrapped.data())
             .isEqualTo(
-                RemediationRequestWrapped.Data.builder()
+                RemediationRequest.builder()
                     .id("b7c1f1c0-7a9d-4f0a-9d3e-2f6a1c4b8e21")
                     .callPurpose("Appointment reminders for our dental clinic.")
                     .createdAt(OffsetDateTime.parse("2026-06-01T12:00:00Z"))
@@ -54,7 +54,7 @@ internal class RemediationRequestWrappedTest {
                     .updatedAt(OffsetDateTime.parse("2026-06-01T12:05:00Z"))
                     .contactEmail("ops@example.com")
                     .results(
-                        RemediationRequestWrapped.Data.Results.builder()
+                        RemediationPerNumberResults.builder()
                             .addIneligible("string")
                             .addNotFlagged("string")
                             .addRefused("string")
@@ -75,7 +75,7 @@ internal class RemediationRequestWrappedTest {
         val remediationRequestWrapped =
             RemediationRequestWrapped.builder()
                 .data(
-                    RemediationRequestWrapped.Data.builder()
+                    RemediationRequest.builder()
                         .id("b7c1f1c0-7a9d-4f0a-9d3e-2f6a1c4b8e21")
                         .callPurpose("Appointment reminders for our dental clinic.")
                         .createdAt(OffsetDateTime.parse("2026-06-01T12:00:00Z"))
@@ -86,7 +86,7 @@ internal class RemediationRequestWrappedTest {
                         .updatedAt(OffsetDateTime.parse("2026-06-01T12:05:00Z"))
                         .contactEmail("ops@example.com")
                         .results(
-                            RemediationRequestWrapped.Data.Results.builder()
+                            RemediationPerNumberResults.builder()
                                 .addIneligible("string")
                                 .addNotFlagged("string")
                                 .addRefused("string")

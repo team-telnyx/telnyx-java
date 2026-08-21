@@ -16,7 +16,7 @@ internal class EnterprisePublicTest {
             EnterprisePublic.builder()
                 .id("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .billingAddress(
-                    BillingAddress.builder()
+                    PhysicalAddress.builder()
                         .administrativeArea("IL")
                         .city("Chicago")
                         .country("US")
@@ -77,7 +77,7 @@ internal class EnterprisePublicTest {
         assertThat(enterprisePublic.id()).contains("4a6192a4-573d-446d-b3ce-aff9117272a6")
         assertThat(enterprisePublic.billingAddress())
             .contains(
-                BillingAddress.builder()
+                PhysicalAddress.builder()
                     .administrativeArea("IL")
                     .city("Chicago")
                     .country("US")
@@ -147,7 +147,7 @@ internal class EnterprisePublicTest {
             EnterprisePublic.builder()
                 .id("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .billingAddress(
-                    BillingAddress.builder()
+                    PhysicalAddress.builder()
                         .administrativeArea("IL")
                         .city("Chicago")
                         .country("US")

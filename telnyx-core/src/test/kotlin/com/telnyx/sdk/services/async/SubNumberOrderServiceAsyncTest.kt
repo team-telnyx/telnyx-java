@@ -70,6 +70,7 @@ internal class SubNumberOrderServiceAsyncTest {
                     .filter(
                         SubNumberOrderListParams.Filter.builder()
                             .countryCode("US")
+                            .includePhoneNumbers(true)
                             .orderRequestId("12ade33a-21c0-473b-b055-b3c836e1c293")
                             .phoneNumberType("local")
                             .phoneNumbersCount(1L)

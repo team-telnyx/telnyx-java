@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesPageAsync
+import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesPageResponse
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
-import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesResponse
 import com.telnyx.sdk.models.ai.AiSummarizeParams
 import com.telnyx.sdk.models.ai.AiSummarizeResponse
 import com.telnyx.sdk.services.async.ai.AnthropicServiceAsync
@@ -146,7 +147,7 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AiRetrieveConversationHistoriesResponse> =
+    ): CompletableFuture<AiRetrieveConversationHistoriesPageAsync> =
         // get /ai/conversation_histories
         withRawResponse().retrieveConversationHistories(params, requestOptions).thenApply {
             it.parse()
@@ -266,13 +267,13 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         override fun anthropic(): AnthropicServiceAsync.WithRawResponse = anthropic
 
         private val retrieveConversationHistoriesHandler:
-            Handler<AiRetrieveConversationHistoriesResponse> =
-            jsonHandler<AiRetrieveConversationHistoriesResponse>(clientOptions.jsonMapper)
+            Handler<AiRetrieveConversationHistoriesPageResponse> =
+            jsonHandler<AiRetrieveConversationHistoriesPageResponse>(clientOptions.jsonMapper)
 
         override fun retrieveConversationHistories(
             params: AiRetrieveConversationHistoriesParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AiRetrieveConversationHistoriesResponse>> {
+        ): CompletableFuture<HttpResponseFor<AiRetrieveConversationHistoriesPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -291,6 +292,14 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                AiRetrieveConversationHistoriesPageAsync.builder()
+                                    .service(AiServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

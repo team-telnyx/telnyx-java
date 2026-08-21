@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a specific report generated. */
+/**
+ * Returns the details of a previously requested port-out report, including its status and
+ * parameters.
+ */
 class ReportRetrieveParams
 private constructor(
     private val id: String?,

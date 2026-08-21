@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Show a specific port-out event. */
+/** Returns the details of a single port-out event, including its type and payload. */
 class EventRetrieveParams
 private constructor(
     private val id: String?,

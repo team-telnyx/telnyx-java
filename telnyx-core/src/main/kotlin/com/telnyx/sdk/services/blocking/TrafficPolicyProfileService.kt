@@ -80,7 +80,7 @@ interface TrafficPolicyProfileService {
     fun retrieve(id: String, requestOptions: RequestOptions): TrafficPolicyProfileRetrieveResponse =
         retrieve(id, TrafficPolicyProfileRetrieveParams.none(), requestOptions)
 
-    /** Updates a traffic policy profile. */
+    /** Updates the specified traffic policy profile and returns the updated profile. */
     fun update(id: String): TrafficPolicyProfileUpdateResponse =
         update(id, TrafficPolicyProfileUpdateParams.none())
 
@@ -130,7 +130,7 @@ interface TrafficPolicyProfileService {
     fun list(requestOptions: RequestOptions): TrafficPolicyProfileListPage =
         list(TrafficPolicyProfileListParams.none(), requestOptions)
 
-    /** Deletes the traffic policy profile. */
+    /** Permanently deletes the specified traffic policy profile from your account. */
     fun delete(id: String): TrafficPolicyProfileDeleteResponse =
         delete(id, TrafficPolicyProfileDeleteParams.none())
 

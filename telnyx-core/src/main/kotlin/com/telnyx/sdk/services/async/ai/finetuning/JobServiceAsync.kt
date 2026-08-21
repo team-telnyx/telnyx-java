@@ -29,7 +29,10 @@ interface JobServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): JobServiceAsync
 
-    /** Create a new fine tuning job. */
+    /**
+     * Creates a new fine-tuning job that trains a model on the provided dataset, and returns the
+     * created job.
+     */
     fun create(params: JobCreateParams): CompletableFuture<FineTuningJob> =
         create(params, RequestOptions.none())
 
@@ -39,7 +42,9 @@ interface JobServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<FineTuningJob>
 
-    /** Retrieve a fine tuning job by `job_id`. */
+    /**
+     * Returns the details of a single fine-tuning job by its job_id, including its current status.
+     */
     fun retrieve(jobId: String): CompletableFuture<FineTuningJob> =
         retrieve(jobId, JobRetrieveParams.none())
 
@@ -88,7 +93,7 @@ interface JobServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<JobListResponse> =
         list(JobListParams.none(), requestOptions)
 
-    /** Cancel a fine tuning job. */
+    /** Cancels the specified in-progress fine-tuning job and returns the updated job. */
     fun cancel(jobId: String): CompletableFuture<FineTuningJob> =
         cancel(jobId, JobCancelParams.none())
 

@@ -27,7 +27,7 @@ interface CommentServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CommentServiceAsync
 
-    /** Creates a comment on a portout request. */
+    /** Creates a comment on the specified port-out request and returns the created comment. */
     fun create(id: String): CompletableFuture<CommentCreateResponse> =
         create(id, CommentCreateParams.none())
 

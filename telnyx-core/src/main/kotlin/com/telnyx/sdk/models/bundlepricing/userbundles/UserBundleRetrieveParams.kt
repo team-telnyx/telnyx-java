@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieves a user bundle by its ID. */
+/** Returns the details of a single user bundle on your account by its ID. */
 class UserBundleRetrieveParams
 private constructor(
     private val userBundleId: String?,

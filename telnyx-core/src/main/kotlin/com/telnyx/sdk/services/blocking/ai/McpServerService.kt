@@ -30,7 +30,7 @@ interface McpServerService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): McpServerService
 
-    /** Create a new MCP server. */
+    /** Creates a new MCP server configuration on your account and returns the created server. */
     fun create(params: McpServerCreateParams): McpServer = create(params, RequestOptions.none())
 
     /** @see create */
@@ -70,7 +70,7 @@ interface McpServerService {
     fun retrieve(mcpServerId: String, requestOptions: RequestOptions): McpServer =
         retrieve(mcpServerId, McpServerRetrieveParams.none(), requestOptions)
 
-    /** Update an existing MCP server. */
+    /** Updates the specified MCP server's configuration and returns the updated server. */
     fun update(mcpServerId: String): McpServer = update(mcpServerId, McpServerUpdateParams.none())
 
     /** @see update */
@@ -99,7 +99,10 @@ interface McpServerService {
     fun update(mcpServerId: String, requestOptions: RequestOptions): McpServer =
         update(mcpServerId, McpServerUpdateParams.none(), requestOptions)
 
-    /** Retrieve a list of MCP servers. */
+    /**
+     * Returns a paginated list of the MCP servers configured on your account, with optional
+     * filtering by type or URL.
+     */
     fun list(): McpServerListPage = list(McpServerListParams.none())
 
     /** @see list */
@@ -116,7 +119,7 @@ interface McpServerService {
     fun list(requestOptions: RequestOptions): McpServerListPage =
         list(McpServerListParams.none(), requestOptions)
 
-    /** Delete a specific MCP server. */
+    /** Permanently deletes the specified MCP server configuration from your account. */
     fun delete(mcpServerId: String) = delete(mcpServerId, McpServerDeleteParams.none())
 
     /** @see delete */

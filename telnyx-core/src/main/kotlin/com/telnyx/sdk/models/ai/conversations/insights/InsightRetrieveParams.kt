@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get insight by ID */
+/** Returns the details of a single insight template by its ID, including its configuration. */
 class InsightRetrieveParams
 private constructor(
     private val insightId: String?,

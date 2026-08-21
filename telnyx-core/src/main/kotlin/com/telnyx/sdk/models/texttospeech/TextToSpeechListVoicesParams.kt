@@ -228,8 +228,6 @@ private constructor(
 
             @JvmField val MINIMAX = of("minimax")
 
-            @JvmField val RIME = of("rime")
-
             @JvmField val RESEMBLE = of("resemble")
 
             @JvmField val XAI = of("xai")
@@ -246,7 +244,6 @@ private constructor(
             AZURE,
             ELEVENLABS,
             MINIMAX,
-            RIME,
             RESEMBLE,
             XAI,
             HUMAIN,
@@ -267,7 +264,6 @@ private constructor(
             AZURE,
             ELEVENLABS,
             MINIMAX,
-            RIME,
             RESEMBLE,
             XAI,
             HUMAIN,
@@ -289,7 +285,6 @@ private constructor(
                 AZURE -> Value.AZURE
                 ELEVENLABS -> Value.ELEVENLABS
                 MINIMAX -> Value.MINIMAX
-                RIME -> Value.RIME
                 RESEMBLE -> Value.RESEMBLE
                 XAI -> Value.XAI
                 HUMAIN -> Value.HUMAIN
@@ -312,7 +307,6 @@ private constructor(
                 AZURE -> Known.AZURE
                 ELEVENLABS -> Known.ELEVENLABS
                 MINIMAX -> Known.MINIMAX
-                RIME -> Known.RIME
                 RESEMBLE -> Known.RESEMBLE
                 XAI -> Known.XAI
                 HUMAIN -> Known.HUMAIN

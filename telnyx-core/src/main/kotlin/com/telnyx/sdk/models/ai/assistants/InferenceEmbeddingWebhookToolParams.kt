@@ -6,13 +6,24 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.BaseDeserializer
+import com.telnyx.sdk.core.BaseSerializer
 import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
@@ -340,6 +351,7 @@ private constructor(
         private val asyncTimeoutMs: JsonField<Long>,
         private val bodyParameters: JsonField<BodyParameters>,
         private val headers: JsonField<List<Header>>,
+        private val messages: JsonField<List<Message>>,
         private val method: JsonField<Method>,
         private val pathParameters: JsonField<PathParameters>,
         private val queryParameters: JsonField<QueryParameters>,
@@ -365,6 +377,9 @@ private constructor(
             @JsonProperty("headers")
             @ExcludeMissing
             headers: JsonField<List<Header>> = JsonMissing.of(),
+            @JsonProperty("messages")
+            @ExcludeMissing
+            messages: JsonField<List<Message>> = JsonMissing.of(),
             @JsonProperty("method") @ExcludeMissing method: JsonField<Method> = JsonMissing.of(),
             @JsonProperty("path_parameters")
             @ExcludeMissing
@@ -386,6 +401,7 @@ private constructor(
             asyncTimeoutMs,
             bodyParameters,
             headers,
+            messages,
             method,
             pathParameters,
             queryParameters,
@@ -458,6 +474,18 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun headers(): Optional<List<Header>> = headers.getOptional("headers")
+
+        /**
+         * Filler messages spoken while a synchronous webhook request is in progress.
+         * `request_start` messages are spoken immediately when the request begins.
+         * `request_response_delayed` messages are spoken after `timing_ms` has elapsed only if the
+         * webhook response is still pending. Filler messages are not used for asynchronous
+         * webhooks.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun messages(): Optional<List<Message>> = messages.getOptional("messages")
 
         /**
          * The HTTP method to be used when calling the external tool.
@@ -570,6 +598,15 @@ private constructor(
         @JsonProperty("headers") @ExcludeMissing fun _headers(): JsonField<List<Header>> = headers
 
         /**
+         * Returns the raw JSON value of [messages].
+         *
+         * Unlike [messages], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("messages")
+        @ExcludeMissing
+        fun _messages(): JsonField<List<Message>> = messages
+
+        /**
          * Returns the raw JSON value of [method].
          *
          * Unlike [method], this method doesn't throw if the JSON field has an unexpected type.
@@ -651,6 +688,7 @@ private constructor(
             private var asyncTimeoutMs: JsonField<Long> = JsonMissing.of()
             private var bodyParameters: JsonField<BodyParameters> = JsonMissing.of()
             private var headers: JsonField<MutableList<Header>>? = null
+            private var messages: JsonField<MutableList<Message>>? = null
             private var method: JsonField<Method> = JsonMissing.of()
             private var pathParameters: JsonField<PathParameters> = JsonMissing.of()
             private var queryParameters: JsonField<QueryParameters> = JsonMissing.of()
@@ -668,6 +706,7 @@ private constructor(
                 asyncTimeoutMs = webhook.asyncTimeoutMs
                 bodyParameters = webhook.bodyParameters
                 headers = webhook.headers.map { it.toMutableList() }
+                messages = webhook.messages.map { it.toMutableList() }
                 method = webhook.method
                 pathParameters = webhook.pathParameters
                 queryParameters = webhook.queryParameters
@@ -796,6 +835,56 @@ private constructor(
                         checkKnown("headers", it).add(header)
                     }
             }
+
+            /**
+             * Filler messages spoken while a synchronous webhook request is in progress.
+             * `request_start` messages are spoken immediately when the request begins.
+             * `request_response_delayed` messages are spoken after `timing_ms` has elapsed only if
+             * the webhook response is still pending. Filler messages are not used for asynchronous
+             * webhooks.
+             */
+            fun messages(messages: List<Message>) = messages(JsonField.of(messages))
+
+            /**
+             * Sets [Builder.messages] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.messages] with a well-typed `List<Message>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun messages(messages: JsonField<List<Message>>) = apply {
+                this.messages = messages.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Message] to [messages].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addMessage(message: Message) = apply {
+                messages =
+                    (messages ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("messages", it).add(message)
+                    }
+            }
+
+            /**
+             * Alias for calling [addMessage] with
+             * `Message.ofWebhookToolRequestStart(webhookToolRequestStart)`.
+             */
+            fun addMessage(webhookToolRequestStart: Message.WebhookToolRequestStartMessage) =
+                addMessage(Message.ofWebhookToolRequestStart(webhookToolRequestStart))
+
+            /**
+             * Alias for calling [addMessage] with
+             * `Message.ofWebhookToolRequestResponseDelayed(webhookToolRequestResponseDelayed)`.
+             */
+            fun addMessage(
+                webhookToolRequestResponseDelayed: Message.WebhookToolRequestResponseDelayedMessage
+            ) =
+                addMessage(
+                    Message.ofWebhookToolRequestResponseDelayed(webhookToolRequestResponseDelayed)
+                )
 
             /** The HTTP method to be used when calling the external tool. */
             fun method(method: Method) = method(JsonField.of(method))
@@ -940,6 +1029,7 @@ private constructor(
                     asyncTimeoutMs,
                     bodyParameters,
                     (headers ?: JsonMissing.of()).map { it.toImmutable() },
+                    (messages ?: JsonMissing.of()).map { it.toImmutable() },
                     method,
                     pathParameters,
                     queryParameters,
@@ -972,6 +1062,7 @@ private constructor(
             asyncTimeoutMs()
             bodyParameters().ifPresent { it.validate() }
             headers().ifPresent { it.forEach { it.validate() } }
+            messages().ifPresent { it.forEach { it.validate() } }
             method().ifPresent { it.validate() }
             pathParameters().ifPresent { it.validate() }
             queryParameters().ifPresent { it.validate() }
@@ -1003,6 +1094,7 @@ private constructor(
                 (if (asyncTimeoutMs.asKnown().isPresent) 1 else 0) +
                 (bodyParameters.asKnown().getOrNull()?.validity() ?: 0) +
                 (headers.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (messages.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (method.asKnown().getOrNull()?.validity() ?: 0) +
                 (pathParameters.asKnown().getOrNull()?.validity() ?: 0) +
                 (queryParameters.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1716,6 +1808,802 @@ private constructor(
 
             override fun toString() =
                 "Header{name=$name, value=$value, additionalProperties=$additionalProperties}"
+        }
+
+        @JsonDeserialize(using = Message.Deserializer::class)
+        @JsonSerialize(using = Message.Serializer::class)
+        class Message
+        private constructor(
+            private val webhookToolRequestStart: WebhookToolRequestStartMessage? = null,
+            private val webhookToolRequestResponseDelayed:
+                WebhookToolRequestResponseDelayedMessage? =
+                null,
+            private val _json: JsonValue? = null,
+        ) {
+
+            fun webhookToolRequestStart(): Optional<WebhookToolRequestStartMessage> =
+                Optional.ofNullable(webhookToolRequestStart)
+
+            fun webhookToolRequestResponseDelayed():
+                Optional<WebhookToolRequestResponseDelayedMessage> =
+                Optional.ofNullable(webhookToolRequestResponseDelayed)
+
+            fun isWebhookToolRequestStart(): Boolean = webhookToolRequestStart != null
+
+            fun isWebhookToolRequestResponseDelayed(): Boolean =
+                webhookToolRequestResponseDelayed != null
+
+            fun asWebhookToolRequestStart(): WebhookToolRequestStartMessage =
+                webhookToolRequestStart.getOrThrow("webhookToolRequestStart")
+
+            fun asWebhookToolRequestResponseDelayed(): WebhookToolRequestResponseDelayedMessage =
+                webhookToolRequestResponseDelayed.getOrThrow("webhookToolRequestResponseDelayed")
+
+            fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             *
+             * Note that this method is _not_ forwards compatible with new variants from the API,
+             * unless [visitor] overrides [Visitor.unknown]. To handle variants not known to this
+             * version of the SDK gracefully, consider overriding [Visitor.unknown]:
+             * ```java
+             * import com.telnyx.sdk.core.JsonValue;
+             * import java.util.Optional;
+             *
+             * Optional<String> result = message.accept(new Message.Visitor<Optional<String>>() {
+             *     @Override
+             *     public Optional<String> visitWebhookToolRequestStart(WebhookToolRequestStartMessage webhookToolRequestStart) {
+             *         return Optional.of(webhookToolRequestStart.toString());
+             *     }
+             *
+             *     // ...
+             *
+             *     @Override
+             *     public Optional<String> unknown(JsonValue json) {
+             *         // Or inspect the `json`.
+             *         return Optional.empty();
+             *     }
+             * });
+             * ```
+             *
+             * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in
+             *   [visitor] and the current variant is unknown.
+             */
+            fun <T> accept(visitor: Visitor<T>): T =
+                when {
+                    webhookToolRequestStart != null ->
+                        visitor.visitWebhookToolRequestStart(webhookToolRequestStart)
+                    webhookToolRequestResponseDelayed != null ->
+                        visitor.visitWebhookToolRequestResponseDelayed(
+                            webhookToolRequestResponseDelayed
+                        )
+                    else -> visitor.unknown(_json)
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Message = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                accept(
+                    object : Visitor<Unit> {
+                        override fun visitWebhookToolRequestStart(
+                            webhookToolRequestStart: WebhookToolRequestStartMessage
+                        ) {
+                            webhookToolRequestStart.validate()
+                        }
+
+                        override fun visitWebhookToolRequestResponseDelayed(
+                            webhookToolRequestResponseDelayed:
+                                WebhookToolRequestResponseDelayedMessage
+                        ) {
+                            webhookToolRequestResponseDelayed.validate()
+                        }
+                    }
+                )
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                accept(
+                    object : Visitor<Int> {
+                        override fun visitWebhookToolRequestStart(
+                            webhookToolRequestStart: WebhookToolRequestStartMessage
+                        ) = webhookToolRequestStart.validity()
+
+                        override fun visitWebhookToolRequestResponseDelayed(
+                            webhookToolRequestResponseDelayed:
+                                WebhookToolRequestResponseDelayedMessage
+                        ) = webhookToolRequestResponseDelayed.validity()
+
+                        override fun unknown(json: JsonValue?) = 0
+                    }
+                )
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Message &&
+                    webhookToolRequestStart == other.webhookToolRequestStart &&
+                    webhookToolRequestResponseDelayed == other.webhookToolRequestResponseDelayed
+            }
+
+            override fun hashCode(): Int =
+                Objects.hash(webhookToolRequestStart, webhookToolRequestResponseDelayed)
+
+            override fun toString(): String =
+                when {
+                    webhookToolRequestStart != null ->
+                        "Message{webhookToolRequestStart=$webhookToolRequestStart}"
+                    webhookToolRequestResponseDelayed != null ->
+                        "Message{webhookToolRequestResponseDelayed=$webhookToolRequestResponseDelayed}"
+                    _json != null -> "Message{_unknown=$_json}"
+                    else -> throw IllegalStateException("Invalid Message")
+                }
+
+            companion object {
+
+                @JvmStatic
+                fun ofWebhookToolRequestStart(
+                    webhookToolRequestStart: WebhookToolRequestStartMessage
+                ) = Message(webhookToolRequestStart = webhookToolRequestStart)
+
+                @JvmStatic
+                fun ofWebhookToolRequestResponseDelayed(
+                    webhookToolRequestResponseDelayed: WebhookToolRequestResponseDelayedMessage
+                ) = Message(webhookToolRequestResponseDelayed = webhookToolRequestResponseDelayed)
+            }
+
+            /**
+             * An interface that defines how to map each variant of [Message] to a value of type
+             * [T].
+             */
+            interface Visitor<out T> {
+
+                fun visitWebhookToolRequestStart(
+                    webhookToolRequestStart: WebhookToolRequestStartMessage
+                ): T
+
+                fun visitWebhookToolRequestResponseDelayed(
+                    webhookToolRequestResponseDelayed: WebhookToolRequestResponseDelayedMessage
+                ): T
+
+                /**
+                 * Maps an unknown variant of [Message] to a value of type [T].
+                 *
+                 * An instance of [Message] can contain an unknown variant if it was deserialized
+                 * from data that doesn't match any known variant. For example, if the SDK is on an
+                 * older version than the API, then the API may respond with new variants that the
+                 * SDK is unaware of.
+                 *
+                 * @throws TelnyxInvalidDataException in the default implementation.
+                 */
+                fun unknown(json: JsonValue?): T {
+                    throw TelnyxInvalidDataException("Unknown Message: $json")
+                }
+            }
+
+            internal class Deserializer : BaseDeserializer<Message>(Message::class) {
+
+                override fun ObjectCodec.deserialize(node: JsonNode): Message {
+                    val json = JsonValue.fromJsonNode(node)
+
+                    val bestMatches =
+                        sequenceOf(
+                                tryDeserialize(
+                                        node,
+                                        jacksonTypeRef<WebhookToolRequestStartMessage>(),
+                                    )
+                                    ?.let { Message(webhookToolRequestStart = it, _json = json) },
+                                tryDeserialize(
+                                        node,
+                                        jacksonTypeRef<WebhookToolRequestResponseDelayedMessage>(),
+                                    )
+                                    ?.let {
+                                        Message(
+                                            webhookToolRequestResponseDelayed = it,
+                                            _json = json,
+                                        )
+                                    },
+                            )
+                            .filterNotNull()
+                            .allMaxBy { it.validity() }
+                            .toList()
+                    return when (bestMatches.size) {
+                        // This can happen if what we're deserializing is completely incompatible
+                        // with all the possible variants (e.g. deserializing from boolean).
+                        0 -> Message(_json = json)
+                        1 -> bestMatches.single()
+                        // If there's more than one match with the highest validity, then use the
+                        // first completely valid match, or simply the first match if none are
+                        // completely valid.
+                        else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                    }
+                }
+            }
+
+            internal class Serializer : BaseSerializer<Message>(Message::class) {
+
+                override fun serialize(
+                    value: Message,
+                    generator: JsonGenerator,
+                    provider: SerializerProvider,
+                ) {
+                    when {
+                        value.webhookToolRequestStart != null ->
+                            generator.writeObject(value.webhookToolRequestStart)
+                        value.webhookToolRequestResponseDelayed != null ->
+                            generator.writeObject(value.webhookToolRequestResponseDelayed)
+                        value._json != null -> generator.writeObject(value._json)
+                        else -> throw IllegalStateException("Invalid Message")
+                    }
+                }
+            }
+
+            class WebhookToolRequestStartMessage
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val content: JsonField<String>,
+                private val type: JsonValue,
+                private val timingMs: JsonField<Long>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("content")
+                    @ExcludeMissing
+                    content: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+                    @JsonProperty("timing_ms")
+                    @ExcludeMissing
+                    timingMs: JsonField<Long> = JsonMissing.of(),
+                ) : this(content, type, timingMs, mutableMapOf())
+
+                /**
+                 * The text the assistant speaks.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun content(): String = content.getRequired("content")
+
+                /**
+                 * Speak the filler message immediately when the webhook request begins.
+                 *
+                 * Expected to always return the following:
+                 * ```java
+                 * JsonValue.from("request_start")
+                 * ```
+                 *
+                 * However, this method can be useful for debugging and logging (e.g. if the server
+                 * responded with an unexpected value).
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                /**
+                 * An optional delay value. This value is ignored for `request_start` messages.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun timingMs(): Optional<Long> = timingMs.getOptional("timing_ms")
+
+                /**
+                 * Returns the raw JSON value of [content].
+                 *
+                 * Unlike [content], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("content") @ExcludeMissing fun _content(): JsonField<String> = content
+
+                /**
+                 * Returns the raw JSON value of [timingMs].
+                 *
+                 * Unlike [timingMs], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("timing_ms")
+                @ExcludeMissing
+                fun _timingMs(): JsonField<Long> = timingMs
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [WebhookToolRequestStartMessage].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .content()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [WebhookToolRequestStartMessage]. */
+                class Builder internal constructor() {
+
+                    private var content: JsonField<String>? = null
+                    private var type: JsonValue = JsonValue.from("request_start")
+                    private var timingMs: JsonField<Long> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(
+                        webhookToolRequestStartMessage: WebhookToolRequestStartMessage
+                    ) = apply {
+                        content = webhookToolRequestStartMessage.content
+                        type = webhookToolRequestStartMessage.type
+                        timingMs = webhookToolRequestStartMessage.timingMs
+                        additionalProperties =
+                            webhookToolRequestStartMessage.additionalProperties.toMutableMap()
+                    }
+
+                    /** The text the assistant speaks. */
+                    fun content(content: String) = content(JsonField.of(content))
+
+                    /**
+                     * Sets [Builder.content] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.content] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun content(content: JsonField<String>) = apply { this.content = content }
+
+                    /**
+                     * Sets the field to an arbitrary JSON value.
+                     *
+                     * It is usually unnecessary to call this method because the field defaults to
+                     * the following:
+                     * ```java
+                     * JsonValue.from("request_start")
+                     * ```
+                     *
+                     * This method is primarily for setting the field to an undocumented or not yet
+                     * supported value.
+                     */
+                    fun type(type: JsonValue) = apply { this.type = type }
+
+                    /**
+                     * An optional delay value. This value is ignored for `request_start` messages.
+                     */
+                    fun timingMs(timingMs: Long) = timingMs(JsonField.of(timingMs))
+
+                    /**
+                     * Sets [Builder.timingMs] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.timingMs] with a well-typed [Long] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun timingMs(timingMs: JsonField<Long>) = apply { this.timingMs = timingMs }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [WebhookToolRequestStartMessage].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .content()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): WebhookToolRequestStartMessage =
+                        WebhookToolRequestStartMessage(
+                            checkRequired("content", content),
+                            type,
+                            timingMs,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): WebhookToolRequestStartMessage = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    content()
+                    _type().let {
+                        if (it != JsonValue.from("request_start")) {
+                            throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                        }
+                    }
+                    timingMs()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (content.asKnown().isPresent) 1 else 0) +
+                        type.let { if (it == JsonValue.from("request_start")) 1 else 0 } +
+                        (if (timingMs.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is WebhookToolRequestStartMessage &&
+                        content == other.content &&
+                        type == other.type &&
+                        timingMs == other.timingMs &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(content, type, timingMs, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "WebhookToolRequestStartMessage{content=$content, type=$type, timingMs=$timingMs, additionalProperties=$additionalProperties}"
+            }
+
+            class WebhookToolRequestResponseDelayedMessage
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val content: JsonField<String>,
+                private val timingMs: JsonField<Long>,
+                private val type: JsonValue,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("content")
+                    @ExcludeMissing
+                    content: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("timing_ms")
+                    @ExcludeMissing
+                    timingMs: JsonField<Long> = JsonMissing.of(),
+                    @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+                ) : this(content, timingMs, type, mutableMapOf())
+
+                /**
+                 * The text the assistant speaks.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun content(): String = content.getRequired("content")
+
+                /**
+                 * The delay in milliseconds from the start of the webhook request.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun timingMs(): Long = timingMs.getRequired("timing_ms")
+
+                /**
+                 * Speak the filler message after the configured delay if the webhook response is
+                 * still pending.
+                 *
+                 * Expected to always return the following:
+                 * ```java
+                 * JsonValue.from("request_response_delayed")
+                 * ```
+                 *
+                 * However, this method can be useful for debugging and logging (e.g. if the server
+                 * responded with an unexpected value).
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+                /**
+                 * Returns the raw JSON value of [content].
+                 *
+                 * Unlike [content], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("content") @ExcludeMissing fun _content(): JsonField<String> = content
+
+                /**
+                 * Returns the raw JSON value of [timingMs].
+                 *
+                 * Unlike [timingMs], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("timing_ms")
+                @ExcludeMissing
+                fun _timingMs(): JsonField<Long> = timingMs
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [WebhookToolRequestResponseDelayedMessage].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .content()
+                     * .timingMs()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [WebhookToolRequestResponseDelayedMessage]. */
+                class Builder internal constructor() {
+
+                    private var content: JsonField<String>? = null
+                    private var timingMs: JsonField<Long>? = null
+                    private var type: JsonValue = JsonValue.from("request_response_delayed")
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(
+                        webhookToolRequestResponseDelayedMessage:
+                            WebhookToolRequestResponseDelayedMessage
+                    ) = apply {
+                        content = webhookToolRequestResponseDelayedMessage.content
+                        timingMs = webhookToolRequestResponseDelayedMessage.timingMs
+                        type = webhookToolRequestResponseDelayedMessage.type
+                        additionalProperties =
+                            webhookToolRequestResponseDelayedMessage.additionalProperties
+                                .toMutableMap()
+                    }
+
+                    /** The text the assistant speaks. */
+                    fun content(content: String) = content(JsonField.of(content))
+
+                    /**
+                     * Sets [Builder.content] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.content] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun content(content: JsonField<String>) = apply { this.content = content }
+
+                    /** The delay in milliseconds from the start of the webhook request. */
+                    fun timingMs(timingMs: Long) = timingMs(JsonField.of(timingMs))
+
+                    /**
+                     * Sets [Builder.timingMs] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.timingMs] with a well-typed [Long] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun timingMs(timingMs: JsonField<Long>) = apply { this.timingMs = timingMs }
+
+                    /**
+                     * Sets the field to an arbitrary JSON value.
+                     *
+                     * It is usually unnecessary to call this method because the field defaults to
+                     * the following:
+                     * ```java
+                     * JsonValue.from("request_response_delayed")
+                     * ```
+                     *
+                     * This method is primarily for setting the field to an undocumented or not yet
+                     * supported value.
+                     */
+                    fun type(type: JsonValue) = apply { this.type = type }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [WebhookToolRequestResponseDelayedMessage].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .content()
+                     * .timingMs()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): WebhookToolRequestResponseDelayedMessage =
+                        WebhookToolRequestResponseDelayedMessage(
+                            checkRequired("content", content),
+                            checkRequired("timingMs", timingMs),
+                            type,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): WebhookToolRequestResponseDelayedMessage = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    content()
+                    timingMs()
+                    _type().let {
+                        if (it != JsonValue.from("request_response_delayed")) {
+                            throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                        }
+                    }
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (content.asKnown().isPresent) 1 else 0) +
+                        (if (timingMs.asKnown().isPresent) 1 else 0) +
+                        type.let { if (it == JsonValue.from("request_response_delayed")) 1 else 0 }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is WebhookToolRequestResponseDelayedMessage &&
+                        content == other.content &&
+                        timingMs == other.timingMs &&
+                        type == other.type &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(content, timingMs, type, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "WebhookToolRequestResponseDelayedMessage{content=$content, timingMs=$timingMs, type=$type, additionalProperties=$additionalProperties}"
+            }
         }
 
         /** The HTTP method to be used when calling the external tool. */
@@ -3135,6 +4023,7 @@ private constructor(
                 asyncTimeoutMs == other.asyncTimeoutMs &&
                 bodyParameters == other.bodyParameters &&
                 headers == other.headers &&
+                messages == other.messages &&
                 method == other.method &&
                 pathParameters == other.pathParameters &&
                 queryParameters == other.queryParameters &&
@@ -3152,6 +4041,7 @@ private constructor(
                 asyncTimeoutMs,
                 bodyParameters,
                 headers,
+                messages,
                 method,
                 pathParameters,
                 queryParameters,
@@ -3164,7 +4054,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Webhook{description=$description, name=$name, url=$url, async=$async, asyncTimeoutMs=$asyncTimeoutMs, bodyParameters=$bodyParameters, headers=$headers, method=$method, pathParameters=$pathParameters, queryParameters=$queryParameters, storeFieldsAsVariables=$storeFieldsAsVariables, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
+            "Webhook{description=$description, name=$name, url=$url, async=$async, asyncTimeoutMs=$asyncTimeoutMs, bodyParameters=$bodyParameters, headers=$headers, messages=$messages, method=$method, pathParameters=$pathParameters, queryParameters=$queryParameters, storeFieldsAsVariables=$storeFieldsAsVariables, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all MCP servers for a mission */
+/**
+ * Returns the MCP servers configured on the specified mission. MCP servers expose external tools
+ * and data sources agents can use during runs.
+ */
 class McpServerListMcpServersParams
 private constructor(
     private val missionId: String?,

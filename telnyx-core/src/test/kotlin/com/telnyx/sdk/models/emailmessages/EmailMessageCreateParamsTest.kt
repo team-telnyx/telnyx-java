@@ -30,7 +30,7 @@ internal class EmailMessageCreateParamsTest {
             .forwardOfMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .fromName("from_name")
             .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .headers(
+            .customHeaders(
                 EmailMessageCreateParams.Headers.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
@@ -85,7 +85,7 @@ internal class EmailMessageCreateParamsTest {
                 .forwardOfMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .fromName("from_name")
                 .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .headers(
+                .customHeaders(
                     EmailMessageCreateParams.Headers.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
@@ -162,7 +162,7 @@ internal class EmailMessageCreateParamsTest {
                 .forwardOfMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .fromName("from_name")
                 .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .headers(
+                .customHeaders(
                     EmailMessageCreateParams.Headers.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
@@ -214,7 +214,7 @@ internal class EmailMessageCreateParamsTest {
         assertThat(body.forwardOfMessageId()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.fromName()).contains("from_name")
         assertThat(body.groupId()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.headers())
+        assertThat(body.customHeaders())
             .contains(
                 EmailMessageCreateParams.Headers.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))

@@ -56,7 +56,10 @@ interface AddressService {
      */
     fun actions(): ActionService
 
-    /** Creates an address. */
+    /**
+     * Creates a new address on your account from the provided details, for use with services that
+     * require a physical address such as emergency calling and regulatory compliance.
+     */
     fun create(params: AddressCreateParams): AddressCreateResponse =
         create(params, RequestOptions.none())
 
@@ -96,7 +99,10 @@ interface AddressService {
     fun retrieve(id: String, requestOptions: RequestOptions): AddressRetrieveResponse =
         retrieve(id, AddressRetrieveParams.none(), requestOptions)
 
-    /** Returns a list of your addresses. */
+    /**
+     * Returns a paginated list of the addresses on your account, with support for filtering and
+     * sorting.
+     */
     fun list(): AddressListPage = list(AddressListParams.none())
 
     /** @see list */
@@ -113,7 +119,7 @@ interface AddressService {
     fun list(requestOptions: RequestOptions): AddressListPage =
         list(AddressListParams.none(), requestOptions)
 
-    /** Deletes an existing address. */
+    /** Permanently deletes the specified address from your account. */
     fun delete(id: String): AddressDeleteResponse = delete(id, AddressDeleteParams.none())
 
     /** @see delete */

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes one specific WDR report. */
+/** Permanently deletes the specified Wireless Detail Record (WDR) report. */
 class DetailRecordsReportDeleteParams
 private constructor(
     private val id: String?,

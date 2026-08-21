@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Permanently deletes a call recording. */
+/**
+ * Permanently deletes the specified call recording and returns the deleted recording resource. The
+ * media is removed and can no longer be downloaded.
+ */
 class RecordingDeleteParams
 private constructor(
     private val recordingId: String?,

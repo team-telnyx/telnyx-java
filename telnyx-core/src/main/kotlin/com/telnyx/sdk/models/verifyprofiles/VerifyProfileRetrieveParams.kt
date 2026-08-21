@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Gets a single Verify profile. */
+/**
+ * Returns the details of a single Verify profile by its ID, including its verification channel
+ * configuration.
+ */
 class VerifyProfileRetrieveParams
 private constructor(
     private val verifyProfileId: String?,

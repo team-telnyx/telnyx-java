@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes a stored SIPREC connector. */
+/** Deletes the stored SIPREC connector with the specified connector name. */
 class SiprecConnectorDeleteParams
 private constructor(
     private val connectorName: String?,

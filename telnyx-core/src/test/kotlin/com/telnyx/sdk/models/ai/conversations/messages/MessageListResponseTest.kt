@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.ai.conversations.messages
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
@@ -18,6 +19,11 @@ internal class MessageListResponseTest {
                 .role(MessageListResponse.Role.USER)
                 .text("text")
                 .createdAt(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
+                .metadata(
+                    MessageListResponse.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .sentAt(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
                 .addToolCall(
                     MessageListResponse.ToolCall.builder()
@@ -37,6 +43,12 @@ internal class MessageListResponseTest {
         assertThat(messageListResponse.text()).isEqualTo("text")
         assertThat(messageListResponse.createdAt())
             .contains(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
+        assertThat(messageListResponse.metadata())
+            .contains(
+                MessageListResponse.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
         assertThat(messageListResponse.sentAt())
             .contains(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
         assertThat(messageListResponse.toolCalls().getOrNull())
@@ -62,6 +74,11 @@ internal class MessageListResponseTest {
                 .role(MessageListResponse.Role.USER)
                 .text("text")
                 .createdAt(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
+                .metadata(
+                    MessageListResponse.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .sentAt(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
                 .addToolCall(
                     MessageListResponse.ToolCall.builder()

@@ -30,7 +30,10 @@ interface PlanService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PlanService
 
-    /** Create the initial plan for a run */
+    /**
+     * Creates the initial plan for the specified run from the provided steps and returns the
+     * created plan steps. Progress is subsequently reported by updating individual steps.
+     */
     fun create(runId: String, params: PlanCreateParams): PlanStepsCreatedResponse =
         create(runId, params, RequestOptions.none())
 
@@ -51,7 +54,10 @@ interface PlanService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PlanStepsCreatedResponse
 
-    /** Get the plan (all steps) for a run */
+    /**
+     * Returns the plan for the specified run, including all plan steps and their statuses, so you
+     * can see how the mission was decomposed and how far execution has progressed.
+     */
     fun retrieve(runId: String, params: PlanRetrieveParams): PlanRetrieveResponse =
         retrieve(runId, params, RequestOptions.none())
 
@@ -94,7 +100,7 @@ interface PlanService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PlanStepsCreatedResponse
 
-    /** Get details of a specific plan step */
+    /** Returns the details of a single plan step within a run's plan, including its status. */
     fun getStepDetails(stepId: String, params: PlanGetStepDetailsParams): PlanStepResponse =
         getStepDetails(stepId, params, RequestOptions.none())
 
@@ -115,7 +121,10 @@ interface PlanService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PlanStepResponse
 
-    /** Update the status of a plan step */
+    /**
+     * Updates the status of a single plan step and returns the updated step. Typically called by
+     * the executing agent as it works through the plan.
+     */
     fun updateStep(stepId: String, params: PlanUpdateStepParams): PlanStepResponse =
         updateStep(stepId, params, RequestOptions.none())
 

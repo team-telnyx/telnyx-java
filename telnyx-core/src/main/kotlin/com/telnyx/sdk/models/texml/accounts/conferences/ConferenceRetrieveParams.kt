@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a conference resource. */
+/** Returns a single conference resource for the account by its ConferenceSid. */
 class ConferenceRetrieveParams
 private constructor(
     private val accountSid: String,

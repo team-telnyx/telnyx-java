@@ -33,7 +33,10 @@ interface CallControlApplicationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallControlApplicationService
 
-    /** Create a call control application. */
+    /**
+     * Creates a call control application, which defines the webhook endpoints and settings used to
+     * control calls on associated connections.
+     */
     fun create(params: CallControlApplicationCreateParams): CallControlApplicationCreateResponse =
         create(params, RequestOptions.none())
 
@@ -121,7 +124,7 @@ interface CallControlApplicationService {
     fun list(requestOptions: RequestOptions): CallControlApplicationListPage =
         list(CallControlApplicationListParams.none(), requestOptions)
 
-    /** Deletes a call control application. */
+    /** Permanently deletes the specified call control application and its webhook configuration. */
     fun delete(id: String): CallControlApplicationDeleteResponse =
         delete(id, CallControlApplicationDeleteParams.none())
 

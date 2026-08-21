@@ -90,7 +90,7 @@ interface ManagedAccountServiceAsync {
     ): CompletableFuture<ManagedAccountRetrieveResponse> =
         retrieve(id, ManagedAccountRetrieveParams.none(), requestOptions)
 
-    /** Update a single managed account. */
+    /** Updates the specified managed account's attributes and returns the updated account. */
     fun update(id: String): CompletableFuture<ManagedAccountUpdateResponse> =
         update(id, ManagedAccountUpdateParams.none())
 

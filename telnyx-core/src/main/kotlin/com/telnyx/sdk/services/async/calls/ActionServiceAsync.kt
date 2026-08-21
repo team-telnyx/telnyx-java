@@ -235,7 +235,10 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionBridgeResponse>
 
-    /** Put the call in a queue. */
+    /**
+     * Places the call into a queue, where it waits until it is removed or bridged to another leg.
+     * Queue behavior is configured through the request body.
+     */
     fun enqueue(
         callControlId: String,
         params: ActionEnqueueParams,
@@ -504,7 +507,10 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionJoinAiAssistantResponse>
 
-    /** Removes the call from a queue. */
+    /**
+     * Removes the call from the queue it is currently waiting in. The call remains active and can
+     * be directed with further call commands.
+     */
     fun leaveQueue(callControlId: String): CompletableFuture<ActionLeaveQueueResponse> =
         leaveQueue(callControlId, ActionLeaveQueueParams.none())
 
@@ -1236,7 +1242,10 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionStartTranscriptionResponse>
 
-    /** Stop an AI assistant on the call. */
+    /**
+     * Stops the AI assistant currently engaged on the call. The call remains active and can
+     * continue with other call control commands.
+     */
     fun stopAiAssistant(callControlId: String): CompletableFuture<ActionStopAiAssistantResponse> =
         stopAiAssistant(callControlId, ActionStopAiAssistantParams.none())
 
@@ -1605,7 +1614,10 @@ interface ActionServiceAsync {
     ): CompletableFuture<ActionStopStreamingResponse> =
         stopStreaming(callControlId, ActionStopStreamingParams.none(), requestOptions)
 
-    /** Stop real-time transcription. */
+    /**
+     * Stops real-time transcription on the call. Transcription webhooks cease once the command
+     * takes effect; the call itself is unaffected.
+     */
     fun stopTranscription(
         callControlId: String
     ): CompletableFuture<ActionStopTranscriptionResponse> =
@@ -1720,7 +1732,11 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionTransferResponse>
 
-    /** Updates client state */
+    /**
+     * Updates the client state associated with the call. Client state is an opaque value echoed
+     * back in subsequent webhooks for the call, letting you correlate events with your
+     * application's state.
+     */
     fun updateClientState(
         callControlId: String,
         params: ActionUpdateClientStateParams,

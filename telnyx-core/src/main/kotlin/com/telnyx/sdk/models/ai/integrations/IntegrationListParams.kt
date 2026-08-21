@@ -6,7 +6,10 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** List all available integrations. */
+/**
+ * Returns the list of third-party integrations available to connect to your AI assistants and
+ * workflows.
+ */
 class IntegrationListParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

@@ -28,7 +28,7 @@ interface OAuthGrantService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OAuthGrantService
 
-    /** Retrieve a single OAuth grant by ID */
+    /** Returns the details of a single OAuth grant on your account by its ID. */
     fun retrieve(id: String): OAuthGrantRetrieveResponse =
         retrieve(id, OAuthGrantRetrieveParams.none())
 
@@ -76,7 +76,9 @@ interface OAuthGrantService {
     fun list(requestOptions: RequestOptions): OAuthGrantListPage =
         list(OAuthGrantListParams.none(), requestOptions)
 
-    /** Revoke an OAuth grant */
+    /**
+     * Revokes the specified OAuth grant, withdrawing the access previously granted to the client.
+     */
     fun delete(id: String): OAuthGrantDeleteResponse = delete(id, OAuthGrantDeleteParams.none())
 
     /** @see delete */

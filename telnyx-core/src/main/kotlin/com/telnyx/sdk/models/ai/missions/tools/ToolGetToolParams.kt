@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a specific tool by ID */
+/** Returns the definition of a single tool configured on the specified mission. */
 class ToolGetToolParams
 private constructor(
     private val missionId: String,

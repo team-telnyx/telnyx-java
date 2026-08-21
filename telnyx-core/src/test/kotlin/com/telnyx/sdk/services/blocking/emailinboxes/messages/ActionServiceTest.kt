@@ -25,13 +25,13 @@ internal class ActionServiceTest {
                     .inboxId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .messageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .to("new@example.com")
-                    .bccOfEmailAddressInputs(
+                    .bccOfRecipientList(
                         listOf(InboxActionEmailAddressInput.ofString("blind@example.com"))
                     )
-                    .ccOfEmailAddressInputs(
+                    .ccOfRecipientList(
                         listOf(
-                            InboxActionEmailAddressInput.ofUnionMember1(
-                                InboxActionEmailAddressInput.UnionMember1.builder()
+                            InboxActionEmailAddressInput.ofRecipientAddress(
+                                InboxActionEmailAddressInput.InboxRecipientAddress.builder()
                                     .email("copy@example.com")
                                     .name("name")
                                     .build()

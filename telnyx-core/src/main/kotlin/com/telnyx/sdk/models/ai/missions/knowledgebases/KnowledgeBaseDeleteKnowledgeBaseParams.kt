@@ -11,7 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a knowledge base from a mission */
+/**
+ * Detaches the specified knowledge base from the mission so its content is no longer available to
+ * agents in subsequent runs.
+ */
 class KnowledgeBaseDeleteKnowledgeBaseParams
 private constructor(
     private val missionId: String,

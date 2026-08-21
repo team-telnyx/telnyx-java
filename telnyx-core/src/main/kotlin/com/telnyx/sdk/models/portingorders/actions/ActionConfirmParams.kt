@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Confirm and submit your porting order. */
+/**
+ * Confirms the porting order and submits it for processing. Make sure all required information and
+ * documents are attached before confirming.
+ */
 class ActionConfirmParams
 private constructor(
     private val id: String?,

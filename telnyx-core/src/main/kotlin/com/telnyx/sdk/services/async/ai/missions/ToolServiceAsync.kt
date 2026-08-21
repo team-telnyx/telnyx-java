@@ -32,7 +32,10 @@ interface ToolServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ToolServiceAsync
 
-    /** Create a new tool for a mission */
+    /**
+     * Adds a new tool to the specified mission, defining an action agents can invoke during runs of
+     * this mission.
+     */
     fun createTool(missionId: String): CompletableFuture<ToolCreateToolResponse> =
         createTool(missionId, ToolCreateToolParams.none())
 
@@ -68,7 +71,10 @@ interface ToolServiceAsync {
     ): CompletableFuture<ToolCreateToolResponse> =
         createTool(missionId, ToolCreateToolParams.none(), requestOptions)
 
-    /** Delete a tool from a mission */
+    /**
+     * Removes the specified tool from the mission so agents can no longer invoke it in subsequent
+     * runs.
+     */
     fun deleteTool(toolId: String, params: ToolDeleteToolParams): CompletableFuture<Void?> =
         deleteTool(toolId, params, RequestOptions.none())
 
@@ -90,7 +96,7 @@ interface ToolServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** Get a specific tool by ID */
+    /** Returns the definition of a single tool configured on the specified mission. */
     fun getTool(toolId: String, params: ToolGetToolParams): CompletableFuture<ToolGetToolResponse> =
         getTool(toolId, params, RequestOptions.none())
 
@@ -112,7 +118,10 @@ interface ToolServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ToolGetToolResponse>
 
-    /** List all tools for a mission */
+    /**
+     * Returns the tools configured on the specified mission. Tools define the actions agents may
+     * invoke while executing the mission's runs.
+     */
     fun listTools(missionId: String): CompletableFuture<ToolListToolsResponse> =
         listTools(missionId, ToolListToolsParams.none())
 
@@ -148,7 +157,7 @@ interface ToolServiceAsync {
     ): CompletableFuture<ToolListToolsResponse> =
         listTools(missionId, ToolListToolsParams.none(), requestOptions)
 
-    /** Update a tool definition */
+    /** Replaces the definition of the specified tool on this mission. */
     fun updateTool(
         toolId: String,
         params: ToolUpdateToolParams,

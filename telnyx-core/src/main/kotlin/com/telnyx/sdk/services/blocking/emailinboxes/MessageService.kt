@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.emailinboxes.drafts.EmailDraftResponse
 import com.telnyx.sdk.models.emailinboxes.messages.MessageDraftsParams
+import com.telnyx.sdk.models.emailinboxes.messages.MessageListPage
 import com.telnyx.sdk.models.emailinboxes.messages.MessageListParams
-import com.telnyx.sdk.models.emailinboxes.messages.MessageListResponse
 import com.telnyx.sdk.models.emailinboxes.messages.MessageUpdateParams
 import com.telnyx.sdk.models.emailinboxes.messages.MessageUpdateResponse
 import com.telnyx.sdk.services.blocking.emailinboxes.messages.ActionService
@@ -73,32 +73,32 @@ interface MessageService {
      * `filter[search]` performs PostgreSQL full-text search over the subject, plain-text body, and
      * HTML body. Filters compose with stable cursor pagination.
      */
-    fun list(inboxId: String): MessageListResponse = list(inboxId, MessageListParams.none())
+    fun list(inboxId: String): MessageListPage = list(inboxId, MessageListParams.none())
 
     /** @see list */
     fun list(
         inboxId: String,
         params: MessageListParams = MessageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessageListResponse = list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
+    ): MessageListPage = list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
     /** @see list */
     fun list(
         inboxId: String,
         params: MessageListParams = MessageListParams.none(),
-    ): MessageListResponse = list(inboxId, params, RequestOptions.none())
+    ): MessageListPage = list(inboxId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: MessageListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessageListResponse
+    ): MessageListPage
 
     /** @see list */
-    fun list(params: MessageListParams): MessageListResponse = list(params, RequestOptions.none())
+    fun list(params: MessageListParams): MessageListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(inboxId: String, requestOptions: RequestOptions): MessageListResponse =
+    fun list(inboxId: String, requestOptions: RequestOptions): MessageListPage =
         list(inboxId, MessageListParams.none(), requestOptions)
 
     /**
@@ -188,7 +188,7 @@ interface MessageService {
          * otherwise the same as [MessageService.list].
          */
         @MustBeClosed
-        fun list(inboxId: String): HttpResponseFor<MessageListResponse> =
+        fun list(inboxId: String): HttpResponseFor<MessageListPage> =
             list(inboxId, MessageListParams.none())
 
         /** @see list */
@@ -197,7 +197,7 @@ interface MessageService {
             inboxId: String,
             params: MessageListParams = MessageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessageListResponse> =
+        ): HttpResponseFor<MessageListPage> =
             list(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
         /** @see list */
@@ -205,18 +205,18 @@ interface MessageService {
         fun list(
             inboxId: String,
             params: MessageListParams = MessageListParams.none(),
-        ): HttpResponseFor<MessageListResponse> = list(inboxId, params, RequestOptions.none())
+        ): HttpResponseFor<MessageListPage> = list(inboxId, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessageListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessageListResponse>
+        ): HttpResponseFor<MessageListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: MessageListParams): HttpResponseFor<MessageListResponse> =
+        fun list(params: MessageListParams): HttpResponseFor<MessageListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -224,7 +224,7 @@ interface MessageService {
         fun list(
             inboxId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessageListResponse> =
+        ): HttpResponseFor<MessageListPage> =
             list(inboxId, MessageListParams.none(), requestOptions)
 
         /**

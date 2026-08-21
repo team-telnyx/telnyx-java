@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve the details of a single fax. */
+/** Returns the details of a single fax, including its current status. */
 class FaxRetrieveParams
 private constructor(
     private val id: String?,

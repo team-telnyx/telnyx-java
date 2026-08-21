@@ -19,7 +19,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a new Public Internet Gateway. */
+/**
+ * Requests creation of a public internet gateway on the specified network, giving the network
+ * internet egress. Creation is asynchronous, so the request is accepted and completes in the
+ * background.
+ */
 class PublicInternetGatewayCreateParams
 private constructor(
     private val body: Body,

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Fetch single cdr usage report by id. */
+/**
+ * Returns a single CDR (Call Detail Record) usage report by its identifier, including its
+ * parameters and current status.
+ */
 class VoiceRetrieveParams
 private constructor(
     private val id: String?,

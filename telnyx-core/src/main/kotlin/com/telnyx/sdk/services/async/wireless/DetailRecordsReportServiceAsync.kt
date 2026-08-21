@@ -55,7 +55,10 @@ interface DetailRecordsReportServiceAsync {
     ): CompletableFuture<DetailRecordsReportCreateResponse> =
         create(DetailRecordsReportCreateParams.none(), requestOptions)
 
-    /** Returns one specific WDR report */
+    /**
+     * Returns a single Wireless Detail Record (WDR) report by its identifier, including its
+     * parameters and current status.
+     */
     fun retrieve(id: String): CompletableFuture<DetailRecordsReportRetrieveResponse> =
         retrieve(id, DetailRecordsReportRetrieveParams.none())
 
@@ -112,7 +115,7 @@ interface DetailRecordsReportServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<DetailRecordsReportListResponse> =
         list(DetailRecordsReportListParams.none(), requestOptions)
 
-    /** Deletes one specific WDR report. */
+    /** Permanently deletes the specified Wireless Detail Record (WDR) report. */
     fun delete(id: String): CompletableFuture<DetailRecordsReportDeleteResponse> =
         delete(id, DetailRecordsReportDeleteParams.none())
 

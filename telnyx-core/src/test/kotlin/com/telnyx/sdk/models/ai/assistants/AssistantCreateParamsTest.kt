@@ -12,12 +12,13 @@ internal class AssistantCreateParamsTest {
     @Test
     fun create() {
         AssistantCreateParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .instructions("instructions")
             .name("name")
             .conversationFlow(
                 ConversationFlowReq.builder()
                     .addNode(
-                        ConversationFlowReq.Node.Prompt.builder()
+                        FlowNodeReq.builder()
                             .id("n_intake")
                             .instructions("Greet the caller and ask what they're calling about.")
                             .externalLlm(
@@ -31,15 +32,13 @@ internal class AssistantCreateParamsTest {
                                     .tokenRetrievalUrl("token_retrieval_url")
                                     .build()
                             )
-                            .instructionsMode(
-                                ConversationFlowReq.Node.Prompt.InstructionsMode.REPLACE
-                            )
+                            .instructionsMode(FlowNodeReq.InstructionsMode.REPLACE)
                             .llmApiKeyRef("my-key-ref")
                             .model("moonshotai/Kimi-K2.6")
                             .name("Intake")
                             .position(NodePosition.builder().x(120.0).y(80.0).build())
                             .addSharedToolId("tool-faq-kb")
-                            .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.REPLACE)
+                            .toolsMode(FlowNodeReq.ToolsMode.REPLACE)
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
@@ -64,7 +63,7 @@ internal class AssistantCreateParamsTest {
                                     )
                                     .build()
                             )
-                            .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                            .type(FlowNodeReq.Type.PROMPT)
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -92,7 +91,7 @@ internal class AssistantCreateParamsTest {
                             .build()
                     )
                     .addNode(
-                        ConversationFlowReq.Node.Prompt.builder()
+                        FlowNodeReq.builder()
                             .id("n_billing")
                             .instructions(
                                 "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
@@ -108,15 +107,13 @@ internal class AssistantCreateParamsTest {
                                     .tokenRetrievalUrl("token_retrieval_url")
                                     .build()
                             )
-                            .instructionsMode(
-                                ConversationFlowReq.Node.Prompt.InstructionsMode.APPEND
-                            )
+                            .instructionsMode(FlowNodeReq.InstructionsMode.APPEND)
                             .llmApiKeyRef("my-key-ref")
                             .model("moonshotai/Kimi-K2.6")
                             .name("Billing")
                             .position(NodePosition.builder().x(420.0).y(80.0).build())
                             .addSharedToolId("tool-billing-lookup")
-                            .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.APPEND)
+                            .toolsMode(FlowNodeReq.ToolsMode.APPEND)
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
@@ -141,7 +138,7 @@ internal class AssistantCreateParamsTest {
                                     )
                                     .build()
                             )
-                            .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                            .type(FlowNodeReq.Type.PROMPT)
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -366,6 +363,22 @@ internal class AssistantCreateParamsTest {
                             .value("value")
                             .build()
                     )
+                    .addMessage(
+                        InferenceEmbeddingWebhookToolParams.Webhook.Message
+                            .WebhookToolRequestStartMessage
+                            .builder()
+                            .content("Let me look that up for you.")
+                            .timingMs(100L)
+                            .build()
+                    )
+                    .addMessage(
+                        InferenceEmbeddingWebhookToolParams.Webhook.Message
+                            .WebhookToolRequestResponseDelayedMessage
+                            .builder()
+                            .content("Still working on that.")
+                            .timingMs(5000L)
+                            .build()
+                    )
                     .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                     .pathParameters(
                         InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
@@ -479,15 +492,16 @@ internal class AssistantCreateParamsTest {
     }
 
     @Test
-    fun body() {
+    fun headers() {
         val params =
             AssistantCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .instructions("instructions")
                 .name("name")
                 .conversationFlow(
                     ConversationFlowReq.builder()
                         .addNode(
-                            ConversationFlowReq.Node.Prompt.builder()
+                            FlowNodeReq.builder()
                                 .id("n_intake")
                                 .instructions(
                                     "Greet the caller and ask what they're calling about."
@@ -503,15 +517,13 @@ internal class AssistantCreateParamsTest {
                                         .tokenRetrievalUrl("token_retrieval_url")
                                         .build()
                                 )
-                                .instructionsMode(
-                                    ConversationFlowReq.Node.Prompt.InstructionsMode.REPLACE
-                                )
+                                .instructionsMode(FlowNodeReq.InstructionsMode.REPLACE)
                                 .llmApiKeyRef("my-key-ref")
                                 .model("moonshotai/Kimi-K2.6")
                                 .name("Intake")
                                 .position(NodePosition.builder().x(120.0).y(80.0).build())
                                 .addSharedToolId("tool-faq-kb")
-                                .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.REPLACE)
+                                .toolsMode(FlowNodeReq.ToolsMode.REPLACE)
                                 .transcription(
                                     TranscriptionSettings.builder()
                                         .apiKeyRef("api_key_ref")
@@ -536,7 +548,7 @@ internal class AssistantCreateParamsTest {
                                         )
                                         .build()
                                 )
-                                .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                                .type(FlowNodeReq.Type.PROMPT)
                                 .voiceSettings(
                                     VoiceSettings.builder()
                                         .voice("voice")
@@ -564,7 +576,7 @@ internal class AssistantCreateParamsTest {
                                 .build()
                         )
                         .addNode(
-                            ConversationFlowReq.Node.Prompt.builder()
+                            FlowNodeReq.builder()
                                 .id("n_billing")
                                 .instructions(
                                     "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
@@ -580,15 +592,13 @@ internal class AssistantCreateParamsTest {
                                         .tokenRetrievalUrl("token_retrieval_url")
                                         .build()
                                 )
-                                .instructionsMode(
-                                    ConversationFlowReq.Node.Prompt.InstructionsMode.APPEND
-                                )
+                                .instructionsMode(FlowNodeReq.InstructionsMode.APPEND)
                                 .llmApiKeyRef("my-key-ref")
                                 .model("moonshotai/Kimi-K2.6")
                                 .name("Billing")
                                 .position(NodePosition.builder().x(420.0).y(80.0).build())
                                 .addSharedToolId("tool-billing-lookup")
-                                .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.APPEND)
+                                .toolsMode(FlowNodeReq.ToolsMode.APPEND)
                                 .transcription(
                                     TranscriptionSettings.builder()
                                         .apiKeyRef("api_key_ref")
@@ -613,7 +623,7 @@ internal class AssistantCreateParamsTest {
                                         )
                                         .build()
                                 )
-                                .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                                .type(FlowNodeReq.Type.PROMPT)
                                 .voiceSettings(
                                     VoiceSettings.builder()
                                         .voice("voice")
@@ -845,6 +855,535 @@ internal class AssistantCreateParamsTest {
                                 .value("value")
                                 .build()
                         )
+                        .addMessage(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                .WebhookToolRequestStartMessage
+                                .builder()
+                                .content("Let me look that up for you.")
+                                .timingMs(100L)
+                                .build()
+                        )
+                        .addMessage(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                .WebhookToolRequestResponseDelayedMessage
+                                .builder()
+                                .content("Still working on that.")
+                                .timingMs(5000L)
+                                .build()
+                        )
+                        .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
+                        .pathParameters(
+                            InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
+                                        .Properties
+                                        .builder()
+                                        .putAdditionalProperty("id", JsonValue.from("bar"))
+                                        .build()
+                                )
+                                .addRequired("id")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.Type
+                                        .OBJECT
+                                )
+                                .build()
+                        )
+                        .queryParameters(
+                            InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
+                                        .Properties
+                                        .builder()
+                                        .putAdditionalProperty("page", JsonValue.from("bar"))
+                                        .build()
+                                )
+                                .addRequired("page")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.Type
+                                        .OBJECT
+                                )
+                                .build()
+                        )
+                        .addStoreFieldsAsVariable(
+                            InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
+                                .builder()
+                                .name("x")
+                                .valuePath("x")
+                                .build()
+                        )
+                        .timeoutMs(500L)
+                        .build()
+                )
+                .transcription(
+                    TranscriptionSettings.builder()
+                        .apiKeyRef("api_key_ref")
+                        .language("language")
+                        .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                        .region("region")
+                        .settings(
+                            TranscriptionSettingsConfig.builder()
+                                .eagerEotThreshold(0.3)
+                                .enableEndpointDetection(true)
+                                .endOfTurnConfidenceThreshold(0.0)
+                                .eotThreshold(0.5)
+                                .eotTimeoutMs(500L)
+                                .interimResults(true)
+                                .keyterm("keyterm")
+                                .maxEndpointDelayMs(500L)
+                                .maxTurnSilence(100L)
+                                .minTurnSilence(100L)
+                                .numerals(true)
+                                .smartFormat(true)
+                                .build()
+                        )
+                        .build()
+                )
+                .voiceSettings(
+                    VoiceSettings.builder()
+                        .voice("voice")
+                        .apiKeyRef("api_key_ref")
+                        .backgroundAudio(
+                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                .value(
+                                    VoiceSettings.BackgroundAudio.PredefinedMedia
+                                        .PredefinedMediaValue
+                                        .SILENCE
+                                )
+                                .volume(0.1)
+                                .build()
+                        )
+                        .expressiveMode(true)
+                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                        .similarityBoost(0.0)
+                        .speed(0.0)
+                        .style(0.0)
+                        .temperature(0.0)
+                        .useSpeakerBoost(true)
+                        .voiceSpeed(0.0)
+                        .build()
+                )
+                .widgetSettings(
+                    WidgetSettings.builder()
+                        .agentThinkingText("agent_thinking_text")
+                        .audioVisualizerConfig(
+                            AudioVisualizerConfig.builder()
+                                .color(AudioVisualizerConfig.Color.VERDANT)
+                                .preset("preset")
+                                .build()
+                        )
+                        .defaultState(WidgetSettings.DefaultState.EXPANDED)
+                        .giveFeedbackUrl("give_feedback_url")
+                        .logoIconUrl("logo_icon_url")
+                        .position(WidgetSettings.Position.FIXED)
+                        .reportIssueUrl("report_issue_url")
+                        .speakToInterruptText("speak_to_interrupt_text")
+                        .startCallText("start_call_text")
+                        .theme(WidgetSettings.Theme.LIGHT)
+                        .viewHistoryUrl("view_history_url")
+                        .build()
+                )
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params =
+            AssistantCreateParams.builder().instructions("instructions").name("name").build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
+    fun body() {
+        val params =
+            AssistantCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .instructions("instructions")
+                .name("name")
+                .conversationFlow(
+                    ConversationFlowReq.builder()
+                        .addNode(
+                            FlowNodeReq.builder()
+                                .id("n_intake")
+                                .instructions(
+                                    "Greet the caller and ask what they're calling about."
+                                )
+                                .externalLlm(
+                                    ExternalLlmReq.builder()
+                                        .baseUrl("base_url")
+                                        .model("model")
+                                        .authenticationMethod(AuthenticationMethod.TOKEN)
+                                        .certificateRef("certificate_ref")
+                                        .forwardMetadata(true)
+                                        .llmApiKeyRef("llm_api_key_ref")
+                                        .tokenRetrievalUrl("token_retrieval_url")
+                                        .build()
+                                )
+                                .instructionsMode(FlowNodeReq.InstructionsMode.REPLACE)
+                                .llmApiKeyRef("my-key-ref")
+                                .model("moonshotai/Kimi-K2.6")
+                                .name("Intake")
+                                .position(NodePosition.builder().x(120.0).y(80.0).build())
+                                .addSharedToolId("tool-faq-kb")
+                                .toolsMode(FlowNodeReq.ToolsMode.REPLACE)
+                                .transcription(
+                                    TranscriptionSettings.builder()
+                                        .apiKeyRef("api_key_ref")
+                                        .language("language")
+                                        .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                                        .region("region")
+                                        .settings(
+                                            TranscriptionSettingsConfig.builder()
+                                                .eagerEotThreshold(0.3)
+                                                .enableEndpointDetection(true)
+                                                .endOfTurnConfidenceThreshold(0.0)
+                                                .eotThreshold(0.5)
+                                                .eotTimeoutMs(500L)
+                                                .interimResults(true)
+                                                .keyterm("keyterm")
+                                                .maxEndpointDelayMs(500L)
+                                                .maxTurnSilence(100L)
+                                                .minTurnSilence(100L)
+                                                .numerals(true)
+                                                .smartFormat(true)
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .type(FlowNodeReq.Type.PROMPT)
+                                .voiceSettings(
+                                    VoiceSettings.builder()
+                                        .voice("voice")
+                                        .apiKeyRef("api_key_ref")
+                                        .backgroundAudio(
+                                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                                .value(
+                                                    VoiceSettings.BackgroundAudio.PredefinedMedia
+                                                        .PredefinedMediaValue
+                                                        .SILENCE
+                                                )
+                                                .volume(0.1)
+                                                .build()
+                                        )
+                                        .expressiveMode(true)
+                                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                        .similarityBoost(0.0)
+                                        .speed(0.0)
+                                        .style(0.0)
+                                        .temperature(0.0)
+                                        .useSpeakerBoost(true)
+                                        .voiceSpeed(0.0)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .addNode(
+                            FlowNodeReq.builder()
+                                .id("n_billing")
+                                .instructions(
+                                    "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
+                                )
+                                .externalLlm(
+                                    ExternalLlmReq.builder()
+                                        .baseUrl("base_url")
+                                        .model("model")
+                                        .authenticationMethod(AuthenticationMethod.TOKEN)
+                                        .certificateRef("certificate_ref")
+                                        .forwardMetadata(true)
+                                        .llmApiKeyRef("llm_api_key_ref")
+                                        .tokenRetrievalUrl("token_retrieval_url")
+                                        .build()
+                                )
+                                .instructionsMode(FlowNodeReq.InstructionsMode.APPEND)
+                                .llmApiKeyRef("my-key-ref")
+                                .model("moonshotai/Kimi-K2.6")
+                                .name("Billing")
+                                .position(NodePosition.builder().x(420.0).y(80.0).build())
+                                .addSharedToolId("tool-billing-lookup")
+                                .toolsMode(FlowNodeReq.ToolsMode.APPEND)
+                                .transcription(
+                                    TranscriptionSettings.builder()
+                                        .apiKeyRef("api_key_ref")
+                                        .language("language")
+                                        .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                                        .region("region")
+                                        .settings(
+                                            TranscriptionSettingsConfig.builder()
+                                                .eagerEotThreshold(0.3)
+                                                .enableEndpointDetection(true)
+                                                .endOfTurnConfidenceThreshold(0.0)
+                                                .eotThreshold(0.5)
+                                                .eotTimeoutMs(500L)
+                                                .interimResults(true)
+                                                .keyterm("keyterm")
+                                                .maxEndpointDelayMs(500L)
+                                                .maxTurnSilence(100L)
+                                                .minTurnSilence(100L)
+                                                .numerals(true)
+                                                .smartFormat(true)
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .type(FlowNodeReq.Type.PROMPT)
+                                .voiceSettings(
+                                    VoiceSettings.builder()
+                                        .voice("voice")
+                                        .apiKeyRef("api_key_ref")
+                                        .backgroundAudio(
+                                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                                .value(
+                                                    VoiceSettings.BackgroundAudio.PredefinedMedia
+                                                        .PredefinedMediaValue
+                                                        .SILENCE
+                                                )
+                                                .volume(0.1)
+                                                .build()
+                                        )
+                                        .expressiveMode(true)
+                                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                        .similarityBoost(0.0)
+                                        .speed(0.0)
+                                        .style(0.0)
+                                        .temperature(0.0)
+                                        .useSpeakerBoost(true)
+                                        .voiceSpeed(0.0)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .startNodeId("n_intake")
+                        .addEdge(
+                            FlowEdge.builder()
+                                .id("e_intake_to_billing")
+                                .llmCondition("The caller is asking about a bill or charge.")
+                                .startNodeId("n_intake")
+                                .nodeTarget("n_billing")
+                                .build()
+                        )
+                        .addEdge(
+                            FlowEdge.builder()
+                                .id("e_intake_to_escalation_assistant")
+                                .llmCondition("The caller has explicitly asked for a human.")
+                                .startNodeId("n_intake")
+                                .target(
+                                    FlowEdge.Target.Assistant.builder()
+                                        .assistantId("assistant-human-handoff")
+                                        .position(NodePosition.builder().x(600.0).y(80.0).build())
+                                        .voiceMode(FlowEdge.Target.Assistant.VoiceMode.DISTINCT)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .description("description")
+                .dynamicVariables(
+                    AssistantCreateParams.DynamicVariables.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .dynamicVariablesWebhookTimeoutMs(1L)
+                .dynamicVariablesWebhookUrl("dynamic_variables_webhook_url")
+                .addEnabledFeature(EnabledFeatures.TELEPHONY)
+                .externalLlm(
+                    ExternalLlmReq.builder()
+                        .baseUrl("base_url")
+                        .model("model")
+                        .authenticationMethod(AuthenticationMethod.TOKEN)
+                        .certificateRef("certificate_ref")
+                        .forwardMetadata(true)
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .tokenRetrievalUrl("token_retrieval_url")
+                        .build()
+                )
+                .fallbackConfig(
+                    FallbackConfigReq.builder()
+                        .externalLlm(
+                            ExternalLlmReq.builder()
+                                .baseUrl("base_url")
+                                .model("model")
+                                .authenticationMethod(AuthenticationMethod.TOKEN)
+                                .certificateRef("certificate_ref")
+                                .forwardMetadata(true)
+                                .llmApiKeyRef("llm_api_key_ref")
+                                .tokenRetrievalUrl("token_retrieval_url")
+                                .build()
+                        )
+                        .llmApiKeyRef("llm_api_key_ref")
+                        .model("model")
+                        .build()
+                )
+                .greeting("greeting")
+                .insightSettings(
+                    InsightSettings.builder().insightGroupId("insight_group_id").build()
+                )
+                .addIntegration(
+                    AssistantIntegration.builder()
+                        .integrationId("integration_id")
+                        .addAllowedList("string")
+                        .build()
+                )
+                .interruptionSettings(
+                    InferenceEmbeddingInterruptionSettings.builder()
+                        .disableGreetingInterruption(true)
+                        .enable(true)
+                        .startSpeakingPlan(
+                            StartSpeakingPlan.builder()
+                                .transcriptionEndpointingPlan(
+                                    TranscriptionEndpointingPlan.builder()
+                                        .onNoPunctuationSeconds(0.0f)
+                                        .onNumberSeconds(0.0f)
+                                        .onPunctuationSeconds(0.0f)
+                                        .build()
+                                )
+                                .waitSeconds(0.0f)
+                                .build()
+                        )
+                        .build()
+                )
+                .llmApiKeyRef("llm_api_key_ref")
+                .addMcpServer(
+                    AssistantMcpServer.builder().id("id").addAllowedTool("string").build()
+                )
+                .messagingSettings(
+                    MessagingSettings.builder()
+                        .conversationInactivityMinutes(1L)
+                        .defaultMessagingProfileId("default_messaging_profile_id")
+                        .deliveryStatusWebhookUrl("delivery_status_webhook_url")
+                        .build()
+                )
+                .model("model")
+                .observabilitySettings(
+                    ObservabilityReq.builder()
+                        .host("host")
+                        .promptLabel("prompt_label")
+                        .promptName("prompt_name")
+                        .promptSync(PromptSyncStatus.ENABLED)
+                        .promptVersion(1L)
+                        .publicKeyRef("public_key_ref")
+                        .secretKeyRef("secret_key_ref")
+                        .status(ObservabilityStatus.ENABLED)
+                        .build()
+                )
+                .postConversationSettings(
+                    PostConversationSettingsReq.builder().enabled(true).build()
+                )
+                .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                .addTag("string")
+                .telephonySettings(
+                    TelephonySettings.builder()
+                        .defaultTexmlAppId("default_texml_app_id")
+                        .disableDtmf(true)
+                        .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                        .noiseSuppressionConfig(
+                            TelephonySettings.NoiseSuppressionConfig.builder()
+                                .attenuationLimit(0L)
+                                .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                                .build()
+                        )
+                        .recordingSettings(
+                            TelephonySettings.RecordingSettings.builder()
+                                .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                                .enabled(true)
+                                .format(TelephonySettings.RecordingSettings.Format.WAV)
+                                .stopOnConversationEnd(true)
+                                .build()
+                        )
+                        .supportsUnauthenticatedWebCalls(true)
+                        .timeLimitSecs(30L)
+                        .userIdleReplySecs(0L)
+                        .userIdleTimeoutSecs(10L)
+                        .voicemailDetection(
+                            TelephonySettings.VoicemailDetection.builder()
+                                .onVoicemailDetected(
+                                    TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                        .builder()
+                                        .action(
+                                            TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                                .Action
+                                                .STOP_ASSISTANT
+                                        )
+                                        .voicemailMessage(
+                                            TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                                .VoicemailMessage
+                                                .builder()
+                                                .message("message")
+                                                .prompt("prompt")
+                                                .type(
+                                                    TelephonySettings.VoicemailDetection
+                                                        .OnVoicemailDetected
+                                                        .VoicemailMessage
+                                                        .Type
+                                                        .PROMPT
+                                                )
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .addToolId("string")
+                .addWebhookTool(
+                    InferenceEmbeddingWebhookToolParams.Webhook.builder()
+                        .description("description")
+                        .name("name")
+                        .url("https://example.com/api/v1/function")
+                        .async(true)
+                        .asyncTimeoutMs(1L)
+                        .bodyParameters(
+                            InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
+                                        .Properties
+                                        .builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("location", JsonValue.from("bar"))
+                                        .build()
+                                )
+                                .addRequired("age")
+                                .addRequired("location")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.Type
+                                        .OBJECT
+                                )
+                                .build()
+                        )
+                        .addHeader(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                                .name("name")
+                                .value("value")
+                                .build()
+                        )
+                        .addMessage(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                .WebhookToolRequestStartMessage
+                                .builder()
+                                .content("Let me look that up for you.")
+                                .timingMs(100L)
+                                .build()
+                        )
+                        .addMessage(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                .WebhookToolRequestResponseDelayedMessage
+                                .builder()
+                                .content("Still working on that.")
+                                .timingMs(5000L)
+                                .build()
+                        )
                         .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                         .pathParameters(
                             InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
@@ -966,7 +1505,7 @@ internal class AssistantCreateParamsTest {
             .contains(
                 ConversationFlowReq.builder()
                     .addNode(
-                        ConversationFlowReq.Node.Prompt.builder()
+                        FlowNodeReq.builder()
                             .id("n_intake")
                             .instructions("Greet the caller and ask what they're calling about.")
                             .externalLlm(
@@ -980,15 +1519,13 @@ internal class AssistantCreateParamsTest {
                                     .tokenRetrievalUrl("token_retrieval_url")
                                     .build()
                             )
-                            .instructionsMode(
-                                ConversationFlowReq.Node.Prompt.InstructionsMode.REPLACE
-                            )
+                            .instructionsMode(FlowNodeReq.InstructionsMode.REPLACE)
                             .llmApiKeyRef("my-key-ref")
                             .model("moonshotai/Kimi-K2.6")
                             .name("Intake")
                             .position(NodePosition.builder().x(120.0).y(80.0).build())
                             .addSharedToolId("tool-faq-kb")
-                            .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.REPLACE)
+                            .toolsMode(FlowNodeReq.ToolsMode.REPLACE)
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
@@ -1013,7 +1550,7 @@ internal class AssistantCreateParamsTest {
                                     )
                                     .build()
                             )
-                            .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                            .type(FlowNodeReq.Type.PROMPT)
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -1041,7 +1578,7 @@ internal class AssistantCreateParamsTest {
                             .build()
                     )
                     .addNode(
-                        ConversationFlowReq.Node.Prompt.builder()
+                        FlowNodeReq.builder()
                             .id("n_billing")
                             .instructions(
                                 "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
@@ -1057,15 +1594,13 @@ internal class AssistantCreateParamsTest {
                                     .tokenRetrievalUrl("token_retrieval_url")
                                     .build()
                             )
-                            .instructionsMode(
-                                ConversationFlowReq.Node.Prompt.InstructionsMode.APPEND
-                            )
+                            .instructionsMode(FlowNodeReq.InstructionsMode.APPEND)
                             .llmApiKeyRef("my-key-ref")
                             .model("moonshotai/Kimi-K2.6")
                             .name("Billing")
                             .position(NodePosition.builder().x(420.0).y(80.0).build())
                             .addSharedToolId("tool-billing-lookup")
-                            .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.APPEND)
+                            .toolsMode(FlowNodeReq.ToolsMode.APPEND)
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
@@ -1090,7 +1625,7 @@ internal class AssistantCreateParamsTest {
                                     )
                                     .build()
                             )
-                            .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                            .type(FlowNodeReq.Type.PROMPT)
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -1337,6 +1872,22 @@ internal class AssistantCreateParamsTest {
                                     InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
                                         .name("name")
                                         .value("value")
+                                        .build()
+                                )
+                                .addMessage(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                        .WebhookToolRequestStartMessage
+                                        .builder()
+                                        .content("Let me look that up for you.")
+                                        .timingMs(100L)
+                                        .build()
+                                )
+                                .addMessage(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                        .WebhookToolRequestResponseDelayedMessage
+                                        .builder()
+                                        .content("Still working on that.")
+                                        .timingMs(5000L)
                                         .build()
                                 )
                                 .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)

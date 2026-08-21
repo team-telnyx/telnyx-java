@@ -29,7 +29,6 @@ import com.telnyx.sdk.models.AzureVoiceSettings
 import com.telnyx.sdk.models.InworldVoiceSettings
 import com.telnyx.sdk.models.MinimaxVoiceSettings
 import com.telnyx.sdk.models.ResembleVoiceSettings
-import com.telnyx.sdk.models.RimeVoiceSettings
 import com.telnyx.sdk.models.XaiVoiceSettings
 import com.telnyx.sdk.models.calls.actions.AwsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
@@ -820,9 +819,6 @@ private constructor(
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofAzure(azure)`. */
         fun voiceSettings(azure: AzureVoiceSettings) = voiceSettings(VoiceSettings.ofAzure(azure))
 
-        /** Alias for calling [voiceSettings] with `VoiceSettings.ofRime(rime)`. */
-        fun voiceSettings(rime: RimeVoiceSettings) = voiceSettings(VoiceSettings.ofRime(rime))
-
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
         fun voiceSettings(resemble: ResembleVoiceSettings) =
             voiceSettings(VoiceSettings.ofResemble(resemble))
@@ -1498,7 +1494,6 @@ private constructor(
         private val aws: AwsVoiceSettings? = null,
         private val minimax: MinimaxVoiceSettings? = null,
         private val azure: AzureVoiceSettings? = null,
-        private val rime: RimeVoiceSettings? = null,
         private val resemble: ResembleVoiceSettings? = null,
         private val inworld: InworldVoiceSettings? = null,
         private val xai: XaiVoiceSettings? = null,
@@ -1514,8 +1509,6 @@ private constructor(
         fun minimax(): Optional<MinimaxVoiceSettings> = Optional.ofNullable(minimax)
 
         fun azure(): Optional<AzureVoiceSettings> = Optional.ofNullable(azure)
-
-        fun rime(): Optional<RimeVoiceSettings> = Optional.ofNullable(rime)
 
         fun resemble(): Optional<ResembleVoiceSettings> = Optional.ofNullable(resemble)
 
@@ -1533,8 +1526,6 @@ private constructor(
 
         fun isAzure(): Boolean = azure != null
 
-        fun isRime(): Boolean = rime != null
-
         fun isResemble(): Boolean = resemble != null
 
         fun isInworld(): Boolean = inworld != null
@@ -1550,8 +1541,6 @@ private constructor(
         fun asMinimax(): MinimaxVoiceSettings = minimax.getOrThrow("minimax")
 
         fun asAzure(): AzureVoiceSettings = azure.getOrThrow("azure")
-
-        fun asRime(): RimeVoiceSettings = rime.getOrThrow("rime")
 
         fun asResemble(): ResembleVoiceSettings = resemble.getOrThrow("resemble")
 
@@ -1597,7 +1586,6 @@ private constructor(
                 aws != null -> visitor.visitAws(aws)
                 minimax != null -> visitor.visitMinimax(minimax)
                 azure != null -> visitor.visitAzure(azure)
-                rime != null -> visitor.visitRime(rime)
                 resemble != null -> visitor.visitResemble(resemble)
                 inworld != null -> visitor.visitInworld(inworld)
                 xai != null -> visitor.visitXai(xai)
@@ -1640,10 +1628,6 @@ private constructor(
 
                     override fun visitAzure(azure: AzureVoiceSettings) {
                         azure.validate()
-                    }
-
-                    override fun visitRime(rime: RimeVoiceSettings) {
-                        rime.validate()
                     }
 
                     override fun visitResemble(resemble: ResembleVoiceSettings) {
@@ -1691,8 +1675,6 @@ private constructor(
 
                     override fun visitAzure(azure: AzureVoiceSettings) = azure.validity()
 
-                    override fun visitRime(rime: RimeVoiceSettings) = rime.validity()
-
                     override fun visitResemble(resemble: ResembleVoiceSettings) =
                         resemble.validity()
 
@@ -1715,14 +1697,13 @@ private constructor(
                 aws == other.aws &&
                 minimax == other.minimax &&
                 azure == other.azure &&
-                rime == other.rime &&
                 resemble == other.resemble &&
                 inworld == other.inworld &&
                 xai == other.xai
         }
 
         override fun hashCode(): Int =
-            Objects.hash(elevenlabs, telnyx, aws, minimax, azure, rime, resemble, inworld, xai)
+            Objects.hash(elevenlabs, telnyx, aws, minimax, azure, resemble, inworld, xai)
 
         override fun toString(): String =
             when {
@@ -1731,7 +1712,6 @@ private constructor(
                 aws != null -> "VoiceSettings{aws=$aws}"
                 minimax != null -> "VoiceSettings{minimax=$minimax}"
                 azure != null -> "VoiceSettings{azure=$azure}"
-                rime != null -> "VoiceSettings{rime=$rime}"
                 resemble != null -> "VoiceSettings{resemble=$resemble}"
                 inworld != null -> "VoiceSettings{inworld=$inworld}"
                 xai != null -> "VoiceSettings{xai=$xai}"
@@ -1753,8 +1733,6 @@ private constructor(
             fun ofMinimax(minimax: MinimaxVoiceSettings) = VoiceSettings(minimax = minimax)
 
             @JvmStatic fun ofAzure(azure: AzureVoiceSettings) = VoiceSettings(azure = azure)
-
-            @JvmStatic fun ofRime(rime: RimeVoiceSettings) = VoiceSettings(rime = rime)
 
             @JvmStatic
             fun ofResemble(resemble: ResembleVoiceSettings) = VoiceSettings(resemble = resemble)
@@ -1780,8 +1758,6 @@ private constructor(
             fun visitMinimax(minimax: MinimaxVoiceSettings): T
 
             fun visitAzure(azure: AzureVoiceSettings): T
-
-            fun visitRime(rime: RimeVoiceSettings): T
 
             fun visitResemble(resemble: ResembleVoiceSettings): T
 
@@ -1836,11 +1812,6 @@ private constructor(
                             VoiceSettings(azure = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
-                    "rime" -> {
-                        return tryDeserialize(node, jacksonTypeRef<RimeVoiceSettings>())?.let {
-                            VoiceSettings(rime = it, _json = json)
-                        } ?: VoiceSettings(_json = json)
-                    }
                     "resemble" -> {
                         return tryDeserialize(node, jacksonTypeRef<ResembleVoiceSettings>())?.let {
                             VoiceSettings(resemble = it, _json = json)
@@ -1875,7 +1846,6 @@ private constructor(
                     value.aws != null -> generator.writeObject(value.aws)
                     value.minimax != null -> generator.writeObject(value.minimax)
                     value.azure != null -> generator.writeObject(value.azure)
-                    value.rime != null -> generator.writeObject(value.rime)
                     value.resemble != null -> generator.writeObject(value.resemble)
                     value.inworld != null -> generator.writeObject(value.inworld)
                     value.xai != null -> generator.writeObject(value.xai)

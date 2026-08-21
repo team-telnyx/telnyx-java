@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a paginated list of number orders. */
+/** Returns a paginated list of your phone number orders, with support for filtering. */
 class NumberOrderListParams
 private constructor(
     private val filter: Filter?,

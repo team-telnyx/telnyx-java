@@ -14,7 +14,7 @@ internal class AgentUpdateParamsTest {
             .configuration(
                 AgentConfiguration.builder()
                     .basics(
-                        AgentConfiguration.Basics.UnionMember0.builder()
+                        AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                             .phoneNumber(
                                 AgentPhoneContact.builder().label("x").number("+49605132").build()
                             )
@@ -107,7 +107,7 @@ internal class AgentUpdateParamsTest {
                 .configuration(
                     AgentConfiguration.builder()
                         .basics(
-                            AgentConfiguration.Basics.UnionMember0.builder()
+                            AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                                 .phoneNumber(
                                     AgentPhoneContact.builder()
                                         .label("x")
@@ -192,7 +192,7 @@ internal class AgentUpdateParamsTest {
             .contains(
                 AgentConfiguration.builder()
                     .basics(
-                        AgentConfiguration.Basics.UnionMember0.builder()
+                        AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                             .phoneNumber(
                                 AgentPhoneContact.builder().label("x").number("+49605132").build()
                             )

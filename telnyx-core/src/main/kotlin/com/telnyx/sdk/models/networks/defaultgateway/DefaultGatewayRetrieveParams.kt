@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get Default Gateway status. */
+/** Returns the status of the default gateway configured on the specified network. */
 class DefaultGatewayRetrieveParams
 private constructor(
     private val id: String?,

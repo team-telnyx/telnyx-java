@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates a conference resource. */
+/**
+ * Updates the specified conference resource, for example to modify its status, and returns the
+ * updated conference.
+ */
 class ConferenceUpdateParams
 private constructor(
     private val accountSid: String,

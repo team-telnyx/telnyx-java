@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create Default Gateway. */
+/**
+ * Creates a default gateway on the specified network, directing the network's outbound traffic
+ * through the chosen gateway.
+ */
 class DefaultGatewayCreateParams
 private constructor(
     private val networkIdentifier: String?,

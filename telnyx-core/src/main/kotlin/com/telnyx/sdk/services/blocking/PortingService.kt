@@ -37,7 +37,10 @@ interface PortingService {
     /** Endpoints related to porting orders management. */
     fun loaConfigurations(): LoaConfigurationService
 
-    /** List available carriers in the UK. */
+    /**
+     * Returns the list of UK carriers available for porting, for use when preparing porting orders
+     * for UK numbers.
+     */
     fun listUkCarriers(): PortingListUkCarriersResponse =
         listUkCarriers(PortingListUkCarriersParams.none())
 

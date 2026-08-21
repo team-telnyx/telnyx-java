@@ -31,7 +31,7 @@ interface QueueService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): QueueService
 
-    /** Creates a new queue resource. */
+    /** Creates a new queue resource for the account with the provided settings and returns it. */
     fun create(accountSid: String): QueueResource = create(accountSid, QueueCreateParams.none())
 
     /** @see create */
@@ -60,7 +60,7 @@ interface QueueService {
     fun create(accountSid: String, requestOptions: RequestOptions): QueueResource =
         create(accountSid, QueueCreateParams.none(), requestOptions)
 
-    /** Returns a queue resource. */
+    /** Returns a single queue resource for the account by its QueueSid. */
     fun retrieve(queueSid: String, params: QueueRetrieveParams): QueueResource =
         retrieve(queueSid, params, RequestOptions.none())
 
@@ -81,7 +81,7 @@ interface QueueService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): QueueResource
 
-    /** Updates a queue resource. */
+    /** Updates the specified queue resource's settings and returns the updated queue. */
     fun update(queueSid: String, params: QueueUpdateParams): QueueResource =
         update(queueSid, params, RequestOptions.none())
 
@@ -101,7 +101,10 @@ interface QueueService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): QueueResource
 
-    /** Lists queue resources. */
+    /**
+     * Returns a paginated list of queue resources for the account, with support for filtering by
+     * creation or update dates.
+     */
     fun list(accountSid: String): QueueListPage = list(accountSid, QueueListParams.none())
 
     /** @see list */
@@ -128,7 +131,7 @@ interface QueueService {
     fun list(accountSid: String, requestOptions: RequestOptions): QueueListPage =
         list(accountSid, QueueListParams.none(), requestOptions)
 
-    /** Delete a queue resource. */
+    /** Permanently deletes the specified queue resource from the account. */
     fun delete(queueSid: String, params: QueueDeleteParams) =
         delete(queueSid, params, RequestOptions.none())
 

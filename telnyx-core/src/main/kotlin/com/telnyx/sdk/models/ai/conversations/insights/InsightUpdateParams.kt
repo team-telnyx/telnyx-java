@@ -30,7 +30,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update an insight template */
+/** Updates the specified insight template and returns the updated template. */
 class InsightUpdateParams
 private constructor(
     private val insightId: String?,

@@ -15,7 +15,7 @@ internal class AgentCreateParamsTest {
             .configuration(
                 AgentConfiguration.builder()
                     .basics(
-                        AgentConfiguration.Basics.UnionMember0.builder()
+                        AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                             .email(
                                 AgentEmailContact.builder()
                                     .address("support@example.com")
@@ -100,7 +100,7 @@ internal class AgentCreateParamsTest {
                 .configuration(
                     AgentConfiguration.builder()
                         .basics(
-                            AgentConfiguration.Basics.UnionMember0.builder()
+                            AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                                 .email(
                                     AgentEmailContact.builder()
                                         .address("support@example.com")
@@ -198,7 +198,7 @@ internal class AgentCreateParamsTest {
                 .configuration(
                     AgentConfiguration.builder()
                         .basics(
-                            AgentConfiguration.Basics.UnionMember2.builder()
+                            AgentConfiguration.Basics.AgentProfileContactRequirement.builder()
                                 .email(
                                     AgentEmailContact.builder()
                                         .address("support@example.com")
@@ -232,7 +232,7 @@ internal class AgentCreateParamsTest {
                 .configuration(
                     AgentConfiguration.builder()
                         .basics(
-                            AgentConfiguration.Basics.UnionMember0.builder()
+                            AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                                 .email(
                                     AgentEmailContact.builder()
                                         .address("support@example.com")
@@ -318,7 +318,7 @@ internal class AgentCreateParamsTest {
             .isEqualTo(
                 AgentConfiguration.builder()
                     .basics(
-                        AgentConfiguration.Basics.UnionMember0.builder()
+                        AgentConfiguration.Basics.AgentPhoneContactRequirement.builder()
                             .email(
                                 AgentEmailContact.builder()
                                     .address("support@example.com")
@@ -402,7 +402,7 @@ internal class AgentCreateParamsTest {
                 .configuration(
                     AgentConfiguration.builder()
                         .basics(
-                            AgentConfiguration.Basics.UnionMember2.builder()
+                            AgentConfiguration.Basics.AgentProfileContactRequirement.builder()
                                 .email(
                                     AgentEmailContact.builder()
                                         .address("support@example.com")
@@ -424,7 +424,7 @@ internal class AgentCreateParamsTest {
             .isEqualTo(
                 AgentConfiguration.builder()
                     .basics(
-                        AgentConfiguration.Basics.UnionMember2.builder()
+                        AgentConfiguration.Basics.AgentProfileContactRequirement.builder()
                             .email(
                                 AgentEmailContact.builder()
                                     .address("support@example.com")

@@ -24,7 +24,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates a TeXML Application. */
+/**
+ * Creates a TeXML application, which defines the voice URLs and settings used to serve TeXML
+ * instructions for calls, and returns the created application.
+ */
 class TexmlApplicationCreateParams
 private constructor(
     private val body: Body,

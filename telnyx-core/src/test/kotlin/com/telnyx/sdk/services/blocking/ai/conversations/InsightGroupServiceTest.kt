@@ -59,6 +59,7 @@ internal class InsightGroupServiceTest {
         val insightTemplateGroupDetail =
             insightGroupService.insightGroups(
                 InsightGroupInsightGroupsParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .name("Name")
                     .description("Description")
                     .webhook("")

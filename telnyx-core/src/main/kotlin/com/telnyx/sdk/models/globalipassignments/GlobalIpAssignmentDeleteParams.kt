@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a Global IP assignment. */
+/** Deletes the specified Global IP assignment, detaching the Global IP from its WireGuard peer. */
 class GlobalIpAssignmentDeleteParams
 private constructor(
     private val id: String?,

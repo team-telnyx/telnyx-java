@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
 import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
 import com.telnyx.sdk.models.ai.assistants.FlowEdge
+import com.telnyx.sdk.models.ai.assistants.FlowNodeReq
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingInterruptionSettings
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
@@ -45,7 +46,7 @@ internal class UpdateAssistantTest {
                 .conversationFlow(
                     ConversationFlowReq.builder()
                         .addNode(
-                            ConversationFlowReq.Node.Prompt.builder()
+                            FlowNodeReq.builder()
                                 .id("n_intake")
                                 .instructions(
                                     "Greet the caller and ask what they're calling about."
@@ -61,15 +62,13 @@ internal class UpdateAssistantTest {
                                         .tokenRetrievalUrl("token_retrieval_url")
                                         .build()
                                 )
-                                .instructionsMode(
-                                    ConversationFlowReq.Node.Prompt.InstructionsMode.REPLACE
-                                )
+                                .instructionsMode(FlowNodeReq.InstructionsMode.REPLACE)
                                 .llmApiKeyRef("my-key-ref")
                                 .model("moonshotai/Kimi-K2.6")
                                 .name("Intake")
                                 .position(NodePosition.builder().x(120.0).y(80.0).build())
                                 .addSharedToolId("tool-faq-kb")
-                                .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.REPLACE)
+                                .toolsMode(FlowNodeReq.ToolsMode.REPLACE)
                                 .transcription(
                                     TranscriptionSettings.builder()
                                         .apiKeyRef("api_key_ref")
@@ -94,7 +93,7 @@ internal class UpdateAssistantTest {
                                         )
                                         .build()
                                 )
-                                .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                                .type(FlowNodeReq.Type.PROMPT)
                                 .voiceSettings(
                                     VoiceSettings.builder()
                                         .voice("voice")
@@ -122,7 +121,7 @@ internal class UpdateAssistantTest {
                                 .build()
                         )
                         .addNode(
-                            ConversationFlowReq.Node.Prompt.builder()
+                            FlowNodeReq.builder()
                                 .id("n_billing")
                                 .instructions(
                                     "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
@@ -138,15 +137,13 @@ internal class UpdateAssistantTest {
                                         .tokenRetrievalUrl("token_retrieval_url")
                                         .build()
                                 )
-                                .instructionsMode(
-                                    ConversationFlowReq.Node.Prompt.InstructionsMode.APPEND
-                                )
+                                .instructionsMode(FlowNodeReq.InstructionsMode.APPEND)
                                 .llmApiKeyRef("my-key-ref")
                                 .model("moonshotai/Kimi-K2.6")
                                 .name("Billing")
                                 .position(NodePosition.builder().x(420.0).y(80.0).build())
                                 .addSharedToolId("tool-billing-lookup")
-                                .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.APPEND)
+                                .toolsMode(FlowNodeReq.ToolsMode.APPEND)
                                 .transcription(
                                     TranscriptionSettings.builder()
                                         .apiKeyRef("api_key_ref")
@@ -171,7 +168,7 @@ internal class UpdateAssistantTest {
                                         )
                                         .build()
                                 )
-                                .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                                .type(FlowNodeReq.Type.PROMPT)
                                 .voiceSettings(
                                     VoiceSettings.builder()
                                         .voice("voice")
@@ -405,6 +402,22 @@ internal class UpdateAssistantTest {
                                 .value("value")
                                 .build()
                         )
+                        .addMessage(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                .WebhookToolRequestStartMessage
+                                .builder()
+                                .content("Let me look that up for you.")
+                                .timingMs(100L)
+                                .build()
+                        )
+                        .addMessage(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                .WebhookToolRequestResponseDelayedMessage
+                                .builder()
+                                .content("Still working on that.")
+                                .timingMs(5000L)
+                                .build()
+                        )
                         .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                         .pathParameters(
                             InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
@@ -523,7 +536,7 @@ internal class UpdateAssistantTest {
             .contains(
                 ConversationFlowReq.builder()
                     .addNode(
-                        ConversationFlowReq.Node.Prompt.builder()
+                        FlowNodeReq.builder()
                             .id("n_intake")
                             .instructions("Greet the caller and ask what they're calling about.")
                             .externalLlm(
@@ -537,15 +550,13 @@ internal class UpdateAssistantTest {
                                     .tokenRetrievalUrl("token_retrieval_url")
                                     .build()
                             )
-                            .instructionsMode(
-                                ConversationFlowReq.Node.Prompt.InstructionsMode.REPLACE
-                            )
+                            .instructionsMode(FlowNodeReq.InstructionsMode.REPLACE)
                             .llmApiKeyRef("my-key-ref")
                             .model("moonshotai/Kimi-K2.6")
                             .name("Intake")
                             .position(NodePosition.builder().x(120.0).y(80.0).build())
                             .addSharedToolId("tool-faq-kb")
-                            .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.REPLACE)
+                            .toolsMode(FlowNodeReq.ToolsMode.REPLACE)
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
@@ -570,7 +581,7 @@ internal class UpdateAssistantTest {
                                     )
                                     .build()
                             )
-                            .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                            .type(FlowNodeReq.Type.PROMPT)
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -598,7 +609,7 @@ internal class UpdateAssistantTest {
                             .build()
                     )
                     .addNode(
-                        ConversationFlowReq.Node.Prompt.builder()
+                        FlowNodeReq.builder()
                             .id("n_billing")
                             .instructions(
                                 "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
@@ -614,15 +625,13 @@ internal class UpdateAssistantTest {
                                     .tokenRetrievalUrl("token_retrieval_url")
                                     .build()
                             )
-                            .instructionsMode(
-                                ConversationFlowReq.Node.Prompt.InstructionsMode.APPEND
-                            )
+                            .instructionsMode(FlowNodeReq.InstructionsMode.APPEND)
                             .llmApiKeyRef("my-key-ref")
                             .model("moonshotai/Kimi-K2.6")
                             .name("Billing")
                             .position(NodePosition.builder().x(420.0).y(80.0).build())
                             .addSharedToolId("tool-billing-lookup")
-                            .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.APPEND)
+                            .toolsMode(FlowNodeReq.ToolsMode.APPEND)
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
@@ -647,7 +656,7 @@ internal class UpdateAssistantTest {
                                     )
                                     .build()
                             )
-                            .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                            .type(FlowNodeReq.Type.PROMPT)
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -900,6 +909,22 @@ internal class UpdateAssistantTest {
                                         .value("value")
                                         .build()
                                 )
+                                .addMessage(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                        .WebhookToolRequestStartMessage
+                                        .builder()
+                                        .content("Let me look that up for you.")
+                                        .timingMs(100L)
+                                        .build()
+                                )
+                                .addMessage(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                        .WebhookToolRequestResponseDelayedMessage
+                                        .builder()
+                                        .content("Still working on that.")
+                                        .timingMs(5000L)
+                                        .build()
+                                )
                                 .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                                 .pathParameters(
                                     InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
@@ -1039,7 +1064,7 @@ internal class UpdateAssistantTest {
                 .conversationFlow(
                     ConversationFlowReq.builder()
                         .addNode(
-                            ConversationFlowReq.Node.Prompt.builder()
+                            FlowNodeReq.builder()
                                 .id("n_intake")
                                 .instructions(
                                     "Greet the caller and ask what they're calling about."
@@ -1055,15 +1080,13 @@ internal class UpdateAssistantTest {
                                         .tokenRetrievalUrl("token_retrieval_url")
                                         .build()
                                 )
-                                .instructionsMode(
-                                    ConversationFlowReq.Node.Prompt.InstructionsMode.REPLACE
-                                )
+                                .instructionsMode(FlowNodeReq.InstructionsMode.REPLACE)
                                 .llmApiKeyRef("my-key-ref")
                                 .model("moonshotai/Kimi-K2.6")
                                 .name("Intake")
                                 .position(NodePosition.builder().x(120.0).y(80.0).build())
                                 .addSharedToolId("tool-faq-kb")
-                                .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.REPLACE)
+                                .toolsMode(FlowNodeReq.ToolsMode.REPLACE)
                                 .transcription(
                                     TranscriptionSettings.builder()
                                         .apiKeyRef("api_key_ref")
@@ -1088,7 +1111,7 @@ internal class UpdateAssistantTest {
                                         )
                                         .build()
                                 )
-                                .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                                .type(FlowNodeReq.Type.PROMPT)
                                 .voiceSettings(
                                     VoiceSettings.builder()
                                         .voice("voice")
@@ -1116,7 +1139,7 @@ internal class UpdateAssistantTest {
                                 .build()
                         )
                         .addNode(
-                            ConversationFlowReq.Node.Prompt.builder()
+                            FlowNodeReq.builder()
                                 .id("n_billing")
                                 .instructions(
                                     "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
@@ -1132,15 +1155,13 @@ internal class UpdateAssistantTest {
                                         .tokenRetrievalUrl("token_retrieval_url")
                                         .build()
                                 )
-                                .instructionsMode(
-                                    ConversationFlowReq.Node.Prompt.InstructionsMode.APPEND
-                                )
+                                .instructionsMode(FlowNodeReq.InstructionsMode.APPEND)
                                 .llmApiKeyRef("my-key-ref")
                                 .model("moonshotai/Kimi-K2.6")
                                 .name("Billing")
                                 .position(NodePosition.builder().x(420.0).y(80.0).build())
                                 .addSharedToolId("tool-billing-lookup")
-                                .toolsMode(ConversationFlowReq.Node.Prompt.ToolsMode.APPEND)
+                                .toolsMode(FlowNodeReq.ToolsMode.APPEND)
                                 .transcription(
                                     TranscriptionSettings.builder()
                                         .apiKeyRef("api_key_ref")
@@ -1165,7 +1186,7 @@ internal class UpdateAssistantTest {
                                         )
                                         .build()
                                 )
-                                .type(ConversationFlowReq.Node.Prompt.Type.PROMPT)
+                                .type(FlowNodeReq.Type.PROMPT)
                                 .voiceSettings(
                                     VoiceSettings.builder()
                                         .voice("voice")
@@ -1397,6 +1418,22 @@ internal class UpdateAssistantTest {
                             InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
                                 .name("name")
                                 .value("value")
+                                .build()
+                        )
+                        .addMessage(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                .WebhookToolRequestStartMessage
+                                .builder()
+                                .content("Let me look that up for you.")
+                                .timingMs(100L)
+                                .build()
+                        )
+                        .addMessage(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                .WebhookToolRequestResponseDelayedMessage
+                                .builder()
+                                .content("Still working on that.")
+                                .timingMs(5000L)
                                 .build()
                         )
                         .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)

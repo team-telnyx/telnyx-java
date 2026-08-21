@@ -36,7 +36,10 @@ interface SimCardGroupServiceAsync {
 
     fun actions(): ActionServiceAsync
 
-    /** Creates a new SIM card group object */
+    /**
+     * Creates a new SIM card group and returns it. Groups let you apply shared settings to a set of
+     * SIM cards.
+     */
     fun create(params: SimCardGroupCreateParams): CompletableFuture<SimCardGroupCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -82,7 +85,7 @@ interface SimCardGroupServiceAsync {
     ): CompletableFuture<SimCardGroupRetrieveResponse> =
         retrieve(id, SimCardGroupRetrieveParams.none(), requestOptions)
 
-    /** Updates a SIM card group */
+    /** Updates the specified SIM card group's attributes and returns the updated group. */
     fun update(id: String): CompletableFuture<SimCardGroupUpdateResponse> =
         update(id, SimCardGroupUpdateParams.none())
 
@@ -135,7 +138,7 @@ interface SimCardGroupServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<SimCardGroupListPageAsync> =
         list(SimCardGroupListParams.none(), requestOptions)
 
-    /** Permanently deletes a SIM card group */
+    /** Permanently deletes the specified SIM card group from your account. */
     fun delete(id: String): CompletableFuture<SimCardGroupDeleteResponse> =
         delete(id, SimCardGroupDeleteParams.none())
 

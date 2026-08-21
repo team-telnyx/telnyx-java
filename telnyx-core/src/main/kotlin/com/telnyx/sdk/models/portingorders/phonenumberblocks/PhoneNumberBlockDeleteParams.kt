@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes a phone number block. */
+/** Deletes the specified phone number block from the porting order. */
 class PhoneNumberBlockDeleteParams
 private constructor(
     private val portingOrderId: String,

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes the traffic policy profile. */
+/** Permanently deletes the specified traffic policy profile from your account. */
 class TrafficPolicyProfileDeleteParams
 private constructor(
     private val id: String?,

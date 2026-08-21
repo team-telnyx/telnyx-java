@@ -64,7 +64,7 @@ interface ActionService {
     fun activate(id: String, requestOptions: RequestOptions): ActionActivateResponse =
         activate(id, ActionActivateParams.none(), requestOptions)
 
-    /** Cancel a porting order */
+    /** Requests cancellation of the porting order and returns the updated order. */
     fun cancel(id: String): ActionCancelResponse = cancel(id, ActionCancelParams.none())
 
     /** @see cancel */
@@ -94,7 +94,10 @@ interface ActionService {
     fun cancel(id: String, requestOptions: RequestOptions): ActionCancelResponse =
         cancel(id, ActionCancelParams.none(), requestOptions)
 
-    /** Confirm and submit your porting order. */
+    /**
+     * Confirms the porting order and submits it for processing. Make sure all required information
+     * and documents are attached before confirming.
+     */
     fun confirm(id: String): ActionConfirmResponse = confirm(id, ActionConfirmParams.none())
 
     /** @see confirm */

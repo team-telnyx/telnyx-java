@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a porting activation job. */
+/**
+ * Returns the details of a single activation job for the porting order, including its current
+ * status.
+ */
 class ActivationJobRetrieveParams
 private constructor(
     private val id: String,

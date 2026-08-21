@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update an existing OAuth client */
+/** Updates the specified OAuth client's configuration and returns the updated client. */
 class OAuthClientUpdateParams
 private constructor(
     private val id: String?,

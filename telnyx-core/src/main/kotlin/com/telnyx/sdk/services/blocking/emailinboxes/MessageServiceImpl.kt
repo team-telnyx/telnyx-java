@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.emailinboxes.drafts.EmailDraftResponse
 import com.telnyx.sdk.models.emailinboxes.messages.MessageDraftsParams
+import com.telnyx.sdk.models.emailinboxes.messages.MessageListPage
+import com.telnyx.sdk.models.emailinboxes.messages.MessageListPageResponse
 import com.telnyx.sdk.models.emailinboxes.messages.MessageListParams
-import com.telnyx.sdk.models.emailinboxes.messages.MessageListResponse
 import com.telnyx.sdk.models.emailinboxes.messages.MessageUpdateParams
 import com.telnyx.sdk.models.emailinboxes.messages.MessageUpdateResponse
 import com.telnyx.sdk.services.blocking.emailinboxes.messages.ActionService
@@ -64,10 +65,7 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
         // patch /email_inboxes/{inbox_id}/messages/{message_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: MessageListParams,
-        requestOptions: RequestOptions,
-    ): MessageListResponse =
+    override fun list(params: MessageListParams, requestOptions: RequestOptions): MessageListPage =
         // get /email_inboxes/{inbox_id}/messages
         withRawResponse().list(params, requestOptions).parse()
 
@@ -147,13 +145,13 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<MessageListResponse> =
-            jsonHandler<MessageListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessageListPageResponse> =
+            jsonHandler<MessageListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessageListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessageListResponse> {
+        ): HttpResponseFor<MessageListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("inboxId", params.inboxId().getOrNull())
@@ -173,6 +171,13 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        MessageListPage.builder()
+                            .service(MessageServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

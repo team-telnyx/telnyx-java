@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a Public Internet Gateway. */
+/** Deletes the specified public internet gateway, removing internet egress through it. */
 class PublicInternetGatewayDeleteParams
 private constructor(
     private val id: String?,

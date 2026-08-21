@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes a TeXML Application. */
+/** Permanently deletes the specified TeXML application from your account. */
 class TexmlApplicationDeleteParams
 private constructor(
     private val id: String?,

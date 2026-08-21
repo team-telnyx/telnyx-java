@@ -22,7 +22,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Submit a new telco data usage report */
+/**
+ * Submits a new telco data (number lookup) usage report request. The report is generated
+ * asynchronously; retrieve it by its identifier once ready.
+ */
 class NumberLookupCreateParams
 private constructor(
     private val body: Body,

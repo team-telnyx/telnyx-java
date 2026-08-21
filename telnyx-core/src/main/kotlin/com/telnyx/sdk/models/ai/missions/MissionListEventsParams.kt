@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List recent events across all missions */
+/**
+ * Returns a paginated list of recent events across every mission in your organization, optionally
+ * filtered by event type. Useful for building activity feeds or monitoring dashboards.
+ */
 class MissionListEventsParams
 private constructor(
     private val pageNumber: Long?,

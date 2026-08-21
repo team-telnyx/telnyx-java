@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update an existing MCP server. */
+/** Updates the specified MCP server's configuration and returns the updated server. */
 class McpServerUpdateParams
 private constructor(
     private val mcpServerId: String?,

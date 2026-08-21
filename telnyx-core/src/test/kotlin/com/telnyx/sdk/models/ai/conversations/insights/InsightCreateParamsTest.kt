@@ -10,6 +10,7 @@ internal class InsightCreateParamsTest {
     @Test
     fun create() {
         InsightCreateParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .instructions("Instructions")
             .name("Name")
             .jsonSchema("string")
@@ -18,9 +19,40 @@ internal class InsightCreateParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            InsightCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .instructions("Instructions")
+                .name("Name")
+                .jsonSchema("string")
+                .webhook("")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params = InsightCreateParams.builder().instructions("Instructions").name("Name").build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             InsightCreateParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .instructions("Instructions")
                 .name("Name")
                 .jsonSchema("string")

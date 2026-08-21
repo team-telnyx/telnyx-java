@@ -10,6 +10,7 @@ internal class InsightGroupInsightGroupsParamsTest {
     @Test
     fun create() {
         InsightGroupInsightGroupsParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .name("Name")
             .description("Description")
             .webhook("")
@@ -17,9 +18,39 @@ internal class InsightGroupInsightGroupsParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            InsightGroupInsightGroupsParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .name("Name")
+                .description("Description")
+                .webhook("")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params = InsightGroupInsightGroupsParams.builder().name("Name").build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             InsightGroupInsightGroupsParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .name("Name")
                 .description("Description")
                 .webhook("")

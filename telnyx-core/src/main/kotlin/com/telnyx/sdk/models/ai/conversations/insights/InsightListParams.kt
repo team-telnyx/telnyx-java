@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get all insights */
+/**
+ * Returns a paginated list of your insight templates. Insight templates define analyses that run
+ * over AI conversations to extract structured findings.
+ */
 class InsightListParams
 private constructor(
     private val pageNumber: Long?,

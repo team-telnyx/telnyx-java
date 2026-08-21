@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.pricing.products.ProductListPage
 import com.telnyx.sdk.models.pricing.products.ProductListParams
+import com.telnyx.sdk.models.pricing.products.ProductRetrievePage
 import com.telnyx.sdk.models.pricing.products.ProductRetrieveParams
-import com.telnyx.sdk.models.pricing.products.ProductRetrieveResponse
 import java.util.function.Consumer
 
 /** Public pricing operations */
@@ -34,34 +34,33 @@ interface ProductService {
      * pricing. Some products use rate decks (pricing_type: rate_deck) where rates are determined
      * dynamically.
      */
-    fun retrieve(slug: String): ProductRetrieveResponse =
-        retrieve(slug, ProductRetrieveParams.none())
+    fun retrieve(slug: String): ProductRetrievePage = retrieve(slug, ProductRetrieveParams.none())
 
     /** @see retrieve */
     fun retrieve(
         slug: String,
         params: ProductRetrieveParams = ProductRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ProductRetrieveResponse = retrieve(params.toBuilder().slug(slug).build(), requestOptions)
+    ): ProductRetrievePage = retrieve(params.toBuilder().slug(slug).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         slug: String,
         params: ProductRetrieveParams = ProductRetrieveParams.none(),
-    ): ProductRetrieveResponse = retrieve(slug, params, RequestOptions.none())
+    ): ProductRetrievePage = retrieve(slug, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: ProductRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ProductRetrieveResponse
+    ): ProductRetrievePage
 
     /** @see retrieve */
-    fun retrieve(params: ProductRetrieveParams): ProductRetrieveResponse =
+    fun retrieve(params: ProductRetrieveParams): ProductRetrievePage =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(slug: String, requestOptions: RequestOptions): ProductRetrieveResponse =
+    fun retrieve(slug: String, requestOptions: RequestOptions): ProductRetrievePage =
         retrieve(slug, ProductRetrieveParams.none(), requestOptions)
 
     /**
@@ -99,7 +98,7 @@ interface ProductService {
          * as [ProductService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(slug: String): HttpResponseFor<ProductRetrieveResponse> =
+        fun retrieve(slug: String): HttpResponseFor<ProductRetrievePage> =
             retrieve(slug, ProductRetrieveParams.none())
 
         /** @see retrieve */
@@ -108,7 +107,7 @@ interface ProductService {
             slug: String,
             params: ProductRetrieveParams = ProductRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ProductRetrieveResponse> =
+        ): HttpResponseFor<ProductRetrievePage> =
             retrieve(params.toBuilder().slug(slug).build(), requestOptions)
 
         /** @see retrieve */
@@ -116,18 +115,18 @@ interface ProductService {
         fun retrieve(
             slug: String,
             params: ProductRetrieveParams = ProductRetrieveParams.none(),
-        ): HttpResponseFor<ProductRetrieveResponse> = retrieve(slug, params, RequestOptions.none())
+        ): HttpResponseFor<ProductRetrievePage> = retrieve(slug, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ProductRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ProductRetrieveResponse>
+        ): HttpResponseFor<ProductRetrievePage>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: ProductRetrieveParams): HttpResponseFor<ProductRetrieveResponse> =
+        fun retrieve(params: ProductRetrieveParams): HttpResponseFor<ProductRetrievePage> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
@@ -135,7 +134,7 @@ interface ProductService {
         fun retrieve(
             slug: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ProductRetrieveResponse> =
+        ): HttpResponseFor<ProductRetrievePage> =
             retrieve(slug, ProductRetrieveParams.none(), requestOptions)
 
         /**

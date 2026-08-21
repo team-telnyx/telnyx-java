@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Fetch all Mdr records */
+/**
+ * Returns message detail records (MDRs) matching the provided criteria, such as date range,
+ * direction, status, and message type.
+ */
 class ReportListMdrsParams
 private constructor(
     private val id: String?,

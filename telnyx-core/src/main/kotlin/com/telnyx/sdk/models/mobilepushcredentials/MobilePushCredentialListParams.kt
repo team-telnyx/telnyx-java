@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List mobile push credentials */
+/**
+ * Returns a paginated list of the mobile push credentials on your account, with support for
+ * filtering.
+ */
 class MobilePushCredentialListParams
 private constructor(
     private val filter: Filter?,

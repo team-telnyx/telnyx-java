@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all runs for a specific mission */
+/**
+ * Returns a paginated list of runs for the specified mission, optionally filtered by run status, so
+ * you can track the mission's execution history over time.
+ */
 class RunListParams
 private constructor(
     private val missionId: String?,

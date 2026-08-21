@@ -32,7 +32,10 @@ interface OAuthClientService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OAuthClientService
 
-    /** Create a new OAuth client */
+    /**
+     * Creates a new OAuth client on your account for authenticating third-party integrations, and
+     * returns the created client.
+     */
     fun create(params: OAuthClientCreateParams): OAuthClientCreateResponse =
         create(params, RequestOptions.none())
 
@@ -42,7 +45,7 @@ interface OAuthClientService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthClientCreateResponse
 
-    /** Retrieve a single OAuth client by ID */
+    /** Returns the details of a single OAuth client on your account by its ID. */
     fun retrieve(id: String): OAuthClientRetrieveResponse =
         retrieve(id, OAuthClientRetrieveParams.none())
 
@@ -73,7 +76,7 @@ interface OAuthClientService {
     fun retrieve(id: String, requestOptions: RequestOptions): OAuthClientRetrieveResponse =
         retrieve(id, OAuthClientRetrieveParams.none(), requestOptions)
 
-    /** Update an existing OAuth client */
+    /** Updates the specified OAuth client's configuration and returns the updated client. */
     fun update(id: String): OAuthClientUpdateResponse = update(id, OAuthClientUpdateParams.none())
 
     /** @see update */
@@ -120,7 +123,7 @@ interface OAuthClientService {
     fun list(requestOptions: RequestOptions): OAuthClientListPage =
         list(OAuthClientListParams.none(), requestOptions)
 
-    /** Delete an OAuth client */
+    /** Permanently deletes the specified OAuth client from your account. */
     fun delete(id: String) = delete(id, OAuthClientDeleteParams.none())
 
     /** @see delete */

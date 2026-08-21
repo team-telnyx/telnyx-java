@@ -27,7 +27,10 @@ interface RequirementTypeService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RequirementTypeService
 
-    /** Retrieve a requirement type by id */
+    /**
+     * Returns the details of a single requirement type by its identifier, describing a kind of
+     * documentation needed for regulatory purposes.
+     */
     fun retrieve(id: String): RequirementTypeRetrieveResponse =
         retrieve(id, RequirementTypeRetrieveParams.none())
 

@@ -1271,14 +1271,14 @@ private constructor(
 
             companion object {
 
-                @JvmField val _2048 = of(2048L)
+                @JvmField val KEY_LENGTH_2048 = of(2048L)
 
                 @JvmStatic fun of(value: Long) = KeyLength(JsonField.of(value))
             }
 
             /** An enum containing [KeyLength]'s known values. */
             enum class Known {
-                _2048
+                KEY_LENGTH_2048
             }
 
             /**
@@ -1291,7 +1291,7 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                _2048,
+                KEY_LENGTH_2048,
                 /**
                  * An enum member indicating that [KeyLength] was instantiated with an unknown
                  * value.
@@ -1308,7 +1308,7 @@ private constructor(
              */
             fun value(): Value =
                 when (this) {
-                    _2048 -> Value._2048
+                    KEY_LENGTH_2048 -> Value.KEY_LENGTH_2048
                     else -> Value._UNKNOWN
                 }
 
@@ -1323,7 +1323,7 @@ private constructor(
              */
             fun known(): Known =
                 when (this) {
-                    _2048 -> Known._2048
+                    KEY_LENGTH_2048 -> Known.KEY_LENGTH_2048
                     else -> throw TelnyxInvalidDataException("Unknown KeyLength: $value")
                 }
 

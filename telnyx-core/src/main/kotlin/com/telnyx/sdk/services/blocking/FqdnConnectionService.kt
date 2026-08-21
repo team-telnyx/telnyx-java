@@ -37,7 +37,10 @@ interface FqdnConnectionService {
     /** FQDN connection operations */
     fun fqdnAuthentication(): FqdnAuthenticationService
 
-    /** Creates a FQDN connection. */
+    /**
+     * Creates a new FQDN-based SIP connection. FQDN connections authenticate by your registered
+     * domain names rather than static IP addresses.
+     */
     fun create(params: FqdnConnectionCreateParams): FqdnConnectionCreateResponse =
         create(params, RequestOptions.none())
 
@@ -127,7 +130,7 @@ interface FqdnConnectionService {
     fun list(requestOptions: RequestOptions): FqdnConnectionListPage =
         list(FqdnConnectionListParams.none(), requestOptions)
 
-    /** Deletes an FQDN connection. */
+    /** Permanently deletes the specified FQDN connection from your account. */
     fun delete(id: String): FqdnConnectionDeleteResponse =
         delete(id, FqdnConnectionDeleteParams.none())
 

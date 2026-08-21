@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a list of your IP connections. */
+/**
+ * Returns a paginated list of your IP-based SIP connections, with support for filtering and
+ * sorting.
+ */
 class IpConnectionListParams
 private constructor(
     private val filter: Filter?,

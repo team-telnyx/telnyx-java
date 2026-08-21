@@ -11,7 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Remove an insight from a group */
+/**
+ * Removes the specified insight template from the specified group. The insight template itself is
+ * not deleted.
+ */
 class InsightDeleteUnassignParams
 private constructor(
     private val groupId: String,

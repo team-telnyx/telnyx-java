@@ -18,7 +18,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Stop an AI assistant on the call. */
+/**
+ * Stops the AI assistant currently engaged on the call. The call remains active and can continue
+ * with other call control commands.
+ */
 class ActionStopAiAssistantParams
 private constructor(
     private val callControlId: String?,

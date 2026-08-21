@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates a traffic policy profile. */
+/** Updates the specified traffic policy profile and returns the updated profile. */
 class TrafficPolicyProfileUpdateParams
 private constructor(
     private val id: String?,

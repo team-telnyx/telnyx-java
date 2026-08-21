@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a list of MCP servers. */
+/**
+ * Returns a paginated list of the MCP servers configured on your account, with optional filtering
+ * by type or URL.
+ */
 class McpServerListParams
 private constructor(
     private val pageNumber: Long?,

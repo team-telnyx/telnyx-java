@@ -27,6 +27,7 @@ private constructor(
     private val role: JsonField<Role>,
     private val text: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val metadata: JsonField<Metadata>,
     private val sentAt: JsonField<OffsetDateTime>,
     private val toolCalls: JsonField<List<ToolCall>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -39,13 +40,14 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("sent_at")
         @ExcludeMissing
         sentAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("tool_calls")
         @ExcludeMissing
         toolCalls: JsonField<List<ToolCall>> = JsonMissing.of(),
-    ) : this(role, text, createdAt, sentAt, toolCalls, mutableMapOf())
+    ) : this(role, text, createdAt, metadata, sentAt, toolCalls, mutableMapOf())
 
     /**
      * The role of the message sender.
@@ -72,6 +74,12 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("created_at")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
 
     /**
      * The datetime the message was sent to the end user.
@@ -111,6 +119,13 @@ private constructor(
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     /**
      * Returns the raw JSON value of [sentAt].
@@ -160,6 +175,7 @@ private constructor(
         private var role: JsonField<Role>? = null
         private var text: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var sentAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var toolCalls: JsonField<MutableList<ToolCall>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -169,6 +185,7 @@ private constructor(
             role = messageListResponse.role
             text = messageListResponse.text
             createdAt = messageListResponse.createdAt
+            metadata = messageListResponse.metadata
             sentAt = messageListResponse.sentAt
             toolCalls = messageListResponse.toolCalls.map { it.toMutableList() }
             additionalProperties = messageListResponse.additionalProperties.toMutableMap()
@@ -211,6 +228,17 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+        /**
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /** The datetime the message was sent to the end user. */
         fun sentAt(sentAt: OffsetDateTime) = sentAt(JsonField.of(sentAt))
@@ -287,6 +315,7 @@ private constructor(
                 checkRequired("role", role),
                 checkRequired("text", text),
                 createdAt,
+                metadata,
                 sentAt,
                 (toolCalls ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
@@ -311,6 +340,7 @@ private constructor(
         role().validate()
         text()
         createdAt()
+        metadata().ifPresent { it.validate() }
         sentAt()
         toolCalls().ifPresent { it.forEach { it.validate() } }
         validated = true
@@ -334,6 +364,7 @@ private constructor(
         (role.asKnown().getOrNull()?.validity() ?: 0) +
             (if (text.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (metadata.asKnown().getOrNull()?.validity() ?: 0) +
             (if (sentAt.asKnown().isPresent) 1 else 0) +
             (toolCalls.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
@@ -476,6 +507,114 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    class Metadata
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties = metadata.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
     class ToolCall
@@ -1082,17 +1221,18 @@ private constructor(
             role == other.role &&
             text == other.text &&
             createdAt == other.createdAt &&
+            metadata == other.metadata &&
             sentAt == other.sentAt &&
             toolCalls == other.toolCalls &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(role, text, createdAt, sentAt, toolCalls, additionalProperties)
+        Objects.hash(role, text, createdAt, metadata, sentAt, toolCalls, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessageListResponse{role=$role, text=$text, createdAt=$createdAt, sentAt=$sentAt, toolCalls=$toolCalls, additionalProperties=$additionalProperties}"
+        "MessageListResponse{role=$role, text=$text, createdAt=$createdAt, metadata=$metadata, sentAt=$sentAt, toolCalls=$toolCalls, additionalProperties=$additionalProperties}"
 }

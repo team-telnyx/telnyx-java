@@ -37,7 +37,10 @@ interface PortingServiceAsync {
     /** Endpoints related to porting orders management. */
     fun loaConfigurations(): LoaConfigurationServiceAsync
 
-    /** List available carriers in the UK. */
+    /**
+     * Returns the list of UK carriers available for porting, for use when preparing porting orders
+     * for UK numbers.
+     */
     fun listUkCarriers(): CompletableFuture<PortingListUkCarriersResponse> =
         listUkCarriers(PortingListUkCarriersParams.none())
 

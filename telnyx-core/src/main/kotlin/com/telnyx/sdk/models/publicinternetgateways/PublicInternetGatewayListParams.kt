@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all Public Internet Gateways. */
+/**
+ * Returns a paginated list of the public internet gateways on your account, with support for
+ * filtering.
+ */
 class PublicInternetGatewayListParams
 private constructor(
     private val filter: Filter?,

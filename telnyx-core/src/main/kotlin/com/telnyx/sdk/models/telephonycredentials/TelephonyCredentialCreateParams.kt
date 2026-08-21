@@ -18,7 +18,10 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Create a credential. */
+/**
+ * Creates a new on-demand telephony credential for the specified connection. The credential can
+ * then be used to generate access tokens for SIP or WebRTC clients.
+ */
 class TelephonyCredentialCreateParams
 private constructor(
     private val body: Body,

@@ -8,7 +8,11 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Create a Global IP health check. */
+/**
+ * Creates a health check for a Global IP to monitor the health of its assignments. Creation is
+ * asynchronous, so the request is accepted and the health check becomes active once provisioning
+ * completes.
+ */
 class GlobalIpHealthCheckCreateParams
 private constructor(
     private val globalIpHealthCheck: GlobalIpHealthCheck,

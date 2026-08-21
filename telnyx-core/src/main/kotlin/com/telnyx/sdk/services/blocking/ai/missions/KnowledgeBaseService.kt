@@ -75,7 +75,10 @@ interface KnowledgeBaseService {
             requestOptions,
         )
 
-    /** Delete a knowledge base from a mission */
+    /**
+     * Detaches the specified knowledge base from the mission so its content is no longer available
+     * to agents in subsequent runs.
+     */
     fun deleteKnowledgeBase(
         knowledgeBaseId: String,
         params: KnowledgeBaseDeleteKnowledgeBaseParams,
@@ -102,7 +105,7 @@ interface KnowledgeBaseService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** Get a specific knowledge base by ID */
+    /** Returns the details of a single knowledge base attached to the specified mission. */
     fun getKnowledgeBase(
         knowledgeBaseId: String,
         params: KnowledgeBaseGetKnowledgeBaseParams,
@@ -131,7 +134,10 @@ interface KnowledgeBaseService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): KnowledgeBaseGetKnowledgeBaseResponse
 
-    /** List all knowledge bases for a mission */
+    /**
+     * Returns the knowledge bases attached to the specified mission. Knowledge bases provide
+     * reference content agents can draw on during runs.
+     */
     fun listKnowledgeBases(missionId: String): KnowledgeBaseListKnowledgeBasesResponse =
         listKnowledgeBases(missionId, KnowledgeBaseListKnowledgeBasesParams.none())
 
@@ -169,7 +175,7 @@ interface KnowledgeBaseService {
     ): KnowledgeBaseListKnowledgeBasesResponse =
         listKnowledgeBases(missionId, KnowledgeBaseListKnowledgeBasesParams.none(), requestOptions)
 
-    /** Update a knowledge base definition */
+    /** Replaces the definition of the specified knowledge base on this mission. */
     fun updateKnowledgeBase(
         knowledgeBaseId: String,
         params: KnowledgeBaseUpdateKnowledgeBaseParams,

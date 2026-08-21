@@ -30,7 +30,10 @@ interface MobilePushCredentialService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MobilePushCredentialService
 
-    /** Creates a new mobile push credential */
+    /**
+     * Creates a new mobile push credential for delivering push notifications to iOS or Android
+     * apps, and returns the created credential.
+     */
     fun create(params: MobilePushCredentialCreateParams): PushCredentialResponse =
         create(params, RequestOptions.none())
 
@@ -121,7 +124,10 @@ interface MobilePushCredentialService {
     fun retrieve(pushCredentialId: String, requestOptions: RequestOptions): PushCredentialResponse =
         retrieve(pushCredentialId, MobilePushCredentialRetrieveParams.none(), requestOptions)
 
-    /** List mobile push credentials */
+    /**
+     * Returns a paginated list of the mobile push credentials on your account, with support for
+     * filtering.
+     */
     fun list(): MobilePushCredentialListPage = list(MobilePushCredentialListParams.none())
 
     /** @see list */

@@ -16,7 +16,11 @@ internal class EmailDraftRequestTest {
     fun create() {
         val emailDraftRequest =
             EmailDraftRequest.builder()
-                .addAttachment(JsonValue.from(mapOf<String, Any>()))
+                .addAttachment(
+                    EmailDraftRequest.Attachment.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .addBcc("string")
                 .addCc("string")
                 .fromEmail("from_email")
@@ -29,7 +33,11 @@ internal class EmailDraftRequestTest {
                 .html("html")
                 .htmlBody("html_body")
                 .addLabel("string")
-                .metadata(JsonValue.from(mapOf<String, Any>()))
+                .metadata(
+                    EmailDraftRequest.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .replyTo("reply_to")
                 .subject("subject")
                 .addTag("string")
@@ -39,7 +47,11 @@ internal class EmailDraftRequestTest {
                 .build()
 
         assertThat(emailDraftRequest.attachments().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                EmailDraftRequest.Attachment.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(emailDraftRequest.bcc().getOrNull())
             .containsExactly(EmailAddressInput.ofString("string"))
         assertThat(emailDraftRequest.cc().getOrNull())
@@ -55,7 +67,12 @@ internal class EmailDraftRequestTest {
         assertThat(emailDraftRequest.html()).contains("html")
         assertThat(emailDraftRequest.htmlBody()).contains("html_body")
         assertThat(emailDraftRequest.labels().getOrNull()).containsExactly("string")
-        assertThat(emailDraftRequest._metadata()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(emailDraftRequest.metadata())
+            .contains(
+                EmailDraftRequest.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(emailDraftRequest.replyTo()).contains("reply_to")
         assertThat(emailDraftRequest.subject()).contains("subject")
         assertThat(emailDraftRequest.tags().getOrNull()).containsExactly("string")
@@ -70,7 +87,11 @@ internal class EmailDraftRequestTest {
         val jsonMapper = jsonMapper()
         val emailDraftRequest =
             EmailDraftRequest.builder()
-                .addAttachment(JsonValue.from(mapOf<String, Any>()))
+                .addAttachment(
+                    EmailDraftRequest.Attachment.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .addBcc("string")
                 .addCc("string")
                 .fromEmail("from_email")
@@ -83,7 +104,11 @@ internal class EmailDraftRequestTest {
                 .html("html")
                 .htmlBody("html_body")
                 .addLabel("string")
-                .metadata(JsonValue.from(mapOf<String, Any>()))
+                .metadata(
+                    EmailDraftRequest.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .replyTo("reply_to")
                 .subject("subject")
                 .addTag("string")

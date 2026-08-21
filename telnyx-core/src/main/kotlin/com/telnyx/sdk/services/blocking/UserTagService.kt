@@ -25,7 +25,10 @@ interface UserTagService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserTagService
 
-    /** List all user tags. */
+    /**
+     * Returns the user tags defined on your account, with support for filtering. Tags help organize
+     * resources such as phone numbers.
+     */
     fun list(): UserTagListResponse = list(UserTagListParams.none())
 
     /** @see list */

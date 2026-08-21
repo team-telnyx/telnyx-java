@@ -29,7 +29,9 @@ interface IntegrationService {
 
     fun connections(): ConnectionService
 
-    /** Retrieve integration details */
+    /**
+     * Returns the details of a single available integration, including its configuration details.
+     */
     fun retrieve(integrationId: String): Integration =
         retrieve(integrationId, IntegrationRetrieveParams.none())
 
@@ -61,7 +63,10 @@ interface IntegrationService {
     fun retrieve(integrationId: String, requestOptions: RequestOptions): Integration =
         retrieve(integrationId, IntegrationRetrieveParams.none(), requestOptions)
 
-    /** List all available integrations. */
+    /**
+     * Returns the list of third-party integrations available to connect to your AI assistants and
+     * workflows.
+     */
     fun list(): IntegrationListResponse = list(IntegrationListParams.none())
 
     /** @see list */

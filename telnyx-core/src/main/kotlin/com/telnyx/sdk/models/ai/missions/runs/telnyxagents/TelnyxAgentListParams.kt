@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all Telnyx agents linked to a run */
+/**
+ * Returns the Telnyx agents currently linked to the specified run. Linked agents participate in
+ * executing the run's plan.
+ */
 class TelnyxAgentListParams
 private constructor(
     private val missionId: String,

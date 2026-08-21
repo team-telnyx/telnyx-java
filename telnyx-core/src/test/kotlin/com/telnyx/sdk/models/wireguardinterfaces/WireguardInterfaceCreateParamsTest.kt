@@ -54,13 +54,15 @@ internal class WireguardInterfaceCreateParamsTest {
         assertThat(body.enableSipTrunking()).contains(false)
         assertThat(body.endpoint()).contains("203.0.113.0:51871")
         assertThat(body.publicKey()).contains("qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=")
-        assertThat(body.regionCode()).contains("ashburn-va")
+        assertThat(body.regionCode()).isEqualTo("ashburn-va")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = WireguardInterfaceCreateParams.builder().build()
+        val params = WireguardInterfaceCreateParams.builder().regionCode("ashburn-va").build()
 
         val body = params._body()
+
+        assertThat(body.regionCode()).isEqualTo("ashburn-va")
     }
 }

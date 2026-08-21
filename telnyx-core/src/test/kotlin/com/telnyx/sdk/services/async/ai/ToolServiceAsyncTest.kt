@@ -22,6 +22,7 @@ internal class ToolServiceAsyncTest {
         val sharedToolResponseFuture =
             toolServiceAsync.create(
                 ToolCreateParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .displayName("display_name")
                     .type("type")
                     .clientSideTool(

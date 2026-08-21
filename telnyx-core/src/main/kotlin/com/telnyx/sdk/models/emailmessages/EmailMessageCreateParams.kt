@@ -110,7 +110,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun headers(): Optional<Headers> = body.headers()
+    fun customHeaders(): Optional<Headers> = body.customHeaders()
 
     /**
      * HTML email body. Returned only by `GET /email_messages/{id}`; omitted from create and list
@@ -207,7 +207,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    @Deprecated("deprecated") fun sendAt(): Optional<OffsetDateTime> = body.sendAt()
+    @Deprecated("Use scheduled_at instead.") fun sendAt(): Optional<OffsetDateTime> = body.sendAt()
 
     /**
      * Required unless `template_id` is supplied. When using a template, the template's subject is
@@ -318,11 +318,11 @@ private constructor(
     fun _groupId(): JsonField<String> = body._groupId()
 
     /**
-     * Returns the raw JSON value of [headers].
+     * Returns the raw JSON value of [customHeaders].
      *
-     * Unlike [headers], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _headers_(): JsonField<Headers> = body._headers_()
+    fun _customHeaders(): JsonField<Headers> = body._customHeaders()
 
     /**
      * Returns the raw JSON value of [htmlBody].
@@ -394,7 +394,8 @@ private constructor(
      *
      * Unlike [sendAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @Deprecated("deprecated") fun _sendAt(): JsonField<OffsetDateTime> = body._sendAt()
+    @Deprecated("Use scheduled_at instead.")
+    fun _sendAt(): JsonField<OffsetDateTime> = body._sendAt()
 
     /**
      * Returns the raw JSON value of [subject].
@@ -671,15 +672,18 @@ private constructor(
         fun groupId(groupId: JsonField<String>) = apply { body.groupId(groupId) }
 
         /** Custom email headers. Write-only; not returned in responses. */
-        fun headers(headers: Headers) = apply { body.headers(headers) }
+        fun customHeaders(customHeaders: Headers) = apply { body.customHeaders(customHeaders) }
 
         /**
-         * Sets [Builder.headers] to an arbitrary JSON value.
+         * Sets [Builder.customHeaders] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.headers] with a well-typed [Headers] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.customHeaders] with a well-typed [Headers] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun headers(headers: JsonField<Headers>) = apply { body.headers(headers) }
+        fun customHeaders(customHeaders: JsonField<Headers>) = apply {
+            body.customHeaders(customHeaders)
+        }
 
         /**
          * HTML email body. Returned only by `GET /email_messages/{id}`; omitted from create and
@@ -856,7 +860,8 @@ private constructor(
         }
 
         /** Deprecated alias for `scheduled_at`. */
-        @Deprecated("deprecated") fun sendAt(sendAt: OffsetDateTime) = apply { body.sendAt(sendAt) }
+        @Deprecated("Use scheduled_at instead.")
+        fun sendAt(sendAt: OffsetDateTime) = apply { body.sendAt(sendAt) }
 
         /**
          * Sets [Builder.sendAt] to an arbitrary JSON value.
@@ -865,7 +870,7 @@ private constructor(
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        @Deprecated("deprecated")
+        @Deprecated("Use scheduled_at instead.")
         fun sendAt(sendAt: JsonField<OffsetDateTime>) = apply { body.sendAt(sendAt) }
 
         /**
@@ -1135,7 +1140,7 @@ private constructor(
         private val forwardOfMessageId: JsonField<String>,
         private val fromName: JsonField<String>,
         private val groupId: JsonField<String>,
-        private val headers: JsonField<Headers>,
+        private val customHeaders: JsonField<Headers>,
         private val htmlBody: JsonField<String>,
         private val ignoreSuppression: JsonField<Boolean>,
         private val inReplyToMessageId: JsonField<String>,
@@ -1179,7 +1184,9 @@ private constructor(
             @ExcludeMissing
             fromName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("group_id") @ExcludeMissing groupId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("headers") @ExcludeMissing headers: JsonField<Headers> = JsonMissing.of(),
+            @JsonProperty("headers")
+            @ExcludeMissing
+            customHeaders: JsonField<Headers> = JsonMissing.of(),
             @JsonProperty("html_body")
             @ExcludeMissing
             htmlBody: JsonField<String> = JsonMissing.of(),
@@ -1233,7 +1240,7 @@ private constructor(
             forwardOfMessageId,
             fromName,
             groupId,
-            headers,
+            customHeaders,
             htmlBody,
             ignoreSuppression,
             inReplyToMessageId,
@@ -1322,7 +1329,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun headers(): Optional<Headers> = headers.getOptional("headers")
+        fun customHeaders(): Optional<Headers> = customHeaders.getOptional("headers")
 
         /**
          * HTML email body. Returned only by `GET /email_messages/{id}`; omitted from create and
@@ -1421,7 +1428,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        @Deprecated("deprecated")
+        @Deprecated("Use scheduled_at instead.")
         fun sendAt(): Optional<OffsetDateTime> = sendAt.getOptional("send_at")
 
         /**
@@ -1540,11 +1547,14 @@ private constructor(
         @JsonProperty("group_id") @ExcludeMissing fun _groupId(): JsonField<String> = groupId
 
         /**
-         * Returns the raw JSON value of [headers].
+         * Returns the raw JSON value of [customHeaders].
          *
-         * Unlike [headers], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
-        @JsonProperty("headers") @ExcludeMissing fun _headers_(): JsonField<Headers> = headers
+        @JsonProperty("headers")
+        @ExcludeMissing
+        fun _customHeaders(): JsonField<Headers> = customHeaders
 
         /**
          * Returns the raw JSON value of [htmlBody].
@@ -1628,7 +1638,7 @@ private constructor(
          *
          * Unlike [sendAt], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @Deprecated("deprecated")
+        @Deprecated("Use scheduled_at instead.")
         @JsonProperty("send_at")
         @ExcludeMissing
         fun _sendAt(): JsonField<OffsetDateTime> = sendAt
@@ -1720,7 +1730,7 @@ private constructor(
             private var forwardOfMessageId: JsonField<String> = JsonMissing.of()
             private var fromName: JsonField<String> = JsonMissing.of()
             private var groupId: JsonField<String> = JsonMissing.of()
-            private var headers: JsonField<Headers> = JsonMissing.of()
+            private var customHeaders: JsonField<Headers> = JsonMissing.of()
             private var htmlBody: JsonField<String> = JsonMissing.of()
             private var ignoreSuppression: JsonField<Boolean> = JsonMissing.of()
             private var inReplyToMessageId: JsonField<String> = JsonMissing.of()
@@ -1749,7 +1759,7 @@ private constructor(
                 forwardOfMessageId = body.forwardOfMessageId
                 fromName = body.fromName
                 groupId = body.groupId
-                headers = body.headers
+                customHeaders = body.customHeaders
                 htmlBody = body.htmlBody
                 ignoreSuppression = body.ignoreSuppression
                 inReplyToMessageId = body.inReplyToMessageId
@@ -1966,16 +1976,18 @@ private constructor(
             fun groupId(groupId: JsonField<String>) = apply { this.groupId = groupId }
 
             /** Custom email headers. Write-only; not returned in responses. */
-            fun headers(headers: Headers) = headers(JsonField.of(headers))
+            fun customHeaders(customHeaders: Headers) = customHeaders(JsonField.of(customHeaders))
 
             /**
-             * Sets [Builder.headers] to an arbitrary JSON value.
+             * Sets [Builder.customHeaders] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.headers] with a well-typed [Headers] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.customHeaders] with a well-typed [Headers] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun headers(headers: JsonField<Headers>) = apply { this.headers = headers }
+            fun customHeaders(customHeaders: JsonField<Headers>) = apply {
+                this.customHeaders = customHeaders
+            }
 
             /**
              * HTML email body. Returned only by `GET /email_messages/{id}`; omitted from create and
@@ -2160,7 +2172,7 @@ private constructor(
             }
 
             /** Deprecated alias for `scheduled_at`. */
-            @Deprecated("deprecated")
+            @Deprecated("Use scheduled_at instead.")
             fun sendAt(sendAt: OffsetDateTime) = sendAt(JsonField.of(sendAt))
 
             /**
@@ -2170,7 +2182,7 @@ private constructor(
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            @Deprecated("deprecated")
+            @Deprecated("Use scheduled_at instead.")
             fun sendAt(sendAt: JsonField<OffsetDateTime>) = apply { this.sendAt = sendAt }
 
             /**
@@ -2321,7 +2333,7 @@ private constructor(
                     forwardOfMessageId,
                     fromName,
                     groupId,
-                    headers,
+                    customHeaders,
                     htmlBody,
                     ignoreSuppression,
                     inReplyToMessageId,
@@ -2366,7 +2378,7 @@ private constructor(
             forwardOfMessageId()
             fromName()
             groupId()
-            headers().ifPresent { it.validate() }
+            customHeaders().ifPresent { it.validate() }
             htmlBody()
             ignoreSuppression()
             inReplyToMessageId()
@@ -2410,7 +2422,7 @@ private constructor(
                 (if (forwardOfMessageId.asKnown().isPresent) 1 else 0) +
                 (if (fromName.asKnown().isPresent) 1 else 0) +
                 (if (groupId.asKnown().isPresent) 1 else 0) +
-                (headers.asKnown().getOrNull()?.validity() ?: 0) +
+                (customHeaders.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (htmlBody.asKnown().isPresent) 1 else 0) +
                 (if (ignoreSuppression.asKnown().isPresent) 1 else 0) +
                 (if (inReplyToMessageId.asKnown().isPresent) 1 else 0) +
@@ -2442,7 +2454,7 @@ private constructor(
                 forwardOfMessageId == other.forwardOfMessageId &&
                 fromName == other.fromName &&
                 groupId == other.groupId &&
-                headers == other.headers &&
+                customHeaders == other.customHeaders &&
                 htmlBody == other.htmlBody &&
                 ignoreSuppression == other.ignoreSuppression &&
                 inReplyToMessageId == other.inReplyToMessageId &&
@@ -2472,7 +2484,7 @@ private constructor(
                 forwardOfMessageId,
                 fromName,
                 groupId,
-                headers,
+                customHeaders,
                 htmlBody,
                 ignoreSuppression,
                 inReplyToMessageId,
@@ -2496,7 +2508,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{from=$from, to=$to, attachments=$attachments, bcc=$bcc, cc=$cc, forwardOfMessageId=$forwardOfMessageId, fromName=$fromName, groupId=$groupId, headers=$headers, htmlBody=$htmlBody, ignoreSuppression=$ignoreSuppression, inReplyToMessageId=$inReplyToMessageId, inlineCss=$inlineCss, metadata=$metadata, replyTo=$replyTo, replyToAll=$replyToAll, sandboxMode=$sandboxMode, scheduledAt=$scheduledAt, sendAt=$sendAt, subject=$subject, tags=$tags, templateId=$templateId, templateVariables=$templateVariables, textBody=$textBody, trackingSettings=$trackingSettings, additionalProperties=$additionalProperties}"
+            "Body{from=$from, to=$to, attachments=$attachments, bcc=$bcc, cc=$cc, forwardOfMessageId=$forwardOfMessageId, fromName=$fromName, groupId=$groupId, customHeaders=$customHeaders, htmlBody=$htmlBody, ignoreSuppression=$ignoreSuppression, inReplyToMessageId=$inReplyToMessageId, inlineCss=$inlineCss, metadata=$metadata, replyTo=$replyTo, replyToAll=$replyToAll, sandboxMode=$sandboxMode, scheduledAt=$scheduledAt, sendAt=$sendAt, subject=$subject, tags=$tags, templateId=$templateId, templateVariables=$templateVariables, textBody=$textBody, trackingSettings=$trackingSettings, additionalProperties=$additionalProperties}"
     }
 
     /** Custom email headers. Write-only; not returned in responses. */

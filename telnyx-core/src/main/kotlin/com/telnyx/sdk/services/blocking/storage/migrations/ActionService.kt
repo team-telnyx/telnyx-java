@@ -25,7 +25,7 @@ interface ActionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService
 
-    /** Stop an in-progress storage migration. */
+    /** Stops the specified in-progress storage migration and returns the updated migration. */
     fun stop(id: String): ActionStopResponse = stop(id, ActionStopParams.none())
 
     /** @see stop */

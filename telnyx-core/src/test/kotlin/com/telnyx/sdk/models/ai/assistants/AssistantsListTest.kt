@@ -23,9 +23,9 @@ internal class AssistantsListTest {
                         .model("model")
                         .name("name")
                         .conversationFlow(
-                            InferenceEmbedding.ConversationFlow.builder()
+                            ConversationFlow.builder()
                                 .addNode(
-                                    InferenceEmbedding.ConversationFlow.Node.Prompt.builder()
+                                    FlowNode.builder()
                                         .id("n_intake")
                                         .instructions(
                                             "Greet the caller and ask what they're calling about."
@@ -41,11 +41,7 @@ internal class AssistantsListTest {
                                                 .tokenRetrievalUrl("token_retrieval_url")
                                                 .build()
                                         )
-                                        .instructionsMode(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt
-                                                .InstructionsMode
-                                                .REPLACE
-                                        )
+                                        .instructionsMode(FlowNode.InstructionsMode.REPLACE)
                                         .llmApiKeyRef("llm_api_key_ref")
                                         .model("model")
                                         .name("Intake")
@@ -115,6 +111,30 @@ internal class AssistantsListTest {
                                                                         .value("value")
                                                                         .build()
                                                                 )
+                                                                .addMessage(
+                                                                    InferenceEmbeddingWebhookToolParams
+                                                                        .Webhook
+                                                                        .Message
+                                                                        .WebhookToolRequestStartMessage
+                                                                        .builder()
+                                                                        .content(
+                                                                            "Let me look that up for you."
+                                                                        )
+                                                                        .timingMs(100L)
+                                                                        .build()
+                                                                )
+                                                                .addMessage(
+                                                                    InferenceEmbeddingWebhookToolParams
+                                                                        .Webhook
+                                                                        .Message
+                                                                        .WebhookToolRequestResponseDelayedMessage
+                                                                        .builder()
+                                                                        .content(
+                                                                            "Still working on that."
+                                                                        )
+                                                                        .timingMs(5000L)
+                                                                        .build()
+                                                                )
                                                                 .method(
                                                                     InferenceEmbeddingWebhookToolParams
                                                                         .Webhook
@@ -195,11 +215,7 @@ internal class AssistantsListTest {
                                                 )
                                             )
                                         )
-                                        .toolsMode(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt
-                                                .ToolsMode
-                                                .REPLACE
-                                        )
+                                        .toolsMode(FlowNode.ToolsMode.REPLACE)
                                         .transcription(
                                             TranscriptionSettings.builder()
                                                 .apiKeyRef("api_key_ref")
@@ -224,10 +240,7 @@ internal class AssistantsListTest {
                                                 )
                                                 .build()
                                         )
-                                        .type(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt.Type
-                                                .PROMPT
-                                        )
+                                        .type(FlowNode.Type.PROMPT)
                                         .voiceSettings(
                                             VoiceSettings.builder()
                                                 .voice("voice")
@@ -257,7 +270,7 @@ internal class AssistantsListTest {
                                         .build()
                                 )
                                 .addNode(
-                                    InferenceEmbedding.ConversationFlow.Node.Prompt.builder()
+                                    FlowNode.builder()
                                         .id("n_billing")
                                         .instructions(
                                             "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
@@ -273,11 +286,7 @@ internal class AssistantsListTest {
                                                 .tokenRetrievalUrl("token_retrieval_url")
                                                 .build()
                                         )
-                                        .instructionsMode(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt
-                                                .InstructionsMode
-                                                .APPEND
-                                        )
+                                        .instructionsMode(FlowNode.InstructionsMode.APPEND)
                                         .llmApiKeyRef("llm_api_key_ref")
                                         .model("moonshotai/Kimi-K2.6")
                                         .name("Billing")
@@ -347,6 +356,30 @@ internal class AssistantsListTest {
                                                                         .value("value")
                                                                         .build()
                                                                 )
+                                                                .addMessage(
+                                                                    InferenceEmbeddingWebhookToolParams
+                                                                        .Webhook
+                                                                        .Message
+                                                                        .WebhookToolRequestStartMessage
+                                                                        .builder()
+                                                                        .content(
+                                                                            "Let me look that up for you."
+                                                                        )
+                                                                        .timingMs(100L)
+                                                                        .build()
+                                                                )
+                                                                .addMessage(
+                                                                    InferenceEmbeddingWebhookToolParams
+                                                                        .Webhook
+                                                                        .Message
+                                                                        .WebhookToolRequestResponseDelayedMessage
+                                                                        .builder()
+                                                                        .content(
+                                                                            "Still working on that."
+                                                                        )
+                                                                        .timingMs(5000L)
+                                                                        .build()
+                                                                )
                                                                 .method(
                                                                     InferenceEmbeddingWebhookToolParams
                                                                         .Webhook
@@ -427,11 +460,7 @@ internal class AssistantsListTest {
                                                 )
                                             )
                                         )
-                                        .toolsMode(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt
-                                                .ToolsMode
-                                                .APPEND
-                                        )
+                                        .toolsMode(FlowNode.ToolsMode.APPEND)
                                         .transcription(
                                             TranscriptionSettings.builder()
                                                 .apiKeyRef("api_key_ref")
@@ -456,10 +485,7 @@ internal class AssistantsListTest {
                                                 )
                                                 .build()
                                         )
-                                        .type(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt.Type
-                                                .PROMPT
-                                        )
+                                        .type(FlowNode.Type.PROMPT)
                                         .voiceSettings(
                                             VoiceSettings.builder()
                                                 .voice("voice")
@@ -719,6 +745,22 @@ internal class AssistantsListTest {
                                         .value("value")
                                         .build()
                                 )
+                                .addMessage(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                        .WebhookToolRequestStartMessage
+                                        .builder()
+                                        .content("Let me look that up for you.")
+                                        .timingMs(100L)
+                                        .build()
+                                )
+                                .addMessage(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                        .WebhookToolRequestResponseDelayedMessage
+                                        .builder()
+                                        .content("Still working on that.")
+                                        .timingMs(5000L)
+                                        .build()
+                                )
                                 .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                                 .pathParameters(
                                     InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
@@ -858,9 +900,9 @@ internal class AssistantsListTest {
                     .model("model")
                     .name("name")
                     .conversationFlow(
-                        InferenceEmbedding.ConversationFlow.builder()
+                        ConversationFlow.builder()
                             .addNode(
-                                InferenceEmbedding.ConversationFlow.Node.Prompt.builder()
+                                FlowNode.builder()
                                     .id("n_intake")
                                     .instructions(
                                         "Greet the caller and ask what they're calling about."
@@ -876,11 +918,7 @@ internal class AssistantsListTest {
                                             .tokenRetrievalUrl("token_retrieval_url")
                                             .build()
                                     )
-                                    .instructionsMode(
-                                        InferenceEmbedding.ConversationFlow.Node.Prompt
-                                            .InstructionsMode
-                                            .REPLACE
-                                    )
+                                    .instructionsMode(FlowNode.InstructionsMode.REPLACE)
                                     .llmApiKeyRef("llm_api_key_ref")
                                     .model("model")
                                     .name("Intake")
@@ -949,6 +987,30 @@ internal class AssistantsListTest {
                                                                     .value("value")
                                                                     .build()
                                                             )
+                                                            .addMessage(
+                                                                InferenceEmbeddingWebhookToolParams
+                                                                    .Webhook
+                                                                    .Message
+                                                                    .WebhookToolRequestStartMessage
+                                                                    .builder()
+                                                                    .content(
+                                                                        "Let me look that up for you."
+                                                                    )
+                                                                    .timingMs(100L)
+                                                                    .build()
+                                                            )
+                                                            .addMessage(
+                                                                InferenceEmbeddingWebhookToolParams
+                                                                    .Webhook
+                                                                    .Message
+                                                                    .WebhookToolRequestResponseDelayedMessage
+                                                                    .builder()
+                                                                    .content(
+                                                                        "Still working on that."
+                                                                    )
+                                                                    .timingMs(5000L)
+                                                                    .build()
+                                                            )
                                                             .method(
                                                                 InferenceEmbeddingWebhookToolParams
                                                                     .Webhook
@@ -1029,10 +1091,7 @@ internal class AssistantsListTest {
                                             )
                                         )
                                     )
-                                    .toolsMode(
-                                        InferenceEmbedding.ConversationFlow.Node.Prompt.ToolsMode
-                                            .REPLACE
-                                    )
+                                    .toolsMode(FlowNode.ToolsMode.REPLACE)
                                     .transcription(
                                         TranscriptionSettings.builder()
                                             .apiKeyRef("api_key_ref")
@@ -1057,9 +1116,7 @@ internal class AssistantsListTest {
                                             )
                                             .build()
                                     )
-                                    .type(
-                                        InferenceEmbedding.ConversationFlow.Node.Prompt.Type.PROMPT
-                                    )
+                                    .type(FlowNode.Type.PROMPT)
                                     .voiceSettings(
                                         VoiceSettings.builder()
                                             .voice("voice")
@@ -1089,7 +1146,7 @@ internal class AssistantsListTest {
                                     .build()
                             )
                             .addNode(
-                                InferenceEmbedding.ConversationFlow.Node.Prompt.builder()
+                                FlowNode.builder()
                                     .id("n_billing")
                                     .instructions(
                                         "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
@@ -1105,11 +1162,7 @@ internal class AssistantsListTest {
                                             .tokenRetrievalUrl("token_retrieval_url")
                                             .build()
                                     )
-                                    .instructionsMode(
-                                        InferenceEmbedding.ConversationFlow.Node.Prompt
-                                            .InstructionsMode
-                                            .APPEND
-                                    )
+                                    .instructionsMode(FlowNode.InstructionsMode.APPEND)
                                     .llmApiKeyRef("llm_api_key_ref")
                                     .model("moonshotai/Kimi-K2.6")
                                     .name("Billing")
@@ -1178,6 +1231,30 @@ internal class AssistantsListTest {
                                                                     .value("value")
                                                                     .build()
                                                             )
+                                                            .addMessage(
+                                                                InferenceEmbeddingWebhookToolParams
+                                                                    .Webhook
+                                                                    .Message
+                                                                    .WebhookToolRequestStartMessage
+                                                                    .builder()
+                                                                    .content(
+                                                                        "Let me look that up for you."
+                                                                    )
+                                                                    .timingMs(100L)
+                                                                    .build()
+                                                            )
+                                                            .addMessage(
+                                                                InferenceEmbeddingWebhookToolParams
+                                                                    .Webhook
+                                                                    .Message
+                                                                    .WebhookToolRequestResponseDelayedMessage
+                                                                    .builder()
+                                                                    .content(
+                                                                        "Still working on that."
+                                                                    )
+                                                                    .timingMs(5000L)
+                                                                    .build()
+                                                            )
                                                             .method(
                                                                 InferenceEmbeddingWebhookToolParams
                                                                     .Webhook
@@ -1258,10 +1335,7 @@ internal class AssistantsListTest {
                                             )
                                         )
                                     )
-                                    .toolsMode(
-                                        InferenceEmbedding.ConversationFlow.Node.Prompt.ToolsMode
-                                            .APPEND
-                                    )
+                                    .toolsMode(FlowNode.ToolsMode.APPEND)
                                     .transcription(
                                         TranscriptionSettings.builder()
                                             .apiKeyRef("api_key_ref")
@@ -1286,9 +1360,7 @@ internal class AssistantsListTest {
                                             )
                                             .build()
                                     )
-                                    .type(
-                                        InferenceEmbedding.ConversationFlow.Node.Prompt.Type.PROMPT
-                                    )
+                                    .type(FlowNode.Type.PROMPT)
                                     .voiceSettings(
                                         VoiceSettings.builder()
                                             .voice("voice")
@@ -1535,6 +1607,22 @@ internal class AssistantsListTest {
                                     .value("value")
                                     .build()
                             )
+                            .addMessage(
+                                InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                    .WebhookToolRequestStartMessage
+                                    .builder()
+                                    .content("Let me look that up for you.")
+                                    .timingMs(100L)
+                                    .build()
+                            )
+                            .addMessage(
+                                InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                    .WebhookToolRequestResponseDelayedMessage
+                                    .builder()
+                                    .content("Still working on that.")
+                                    .timingMs(5000L)
+                                    .build()
+                            )
                             .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                             .pathParameters(
                                 InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
@@ -1669,9 +1757,9 @@ internal class AssistantsListTest {
                         .model("model")
                         .name("name")
                         .conversationFlow(
-                            InferenceEmbedding.ConversationFlow.builder()
+                            ConversationFlow.builder()
                                 .addNode(
-                                    InferenceEmbedding.ConversationFlow.Node.Prompt.builder()
+                                    FlowNode.builder()
                                         .id("n_intake")
                                         .instructions(
                                             "Greet the caller and ask what they're calling about."
@@ -1687,11 +1775,7 @@ internal class AssistantsListTest {
                                                 .tokenRetrievalUrl("token_retrieval_url")
                                                 .build()
                                         )
-                                        .instructionsMode(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt
-                                                .InstructionsMode
-                                                .REPLACE
-                                        )
+                                        .instructionsMode(FlowNode.InstructionsMode.REPLACE)
                                         .llmApiKeyRef("llm_api_key_ref")
                                         .model("model")
                                         .name("Intake")
@@ -1761,6 +1845,30 @@ internal class AssistantsListTest {
                                                                         .value("value")
                                                                         .build()
                                                                 )
+                                                                .addMessage(
+                                                                    InferenceEmbeddingWebhookToolParams
+                                                                        .Webhook
+                                                                        .Message
+                                                                        .WebhookToolRequestStartMessage
+                                                                        .builder()
+                                                                        .content(
+                                                                            "Let me look that up for you."
+                                                                        )
+                                                                        .timingMs(100L)
+                                                                        .build()
+                                                                )
+                                                                .addMessage(
+                                                                    InferenceEmbeddingWebhookToolParams
+                                                                        .Webhook
+                                                                        .Message
+                                                                        .WebhookToolRequestResponseDelayedMessage
+                                                                        .builder()
+                                                                        .content(
+                                                                            "Still working on that."
+                                                                        )
+                                                                        .timingMs(5000L)
+                                                                        .build()
+                                                                )
                                                                 .method(
                                                                     InferenceEmbeddingWebhookToolParams
                                                                         .Webhook
@@ -1841,11 +1949,7 @@ internal class AssistantsListTest {
                                                 )
                                             )
                                         )
-                                        .toolsMode(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt
-                                                .ToolsMode
-                                                .REPLACE
-                                        )
+                                        .toolsMode(FlowNode.ToolsMode.REPLACE)
                                         .transcription(
                                             TranscriptionSettings.builder()
                                                 .apiKeyRef("api_key_ref")
@@ -1870,10 +1974,7 @@ internal class AssistantsListTest {
                                                 )
                                                 .build()
                                         )
-                                        .type(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt.Type
-                                                .PROMPT
-                                        )
+                                        .type(FlowNode.Type.PROMPT)
                                         .voiceSettings(
                                             VoiceSettings.builder()
                                                 .voice("voice")
@@ -1903,7 +2004,7 @@ internal class AssistantsListTest {
                                         .build()
                                 )
                                 .addNode(
-                                    InferenceEmbedding.ConversationFlow.Node.Prompt.builder()
+                                    FlowNode.builder()
                                         .id("n_billing")
                                         .instructions(
                                             "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering."
@@ -1919,11 +2020,7 @@ internal class AssistantsListTest {
                                                 .tokenRetrievalUrl("token_retrieval_url")
                                                 .build()
                                         )
-                                        .instructionsMode(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt
-                                                .InstructionsMode
-                                                .APPEND
-                                        )
+                                        .instructionsMode(FlowNode.InstructionsMode.APPEND)
                                         .llmApiKeyRef("llm_api_key_ref")
                                         .model("moonshotai/Kimi-K2.6")
                                         .name("Billing")
@@ -1993,6 +2090,30 @@ internal class AssistantsListTest {
                                                                         .value("value")
                                                                         .build()
                                                                 )
+                                                                .addMessage(
+                                                                    InferenceEmbeddingWebhookToolParams
+                                                                        .Webhook
+                                                                        .Message
+                                                                        .WebhookToolRequestStartMessage
+                                                                        .builder()
+                                                                        .content(
+                                                                            "Let me look that up for you."
+                                                                        )
+                                                                        .timingMs(100L)
+                                                                        .build()
+                                                                )
+                                                                .addMessage(
+                                                                    InferenceEmbeddingWebhookToolParams
+                                                                        .Webhook
+                                                                        .Message
+                                                                        .WebhookToolRequestResponseDelayedMessage
+                                                                        .builder()
+                                                                        .content(
+                                                                            "Still working on that."
+                                                                        )
+                                                                        .timingMs(5000L)
+                                                                        .build()
+                                                                )
                                                                 .method(
                                                                     InferenceEmbeddingWebhookToolParams
                                                                         .Webhook
@@ -2073,11 +2194,7 @@ internal class AssistantsListTest {
                                                 )
                                             )
                                         )
-                                        .toolsMode(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt
-                                                .ToolsMode
-                                                .APPEND
-                                        )
+                                        .toolsMode(FlowNode.ToolsMode.APPEND)
                                         .transcription(
                                             TranscriptionSettings.builder()
                                                 .apiKeyRef("api_key_ref")
@@ -2102,10 +2219,7 @@ internal class AssistantsListTest {
                                                 )
                                                 .build()
                                         )
-                                        .type(
-                                            InferenceEmbedding.ConversationFlow.Node.Prompt.Type
-                                                .PROMPT
-                                        )
+                                        .type(FlowNode.Type.PROMPT)
                                         .voiceSettings(
                                             VoiceSettings.builder()
                                                 .voice("voice")
@@ -2363,6 +2477,22 @@ internal class AssistantsListTest {
                                     InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
                                         .name("name")
                                         .value("value")
+                                        .build()
+                                )
+                                .addMessage(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                        .WebhookToolRequestStartMessage
+                                        .builder()
+                                        .content("Let me look that up for you.")
+                                        .timingMs(100L)
+                                        .build()
+                                )
+                                .addMessage(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                        .WebhookToolRequestResponseDelayedMessage
+                                        .builder()
+                                        .content("Still working on that.")
+                                        .timingMs(5000L)
                                         .build()
                                 )
                                 .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)

@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.emailinboxes.EmailInboxCreateParams
 import com.telnyx.sdk.models.emailinboxes.EmailInboxDeleteParams
+import com.telnyx.sdk.models.emailinboxes.EmailInboxListPage
+import com.telnyx.sdk.models.emailinboxes.EmailInboxListPageResponse
 import com.telnyx.sdk.models.emailinboxes.EmailInboxListParams
-import com.telnyx.sdk.models.emailinboxes.EmailInboxListResponse
 import com.telnyx.sdk.models.emailinboxes.EmailInboxResponse
 import com.telnyx.sdk.models.emailinboxes.EmailInboxRetrieveParams
 import com.telnyx.sdk.services.blocking.emailinboxes.DraftService
@@ -95,7 +96,7 @@ class EmailInboxServiceImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: EmailInboxListParams,
         requestOptions: RequestOptions,
-    ): EmailInboxListResponse =
+    ): EmailInboxListPage =
         // get /email_inboxes
         withRawResponse().list(params, requestOptions).parse()
 
@@ -211,13 +212,13 @@ class EmailInboxServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val listHandler: Handler<EmailInboxListResponse> =
-            jsonHandler<EmailInboxListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EmailInboxListPageResponse> =
+            jsonHandler<EmailInboxListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EmailInboxListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailInboxListResponse> {
+        ): HttpResponseFor<EmailInboxListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -234,6 +235,13 @@ class EmailInboxServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EmailInboxListPage.builder()
+                            .service(EmailInboxServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

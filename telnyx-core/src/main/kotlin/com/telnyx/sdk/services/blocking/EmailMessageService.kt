@@ -14,10 +14,10 @@ import com.telnyx.sdk.models.emailmessages.EmailMessageCreateParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteAllParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteScheduleParams
+import com.telnyx.sdk.models.emailmessages.EmailMessageListPage
 import com.telnyx.sdk.models.emailmessages.EmailMessageListParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageListResponse
+import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPage
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveResponse
 import com.telnyx.sdk.services.blocking.emailmessages.RecipientService
@@ -98,21 +98,20 @@ interface EmailMessageService {
      * cursor pagination are implemented. The legacy `/v2/emails` GET route is a backward-compatible
      * alias for this operation.
      */
-    fun list(): EmailMessageListResponse = list(EmailMessageListParams.none())
+    fun list(): EmailMessageListPage = list(EmailMessageListParams.none())
 
     /** @see list */
     fun list(
         params: EmailMessageListParams = EmailMessageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailMessageListResponse
+    ): EmailMessageListPage
 
     /** @see list */
-    fun list(
-        params: EmailMessageListParams = EmailMessageListParams.none()
-    ): EmailMessageListResponse = list(params, RequestOptions.none())
+    fun list(params: EmailMessageListParams = EmailMessageListParams.none()): EmailMessageListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EmailMessageListResponse =
+    fun list(requestOptions: RequestOptions): EmailMessageListPage =
         list(EmailMessageListParams.none(), requestOptions)
 
     /**
@@ -210,7 +209,7 @@ interface EmailMessageService {
      * Lists events for a single message sorted oldest first by `occurred_at asc, id asc`. The
      * legacy `/v2/emails/{id}/events` GET route is a backward-compatible alias.
      */
-    fun retrieveEvents(emailId: String): EmailMessageRetrieveEventsResponse =
+    fun retrieveEvents(emailId: String): EmailMessageRetrieveEventsPage =
         retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none())
 
     /** @see retrieveEvents */
@@ -218,31 +217,30 @@ interface EmailMessageService {
         emailId: String,
         params: EmailMessageRetrieveEventsParams = EmailMessageRetrieveEventsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailMessageRetrieveEventsResponse =
+    ): EmailMessageRetrieveEventsPage =
         retrieveEvents(params.toBuilder().emailId(emailId).build(), requestOptions)
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         emailId: String,
         params: EmailMessageRetrieveEventsParams = EmailMessageRetrieveEventsParams.none(),
-    ): EmailMessageRetrieveEventsResponse = retrieveEvents(emailId, params, RequestOptions.none())
+    ): EmailMessageRetrieveEventsPage = retrieveEvents(emailId, params, RequestOptions.none())
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         params: EmailMessageRetrieveEventsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailMessageRetrieveEventsResponse
+    ): EmailMessageRetrieveEventsPage
 
     /** @see retrieveEvents */
-    fun retrieveEvents(
-        params: EmailMessageRetrieveEventsParams
-    ): EmailMessageRetrieveEventsResponse = retrieveEvents(params, RequestOptions.none())
+    fun retrieveEvents(params: EmailMessageRetrieveEventsParams): EmailMessageRetrieveEventsPage =
+        retrieveEvents(params, RequestOptions.none())
 
     /** @see retrieveEvents */
     fun retrieveEvents(
         emailId: String,
         requestOptions: RequestOptions,
-    ): EmailMessageRetrieveEventsResponse =
+    ): EmailMessageRetrieveEventsPage =
         retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none(), requestOptions)
 
     /**
@@ -331,24 +329,24 @@ interface EmailMessageService {
          * [EmailMessageService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<EmailMessageListResponse> = list(EmailMessageListParams.none())
+        fun list(): HttpResponseFor<EmailMessageListPage> = list(EmailMessageListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailMessageListParams = EmailMessageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailMessageListResponse>
+        ): HttpResponseFor<EmailMessageListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailMessageListParams = EmailMessageListParams.none()
-        ): HttpResponseFor<EmailMessageListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<EmailMessageListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailMessageListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailMessageListPage> =
             list(EmailMessageListParams.none(), requestOptions)
 
         /**
@@ -471,7 +469,7 @@ interface EmailMessageService {
          * the same as [EmailMessageService.retrieveEvents].
          */
         @MustBeClosed
-        fun retrieveEvents(emailId: String): HttpResponseFor<EmailMessageRetrieveEventsResponse> =
+        fun retrieveEvents(emailId: String): HttpResponseFor<EmailMessageRetrieveEventsPage> =
             retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none())
 
         /** @see retrieveEvents */
@@ -480,7 +478,7 @@ interface EmailMessageService {
             emailId: String,
             params: EmailMessageRetrieveEventsParams = EmailMessageRetrieveEventsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailMessageRetrieveEventsResponse> =
+        ): HttpResponseFor<EmailMessageRetrieveEventsPage> =
             retrieveEvents(params.toBuilder().emailId(emailId).build(), requestOptions)
 
         /** @see retrieveEvents */
@@ -488,7 +486,7 @@ interface EmailMessageService {
         fun retrieveEvents(
             emailId: String,
             params: EmailMessageRetrieveEventsParams = EmailMessageRetrieveEventsParams.none(),
-        ): HttpResponseFor<EmailMessageRetrieveEventsResponse> =
+        ): HttpResponseFor<EmailMessageRetrieveEventsPage> =
             retrieveEvents(emailId, params, RequestOptions.none())
 
         /** @see retrieveEvents */
@@ -496,13 +494,13 @@ interface EmailMessageService {
         fun retrieveEvents(
             params: EmailMessageRetrieveEventsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailMessageRetrieveEventsResponse>
+        ): HttpResponseFor<EmailMessageRetrieveEventsPage>
 
         /** @see retrieveEvents */
         @MustBeClosed
         fun retrieveEvents(
             params: EmailMessageRetrieveEventsParams
-        ): HttpResponseFor<EmailMessageRetrieveEventsResponse> =
+        ): HttpResponseFor<EmailMessageRetrieveEventsPage> =
             retrieveEvents(params, RequestOptions.none())
 
         /** @see retrieveEvents */
@@ -510,7 +508,7 @@ interface EmailMessageService {
         fun retrieveEvents(
             emailId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailMessageRetrieveEventsResponse> =
+        ): HttpResponseFor<EmailMessageRetrieveEventsPage> =
             retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none(), requestOptions)
     }
 }

@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a list of your porting order. */
+/**
+ * Returns a paginated list of your porting orders. Supports filtering and sorting, and can
+ * optionally include the phone numbers attached to each order.
+ */
 class PortingOrderListParams
 private constructor(
     private val filter: Filter?,

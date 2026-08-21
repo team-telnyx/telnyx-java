@@ -32,7 +32,10 @@ interface OAuthClientServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OAuthClientServiceAsync
 
-    /** Create a new OAuth client */
+    /**
+     * Creates a new OAuth client on your account for authenticating third-party integrations, and
+     * returns the created client.
+     */
     fun create(params: OAuthClientCreateParams): CompletableFuture<OAuthClientCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -42,7 +45,7 @@ interface OAuthClientServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthClientCreateResponse>
 
-    /** Retrieve a single OAuth client by ID */
+    /** Returns the details of a single OAuth client on your account by its ID. */
     fun retrieve(id: String): CompletableFuture<OAuthClientRetrieveResponse> =
         retrieve(id, OAuthClientRetrieveParams.none())
 
@@ -78,7 +81,7 @@ interface OAuthClientServiceAsync {
     ): CompletableFuture<OAuthClientRetrieveResponse> =
         retrieve(id, OAuthClientRetrieveParams.none(), requestOptions)
 
-    /** Update an existing OAuth client */
+    /** Updates the specified OAuth client's configuration and returns the updated client. */
     fun update(id: String): CompletableFuture<OAuthClientUpdateResponse> =
         update(id, OAuthClientUpdateParams.none())
 
@@ -131,7 +134,7 @@ interface OAuthClientServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<OAuthClientListPageAsync> =
         list(OAuthClientListParams.none(), requestOptions)
 
-    /** Delete an OAuth client */
+    /** Permanently deletes the specified OAuth client from your account. */
     fun delete(id: String): CompletableFuture<Void?> = delete(id, OAuthClientDeleteParams.none())
 
     /** @see delete */

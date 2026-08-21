@@ -725,7 +725,7 @@ internal class ActionServiceTest {
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .connectorName("Default")
-                    .currency(ActionPayParams.Currency.USD)
+                    .currency(ActionPayParams.Currency.USD_UPPERCASE)
                     .description("Order 12345")
                     .interDigitTimeoutMillis(5000)
                     .language("en-US")
@@ -747,7 +747,7 @@ internal class ActionServiceTest {
                             .bankAccountNumber("x")
                             .bankRoutingNumber("x")
                             .expirationDate("x")
-                            .paymentCardNumberOfPrompts(
+                            .paymentCardNumberOfList(
                                 listOf(
                                     PayPromptValue.PayPrompt.builder()
                                         .text("Please enter your card number.")
@@ -776,6 +776,8 @@ internal class ActionServiceTest {
                     .serviceLevel("service_level")
                     .timeoutMillis(5000)
                     .transactionType(ActionPayParams.TransactionType.CHARGE)
+                    .addValidCardType(ActionPayParams.ValidCardType.VISA)
+                    .addValidCardType(ActionPayParams.ValidCardType.MASTERCARD)
                     .voice("female")
                     .build()
             )
@@ -1675,6 +1677,11 @@ internal class ActionServiceTest {
                     .answeringMachineDetectionConfig(
                         ActionTransferParams.AnsweringMachineDetectionConfig.builder()
                             .afterGreetingSilenceMillis(1000)
+                            .beepDetectionProfile(
+                                ActionTransferParams.AnsweringMachineDetectionConfig
+                                    .BeepDetectionProfile
+                                    .FREQ_ONLY
+                            )
                             .betweenWordsSilenceMillis(1000)
                             .greetingDurationMillis(1000)
                             .greetingSilenceDurationMillis(2000)

@@ -6,7 +6,10 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** Get all embedding buckets for a user. */
+/**
+ * Returns the list of storage buckets that have been embedded for your account, for use with
+ * similarity search.
+ */
 class BucketListParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

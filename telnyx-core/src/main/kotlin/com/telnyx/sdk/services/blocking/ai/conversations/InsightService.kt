@@ -31,7 +31,10 @@ interface InsightService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InsightService
 
-    /** Create a new insight */
+    /**
+     * Creates a new insight template defining an analysis to run over conversations, and returns
+     * the created template.
+     */
     fun create(params: InsightCreateParams): InsightTemplateDetail =
         create(params, RequestOptions.none())
 
@@ -41,7 +44,7 @@ interface InsightService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InsightTemplateDetail
 
-    /** Get insight by ID */
+    /** Returns the details of a single insight template by its ID, including its configuration. */
     fun retrieve(insightId: String): InsightTemplateDetail =
         retrieve(insightId, InsightRetrieveParams.none())
 
@@ -73,7 +76,7 @@ interface InsightService {
     fun retrieve(insightId: String, requestOptions: RequestOptions): InsightTemplateDetail =
         retrieve(insightId, InsightRetrieveParams.none(), requestOptions)
 
-    /** Update an insight template */
+    /** Updates the specified insight template and returns the updated template. */
     fun update(insightId: String): InsightTemplateDetail =
         update(insightId, InsightUpdateParams.none())
 
@@ -105,7 +108,10 @@ interface InsightService {
     fun update(insightId: String, requestOptions: RequestOptions): InsightTemplateDetail =
         update(insightId, InsightUpdateParams.none(), requestOptions)
 
-    /** Get all insights */
+    /**
+     * Returns a paginated list of your insight templates. Insight templates define analyses that
+     * run over AI conversations to extract structured findings.
+     */
     fun list(): InsightListPage = list(InsightListParams.none())
 
     /** @see list */
@@ -122,7 +128,7 @@ interface InsightService {
     fun list(requestOptions: RequestOptions): InsightListPage =
         list(InsightListParams.none(), requestOptions)
 
-    /** Delete insight by ID */
+    /** Permanently deletes the specified insight template by its ID. */
     fun delete(insightId: String) = delete(insightId, InsightDeleteParams.none())
 
     /** @see delete */

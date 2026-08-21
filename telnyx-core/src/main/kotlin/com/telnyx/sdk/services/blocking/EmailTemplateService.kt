@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateCreateParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateDeleteParams
+import com.telnyx.sdk.models.emailtemplates.EmailTemplateListPage
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateListParams
-import com.telnyx.sdk.models.emailtemplates.EmailTemplateListResponse
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateRenderParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateRenderResponse
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateReplaceParams
@@ -78,7 +78,9 @@ interface EmailTemplateService {
     fun retrieve(id: String, requestOptions: RequestOptions): EmailTemplateResponse =
         retrieve(id, EmailTemplateRetrieveParams.none(), requestOptions)
 
-    /** Updates one or more template fields. */
+    /**
+     * Updates one or more fields of the specified email template and returns the updated template.
+     */
     fun update(id: String, params: EmailTemplateUpdateParams): EmailTemplateResponse =
         update(id, params, RequestOptions.none())
 
@@ -100,21 +102,21 @@ interface EmailTemplateService {
     ): EmailTemplateResponse
 
     /** Lists templates sorted newest first by `created_at desc, id desc`. */
-    fun list(): EmailTemplateListResponse = list(EmailTemplateListParams.none())
+    fun list(): EmailTemplateListPage = list(EmailTemplateListParams.none())
 
     /** @see list */
     fun list(
         params: EmailTemplateListParams = EmailTemplateListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailTemplateListResponse
+    ): EmailTemplateListPage
 
     /** @see list */
     fun list(
         params: EmailTemplateListParams = EmailTemplateListParams.none()
-    ): EmailTemplateListResponse = list(params, RequestOptions.none())
+    ): EmailTemplateListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EmailTemplateListResponse =
+    fun list(requestOptions: RequestOptions): EmailTemplateListPage =
         list(EmailTemplateListParams.none(), requestOptions)
 
     /**
@@ -314,25 +316,24 @@ interface EmailTemplateService {
          * [EmailTemplateService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<EmailTemplateListResponse> =
-            list(EmailTemplateListParams.none())
+        fun list(): HttpResponseFor<EmailTemplateListPage> = list(EmailTemplateListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailTemplateListParams = EmailTemplateListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailTemplateListResponse>
+        ): HttpResponseFor<EmailTemplateListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailTemplateListParams = EmailTemplateListParams.none()
-        ): HttpResponseFor<EmailTemplateListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<EmailTemplateListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailTemplateListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailTemplateListPage> =
             list(EmailTemplateListParams.none(), requestOptions)
 
         /**

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update the WireGuard peer. */
+/** Updates the specified WireGuard peer and returns the updated peer. */
 class WireguardPeerUpdateParams
 private constructor(
     private val id: String?,

@@ -40,7 +40,10 @@ interface NetworkServiceAsync {
     /** Network operations */
     fun defaultGateway(): DefaultGatewayServiceAsync
 
-    /** Create a new Network. */
+    /**
+     * Creates a new private network, the container that links your WireGuard interfaces, gateways,
+     * and cross connects.
+     */
     fun create(params: NetworkCreateParams): CompletableFuture<NetworkCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -61,7 +64,7 @@ interface NetworkServiceAsync {
     fun create(networkCreate: NetworkCreate): CompletableFuture<NetworkCreateResponse> =
         create(networkCreate, RequestOptions.none())
 
-    /** Retrieve a Network. */
+    /** Returns the details of a single network by its identifier. */
     fun retrieve(id: String): CompletableFuture<NetworkRetrieveResponse> =
         retrieve(id, NetworkRetrieveParams.none())
 
@@ -96,7 +99,7 @@ interface NetworkServiceAsync {
     ): CompletableFuture<NetworkRetrieveResponse> =
         retrieve(id, NetworkRetrieveParams.none(), requestOptions)
 
-    /** Update a Network. */
+    /** Updates the specified network's attributes and returns the updated network. */
     fun update(
         networkId: String,
         params: NetworkUpdateParams,
@@ -120,7 +123,9 @@ interface NetworkServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<NetworkUpdateResponse>
 
-    /** List all Networks. */
+    /**
+     * Returns a paginated list of the private networks on your account, with support for filtering.
+     */
     fun list(): CompletableFuture<NetworkListPageAsync> = list(NetworkListParams.none())
 
     /** @see list */
@@ -138,7 +143,7 @@ interface NetworkServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<NetworkListPageAsync> =
         list(NetworkListParams.none(), requestOptions)
 
-    /** Delete a Network. */
+    /** Permanently deletes the specified network from your account. */
     fun delete(id: String): CompletableFuture<NetworkDeleteResponse> =
         delete(id, NetworkDeleteParams.none())
 
@@ -173,7 +178,10 @@ interface NetworkServiceAsync {
     ): CompletableFuture<NetworkDeleteResponse> =
         delete(id, NetworkDeleteParams.none(), requestOptions)
 
-    /** List all Interfaces for a Network. */
+    /**
+     * Returns a paginated list of the interfaces attached to the specified network, with support
+     * for filtering.
+     */
     fun listInterfaces(id: String): CompletableFuture<NetworkListInterfacesPageAsync> =
         listInterfaces(id, NetworkListInterfacesParams.none())
 

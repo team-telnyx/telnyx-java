@@ -20,7 +20,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a Wireless Blocklist. */
+/**
+ * Updates the specified wireless blocklist. The update is processed asynchronously, so the request
+ * is accepted and completes in the background.
+ */
 class WirelessBlocklistUpdateParams
 private constructor(
     private val id: String?,

@@ -217,8 +217,8 @@ private constructor(
         fun expressionCondition(expression: JsonValue) =
             condition(Condition.Expression.builder().expression(expression).build())
 
-        /** Alias for calling [condition] with `Condition.ofDefault()`. */
-        fun conditionDefault() = condition(Condition.ofDefault())
+        /** Alias for calling [condition] with `Condition.ofDefaultCondition()`. */
+        fun conditionDefaultCondition() = condition(Condition.ofDefaultCondition())
 
         /** ID of the node this edge transitions away from. */
         fun startNodeId(startNodeId: String) = startNodeId(JsonField.of(startNodeId))
@@ -366,7 +366,7 @@ private constructor(
     private constructor(
         private val llm: Llm? = null,
         private val expression: Expression? = null,
-        private val default_: JsonValue? = null,
+        private val defaultCondition: JsonValue? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -398,13 +398,13 @@ private constructor(
          * edge is required to carry exactly one `default` edge so it never dead-ends; a tool/speak
          * node with no outgoing edges is a valid terminal step. Carries no parameters.
          */
-        fun default_(): Optional<JsonValue> = Optional.ofNullable(default_)
+        fun defaultCondition(): Optional<JsonValue> = Optional.ofNullable(defaultCondition)
 
         fun isLlm(): Boolean = llm != null
 
         fun isExpression(): Boolean = expression != null
 
-        fun isDefault(): Boolean = default_ != null
+        fun isDefaultCondition(): Boolean = defaultCondition != null
 
         /**
          * Edge condition evaluated by the LLM from a natural-language prompt.
@@ -434,7 +434,7 @@ private constructor(
          * edge is required to carry exactly one `default` edge so it never dead-ends; a tool/speak
          * node with no outgoing edges is a valid terminal step. Carries no parameters.
          */
-        fun asDefault(): JsonValue = default_.getOrThrow("default_")
+        fun asDefaultCondition(): JsonValue = defaultCondition.getOrThrow("defaultCondition")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -471,7 +471,7 @@ private constructor(
             when {
                 llm != null -> visitor.visitLlm(llm)
                 expression != null -> visitor.visitExpression(expression)
-                default_ != null -> visitor.visitDefault(default_)
+                defaultCondition != null -> visitor.visitDefaultCondition(defaultCondition)
                 else -> visitor.unknown(_json)
             }
 
@@ -501,11 +501,11 @@ private constructor(
                         expression.validate()
                     }
 
-                    override fun visitDefault(default_: JsonValue) {
-                        default_.let {
+                    override fun visitDefaultCondition(defaultCondition: JsonValue) {
+                        defaultCondition.let {
                             if (it != JsonValue.from(mapOf("type" to "default"))) {
                                 throw TelnyxInvalidDataException(
-                                    "'default_' is invalid, received $it"
+                                    "'defaultCondition' is invalid, received $it"
                                 )
                             }
                         }
@@ -537,8 +537,8 @@ private constructor(
 
                     override fun visitExpression(expression: Expression) = expression.validity()
 
-                    override fun visitDefault(default_: JsonValue) =
-                        default_.let {
+                    override fun visitDefaultCondition(defaultCondition: JsonValue) =
+                        defaultCondition.let {
                             if (it == JsonValue.from(mapOf("type" to "default"))) 1 else 0
                         }
 
@@ -554,16 +554,16 @@ private constructor(
             return other is Condition &&
                 llm == other.llm &&
                 expression == other.expression &&
-                default_ == other.default_
+                defaultCondition == other.defaultCondition
         }
 
-        override fun hashCode(): Int = Objects.hash(llm, expression, default_)
+        override fun hashCode(): Int = Objects.hash(llm, expression, defaultCondition)
 
         override fun toString(): String =
             when {
                 llm != null -> "Condition{llm=$llm}"
                 expression != null -> "Condition{expression=$expression}"
-                default_ != null -> "Condition{default_=$default_}"
+                defaultCondition != null -> "Condition{defaultCondition=$defaultCondition}"
                 _json != null -> "Condition{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Condition")
             }
@@ -600,7 +600,8 @@ private constructor(
              * Carries no parameters.
              */
             @JvmStatic
-            fun ofDefault() = Condition(default_ = JsonValue.from(mapOf("type" to "default")))
+            fun ofDefaultCondition() =
+                Condition(defaultCondition = JsonValue.from(mapOf("type" to "default")))
         }
 
         /**
@@ -637,7 +638,7 @@ private constructor(
              * never dead-ends; a tool/speak node with no outgoing edges is a valid terminal step.
              * Carries no parameters.
              */
-            fun visitDefault(default_: JsonValue): T
+            fun visitDefaultCondition(defaultCondition: JsonValue): T
 
             /**
              * Maps an unknown variant of [Condition] to a value of type [T].
@@ -673,7 +674,7 @@ private constructor(
                     }
                     "default" -> {
                         return tryDeserialize(node, jacksonTypeRef<JsonValue>())
-                            ?.let { Condition(default_ = it, _json = json) }
+                            ?.let { Condition(defaultCondition = it, _json = json) }
                             ?.takeIf { it.isValid() } ?: Condition(_json = json)
                     }
                 }
@@ -692,7 +693,7 @@ private constructor(
                 when {
                     value.llm != null -> generator.writeObject(value.llm)
                     value.expression != null -> generator.writeObject(value.expression)
-                    value.default_ != null -> generator.writeObject(value.default_)
+                    value.defaultCondition != null -> generator.writeObject(value.defaultCondition)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Condition")
                 }

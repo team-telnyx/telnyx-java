@@ -9,11 +9,58 @@ internal class EmbeddingUrlParamsTest {
 
     @Test
     fun create() {
-        EmbeddingUrlParams.builder().bucketName("Bucket Name").url("URL").build()
+        EmbeddingUrlParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+            .bucketName("Bucket Name")
+            .url("URL")
+            .build()
+    }
+
+    @Test
+    fun headers() {
+        val params =
+            EmbeddingUrlParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .bucketName("Bucket Name")
+                .url("URL")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params = EmbeddingUrlParams.builder().bucketName("Bucket Name").url("URL").build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
     }
 
     @Test
     fun body() {
+        val params =
+            EmbeddingUrlParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .bucketName("Bucket Name")
+                .url("URL")
+                .build()
+
+        val body = params._body()
+
+        assertThat(body.bucketName()).isEqualTo("Bucket Name")
+        assertThat(body.url()).isEqualTo("URL")
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
         val params = EmbeddingUrlParams.builder().bucketName("Bucket Name").url("URL").build()
 
         val body = params._body()

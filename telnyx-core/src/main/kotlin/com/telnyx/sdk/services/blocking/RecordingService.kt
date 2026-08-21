@@ -64,7 +64,10 @@ interface RecordingService {
     fun retrieve(recordingId: String, requestOptions: RequestOptions): RecordingResponse =
         retrieve(recordingId, RecordingRetrieveParams.none(), requestOptions)
 
-    /** Returns a list of your call recordings. */
+    /**
+     * Returns a paginated list of your call recordings, with support for filtering to locate
+     * specific recordings.
+     */
     fun list(): RecordingListPage = list(RecordingListParams.none())
 
     /** @see list */
@@ -81,7 +84,10 @@ interface RecordingService {
     fun list(requestOptions: RequestOptions): RecordingListPage =
         list(RecordingListParams.none(), requestOptions)
 
-    /** Permanently deletes a call recording. */
+    /**
+     * Permanently deletes the specified call recording and returns the deleted recording resource.
+     * The media is removed and can no longer be downloaded.
+     */
     fun delete(recordingId: String): RecordingResponse =
         delete(recordingId, RecordingDeleteParams.none())
 

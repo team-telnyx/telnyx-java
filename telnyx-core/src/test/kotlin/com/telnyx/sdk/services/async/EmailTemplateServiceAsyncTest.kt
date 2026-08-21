@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateCreateParams
-import com.telnyx.sdk.models.emailtemplates.EmailTemplateListParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateRenderParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateReplaceParams
 import com.telnyx.sdk.models.emailtemplates.EmailTemplateUpdateParams
@@ -82,13 +81,10 @@ internal class EmailTemplateServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val emailTemplateServiceAsync = client.emailTemplates()
 
-        val emailTemplatesFuture =
-            emailTemplateServiceAsync.list(
-                EmailTemplateListParams.builder().pageCursor("page_cursor").pageSize(1L).build()
-            )
+        val pageFuture = emailTemplateServiceAsync.list()
 
-        val emailTemplates = emailTemplatesFuture.get()
-        emailTemplates.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -33,7 +33,10 @@ interface UserService {
     /** Operations related to users in your organization */
     fun actions(): ActionService
 
-    /** Returns a user in your organization. */
+    /**
+     * Returns the details of a user in your organization, optionally including the groups the user
+     * belongs to.
+     */
     fun retrieve(id: String): UserRetrieveResponse = retrieve(id, UserRetrieveParams.none())
 
     /** @see retrieve */

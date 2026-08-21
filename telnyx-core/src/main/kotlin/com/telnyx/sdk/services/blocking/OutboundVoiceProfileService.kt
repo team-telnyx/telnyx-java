@@ -33,7 +33,10 @@ interface OutboundVoiceProfileService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OutboundVoiceProfileService
 
-    /** Create an outbound voice profile. */
+    /**
+     * Creates a new outbound voice profile defining calling permissions, destinations, and limits
+     * for outbound calls, and returns the created profile.
+     */
     fun create(params: OutboundVoiceProfileCreateParams): OutboundVoiceProfileCreateResponse =
         create(params, RequestOptions.none())
 

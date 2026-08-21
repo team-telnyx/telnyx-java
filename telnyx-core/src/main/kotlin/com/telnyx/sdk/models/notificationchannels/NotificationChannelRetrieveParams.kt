@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a notification channel. */
+/** Returns the details of a single notification channel by its identifier. */
 class NotificationChannelRetrieveParams
 private constructor(
     private val id: String?,

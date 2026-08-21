@@ -33,7 +33,10 @@ interface IpServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): IpServiceAsync
 
-    /** Create a new IP object. */
+    /**
+     * Creates a new IP record for use with IP-based connections, associating an IP address with the
+     * specified connection.
+     */
     fun create(params: IpCreateParams): CompletableFuture<IpCreateResponse> =
         create(params, RequestOptions.none())
 
@@ -77,7 +80,7 @@ interface IpServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<IpRetrieveResponse> = retrieve(id, IpRetrieveParams.none(), requestOptions)
 
-    /** Update the details of a specific IP. */
+    /** Updates the details of the specified IP record and returns the updated IP. */
     fun update(id: String, params: IpUpdateParams): CompletableFuture<IpUpdateResponse> =
         update(id, params, RequestOptions.none())
 
@@ -116,7 +119,7 @@ interface IpServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<IpListPageAsync> =
         list(IpListParams.none(), requestOptions)
 
-    /** Delete an IP. */
+    /** Permanently deletes the specified IP record from its connection. */
     fun delete(id: String): CompletableFuture<IpDeleteResponse> = delete(id, IpDeleteParams.none())
 
     /** @see delete */

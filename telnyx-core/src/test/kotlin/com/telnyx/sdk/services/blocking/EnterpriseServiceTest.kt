@@ -3,7 +3,6 @@
 package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.enterprises.BillingAddress
 import com.telnyx.sdk.models.enterprises.BillingContact
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
@@ -24,7 +23,7 @@ internal class EnterpriseServiceTest {
             enterpriseService.create(
                 EnterpriseCreateParams.builder()
                     .billingAddress(
-                        BillingAddress.builder()
+                        PhysicalAddress.builder()
                             .administrativeArea("IL")
                             .city("Chicago")
                             .country("US")
@@ -107,7 +106,7 @@ internal class EnterpriseServiceTest {
                 EnterpriseUpdateParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                     .billingAddress(
-                        BillingAddress.builder()
+                        PhysicalAddress.builder()
                             .administrativeArea("IL")
                             .city("Chicago")
                             .country("US")

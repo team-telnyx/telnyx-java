@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Synchronously update a Room. */
+/** Synchronously updates the specified video room's configuration and returns the updated room. */
 class RoomUpdateParams
 private constructor(
     private val roomId: String?,

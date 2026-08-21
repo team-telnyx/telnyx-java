@@ -31,7 +31,10 @@ interface InsightServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InsightServiceAsync
 
-    /** Create a new insight */
+    /**
+     * Creates a new insight template defining an analysis to run over conversations, and returns
+     * the created template.
+     */
     fun create(params: InsightCreateParams): CompletableFuture<InsightTemplateDetail> =
         create(params, RequestOptions.none())
 
@@ -41,7 +44,7 @@ interface InsightServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InsightTemplateDetail>
 
-    /** Get insight by ID */
+    /** Returns the details of a single insight template by its ID, including its configuration. */
     fun retrieve(insightId: String): CompletableFuture<InsightTemplateDetail> =
         retrieve(insightId, InsightRetrieveParams.none())
 
@@ -76,7 +79,7 @@ interface InsightServiceAsync {
     ): CompletableFuture<InsightTemplateDetail> =
         retrieve(insightId, InsightRetrieveParams.none(), requestOptions)
 
-    /** Update an insight template */
+    /** Updates the specified insight template and returns the updated template. */
     fun update(insightId: String): CompletableFuture<InsightTemplateDetail> =
         update(insightId, InsightUpdateParams.none())
 
@@ -111,7 +114,10 @@ interface InsightServiceAsync {
     ): CompletableFuture<InsightTemplateDetail> =
         update(insightId, InsightUpdateParams.none(), requestOptions)
 
-    /** Get all insights */
+    /**
+     * Returns a paginated list of your insight templates. Insight templates define analyses that
+     * run over AI conversations to extract structured findings.
+     */
     fun list(): CompletableFuture<InsightListPageAsync> = list(InsightListParams.none())
 
     /** @see list */
@@ -129,7 +135,7 @@ interface InsightServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<InsightListPageAsync> =
         list(InsightListParams.none(), requestOptions)
 
-    /** Delete insight by ID */
+    /** Permanently deletes the specified insight template by its ID. */
     fun delete(insightId: String): CompletableFuture<Void?> =
         delete(insightId, InsightDeleteParams.none())
 

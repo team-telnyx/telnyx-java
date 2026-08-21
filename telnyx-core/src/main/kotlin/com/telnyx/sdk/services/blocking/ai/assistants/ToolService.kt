@@ -49,7 +49,9 @@ interface ToolService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ToolAddResponse
 
-    /** Detach a tool from an AI assistant. */
+    /**
+     * Detaches the specified tool from the AI assistant so the assistant can no longer invoke it.
+     */
     fun remove(toolId: String, params: ToolRemoveParams): ToolRemoveResponse =
         remove(toolId, params, RequestOptions.none())
 
@@ -69,7 +71,10 @@ interface ToolService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ToolRemoveResponse
 
-    /** Test a webhook tool for an assistant */
+    /**
+     * Executes a test invocation of the specified webhook tool for the assistant and returns the
+     * outcome, so you can verify the webhook's behavior before relying on it in conversations.
+     */
     fun test(toolId: String, params: ToolTestParams): ToolTestResponse =
         test(toolId, params, RequestOptions.none())
 

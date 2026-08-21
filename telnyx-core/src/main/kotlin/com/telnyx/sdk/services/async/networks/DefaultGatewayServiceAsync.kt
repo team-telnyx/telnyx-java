@@ -29,7 +29,10 @@ interface DefaultGatewayServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DefaultGatewayServiceAsync
 
-    /** Create Default Gateway. */
+    /**
+     * Creates a default gateway on the specified network, directing the network's outbound traffic
+     * through the chosen gateway.
+     */
     fun create(
         networkIdentifier: String,
         params: DefaultGatewayCreateParams,
@@ -55,7 +58,7 @@ interface DefaultGatewayServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DefaultGatewayCreateResponse>
 
-    /** Get Default Gateway status. */
+    /** Returns the status of the default gateway configured on the specified network. */
     fun retrieve(id: String): CompletableFuture<DefaultGatewayRetrieveResponse> =
         retrieve(id, DefaultGatewayRetrieveParams.none())
 
@@ -92,7 +95,7 @@ interface DefaultGatewayServiceAsync {
     ): CompletableFuture<DefaultGatewayRetrieveResponse> =
         retrieve(id, DefaultGatewayRetrieveParams.none(), requestOptions)
 
-    /** Delete Default Gateway. */
+    /** Removes the default gateway from the specified network. */
     fun delete(id: String): CompletableFuture<DefaultGatewayDeleteResponse> =
         delete(id, DefaultGatewayDeleteParams.none())
 

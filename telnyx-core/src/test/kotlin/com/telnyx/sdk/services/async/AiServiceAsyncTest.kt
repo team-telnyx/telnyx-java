@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.AiRetrieveConversationHistoriesParams
 import com.telnyx.sdk.models.ai.AiSummarizeParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -17,27 +16,15 @@ internal class AiServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val aiServiceAsync = client.ai()
 
-        val responseFuture =
+        val pageFuture =
             aiServiceAsync.retrieveConversationHistories(
                 AiRetrieveConversationHistoriesParams.builder()
                     .q("customer called about billing issue")
-                    .filterIngestedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
-                    .filterIngestedAtLte(OffsetDateTime.parse("2026-12-31T23:59:59Z"))
-                    .filterRecordCreatedAtGte(OffsetDateTime.parse("2026-01-01T00:00:00Z"))
-                    .filterRecordCreatedAtLte(OffsetDateTime.parse("2026-12-31T23:59:59Z"))
-                    .filterRecordId("rec-001")
-                    .filterRegionIn("USA,DEU")
-                    .filterRetention("filter[retention]")
-                    .filterUserId("user-123")
-                    .minScore(0.5f)
-                    .pageNumber(1L)
-                    .pageSize(10L)
-                    .region(AiRetrieveConversationHistoriesParams.Region.USA)
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -49,6 +36,7 @@ internal class AiServiceAsyncTest {
         val responseFuture =
             aiServiceAsync.summarize(
                 AiSummarizeParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .bucket("string")
                     .filename("string")
                     .systemPrompt("string")

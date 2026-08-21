@@ -18,7 +18,10 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Creates an address. */
+/**
+ * Creates a new address on your account from the provided details, for use with services that
+ * require a physical address such as emergency calling and regulatory compliance.
+ */
 class AddressCreateParams
 private constructor(
     private val body: Body,

@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a fine tuning job by `job_id`. */
+/** Returns the details of a single fine-tuning job by its job_id, including its current status. */
 class JobRetrieveParams
 private constructor(
     private val jobId: String?,

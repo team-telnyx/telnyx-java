@@ -13,8 +13,8 @@ import com.telnyx.sdk.models.ai.collections.CollectionEnvelope
 import com.telnyx.sdk.models.ai.collections.CollectionListPage
 import com.telnyx.sdk.models.ai.collections.CollectionListParams
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveByIdParams
+import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsPage
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsParams
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsResponse
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveParams
 import com.telnyx.sdk.models.ai.collections.CollectionUpdateParams
 import com.telnyx.sdk.services.blocking.ai.collections.SettingService
@@ -232,7 +232,7 @@ interface CollectionService {
      * - `GET
      *   /v2/ai/collections/my-collection/documents?query=outage&filter[record_created_at][gte]=2026-01-01T00:00:00Z`
      */
-    fun retrieveDocuments(slug: String): CollectionRetrieveDocumentsResponse =
+    fun retrieveDocuments(slug: String): CollectionRetrieveDocumentsPage =
         retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none())
 
     /** @see retrieveDocuments */
@@ -240,31 +240,31 @@ interface CollectionService {
         slug: String,
         params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionRetrieveDocumentsResponse =
+    ): CollectionRetrieveDocumentsPage =
         retrieveDocuments(params.toBuilder().slug(slug).build(), requestOptions)
 
     /** @see retrieveDocuments */
     fun retrieveDocuments(
         slug: String,
         params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
-    ): CollectionRetrieveDocumentsResponse = retrieveDocuments(slug, params, RequestOptions.none())
+    ): CollectionRetrieveDocumentsPage = retrieveDocuments(slug, params, RequestOptions.none())
 
     /** @see retrieveDocuments */
     fun retrieveDocuments(
         params: CollectionRetrieveDocumentsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionRetrieveDocumentsResponse
+    ): CollectionRetrieveDocumentsPage
 
     /** @see retrieveDocuments */
     fun retrieveDocuments(
         params: CollectionRetrieveDocumentsParams
-    ): CollectionRetrieveDocumentsResponse = retrieveDocuments(params, RequestOptions.none())
+    ): CollectionRetrieveDocumentsPage = retrieveDocuments(params, RequestOptions.none())
 
     /** @see retrieveDocuments */
     fun retrieveDocuments(
         slug: String,
         requestOptions: RequestOptions,
-    ): CollectionRetrieveDocumentsResponse =
+    ): CollectionRetrieveDocumentsPage =
         retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none(), requestOptions)
 
     /** A view of [CollectionService] that provides access to raw HTTP responses for each method. */
@@ -508,7 +508,7 @@ interface CollectionService {
          * the same as [CollectionService.retrieveDocuments].
          */
         @MustBeClosed
-        fun retrieveDocuments(slug: String): HttpResponseFor<CollectionRetrieveDocumentsResponse> =
+        fun retrieveDocuments(slug: String): HttpResponseFor<CollectionRetrieveDocumentsPage> =
             retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none())
 
         /** @see retrieveDocuments */
@@ -517,7 +517,7 @@ interface CollectionService {
             slug: String,
             params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionRetrieveDocumentsResponse> =
+        ): HttpResponseFor<CollectionRetrieveDocumentsPage> =
             retrieveDocuments(params.toBuilder().slug(slug).build(), requestOptions)
 
         /** @see retrieveDocuments */
@@ -525,7 +525,7 @@ interface CollectionService {
         fun retrieveDocuments(
             slug: String,
             params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
-        ): HttpResponseFor<CollectionRetrieveDocumentsResponse> =
+        ): HttpResponseFor<CollectionRetrieveDocumentsPage> =
             retrieveDocuments(slug, params, RequestOptions.none())
 
         /** @see retrieveDocuments */
@@ -533,13 +533,13 @@ interface CollectionService {
         fun retrieveDocuments(
             params: CollectionRetrieveDocumentsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionRetrieveDocumentsResponse>
+        ): HttpResponseFor<CollectionRetrieveDocumentsPage>
 
         /** @see retrieveDocuments */
         @MustBeClosed
         fun retrieveDocuments(
             params: CollectionRetrieveDocumentsParams
-        ): HttpResponseFor<CollectionRetrieveDocumentsResponse> =
+        ): HttpResponseFor<CollectionRetrieveDocumentsPage> =
             retrieveDocuments(params, RequestOptions.none())
 
         /** @see retrieveDocuments */
@@ -547,7 +547,7 @@ interface CollectionService {
         fun retrieveDocuments(
             slug: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionRetrieveDocumentsResponse> =
+        ): HttpResponseFor<CollectionRetrieveDocumentsPage> =
             retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none(), requestOptions)
     }
 }

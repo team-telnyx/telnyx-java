@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve the WireGuard peer. */
+/** Returns the details of a single WireGuard peer by its identifier. */
 class WireguardPeerRetrieveParams
 private constructor(
     private val id: String?,

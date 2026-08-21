@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Lists conference recordings */
+/** Returns the list of recordings made for the specified conference. */
 class ConferenceRetrieveRecordingsParams
 private constructor(
     private val accountSid: String,

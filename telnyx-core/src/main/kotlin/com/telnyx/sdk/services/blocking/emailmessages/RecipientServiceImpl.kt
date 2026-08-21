@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.emailmessages.recipients.RecipientListPage
+import com.telnyx.sdk.models.emailmessages.recipients.RecipientListPageResponse
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientListParams
-import com.telnyx.sdk.models.emailmessages.recipients.RecipientListResponse
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientRetrieveParams
 import com.telnyx.sdk.models.emailmessages.recipients.RecipientRetrieveResponse
 import java.util.function.Consumer
@@ -45,7 +46,7 @@ class RecipientServiceImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: RecipientListParams,
         requestOptions: RequestOptions,
-    ): RecipientListResponse =
+    ): RecipientListPage =
         // get /email_messages/{email_id}/recipients
         withRawResponse().list(params, requestOptions).parse()
 
@@ -97,13 +98,13 @@ class RecipientServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val listHandler: Handler<RecipientListResponse> =
-            jsonHandler<RecipientListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RecipientListPageResponse> =
+            jsonHandler<RecipientListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RecipientListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RecipientListResponse> {
+        ): HttpResponseFor<RecipientListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("emailId", params.emailId().getOrNull())
@@ -123,6 +124,13 @@ class RecipientServiceImpl internal constructor(private val clientOptions: Clien
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        RecipientListPage.builder()
+                            .service(RecipientServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

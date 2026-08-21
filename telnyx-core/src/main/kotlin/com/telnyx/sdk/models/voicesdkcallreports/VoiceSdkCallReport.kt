@@ -612,16 +612,16 @@ private constructor(
          */
         fun stats(stats: JsonField<Stats>) = apply { this.stats = stats }
 
+        /** Alias for calling [stats] with `Stats.ofVoiceSdkCallReport(voiceSdkCallReport)`. */
+        fun statsOfVoiceSdkCallReport(voiceSdkCallReport: List<Stats.VoiceSdkCallReportStat>) =
+            stats(Stats.ofVoiceSdkCallReport(voiceSdkCallReport))
+
         /**
          * Alias for calling [stats] with
-         * `Stats.ofUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s)`.
+         * `Stats.ofVoiceSdkCallReportStatsObject(voiceSdkCallReportStatsObject)`.
          */
-        fun statsOfUnnamedSchemaWithArrayParent0s(
-            unnamedSchemaWithArrayParent0s: List<Stats.UnnamedSchemaWithArrayParent0>
-        ) = stats(Stats.ofUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s))
-
-        /** Alias for calling [stats] with `Stats.ofUnionMember1(unionMember1)`. */
-        fun stats(unionMember1: Stats.UnionMember1) = stats(Stats.ofUnionMember1(unionMember1))
+        fun stats(voiceSdkCallReportStatsObject: Stats.VoiceSdkCallReportStatsObject) =
+            stats(Stats.ofVoiceSdkCallReportStatsObject(voiceSdkCallReportStatsObject))
 
         /** Time when the call report was stored. */
         fun storedAt(storedAt: OffsetDateTime) = storedAt(JsonField.of(storedAt))
@@ -1429,28 +1429,30 @@ private constructor(
     @JsonSerialize(using = Stats.Serializer::class)
     class Stats
     private constructor(
-        private val unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>? = null,
-        private val unionMember1: UnionMember1? = null,
+        private val voiceSdkCallReport: List<VoiceSdkCallReportStat>? = null,
+        private val voiceSdkCallReportStatsObject: VoiceSdkCallReportStatsObject? = null,
         private val _json: JsonValue? = null,
     ) {
 
         /** Raw interval stats snapshots emitted by the Voice SDK. */
-        fun unnamedSchemaWithArrayParent0s(): Optional<List<UnnamedSchemaWithArrayParent0>> =
-            Optional.ofNullable(unnamedSchemaWithArrayParent0s)
+        fun voiceSdkCallReport(): Optional<List<VoiceSdkCallReportStat>> =
+            Optional.ofNullable(voiceSdkCallReport)
 
         /** Raw stats object emitted by the Voice SDK. */
-        fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
+        fun voiceSdkCallReportStatsObject(): Optional<VoiceSdkCallReportStatsObject> =
+            Optional.ofNullable(voiceSdkCallReportStatsObject)
 
-        fun isUnnamedSchemaWithArrayParent0s(): Boolean = unnamedSchemaWithArrayParent0s != null
+        fun isVoiceSdkCallReport(): Boolean = voiceSdkCallReport != null
 
-        fun isUnionMember1(): Boolean = unionMember1 != null
+        fun isVoiceSdkCallReportStatsObject(): Boolean = voiceSdkCallReportStatsObject != null
 
         /** Raw interval stats snapshots emitted by the Voice SDK. */
-        fun asUnnamedSchemaWithArrayParent0s(): List<UnnamedSchemaWithArrayParent0> =
-            unnamedSchemaWithArrayParent0s.getOrThrow("unnamedSchemaWithArrayParent0s")
+        fun asVoiceSdkCallReport(): List<VoiceSdkCallReportStat> =
+            voiceSdkCallReport.getOrThrow("voiceSdkCallReport")
 
         /** Raw stats object emitted by the Voice SDK. */
-        fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
+        fun asVoiceSdkCallReportStatsObject(): VoiceSdkCallReportStatsObject =
+            voiceSdkCallReportStatsObject.getOrThrow("voiceSdkCallReportStatsObject")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1466,8 +1468,8 @@ private constructor(
          *
          * Optional<String> result = stats.accept(new Stats.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitUnnamedSchemaWithArrayParent0s(List<UnnamedSchemaWithArrayParent0> unnamedSchemaWithArrayParent0s) {
-         *         return Optional.of(unnamedSchemaWithArrayParent0s.toString());
+         *     public Optional<String> visitVoiceSdkCallReport(List<VoiceSdkCallReportStat> voiceSdkCallReport) {
+         *         return Optional.of(voiceSdkCallReport.toString());
          *     }
          *
          *     // ...
@@ -1485,9 +1487,9 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                unnamedSchemaWithArrayParent0s != null ->
-                    visitor.visitUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s)
-                unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
+                voiceSdkCallReport != null -> visitor.visitVoiceSdkCallReport(voiceSdkCallReport)
+                voiceSdkCallReportStatsObject != null ->
+                    visitor.visitVoiceSdkCallReportStatsObject(voiceSdkCallReportStatsObject)
                 else -> visitor.unknown(_json)
             }
 
@@ -1509,14 +1511,16 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitUnnamedSchemaWithArrayParent0s(
-                        unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
+                    override fun visitVoiceSdkCallReport(
+                        voiceSdkCallReport: List<VoiceSdkCallReportStat>
                     ) {
-                        unnamedSchemaWithArrayParent0s.forEach { it.validate() }
+                        voiceSdkCallReport.forEach { it.validate() }
                     }
 
-                    override fun visitUnionMember1(unionMember1: UnionMember1) {
-                        unionMember1.validate()
+                    override fun visitVoiceSdkCallReportStatsObject(
+                        voiceSdkCallReportStatsObject: VoiceSdkCallReportStatsObject
+                    ) {
+                        voiceSdkCallReportStatsObject.validate()
                     }
                 }
             )
@@ -1541,12 +1545,13 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitUnnamedSchemaWithArrayParent0s(
-                        unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
-                    ) = unnamedSchemaWithArrayParent0s.sumOf { it.validity().toInt() }
+                    override fun visitVoiceSdkCallReport(
+                        voiceSdkCallReport: List<VoiceSdkCallReportStat>
+                    ) = voiceSdkCallReport.sumOf { it.validity().toInt() }
 
-                    override fun visitUnionMember1(unionMember1: UnionMember1) =
-                        unionMember1.validity()
+                    override fun visitVoiceSdkCallReportStatsObject(
+                        voiceSdkCallReportStatsObject: VoiceSdkCallReportStatsObject
+                    ) = voiceSdkCallReportStatsObject.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1558,17 +1563,18 @@ private constructor(
             }
 
             return other is Stats &&
-                unnamedSchemaWithArrayParent0s == other.unnamedSchemaWithArrayParent0s &&
-                unionMember1 == other.unionMember1
+                voiceSdkCallReport == other.voiceSdkCallReport &&
+                voiceSdkCallReportStatsObject == other.voiceSdkCallReportStatsObject
         }
 
-        override fun hashCode(): Int = Objects.hash(unnamedSchemaWithArrayParent0s, unionMember1)
+        override fun hashCode(): Int =
+            Objects.hash(voiceSdkCallReport, voiceSdkCallReportStatsObject)
 
         override fun toString(): String =
             when {
-                unnamedSchemaWithArrayParent0s != null ->
-                    "Stats{unnamedSchemaWithArrayParent0s=$unnamedSchemaWithArrayParent0s}"
-                unionMember1 != null -> "Stats{unionMember1=$unionMember1}"
+                voiceSdkCallReport != null -> "Stats{voiceSdkCallReport=$voiceSdkCallReport}"
+                voiceSdkCallReportStatsObject != null ->
+                    "Stats{voiceSdkCallReportStatsObject=$voiceSdkCallReportStatsObject}"
                 _json != null -> "Stats{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Stats")
             }
@@ -1577,25 +1583,26 @@ private constructor(
 
             /** Raw interval stats snapshots emitted by the Voice SDK. */
             @JvmStatic
-            fun ofUnnamedSchemaWithArrayParent0s(
-                unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
-            ) = Stats(unnamedSchemaWithArrayParent0s = unnamedSchemaWithArrayParent0s.toImmutable())
+            fun ofVoiceSdkCallReport(voiceSdkCallReport: List<VoiceSdkCallReportStat>) =
+                Stats(voiceSdkCallReport = voiceSdkCallReport.toImmutable())
 
             /** Raw stats object emitted by the Voice SDK. */
             @JvmStatic
-            fun ofUnionMember1(unionMember1: UnionMember1) = Stats(unionMember1 = unionMember1)
+            fun ofVoiceSdkCallReportStatsObject(
+                voiceSdkCallReportStatsObject: VoiceSdkCallReportStatsObject
+            ) = Stats(voiceSdkCallReportStatsObject = voiceSdkCallReportStatsObject)
         }
 
         /** An interface that defines how to map each variant of [Stats] to a value of type [T]. */
         interface Visitor<out T> {
 
             /** Raw interval stats snapshots emitted by the Voice SDK. */
-            fun visitUnnamedSchemaWithArrayParent0s(
-                unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
-            ): T
+            fun visitVoiceSdkCallReport(voiceSdkCallReport: List<VoiceSdkCallReportStat>): T
 
             /** Raw stats object emitted by the Voice SDK. */
-            fun visitUnionMember1(unionMember1: UnionMember1): T
+            fun visitVoiceSdkCallReportStatsObject(
+                voiceSdkCallReportStatsObject: VoiceSdkCallReportStatsObject
+            ): T
 
             /**
              * Maps an unknown variant of [Stats] to a value of type [T].
@@ -1619,14 +1626,10 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<UnionMember1>())?.let {
-                                Stats(unionMember1 = it, _json = json)
-                            },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<List<UnnamedSchemaWithArrayParent0>>(),
-                                )
-                                ?.let { Stats(unnamedSchemaWithArrayParent0s = it, _json = json) },
+                            tryDeserialize(node, jacksonTypeRef<VoiceSdkCallReportStatsObject>())
+                                ?.let { Stats(voiceSdkCallReportStatsObject = it, _json = json) },
+                            tryDeserialize(node, jacksonTypeRef<List<VoiceSdkCallReportStat>>())
+                                ?.let { Stats(voiceSdkCallReport = it, _json = json) },
                         )
                         .filterNotNull()
                         .allMaxBy { it.validity() }
@@ -1652,9 +1655,10 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.unnamedSchemaWithArrayParent0s != null ->
-                        generator.writeObject(value.unnamedSchemaWithArrayParent0s)
-                    value.unionMember1 != null -> generator.writeObject(value.unionMember1)
+                    value.voiceSdkCallReport != null ->
+                        generator.writeObject(value.voiceSdkCallReport)
+                    value.voiceSdkCallReportStatsObject != null ->
+                        generator.writeObject(value.voiceSdkCallReportStatsObject)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Stats")
                 }
@@ -1665,7 +1669,7 @@ private constructor(
          * Raw stats snapshot. It may include WebRTC RTCStatsReport-style entries and audio,
          * connection, ICE, or transport metrics.
          */
-        class UnnamedSchemaWithArrayParent0
+        class VoiceSdkCallReportStat
         @JsonCreator
         private constructor(
             @com.fasterxml.jackson.annotation.JsonValue
@@ -1682,22 +1686,21 @@ private constructor(
 
                 /**
                  * Returns a mutable builder for constructing an instance of
-                 * [UnnamedSchemaWithArrayParent0].
+                 * [VoiceSdkCallReportStat].
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [UnnamedSchemaWithArrayParent0]. */
+            /** A builder for [VoiceSdkCallReportStat]. */
             class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(unnamedSchemaWithArrayParent0: UnnamedSchemaWithArrayParent0) =
-                    apply {
-                        additionalProperties =
-                            unnamedSchemaWithArrayParent0.additionalProperties.toMutableMap()
-                    }
+                internal fun from(voiceSdkCallReportStat: VoiceSdkCallReportStat) = apply {
+                    additionalProperties =
+                        voiceSdkCallReportStat.additionalProperties.toMutableMap()
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1722,12 +1725,12 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [UnnamedSchemaWithArrayParent0].
+                 * Returns an immutable instance of [VoiceSdkCallReportStat].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): UnnamedSchemaWithArrayParent0 =
-                    UnnamedSchemaWithArrayParent0(additionalProperties.toImmutable())
+                fun build(): VoiceSdkCallReportStat =
+                    VoiceSdkCallReportStat(additionalProperties.toImmutable())
             }
 
             private var validated: Boolean = false
@@ -1742,7 +1745,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnnamedSchemaWithArrayParent0 = apply {
+            fun validate(): VoiceSdkCallReportStat = apply {
                 if (validated) {
                     return@apply
                 }
@@ -1773,7 +1776,7 @@ private constructor(
                     return true
                 }
 
-                return other is UnnamedSchemaWithArrayParent0 &&
+                return other is VoiceSdkCallReportStat &&
                     additionalProperties == other.additionalProperties
             }
 
@@ -1782,11 +1785,11 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "UnnamedSchemaWithArrayParent0{additionalProperties=$additionalProperties}"
+                "VoiceSdkCallReportStat{additionalProperties=$additionalProperties}"
         }
 
         /** Raw stats object emitted by the Voice SDK. */
-        class UnionMember1
+        class VoiceSdkCallReportStatsObject
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val audio: JsonField<Audio>,
@@ -1891,11 +1894,14 @@ private constructor(
 
             companion object {
 
-                /** Returns a mutable builder for constructing an instance of [UnionMember1]. */
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [VoiceSdkCallReportStatsObject].
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [UnionMember1]. */
+            /** A builder for [VoiceSdkCallReportStatsObject]. */
             class Builder internal constructor() {
 
                 private var audio: JsonField<Audio> = JsonMissing.of()
@@ -1905,13 +1911,15 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(unionMember1: UnionMember1) = apply {
-                    audio = unionMember1.audio
-                    connection = unionMember1.connection
-                    ice = unionMember1.ice
-                    transport = unionMember1.transport
-                    additionalProperties = unionMember1.additionalProperties.toMutableMap()
-                }
+                internal fun from(voiceSdkCallReportStatsObject: VoiceSdkCallReportStatsObject) =
+                    apply {
+                        audio = voiceSdkCallReportStatsObject.audio
+                        connection = voiceSdkCallReportStatsObject.connection
+                        ice = voiceSdkCallReportStatsObject.ice
+                        transport = voiceSdkCallReportStatsObject.transport
+                        additionalProperties =
+                            voiceSdkCallReportStatsObject.additionalProperties.toMutableMap()
+                    }
 
                 /**
                  * Raw audio stats such as inbound/outbound packet, byte, jitter, packet-loss,
@@ -2000,12 +2008,12 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [UnionMember1].
+                 * Returns an immutable instance of [VoiceSdkCallReportStatsObject].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): UnionMember1 =
-                    UnionMember1(
+                fun build(): VoiceSdkCallReportStatsObject =
+                    VoiceSdkCallReportStatsObject(
                         audio,
                         connection,
                         ice,
@@ -2026,7 +2034,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnionMember1 = apply {
+            fun validate(): VoiceSdkCallReportStatsObject = apply {
                 if (validated) {
                     return@apply
                 }
@@ -2535,7 +2543,7 @@ private constructor(
                     return true
                 }
 
-                return other is UnionMember1 &&
+                return other is VoiceSdkCallReportStatsObject &&
                     audio == other.audio &&
                     connection == other.connection &&
                     ice == other.ice &&
@@ -2550,7 +2558,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "UnionMember1{audio=$audio, connection=$connection, ice=$ice, transport=$transport, additionalProperties=$additionalProperties}"
+                "VoiceSdkCallReportStatsObject{audio=$audio, connection=$connection, ice=$ice, transport=$transport, additionalProperties=$additionalProperties}"
         }
     }
 

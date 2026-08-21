@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all Networks. */
+/** Returns a paginated list of the private networks on your account, with support for filtering. */
 class NetworkListParams
 private constructor(
     private val filter: Filter?,

@@ -8,7 +8,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns one specific WDR report */
+/**
+ * Returns a single Wireless Detail Record (WDR) report by its identifier, including its parameters
+ * and current status.
+ */
 class DetailRecordsReportRetrieveParams
 private constructor(
     private val id: String?,

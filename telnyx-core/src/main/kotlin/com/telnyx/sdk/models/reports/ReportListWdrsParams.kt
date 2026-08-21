@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Fetch all Wdr records */
+/**
+ * Returns wireless detail records (WDRs) matching the provided criteria, such as date range, SIM
+ * card, IMSI, or phone number, with pagination and sorting.
+ */
 class ReportListWdrsParams
 private constructor(
     private val id: String?,

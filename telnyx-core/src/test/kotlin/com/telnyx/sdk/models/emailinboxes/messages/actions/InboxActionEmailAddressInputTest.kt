@@ -21,7 +21,7 @@ internal class InboxActionEmailAddressInputTest {
         val inboxActionEmailAddressInput = InboxActionEmailAddressInput.ofString(string)
 
         assertThat(inboxActionEmailAddressInput.string()).contains(string)
-        assertThat(inboxActionEmailAddressInput.unionMember1()).isEmpty
+        assertThat(inboxActionEmailAddressInput.recipientAddress()).isEmpty
     }
 
     @Test
@@ -41,25 +41,26 @@ internal class InboxActionEmailAddressInputTest {
     }
 
     @Test
-    fun ofUnionMember1() {
-        val unionMember1 =
-            InboxActionEmailAddressInput.UnionMember1.builder()
+    fun ofRecipientAddress() {
+        val recipientAddress =
+            InboxActionEmailAddressInput.InboxRecipientAddress.builder()
                 .email("J!Q0Ok0bzJb7@pro.z\$")
                 .name("name")
                 .build()
 
-        val inboxActionEmailAddressInput = InboxActionEmailAddressInput.ofUnionMember1(unionMember1)
+        val inboxActionEmailAddressInput =
+            InboxActionEmailAddressInput.ofRecipientAddress(recipientAddress)
 
         assertThat(inboxActionEmailAddressInput.string()).isEmpty
-        assertThat(inboxActionEmailAddressInput.unionMember1()).contains(unionMember1)
+        assertThat(inboxActionEmailAddressInput.recipientAddress()).contains(recipientAddress)
     }
 
     @Test
-    fun ofUnionMember1Roundtrip() {
+    fun ofRecipientAddressRoundtrip() {
         val jsonMapper = jsonMapper()
         val inboxActionEmailAddressInput =
-            InboxActionEmailAddressInput.ofUnionMember1(
-                InboxActionEmailAddressInput.UnionMember1.builder()
+            InboxActionEmailAddressInput.ofRecipientAddress(
+                InboxActionEmailAddressInput.InboxRecipientAddress.builder()
                     .email("J!Q0Ok0bzJb7@pro.z\$")
                     .name("name")
                     .build()

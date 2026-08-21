@@ -33,7 +33,10 @@ interface IpService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): IpService
 
-    /** Create a new IP object. */
+    /**
+     * Creates a new IP record for use with IP-based connections, associating an IP address with the
+     * specified connection.
+     */
     fun create(params: IpCreateParams): IpCreateResponse = create(params, RequestOptions.none())
 
     /** @see create */
@@ -72,7 +75,7 @@ interface IpService {
     fun retrieve(id: String, requestOptions: RequestOptions): IpRetrieveResponse =
         retrieve(id, IpRetrieveParams.none(), requestOptions)
 
-    /** Update the details of a specific IP. */
+    /** Updates the details of the specified IP record and returns the updated IP. */
     fun update(id: String, params: IpUpdateParams): IpUpdateResponse =
         update(id, params, RequestOptions.none())
 
@@ -108,7 +111,7 @@ interface IpService {
     /** @see list */
     fun list(requestOptions: RequestOptions): IpListPage = list(IpListParams.none(), requestOptions)
 
-    /** Delete an IP. */
+    /** Permanently deletes the specified IP record from its connection. */
     fun delete(id: String): IpDeleteResponse = delete(id, IpDeleteParams.none())
 
     /** @see delete */

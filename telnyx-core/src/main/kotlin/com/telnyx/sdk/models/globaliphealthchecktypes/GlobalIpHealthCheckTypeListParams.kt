@@ -6,7 +6,10 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
 
-/** List all Global IP Health check types. */
+/**
+ * Returns the health check types available for Global IPs, for use when creating Global IP health
+ * checks.
+ */
 class GlobalIpHealthCheckTypeListParams
 private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,

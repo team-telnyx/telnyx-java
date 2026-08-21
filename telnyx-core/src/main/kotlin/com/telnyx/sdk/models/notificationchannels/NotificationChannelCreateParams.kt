@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a notification channel. */
+/**
+ * Creates a new notification channel defining where notifications are delivered, and returns the
+ * created channel.
+ */
 class NotificationChannelCreateParams
 private constructor(
     private val notificationChannel: NotificationChannel?,

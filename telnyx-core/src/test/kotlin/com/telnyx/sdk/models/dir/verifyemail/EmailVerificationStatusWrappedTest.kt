@@ -15,12 +15,10 @@ internal class EmailVerificationStatusWrappedTest {
         val emailVerificationStatusWrapped =
             EmailVerificationStatusWrapped.builder()
                 .data(
-                    EmailVerificationStatusWrapped.Data.builder()
+                    EmailVerificationStatus.builder()
                         .emailVerified(false)
-                        .recordType(
-                            EmailVerificationStatusWrapped.Data.RecordType.EMAIL_VERIFICATION
-                        )
-                        .status(EmailVerificationStatusWrapped.Data.Status.SENT)
+                        .recordType(EmailVerificationStatus.RecordType.EMAIL_VERIFICATION)
+                        .status(EmailVerificationStatus.Status.SENT)
                         .expiresAt(OffsetDateTime.parse("2026-07-30T17:15:00Z"))
                         .sendsRemainingToday(9L)
                         .build()
@@ -29,10 +27,10 @@ internal class EmailVerificationStatusWrappedTest {
 
         assertThat(emailVerificationStatusWrapped.data())
             .isEqualTo(
-                EmailVerificationStatusWrapped.Data.builder()
+                EmailVerificationStatus.builder()
                     .emailVerified(false)
-                    .recordType(EmailVerificationStatusWrapped.Data.RecordType.EMAIL_VERIFICATION)
-                    .status(EmailVerificationStatusWrapped.Data.Status.SENT)
+                    .recordType(EmailVerificationStatus.RecordType.EMAIL_VERIFICATION)
+                    .status(EmailVerificationStatus.Status.SENT)
                     .expiresAt(OffsetDateTime.parse("2026-07-30T17:15:00Z"))
                     .sendsRemainingToday(9L)
                     .build()
@@ -45,12 +43,10 @@ internal class EmailVerificationStatusWrappedTest {
         val emailVerificationStatusWrapped =
             EmailVerificationStatusWrapped.builder()
                 .data(
-                    EmailVerificationStatusWrapped.Data.builder()
+                    EmailVerificationStatus.builder()
                         .emailVerified(false)
-                        .recordType(
-                            EmailVerificationStatusWrapped.Data.RecordType.EMAIL_VERIFICATION
-                        )
-                        .status(EmailVerificationStatusWrapped.Data.Status.SENT)
+                        .recordType(EmailVerificationStatus.RecordType.EMAIL_VERIFICATION)
+                        .status(EmailVerificationStatus.Status.SENT)
                         .expiresAt(OffsetDateTime.parse("2026-07-30T17:15:00Z"))
                         .sendsRemainingToday(9L)
                         .build()

@@ -60,7 +60,10 @@ interface BrandService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TelnyxBrand
 
-    /** Retrieve a brand by `brandId`. */
+    /**
+     * Returns the details of a 10DLC brand by its brandId, including the count of campaigns
+     * associated with the brand.
+     */
     fun retrieve(brandId: String): BrandRetrieveResponse =
         retrieve(brandId, BrandRetrieveParams.none())
 

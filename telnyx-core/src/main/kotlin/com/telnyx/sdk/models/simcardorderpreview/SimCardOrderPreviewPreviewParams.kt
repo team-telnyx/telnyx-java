@@ -17,7 +17,10 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Preview SIM card order purchases. */
+/**
+ * Previews a SIM card order purchase, returning estimated costs and details before you place the
+ * order. The preview is processed asynchronously.
+ */
 class SimCardOrderPreviewPreviewParams
 private constructor(
     private val body: Body,

@@ -53,6 +53,22 @@ internal class AssistantToolTest {
                                 .value("value")
                                 .build()
                         )
+                        .addMessage(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                .WebhookToolRequestStartMessage
+                                .builder()
+                                .content("Let me look that up for you.")
+                                .timingMs(100L)
+                                .build()
+                        )
+                        .addMessage(
+                            InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                .WebhookToolRequestResponseDelayedMessage
+                                .builder()
+                                .content("Still working on that.")
+                                .timingMs(5000L)
+                                .build()
+                        )
                         .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                         .pathParameters(
                             InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
@@ -155,6 +171,22 @@ internal class AssistantToolTest {
                                 InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
                                     .name("name")
                                     .value("value")
+                                    .build()
+                            )
+                            .addMessage(
+                                InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                    .WebhookToolRequestStartMessage
+                                    .builder()
+                                    .content("Let me look that up for you.")
+                                    .timingMs(100L)
+                                    .build()
+                            )
+                            .addMessage(
+                                InferenceEmbeddingWebhookToolParams.Webhook.Message
+                                    .WebhookToolRequestResponseDelayedMessage
+                                    .builder()
+                                    .content("Still working on that.")
+                                    .timingMs(5000L)
                                     .build()
                             )
                             .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)

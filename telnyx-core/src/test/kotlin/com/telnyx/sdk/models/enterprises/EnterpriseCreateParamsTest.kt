@@ -11,7 +11,7 @@ internal class EnterpriseCreateParamsTest {
     fun create() {
         EnterpriseCreateParams.builder()
             .billingAddress(
-                BillingAddress.builder()
+                PhysicalAddress.builder()
                     .administrativeArea("IL")
                     .city("Chicago")
                     .country("US")
@@ -71,7 +71,7 @@ internal class EnterpriseCreateParamsTest {
         val params =
             EnterpriseCreateParams.builder()
                 .billingAddress(
-                    BillingAddress.builder()
+                    PhysicalAddress.builder()
                         .administrativeArea("IL")
                         .city("Chicago")
                         .country("US")
@@ -131,7 +131,7 @@ internal class EnterpriseCreateParamsTest {
 
         assertThat(body.billingAddress())
             .isEqualTo(
-                BillingAddress.builder()
+                PhysicalAddress.builder()
                     .administrativeArea("IL")
                     .city("Chicago")
                     .country("US")
@@ -196,7 +196,7 @@ internal class EnterpriseCreateParamsTest {
         val params =
             EnterpriseCreateParams.builder()
                 .billingAddress(
-                    BillingAddress.builder()
+                    PhysicalAddress.builder()
                         .administrativeArea("IL")
                         .city("Chicago")
                         .country("US")
@@ -248,7 +248,7 @@ internal class EnterpriseCreateParamsTest {
 
         assertThat(body.billingAddress())
             .isEqualTo(
-                BillingAddress.builder()
+                PhysicalAddress.builder()
                     .administrativeArea("IL")
                     .city("Chicago")
                     .country("US")

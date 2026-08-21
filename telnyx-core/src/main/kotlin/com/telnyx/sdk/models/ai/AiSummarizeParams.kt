@@ -17,6 +17,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Generate a summary of a file's contents.
@@ -30,10 +31,13 @@ import java.util.Optional
  */
 class AiSummarizeParams
 private constructor(
+    private val idempotencyKey: String?,
     private val body: Body,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
     /**
      * The name of the bucket that contains the file to be summarized.
@@ -107,6 +111,7 @@ private constructor(
     /** A builder for [AiSummarizeParams]. */
     class Builder internal constructor() {
 
+        private var idempotencyKey: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
@@ -114,10 +119,17 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(aiSummarizeParams: AiSummarizeParams) = apply {
+            idempotencyKey = aiSummarizeParams.idempotencyKey
             body = aiSummarizeParams.body.toBuilder()
             additionalHeaders = aiSummarizeParams.additionalHeaders.toBuilder()
             additionalQueryParams = aiSummarizeParams.additionalQueryParams.toBuilder()
         }
+
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
+
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -299,6 +311,7 @@ private constructor(
          */
         fun build(): AiSummarizeParams =
             AiSummarizeParams(
+                idempotencyKey,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -307,7 +320,13 @@ private constructor(
 
     fun _body(): Body = body
 
-    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers =
+        com.telnyx.sdk.core.http.Headers.builder()
+            .apply {
+                idempotencyKey?.let { put("Idempotency-Key", it) }
+                putAll(additionalHeaders)
+            }
+            .build()
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
@@ -570,13 +589,15 @@ private constructor(
         }
 
         return other is AiSummarizeParams &&
+            idempotencyKey == other.idempotencyKey &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(idempotencyKey, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "AiSummarizeParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AiSummarizeParams{idempotencyKey=$idempotencyKey, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

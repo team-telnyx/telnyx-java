@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftCreateParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftDeleteParams
+import com.telnyx.sdk.models.emailinboxes.drafts.DraftListPageAsync
+import com.telnyx.sdk.models.emailinboxes.drafts.DraftListPageResponse
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftListParams
-import com.telnyx.sdk.models.emailinboxes.drafts.DraftListResponse
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftPatchParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftRetrieveParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftSendParams
@@ -71,7 +72,7 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: DraftListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DraftListResponse> =
+    ): CompletableFuture<DraftListPageAsync> =
         // get /email_inboxes/{inbox_id}/drafts
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -220,13 +221,13 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val listHandler: Handler<DraftListResponse> =
-            jsonHandler<DraftListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DraftListPageResponse> =
+            jsonHandler<DraftListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DraftListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DraftListResponse>> {
+        ): CompletableFuture<HttpResponseFor<DraftListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("inboxId", params.inboxId().getOrNull())
@@ -248,6 +249,14 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                DraftListPageAsync.builder()
+                                    .service(DraftServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

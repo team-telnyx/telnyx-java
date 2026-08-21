@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create an outbound voice profile. */
+/**
+ * Creates a new outbound voice profile defining calling permissions, destinations, and limits for
+ * outbound calls, and returns the created profile.
+ */
 class OutboundVoiceProfileCreateParams
 private constructor(
     private val body: Body,

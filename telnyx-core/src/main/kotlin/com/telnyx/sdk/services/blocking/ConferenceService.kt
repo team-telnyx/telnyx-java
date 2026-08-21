@@ -61,7 +61,7 @@ interface ConferenceService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConferenceCreateResponse
 
-    /** Retrieve an existing conference */
+    /** Returns the details of an existing conference, including its current status. */
     fun retrieve(id: String): ConferenceRetrieveResponse =
         retrieve(id, ConferenceRetrieveParams.none())
 
@@ -113,7 +113,10 @@ interface ConferenceService {
     fun list(requestOptions: RequestOptions): ConferenceListPage =
         list(ConferenceListParams.none(), requestOptions)
 
-    /** Lists conference participants */
+    /**
+     * Returns a paginated list of participants in the specified conference, with support for
+     * filtering.
+     */
     fun listParticipants(conferenceId: String): ConferenceListParticipantsPage =
         listParticipants(conferenceId, ConferenceListParticipantsParams.none())
 

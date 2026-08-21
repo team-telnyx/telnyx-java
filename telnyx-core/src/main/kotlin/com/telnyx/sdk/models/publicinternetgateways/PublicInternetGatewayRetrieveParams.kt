@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a Public Internet Gateway. */
+/** Returns the details of a single public internet gateway by its identifier. */
 class PublicInternetGatewayRetrieveParams
 private constructor(
     private val id: String?,

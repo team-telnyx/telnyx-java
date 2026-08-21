@@ -8,7 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a notification profile. */
+/** Returns the details of a single notification profile by its identifier. */
 class NotificationProfileRetrieveParams
 private constructor(
     private val id: String?,

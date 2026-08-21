@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates a phone number order. */
+/**
+ * Updates an existing phone number order, for example to satisfy regulatory requirements attached
+ * to the order, and returns the updated order.
+ */
 class NumberOrderUpdateParams
 private constructor(
     private val numberOrderId: String?,

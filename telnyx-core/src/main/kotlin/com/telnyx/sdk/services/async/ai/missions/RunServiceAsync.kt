@@ -42,7 +42,10 @@ interface RunServiceAsync {
 
     fun telnyxAgents(): TelnyxAgentServiceAsync
 
-    /** Start a new run for a mission */
+    /**
+     * Starts a new run of the specified mission and returns the created run object. Track its
+     * progress through the run detail, plan, and events endpoints.
+     */
     fun create(missionId: String): CompletableFuture<MissionRunResponse> =
         create(missionId, RunCreateParams.none())
 
@@ -77,7 +80,10 @@ interface RunServiceAsync {
     ): CompletableFuture<MissionRunResponse> =
         create(missionId, RunCreateParams.none(), requestOptions)
 
-    /** Get details of a specific run */
+    /**
+     * Returns the full details of a single run, including its current status. Use this to poll an
+     * in-flight run or inspect the outcome of a completed one.
+     */
     fun retrieve(runId: String, params: RunRetrieveParams): CompletableFuture<MissionRunResponse> =
         retrieve(runId, params, RequestOptions.none())
 
@@ -99,7 +105,10 @@ interface RunServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MissionRunResponse>
 
-    /** Update run status and/or result */
+    /**
+     * Updates a run's status and/or result and returns the updated run object. Typically used by
+     * executing agents to report progress or record the final outcome.
+     */
     fun update(runId: String, params: RunUpdateParams): CompletableFuture<MissionRunResponse> =
         update(runId, params, RequestOptions.none())
 
@@ -121,7 +130,10 @@ interface RunServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MissionRunResponse>
 
-    /** List all runs for a specific mission */
+    /**
+     * Returns a paginated list of runs for the specified mission, optionally filtered by run
+     * status, so you can track the mission's execution history over time.
+     */
     fun list(missionId: String): CompletableFuture<RunListPageAsync> =
         list(missionId, RunListParams.none())
 
@@ -155,7 +167,10 @@ interface RunServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<RunListPageAsync> = list(missionId, RunListParams.none(), requestOptions)
 
-    /** Cancel a running or paused run */
+    /**
+     * Cancels a running or paused run and returns the updated run object. A cancelled run stops
+     * executing; start a new run to execute the mission again.
+     */
     fun cancelRun(
         runId: String,
         params: RunCancelRunParams,
@@ -179,7 +194,11 @@ interface RunServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MissionRunResponse>
 
-    /** List recent runs across all missions */
+    /**
+     * Returns a paginated list of recent runs across every mission in your organization, optionally
+     * filtered by run status. Useful for monitoring overall mission activity without querying each
+     * mission individually.
+     */
     fun listRuns(): CompletableFuture<RunListRunsPageAsync> = listRuns(RunListRunsParams.none())
 
     /** @see listRuns */
@@ -197,7 +216,10 @@ interface RunServiceAsync {
     fun listRuns(requestOptions: RequestOptions): CompletableFuture<RunListRunsPageAsync> =
         listRuns(RunListRunsParams.none(), requestOptions)
 
-    /** Pause a running run */
+    /**
+     * Pauses a currently running run and returns the updated run object. Execution halts until the
+     * run is resumed.
+     */
     fun pauseRun(runId: String, params: RunPauseRunParams): CompletableFuture<MissionRunResponse> =
         pauseRun(runId, params, RequestOptions.none())
 
@@ -219,7 +241,10 @@ interface RunServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MissionRunResponse>
 
-    /** Resume a paused run */
+    /**
+     * Resumes a previously paused run and returns the updated run object, letting execution
+     * continue from where it was paused.
+     */
     fun resumeRun(
         runId: String,
         params: RunResumeRunParams,
