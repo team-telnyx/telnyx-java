@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.calls.actions
 
 import com.telnyx.sdk.core.JsonValue
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -61,6 +62,8 @@ internal class ActionPayParamsTest {
             .serviceLevel("service_level")
             .timeoutMillis(5000)
             .transactionType(ActionPayParams.TransactionType.CHARGE)
+            .addValidCardType(ActionPayParams.ValidCardType.VISA)
+            .addValidCardType(ActionPayParams.ValidCardType.MASTERCARD)
             .voice("female")
             .build()
     }
@@ -132,6 +135,8 @@ internal class ActionPayParamsTest {
                 .serviceLevel("service_level")
                 .timeoutMillis(5000)
                 .transactionType(ActionPayParams.TransactionType.CHARGE)
+                .addValidCardType(ActionPayParams.ValidCardType.VISA)
+                .addValidCardType(ActionPayParams.ValidCardType.MASTERCARD)
                 .voice("female")
                 .build()
 
@@ -189,6 +194,11 @@ internal class ActionPayParamsTest {
         assertThat(body.serviceLevel()).contains("service_level")
         assertThat(body.timeoutMillis()).contains(5000)
         assertThat(body.transactionType()).contains(ActionPayParams.TransactionType.CHARGE)
+        assertThat(body.validCardTypes().getOrNull())
+            .containsExactly(
+                ActionPayParams.ValidCardType.VISA,
+                ActionPayParams.ValidCardType.MASTERCARD,
+            )
         assertThat(body.voice()).contains("female")
     }
 

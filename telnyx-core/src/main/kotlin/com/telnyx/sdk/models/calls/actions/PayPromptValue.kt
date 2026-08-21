@@ -276,9 +276,7 @@ private constructor(
         fun attempt(): Optional<String> = attempt.getOptional("attempt")
 
         /**
-         * Lowercase, case-sensitive detected card type for which this prompt applies. Only the
-         * listed brands are currently detected; accepted UnionPay and Maestro test cards do not
-         * produce a card-type qualifier.
+         * Lowercase, case-sensitive detected card type for which this prompt applies.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -390,11 +388,7 @@ private constructor(
              */
             fun attempt(attempt: JsonField<String>) = apply { this.attempt = attempt }
 
-            /**
-             * Lowercase, case-sensitive detected card type for which this prompt applies. Only the
-             * listed brands are currently detected; accepted UnionPay and Maestro test cards do not
-             * produce a card-type qualifier.
-             */
+            /** Lowercase, case-sensitive detected card type for which this prompt applies. */
             fun cardType(cardType: CardType) = cardType(JsonField.of(cardType))
 
             /**
@@ -503,11 +497,7 @@ private constructor(
                 (cardType.asKnown().getOrNull()?.validity() ?: 0) +
                 (errorType.asKnown().getOrNull()?.validity() ?: 0)
 
-        /**
-         * Lowercase, case-sensitive detected card type for which this prompt applies. Only the
-         * listed brands are currently detected; accepted UnionPay and Maestro test cards do not
-         * produce a card-type qualifier.
-         */
+        /** Lowercase, case-sensitive detected card type for which this prompt applies. */
         class CardType @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
 
@@ -529,11 +519,17 @@ private constructor(
 
                 @JvmField val AMEX = of("amex")
 
+                @JvmField val OPTIMA = of("optima")
+
                 @JvmField val DISCOVER = of("discover")
 
                 @JvmField val DINERS_CLUB = of("diners-club")
 
                 @JvmField val JCB = of("jcb")
+
+                @JvmField val MAESTRO = of("maestro")
+
+                @JvmField val ENROUTE = of("enroute")
 
                 @JvmStatic fun of(value: String) = CardType(JsonField.of(value))
             }
@@ -543,9 +539,12 @@ private constructor(
                 VISA,
                 MASTERCARD,
                 AMEX,
+                OPTIMA,
                 DISCOVER,
                 DINERS_CLUB,
                 JCB,
+                MAESTRO,
+                ENROUTE,
             }
 
             /**
@@ -561,9 +560,12 @@ private constructor(
                 VISA,
                 MASTERCARD,
                 AMEX,
+                OPTIMA,
                 DISCOVER,
                 DINERS_CLUB,
                 JCB,
+                MAESTRO,
+                ENROUTE,
                 /**
                  * An enum member indicating that [CardType] was instantiated with an unknown value.
                  */
@@ -582,9 +584,12 @@ private constructor(
                     VISA -> Value.VISA
                     MASTERCARD -> Value.MASTERCARD
                     AMEX -> Value.AMEX
+                    OPTIMA -> Value.OPTIMA
                     DISCOVER -> Value.DISCOVER
                     DINERS_CLUB -> Value.DINERS_CLUB
                     JCB -> Value.JCB
+                    MAESTRO -> Value.MAESTRO
+                    ENROUTE -> Value.ENROUTE
                     else -> Value._UNKNOWN
                 }
 
@@ -602,9 +607,12 @@ private constructor(
                     VISA -> Known.VISA
                     MASTERCARD -> Known.MASTERCARD
                     AMEX -> Known.AMEX
+                    OPTIMA -> Known.OPTIMA
                     DISCOVER -> Known.DISCOVER
                     DINERS_CLUB -> Known.DINERS_CLUB
                     JCB -> Known.JCB
+                    MAESTRO -> Known.MAESTRO
+                    ENROUTE -> Known.ENROUTE
                     else -> throw TelnyxInvalidDataException("Unknown CardType: $value")
                 }
 
@@ -692,6 +700,8 @@ private constructor(
 
                 @JvmField val INVALID_CARD_NUMBER = of("invalid-card-number")
 
+                @JvmField val INVALID_CARD_TYPE = of("invalid-card-type")
+
                 @JvmField val INVALID_DATE = of("invalid-date")
 
                 @JvmField val INVALID_SECURITY_CODE = of("invalid-security-code")
@@ -711,6 +721,7 @@ private constructor(
             enum class Known {
                 TIMEOUT,
                 INVALID_CARD_NUMBER,
+                INVALID_CARD_TYPE,
                 INVALID_DATE,
                 INVALID_SECURITY_CODE,
                 INVALID_POSTAL_CODE,
@@ -731,6 +742,7 @@ private constructor(
             enum class Value {
                 TIMEOUT,
                 INVALID_CARD_NUMBER,
+                INVALID_CARD_TYPE,
                 INVALID_DATE,
                 INVALID_SECURITY_CODE,
                 INVALID_POSTAL_CODE,
@@ -755,6 +767,7 @@ private constructor(
                 when (this) {
                     TIMEOUT -> Value.TIMEOUT
                     INVALID_CARD_NUMBER -> Value.INVALID_CARD_NUMBER
+                    INVALID_CARD_TYPE -> Value.INVALID_CARD_TYPE
                     INVALID_DATE -> Value.INVALID_DATE
                     INVALID_SECURITY_CODE -> Value.INVALID_SECURITY_CODE
                     INVALID_POSTAL_CODE -> Value.INVALID_POSTAL_CODE
@@ -777,6 +790,7 @@ private constructor(
                 when (this) {
                     TIMEOUT -> Known.TIMEOUT
                     INVALID_CARD_NUMBER -> Known.INVALID_CARD_NUMBER
+                    INVALID_CARD_TYPE -> Known.INVALID_CARD_TYPE
                     INVALID_DATE -> Known.INVALID_DATE
                     INVALID_SECURITY_CODE -> Known.INVALID_SECURITY_CODE
                     INVALID_POSTAL_CODE -> Known.INVALID_POSTAL_CODE

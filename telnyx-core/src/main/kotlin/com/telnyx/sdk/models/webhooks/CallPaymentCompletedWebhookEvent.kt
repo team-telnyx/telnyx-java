@@ -2067,11 +2067,17 @@ private constructor(
 
                     @JvmField val AMEX = of("amex")
 
+                    @JvmField val OPTIMA = of("optima")
+
                     @JvmField val DISCOVER = of("discover")
 
                     @JvmField val DINERS_CLUB = of("diners-club")
 
                     @JvmField val JCB = of("jcb")
+
+                    @JvmField val MAESTRO = of("maestro")
+
+                    @JvmField val ENROUTE = of("enroute")
 
                     @JvmStatic fun of(value: String) = PaymentCardType(JsonField.of(value))
                 }
@@ -2081,9 +2087,12 @@ private constructor(
                     VISA,
                     MASTERCARD,
                     AMEX,
+                    OPTIMA,
                     DISCOVER,
                     DINERS_CLUB,
                     JCB,
+                    MAESTRO,
+                    ENROUTE,
                 }
 
                 /**
@@ -2101,9 +2110,12 @@ private constructor(
                     VISA,
                     MASTERCARD,
                     AMEX,
+                    OPTIMA,
                     DISCOVER,
                     DINERS_CLUB,
                     JCB,
+                    MAESTRO,
+                    ENROUTE,
                     /**
                      * An enum member indicating that [PaymentCardType] was instantiated with an
                      * unknown value.
@@ -2123,9 +2135,12 @@ private constructor(
                         VISA -> Value.VISA
                         MASTERCARD -> Value.MASTERCARD
                         AMEX -> Value.AMEX
+                        OPTIMA -> Value.OPTIMA
                         DISCOVER -> Value.DISCOVER
                         DINERS_CLUB -> Value.DINERS_CLUB
                         JCB -> Value.JCB
+                        MAESTRO -> Value.MAESTRO
+                        ENROUTE -> Value.ENROUTE
                         else -> Value._UNKNOWN
                     }
 
@@ -2143,9 +2158,12 @@ private constructor(
                         VISA -> Known.VISA
                         MASTERCARD -> Known.MASTERCARD
                         AMEX -> Known.AMEX
+                        OPTIMA -> Known.OPTIMA
                         DISCOVER -> Known.DISCOVER
                         DINERS_CLUB -> Known.DINERS_CLUB
                         JCB -> Known.JCB
+                        MAESTRO -> Known.MAESTRO
+                        ENROUTE -> Known.ENROUTE
                         else -> throw TelnyxInvalidDataException("Unknown PaymentCardType: $value")
                     }
 

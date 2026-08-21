@@ -776,6 +776,8 @@ internal class ActionServiceTest {
                     .serviceLevel("service_level")
                     .timeoutMillis(5000)
                     .transactionType(ActionPayParams.TransactionType.CHARGE)
+                    .addValidCardType(ActionPayParams.ValidCardType.VISA)
+                    .addValidCardType(ActionPayParams.ValidCardType.MASTERCARD)
                     .voice("female")
                     .build()
             )
