@@ -62,7 +62,8 @@ private constructor(
      * `auto` when `language` is omitted — omitting it applies `en` instead. For `reson8/turns`,
      * supported values are `auto` (or unset) for automatic language detection, and the language
      * codes `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription
-     * language.
+     * language. For `cohere/ar-stt`, supported values are `ar` and `en`; unlike other models, this
+     * model does not auto-detect and defaults to `ar` when `language` is omitted.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -87,6 +88,7 @@ private constructor(
      *   support.
      * - `reson8/turns` is a turn-based streaming model covering 10 European languages with
      *   automatic language detection.
+     * - `cohere/ar-stt` is a non-streaming Arabic and English transcription model.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -210,7 +212,9 @@ private constructor(
          * models, `humain/realtime` does not fall back to `auto` when `language` is omitted —
          * omitting it applies `en` instead. For `reson8/turns`, supported values are `auto` (or
          * unset) for automatic language detection, and the language codes `nl`, `en`, `fr`, `fy`,
-         * `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language.
+         * `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language. For
+         * `cohere/ar-stt`, supported values are `ar` and `en`; unlike other models, this model does
+         * not auto-detect and defaults to `ar` when `language` is omitted.
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -240,6 +244,7 @@ private constructor(
          *   code-switching support.
          * - `reson8/turns` is a turn-based streaming model covering 10 European languages with
          *   automatic language detection.
+         * - `cohere/ar-stt` is a non-streaming Arabic and English transcription model.
          */
         fun model(model: Model) = model(JsonField.of(model))
 
@@ -375,6 +380,7 @@ private constructor(
      *   support.
      * - `reson8/turns` is a turn-based streaming model covering 10 European languages with
      *   automatic language detection.
+     * - `cohere/ar-stt` is a non-streaming Arabic and English transcription model.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -410,6 +416,8 @@ private constructor(
 
             @JvmField val RESON8_TURNS = of("reson8/turns")
 
+            @JvmField val COHERE_AR_STT = of("cohere/ar-stt")
+
             @JvmField val DISTIL_WHISPER_DISTIL_LARGE_V2 = of("distil-whisper/distil-large-v2")
 
             @JvmField val OPENAI_WHISPER_LARGE_V3_TURBO = of("openai/whisper-large-v3-turbo")
@@ -429,6 +437,7 @@ private constructor(
             NVIDIA_PARAKEET_V3,
             HUMAIN_REALTIME,
             RESON8_TURNS,
+            COHERE_AR_STT,
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
         }
@@ -453,6 +462,7 @@ private constructor(
             NVIDIA_PARAKEET_V3,
             HUMAIN_REALTIME,
             RESON8_TURNS,
+            COHERE_AR_STT,
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
@@ -478,6 +488,7 @@ private constructor(
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
                 RESON8_TURNS -> Value.RESON8_TURNS
+                COHERE_AR_STT -> Value.COHERE_AR_STT
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Value.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Value.OPENAI_WHISPER_LARGE_V3_TURBO
                 else -> Value._UNKNOWN
@@ -504,6 +515,7 @@ private constructor(
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
                 RESON8_TURNS -> Known.RESON8_TURNS
+                COHERE_AR_STT -> Known.COHERE_AR_STT
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Known.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Known.OPENAI_WHISPER_LARGE_V3_TURBO
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")

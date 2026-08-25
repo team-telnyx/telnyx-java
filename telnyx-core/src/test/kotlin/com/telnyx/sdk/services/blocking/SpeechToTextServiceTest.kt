@@ -47,6 +47,7 @@ internal class SpeechToTextServiceTest {
                 .language("language")
                 .model(SpeechToTextRetrieveTranscriptionParams.Model.FAST)
                 .redact("redact")
+                .sampleRate(0L)
                 .build()
         )
     }

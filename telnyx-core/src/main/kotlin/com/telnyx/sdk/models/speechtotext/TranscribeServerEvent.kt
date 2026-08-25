@@ -300,7 +300,8 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
-         * Confidence score of the transcription, ranging from 0 to 1.
+         * Confidence score of the transcription, ranging from 0 to 1. `cohere/ar-stt` frames return
+         * `null` here rather than omitting the field.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -410,8 +411,21 @@ private constructor(
              */
             fun type(type: JsonValue) = apply { this.type = type }
 
-            /** Confidence score of the transcription, ranging from 0 to 1. */
-            fun confidence(confidence: Double) = confidence(JsonField.of(confidence))
+            /**
+             * Confidence score of the transcription, ranging from 0 to 1. `cohere/ar-stt` frames
+             * return `null` here rather than omitting the field.
+             */
+            fun confidence(confidence: Double?) = confidence(JsonField.ofNullable(confidence))
+
+            /**
+             * Alias for [Builder.confidence].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun confidence(confidence: Double) = confidence(confidence as Double?)
+
+            /** Alias for calling [Builder.confidence] with `confidence.orElse(null)`. */
+            fun confidence(confidence: Optional<Double>) = confidence(confidence.getOrNull())
 
             /**
              * Sets [Builder.confidence] to an arbitrary JSON value.

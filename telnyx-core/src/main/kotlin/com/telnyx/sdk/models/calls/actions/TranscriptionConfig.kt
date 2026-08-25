@@ -52,7 +52,9 @@ private constructor(
      * `humain/realtime` does not fall back to `auto` when `language` is omitted — omitting it
      * applies `en` instead. For `reson8/turns`, supported values are `auto` (or unset) for
      * automatic language detection, and the language codes `nl`, `en`, `fr`, `fy`, `de`, `it`,
-     * `pl`, `pt`, `es`, and `sv` to fix the transcription language.
+     * `pl`, `pt`, `es`, and `sv` to fix the transcription language. For `cohere/ar-stt`, supported
+     * values are `ar` and `en`; unlike other models, this model does not auto-detect and defaults
+     * to `ar` when `language` is omitted.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -73,6 +75,7 @@ private constructor(
      *   code-switching support.
      * - `reson8/turns` for live streaming turn-based transcription of 10 European languages with
      *   automatic language detection.
+     * - `cohere/ar-stt` for non-streaming Arabic and English transcription.
      * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported regions
      *   require `api_key_ref`.
      * - `google/latest_long` for non-streaming multilingual transcription.
@@ -148,7 +151,9 @@ private constructor(
          * models, `humain/realtime` does not fall back to `auto` when `language` is omitted —
          * omitting it applies `en` instead. For `reson8/turns`, supported values are `auto` (or
          * unset) for automatic language detection, and the language codes `nl`, `en`, `fr`, `fy`,
-         * `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language.
+         * `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language. For
+         * `cohere/ar-stt`, supported values are `ar` and `en`; unlike other models, this model does
+         * not auto-detect and defaults to `ar` when `language` is omitted.
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -174,6 +179,7 @@ private constructor(
          *   Arabic/English code-switching support.
          * - `reson8/turns` for live streaming turn-based transcription of 10 European languages
          *   with automatic language detection.
+         * - `cohere/ar-stt` for non-streaming Arabic and English transcription.
          * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported
          *   regions require `api_key_ref`.
          * - `google/latest_long` for non-streaming multilingual transcription.
@@ -272,6 +278,7 @@ private constructor(
      *   code-switching support.
      * - `reson8/turns` for live streaming turn-based transcription of 10 European languages with
      *   automatic language detection.
+     * - `cohere/ar-stt` for non-streaming Arabic and English transcription.
      * - `azure/fast` and `azure/realtime`; Azure models require `region`, and unsupported regions
      *   require `api_key_ref`.
      * - `google/latest_long` for non-streaming multilingual transcription.
@@ -318,6 +325,8 @@ private constructor(
 
             @JvmField val RESON8_TURNS = of("reson8/turns")
 
+            @JvmField val COHERE_AR_STT = of("cohere/ar-stt")
+
             @JvmField val AZURE_FAST = of("azure/fast")
 
             @JvmField val AZURE_REALTIME = of("azure/realtime")
@@ -345,6 +354,7 @@ private constructor(
             NVIDIA_PARAKEET_V3,
             HUMAIN_REALTIME,
             RESON8_TURNS,
+            COHERE_AR_STT,
             AZURE_FAST,
             AZURE_REALTIME,
             GOOGLE_LATEST_LONG,
@@ -374,6 +384,7 @@ private constructor(
             NVIDIA_PARAKEET_V3,
             HUMAIN_REALTIME,
             RESON8_TURNS,
+            COHERE_AR_STT,
             AZURE_FAST,
             AZURE_REALTIME,
             GOOGLE_LATEST_LONG,
@@ -404,6 +415,7 @@ private constructor(
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
                 RESON8_TURNS -> Value.RESON8_TURNS
+                COHERE_AR_STT -> Value.COHERE_AR_STT
                 AZURE_FAST -> Value.AZURE_FAST
                 AZURE_REALTIME -> Value.AZURE_REALTIME
                 GOOGLE_LATEST_LONG -> Value.GOOGLE_LATEST_LONG
@@ -435,6 +447,7 @@ private constructor(
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
                 RESON8_TURNS -> Known.RESON8_TURNS
+                COHERE_AR_STT -> Known.COHERE_AR_STT
                 AZURE_FAST -> Known.AZURE_FAST
                 AZURE_REALTIME -> Known.AZURE_REALTIME
                 GOOGLE_LATEST_LONG -> Known.GOOGLE_LATEST_LONG

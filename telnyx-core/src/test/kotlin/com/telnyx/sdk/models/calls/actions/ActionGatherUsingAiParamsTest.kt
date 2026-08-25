@@ -59,7 +59,7 @@ internal class ActionGatherUsingAiParamsTest {
             .sendPartialResults(true)
             .transcription(
                 TranscriptionConfig.builder()
-                    .language("auto")
+                    .language("language")
                     .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                     .build()
             )
@@ -142,7 +142,7 @@ internal class ActionGatherUsingAiParamsTest {
                 .sendPartialResults(true)
                 .transcription(
                     TranscriptionConfig.builder()
-                        .language("auto")
+                        .language("language")
                         .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                         .build()
                 )
@@ -205,7 +205,7 @@ internal class ActionGatherUsingAiParamsTest {
         assertThat(body.transcription())
             .contains(
                 TranscriptionConfig.builder()
-                    .language("auto")
+                    .language("language")
                     .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                     .build()
             )

@@ -135,7 +135,7 @@ internal class ActionStartAiAssistantParamsTest {
             .sendMessageHistoryUpdates(true)
             .transcription(
                 TranscriptionConfig.builder()
-                    .language("auto")
+                    .language("language")
                     .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                     .build()
             )
@@ -275,7 +275,7 @@ internal class ActionStartAiAssistantParamsTest {
                 .sendMessageHistoryUpdates(true)
                 .transcription(
                     TranscriptionConfig.builder()
-                        .language("auto")
+                        .language("language")
                         .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                         .build()
                 )
@@ -409,7 +409,7 @@ internal class ActionStartAiAssistantParamsTest {
         assertThat(body.transcription())
             .contains(
                 TranscriptionConfig.builder()
-                    .language("auto")
+                    .language("language")
                     .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                     .build()
             )

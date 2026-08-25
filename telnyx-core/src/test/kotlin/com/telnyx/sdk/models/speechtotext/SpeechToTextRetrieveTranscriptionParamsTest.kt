@@ -20,6 +20,7 @@ internal class SpeechToTextRetrieveTranscriptionParamsTest {
             .language("language")
             .model(SpeechToTextRetrieveTranscriptionParams.Model.FAST)
             .redact("redact")
+            .sampleRate(0L)
             .build()
     }
 
@@ -38,6 +39,7 @@ internal class SpeechToTextRetrieveTranscriptionParamsTest {
                 .language("language")
                 .model(SpeechToTextRetrieveTranscriptionParams.Model.FAST)
                 .redact("redact")
+                .sampleRate(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -54,6 +56,7 @@ internal class SpeechToTextRetrieveTranscriptionParamsTest {
                     .put("language", "language")
                     .put("model", "fast")
                     .put("redact", "redact")
+                    .put("sample_rate", "0")
                     .build()
             )
     }

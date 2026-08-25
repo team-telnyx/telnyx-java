@@ -544,7 +544,7 @@ internal class ActionServiceAsyncTest {
                     .sendPartialResults(true)
                     .transcription(
                         TranscriptionConfig.builder()
-                            .language("auto")
+                            .language("language")
                             .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                             .build()
                     )
@@ -1076,7 +1076,7 @@ internal class ActionServiceAsyncTest {
                     .sendMessageHistoryUpdates(true)
                     .transcription(
                         TranscriptionConfig.builder()
-                            .language("auto")
+                            .language("language")
                             .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                             .build()
                     )
