@@ -137,7 +137,8 @@ private constructor(
     fun stopPlaybackOnDtmf(): Optional<Boolean> = body.stopPlaybackOnDtmf()
 
     /**
-     * Digit that terminates gathering.
+     * Digit that terminates gathering. Set to an empty string to disable the terminating digit
+     * entirely, so that a digit such as `#` can be collected as input per `valid_digits`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -528,7 +529,10 @@ private constructor(
             body.stopPlaybackOnDtmf(stopPlaybackOnDtmf)
         }
 
-        /** Digit that terminates gathering. */
+        /**
+         * Digit that terminates gathering. Set to an empty string to disable the terminating digit
+         * entirely, so that a digit such as `#` can be collected as input per `valid_digits`.
+         */
         fun terminatingDigit(terminatingDigit: String) = apply {
             body.terminatingDigit(terminatingDigit)
         }
@@ -926,7 +930,8 @@ private constructor(
             stopPlaybackOnDtmf.getOptional("stop_playback_on_dtmf")
 
         /**
-         * Digit that terminates gathering.
+         * Digit that terminates gathering. Set to an empty string to disable the terminating digit
+         * entirely, so that a digit such as `#` can be collected as input per `valid_digits`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1360,7 +1365,11 @@ private constructor(
                 this.stopPlaybackOnDtmf = stopPlaybackOnDtmf
             }
 
-            /** Digit that terminates gathering. */
+            /**
+             * Digit that terminates gathering. Set to an empty string to disable the terminating
+             * digit entirely, so that a digit such as `#` can be collected as input per
+             * `valid_digits`.
+             */
             fun terminatingDigit(terminatingDigit: String) =
                 terminatingDigit(JsonField.of(terminatingDigit))
 
