@@ -18,14 +18,14 @@ private constructor(
     private val service: WirelessBlocklistService,
     private val params: WirelessBlocklistListParams,
     private val response: WirelessBlocklistListPageResponse,
-) : Page<WirelessBlocklist> {
+) : Page<WirelessWirelessBlocklist> {
 
     /**
      * Delegates to [WirelessBlocklistListPageResponse], but gracefully handles missing data.
      *
      * @see WirelessBlocklistListPageResponse.data
      */
-    fun data(): List<WirelessBlocklist> =
+    fun data(): List<WirelessWirelessBlocklist> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<WirelessBlocklist> = data()
+    override fun items(): List<WirelessWirelessBlocklist> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -64,7 +64,7 @@ private constructor(
 
     override fun nextPage(): WirelessBlocklistListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<WirelessBlocklist> = AutoPager.from(this)
+    fun autoPager(): AutoPager<WirelessWirelessBlocklist> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): WirelessBlocklistListParams = params

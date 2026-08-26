@@ -19,27 +19,29 @@ import kotlin.jvm.optionals.getOrNull
 class WirelessBlocklistCreateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<WirelessBlocklist>,
+    private val data: JsonField<WirelessWirelessBlocklist>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<WirelessBlocklist> = JsonMissing.of()
+        @JsonProperty("data")
+        @ExcludeMissing
+        data: JsonField<WirelessWirelessBlocklist> = JsonMissing.of()
     ) : this(data, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<WirelessBlocklist> = data.getOptional("data")
+    fun data(): Optional<WirelessWirelessBlocklist> = data.getOptional("data")
 
     /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<WirelessBlocklist> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<WirelessWirelessBlocklist> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -65,7 +67,7 @@ private constructor(
     /** A builder for [WirelessBlocklistCreateResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<WirelessBlocklist> = JsonMissing.of()
+        private var data: JsonField<WirelessWirelessBlocklist> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -76,16 +78,16 @@ private constructor(
                     wirelessBlocklistCreateResponse.additionalProperties.toMutableMap()
             }
 
-        fun data(data: WirelessBlocklist) = data(JsonField.of(data))
+        fun data(data: WirelessWirelessBlocklist) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed [WirelessBlocklist] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed [WirelessWirelessBlocklist]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<WirelessBlocklist>) = apply { this.data = data }
+        fun data(data: JsonField<WirelessWirelessBlocklist>) = apply { this.data = data }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

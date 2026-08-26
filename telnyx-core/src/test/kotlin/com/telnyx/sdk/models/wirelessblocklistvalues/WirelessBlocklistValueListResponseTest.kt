@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.wirelessblocklistvalues
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,41 +15,22 @@ internal class WirelessBlocklistValueListResponseTest {
             WirelessBlocklistValueListResponse.builder()
                 .dataOfCountry(
                     listOf(
-                        WirelessBlocklistValueListResponse.Data.Country.builder()
-                            .code("US")
-                            .name("United States of America")
+                        WirelessBlocklistValueListResponse.Data.WirelessCountry.builder()
+                            .countryCode("US")
                             .build()
                     )
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .totalPages(3L)
-                        .pageSize(25L)
-                        .totalResults(55L)
-                        .build()
                 )
                 .build()
 
         assertThat(wirelessBlocklistValueListResponse.data())
-            .contains(
+            .isEqualTo(
                 WirelessBlocklistValueListResponse.Data.ofCountry(
                     listOf(
-                        WirelessBlocklistValueListResponse.Data.Country.builder()
-                            .code("US")
-                            .name("United States of America")
+                        WirelessBlocklistValueListResponse.Data.WirelessCountry.builder()
+                            .countryCode("US")
                             .build()
                     )
                 )
-            )
-        assertThat(wirelessBlocklistValueListResponse.meta())
-            .contains(
-                PaginationMeta.builder()
-                    .pageNumber(2L)
-                    .totalPages(3L)
-                    .pageSize(25L)
-                    .totalResults(55L)
-                    .build()
             )
     }
 
@@ -61,19 +41,10 @@ internal class WirelessBlocklistValueListResponseTest {
             WirelessBlocklistValueListResponse.builder()
                 .dataOfCountry(
                     listOf(
-                        WirelessBlocklistValueListResponse.Data.Country.builder()
-                            .code("US")
-                            .name("United States of America")
+                        WirelessBlocklistValueListResponse.Data.WirelessCountry.builder()
+                            .countryCode("US")
                             .build()
                     )
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .totalPages(3L)
-                        .pageSize(25L)
-                        .totalResults(55L)
-                        .build()
                 )
                 .build()
 

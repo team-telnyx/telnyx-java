@@ -24,9 +24,6 @@ import com.telnyx.sdk.models.ai.collections.CollectionListPage
 import com.telnyx.sdk.models.ai.collections.CollectionListPageResponse
 import com.telnyx.sdk.models.ai.collections.CollectionListParams
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveByIdParams
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsPage
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsPageResponse
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsParams
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveParams
 import com.telnyx.sdk.models.ai.collections.CollectionUpdateParams
 import com.telnyx.sdk.services.blocking.ai.collections.SettingService
@@ -107,13 +104,6 @@ class CollectionServiceImpl internal constructor(private val clientOptions: Clie
     ): CollectionEnvelope =
         // get /ai/collections/{uuid}
         withRawResponse().retrieveById(params, requestOptions).parse()
-
-    override fun retrieveDocuments(
-        params: CollectionRetrieveDocumentsParams,
-        requestOptions: RequestOptions,
-    ): CollectionRetrieveDocumentsPage =
-        // get /ai/collections/{slug}/documents
-        withRawResponse().retrieveDocuments(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CollectionService.WithRawResponse {
@@ -321,43 +311,6 @@ class CollectionServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-            }
-        }
-
-        private val retrieveDocumentsHandler: Handler<CollectionRetrieveDocumentsPageResponse> =
-            jsonHandler<CollectionRetrieveDocumentsPageResponse>(clientOptions.jsonMapper)
-
-        override fun retrieveDocuments(
-            params: CollectionRetrieveDocumentsParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionRetrieveDocumentsPage> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("slug", params.slug().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("ai", "collections", params._pathParam(0), "documents")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveDocumentsHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let {
-                        CollectionRetrieveDocumentsPage.builder()
-                            .service(CollectionServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

@@ -12,8 +12,6 @@ import com.telnyx.sdk.models.ai.collections.CollectionEnvelope
 import com.telnyx.sdk.models.ai.collections.CollectionListPageAsync
 import com.telnyx.sdk.models.ai.collections.CollectionListParams
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveByIdParams
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsPageAsync
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsParams
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveParams
 import com.telnyx.sdk.models.ai.collections.CollectionUpdateParams
 import com.telnyx.sdk.services.async.ai.collections.SettingServiceAsync
@@ -220,72 +218,6 @@ interface CollectionServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<CollectionEnvelope> =
         retrieveById(uuid, CollectionRetrieveByIdParams.none(), requestOptions)
-
-    /**
-     * Runs search over the documents in a collection, ranked by relevance to `query`. The
-     * collection's `retrieval_type` setting selects the strategy: `vector` (semantic similarity),
-     * `hybrid` (vector similarity fused with keyword matching), or `keyword` (lexical BM25
-     * matching). When `query` is omitted, returns a plain catalog listing of the collection's
-     * documents.
-     *
-     * **How it works:**
-     * 1. For `vector` and `hybrid`, the `query` text is embedded into a 1024-dimensional vector
-     *    using the multilingual-e5-large model.
-     * 2. For `vector`, the embedding is compared against the collection's indexed document chunks
-     *    using semantic similarity; for `hybrid`, those similarity scores are fused with
-     *    keyword-match scores; for `keyword`, only lexical BM25 matching is applied.
-     * 3. Results are ranked by `score` (descending) and paginated via `page[number]` /
-     *    `page[size]`.
-     *
-     * **Authentication:** Requires a Telnyx API key via `Authorization: Bearer <key>`. Results are
-     * automatically scoped to your organization and cannot be overridden.
-     *
-     * **Filtering:** Use `filter[field][operator]=value` query parameters to narrow results before
-     * search. Supported operators: `eq` (default), `in`, `gte`, `gt`, `lte`, `lt`, `contains`.
-     * Metadata fields resolve to `metadata.<field>`.
-     *
-     * **Examples:**
-     * - `GET /v2/ai/collections/my-collection/documents?query=billing+issue&top_k=10`
-     * - `GET /v2/ai/collections/my-collection/documents?query=refund&sources=voice,message`
-     * - `GET
-     *   /v2/ai/collections/my-collection/documents?query=outage&filter[record_created_at][gte]=2026-01-01T00:00:00Z`
-     */
-    fun retrieveDocuments(slug: String): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
-        retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none())
-
-    /** @see retrieveDocuments */
-    fun retrieveDocuments(
-        slug: String,
-        params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
-        retrieveDocuments(params.toBuilder().slug(slug).build(), requestOptions)
-
-    /** @see retrieveDocuments */
-    fun retrieveDocuments(
-        slug: String,
-        params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
-    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
-        retrieveDocuments(slug, params, RequestOptions.none())
-
-    /** @see retrieveDocuments */
-    fun retrieveDocuments(
-        params: CollectionRetrieveDocumentsParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync>
-
-    /** @see retrieveDocuments */
-    fun retrieveDocuments(
-        params: CollectionRetrieveDocumentsParams
-    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
-        retrieveDocuments(params, RequestOptions.none())
-
-    /** @see retrieveDocuments */
-    fun retrieveDocuments(
-        slug: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
-        retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none(), requestOptions)
 
     /**
      * A view of [CollectionServiceAsync] that provides access to raw HTTP responses for each
@@ -511,48 +443,5 @@ interface CollectionServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CollectionEnvelope>> =
             retrieveById(uuid, CollectionRetrieveByIdParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /ai/collections/{slug}/documents`, but is otherwise
-         * the same as [CollectionServiceAsync.retrieveDocuments].
-         */
-        fun retrieveDocuments(
-            slug: String
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> =
-            retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none())
-
-        /** @see retrieveDocuments */
-        fun retrieveDocuments(
-            slug: String,
-            params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> =
-            retrieveDocuments(params.toBuilder().slug(slug).build(), requestOptions)
-
-        /** @see retrieveDocuments */
-        fun retrieveDocuments(
-            slug: String,
-            params: CollectionRetrieveDocumentsParams = CollectionRetrieveDocumentsParams.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> =
-            retrieveDocuments(slug, params, RequestOptions.none())
-
-        /** @see retrieveDocuments */
-        fun retrieveDocuments(
-            params: CollectionRetrieveDocumentsParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>>
-
-        /** @see retrieveDocuments */
-        fun retrieveDocuments(
-            params: CollectionRetrieveDocumentsParams
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> =
-            retrieveDocuments(params, RequestOptions.none())
-
-        /** @see retrieveDocuments */
-        fun retrieveDocuments(
-            slug: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> =
-            retrieveDocuments(slug, CollectionRetrieveDocumentsParams.none(), requestOptions)
     }
 }

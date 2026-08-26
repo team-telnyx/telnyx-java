@@ -409,6 +409,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val privateWirelessGatewayId: JsonField<String>,
+        private val wirelessBlocklistId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -416,8 +417,11 @@ private constructor(
         private constructor(
             @JsonProperty("private_wireless_gateway_id")
             @ExcludeMissing
-            privateWirelessGatewayId: JsonField<String> = JsonMissing.of()
-        ) : this(privateWirelessGatewayId, mutableMapOf())
+            privateWirelessGatewayId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("wireless_blocklist_id")
+            @ExcludeMissing
+            wirelessBlocklistId: JsonField<String> = JsonMissing.of(),
+        ) : this(privateWirelessGatewayId, wirelessBlocklistId, mutableMapOf())
 
         /**
          * The identification of the related Private Wireless Gateway resource.
@@ -429,6 +433,15 @@ private constructor(
             privateWirelessGatewayId.getOptional("private_wireless_gateway_id")
 
         /**
+         * The identification of the related Wireless Blocklist resource.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun wirelessBlocklistId(): Optional<String> =
+            wirelessBlocklistId.getOptional("wireless_blocklist_id")
+
+        /**
          * Returns the raw JSON value of [privateWirelessGatewayId].
          *
          * Unlike [privateWirelessGatewayId], this method doesn't throw if the JSON field has an
@@ -437,6 +450,16 @@ private constructor(
         @JsonProperty("private_wireless_gateway_id")
         @ExcludeMissing
         fun _privateWirelessGatewayId(): JsonField<String> = privateWirelessGatewayId
+
+        /**
+         * Returns the raw JSON value of [wirelessBlocklistId].
+         *
+         * Unlike [wirelessBlocklistId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("wireless_blocklist_id")
+        @ExcludeMissing
+        fun _wirelessBlocklistId(): JsonField<String> = wirelessBlocklistId
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -460,11 +483,13 @@ private constructor(
         class Builder internal constructor() {
 
             private var privateWirelessGatewayId: JsonField<String> = JsonMissing.of()
+            private var wirelessBlocklistId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(settings: Settings) = apply {
                 privateWirelessGatewayId = settings.privateWirelessGatewayId
+                wirelessBlocklistId = settings.wirelessBlocklistId
                 additionalProperties = settings.additionalProperties.toMutableMap()
             }
 
@@ -481,6 +506,21 @@ private constructor(
              */
             fun privateWirelessGatewayId(privateWirelessGatewayId: JsonField<String>) = apply {
                 this.privateWirelessGatewayId = privateWirelessGatewayId
+            }
+
+            /** The identification of the related Wireless Blocklist resource. */
+            fun wirelessBlocklistId(wirelessBlocklistId: String) =
+                wirelessBlocklistId(JsonField.of(wirelessBlocklistId))
+
+            /**
+             * Sets [Builder.wirelessBlocklistId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.wirelessBlocklistId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun wirelessBlocklistId(wirelessBlocklistId: JsonField<String>) = apply {
+                this.wirelessBlocklistId = wirelessBlocklistId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -508,7 +548,11 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Settings =
-                Settings(privateWirelessGatewayId, additionalProperties.toMutableMap())
+                Settings(
+                    privateWirelessGatewayId,
+                    wirelessBlocklistId,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -528,6 +572,7 @@ private constructor(
             }
 
             privateWirelessGatewayId()
+            wirelessBlocklistId()
             validated = true
         }
 
@@ -546,7 +591,9 @@ private constructor(
          * Used for best match union deserialization.
          */
         @JvmSynthetic
-        internal fun validity(): Int = (if (privateWirelessGatewayId.asKnown().isPresent) 1 else 0)
+        internal fun validity(): Int =
+            (if (privateWirelessGatewayId.asKnown().isPresent) 1 else 0) +
+                (if (wirelessBlocklistId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -555,17 +602,18 @@ private constructor(
 
             return other is Settings &&
                 privateWirelessGatewayId == other.privateWirelessGatewayId &&
+                wirelessBlocklistId == other.wirelessBlocklistId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(privateWirelessGatewayId, additionalProperties)
+            Objects.hash(privateWirelessGatewayId, wirelessBlocklistId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Settings{privateWirelessGatewayId=$privateWirelessGatewayId, additionalProperties=$additionalProperties}"
+            "Settings{privateWirelessGatewayId=$privateWirelessGatewayId, wirelessBlocklistId=$wirelessBlocklistId, additionalProperties=$additionalProperties}"
     }
 
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {

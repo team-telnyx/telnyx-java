@@ -24,7 +24,6 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -34,27 +33,19 @@ class WirelessBlocklistValueListResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<Data>,
-    private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<Data> = JsonMissing.of(),
-        @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
-    ) : this(data, meta, mutableMapOf())
+        @JsonProperty("data") @ExcludeMissing data: JsonField<Data> = JsonMissing.of()
+    ) : this(data, mutableMapOf())
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): Optional<Data> = data.getOptional("data")
-
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun meta(): Optional<PaginationMeta> = meta.getOptional("meta")
+    fun data(): Data = data.getRequired("data")
 
     /**
      * Returns the raw JSON value of [data].
@@ -62,13 +53,6 @@ private constructor(
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<Data> = data
-
-    /**
-     * Returns the raw JSON value of [meta].
-     *
-     * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<PaginationMeta> = meta
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -87,6 +71,11 @@ private constructor(
         /**
          * Returns a mutable builder for constructing an instance of
          * [WirelessBlocklistValueListResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .data()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -94,15 +83,13 @@ private constructor(
     /** A builder for [WirelessBlocklistValueListResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<Data> = JsonMissing.of()
-        private var meta: JsonField<PaginationMeta> = JsonMissing.of()
+        private var data: JsonField<Data>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(wirelessBlocklistValueListResponse: WirelessBlocklistValueListResponse) =
             apply {
                 data = wirelessBlocklistValueListResponse.data
-                meta = wirelessBlocklistValueListResponse.meta
                 additionalProperties =
                     wirelessBlocklistValueListResponse.additionalProperties.toMutableMap()
             }
@@ -118,24 +105,13 @@ private constructor(
         fun data(data: JsonField<Data>) = apply { this.data = data }
 
         /** Alias for calling [data] with `Data.ofCountry(country)`. */
-        fun dataOfCountry(country: List<Data.Country>) = data(Data.ofCountry(country))
+        fun dataOfCountry(country: List<Data.WirelessCountry>) = data(Data.ofCountry(country))
 
         /** Alias for calling [data] with `Data.ofMcc(mcc)`. */
-        fun dataOfMcc(mcc: List<Data.Mcc>) = data(Data.ofMcc(mcc))
+        fun dataOfMcc(mcc: List<Data.WirelessMcc>) = data(Data.ofMcc(mcc))
 
         /** Alias for calling [data] with `Data.ofPlmn(plmn)`. */
-        fun dataOfPlmn(plmn: List<Data.Plmn>) = data(Data.ofPlmn(plmn))
-
-        fun meta(meta: PaginationMeta) = meta(JsonField.of(meta))
-
-        /**
-         * Sets [Builder.meta] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.meta] with a well-typed [PaginationMeta] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun meta(meta: JsonField<PaginationMeta>) = apply { this.meta = meta }
+        fun dataOfPlmn(plmn: List<Data.WirelessPlmn>) = data(Data.ofPlmn(plmn))
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -160,9 +136,19 @@ private constructor(
          * Returns an immutable instance of [WirelessBlocklistValueListResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .data()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): WirelessBlocklistValueListResponse =
-            WirelessBlocklistValueListResponse(data, meta, additionalProperties.toMutableMap())
+            WirelessBlocklistValueListResponse(
+                checkRequired("data", data),
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false
@@ -180,8 +166,7 @@ private constructor(
             return@apply
         }
 
-        data().ifPresent { it.validate() }
-        meta().ifPresent { it.validate() }
+        data().validate()
         validated = true
     }
 
@@ -198,26 +183,23 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    @JvmSynthetic
-    internal fun validity(): Int =
-        (data.asKnown().getOrNull()?.validity() ?: 0) +
-            (meta.asKnown().getOrNull()?.validity() ?: 0)
+    @JvmSynthetic internal fun validity(): Int = (data.asKnown().getOrNull()?.validity() ?: 0)
 
     @JsonDeserialize(using = Data.Deserializer::class)
     @JsonSerialize(using = Data.Serializer::class)
     class Data
     private constructor(
-        private val country: List<Country>? = null,
-        private val mcc: List<Mcc>? = null,
-        private val plmn: List<Plmn>? = null,
+        private val country: List<WirelessCountry>? = null,
+        private val mcc: List<WirelessMcc>? = null,
+        private val plmn: List<WirelessPlmn>? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun country(): Optional<List<Country>> = Optional.ofNullable(country)
+        fun country(): Optional<List<WirelessCountry>> = Optional.ofNullable(country)
 
-        fun mcc(): Optional<List<Mcc>> = Optional.ofNullable(mcc)
+        fun mcc(): Optional<List<WirelessMcc>> = Optional.ofNullable(mcc)
 
-        fun plmn(): Optional<List<Plmn>> = Optional.ofNullable(plmn)
+        fun plmn(): Optional<List<WirelessPlmn>> = Optional.ofNullable(plmn)
 
         fun isCountry(): Boolean = country != null
 
@@ -225,11 +207,11 @@ private constructor(
 
         fun isPlmn(): Boolean = plmn != null
 
-        fun asCountry(): List<Country> = country.getOrThrow("country")
+        fun asCountry(): List<WirelessCountry> = country.getOrThrow("country")
 
-        fun asMcc(): List<Mcc> = mcc.getOrThrow("mcc")
+        fun asMcc(): List<WirelessMcc> = mcc.getOrThrow("mcc")
 
-        fun asPlmn(): List<Plmn> = plmn.getOrThrow("plmn")
+        fun asPlmn(): List<WirelessPlmn> = plmn.getOrThrow("plmn")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -245,7 +227,7 @@ private constructor(
          *
          * Optional<String> result = data.accept(new Data.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitCountry(List<Country> country) {
+         *     public Optional<String> visitCountry(List<WirelessCountry> country) {
          *         return Optional.of(country.toString());
          *     }
          *
@@ -288,15 +270,15 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitCountry(country: List<Country>) {
+                    override fun visitCountry(country: List<WirelessCountry>) {
                         country.forEach { it.validate() }
                     }
 
-                    override fun visitMcc(mcc: List<Mcc>) {
+                    override fun visitMcc(mcc: List<WirelessMcc>) {
                         mcc.forEach { it.validate() }
                     }
 
-                    override fun visitPlmn(plmn: List<Plmn>) {
+                    override fun visitPlmn(plmn: List<WirelessPlmn>) {
                         plmn.forEach { it.validate() }
                     }
                 }
@@ -322,12 +304,14 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitCountry(country: List<Country>) =
+                    override fun visitCountry(country: List<WirelessCountry>) =
                         country.sumOf { it.validity().toInt() }
 
-                    override fun visitMcc(mcc: List<Mcc>) = mcc.sumOf { it.validity().toInt() }
+                    override fun visitMcc(mcc: List<WirelessMcc>) =
+                        mcc.sumOf { it.validity().toInt() }
 
-                    override fun visitPlmn(plmn: List<Plmn>) = plmn.sumOf { it.validity().toInt() }
+                    override fun visitPlmn(plmn: List<WirelessPlmn>) =
+                        plmn.sumOf { it.validity().toInt() }
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -357,21 +341,22 @@ private constructor(
 
         companion object {
 
-            @JvmStatic fun ofCountry(country: List<Country>) = Data(country = country.toImmutable())
+            @JvmStatic
+            fun ofCountry(country: List<WirelessCountry>) = Data(country = country.toImmutable())
 
-            @JvmStatic fun ofMcc(mcc: List<Mcc>) = Data(mcc = mcc.toImmutable())
+            @JvmStatic fun ofMcc(mcc: List<WirelessMcc>) = Data(mcc = mcc.toImmutable())
 
-            @JvmStatic fun ofPlmn(plmn: List<Plmn>) = Data(plmn = plmn.toImmutable())
+            @JvmStatic fun ofPlmn(plmn: List<WirelessPlmn>) = Data(plmn = plmn.toImmutable())
         }
 
         /** An interface that defines how to map each variant of [Data] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitCountry(country: List<Country>): T
+            fun visitCountry(country: List<WirelessCountry>): T
 
-            fun visitMcc(mcc: List<Mcc>): T
+            fun visitMcc(mcc: List<WirelessMcc>): T
 
-            fun visitPlmn(plmn: List<Plmn>): T
+            fun visitPlmn(plmn: List<WirelessPlmn>): T
 
             /**
              * Maps an unknown variant of [Data] to a value of type [T].
@@ -394,13 +379,13 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<List<Country>>())?.let {
+                            tryDeserialize(node, jacksonTypeRef<List<WirelessCountry>>())?.let {
                                 Data(country = it, _json = json)
                             },
-                            tryDeserialize(node, jacksonTypeRef<List<Mcc>>())?.let {
+                            tryDeserialize(node, jacksonTypeRef<List<WirelessMcc>>())?.let {
                                 Data(mcc = it, _json = json)
                             },
-                            tryDeserialize(node, jacksonTypeRef<List<Plmn>>())?.let {
+                            tryDeserialize(node, jacksonTypeRef<List<WirelessPlmn>>())?.let {
                                 Data(plmn = it, _json = json)
                             },
                         )
@@ -437,19 +422,19 @@ private constructor(
             }
         }
 
-        class Country
+        class WirelessCountry
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val code: JsonField<String>,
-            private val name: JsonField<String>,
+            private val countryCode: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            ) : this(code, name, mutableMapOf())
+                @JsonProperty("country_code")
+                @ExcludeMissing
+                countryCode: JsonField<String> = JsonMissing.of()
+            ) : this(countryCode, mutableMapOf())
 
             /**
              * ISO 3166-1 Alpha-2 Country Code.
@@ -458,30 +443,17 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun code(): String = code.getRequired("code")
+            fun countryCode(): String = countryCode.getRequired("country_code")
 
             /**
-             * The name of the country.
+             * Returns the raw JSON value of [countryCode].
              *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * Unlike [countryCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
-            fun name(): String = name.getRequired("name")
-
-            /**
-             * Returns the raw JSON value of [code].
-             *
-             * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
-
-            /**
-             * Returns the raw JSON value of [name].
-             *
-             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+            @JsonProperty("country_code")
+            @ExcludeMissing
+            fun _countryCode(): JsonField<String> = countryCode
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -498,54 +470,41 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [Country].
+                 * Returns a mutable builder for constructing an instance of [WirelessCountry].
                  *
                  * The following fields are required:
                  * ```java
-                 * .code()
-                 * .name()
+                 * .countryCode()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [Country]. */
+            /** A builder for [WirelessCountry]. */
             class Builder internal constructor() {
 
-                private var code: JsonField<String>? = null
-                private var name: JsonField<String>? = null
+                private var countryCode: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(country: Country) = apply {
-                    code = country.code
-                    name = country.name
-                    additionalProperties = country.additionalProperties.toMutableMap()
+                internal fun from(wirelessCountry: WirelessCountry) = apply {
+                    countryCode = wirelessCountry.countryCode
+                    additionalProperties = wirelessCountry.additionalProperties.toMutableMap()
                 }
 
                 /** ISO 3166-1 Alpha-2 Country Code. */
-                fun code(code: String) = code(JsonField.of(code))
+                fun countryCode(countryCode: String) = countryCode(JsonField.of(countryCode))
 
                 /**
-                 * Sets [Builder.code] to an arbitrary JSON value.
+                 * Sets [Builder.countryCode] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.code] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
+                 * You should usually call [Builder.countryCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
-                fun code(code: JsonField<String>) = apply { this.code = code }
-
-                /** The name of the country. */
-                fun name(name: String) = name(JsonField.of(name))
-
-                /**
-                 * Sets [Builder.name] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.name] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun countryCode(countryCode: JsonField<String>) = apply {
+                    this.countryCode = countryCode
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -570,22 +529,20 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [Country].
+                 * Returns an immutable instance of [WirelessCountry].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
                  * ```java
-                 * .code()
-                 * .name()
+                 * .countryCode()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Country =
-                    Country(
-                        checkRequired("code", code),
-                        checkRequired("name", name),
+                fun build(): WirelessCountry =
+                    WirelessCountry(
+                        checkRequired("countryCode", countryCode),
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -602,13 +559,12 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): Country = apply {
+            fun validate(): WirelessCountry = apply {
                 if (validated) {
                     return@apply
                 }
 
-                code()
-                name()
+                countryCode()
                 validated = true
             }
 
@@ -627,41 +583,37 @@ private constructor(
              * Used for best match union deserialization.
              */
             @JvmSynthetic
-            internal fun validity(): Int =
-                (if (code.asKnown().isPresent) 1 else 0) + (if (name.asKnown().isPresent) 1 else 0)
+            internal fun validity(): Int = (if (countryCode.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is Country &&
-                    code == other.code &&
-                    name == other.name &&
+                return other is WirelessCountry &&
+                    countryCode == other.countryCode &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(code, name, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(countryCode, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Country{code=$code, name=$name, additionalProperties=$additionalProperties}"
+                "WirelessCountry{countryCode=$countryCode, additionalProperties=$additionalProperties}"
         }
 
-        class Mcc
+        class WirelessMcc
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val code: JsonField<String>,
-            private val name: JsonField<String>,
+            private val mcc: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            ) : this(code, name, mutableMapOf())
+                @JsonProperty("mcc") @ExcludeMissing mcc: JsonField<String> = JsonMissing.of()
+            ) : this(mcc, mutableMapOf())
 
             /**
              * Mobile Country Code.
@@ -670,30 +622,14 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun code(): String = code.getRequired("code")
+            fun mcc(): String = mcc.getRequired("mcc")
 
             /**
-             * The name of the country.
+             * Returns the raw JSON value of [mcc].
              *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * Unlike [mcc], this method doesn't throw if the JSON field has an unexpected type.
              */
-            fun name(): String = name.getRequired("name")
-
-            /**
-             * Returns the raw JSON value of [code].
-             *
-             * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
-
-            /**
-             * Returns the raw JSON value of [name].
-             *
-             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+            @JsonProperty("mcc") @ExcludeMissing fun _mcc(): JsonField<String> = mcc
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -710,54 +646,39 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [Mcc].
+                 * Returns a mutable builder for constructing an instance of [WirelessMcc].
                  *
                  * The following fields are required:
                  * ```java
-                 * .code()
-                 * .name()
+                 * .mcc()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [Mcc]. */
+            /** A builder for [WirelessMcc]. */
             class Builder internal constructor() {
 
-                private var code: JsonField<String>? = null
-                private var name: JsonField<String>? = null
+                private var mcc: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(mcc: Mcc) = apply {
-                    code = mcc.code
-                    name = mcc.name
-                    additionalProperties = mcc.additionalProperties.toMutableMap()
+                internal fun from(wirelessMcc: WirelessMcc) = apply {
+                    mcc = wirelessMcc.mcc
+                    additionalProperties = wirelessMcc.additionalProperties.toMutableMap()
                 }
 
                 /** Mobile Country Code. */
-                fun code(code: String) = code(JsonField.of(code))
+                fun mcc(mcc: String) = mcc(JsonField.of(mcc))
 
                 /**
-                 * Sets [Builder.code] to an arbitrary JSON value.
+                 * Sets [Builder.mcc] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.code] with a well-typed [String] value instead.
+                 * You should usually call [Builder.mcc] with a well-typed [String] value instead.
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun code(code: JsonField<String>) = apply { this.code = code }
-
-                /** The name of the country. */
-                fun name(name: String) = name(JsonField.of(name))
-
-                /**
-                 * Sets [Builder.name] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.name] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun mcc(mcc: JsonField<String>) = apply { this.mcc = mcc }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -782,24 +703,19 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [Mcc].
+                 * Returns an immutable instance of [WirelessMcc].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
                  * ```java
-                 * .code()
-                 * .name()
+                 * .mcc()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Mcc =
-                    Mcc(
-                        checkRequired("code", code),
-                        checkRequired("name", name),
-                        additionalProperties.toMutableMap(),
-                    )
+                fun build(): WirelessMcc =
+                    WirelessMcc(checkRequired("mcc", mcc), additionalProperties.toMutableMap())
             }
 
             private var validated: Boolean = false
@@ -814,13 +730,12 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): Mcc = apply {
+            fun validate(): WirelessMcc = apply {
                 if (validated) {
                     return@apply
                 }
 
-                code()
-                name()
+                mcc()
                 validated = true
             }
 
@@ -838,42 +753,37 @@ private constructor(
              *
              * Used for best match union deserialization.
              */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (code.asKnown().isPresent) 1 else 0) + (if (name.asKnown().isPresent) 1 else 0)
+            @JvmSynthetic internal fun validity(): Int = (if (mcc.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is Mcc &&
-                    code == other.code &&
-                    name == other.name &&
+                return other is WirelessMcc &&
+                    mcc == other.mcc &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(code, name, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(mcc, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Mcc{code=$code, name=$name, additionalProperties=$additionalProperties}"
+                "WirelessMcc{mcc=$mcc, additionalProperties=$additionalProperties}"
         }
 
-        class Plmn
+        class WirelessPlmn
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val code: JsonField<String>,
-            private val name: JsonField<String>,
+            private val plmn: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            ) : this(code, name, mutableMapOf())
+                @JsonProperty("plmn") @ExcludeMissing plmn: JsonField<String> = JsonMissing.of()
+            ) : this(plmn, mutableMapOf())
 
             /**
              * Public land mobile network code (MCC + MNC).
@@ -882,30 +792,14 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun code(): String = code.getRequired("code")
+            fun plmn(): String = plmn.getRequired("plmn")
 
             /**
-             * The name of the network.
+             * Returns the raw JSON value of [plmn].
              *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * Unlike [plmn], this method doesn't throw if the JSON field has an unexpected type.
              */
-            fun name(): String = name.getRequired("name")
-
-            /**
-             * Returns the raw JSON value of [code].
-             *
-             * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
-
-            /**
-             * Returns the raw JSON value of [name].
-             *
-             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+            @JsonProperty("plmn") @ExcludeMissing fun _plmn(): JsonField<String> = plmn
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -922,54 +816,39 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [Plmn].
+                 * Returns a mutable builder for constructing an instance of [WirelessPlmn].
                  *
                  * The following fields are required:
                  * ```java
-                 * .code()
-                 * .name()
+                 * .plmn()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [Plmn]. */
+            /** A builder for [WirelessPlmn]. */
             class Builder internal constructor() {
 
-                private var code: JsonField<String>? = null
-                private var name: JsonField<String>? = null
+                private var plmn: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(plmn: Plmn) = apply {
-                    code = plmn.code
-                    name = plmn.name
-                    additionalProperties = plmn.additionalProperties.toMutableMap()
+                internal fun from(wirelessPlmn: WirelessPlmn) = apply {
+                    plmn = wirelessPlmn.plmn
+                    additionalProperties = wirelessPlmn.additionalProperties.toMutableMap()
                 }
 
                 /** Public land mobile network code (MCC + MNC). */
-                fun code(code: String) = code(JsonField.of(code))
+                fun plmn(plmn: String) = plmn(JsonField.of(plmn))
 
                 /**
-                 * Sets [Builder.code] to an arbitrary JSON value.
+                 * Sets [Builder.plmn] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.code] with a well-typed [String] value instead.
+                 * You should usually call [Builder.plmn] with a well-typed [String] value instead.
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun code(code: JsonField<String>) = apply { this.code = code }
-
-                /** The name of the network. */
-                fun name(name: String) = name(JsonField.of(name))
-
-                /**
-                 * Sets [Builder.name] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.name] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun plmn(plmn: JsonField<String>) = apply { this.plmn = plmn }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -994,24 +873,19 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [Plmn].
+                 * Returns an immutable instance of [WirelessPlmn].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
                  * ```java
-                 * .code()
-                 * .name()
+                 * .plmn()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Plmn =
-                    Plmn(
-                        checkRequired("code", code),
-                        checkRequired("name", name),
-                        additionalProperties.toMutableMap(),
-                    )
+                fun build(): WirelessPlmn =
+                    WirelessPlmn(checkRequired("plmn", plmn), additionalProperties.toMutableMap())
             }
 
             private var validated: Boolean = false
@@ -1026,13 +900,12 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): Plmn = apply {
+            fun validate(): WirelessPlmn = apply {
                 if (validated) {
                     return@apply
                 }
 
-                code()
-                name()
+                plmn()
                 validated = true
             }
 
@@ -1050,27 +923,24 @@ private constructor(
              *
              * Used for best match union deserialization.
              */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (code.asKnown().isPresent) 1 else 0) + (if (name.asKnown().isPresent) 1 else 0)
+            @JvmSynthetic internal fun validity(): Int = (if (plmn.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is Plmn &&
-                    code == other.code &&
-                    name == other.name &&
+                return other is WirelessPlmn &&
+                    plmn == other.plmn &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(code, name, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(plmn, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Plmn{code=$code, name=$name, additionalProperties=$additionalProperties}"
+                "WirelessPlmn{plmn=$plmn, additionalProperties=$additionalProperties}"
         }
     }
 
@@ -1081,14 +951,13 @@ private constructor(
 
         return other is WirelessBlocklistValueListResponse &&
             data == other.data &&
-            meta == other.meta &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(data, meta, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(data, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WirelessBlocklistValueListResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "WirelessBlocklistValueListResponse{data=$data, additionalProperties=$additionalProperties}"
 }

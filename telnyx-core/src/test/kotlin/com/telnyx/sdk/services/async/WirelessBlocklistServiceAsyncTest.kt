@@ -81,10 +81,8 @@ internal class WirelessBlocklistServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val wirelessBlocklistServiceAsync = client.wirelessBlocklists()
 
-        val wirelessBlocklistFuture =
-            wirelessBlocklistServiceAsync.delete("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        val future = wirelessBlocklistServiceAsync.delete("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
 
-        val wirelessBlocklist = wirelessBlocklistFuture.get()
-        wirelessBlocklist.validate()
+        val response = future.get()
     }
 }

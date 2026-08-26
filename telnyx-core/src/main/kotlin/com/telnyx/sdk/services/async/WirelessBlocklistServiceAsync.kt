@@ -4,11 +4,11 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteParams
-import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListPageAsync
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistRetrieveParams
@@ -141,8 +141,11 @@ interface WirelessBlocklistServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<WirelessBlocklistListPageAsync> =
         list(WirelessBlocklistListParams.none(), requestOptions)
 
-    /** Permanently deletes the specified wireless blocklist from your account. */
-    fun delete(id: String): CompletableFuture<WirelessBlocklistDeleteResponse> =
+    /**
+     * Permanently deletes the specified wireless blocklist from your account. The request returns
+     * `422` when the wireless blocklist is assigned to a SIM Card Group.
+     */
+    fun delete(id: String): CompletableFuture<Void?> =
         delete(id, WirelessBlocklistDeleteParams.none())
 
     /** @see delete */
@@ -150,32 +153,26 @@ interface WirelessBlocklistServiceAsync {
         id: String,
         params: WirelessBlocklistDeleteParams = WirelessBlocklistDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<WirelessBlocklistDeleteResponse> =
-        delete(params.toBuilder().id(id).build(), requestOptions)
+    ): CompletableFuture<Void?> = delete(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         id: String,
         params: WirelessBlocklistDeleteParams = WirelessBlocklistDeleteParams.none(),
-    ): CompletableFuture<WirelessBlocklistDeleteResponse> =
-        delete(id, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = delete(id, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: WirelessBlocklistDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<WirelessBlocklistDeleteResponse>
+    ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(
-        params: WirelessBlocklistDeleteParams
-    ): CompletableFuture<WirelessBlocklistDeleteResponse> = delete(params, RequestOptions.none())
+    fun delete(params: WirelessBlocklistDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        id: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<WirelessBlocklistDeleteResponse> =
+    fun delete(id: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(id, WirelessBlocklistDeleteParams.none(), requestOptions)
 
     /**
@@ -323,9 +320,7 @@ interface WirelessBlocklistServiceAsync {
          * Returns a raw HTTP response for `delete /wireless_blocklists/{id}`, but is otherwise the
          * same as [WirelessBlocklistServiceAsync.delete].
          */
-        fun delete(
-            id: String
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistDeleteResponse>> =
+        fun delete(id: String): CompletableFuture<HttpResponse> =
             delete(id, WirelessBlocklistDeleteParams.none())
 
         /** @see delete */
@@ -333,33 +328,27 @@ interface WirelessBlocklistServiceAsync {
             id: String,
             params: WirelessBlocklistDeleteParams = WirelessBlocklistDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see delete */
         fun delete(
             id: String,
             params: WirelessBlocklistDeleteParams = WirelessBlocklistDeleteParams.none(),
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistDeleteResponse>> =
-            delete(id, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = delete(id, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: WirelessBlocklistDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistDeleteResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            params: WirelessBlocklistDeleteParams
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistDeleteResponse>> =
+        fun delete(params: WirelessBlocklistDeleteParams): CompletableFuture<HttpResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
-        fun delete(
-            id: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistDeleteResponse>> =
+        fun delete(id: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
             delete(id, WirelessBlocklistDeleteParams.none(), requestOptions)
     }
 }

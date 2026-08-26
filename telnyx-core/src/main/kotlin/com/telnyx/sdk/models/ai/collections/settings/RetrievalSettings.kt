@@ -36,7 +36,9 @@ private constructor(
 
     /**
      * Retrieval strategy. `vector` runs semantic similarity search; `hybrid` combines vector
-     * similarity with keyword matching; `keyword` runs lexical (BM25) matching.
+     * similarity with keyword matching; `keyword` runs lexical (BM25) matching. `keyword` is not
+     * accepted yet: setting it returns 422 `unsupported_retrieval_type`. A collection set to
+     * `hybrid` is accepted here but cannot be searched until hybrid execution ships.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -101,7 +103,9 @@ private constructor(
 
         /**
          * Retrieval strategy. `vector` runs semantic similarity search; `hybrid` combines vector
-         * similarity with keyword matching; `keyword` runs lexical (BM25) matching.
+         * similarity with keyword matching; `keyword` runs lexical (BM25) matching. `keyword` is
+         * not accepted yet: setting it returns 422 `unsupported_retrieval_type`. A collection set
+         * to `hybrid` is accepted here but cannot be searched until hybrid execution ships.
          */
         fun retrievalType(retrievalType: RetrievalType) = retrievalType(JsonField.of(retrievalType))
 
@@ -195,7 +199,9 @@ private constructor(
 
     /**
      * Retrieval strategy. `vector` runs semantic similarity search; `hybrid` combines vector
-     * similarity with keyword matching; `keyword` runs lexical (BM25) matching.
+     * similarity with keyword matching; `keyword` runs lexical (BM25) matching. `keyword` is not
+     * accepted yet: setting it returns 422 `unsupported_retrieval_type`. A collection set to
+     * `hybrid` is accepted here but cannot be searched until hybrid execution ships.
      */
     class RetrievalType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -216,8 +222,6 @@ private constructor(
 
             @JvmField val HYBRID = of("hybrid")
 
-            @JvmField val KEYWORD = of("keyword")
-
             @JvmStatic fun of(value: String) = RetrievalType(JsonField.of(value))
         }
 
@@ -225,7 +229,6 @@ private constructor(
         enum class Known {
             VECTOR,
             HYBRID,
-            KEYWORD,
         }
 
         /**
@@ -240,7 +243,6 @@ private constructor(
         enum class Value {
             VECTOR,
             HYBRID,
-            KEYWORD,
             /**
              * An enum member indicating that [RetrievalType] was instantiated with an unknown
              * value.
@@ -259,7 +261,6 @@ private constructor(
             when (this) {
                 VECTOR -> Value.VECTOR
                 HYBRID -> Value.HYBRID
-                KEYWORD -> Value.KEYWORD
                 else -> Value._UNKNOWN
             }
 
@@ -276,7 +277,6 @@ private constructor(
             when (this) {
                 VECTOR -> Known.VECTOR
                 HYBRID -> Known.HYBRID
-                KEYWORD -> Known.KEYWORD
                 else -> throw TelnyxInvalidDataException("Unknown RetrievalType: $value")
             }
 
