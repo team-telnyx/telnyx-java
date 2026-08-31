@@ -13,6 +13,9 @@ internal class JobListParamsTest {
         JobListParams.builder()
             .filter(
                 JobListParams.Filter.builder()
+                    .phoneNumber("+15551234567,1234567890123456789")
+                    .addStatus(JobListParams.Filter.Status.PENDING)
+                    .addStatus(JobListParams.Filter.Status.IN_PROGRESS)
                     .type(JobListParams.Filter.Type.UPDATE_EMERGENCY_SETTINGS)
                     .build()
             )
@@ -28,6 +31,9 @@ internal class JobListParamsTest {
             JobListParams.builder()
                 .filter(
                     JobListParams.Filter.builder()
+                        .phoneNumber("+15551234567,1234567890123456789")
+                        .addStatus(JobListParams.Filter.Status.PENDING)
+                        .addStatus(JobListParams.Filter.Status.IN_PROGRESS)
                         .type(JobListParams.Filter.Type.UPDATE_EMERGENCY_SETTINGS)
                         .build()
                 )
@@ -41,6 +47,8 @@ internal class JobListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
+                    .put("filter[phone_number]", "+15551234567,1234567890123456789")
+                    .put("filter[status]", listOf("pending", "in_progress").joinToString(","))
                     .put("filter[type]", "update_emergency_settings")
                     .put("page[number]", "0")
                     .put("page[size]", "0")

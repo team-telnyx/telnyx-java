@@ -68,8 +68,8 @@ private constructor(
     fun messages(): List<Message> = body.messages()
 
     /**
-     * The model to use for generating the response, for example `zai-org/GLM-5.2` or another model
-     * available from the Telnyx models endpoint.
+     * The model to use for generating the response, for example `zai-org/GLM-5.3-Flash` or another
+     * model available from the Telnyx models endpoint.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -447,8 +447,8 @@ private constructor(
         fun addMessage(message: Message) = apply { body.addMessage(message) }
 
         /**
-         * The model to use for generating the response, for example `zai-org/GLM-5.2` or another
-         * model available from the Telnyx models endpoint.
+         * The model to use for generating the response, for example `zai-org/GLM-5.3-Flash` or
+         * another model available from the Telnyx models endpoint.
          */
         fun model(model: String) = apply { body.model(model) }
 
@@ -976,8 +976,8 @@ private constructor(
         fun messages(): List<Message> = messages.getRequired("messages")
 
         /**
-         * The model to use for generating the response, for example `zai-org/GLM-5.2` or another
-         * model available from the Telnyx models endpoint.
+         * The model to use for generating the response, for example `zai-org/GLM-5.3-Flash` or
+         * another model available from the Telnyx models endpoint.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1406,7 +1406,7 @@ private constructor(
             }
 
             /**
-             * The model to use for generating the response, for example `zai-org/GLM-5.2` or
+             * The model to use for generating the response, for example `zai-org/GLM-5.3-Flash` or
              * another model available from the Telnyx models endpoint.
              */
             fun model(model: String) = model(JsonField.of(model))
