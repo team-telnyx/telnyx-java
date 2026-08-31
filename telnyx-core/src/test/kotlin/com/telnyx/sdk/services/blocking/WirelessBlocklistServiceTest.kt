@@ -77,9 +77,6 @@ internal class WirelessBlocklistServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val wirelessBlocklistService = client.wirelessBlocklists()
 
-        val wirelessBlocklist =
-            wirelessBlocklistService.delete("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-
-        wirelessBlocklist.validate()
+        wirelessBlocklistService.delete("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
     }
 }

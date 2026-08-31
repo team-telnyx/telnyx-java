@@ -27,6 +27,11 @@ internal class OpenAIServiceTest {
                     )
                     .instructions("You are a friendly chatbot.")
                     .model("zai-org/GLM-5.1-FP8")
+                    .reasoning(
+                        OpenAICreateResponseParams.Reasoning.builder()
+                            .effort(OpenAICreateResponseParams.Reasoning.Effort.NONE)
+                            .build()
+                    )
                     .serviceTier("service_tier")
                     .stream(false)
                     .build()

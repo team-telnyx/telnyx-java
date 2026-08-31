@@ -111,7 +111,9 @@ private constructor(
     fun participants(): Optional<List<AiAssistantJoinParticipant>> = body.participants()
 
     /**
-     * When `true`, a webhook is sent each time the conversation message history is updated.
+     * When `true`, a `call.ai_gather.message_history_updated` webhook carrying the full message
+     * history is sent each time the conversation message history is updated. The assistant's own
+     * `telephony_settings.send_message_history_updates` overrides this value when it is set.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -437,7 +439,12 @@ private constructor(
             body.addParticipant(participant)
         }
 
-        /** When `true`, a webhook is sent each time the conversation message history is updated. */
+        /**
+         * When `true`, a `call.ai_gather.message_history_updated` webhook carrying the full message
+         * history is sent each time the conversation message history is updated. The assistant's
+         * own `telephony_settings.send_message_history_updates` overrides this value when it is
+         * set.
+         */
         fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: Boolean) = apply {
             body.sendMessageHistoryUpdates(sendMessageHistoryUpdates)
         }
@@ -740,7 +747,10 @@ private constructor(
             participants.getOptional("participants")
 
         /**
-         * When `true`, a webhook is sent each time the conversation message history is updated.
+         * When `true`, a `call.ai_gather.message_history_updated` webhook carrying the full message
+         * history is sent each time the conversation message history is updated. The assistant's
+         * own `telephony_settings.send_message_history_updates` overrides this value when it is
+         * set.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1095,7 +1105,10 @@ private constructor(
             }
 
             /**
-             * When `true`, a webhook is sent each time the conversation message history is updated.
+             * When `true`, a `call.ai_gather.message_history_updated` webhook carrying the full
+             * message history is sent each time the conversation message history is updated. The
+             * assistant's own `telephony_settings.send_message_history_updates` overrides this
+             * value when it is set.
              */
             fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: Boolean) =
                 sendMessageHistoryUpdates(JsonField.of(sendMessageHistoryUpdates))

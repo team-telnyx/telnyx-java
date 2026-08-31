@@ -25,7 +25,10 @@ interface WirelessBlocklistValueService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WirelessBlocklistValueService
 
-    /** Retrieve all wireless blocklist values for a given blocklist type. */
+    /**
+     * Retrieve all wireless blocklist values for a given blocklist type. The request returns `422`
+     * when `type` is missing or invalid.
+     */
     fun list(params: WirelessBlocklistValueListParams): WirelessBlocklistValueListResponse =
         list(params, RequestOptions.none())
 

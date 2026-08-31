@@ -2670,6 +2670,7 @@ private constructor(
             private val description: JsonField<String>,
             private val voicemailDetection: JsonField<VoicemailDetection>,
             private val warmMessageDelayMs: JsonField<Long>,
+            private val warmTransferAcceptance: JsonField<WarmTransferAcceptance>,
             private val warmTransferInstructions: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -2692,6 +2693,9 @@ private constructor(
                 @JsonProperty("warm_message_delay_ms")
                 @ExcludeMissing
                 warmMessageDelayMs: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("warm_transfer_acceptance")
+                @ExcludeMissing
+                warmTransferAcceptance: JsonField<WarmTransferAcceptance> = JsonMissing.of(),
                 @JsonProperty("warm_transfer_instructions")
                 @ExcludeMissing
                 warmTransferInstructions: JsonField<String> = JsonMissing.of(),
@@ -2702,6 +2706,7 @@ private constructor(
                 description,
                 voicemailDetection,
                 warmMessageDelayMs,
+                warmTransferAcceptance,
                 warmTransferInstructions,
                 mutableMapOf(),
             )
@@ -2771,6 +2776,24 @@ private constructor(
                 warmMessageDelayMs.getOptional("warm_message_delay_ms")
 
             /**
+             * Requires the transfer destination to accept the call before the caller is bridged.
+             * When enabled, the assistant speaks privately with the destination after they answer —
+             * delivering the warm transfer message and asking whether they take the call — while
+             * the caller keeps hearing ringback. The assistant then finalizes the transfer with the
+             * built-in `complete_transfer` tool: an accept bridges the calls, a decline hangs up
+             * the destination and returns the assistant to the caller with the reason the
+             * destination gave. Requires either `warm_transfer_instructions` or a `message` on
+             * every target, otherwise the assistant fails to save. Only available for calls started
+             * with `ai_assistant_start`; single-caller conversations only (a conference or
+             * additional invited participants fall back to a regular warm transfer).
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun warmTransferAcceptance(): Optional<WarmTransferAcceptance> =
+                warmTransferAcceptance.getOptional("warm_transfer_acceptance")
+
+            /**
              * Natural language instructions for your agent for how to provide context for the
              * transfer recipient.
              *
@@ -2835,6 +2858,17 @@ private constructor(
             fun _warmMessageDelayMs(): JsonField<Long> = warmMessageDelayMs
 
             /**
+             * Returns the raw JSON value of [warmTransferAcceptance].
+             *
+             * Unlike [warmTransferAcceptance], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("warm_transfer_acceptance")
+            @ExcludeMissing
+            fun _warmTransferAcceptance(): JsonField<WarmTransferAcceptance> =
+                warmTransferAcceptance
+
+            /**
              * Returns the raw JSON value of [warmTransferInstructions].
              *
              * Unlike [warmTransferInstructions], this method doesn't throw if the JSON field has an
@@ -2879,6 +2913,8 @@ private constructor(
                 private var description: JsonField<String> = JsonMissing.of()
                 private var voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of()
                 private var warmMessageDelayMs: JsonField<Long> = JsonMissing.of()
+                private var warmTransferAcceptance: JsonField<WarmTransferAcceptance> =
+                    JsonMissing.of()
                 private var warmTransferInstructions: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -2890,6 +2926,7 @@ private constructor(
                     description = transferConfig.description
                     voicemailDetection = transferConfig.voicemailDetection
                     warmMessageDelayMs = transferConfig.warmMessageDelayMs
+                    warmTransferAcceptance = transferConfig.warmTransferAcceptance
                     warmTransferInstructions = transferConfig.warmTransferInstructions
                     additionalProperties = transferConfig.additionalProperties.toMutableMap()
                 }
@@ -3031,6 +3068,33 @@ private constructor(
                 }
 
                 /**
+                 * Requires the transfer destination to accept the call before the caller is
+                 * bridged. When enabled, the assistant speaks privately with the destination after
+                 * they answer — delivering the warm transfer message and asking whether they take
+                 * the call — while the caller keeps hearing ringback. The assistant then finalizes
+                 * the transfer with the built-in `complete_transfer` tool: an accept bridges the
+                 * calls, a decline hangs up the destination and returns the assistant to the caller
+                 * with the reason the destination gave. Requires either
+                 * `warm_transfer_instructions` or a `message` on every target, otherwise the
+                 * assistant fails to save. Only available for calls started with
+                 * `ai_assistant_start`; single-caller conversations only (a conference or
+                 * additional invited participants fall back to a regular warm transfer).
+                 */
+                fun warmTransferAcceptance(warmTransferAcceptance: WarmTransferAcceptance) =
+                    warmTransferAcceptance(JsonField.of(warmTransferAcceptance))
+
+                /**
+                 * Sets [Builder.warmTransferAcceptance] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.warmTransferAcceptance] with a well-typed
+                 * [WarmTransferAcceptance] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun warmTransferAcceptance(
+                    warmTransferAcceptance: JsonField<WarmTransferAcceptance>
+                ) = apply { this.warmTransferAcceptance = warmTransferAcceptance }
+
+                /**
                  * Natural language instructions for your agent for how to provide context for the
                  * transfer recipient.
                  */
@@ -3091,6 +3155,7 @@ private constructor(
                         description,
                         voicemailDetection,
                         warmMessageDelayMs,
+                        warmTransferAcceptance,
                         warmTransferInstructions,
                         additionalProperties.toMutableMap(),
                     )
@@ -3119,6 +3184,7 @@ private constructor(
                 description()
                 voicemailDetection().ifPresent { it.validate() }
                 warmMessageDelayMs()
+                warmTransferAcceptance().ifPresent { it.validate() }
                 warmTransferInstructions()
                 validated = true
             }
@@ -3145,6 +3211,7 @@ private constructor(
                     (if (description.asKnown().isPresent) 1 else 0) +
                     (voicemailDetection.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (warmMessageDelayMs.asKnown().isPresent) 1 else 0) +
+                    (warmTransferAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (warmTransferInstructions.asKnown().isPresent) 1 else 0)
 
             /**
@@ -3388,6 +3455,7 @@ private constructor(
                 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val to: JsonField<String>,
+                    private val message: JsonField<String>,
                     private val name: JsonField<String>,
                     private val additionalProperties: MutableMap<String, JsonValue>,
                 ) {
@@ -3397,10 +3465,13 @@ private constructor(
                         @JsonProperty("to")
                         @ExcludeMissing
                         to: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("message")
+                        @ExcludeMissing
+                        message: JsonField<String> = JsonMissing.of(),
                         @JsonProperty("name")
                         @ExcludeMissing
                         name: JsonField<String> = JsonMissing.of(),
-                    ) : this(to, name, mutableMapOf())
+                    ) : this(to, message, name, mutableMapOf())
 
                     /**
                      * The destination number or SIP URI of the call.
@@ -3410,6 +3481,16 @@ private constructor(
                      *   unexpected value).
                      */
                     fun to(): String = to.getRequired("to")
+
+                    /**
+                     * The warm transfer message to deliver to this specific target. When set, it
+                     * takes precedence over the message the assistant composes from
+                     * `warm_transfer_instructions`.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun message(): Optional<String> = message.getOptional("message")
 
                     /**
                      * The name of the target.
@@ -3426,6 +3507,16 @@ private constructor(
                      * type.
                      */
                     @JsonProperty("to") @ExcludeMissing fun _to(): JsonField<String> = to
+
+                    /**
+                     * Returns the raw JSON value of [message].
+                     *
+                     * Unlike [message], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("message")
+                    @ExcludeMissing
+                    fun _message(): JsonField<String> = message
 
                     /**
                      * Returns the raw JSON value of [name].
@@ -3464,6 +3555,7 @@ private constructor(
                     class Builder internal constructor() {
 
                         private var to: JsonField<String>? = null
+                        private var message: JsonField<String> = JsonMissing.of()
                         private var name: JsonField<String> = JsonMissing.of()
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
@@ -3471,6 +3563,7 @@ private constructor(
                         @JvmSynthetic
                         internal fun from(targetObject: TargetObject) = apply {
                             to = targetObject.to
+                            message = targetObject.message
                             name = targetObject.name
                             additionalProperties = targetObject.additionalProperties.toMutableMap()
                         }
@@ -3486,6 +3579,22 @@ private constructor(
                          * undocumented or not yet supported value.
                          */
                         fun to(to: JsonField<String>) = apply { this.to = to }
+
+                        /**
+                         * The warm transfer message to deliver to this specific target. When set,
+                         * it takes precedence over the message the assistant composes from
+                         * `warm_transfer_instructions`.
+                         */
+                        fun message(message: String) = message(JsonField.of(message))
+
+                        /**
+                         * Sets [Builder.message] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.message] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun message(message: JsonField<String>) = apply { this.message = message }
 
                         /** The name of the target. */
                         fun name(name: String) = name(JsonField.of(name))
@@ -3536,6 +3645,7 @@ private constructor(
                         fun build(): TargetObject =
                             TargetObject(
                                 checkRequired("to", to),
+                                message,
                                 name,
                                 additionalProperties.toMutableMap(),
                             )
@@ -3559,6 +3669,7 @@ private constructor(
                         }
 
                         to()
+                        message()
                         name()
                         validated = true
                     }
@@ -3580,6 +3691,7 @@ private constructor(
                     @JvmSynthetic
                     internal fun validity(): Int =
                         (if (to.asKnown().isPresent) 1 else 0) +
+                            (if (message.asKnown().isPresent) 1 else 0) +
                             (if (name.asKnown().isPresent) 1 else 0)
 
                     override fun equals(other: Any?): Boolean {
@@ -3589,18 +3701,19 @@ private constructor(
 
                         return other is TargetObject &&
                             to == other.to &&
+                            message == other.message &&
                             name == other.name &&
                             additionalProperties == other.additionalProperties
                     }
 
                     private val hashCode: Int by lazy {
-                        Objects.hash(to, name, additionalProperties)
+                        Objects.hash(to, message, name, additionalProperties)
                     }
 
                     override fun hashCode(): Int = hashCode
 
                     override fun toString() =
-                        "TargetObject{to=$to, name=$name, additionalProperties=$additionalProperties}"
+                        "TargetObject{to=$to, message=$message, name=$name, additionalProperties=$additionalProperties}"
                 }
             }
 
@@ -5676,6 +5789,406 @@ private constructor(
                     "VoicemailDetection{detectionConfig=$detectionConfig, detectionMode=$detectionMode, onVoicemailDetected=$onVoicemailDetected, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * Requires the transfer destination to accept the call before the caller is bridged.
+             * When enabled, the assistant speaks privately with the destination after they answer —
+             * delivering the warm transfer message and asking whether they take the call — while
+             * the caller keeps hearing ringback. The assistant then finalizes the transfer with the
+             * built-in `complete_transfer` tool: an accept bridges the calls, a decline hangs up
+             * the destination and returns the assistant to the caller with the reason the
+             * destination gave. Requires either `warm_transfer_instructions` or a `message` on
+             * every target, otherwise the assistant fails to save. Only available for calls started
+             * with `ai_assistant_start`; single-caller conversations only (a conference or
+             * additional invited participants fall back to a regular warm transfer).
+             */
+            class WarmTransferAcceptance
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val enabled: JsonField<Boolean>,
+                private val endUserTargetContextMode: JsonField<EndUserTargetContextMode>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("enabled")
+                    @ExcludeMissing
+                    enabled: JsonField<Boolean> = JsonMissing.of(),
+                    @JsonProperty("end_user_target_context_mode")
+                    @ExcludeMissing
+                    endUserTargetContextMode: JsonField<EndUserTargetContextMode> = JsonMissing.of(),
+                ) : this(enabled, endUserTargetContextMode, mutableMapOf())
+
+                /**
+                 * Whether the destination must accept the transfer before the calls are bridged.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun enabled(): Optional<Boolean> = enabled.getOptional("enabled")
+
+                /**
+                 * Controls whether the private exchange between the assistant and the transfer
+                 * destination is kept out of the conversation. With `private` (default) the
+                 * exchange never reaches the conversation history, AI conversations, webhooks or
+                 * insights, and the transfer tool result is rewritten with the outcome only. With
+                 * `shared` the exchange stays in the conversation like any other messages.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun endUserTargetContextMode(): Optional<EndUserTargetContextMode> =
+                    endUserTargetContextMode.getOptional("end_user_target_context_mode")
+
+                /**
+                 * Returns the raw JSON value of [enabled].
+                 *
+                 * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("enabled")
+                @ExcludeMissing
+                fun _enabled(): JsonField<Boolean> = enabled
+
+                /**
+                 * Returns the raw JSON value of [endUserTargetContextMode].
+                 *
+                 * Unlike [endUserTargetContextMode], this method doesn't throw if the JSON field
+                 * has an unexpected type.
+                 */
+                @JsonProperty("end_user_target_context_mode")
+                @ExcludeMissing
+                fun _endUserTargetContextMode(): JsonField<EndUserTargetContextMode> =
+                    endUserTargetContextMode
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [WarmTransferAcceptance].
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [WarmTransferAcceptance]. */
+                class Builder internal constructor() {
+
+                    private var enabled: JsonField<Boolean> = JsonMissing.of()
+                    private var endUserTargetContextMode: JsonField<EndUserTargetContextMode> =
+                        JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(warmTransferAcceptance: WarmTransferAcceptance) = apply {
+                        enabled = warmTransferAcceptance.enabled
+                        endUserTargetContextMode = warmTransferAcceptance.endUserTargetContextMode
+                        additionalProperties =
+                            warmTransferAcceptance.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * Whether the destination must accept the transfer before the calls are
+                     * bridged.
+                     */
+                    fun enabled(enabled: Boolean) = enabled(JsonField.of(enabled))
+
+                    /**
+                     * Sets [Builder.enabled] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.enabled] with a well-typed [Boolean] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun enabled(enabled: JsonField<Boolean>) = apply { this.enabled = enabled }
+
+                    /**
+                     * Controls whether the private exchange between the assistant and the transfer
+                     * destination is kept out of the conversation. With `private` (default) the
+                     * exchange never reaches the conversation history, AI conversations, webhooks
+                     * or insights, and the transfer tool result is rewritten with the outcome only.
+                     * With `shared` the exchange stays in the conversation like any other messages.
+                     */
+                    fun endUserTargetContextMode(
+                        endUserTargetContextMode: EndUserTargetContextMode
+                    ) = endUserTargetContextMode(JsonField.of(endUserTargetContextMode))
+
+                    /**
+                     * Sets [Builder.endUserTargetContextMode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.endUserTargetContextMode] with a well-typed
+                     * [EndUserTargetContextMode] value instead. This method is primarily for
+                     * setting the field to an undocumented or not yet supported value.
+                     */
+                    fun endUserTargetContextMode(
+                        endUserTargetContextMode: JsonField<EndUserTargetContextMode>
+                    ) = apply { this.endUserTargetContextMode = endUserTargetContextMode }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [WarmTransferAcceptance].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): WarmTransferAcceptance =
+                        WarmTransferAcceptance(
+                            enabled,
+                            endUserTargetContextMode,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): WarmTransferAcceptance = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    enabled()
+                    endUserTargetContextMode().ifPresent { it.validate() }
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (enabled.asKnown().isPresent) 1 else 0) +
+                        (endUserTargetContextMode.asKnown().getOrNull()?.validity() ?: 0)
+
+                /**
+                 * Controls whether the private exchange between the assistant and the transfer
+                 * destination is kept out of the conversation. With `private` (default) the
+                 * exchange never reaches the conversation history, AI conversations, webhooks or
+                 * insights, and the transfer tool result is rewritten with the outcome only. With
+                 * `shared` the exchange stays in the conversation like any other messages.
+                 */
+                class EndUserTargetContextMode
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val PRIVATE = of("private")
+
+                        @JvmField val SHARED = of("shared")
+
+                        @JvmStatic
+                        fun of(value: String) = EndUserTargetContextMode(JsonField.of(value))
+                    }
+
+                    /** An enum containing [EndUserTargetContextMode]'s known values. */
+                    enum class Known {
+                        PRIVATE,
+                        SHARED,
+                    }
+
+                    /**
+                     * An enum containing [EndUserTargetContextMode]'s known values, as well as an
+                     * [_UNKNOWN] member.
+                     *
+                     * An instance of [EndUserTargetContextMode] can contain an unknown value in a
+                     * couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        PRIVATE,
+                        SHARED,
+                        /**
+                         * An enum member indicating that [EndUserTargetContextMode] was
+                         * instantiated with an unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            PRIVATE -> Value.PRIVATE
+                            SHARED -> Value.SHARED
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            PRIVATE -> Known.PRIVATE
+                            SHARED -> Known.SHARED
+                            else ->
+                                throw TelnyxInvalidDataException(
+                                    "Unknown EndUserTargetContextMode: $value"
+                                )
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): EndUserTargetContextMode = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is EndUserTargetContextMode && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is WarmTransferAcceptance &&
+                        enabled == other.enabled &&
+                        endUserTargetContextMode == other.endUserTargetContextMode &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(enabled, endUserTargetContextMode, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "WarmTransferAcceptance{enabled=$enabled, endUserTargetContextMode=$endUserTargetContextMode, additionalProperties=$additionalProperties}"
+            }
+
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
@@ -5688,6 +6201,7 @@ private constructor(
                     description == other.description &&
                     voicemailDetection == other.voicemailDetection &&
                     warmMessageDelayMs == other.warmMessageDelayMs &&
+                    warmTransferAcceptance == other.warmTransferAcceptance &&
                     warmTransferInstructions == other.warmTransferInstructions &&
                     additionalProperties == other.additionalProperties
             }
@@ -5700,6 +6214,7 @@ private constructor(
                     description,
                     voicemailDetection,
                     warmMessageDelayMs,
+                    warmTransferAcceptance,
                     warmTransferInstructions,
                     additionalProperties,
                 )
@@ -5708,7 +6223,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "TransferConfig{from=$from, targets=$targets, customHeaders=$customHeaders, description=$description, voicemailDetection=$voicemailDetection, warmMessageDelayMs=$warmMessageDelayMs, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
+                "TransferConfig{from=$from, targets=$targets, customHeaders=$customHeaders, description=$description, voicemailDetection=$voicemailDetection, warmMessageDelayMs=$warmMessageDelayMs, warmTransferAcceptance=$warmTransferAcceptance, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

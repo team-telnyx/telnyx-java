@@ -5,11 +5,11 @@ package com.telnyx.sdk.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteParams
-import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListPage
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistRetrieveParams
@@ -127,35 +127,36 @@ interface WirelessBlocklistService {
     fun list(requestOptions: RequestOptions): WirelessBlocklistListPage =
         list(WirelessBlocklistListParams.none(), requestOptions)
 
-    /** Permanently deletes the specified wireless blocklist from your account. */
-    fun delete(id: String): WirelessBlocklistDeleteResponse =
-        delete(id, WirelessBlocklistDeleteParams.none())
+    /**
+     * Permanently deletes the specified wireless blocklist from your account. The request returns
+     * `422` when the wireless blocklist is assigned to a SIM Card Group.
+     */
+    fun delete(id: String) = delete(id, WirelessBlocklistDeleteParams.none())
 
     /** @see delete */
     fun delete(
         id: String,
         params: WirelessBlocklistDeleteParams = WirelessBlocklistDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): WirelessBlocklistDeleteResponse = delete(params.toBuilder().id(id).build(), requestOptions)
+    ) = delete(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         id: String,
         params: WirelessBlocklistDeleteParams = WirelessBlocklistDeleteParams.none(),
-    ): WirelessBlocklistDeleteResponse = delete(id, params, RequestOptions.none())
+    ) = delete(id, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: WirelessBlocklistDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): WirelessBlocklistDeleteResponse
+    )
 
     /** @see delete */
-    fun delete(params: WirelessBlocklistDeleteParams): WirelessBlocklistDeleteResponse =
-        delete(params, RequestOptions.none())
+    fun delete(params: WirelessBlocklistDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(id: String, requestOptions: RequestOptions): WirelessBlocklistDeleteResponse =
+    fun delete(id: String, requestOptions: RequestOptions) =
         delete(id, WirelessBlocklistDeleteParams.none(), requestOptions)
 
     /**
@@ -313,8 +314,7 @@ interface WirelessBlocklistService {
          * same as [WirelessBlocklistService.delete].
          */
         @MustBeClosed
-        fun delete(id: String): HttpResponseFor<WirelessBlocklistDeleteResponse> =
-            delete(id, WirelessBlocklistDeleteParams.none())
+        fun delete(id: String): HttpResponse = delete(id, WirelessBlocklistDeleteParams.none())
 
         /** @see delete */
         @MustBeClosed
@@ -322,36 +322,30 @@ interface WirelessBlocklistService {
             id: String,
             params: WirelessBlocklistDeleteParams = WirelessBlocklistDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<WirelessBlocklistDeleteResponse> =
-            delete(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             id: String,
             params: WirelessBlocklistDeleteParams = WirelessBlocklistDeleteParams.none(),
-        ): HttpResponseFor<WirelessBlocklistDeleteResponse> =
-            delete(id, params, RequestOptions.none())
+        ): HttpResponse = delete(id, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: WirelessBlocklistDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<WirelessBlocklistDeleteResponse>
+        ): HttpResponse
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            params: WirelessBlocklistDeleteParams
-        ): HttpResponseFor<WirelessBlocklistDeleteResponse> = delete(params, RequestOptions.none())
+        fun delete(params: WirelessBlocklistDeleteParams): HttpResponse =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<WirelessBlocklistDeleteResponse> =
+        fun delete(id: String, requestOptions: RequestOptions): HttpResponse =
             delete(id, WirelessBlocklistDeleteParams.none(), requestOptions)
     }
 }

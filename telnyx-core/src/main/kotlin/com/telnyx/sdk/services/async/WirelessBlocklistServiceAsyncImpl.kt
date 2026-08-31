@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -19,7 +20,6 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteParams
-import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListPageAsync
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListPageResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListParams
@@ -77,9 +77,9 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
     override fun delete(
         params: WirelessBlocklistDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<WirelessBlocklistDeleteResponse> =
+    ): CompletableFuture<Void?> =
         // delete /wireless_blocklists/{id}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).thenAccept {}
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WirelessBlocklistServiceAsync.WithRawResponse {
@@ -230,13 +230,12 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
                 }
         }
 
-        private val deleteHandler: Handler<WirelessBlocklistDeleteResponse> =
-            jsonHandler<WirelessBlocklistDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: WirelessBlocklistDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistDeleteResponse>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -253,13 +252,7 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { deleteHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }

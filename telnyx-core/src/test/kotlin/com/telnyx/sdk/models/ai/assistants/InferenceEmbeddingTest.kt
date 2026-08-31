@@ -157,6 +157,36 @@ internal class InferenceEmbeddingTest {
                                                                 )
                                                                 .build()
                                                         )
+                                                        .presetBodyFields(
+                                                            InferenceEmbeddingWebhookToolParams
+                                                                .Webhook
+                                                                .PresetBodyFields
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "account_id",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .putAdditionalProperty(
+                                                                    "source",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .build()
+                                                        )
+                                                        .presetQueryParams(
+                                                            InferenceEmbeddingWebhookToolParams
+                                                                .Webhook
+                                                                .PresetQueryParams
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "caller",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .putAdditionalProperty(
+                                                                    "channel",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .build()
+                                                        )
                                                         .queryParameters(
                                                             InferenceEmbeddingWebhookToolParams
                                                                 .Webhook
@@ -383,6 +413,36 @@ internal class InferenceEmbeddingTest {
                                                                         .PathParameters
                                                                         .Type
                                                                         .OBJECT
+                                                                )
+                                                                .build()
+                                                        )
+                                                        .presetBodyFields(
+                                                            InferenceEmbeddingWebhookToolParams
+                                                                .Webhook
+                                                                .PresetBodyFields
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "account_id",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .putAdditionalProperty(
+                                                                    "source",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .build()
+                                                        )
+                                                        .presetQueryParams(
+                                                            InferenceEmbeddingWebhookToolParams
+                                                                .Webhook
+                                                                .PresetQueryParams
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "caller",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .putAdditionalProperty(
+                                                                    "channel",
+                                                                    JsonValue.from("bar"),
                                                                 )
                                                                 .build()
                                                         )
@@ -623,6 +683,7 @@ internal class InferenceEmbeddingTest {
                                 .stopOnConversationEnd(true)
                                 .build()
                         )
+                        .sendMessageHistoryUpdates(true)
                         .supportsUnauthenticatedWebCalls(true)
                         .timeLimitSecs(30L)
                         .userIdleReplySecs(0L)
@@ -720,6 +781,18 @@ internal class InferenceEmbeddingTest {
                                     InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.Type
                                         .OBJECT
                                 )
+                                .build()
+                        )
+                        .presetBodyFields(
+                            InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields.builder()
+                                .putAdditionalProperty("account_id", JsonValue.from("bar"))
+                                .putAdditionalProperty("source", JsonValue.from("bar"))
+                                .build()
+                        )
+                        .presetQueryParams(
+                            InferenceEmbeddingWebhookToolParams.Webhook.PresetQueryParams.builder()
+                                .putAdditionalProperty("caller", JsonValue.from("bar"))
+                                .putAdditionalProperty("channel", JsonValue.from("bar"))
                                 .build()
                         )
                         .queryParameters(
@@ -952,6 +1025,34 @@ internal class InferenceEmbeddingTest {
                                                             )
                                                             .build()
                                                     )
+                                                    .presetBodyFields(
+                                                        InferenceEmbeddingWebhookToolParams.Webhook
+                                                            .PresetBodyFields
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "account_id",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .putAdditionalProperty(
+                                                                "source",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .presetQueryParams(
+                                                        InferenceEmbeddingWebhookToolParams.Webhook
+                                                            .PresetQueryParams
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "caller",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .putAdditionalProperty(
+                                                                "channel",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
+                                                    )
                                                     .queryParameters(
                                                         InferenceEmbeddingWebhookToolParams.Webhook
                                                             .QueryParameters
@@ -1166,6 +1267,34 @@ internal class InferenceEmbeddingTest {
                                                                     .PathParameters
                                                                     .Type
                                                                     .OBJECT
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .presetBodyFields(
+                                                        InferenceEmbeddingWebhookToolParams.Webhook
+                                                            .PresetBodyFields
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "account_id",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .putAdditionalProperty(
+                                                                "source",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .presetQueryParams(
+                                                        InferenceEmbeddingWebhookToolParams.Webhook
+                                                            .PresetQueryParams
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "caller",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .putAdditionalProperty(
+                                                                "channel",
+                                                                JsonValue.from("bar"),
                                                             )
                                                             .build()
                                                     )
@@ -1415,6 +1544,7 @@ internal class InferenceEmbeddingTest {
                             .stopOnConversationEnd(true)
                             .build()
                     )
+                    .sendMessageHistoryUpdates(true)
                     .supportsUnauthenticatedWebCalls(true)
                     .timeLimitSecs(30L)
                     .userIdleReplySecs(0L)
@@ -1527,6 +1657,20 @@ internal class InferenceEmbeddingTest {
                                                 .Type
                                                 .OBJECT
                                         )
+                                        .build()
+                                )
+                                .presetBodyFields(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields
+                                        .builder()
+                                        .putAdditionalProperty("account_id", JsonValue.from("bar"))
+                                        .putAdditionalProperty("source", JsonValue.from("bar"))
+                                        .build()
+                                )
+                                .presetQueryParams(
+                                    InferenceEmbeddingWebhookToolParams.Webhook.PresetQueryParams
+                                        .builder()
+                                        .putAdditionalProperty("caller", JsonValue.from("bar"))
+                                        .putAdditionalProperty("channel", JsonValue.from("bar"))
                                         .build()
                                 )
                                 .queryParameters(
@@ -1788,6 +1932,36 @@ internal class InferenceEmbeddingTest {
                                                                 )
                                                                 .build()
                                                         )
+                                                        .presetBodyFields(
+                                                            InferenceEmbeddingWebhookToolParams
+                                                                .Webhook
+                                                                .PresetBodyFields
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "account_id",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .putAdditionalProperty(
+                                                                    "source",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .build()
+                                                        )
+                                                        .presetQueryParams(
+                                                            InferenceEmbeddingWebhookToolParams
+                                                                .Webhook
+                                                                .PresetQueryParams
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "caller",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .putAdditionalProperty(
+                                                                    "channel",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .build()
+                                                        )
                                                         .queryParameters(
                                                             InferenceEmbeddingWebhookToolParams
                                                                 .Webhook
@@ -2014,6 +2188,36 @@ internal class InferenceEmbeddingTest {
                                                                         .PathParameters
                                                                         .Type
                                                                         .OBJECT
+                                                                )
+                                                                .build()
+                                                        )
+                                                        .presetBodyFields(
+                                                            InferenceEmbeddingWebhookToolParams
+                                                                .Webhook
+                                                                .PresetBodyFields
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "account_id",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .putAdditionalProperty(
+                                                                    "source",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .build()
+                                                        )
+                                                        .presetQueryParams(
+                                                            InferenceEmbeddingWebhookToolParams
+                                                                .Webhook
+                                                                .PresetQueryParams
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "caller",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .putAdditionalProperty(
+                                                                    "channel",
+                                                                    JsonValue.from("bar"),
                                                                 )
                                                                 .build()
                                                         )
@@ -2254,6 +2458,7 @@ internal class InferenceEmbeddingTest {
                                 .stopOnConversationEnd(true)
                                 .build()
                         )
+                        .sendMessageHistoryUpdates(true)
                         .supportsUnauthenticatedWebCalls(true)
                         .timeLimitSecs(30L)
                         .userIdleReplySecs(0L)
@@ -2351,6 +2556,18 @@ internal class InferenceEmbeddingTest {
                                     InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.Type
                                         .OBJECT
                                 )
+                                .build()
+                        )
+                        .presetBodyFields(
+                            InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields.builder()
+                                .putAdditionalProperty("account_id", JsonValue.from("bar"))
+                                .putAdditionalProperty("source", JsonValue.from("bar"))
+                                .build()
+                        )
+                        .presetQueryParams(
+                            InferenceEmbeddingWebhookToolParams.Webhook.PresetQueryParams.builder()
+                                .putAdditionalProperty("caller", JsonValue.from("bar"))
+                                .putAdditionalProperty("channel", JsonValue.from("bar"))
                                 .build()
                         )
                         .queryParameters(

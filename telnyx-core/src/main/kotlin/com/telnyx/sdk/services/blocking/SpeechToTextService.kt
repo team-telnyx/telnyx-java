@@ -64,11 +64,11 @@ interface SpeechToTextService {
      * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
      *
      * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`, `Speechmatics`, `Soniox`,
-     * `Parakeet`, `Humain`, `Reson8`.
+     * `Parakeet`, `Humain`, `Reson8`, `Cohere`.
      *
      * **Connection flow:**
      * 1. Open WebSocket with query parameters specifying engine, input format, and language.
-     * 2. Send binary audio frames (mp3/wav format).
+     * 2. Send binary audio frames (mp3, wav, linear16, or linear32 format, per `input_format`).
      * 3. Receive JSON transcript frames with `transcript`, `is_final`, and `confidence` fields.
      * 4. Close connection when done.
      */

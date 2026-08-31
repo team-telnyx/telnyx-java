@@ -346,6 +346,13 @@ private constructor(
             transcriptionEngineConfig(TranscriptionEngineConfig.ofReson8(reson8))
 
         /**
+         * Alias for calling [transcriptionEngineConfig] with
+         * `TranscriptionEngineConfig.ofCohere(cohere)`.
+         */
+        fun transcriptionEngineConfig(cohere: TranscriptionEngineCohereConfig) =
+            transcriptionEngineConfig(TranscriptionEngineConfig.ofCohere(cohere))
+
+        /**
          * Alias for calling [transcriptionEngineConfig] with `TranscriptionEngineConfig.ofA(a)`.
          */
         fun transcriptionEngineConfig(a: TranscriptionEngineAConfig) =
@@ -549,6 +556,8 @@ private constructor(
 
             @JvmField val RESON8 = of("Reson8")
 
+            @JvmField val COHERE = of("Cohere")
+
             @JvmField val A = of("A")
 
             @JvmField val B = of("B")
@@ -569,6 +578,7 @@ private constructor(
             PARAKEET,
             HUMAIN,
             RESON8,
+            COHERE,
             A,
             B,
         }
@@ -594,6 +604,7 @@ private constructor(
             PARAKEET,
             HUMAIN,
             RESON8,
+            COHERE,
             A,
             B,
             /**
@@ -623,6 +634,7 @@ private constructor(
                 PARAKEET -> Value.PARAKEET
                 HUMAIN -> Value.HUMAIN
                 RESON8 -> Value.RESON8
+                COHERE -> Value.COHERE
                 A -> Value.A
                 B -> Value.B
                 else -> Value._UNKNOWN
@@ -650,6 +662,7 @@ private constructor(
                 PARAKEET -> Known.PARAKEET
                 HUMAIN -> Known.HUMAIN
                 RESON8 -> Known.RESON8
+                COHERE -> Known.COHERE
                 A -> Known.A
                 B -> Known.B
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
@@ -730,6 +743,7 @@ private constructor(
         private val parakeet: TranscriptionEngineParakeetConfig? = null,
         private val humain: TranscriptionEngineHumainConfig? = null,
         private val reson8: TranscriptionEngineReson8Config? = null,
+        private val cohere: TranscriptionEngineCohereConfig? = null,
         private val a: TranscriptionEngineAConfig? = null,
         private val b: TranscriptionEngineBConfig? = null,
         private val deepgramNova2: DeepgramNova2Config? = null,
@@ -759,6 +773,8 @@ private constructor(
 
         fun reson8(): Optional<TranscriptionEngineReson8Config> = Optional.ofNullable(reson8)
 
+        fun cohere(): Optional<TranscriptionEngineCohereConfig> = Optional.ofNullable(cohere)
+
         fun a(): Optional<TranscriptionEngineAConfig> = Optional.ofNullable(a)
 
         fun b(): Optional<TranscriptionEngineBConfig> = Optional.ofNullable(b)
@@ -786,6 +802,8 @@ private constructor(
         fun isHumain(): Boolean = humain != null
 
         fun isReson8(): Boolean = reson8 != null
+
+        fun isCohere(): Boolean = cohere != null
 
         fun isA(): Boolean = a != null
 
@@ -816,6 +834,8 @@ private constructor(
         fun asHumain(): TranscriptionEngineHumainConfig = humain.getOrThrow("humain")
 
         fun asReson8(): TranscriptionEngineReson8Config = reson8.getOrThrow("reson8")
+
+        fun asCohere(): TranscriptionEngineCohereConfig = cohere.getOrThrow("cohere")
 
         fun asA(): TranscriptionEngineAConfig = a.getOrThrow("a")
 
@@ -868,6 +888,7 @@ private constructor(
                 parakeet != null -> visitor.visitParakeet(parakeet)
                 humain != null -> visitor.visitHumain(humain)
                 reson8 != null -> visitor.visitReson8(reson8)
+                cohere != null -> visitor.visitCohere(cohere)
                 a != null -> visitor.visitA(a)
                 b != null -> visitor.visitB(b)
                 deepgramNova2 != null -> visitor.visitDeepgramNova2(deepgramNova2)
@@ -933,6 +954,10 @@ private constructor(
 
                     override fun visitReson8(reson8: TranscriptionEngineReson8Config) {
                         reson8.validate()
+                    }
+
+                    override fun visitCohere(cohere: TranscriptionEngineCohereConfig) {
+                        cohere.validate()
                     }
 
                     override fun visitA(a: TranscriptionEngineAConfig) {
@@ -1003,6 +1028,9 @@ private constructor(
                     override fun visitReson8(reson8: TranscriptionEngineReson8Config) =
                         reson8.validity()
 
+                    override fun visitCohere(cohere: TranscriptionEngineCohereConfig) =
+                        cohere.validity()
+
                     override fun visitA(a: TranscriptionEngineAConfig) = a.validity()
 
                     override fun visitB(b: TranscriptionEngineBConfig) = b.validity()
@@ -1033,6 +1061,7 @@ private constructor(
                 parakeet == other.parakeet &&
                 humain == other.humain &&
                 reson8 == other.reson8 &&
+                cohere == other.cohere &&
                 a == other.a &&
                 b == other.b &&
                 deepgramNova2 == other.deepgramNova2 &&
@@ -1051,6 +1080,7 @@ private constructor(
                 parakeet,
                 humain,
                 reson8,
+                cohere,
                 a,
                 b,
                 deepgramNova2,
@@ -1069,6 +1099,7 @@ private constructor(
                 parakeet != null -> "TranscriptionEngineConfig{parakeet=$parakeet}"
                 humain != null -> "TranscriptionEngineConfig{humain=$humain}"
                 reson8 != null -> "TranscriptionEngineConfig{reson8=$reson8}"
+                cohere != null -> "TranscriptionEngineConfig{cohere=$cohere}"
                 a != null -> "TranscriptionEngineConfig{a=$a}"
                 b != null -> "TranscriptionEngineConfig{b=$b}"
                 deepgramNova2 != null -> "TranscriptionEngineConfig{deepgramNova2=$deepgramNova2}"
@@ -1118,6 +1149,10 @@ private constructor(
             fun ofReson8(reson8: TranscriptionEngineReson8Config) =
                 TranscriptionEngineConfig(reson8 = reson8)
 
+            @JvmStatic
+            fun ofCohere(cohere: TranscriptionEngineCohereConfig) =
+                TranscriptionEngineConfig(cohere = cohere)
+
             @JvmStatic fun ofA(a: TranscriptionEngineAConfig) = TranscriptionEngineConfig(a = a)
 
             @JvmStatic fun ofB(b: TranscriptionEngineBConfig) = TranscriptionEngineConfig(b = b)
@@ -1156,6 +1191,8 @@ private constructor(
             fun visitHumain(humain: TranscriptionEngineHumainConfig): T
 
             fun visitReson8(reson8: TranscriptionEngineReson8Config): T
+
+            fun visitCohere(cohere: TranscriptionEngineCohereConfig): T
 
             fun visitA(a: TranscriptionEngineAConfig): T
 
@@ -1271,6 +1308,14 @@ private constructor(
                             ?.let { TranscriptionEngineConfig(reson8 = it, _json = json) }
                             ?: TranscriptionEngineConfig(_json = json)
                     }
+                    "Cohere" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<TranscriptionEngineCohereConfig>(),
+                            )
+                            ?.let { TranscriptionEngineConfig(cohere = it, _json = json) }
+                            ?: TranscriptionEngineConfig(_json = json)
+                    }
                     "A" -> {
                         return tryDeserialize(node, jacksonTypeRef<TranscriptionEngineAConfig>())
                             ?.let { TranscriptionEngineConfig(a = it, _json = json) }
@@ -1316,6 +1361,7 @@ private constructor(
                     value.parakeet != null -> generator.writeObject(value.parakeet)
                     value.humain != null -> generator.writeObject(value.humain)
                     value.reson8 != null -> generator.writeObject(value.reson8)
+                    value.cohere != null -> generator.writeObject(value.cohere)
                     value.a != null -> generator.writeObject(value.a)
                     value.b != null -> generator.writeObject(value.b)
                     value.deepgramNova2 != null -> generator.writeObject(value.deepgramNova2)

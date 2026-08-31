@@ -354,6 +354,8 @@ private constructor(
         private val messages: JsonField<List<Message>>,
         private val method: JsonField<Method>,
         private val pathParameters: JsonField<PathParameters>,
+        private val presetBodyFields: JsonField<PresetBodyFields>,
+        private val presetQueryParams: JsonField<PresetQueryParams>,
         private val queryParameters: JsonField<QueryParameters>,
         private val storeFieldsAsVariables: JsonField<List<StoreFieldsAsVariable>>,
         private val timeoutMs: JsonField<Long>,
@@ -384,6 +386,12 @@ private constructor(
             @JsonProperty("path_parameters")
             @ExcludeMissing
             pathParameters: JsonField<PathParameters> = JsonMissing.of(),
+            @JsonProperty("preset_body_fields")
+            @ExcludeMissing
+            presetBodyFields: JsonField<PresetBodyFields> = JsonMissing.of(),
+            @JsonProperty("preset_query_params")
+            @ExcludeMissing
+            presetQueryParams: JsonField<PresetQueryParams> = JsonMissing.of(),
             @JsonProperty("query_parameters")
             @ExcludeMissing
             queryParameters: JsonField<QueryParameters> = JsonMissing.of(),
@@ -404,6 +412,8 @@ private constructor(
             messages,
             method,
             pathParameters,
+            presetBodyFields,
+            presetQueryParams,
             queryParameters,
             storeFieldsAsVariables,
             timeoutMs,
@@ -507,6 +517,36 @@ private constructor(
          */
         fun pathParameters(): Optional<PathParameters> =
             pathParameters.getOptional("path_parameters")
+
+        /**
+         * Body fields supplied by the assistant configuration rather than by the model. They are
+         * never advertised in the tool definition, so the LLM can neither see nor set them, and
+         * they take precedence over a `body_parameters` value of the same name. Values support
+         * mustache templating, so they can hold dynamic variables (`{{customer_id}}`) and
+         * integration secrets (`{{#integration_secret}}my-secret{{/integration_secret}}`). Not sent
+         * on `GET` requests, which carry no body.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun presetBodyFields(): Optional<PresetBodyFields> =
+            presetBodyFields.getOptional("preset_body_fields")
+
+        /**
+         * Query string parameters supplied by the assistant configuration rather than by the model.
+         * They are never advertised in the tool definition, so the LLM can neither see nor set
+         * them, and they take precedence over a `query_parameters` value of the same name. Values
+         * support mustache templating, so they can hold dynamic variables
+         * (`{{telnyx_end_user_target}}`) and integration secrets
+         * (`{{#integration_secret}}my-secret{{/integration_secret}}`). Unlike values templated
+         * directly into the `url`, these are percent-encoded, so a value such as `+15551234567`
+         * survives the round trip.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun presetQueryParams(): Optional<PresetQueryParams> =
+            presetQueryParams.getOptional("preset_query_params")
 
         /**
          * The query parameters the webhook tool accepts, described as a JSON Schema object. These
@@ -624,6 +664,26 @@ private constructor(
         fun _pathParameters(): JsonField<PathParameters> = pathParameters
 
         /**
+         * Returns the raw JSON value of [presetBodyFields].
+         *
+         * Unlike [presetBodyFields], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("preset_body_fields")
+        @ExcludeMissing
+        fun _presetBodyFields(): JsonField<PresetBodyFields> = presetBodyFields
+
+        /**
+         * Returns the raw JSON value of [presetQueryParams].
+         *
+         * Unlike [presetQueryParams], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("preset_query_params")
+        @ExcludeMissing
+        fun _presetQueryParams(): JsonField<PresetQueryParams> = presetQueryParams
+
+        /**
          * Returns the raw JSON value of [queryParameters].
          *
          * Unlike [queryParameters], this method doesn't throw if the JSON field has an unexpected
@@ -691,6 +751,8 @@ private constructor(
             private var messages: JsonField<MutableList<Message>>? = null
             private var method: JsonField<Method> = JsonMissing.of()
             private var pathParameters: JsonField<PathParameters> = JsonMissing.of()
+            private var presetBodyFields: JsonField<PresetBodyFields> = JsonMissing.of()
+            private var presetQueryParams: JsonField<PresetQueryParams> = JsonMissing.of()
             private var queryParameters: JsonField<QueryParameters> = JsonMissing.of()
             private var storeFieldsAsVariables: JsonField<MutableList<StoreFieldsAsVariable>>? =
                 null
@@ -709,6 +771,8 @@ private constructor(
                 messages = webhook.messages.map { it.toMutableList() }
                 method = webhook.method
                 pathParameters = webhook.pathParameters
+                presetBodyFields = webhook.presetBodyFields
+                presetQueryParams = webhook.presetQueryParams
                 queryParameters = webhook.queryParameters
                 storeFieldsAsVariables = webhook.storeFieldsAsVariables.map { it.toMutableList() }
                 timeoutMs = webhook.timeoutMs
@@ -920,6 +984,52 @@ private constructor(
             }
 
             /**
+             * Body fields supplied by the assistant configuration rather than by the model. They
+             * are never advertised in the tool definition, so the LLM can neither see nor set them,
+             * and they take precedence over a `body_parameters` value of the same name. Values
+             * support mustache templating, so they can hold dynamic variables (`{{customer_id}}`)
+             * and integration secrets (`{{#integration_secret}}my-secret{{/integration_secret}}`).
+             * Not sent on `GET` requests, which carry no body.
+             */
+            fun presetBodyFields(presetBodyFields: PresetBodyFields) =
+                presetBodyFields(JsonField.of(presetBodyFields))
+
+            /**
+             * Sets [Builder.presetBodyFields] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.presetBodyFields] with a well-typed
+             * [PresetBodyFields] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun presetBodyFields(presetBodyFields: JsonField<PresetBodyFields>) = apply {
+                this.presetBodyFields = presetBodyFields
+            }
+
+            /**
+             * Query string parameters supplied by the assistant configuration rather than by the
+             * model. They are never advertised in the tool definition, so the LLM can neither see
+             * nor set them, and they take precedence over a `query_parameters` value of the same
+             * name. Values support mustache templating, so they can hold dynamic variables
+             * (`{{telnyx_end_user_target}}`) and integration secrets
+             * (`{{#integration_secret}}my-secret{{/integration_secret}}`). Unlike values templated
+             * directly into the `url`, these are percent-encoded, so a value such as `+15551234567`
+             * survives the round trip.
+             */
+            fun presetQueryParams(presetQueryParams: PresetQueryParams) =
+                presetQueryParams(JsonField.of(presetQueryParams))
+
+            /**
+             * Sets [Builder.presetQueryParams] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.presetQueryParams] with a well-typed
+             * [PresetQueryParams] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun presetQueryParams(presetQueryParams: JsonField<PresetQueryParams>) = apply {
+                this.presetQueryParams = presetQueryParams
+            }
+
+            /**
              * The query parameters the webhook tool accepts, described as a JSON Schema object.
              * These parameters will be passed to the webhook as the query of the request. See the
              * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
@@ -1032,6 +1142,8 @@ private constructor(
                     (messages ?: JsonMissing.of()).map { it.toImmutable() },
                     method,
                     pathParameters,
+                    presetBodyFields,
+                    presetQueryParams,
                     queryParameters,
                     (storeFieldsAsVariables ?: JsonMissing.of()).map { it.toImmutable() },
                     timeoutMs,
@@ -1065,6 +1177,8 @@ private constructor(
             messages().ifPresent { it.forEach { it.validate() } }
             method().ifPresent { it.validate() }
             pathParameters().ifPresent { it.validate() }
+            presetBodyFields().ifPresent { it.validate() }
+            presetQueryParams().ifPresent { it.validate() }
             queryParameters().ifPresent { it.validate() }
             storeFieldsAsVariables().ifPresent { it.forEach { it.validate() } }
             timeoutMs()
@@ -1097,6 +1211,8 @@ private constructor(
                 (messages.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (method.asKnown().getOrNull()?.validity() ?: 0) +
                 (pathParameters.asKnown().getOrNull()?.validity() ?: 0) +
+                (presetBodyFields.asKnown().getOrNull()?.validity() ?: 0) +
+                (presetQueryParams.asKnown().getOrNull()?.validity() ?: 0) +
                 (queryParameters.asKnown().getOrNull()?.validity() ?: 0) +
                 (storeFieldsAsVariables.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
                     ?: 0) +
@@ -3276,6 +3392,254 @@ private constructor(
         }
 
         /**
+         * Body fields supplied by the assistant configuration rather than by the model. They are
+         * never advertised in the tool definition, so the LLM can neither see nor set them, and
+         * they take precedence over a `body_parameters` value of the same name. Values support
+         * mustache templating, so they can hold dynamic variables (`{{customer_id}}`) and
+         * integration secrets (`{{#integration_secret}}my-secret{{/integration_secret}}`). Not sent
+         * on `GET` requests, which carry no body.
+         */
+        class PresetBodyFields
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [PresetBodyFields]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [PresetBodyFields]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(presetBodyFields: PresetBodyFields) = apply {
+                    additionalProperties = presetBodyFields.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [PresetBodyFields].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): PresetBodyFields = PresetBodyFields(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): PresetBodyFields = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is PresetBodyFields &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "PresetBodyFields{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * Query string parameters supplied by the assistant configuration rather than by the model.
+         * They are never advertised in the tool definition, so the LLM can neither see nor set
+         * them, and they take precedence over a `query_parameters` value of the same name. Values
+         * support mustache templating, so they can hold dynamic variables
+         * (`{{telnyx_end_user_target}}`) and integration secrets
+         * (`{{#integration_secret}}my-secret{{/integration_secret}}`). Unlike values templated
+         * directly into the `url`, these are percent-encoded, so a value such as `+15551234567`
+         * survives the round trip.
+         */
+        class PresetQueryParams
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [PresetQueryParams].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [PresetQueryParams]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(presetQueryParams: PresetQueryParams) = apply {
+                    additionalProperties = presetQueryParams.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [PresetQueryParams].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): PresetQueryParams =
+                    PresetQueryParams(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): PresetQueryParams = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is PresetQueryParams &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "PresetQueryParams{additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * The query parameters the webhook tool accepts, described as a JSON Schema object. These
          * parameters will be passed to the webhook as the query of the request. See the
          * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
@@ -4026,6 +4390,8 @@ private constructor(
                 messages == other.messages &&
                 method == other.method &&
                 pathParameters == other.pathParameters &&
+                presetBodyFields == other.presetBodyFields &&
+                presetQueryParams == other.presetQueryParams &&
                 queryParameters == other.queryParameters &&
                 storeFieldsAsVariables == other.storeFieldsAsVariables &&
                 timeoutMs == other.timeoutMs &&
@@ -4044,6 +4410,8 @@ private constructor(
                 messages,
                 method,
                 pathParameters,
+                presetBodyFields,
+                presetQueryParams,
                 queryParameters,
                 storeFieldsAsVariables,
                 timeoutMs,
@@ -4054,7 +4422,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Webhook{description=$description, name=$name, url=$url, async=$async, asyncTimeoutMs=$asyncTimeoutMs, bodyParameters=$bodyParameters, headers=$headers, messages=$messages, method=$method, pathParameters=$pathParameters, queryParameters=$queryParameters, storeFieldsAsVariables=$storeFieldsAsVariables, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
+            "Webhook{description=$description, name=$name, url=$url, async=$async, asyncTimeoutMs=$asyncTimeoutMs, bodyParameters=$bodyParameters, headers=$headers, messages=$messages, method=$method, pathParameters=$pathParameters, presetBodyFields=$presetBodyFields, presetQueryParams=$presetQueryParams, queryParameters=$queryParameters, storeFieldsAsVariables=$storeFieldsAsVariables, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

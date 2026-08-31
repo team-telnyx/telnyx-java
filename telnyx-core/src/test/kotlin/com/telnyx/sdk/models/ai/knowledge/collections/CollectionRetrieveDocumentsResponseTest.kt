@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.ai.collections
+package com.telnyx.sdk.models.ai.knowledge.collections
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
@@ -10,20 +10,20 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class CollectionRetrieveDocumentsPageResponseTest {
+internal class CollectionRetrieveDocumentsResponseTest {
 
     @Test
     fun create() {
-        val collectionRetrieveDocumentsPageResponse =
-            CollectionRetrieveDocumentsPageResponse.builder()
+        val collectionRetrieveDocumentsResponse =
+            CollectionRetrieveDocumentsResponse.builder()
                 .addData(
-                    CollectionRetrieveDocumentsResponse.builder()
+                    CollectionRetrieveDocumentsResponse.Data.builder()
                         .id("id")
                         .chunkIndex(0L)
                         .chunkTotal(0L)
                         .ingestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
-                            CollectionRetrieveDocumentsResponse.Metadata.builder()
+                            CollectionRetrieveDocumentsResponse.Data.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -38,7 +38,7 @@ internal class CollectionRetrieveDocumentsPageResponseTest {
                         .build()
                 )
                 .meta(
-                    CollectionRetrieveDocumentsPageResponse.Meta.builder()
+                    CollectionRetrieveDocumentsResponse.Meta.builder()
                         .collectionSlug("support-transcripts")
                         .pageNumber(1L)
                         .pageSize(20L)
@@ -52,15 +52,15 @@ internal class CollectionRetrieveDocumentsPageResponseTest {
                 )
                 .build()
 
-        assertThat(collectionRetrieveDocumentsPageResponse.data().getOrNull())
+        assertThat(collectionRetrieveDocumentsResponse.data().getOrNull())
             .containsExactly(
-                CollectionRetrieveDocumentsResponse.builder()
+                CollectionRetrieveDocumentsResponse.Data.builder()
                     .id("id")
                     .chunkIndex(0L)
                     .chunkTotal(0L)
                     .ingestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .metadata(
-                        CollectionRetrieveDocumentsResponse.Metadata.builder()
+                        CollectionRetrieveDocumentsResponse.Data.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -74,9 +74,9 @@ internal class CollectionRetrieveDocumentsPageResponseTest {
                     .userId("user_id")
                     .build()
             )
-        assertThat(collectionRetrieveDocumentsPageResponse.meta())
+        assertThat(collectionRetrieveDocumentsResponse.meta())
             .contains(
-                CollectionRetrieveDocumentsPageResponse.Meta.builder()
+                CollectionRetrieveDocumentsResponse.Meta.builder()
                     .collectionSlug("support-transcripts")
                     .pageNumber(1L)
                     .pageSize(20L)
@@ -93,16 +93,16 @@ internal class CollectionRetrieveDocumentsPageResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val collectionRetrieveDocumentsPageResponse =
-            CollectionRetrieveDocumentsPageResponse.builder()
+        val collectionRetrieveDocumentsResponse =
+            CollectionRetrieveDocumentsResponse.builder()
                 .addData(
-                    CollectionRetrieveDocumentsResponse.builder()
+                    CollectionRetrieveDocumentsResponse.Data.builder()
                         .id("id")
                         .chunkIndex(0L)
                         .chunkTotal(0L)
                         .ingestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
-                            CollectionRetrieveDocumentsResponse.Metadata.builder()
+                            CollectionRetrieveDocumentsResponse.Data.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -117,7 +117,7 @@ internal class CollectionRetrieveDocumentsPageResponseTest {
                         .build()
                 )
                 .meta(
-                    CollectionRetrieveDocumentsPageResponse.Meta.builder()
+                    CollectionRetrieveDocumentsResponse.Meta.builder()
                         .collectionSlug("support-transcripts")
                         .pageNumber(1L)
                         .pageSize(20L)
@@ -131,13 +131,13 @@ internal class CollectionRetrieveDocumentsPageResponseTest {
                 )
                 .build()
 
-        val roundtrippedCollectionRetrieveDocumentsPageResponse =
+        val roundtrippedCollectionRetrieveDocumentsResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(collectionRetrieveDocumentsPageResponse),
-                jacksonTypeRef<CollectionRetrieveDocumentsPageResponse>(),
+                jsonMapper.writeValueAsString(collectionRetrieveDocumentsResponse),
+                jacksonTypeRef<CollectionRetrieveDocumentsResponse>(),
             )
 
-        assertThat(roundtrippedCollectionRetrieveDocumentsPageResponse)
-            .isEqualTo(collectionRetrieveDocumentsPageResponse)
+        assertThat(roundtrippedCollectionRetrieveDocumentsResponse)
+            .isEqualTo(collectionRetrieveDocumentsResponse)
     }
 }

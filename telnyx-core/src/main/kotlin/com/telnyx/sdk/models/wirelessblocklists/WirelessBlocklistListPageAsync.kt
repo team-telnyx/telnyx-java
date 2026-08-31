@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: WirelessBlocklistListParams,
     private val response: WirelessBlocklistListPageResponse,
-) : PageAsync<WirelessBlocklist> {
+) : PageAsync<WirelessWirelessBlocklist> {
 
     /**
      * Delegates to [WirelessBlocklistListPageResponse], but gracefully handles missing data.
      *
      * @see WirelessBlocklistListPageResponse.data
      */
-    fun data(): List<WirelessBlocklist> =
+    fun data(): List<WirelessWirelessBlocklist> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<WirelessBlocklist> = data()
+    override fun items(): List<WirelessWirelessBlocklist> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -68,7 +68,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<WirelessBlocklistListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<WirelessBlocklist> =
+    fun autoPager(): AutoPagerAsync<WirelessWirelessBlocklist> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

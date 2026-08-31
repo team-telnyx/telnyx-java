@@ -109,15 +109,4 @@ internal class CollectionServiceTest {
 
         collectionEnvelope.validate()
     }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun retrieveDocuments() {
-        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val collectionService = client.ai().collections()
-
-        val page = collectionService.retrieveDocuments("support-transcripts")
-
-        page.response().validate()
-    }
 }

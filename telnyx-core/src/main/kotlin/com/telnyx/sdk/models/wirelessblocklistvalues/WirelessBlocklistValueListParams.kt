@@ -11,7 +11,10 @@ import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
 
-/** Retrieve all wireless blocklist values for a given blocklist type. */
+/**
+ * Retrieve all wireless blocklist values for a given blocklist type. The request returns `422` when
+ * `type` is missing or invalid.
+ */
 class WirelessBlocklistValueListParams
 private constructor(
     private val type: Type,

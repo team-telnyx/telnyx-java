@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.ai.collections
+package com.telnyx.sdk.models.ai.knowledge.collections
 
 import com.telnyx.sdk.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
@@ -20,7 +20,7 @@ internal class CollectionRetrieveDocumentsParamsTest {
             .pageNumber(1L)
             .pageSize(20L)
             .query("customer called about billing issue")
-            .retrievalType(CollectionRetrieveDocumentsParams.RetrievalType.HYBRID)
+            .retrievalType(CollectionRetrieveDocumentsParams.RetrievalType.VECTOR)
             .sources("voice,message")
             .topK(10L)
             .build()
@@ -48,7 +48,7 @@ internal class CollectionRetrieveDocumentsParamsTest {
                 .pageNumber(1L)
                 .pageSize(20L)
                 .query("customer called about billing issue")
-                .retrievalType(CollectionRetrieveDocumentsParams.RetrievalType.HYBRID)
+                .retrievalType(CollectionRetrieveDocumentsParams.RetrievalType.VECTOR)
                 .sources("voice,message")
                 .topK(10L)
                 .build()
@@ -62,7 +62,7 @@ internal class CollectionRetrieveDocumentsParamsTest {
                     .put("page[number]", "1")
                     .put("page[size]", "20")
                     .put("query", "customer called about billing issue")
-                    .put("retrieval_type", "hybrid")
+                    .put("retrieval_type", "vector")
                     .put("sources", "voice,message")
                     .put("top_k", "10")
                     .build()

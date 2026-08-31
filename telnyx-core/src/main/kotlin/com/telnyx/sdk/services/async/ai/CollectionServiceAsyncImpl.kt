@@ -24,9 +24,6 @@ import com.telnyx.sdk.models.ai.collections.CollectionListPageAsync
 import com.telnyx.sdk.models.ai.collections.CollectionListPageResponse
 import com.telnyx.sdk.models.ai.collections.CollectionListParams
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveByIdParams
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsPageAsync
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsPageResponse
-import com.telnyx.sdk.models.ai.collections.CollectionRetrieveDocumentsParams
 import com.telnyx.sdk.models.ai.collections.CollectionRetrieveParams
 import com.telnyx.sdk.models.ai.collections.CollectionUpdateParams
 import com.telnyx.sdk.services.async.ai.collections.SettingServiceAsync
@@ -110,13 +107,6 @@ class CollectionServiceAsyncImpl internal constructor(private val clientOptions:
     ): CompletableFuture<CollectionEnvelope> =
         // get /ai/collections/{uuid}
         withRawResponse().retrieveById(params, requestOptions).thenApply { it.parse() }
-
-    override fun retrieveDocuments(
-        params: CollectionRetrieveDocumentsParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionRetrieveDocumentsPageAsync> =
-        // get /ai/collections/{slug}/documents
-        withRawResponse().retrieveDocuments(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CollectionServiceAsync.WithRawResponse {
@@ -342,47 +332,6 @@ class CollectionServiceAsyncImpl internal constructor(private val clientOptions:
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                    }
-                }
-        }
-
-        private val retrieveDocumentsHandler: Handler<CollectionRetrieveDocumentsPageResponse> =
-            jsonHandler<CollectionRetrieveDocumentsPageResponse>(clientOptions.jsonMapper)
-
-        override fun retrieveDocuments(
-            params: CollectionRetrieveDocumentsParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionRetrieveDocumentsPageAsync>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("slug", params.slug().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("ai", "collections", params._pathParam(0), "documents")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { retrieveDocumentsHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                            .let {
-                                CollectionRetrieveDocumentsPageAsync.builder()
-                                    .service(CollectionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

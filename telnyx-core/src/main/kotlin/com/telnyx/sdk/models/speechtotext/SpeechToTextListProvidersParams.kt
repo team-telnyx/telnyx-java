@@ -274,6 +274,8 @@ private constructor(
 
             @JvmField val RESON8 = of("reson8")
 
+            @JvmField val COHERE = of("cohere")
+
             @JvmField val AZURE = of("azure")
 
             @JvmField val OPENAI = of("openai")
@@ -295,6 +297,7 @@ private constructor(
             PARAKEET,
             HUMAIN,
             RESON8,
+            COHERE,
             AZURE,
             OPENAI,
             GOOGLE,
@@ -319,6 +322,7 @@ private constructor(
             PARAKEET,
             HUMAIN,
             RESON8,
+            COHERE,
             AZURE,
             OPENAI,
             GOOGLE,
@@ -344,6 +348,7 @@ private constructor(
                 PARAKEET -> Value.PARAKEET
                 HUMAIN -> Value.HUMAIN
                 RESON8 -> Value.RESON8
+                COHERE -> Value.COHERE
                 AZURE -> Value.AZURE
                 OPENAI -> Value.OPENAI
                 GOOGLE -> Value.GOOGLE
@@ -370,6 +375,7 @@ private constructor(
                 PARAKEET -> Known.PARAKEET
                 HUMAIN -> Known.HUMAIN
                 RESON8 -> Known.RESON8
+                COHERE -> Known.COHERE
                 AZURE -> Known.AZURE
                 OPENAI -> Known.OPENAI
                 GOOGLE -> Known.GOOGLE

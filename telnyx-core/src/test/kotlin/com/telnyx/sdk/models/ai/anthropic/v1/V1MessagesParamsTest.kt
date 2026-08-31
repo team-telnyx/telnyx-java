@@ -19,7 +19,7 @@ internal class V1MessagesParamsTest {
                     .putAdditionalProperty("content", JsonValue.from("bar"))
                     .build()
             )
-            .model("zai-org/GLM-5.2")
+            .model("zai-org/GLM-5.3-Flash")
             .apiKeyRef("api_key_ref")
             .billingGroupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .fallbackConfig(
@@ -75,7 +75,7 @@ internal class V1MessagesParamsTest {
                         .putAdditionalProperty("content", JsonValue.from("bar"))
                         .build()
                 )
-                .model("zai-org/GLM-5.2")
+                .model("zai-org/GLM-5.3-Flash")
                 .apiKeyRef("api_key_ref")
                 .billingGroupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .fallbackConfig(
@@ -129,7 +129,7 @@ internal class V1MessagesParamsTest {
                     .putAdditionalProperty("content", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(body.model()).isEqualTo("zai-org/GLM-5.2")
+        assertThat(body.model()).isEqualTo("zai-org/GLM-5.3-Flash")
         assertThat(body.apiKeyRef()).contains("api_key_ref")
         assertThat(body.billingGroupId()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.fallbackConfig())
@@ -191,7 +191,7 @@ internal class V1MessagesParamsTest {
                         .putAdditionalProperty("content", JsonValue.from("bar"))
                         .build()
                 )
-                .model("zai-org/GLM-5.2")
+                .model("zai-org/GLM-5.3-Flash")
                 .build()
 
         val body = params._body()
@@ -204,6 +204,6 @@ internal class V1MessagesParamsTest {
                     .putAdditionalProperty("content", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(body.model()).isEqualTo("zai-org/GLM-5.2")
+        assertThat(body.model()).isEqualTo("zai-org/GLM-5.3-Flash")
     }
 }

@@ -26,7 +26,7 @@ internal class V1ServiceAsyncTest {
                             .putAdditionalProperty("content", JsonValue.from("bar"))
                             .build()
                     )
-                    .model("zai-org/GLM-5.2")
+                    .model("zai-org/GLM-5.3-Flash")
                     .apiKeyRef("api_key_ref")
                     .billingGroupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .fallbackConfig(
