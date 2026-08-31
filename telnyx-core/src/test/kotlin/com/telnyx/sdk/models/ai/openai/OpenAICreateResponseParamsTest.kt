@@ -19,6 +19,11 @@ internal class OpenAICreateResponseParamsTest {
             )
             .instructions("You are a friendly chatbot.")
             .model("zai-org/GLM-5.1-FP8")
+            .reasoning(
+                OpenAICreateResponseParams.Reasoning.builder()
+                    .effort(OpenAICreateResponseParams.Reasoning.Effort.NONE)
+                    .build()
+            )
             .serviceTier("service_tier")
             .stream(false)
             .build()
@@ -36,6 +41,11 @@ internal class OpenAICreateResponseParamsTest {
                 )
                 .instructions("You are a friendly chatbot.")
                 .model("zai-org/GLM-5.1-FP8")
+                .reasoning(
+                    OpenAICreateResponseParams.Reasoning.builder()
+                        .effort(OpenAICreateResponseParams.Reasoning.Effort.NONE)
+                        .build()
+                )
                 .serviceTier("service_tier")
                 .stream(false)
                 .build()
@@ -51,6 +61,12 @@ internal class OpenAICreateResponseParamsTest {
             )
         assertThat(body.instructions()).contains("You are a friendly chatbot.")
         assertThat(body.model()).contains("zai-org/GLM-5.1-FP8")
+        assertThat(body.reasoning())
+            .contains(
+                OpenAICreateResponseParams.Reasoning.builder()
+                    .effort(OpenAICreateResponseParams.Reasoning.Effort.NONE)
+                    .build()
+            )
         assertThat(body.serviceTier()).contains("service_tier")
         assertThat(body.stream()).contains(false)
     }

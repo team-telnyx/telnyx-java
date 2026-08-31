@@ -25,7 +25,10 @@ interface WirelessBlocklistValueServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WirelessBlocklistValueServiceAsync
 
-    /** Retrieve all wireless blocklist values for a given blocklist type. */
+    /**
+     * Retrieve all wireless blocklist values for a given blocklist type. The request returns `422`
+     * when `type` is missing or invalid.
+     */
     fun list(
         params: WirelessBlocklistValueListParams
     ): CompletableFuture<WirelessBlocklistValueListResponse> = list(params, RequestOptions.none())

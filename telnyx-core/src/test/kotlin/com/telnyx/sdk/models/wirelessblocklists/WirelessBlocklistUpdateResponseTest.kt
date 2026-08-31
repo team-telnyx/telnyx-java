@@ -14,12 +14,11 @@ internal class WirelessBlocklistUpdateResponseTest {
         val wirelessBlocklistUpdateResponse =
             WirelessBlocklistUpdateResponse.builder()
                 .data(
-                    WirelessBlocklist.builder()
+                    WirelessWirelessBlocklist.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .name("My wireless blocklist.")
-                        .recordType("wireless_blocklist")
-                        .type(WirelessBlocklist.Type.COUNTRY)
+                        .type(WirelessWirelessBlocklist.Type.COUNTRY)
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .values(listOf("CA", "MX", "US"))
                         .build()
@@ -28,12 +27,11 @@ internal class WirelessBlocklistUpdateResponseTest {
 
         assertThat(wirelessBlocklistUpdateResponse.data())
             .contains(
-                WirelessBlocklist.builder()
+                WirelessWirelessBlocklist.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .name("My wireless blocklist.")
-                    .recordType("wireless_blocklist")
-                    .type(WirelessBlocklist.Type.COUNTRY)
+                    .type(WirelessWirelessBlocklist.Type.COUNTRY)
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .values(listOf("CA", "MX", "US"))
                     .build()
@@ -46,12 +44,11 @@ internal class WirelessBlocklistUpdateResponseTest {
         val wirelessBlocklistUpdateResponse =
             WirelessBlocklistUpdateResponse.builder()
                 .data(
-                    WirelessBlocklist.builder()
+                    WirelessWirelessBlocklist.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .name("My wireless blocklist.")
-                        .recordType("wireless_blocklist")
-                        .type(WirelessBlocklist.Type.COUNTRY)
+                        .type(WirelessWirelessBlocklist.Type.COUNTRY)
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .values(listOf("CA", "MX", "US"))
                         .build()

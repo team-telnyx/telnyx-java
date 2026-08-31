@@ -816,7 +816,8 @@ private constructor(
             ) : this(confidence, isFinal, transcript, transcriptionTrack, mutableMapOf())
 
             /**
-             * Speech recognition confidence level.
+             * Speech recognition confidence level. `cohere/ar-stt` returns `null` here rather than
+             * omitting the field.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
@@ -924,8 +925,21 @@ private constructor(
                     additionalProperties = transcriptionData.additionalProperties.toMutableMap()
                 }
 
-                /** Speech recognition confidence level. */
-                fun confidence(confidence: Float) = confidence(JsonField.of(confidence))
+                /**
+                 * Speech recognition confidence level. `cohere/ar-stt` returns `null` here rather
+                 * than omitting the field.
+                 */
+                fun confidence(confidence: Float?) = confidence(JsonField.ofNullable(confidence))
+
+                /**
+                 * Alias for [Builder.confidence].
+                 *
+                 * This unboxed primitive overload exists for backwards compatibility.
+                 */
+                fun confidence(confidence: Float) = confidence(confidence as Float?)
+
+                /** Alias for calling [Builder.confidence] with `confidence.orElse(null)`. */
+                fun confidence(confidence: Optional<Float>) = confidence(confidence.getOrNull())
 
                 /**
                  * Sets [Builder.confidence] to an arbitrary JSON value.

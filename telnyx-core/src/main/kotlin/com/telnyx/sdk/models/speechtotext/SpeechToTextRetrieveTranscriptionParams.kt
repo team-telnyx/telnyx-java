@@ -18,11 +18,11 @@ import kotlin.jvm.optionals.getOrNull
  * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
  *
  * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`, `Speechmatics`, `Soniox`,
- * `Parakeet`, `Humain`, `Reson8`.
+ * `Parakeet`, `Humain`, `Reson8`, `Cohere`.
  *
  * **Connection flow:**
  * 1. Open WebSocket with query parameters specifying engine, input format, and language.
- * 2. Send binary audio frames (mp3/wav format).
+ * 2. Send binary audio frames (mp3, wav, linear16, or linear32 format, per `input_format`).
  * 3. Receive JSON transcript frames with `transcript`, `is_final`, and `confidence` fields.
  * 4. Close connection when done.
  */
@@ -37,6 +37,7 @@ private constructor(
     private val language: String?,
     private val model: Model?,
     private val redact: String?,
+    private val sampleRate: Long?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -70,7 +71,11 @@ private constructor(
      */
     fun keywords(): Optional<String> = Optional.ofNullable(keywords)
 
-    /** The language spoken in the audio stream. */
+    /**
+     * The language spoken in the audio stream. For `cohere/ar-stt`, this must be `ar` or `en` —
+     * unlike other engines, Cohere does not auto-detect the language, and rejects unsupported
+     * values including `auto`; omitting it defaults to `ar`.
+     */
     fun language(): Optional<String> = Optional.ofNullable(language)
 
     /** The specific model to use within the selected transcription engine. */
@@ -81,6 +86,13 @@ private constructor(
      * Supported values depend on the transcription engine.
      */
     fun redact(): Optional<String> = Optional.ofNullable(redact)
+
+    /**
+     * Audio sample rate in Hz. Required when `input_format` is a raw encoding (`linear16`,
+     * `linear32`) — those formats carry no header metadata. Ignored for container formats (`mp3`,
+     * `wav`), which self-describe their rate.
+     */
+    fun sampleRate(): Optional<Long> = Optional.ofNullable(sampleRate)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
@@ -117,6 +129,7 @@ private constructor(
         private var language: String? = null
         private var model: Model? = null
         private var redact: String? = null
+        private var sampleRate: Long? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -134,6 +147,7 @@ private constructor(
             language = speechToTextRetrieveTranscriptionParams.language
             model = speechToTextRetrieveTranscriptionParams.model
             redact = speechToTextRetrieveTranscriptionParams.redact
+            sampleRate = speechToTextRetrieveTranscriptionParams.sampleRate
             additionalHeaders =
                 speechToTextRetrieveTranscriptionParams.additionalHeaders.toBuilder()
             additionalQueryParams =
@@ -200,7 +214,11 @@ private constructor(
         /** Alias for calling [Builder.keywords] with `keywords.orElse(null)`. */
         fun keywords(keywords: Optional<String>) = keywords(keywords.getOrNull())
 
-        /** The language spoken in the audio stream. */
+        /**
+         * The language spoken in the audio stream. For `cohere/ar-stt`, this must be `ar` or `en` —
+         * unlike other engines, Cohere does not auto-detect the language, and rejects unsupported
+         * values including `auto`; omitting it defaults to `ar`.
+         */
         fun language(language: String?) = apply { this.language = language }
 
         /** Alias for calling [Builder.language] with `language.orElse(null)`. */
@@ -220,6 +238,23 @@ private constructor(
 
         /** Alias for calling [Builder.redact] with `redact.orElse(null)`. */
         fun redact(redact: Optional<String>) = redact(redact.getOrNull())
+
+        /**
+         * Audio sample rate in Hz. Required when `input_format` is a raw encoding (`linear16`,
+         * `linear32`) — those formats carry no header metadata. Ignored for container formats
+         * (`mp3`, `wav`), which self-describe their rate.
+         */
+        fun sampleRate(sampleRate: Long?) = apply { this.sampleRate = sampleRate }
+
+        /**
+         * Alias for [Builder.sampleRate].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun sampleRate(sampleRate: Long) = sampleRate(sampleRate as Long?)
+
+        /** Alias for calling [Builder.sampleRate] with `sampleRate.orElse(null)`. */
+        fun sampleRate(sampleRate: Optional<Long>) = sampleRate(sampleRate.getOrNull())
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
@@ -344,6 +379,7 @@ private constructor(
                 language,
                 model,
                 redact,
+                sampleRate,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -363,6 +399,7 @@ private constructor(
                 language?.let { put("language", it) }
                 model?.let { put("model", it.toString()) }
                 redact?.let { put("redact", it) }
+                sampleRate?.let { put("sample_rate", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -387,6 +424,10 @@ private constructor(
 
             @JvmField val WAV = of("wav")
 
+            @JvmField val LINEAR16 = of("linear16")
+
+            @JvmField val LINEAR32 = of("linear32")
+
             @JvmStatic fun of(value: String) = InputFormat(JsonField.of(value))
         }
 
@@ -394,6 +435,8 @@ private constructor(
         enum class Known {
             MP3,
             WAV,
+            LINEAR16,
+            LINEAR32,
         }
 
         /**
@@ -408,6 +451,8 @@ private constructor(
         enum class Value {
             MP3,
             WAV,
+            LINEAR16,
+            LINEAR32,
             /**
              * An enum member indicating that [InputFormat] was instantiated with an unknown value.
              */
@@ -425,6 +470,8 @@ private constructor(
             when (this) {
                 MP3 -> Value.MP3
                 WAV -> Value.WAV
+                LINEAR16 -> Value.LINEAR16
+                LINEAR32 -> Value.LINEAR32
                 else -> Value._UNKNOWN
             }
 
@@ -441,6 +488,8 @@ private constructor(
             when (this) {
                 MP3 -> Known.MP3
                 WAV -> Known.WAV
+                LINEAR16 -> Known.LINEAR16
+                LINEAR32 -> Known.LINEAR32
                 else -> throw TelnyxInvalidDataException("Unknown InputFormat: $value")
             }
 
@@ -542,6 +591,8 @@ private constructor(
 
             @JvmField val RESON8 = of("Reson8")
 
+            @JvmField val COHERE = of("Cohere")
+
             @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
         }
 
@@ -557,6 +608,7 @@ private constructor(
             PARAKEET,
             HUMAIN,
             RESON8,
+            COHERE,
         }
 
         /**
@@ -579,6 +631,7 @@ private constructor(
             PARAKEET,
             HUMAIN,
             RESON8,
+            COHERE,
             /**
              * An enum member indicating that [TranscriptionEngine] was instantiated with an unknown
              * value.
@@ -605,6 +658,7 @@ private constructor(
                 PARAKEET -> Value.PARAKEET
                 HUMAIN -> Value.HUMAIN
                 RESON8 -> Value.RESON8
+                COHERE -> Value.COHERE
                 else -> Value._UNKNOWN
             }
 
@@ -629,6 +683,7 @@ private constructor(
                 PARAKEET -> Known.PARAKEET
                 HUMAIN -> Known.HUMAIN
                 RESON8 -> Known.RESON8
+                COHERE -> Known.COHERE
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
             }
 
@@ -746,6 +801,8 @@ private constructor(
 
             @JvmField val RESON8_TURNS = of("reson8/turns")
 
+            @JvmField val COHERE_AR_STT = of("cohere/ar-stt")
+
             @JvmStatic fun of(value: String) = Model(JsonField.of(value))
         }
 
@@ -770,6 +827,7 @@ private constructor(
             NVIDIA_PARAKEET_V3,
             HUMAIN_REALTIME,
             RESON8_TURNS,
+            COHERE_AR_STT,
         }
 
         /**
@@ -801,6 +859,7 @@ private constructor(
             NVIDIA_PARAKEET_V3,
             HUMAIN_REALTIME,
             RESON8_TURNS,
+            COHERE_AR_STT,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -833,6 +892,7 @@ private constructor(
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
                 RESON8_TURNS -> Value.RESON8_TURNS
+                COHERE_AR_STT -> Value.COHERE_AR_STT
                 else -> Value._UNKNOWN
             }
 
@@ -866,6 +926,7 @@ private constructor(
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
                 RESON8_TURNS -> Known.RESON8_TURNS
+                COHERE_AR_STT -> Known.COHERE_AR_STT
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
             }
 
@@ -945,6 +1006,7 @@ private constructor(
             language == other.language &&
             model == other.model &&
             redact == other.redact &&
+            sampleRate == other.sampleRate &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -960,10 +1022,11 @@ private constructor(
             language,
             model,
             redact,
+            sampleRate,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "SpeechToTextRetrieveTranscriptionParams{inputFormat=$inputFormat, transcriptionEngine=$transcriptionEngine, endpointing=$endpointing, interimResults=$interimResults, keyterm=$keyterm, keywords=$keywords, language=$language, model=$model, redact=$redact, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SpeechToTextRetrieveTranscriptionParams{inputFormat=$inputFormat, transcriptionEngine=$transcriptionEngine, endpointing=$endpointing, interimResults=$interimResults, keyterm=$keyterm, keywords=$keywords, language=$language, model=$model, redact=$redact, sampleRate=$sampleRate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

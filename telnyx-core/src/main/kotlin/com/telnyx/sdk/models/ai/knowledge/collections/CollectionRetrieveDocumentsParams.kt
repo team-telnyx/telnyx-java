@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.ai.collections
+package com.telnyx.sdk.models.ai.knowledge.collections
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.telnyx.sdk.core.Enum
@@ -13,17 +13,20 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Runs search over the documents in a collection, ranked by relevance to `query`. The collection's
- * `retrieval_type` setting selects the strategy: `vector` (semantic similarity), `hybrid` (vector
- * similarity fused with keyword matching), or `keyword` (lexical BM25 matching). When `query` is
- * omitted, returns a plain catalog listing of the collection's documents.
+ * Runs search over the documents in a collection, ranked by relevance to `query`. Searches
+ * currently run `vector` retrieval (semantic similarity). The collection's `retrieval_type` setting
+ * is the forward-compatible selector: `hybrid` (vector similarity fused with keyword matching) can
+ * be set but cannot be searched yet, and `keyword` (lexical BM25 matching) is not accepted yet --
+ * setting it returns 422 `unsupported_retrieval_type`. A per-request `retrieval_type` is accepted
+ * but ignored; `meta.retrieval_type` echoes the mode that actually ran. When `query` is omitted,
+ * returns a plain catalog listing of the collection's documents.
  *
  * **How it works:**
- * 1. For `vector` and `hybrid`, the `query` text is embedded into a 1024-dimensional vector using
- *    the multilingual-e5-large model.
- * 2. For `vector`, the embedding is compared against the collection's indexed document chunks using
- *    semantic similarity; for `hybrid`, those similarity scores are fused with keyword-match
- *    scores; for `keyword`, only lexical BM25 matching is applied.
+ * 1. The `query` text is embedded into a 1024-dimensional vector using the multilingual-e5-large
+ *    model.
+ * 2. The embedding is compared against the collection's indexed document chunks using semantic
+ *    similarity. When `hybrid` and `keyword` execution ship, those scores will be fused with, or
+ *    replaced by, lexical BM25 matching.
  * 3. Results are ranked by `score` (descending) and paginated via `page[number]` / `page[size]`.
  *
  * **Authentication:** Requires a Telnyx API key via `Authorization: Bearer <key>`. Results are
@@ -34,10 +37,10 @@ import kotlin.jvm.optionals.getOrNull
  * fields resolve to `metadata.<field>`.
  *
  * **Examples:**
- * - `GET /v2/ai/collections/my-collection/documents?query=billing+issue&top_k=10`
- * - `GET /v2/ai/collections/my-collection/documents?query=refund&sources=voice,message`
+ * - `GET /v2/ai/knowledge/collections/my-collection/documents?query=billing+issue&top_k=10`
+ * - `GET /v2/ai/knowledge/collections/my-collection/documents?query=refund&sources=voice,message`
  * - `GET
- *   /v2/ai/collections/my-collection/documents?query=outage&filter[record_created_at][gte]=2026-01-01T00:00:00Z`
+ *   /v2/ai/knowledge/collections/my-collection/documents?query=outage&filter[record_created_at][gte]=2026-01-01T00:00:00Z`
  */
 class CollectionRetrieveDocumentsParams
 private constructor(
@@ -77,8 +80,10 @@ private constructor(
     fun query(): Optional<String> = Optional.ofNullable(query)
 
     /**
-     * Override the collection's configured retrieval strategy for this request. Echoed back in
-     * `meta.retrieval_type`.
+     * Reserved; not yet functional. A value supplied here is accepted but ignored — it does not
+     * override the collection's configured strategy, and it is not echoed back. Searches run
+     * `vector` retrieval, and `meta.retrieval_type` reports the mode that actually ran. To change
+     * retrieval strategy, set it on the collection's settings subresource.
      */
     fun retrievalType(): Optional<RetrievalType> = Optional.ofNullable(retrievalType)
 
@@ -197,8 +202,10 @@ private constructor(
         fun query(query: Optional<String>) = query(query.getOrNull())
 
         /**
-         * Override the collection's configured retrieval strategy for this request. Echoed back in
-         * `meta.retrieval_type`.
+         * Reserved; not yet functional. A value supplied here is accepted but ignored — it does not
+         * override the collection's configured strategy, and it is not echoed back. Searches run
+         * `vector` retrieval, and `meta.retrieval_type` reports the mode that actually ran. To
+         * change retrieval strategy, set it on the collection's settings subresource.
          */
         fun retrievalType(retrievalType: RetrievalType?) = apply {
             this.retrievalType = retrievalType
@@ -482,8 +489,10 @@ private constructor(
     }
 
     /**
-     * Override the collection's configured retrieval strategy for this request. Echoed back in
-     * `meta.retrieval_type`.
+     * Reserved; not yet functional. A value supplied here is accepted but ignored — it does not
+     * override the collection's configured strategy, and it is not echoed back. Searches run
+     * `vector` retrieval, and `meta.retrieval_type` reports the mode that actually ran. To change
+     * retrieval strategy, set it on the collection's settings subresource.
      */
     class RetrievalType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {

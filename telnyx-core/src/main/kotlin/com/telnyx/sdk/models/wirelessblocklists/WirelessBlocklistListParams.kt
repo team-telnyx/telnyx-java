@@ -13,7 +13,6 @@ class WirelessBlocklistListParams
 private constructor(
     private val filterName: String?,
     private val filterType: String?,
-    private val filterValues: String?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
@@ -25,9 +24,6 @@ private constructor(
 
     /** When the Private Wireless Gateway was last updated. */
     fun filterType(): Optional<String> = Optional.ofNullable(filterType)
-
-    /** Values to filter on (inclusive). */
-    fun filterValues(): Optional<String> = Optional.ofNullable(filterValues)
 
     /** The page number to load. */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
@@ -58,7 +54,6 @@ private constructor(
 
         private var filterName: String? = null
         private var filterType: String? = null
-        private var filterValues: String? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
@@ -69,7 +64,6 @@ private constructor(
         internal fun from(wirelessBlocklistListParams: WirelessBlocklistListParams) = apply {
             filterName = wirelessBlocklistListParams.filterName
             filterType = wirelessBlocklistListParams.filterType
-            filterValues = wirelessBlocklistListParams.filterValues
             pageNumber = wirelessBlocklistListParams.pageNumber
             pageSize = wirelessBlocklistListParams.pageSize
             additionalHeaders = wirelessBlocklistListParams.additionalHeaders.toBuilder()
@@ -87,12 +81,6 @@ private constructor(
 
         /** Alias for calling [Builder.filterType] with `filterType.orElse(null)`. */
         fun filterType(filterType: Optional<String>) = filterType(filterType.getOrNull())
-
-        /** Values to filter on (inclusive). */
-        fun filterValues(filterValues: String?) = apply { this.filterValues = filterValues }
-
-        /** Alias for calling [Builder.filterValues] with `filterValues.orElse(null)`. */
-        fun filterValues(filterValues: Optional<String>) = filterValues(filterValues.getOrNull())
 
         /** The page number to load. */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
@@ -228,7 +216,6 @@ private constructor(
             WirelessBlocklistListParams(
                 filterName,
                 filterType,
-                filterValues,
                 pageNumber,
                 pageSize,
                 additionalHeaders.build(),
@@ -243,7 +230,6 @@ private constructor(
             .apply {
                 filterName?.let { put("filter[name]", it) }
                 filterType?.let { put("filter[type]", it) }
-                filterValues?.let { put("filter[values]", it) }
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
                 putAll(additionalQueryParams)
@@ -258,7 +244,6 @@ private constructor(
         return other is WirelessBlocklistListParams &&
             filterName == other.filterName &&
             filterType == other.filterType &&
-            filterValues == other.filterValues &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
             additionalHeaders == other.additionalHeaders &&
@@ -269,7 +254,6 @@ private constructor(
         Objects.hash(
             filterName,
             filterType,
-            filterValues,
             pageNumber,
             pageSize,
             additionalHeaders,
@@ -277,5 +261,5 @@ private constructor(
         )
 
     override fun toString() =
-        "WirelessBlocklistListParams{filterName=$filterName, filterType=$filterType, filterValues=$filterValues, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "WirelessBlocklistListParams{filterName=$filterName, filterType=$filterType, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

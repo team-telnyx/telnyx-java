@@ -401,6 +401,7 @@ internal class VersionServiceTest {
                                             .stopOnConversationEnd(true)
                                             .build()
                                     )
+                                    .sendMessageHistoryUpdates(true)
                                     .supportsUnauthenticatedWebCalls(true)
                                     .timeLimitSecs(30L)
                                     .userIdleReplySecs(0L)
@@ -519,6 +520,24 @@ internal class VersionServiceTest {
                                                     .Type
                                                     .OBJECT
                                             )
+                                            .build()
+                                    )
+                                    .presetBodyFields(
+                                        InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields
+                                            .builder()
+                                            .putAdditionalProperty(
+                                                "account_id",
+                                                JsonValue.from("bar"),
+                                            )
+                                            .putAdditionalProperty("source", JsonValue.from("bar"))
+                                            .build()
+                                    )
+                                    .presetQueryParams(
+                                        InferenceEmbeddingWebhookToolParams.Webhook
+                                            .PresetQueryParams
+                                            .builder()
+                                            .putAdditionalProperty("caller", JsonValue.from("bar"))
+                                            .putAdditionalProperty("channel", JsonValue.from("bar"))
                                             .build()
                                     )
                                     .queryParameters(

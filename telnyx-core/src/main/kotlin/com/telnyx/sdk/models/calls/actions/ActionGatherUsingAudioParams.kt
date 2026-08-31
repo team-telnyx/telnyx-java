@@ -135,6 +135,8 @@ private constructor(
 
     /**
      * The digit used to terminate input if fewer than `maximum_digits` digits have been gathered.
+     * Set to an empty string to disable the terminating digit entirely, so that a digit such as `#`
+     * can be collected as input per `valid_digits`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -472,7 +474,8 @@ private constructor(
 
         /**
          * The digit used to terminate input if fewer than `maximum_digits` digits have been
-         * gathered.
+         * gathered. Set to an empty string to disable the terminating digit entirely, so that a
+         * digit such as `#` can be collected as input per `valid_digits`.
          */
         fun terminatingDigit(terminatingDigit: String) = apply {
             body.terminatingDigit(terminatingDigit)
@@ -835,7 +838,8 @@ private constructor(
 
         /**
          * The digit used to terminate input if fewer than `maximum_digits` digits have been
-         * gathered.
+         * gathered. Set to an empty string to disable the terminating digit entirely, so that a
+         * digit such as `#` can be collected as input per `valid_digits`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1198,7 +1202,8 @@ private constructor(
 
             /**
              * The digit used to terminate input if fewer than `maximum_digits` digits have been
-             * gathered.
+             * gathered. Set to an empty string to disable the terminating digit entirely, so that a
+             * digit such as `#` can be collected as input per `valid_digits`.
              */
             fun terminatingDigit(terminatingDigit: String) =
                 terminatingDigit(JsonField.of(terminatingDigit))

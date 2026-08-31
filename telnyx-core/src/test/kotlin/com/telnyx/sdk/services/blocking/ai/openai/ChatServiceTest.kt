@@ -50,6 +50,7 @@ internal class ChatServiceTest {
                     .model("model")
                     .n(0.0)
                     .presencePenalty(0.0)
+                    .reasoningEffort(ChatCompletionRequest.ReasoningEffort.NONE)
                     .responseFormat(
                         ChatCompletionRequest.ResponseFormat.builder()
                             .type(ChatCompletionRequest.ResponseFormat.Type.TEXT)

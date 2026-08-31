@@ -25,6 +25,7 @@ private constructor(
     private val noiseSuppression: JsonField<NoiseSuppression>,
     private val noiseSuppressionConfig: JsonField<NoiseSuppressionConfig>,
     private val recordingSettings: JsonField<RecordingSettings>,
+    private val sendMessageHistoryUpdates: JsonField<Boolean>,
     private val supportsUnauthenticatedWebCalls: JsonField<Boolean>,
     private val timeLimitSecs: JsonField<Long>,
     private val userIdleReplySecs: JsonField<Long>,
@@ -50,6 +51,9 @@ private constructor(
         @JsonProperty("recording_settings")
         @ExcludeMissing
         recordingSettings: JsonField<RecordingSettings> = JsonMissing.of(),
+        @JsonProperty("send_message_history_updates")
+        @ExcludeMissing
+        sendMessageHistoryUpdates: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("supports_unauthenticated_web_calls")
         @ExcludeMissing
         supportsUnauthenticatedWebCalls: JsonField<Boolean> = JsonMissing.of(),
@@ -71,6 +75,7 @@ private constructor(
         noiseSuppression,
         noiseSuppressionConfig,
         recordingSettings,
+        sendMessageHistoryUpdates,
         supportsUnauthenticatedWebCalls,
         timeLimitSecs,
         userIdleReplySecs,
@@ -126,6 +131,21 @@ private constructor(
      */
     fun recordingSettings(): Optional<RecordingSettings> =
         recordingSettings.getOptional("recording_settings")
+
+    /**
+     * Whether the assistant sends a `call.ai_gather.message_history_updated` webhook with the full
+     * message history every time the conversation history changes. Leave unset to inherit the
+     * `send_message_history_updates` value from the `ai_assistant_start` or `gather_using_ai`
+     * command that started the conversation. Setting it here is authoritative: `true` turns the
+     * webhooks on even when the start command did not request them, and `false` turns them off even
+     * when it did. Messages exchanged during a private warm transfer acceptance phase are never
+     * included.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sendMessageHistoryUpdates(): Optional<Boolean> =
+        sendMessageHistoryUpdates.getOptional("send_message_history_updates")
 
     /**
      * When enabled, allows users to interact with your AI assistant directly from your website
@@ -232,6 +252,16 @@ private constructor(
     fun _recordingSettings(): JsonField<RecordingSettings> = recordingSettings
 
     /**
+     * Returns the raw JSON value of [sendMessageHistoryUpdates].
+     *
+     * Unlike [sendMessageHistoryUpdates], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("send_message_history_updates")
+    @ExcludeMissing
+    fun _sendMessageHistoryUpdates(): JsonField<Boolean> = sendMessageHistoryUpdates
+
+    /**
      * Returns the raw JSON value of [supportsUnauthenticatedWebCalls].
      *
      * Unlike [supportsUnauthenticatedWebCalls], this method doesn't throw if the JSON field has an
@@ -306,6 +336,7 @@ private constructor(
         private var noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of()
         private var noiseSuppressionConfig: JsonField<NoiseSuppressionConfig> = JsonMissing.of()
         private var recordingSettings: JsonField<RecordingSettings> = JsonMissing.of()
+        private var sendMessageHistoryUpdates: JsonField<Boolean> = JsonMissing.of()
         private var supportsUnauthenticatedWebCalls: JsonField<Boolean> = JsonMissing.of()
         private var timeLimitSecs: JsonField<Long> = JsonMissing.of()
         private var userIdleReplySecs: JsonField<Long> = JsonMissing.of()
@@ -320,6 +351,7 @@ private constructor(
             noiseSuppression = telephonySettings.noiseSuppression
             noiseSuppressionConfig = telephonySettings.noiseSuppressionConfig
             recordingSettings = telephonySettings.recordingSettings
+            sendMessageHistoryUpdates = telephonySettings.sendMessageHistoryUpdates
             supportsUnauthenticatedWebCalls = telephonySettings.supportsUnauthenticatedWebCalls
             timeLimitSecs = telephonySettings.timeLimitSecs
             userIdleReplySecs = telephonySettings.userIdleReplySecs
@@ -409,6 +441,29 @@ private constructor(
          */
         fun recordingSettings(recordingSettings: JsonField<RecordingSettings>) = apply {
             this.recordingSettings = recordingSettings
+        }
+
+        /**
+         * Whether the assistant sends a `call.ai_gather.message_history_updated` webhook with the
+         * full message history every time the conversation history changes. Leave unset to inherit
+         * the `send_message_history_updates` value from the `ai_assistant_start` or
+         * `gather_using_ai` command that started the conversation. Setting it here is
+         * authoritative: `true` turns the webhooks on even when the start command did not request
+         * them, and `false` turns them off even when it did. Messages exchanged during a private
+         * warm transfer acceptance phase are never included.
+         */
+        fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: Boolean) =
+            sendMessageHistoryUpdates(JsonField.of(sendMessageHistoryUpdates))
+
+        /**
+         * Sets [Builder.sendMessageHistoryUpdates] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sendMessageHistoryUpdates] with a well-typed [Boolean]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: JsonField<Boolean>) = apply {
+            this.sendMessageHistoryUpdates = sendMessageHistoryUpdates
         }
 
         /**
@@ -540,6 +595,7 @@ private constructor(
                 noiseSuppression,
                 noiseSuppressionConfig,
                 recordingSettings,
+                sendMessageHistoryUpdates,
                 supportsUnauthenticatedWebCalls,
                 timeLimitSecs,
                 userIdleReplySecs,
@@ -569,6 +625,7 @@ private constructor(
         noiseSuppression().ifPresent { it.validate() }
         noiseSuppressionConfig().ifPresent { it.validate() }
         recordingSettings().ifPresent { it.validate() }
+        sendMessageHistoryUpdates()
         supportsUnauthenticatedWebCalls()
         timeLimitSecs()
         userIdleReplySecs()
@@ -597,6 +654,7 @@ private constructor(
             (noiseSuppression.asKnown().getOrNull()?.validity() ?: 0) +
             (noiseSuppressionConfig.asKnown().getOrNull()?.validity() ?: 0) +
             (recordingSettings.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (sendMessageHistoryUpdates.asKnown().isPresent) 1 else 0) +
             (if (supportsUnauthenticatedWebCalls.asKnown().isPresent) 1 else 0) +
             (if (timeLimitSecs.asKnown().isPresent) 1 else 0) +
             (if (userIdleReplySecs.asKnown().isPresent) 1 else 0) +
@@ -2593,6 +2651,7 @@ private constructor(
             noiseSuppression == other.noiseSuppression &&
             noiseSuppressionConfig == other.noiseSuppressionConfig &&
             recordingSettings == other.recordingSettings &&
+            sendMessageHistoryUpdates == other.sendMessageHistoryUpdates &&
             supportsUnauthenticatedWebCalls == other.supportsUnauthenticatedWebCalls &&
             timeLimitSecs == other.timeLimitSecs &&
             userIdleReplySecs == other.userIdleReplySecs &&
@@ -2608,6 +2667,7 @@ private constructor(
             noiseSuppression,
             noiseSuppressionConfig,
             recordingSettings,
+            sendMessageHistoryUpdates,
             supportsUnauthenticatedWebCalls,
             timeLimitSecs,
             userIdleReplySecs,
@@ -2620,5 +2680,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TelephonySettings{defaultTexmlAppId=$defaultTexmlAppId, disableDtmf=$disableDtmf, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleReplySecs=$userIdleReplySecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
+        "TelephonySettings{defaultTexmlAppId=$defaultTexmlAppId, disableDtmf=$disableDtmf, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleReplySecs=$userIdleReplySecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
 }

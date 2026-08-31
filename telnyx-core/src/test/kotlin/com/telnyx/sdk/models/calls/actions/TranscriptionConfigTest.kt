@@ -13,11 +13,11 @@ internal class TranscriptionConfigTest {
     fun create() {
         val transcriptionConfig =
             TranscriptionConfig.builder()
-                .language("auto")
+                .language("language")
                 .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                 .build()
 
-        assertThat(transcriptionConfig.language()).contains("auto")
+        assertThat(transcriptionConfig.language()).contains("language")
         assertThat(transcriptionConfig.model())
             .contains(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
     }
@@ -27,7 +27,7 @@ internal class TranscriptionConfigTest {
         val jsonMapper = jsonMapper()
         val transcriptionConfig =
             TranscriptionConfig.builder()
-                .language("auto")
+                .language("language")
                 .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                 .build()
 

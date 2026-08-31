@@ -6,15 +6,19 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Returns background jobs that operate on phone numbers. Results can be filtered by job type and
- * sorted by creation time, and include pagination metadata.
+ * Returns background jobs that operate on phone numbers. Filter by job type, target phone numbers,
+ * or job status, and sort by creation time. Multiple phone-number or status values use OR semantics
+ * within that filter; different filter categories use AND semantics. Results include pagination
+ * metadata.
  */
 class JobListParams
 private constructor(
@@ -26,7 +30,10 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Consolidated filter parameter (deepObject style). Originally: filter[type] */
+    /**
+     * Consolidated filter parameter (deepObject style). Originally: filter[type],
+     * filter[phone_number], filter[phone_number][], filter[status][]
+     */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
@@ -76,7 +83,10 @@ private constructor(
             additionalQueryParams = jobListParams.additionalQueryParams.toBuilder()
         }
 
-        /** Consolidated filter parameter (deepObject style). Originally: filter[type] */
+        /**
+         * Consolidated filter parameter (deepObject style). Originally: filter[type],
+         * filter[phone_number], filter[phone_number][], filter[status][]
+         */
         fun filter(filter: Filter?) = apply { this.filter = filter }
 
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
@@ -236,6 +246,22 @@ private constructor(
         QueryParams.builder()
             .apply {
                 filter?.let {
+                    it.phoneNumber().ifPresent {
+                        it.accept(
+                            object : Filter.PhoneNumber.Visitor<Unit> {
+                                override fun visitString(string: String) {
+                                    put("filter[phone_number]", string)
+                                }
+
+                                override fun visitStrings(strings: List<String>) {
+                                    put("filter[phone_number]", strings.joinToString(","))
+                                }
+                            }
+                        )
+                    }
+                    it.status().ifPresent {
+                        put("filter[status]", it.joinToString(",") { it.toString() })
+                    }
                     it.type().ifPresent { put("filter[type]", it.toString()) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
@@ -250,9 +276,31 @@ private constructor(
             }
             .build()
 
-    /** Consolidated filter parameter (deepObject style). Originally: filter[type] */
+    /**
+     * Consolidated filter parameter (deepObject style). Originally: filter[type],
+     * filter[phone_number], filter[phone_number][], filter[status][]
+     */
     class Filter
-    private constructor(private val type: Type?, private val additionalProperties: QueryParams) {
+    private constructor(
+        private val phoneNumber: PhoneNumber?,
+        private val status: List<Status>?,
+        private val type: Type?,
+        private val additionalProperties: QueryParams,
+    ) {
+
+        /**
+         * Returns jobs that targeted any of the supplied account-owned phone numbers. Values
+         * beginning with `+` must contain 1 to 20 digits after the plus sign. The 10-value limit is
+         * enforced before duplicate values are removed. Unmatched or non-account-owned identifiers
+         * return an empty result. Phone-number filtering must be enabled for the account.
+         */
+        fun phoneNumber(): Optional<PhoneNumber> = Optional.ofNullable(phoneNumber)
+
+        /**
+         * Returns jobs with any of the supplied statuses. Use repeated `filter[status][]`
+         * parameters; scalar and comma-separated status values are not accepted.
+         */
+        fun status(): Optional<List<Status>> = Optional.ofNullable(status)
 
         /** Identifies the type of the background job. */
         fun type(): Optional<Type> = Optional.ofNullable(type)
@@ -271,13 +319,55 @@ private constructor(
         /** A builder for [Filter]. */
         class Builder internal constructor() {
 
+            private var phoneNumber: PhoneNumber? = null
+            private var status: MutableList<Status>? = null
             private var type: Type? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
             internal fun from(filter: Filter) = apply {
+                phoneNumber = filter.phoneNumber
+                status = filter.status?.toMutableList()
                 type = filter.type
                 additionalProperties = filter.additionalProperties.toBuilder()
+            }
+
+            /**
+             * Returns jobs that targeted any of the supplied account-owned phone numbers. Values
+             * beginning with `+` must contain 1 to 20 digits after the plus sign. The 10-value
+             * limit is enforced before duplicate values are removed. Unmatched or non-account-owned
+             * identifiers return an empty result. Phone-number filtering must be enabled for the
+             * account.
+             */
+            fun phoneNumber(phoneNumber: PhoneNumber?) = apply { this.phoneNumber = phoneNumber }
+
+            /** Alias for calling [Builder.phoneNumber] with `phoneNumber.orElse(null)`. */
+            fun phoneNumber(phoneNumber: Optional<PhoneNumber>) =
+                phoneNumber(phoneNumber.getOrNull())
+
+            /** Alias for calling [phoneNumber] with `PhoneNumber.ofString(string)`. */
+            fun phoneNumber(string: String) = phoneNumber(PhoneNumber.ofString(string))
+
+            /** Alias for calling [phoneNumber] with `PhoneNumber.ofStrings(strings)`. */
+            fun phoneNumberOfStrings(strings: List<String>) =
+                phoneNumber(PhoneNumber.ofStrings(strings))
+
+            /**
+             * Returns jobs with any of the supplied statuses. Use repeated `filter[status][]`
+             * parameters; scalar and comma-separated status values are not accepted.
+             */
+            fun status(status: List<Status>?) = apply { this.status = status?.toMutableList() }
+
+            /** Alias for calling [Builder.status] with `status.orElse(null)`. */
+            fun status(status: Optional<List<Status>>) = status(status.getOrNull())
+
+            /**
+             * Adds a single [Status] to [Builder.status].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addStatus(status: Status) = apply {
+                this.status = (this.status ?: mutableListOf()).apply { add(status) }
             }
 
             /** Identifies the type of the background job. */
@@ -340,7 +430,269 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Filter = Filter(type, additionalProperties.build())
+            fun build(): Filter =
+                Filter(phoneNumber, status?.toImmutable(), type, additionalProperties.build())
+        }
+
+        /**
+         * Returns jobs that targeted any of the supplied account-owned phone numbers. Values
+         * beginning with `+` must contain 1 to 20 digits after the plus sign. The 10-value limit is
+         * enforced before duplicate values are removed. Unmatched or non-account-owned identifiers
+         * return an empty result. Phone-number filtering must be enabled for the account.
+         */
+        class PhoneNumber
+        private constructor(
+            private val string: String? = null,
+            private val strings: List<String>? = null,
+        ) {
+
+            /**
+             * One E.164 phone number or Telnyx Phone Number ID, or a comma-separated list of up to
+             * 10 values.
+             */
+            fun string(): Optional<String> = Optional.ofNullable(string)
+
+            /**
+             * Up to 10 E.164 phone numbers or Telnyx Phone Number IDs. Use repeated
+             * `filter[phone_number][]` parameters.
+             */
+            fun strings(): Optional<List<String>> = Optional.ofNullable(strings)
+
+            fun isString(): Boolean = string != null
+
+            fun isStrings(): Boolean = strings != null
+
+            /**
+             * One E.164 phone number or Telnyx Phone Number ID, or a comma-separated list of up to
+             * 10 values.
+             */
+            fun asString(): String = string.getOrThrow("string")
+
+            /**
+             * Up to 10 E.164 phone numbers or Telnyx Phone Number IDs. Use repeated
+             * `filter[phone_number][]` parameters.
+             */
+            fun asStrings(): List<String> = strings.getOrThrow("strings")
+
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             */
+            fun <T> accept(visitor: Visitor<T>): T =
+                when {
+                    string != null -> visitor.visitString(string)
+                    strings != null -> visitor.visitStrings(strings)
+                    else -> throw IllegalStateException("Invalid PhoneNumber")
+                }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is PhoneNumber && string == other.string && strings == other.strings
+            }
+
+            override fun hashCode(): Int = Objects.hash(string, strings)
+
+            override fun toString(): String =
+                when {
+                    string != null -> "PhoneNumber{string=$string}"
+                    strings != null -> "PhoneNumber{strings=$strings}"
+                    else -> throw IllegalStateException("Invalid PhoneNumber")
+                }
+
+            companion object {
+
+                /**
+                 * One E.164 phone number or Telnyx Phone Number ID, or a comma-separated list of up
+                 * to 10 values.
+                 */
+                @JvmStatic fun ofString(string: String) = PhoneNumber(string = string)
+
+                /**
+                 * Up to 10 E.164 phone numbers or Telnyx Phone Number IDs. Use repeated
+                 * `filter[phone_number][]` parameters.
+                 */
+                @JvmStatic
+                fun ofStrings(strings: List<String>) = PhoneNumber(strings = strings.toImmutable())
+            }
+
+            /**
+             * An interface that defines how to map each variant of [PhoneNumber] to a value of type
+             * [T].
+             */
+            interface Visitor<out T> {
+
+                /**
+                 * One E.164 phone number or Telnyx Phone Number ID, or a comma-separated list of up
+                 * to 10 values.
+                 */
+                fun visitString(string: String): T
+
+                /**
+                 * Up to 10 E.164 phone numbers or Telnyx Phone Number IDs. Use repeated
+                 * `filter[phone_number][]` parameters.
+                 */
+                fun visitStrings(strings: List<String>): T
+            }
+        }
+
+        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val PENDING = of("pending")
+
+                @JvmField val IN_PROGRESS = of("in_progress")
+
+                @JvmField val COMPLETED = of("completed")
+
+                @JvmField val FAILED = of("failed")
+
+                @JvmField val EXPIRED = of("expired")
+
+                @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+            }
+
+            /** An enum containing [Status]'s known values. */
+            enum class Known {
+                PENDING,
+                IN_PROGRESS,
+                COMPLETED,
+                FAILED,
+                EXPIRED,
+            }
+
+            /**
+             * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Status] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                PENDING,
+                IN_PROGRESS,
+                COMPLETED,
+                FAILED,
+                EXPIRED,
+                /**
+                 * An enum member indicating that [Status] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    PENDING -> Value.PENDING
+                    IN_PROGRESS -> Value.IN_PROGRESS
+                    COMPLETED -> Value.COMPLETED
+                    FAILED -> Value.FAILED
+                    EXPIRED -> Value.EXPIRED
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    PENDING -> Known.PENDING
+                    IN_PROGRESS -> Known.IN_PROGRESS
+                    COMPLETED -> Known.COMPLETED
+                    FAILED -> Known.FAILED
+                    EXPIRED -> Known.EXPIRED
+                    else -> throw TelnyxInvalidDataException("Unknown Status: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Status = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Status && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
         }
 
         /** Identifies the type of the background job. */
@@ -493,15 +845,20 @@ private constructor(
             }
 
             return other is Filter &&
+                phoneNumber == other.phoneNumber &&
+                status == other.status &&
                 type == other.type &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(type, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(phoneNumber, status, type, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Filter{type=$type, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Filter{phoneNumber=$phoneNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /**

@@ -21,6 +21,7 @@ internal class ActionSetPrivateWirelessGatewayResponseTest {
                         .settings(
                             SimCardGroupAction.Settings.builder()
                                 .privateWirelessGatewayId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                                .wirelessBlocklistId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                                 .build()
                         )
                         .simCardGroupId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -40,6 +41,7 @@ internal class ActionSetPrivateWirelessGatewayResponseTest {
                     .settings(
                         SimCardGroupAction.Settings.builder()
                             .privateWirelessGatewayId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                            .wirelessBlocklistId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                             .build()
                     )
                     .simCardGroupId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -63,6 +65,7 @@ internal class ActionSetPrivateWirelessGatewayResponseTest {
                         .settings(
                             SimCardGroupAction.Settings.builder()
                                 .privateWirelessGatewayId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                                .wirelessBlocklistId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                                 .build()
                         )
                         .simCardGroupId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")

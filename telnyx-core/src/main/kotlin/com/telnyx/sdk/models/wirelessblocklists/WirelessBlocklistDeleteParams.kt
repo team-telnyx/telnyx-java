@@ -10,7 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Permanently deletes the specified wireless blocklist from your account. */
+/**
+ * Permanently deletes the specified wireless blocklist from your account. The request returns `422`
+ * when the wireless blocklist is assigned to a SIM Card Group.
+ */
 class WirelessBlocklistDeleteParams
 private constructor(
     private val id: String?,

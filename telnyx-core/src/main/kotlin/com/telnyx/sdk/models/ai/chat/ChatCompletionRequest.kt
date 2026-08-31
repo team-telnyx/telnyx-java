@@ -50,6 +50,7 @@ private constructor(
     private val model: JsonField<String>,
     private val n: JsonField<Double>,
     private val presencePenalty: JsonField<Double>,
+    private val reasoningEffort: JsonField<ReasoningEffort>,
     private val responseFormat: JsonField<ResponseFormat>,
     private val seed: JsonField<Long>,
     private val serviceTier: JsonField<String>,
@@ -102,6 +103,9 @@ private constructor(
         @JsonProperty("presence_penalty")
         @ExcludeMissing
         presencePenalty: JsonField<Double> = JsonMissing.of(),
+        @JsonProperty("reasoning_effort")
+        @ExcludeMissing
+        reasoningEffort: JsonField<ReasoningEffort> = JsonMissing.of(),
         @JsonProperty("response_format")
         @ExcludeMissing
         responseFormat: JsonField<ResponseFormat> = JsonMissing.of(),
@@ -142,6 +146,7 @@ private constructor(
         model,
         n,
         presencePenalty,
+        reasoningEffort,
         responseFormat,
         seed,
         serviceTier,
@@ -292,6 +297,18 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun presencePenalty(): Optional<Double> = presencePenalty.getOptional("presence_penalty")
+
+    /**
+     * Controls the reasoning effort for models that support it. When set, the model spends more or
+     * less compute on internal reasoning before generating its response. Supported values: none,
+     * minimal, low, medium, high, xhigh, max. Not all models support all values; unsupported values
+     * are rejected with a 400 error. When omitted, reasoning models use their default effort level.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun reasoningEffort(): Optional<ReasoningEffort> =
+        reasoningEffort.getOptional("reasoning_effort")
 
     /**
      * Use this is you want to guarantee a JSON output without defining a schema. For control over
@@ -523,6 +540,15 @@ private constructor(
     fun _presencePenalty(): JsonField<Double> = presencePenalty
 
     /**
+     * Returns the raw JSON value of [reasoningEffort].
+     *
+     * Unlike [reasoningEffort], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("reasoning_effort")
+    @ExcludeMissing
+    fun _reasoningEffort(): JsonField<ReasoningEffort> = reasoningEffort
+
+    /**
      * Returns the raw JSON value of [responseFormat].
      *
      * Unlike [responseFormat], this method doesn't throw if the JSON field has an unexpected type.
@@ -651,6 +677,7 @@ private constructor(
         private var model: JsonField<String> = JsonMissing.of()
         private var n: JsonField<Double> = JsonMissing.of()
         private var presencePenalty: JsonField<Double> = JsonMissing.of()
+        private var reasoningEffort: JsonField<ReasoningEffort> = JsonMissing.of()
         private var responseFormat: JsonField<ResponseFormat> = JsonMissing.of()
         private var seed: JsonField<Long> = JsonMissing.of()
         private var serviceTier: JsonField<String> = JsonMissing.of()
@@ -682,6 +709,7 @@ private constructor(
             model = chatCompletionRequest.model
             n = chatCompletionRequest.n
             presencePenalty = chatCompletionRequest.presencePenalty
+            reasoningEffort = chatCompletionRequest.reasoningEffort
             responseFormat = chatCompletionRequest.responseFormat
             seed = chatCompletionRequest.seed
             serviceTier = chatCompletionRequest.serviceTier
@@ -944,6 +972,27 @@ private constructor(
         }
 
         /**
+         * Controls the reasoning effort for models that support it. When set, the model spends more
+         * or less compute on internal reasoning before generating its response. Supported values:
+         * none, minimal, low, medium, high, xhigh, max. Not all models support all values;
+         * unsupported values are rejected with a 400 error. When omitted, reasoning models use
+         * their default effort level.
+         */
+        fun reasoningEffort(reasoningEffort: ReasoningEffort) =
+            reasoningEffort(JsonField.of(reasoningEffort))
+
+        /**
+         * Sets [Builder.reasoningEffort] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reasoningEffort] with a well-typed [ReasoningEffort]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun reasoningEffort(reasoningEffort: JsonField<ReasoningEffort>) = apply {
+            this.reasoningEffort = reasoningEffort
+        }
+
+        /**
          * Use this is you want to guarantee a JSON output without defining a schema. For control
          * over the schema, use `guided_json`.
          */
@@ -1202,6 +1251,7 @@ private constructor(
                 model,
                 n,
                 presencePenalty,
+                reasoningEffort,
                 responseFormat,
                 seed,
                 serviceTier,
@@ -1248,6 +1298,7 @@ private constructor(
         model()
         n()
         presencePenalty()
+        reasoningEffort().ifPresent { it.validate() }
         responseFormat().ifPresent { it.validate() }
         seed()
         serviceTier()
@@ -1293,6 +1344,7 @@ private constructor(
             (if (model.asKnown().isPresent) 1 else 0) +
             (if (n.asKnown().isPresent) 1 else 0) +
             (if (presencePenalty.asKnown().isPresent) 1 else 0) +
+            (reasoningEffort.asKnown().getOrNull()?.validity() ?: 0) +
             (responseFormat.asKnown().getOrNull()?.validity() ?: 0) +
             (if (seed.asKnown().isPresent) 1 else 0) +
             (if (serviceTier.asKnown().isPresent) 1 else 0) +
@@ -2379,6 +2431,180 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() = "GuidedJson{additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Controls the reasoning effort for models that support it. When set, the model spends more or
+     * less compute on internal reasoning before generating its response. Supported values: none,
+     * minimal, low, medium, high, xhigh, max. Not all models support all values; unsupported values
+     * are rejected with a 400 error. When omitted, reasoning models use their default effort level.
+     */
+    class ReasoningEffort @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val NONE = of("none")
+
+            @JvmField val MINIMAL = of("minimal")
+
+            @JvmField val LOW = of("low")
+
+            @JvmField val MEDIUM = of("medium")
+
+            @JvmField val HIGH = of("high")
+
+            @JvmField val XHIGH = of("xhigh")
+
+            @JvmField val MAX = of("max")
+
+            @JvmStatic fun of(value: String) = ReasoningEffort(JsonField.of(value))
+        }
+
+        /** An enum containing [ReasoningEffort]'s known values. */
+        enum class Known {
+            NONE,
+            MINIMAL,
+            LOW,
+            MEDIUM,
+            HIGH,
+            XHIGH,
+            MAX,
+        }
+
+        /**
+         * An enum containing [ReasoningEffort]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [ReasoningEffort] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            NONE,
+            MINIMAL,
+            LOW,
+            MEDIUM,
+            HIGH,
+            XHIGH,
+            MAX,
+            /**
+             * An enum member indicating that [ReasoningEffort] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                NONE -> Value.NONE
+                MINIMAL -> Value.MINIMAL
+                LOW -> Value.LOW
+                MEDIUM -> Value.MEDIUM
+                HIGH -> Value.HIGH
+                XHIGH -> Value.XHIGH
+                MAX -> Value.MAX
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                NONE -> Known.NONE
+                MINIMAL -> Known.MINIMAL
+                LOW -> Known.LOW
+                MEDIUM -> Known.MEDIUM
+                HIGH -> Known.HIGH
+                XHIGH -> Known.XHIGH
+                MAX -> Known.MAX
+                else -> throw TelnyxInvalidDataException("Unknown ReasoningEffort: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ReasoningEffort = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReasoningEffort && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     /**
@@ -4063,6 +4289,7 @@ private constructor(
             model == other.model &&
             n == other.n &&
             presencePenalty == other.presencePenalty &&
+            reasoningEffort == other.reasoningEffort &&
             responseFormat == other.responseFormat &&
             seed == other.seed &&
             serviceTier == other.serviceTier &&
@@ -4095,6 +4322,7 @@ private constructor(
             model,
             n,
             presencePenalty,
+            reasoningEffort,
             responseFormat,
             seed,
             serviceTier,
@@ -4113,5 +4341,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ChatCompletionRequest{messages=$messages, apiKeyRef=$apiKeyRef, bestOf=$bestOf, earlyStopping=$earlyStopping, enableThinking=$enableThinking, frequencyPenalty=$frequencyPenalty, guidedChoice=$guidedChoice, guidedJson=$guidedJson, guidedRegex=$guidedRegex, lengthPenalty=$lengthPenalty, logprobs=$logprobs, maxTokens=$maxTokens, minP=$minP, model=$model, n=$n, presencePenalty=$presencePenalty, responseFormat=$responseFormat, seed=$seed, serviceTier=$serviceTier, stop=$stop, stream=$stream, temperature=$temperature, toolChoice=$toolChoice, tools=$tools, topLogprobs=$topLogprobs, topP=$topP, useBeamSearch=$useBeamSearch, additionalProperties=$additionalProperties}"
+        "ChatCompletionRequest{messages=$messages, apiKeyRef=$apiKeyRef, bestOf=$bestOf, earlyStopping=$earlyStopping, enableThinking=$enableThinking, frequencyPenalty=$frequencyPenalty, guidedChoice=$guidedChoice, guidedJson=$guidedJson, guidedRegex=$guidedRegex, lengthPenalty=$lengthPenalty, logprobs=$logprobs, maxTokens=$maxTokens, minP=$minP, model=$model, n=$n, presencePenalty=$presencePenalty, reasoningEffort=$reasoningEffort, responseFormat=$responseFormat, seed=$seed, serviceTier=$serviceTier, stop=$stop, stream=$stream, temperature=$temperature, toolChoice=$toolChoice, tools=$tools, topLogprobs=$topLogprobs, topP=$topP, useBeamSearch=$useBeamSearch, additionalProperties=$additionalProperties}"
 }

@@ -280,7 +280,6 @@ Methods:
 - <code title="get /ai/collections">client.ai().collections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/CollectionService.kt">list</a>(params)</code>
 - <code title="delete /ai/collections/{uuid}">client.ai().collections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/CollectionService.kt">delete</a>(params)</code>
 - <code title="get /ai/collections/{uuid}">client.ai().collections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/CollectionService.kt">retrieveById</a>(params)</code>
-- <code title="get /ai/collections/{slug}/documents">client.ai().collections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/CollectionService.kt">retrieveDocuments</a>(params)</code>
 
 ### Settings
 
@@ -522,6 +521,14 @@ Methods:
 Methods:
 
 - <code title="post /ai/anthropic/v1/messages">client.ai().anthropic().v1().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/anthropic/V1Service.kt">messages</a>(params)</code>
+
+## Knowledge
+
+### Collections
+
+Methods:
+
+- <code title="get /ai/knowledge/collections/{slug}/documents">client.ai().knowledge().collections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/knowledge/CollectionService.kt">retrieveDocuments</a>(params)</code>
 
 # AuditEvents
 

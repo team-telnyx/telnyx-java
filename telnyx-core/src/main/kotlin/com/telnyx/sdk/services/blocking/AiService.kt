@@ -20,6 +20,7 @@ import com.telnyx.sdk.services.blocking.ai.ConversationService
 import com.telnyx.sdk.services.blocking.ai.EmbeddingService
 import com.telnyx.sdk.services.blocking.ai.FineTuningService
 import com.telnyx.sdk.services.blocking.ai.IntegrationService
+import com.telnyx.sdk.services.blocking.ai.KnowledgeService
 import com.telnyx.sdk.services.blocking.ai.McpServerService
 import com.telnyx.sdk.services.blocking.ai.MissionService
 import com.telnyx.sdk.services.blocking.ai.OpenAIService
@@ -76,6 +77,8 @@ interface AiService {
     fun tools(): ToolService
 
     fun anthropic(): AnthropicService
+
+    fun knowledge(): KnowledgeService
 
     /**
      * Performs semantic vector search across conversation history records.
@@ -199,6 +202,8 @@ interface AiService {
         fun tools(): ToolService.WithRawResponse
 
         fun anthropic(): AnthropicService.WithRawResponse
+
+        fun knowledge(): KnowledgeService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the

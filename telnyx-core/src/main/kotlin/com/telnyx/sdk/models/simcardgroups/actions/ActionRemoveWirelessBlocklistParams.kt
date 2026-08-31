@@ -11,8 +11,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * This action will asynchronously remove an existing Wireless Blocklist to all the SIMs in the SIM
- * card group.
+ * This action asynchronously removes the Wireless Blocklist assigned to a SIM Card Group. The
+ * request returns `404` when the SIM Card Group does not exist and `422` when no Wireless Blocklist
+ * is assigned.
  */
 class ActionRemoveWirelessBlocklistParams
 private constructor(

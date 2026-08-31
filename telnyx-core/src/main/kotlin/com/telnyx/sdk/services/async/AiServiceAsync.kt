@@ -19,6 +19,7 @@ import com.telnyx.sdk.services.async.ai.ConversationServiceAsync
 import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsync
 import com.telnyx.sdk.services.async.ai.FineTuningServiceAsync
 import com.telnyx.sdk.services.async.ai.IntegrationServiceAsync
+import com.telnyx.sdk.services.async.ai.KnowledgeServiceAsync
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsync
 import com.telnyx.sdk.services.async.ai.MissionServiceAsync
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
@@ -76,6 +77,8 @@ interface AiServiceAsync {
     fun tools(): ToolServiceAsync
 
     fun anthropic(): AnthropicServiceAsync
+
+    fun knowledge(): KnowledgeServiceAsync
 
     /**
      * Performs semantic vector search across conversation history records.
@@ -199,6 +202,8 @@ interface AiServiceAsync {
         fun tools(): ToolServiceAsync.WithRawResponse
 
         fun anthropic(): AnthropicServiceAsync.WithRawResponse
+
+        fun knowledge(): KnowledgeServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the
