@@ -98,6 +98,8 @@ import com.telnyx.sdk.services.blocking.EnterpriseService
 import com.telnyx.sdk.services.blocking.EnterpriseServiceImpl
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
 import com.telnyx.sdk.services.blocking.ExternalConnectionServiceImpl
+import com.telnyx.sdk.services.blocking.ExternalRequirementService
+import com.telnyx.sdk.services.blocking.ExternalRequirementServiceImpl
 import com.telnyx.sdk.services.blocking.FaxApplicationService
 import com.telnyx.sdk.services.blocking.FaxApplicationServiceImpl
 import com.telnyx.sdk.services.blocking.FaxService
@@ -1050,6 +1052,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         MeetingSessionServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val externalRequirements: ExternalRequirementService by lazy {
+        ExternalRequirementServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1604,6 +1610,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun webSearch(): WebSearchService = webSearch
 
     override fun meetingSessions(): MeetingSessionService = meetingSessions
+
+    override fun externalRequirements(): ExternalRequirementService = externalRequirements
 
     override fun close() = clientOptions.close()
 
@@ -2353,6 +2361,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             MeetingSessionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val externalRequirements: ExternalRequirementService.WithRawResponse by lazy {
+            ExternalRequirementServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2966,5 +2978,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun webSearch(): WebSearchService.WithRawResponse = webSearch
 
         override fun meetingSessions(): MeetingSessionService.WithRawResponse = meetingSessions
+
+        override fun externalRequirements(): ExternalRequirementService.WithRawResponse =
+            externalRequirements
     }
 }

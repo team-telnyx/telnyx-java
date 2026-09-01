@@ -237,6 +237,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.pricing()).isNotNull()
         assertThat(client.webSearch()).isNotNull()
         assertThat(client.meetingSessions()).isNotNull()
+        assertThat(client.externalRequirements()).isNotNull()
     }
 
     @Test

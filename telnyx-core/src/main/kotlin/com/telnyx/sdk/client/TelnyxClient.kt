@@ -50,6 +50,7 @@ import com.telnyx.sdk.services.blocking.EmailUnsubscribeGroupService
 import com.telnyx.sdk.services.blocking.EmailValidationService
 import com.telnyx.sdk.services.blocking.EnterpriseService
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
+import com.telnyx.sdk.services.blocking.ExternalRequirementService
 import com.telnyx.sdk.services.blocking.FaxApplicationService
 import com.telnyx.sdk.services.blocking.FaxService
 import com.telnyx.sdk.services.blocking.FqdnConnectionService
@@ -756,6 +757,8 @@ interface TelnyxClient {
 
     fun meetingSessions(): MeetingSessionService
 
+    fun externalRequirements(): ExternalRequirementService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1315,5 +1318,7 @@ interface TelnyxClient {
         fun webSearch(): WebSearchService.WithRawResponse
 
         fun meetingSessions(): MeetingSessionService.WithRawResponse
+
+        fun externalRequirements(): ExternalRequirementService.WithRawResponse
     }
 }

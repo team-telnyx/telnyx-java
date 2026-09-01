@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ai.assistants
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,6 +14,7 @@ internal class TranscriptionSettingsConfigTest {
     fun create() {
         val transcriptionSettingsConfig =
             TranscriptionSettingsConfig.builder()
+                .context("context")
                 .eagerEotThreshold(0.3)
                 .enableEndpointDetection(true)
                 .endOfTurnConfidenceThreshold(0.0)
@@ -20,6 +22,7 @@ internal class TranscriptionSettingsConfigTest {
                 .eotTimeoutMs(500L)
                 .interimResults(true)
                 .keyterm("keyterm")
+                .addLanguageHint("string")
                 .maxEndpointDelayMs(500L)
                 .maxTurnSilence(100L)
                 .minTurnSilence(100L)
@@ -27,6 +30,7 @@ internal class TranscriptionSettingsConfigTest {
                 .smartFormat(true)
                 .build()
 
+        assertThat(transcriptionSettingsConfig.context()).contains("context")
         assertThat(transcriptionSettingsConfig.eagerEotThreshold()).contains(0.3)
         assertThat(transcriptionSettingsConfig.enableEndpointDetection()).contains(true)
         assertThat(transcriptionSettingsConfig.endOfTurnConfidenceThreshold()).contains(0.0)
@@ -34,6 +38,8 @@ internal class TranscriptionSettingsConfigTest {
         assertThat(transcriptionSettingsConfig.eotTimeoutMs()).contains(500L)
         assertThat(transcriptionSettingsConfig.interimResults()).contains(true)
         assertThat(transcriptionSettingsConfig.keyterm()).contains("keyterm")
+        assertThat(transcriptionSettingsConfig.languageHints().getOrNull())
+            .containsExactly("string")
         assertThat(transcriptionSettingsConfig.maxEndpointDelayMs()).contains(500L)
         assertThat(transcriptionSettingsConfig.maxTurnSilence()).contains(100L)
         assertThat(transcriptionSettingsConfig.minTurnSilence()).contains(100L)
@@ -46,6 +52,7 @@ internal class TranscriptionSettingsConfigTest {
         val jsonMapper = jsonMapper()
         val transcriptionSettingsConfig =
             TranscriptionSettingsConfig.builder()
+                .context("context")
                 .eagerEotThreshold(0.3)
                 .enableEndpointDetection(true)
                 .endOfTurnConfidenceThreshold(0.0)
@@ -53,6 +60,7 @@ internal class TranscriptionSettingsConfigTest {
                 .eotTimeoutMs(500L)
                 .interimResults(true)
                 .keyterm("keyterm")
+                .addLanguageHint("string")
                 .maxEndpointDelayMs(500L)
                 .maxTurnSilence(100L)
                 .minTurnSilence(100L)
