@@ -298,8 +298,6 @@ import com.telnyx.sdk.services.async.SimCardOrderServiceAsync
 import com.telnyx.sdk.services.async.SimCardOrderServiceAsyncImpl
 import com.telnyx.sdk.services.async.SimCardServiceAsync
 import com.telnyx.sdk.services.async.SimCardServiceAsyncImpl
-import com.telnyx.sdk.services.async.SipRegistrationStatusServiceAsync
-import com.telnyx.sdk.services.async.SipRegistrationStatusServiceAsyncImpl
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsync
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsyncImpl
 import com.telnyx.sdk.services.async.SpeechToTextServiceAsync
@@ -1034,10 +1032,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         VoiceSdkCallReportServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val sipRegistrationStatus: SipRegistrationStatusServiceAsync by lazy {
-        SipRegistrationStatusServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val callReasons: CallReasonServiceAsync by lazy {
         CallReasonServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -1614,9 +1608,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync = voiceSdkCallReports
-
-    /** UAC connection operations */
-    override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync = sipRegistrationStatus
 
     /** Static reference values the API accepts: call reasons, document types, rejection types. */
     override fun callReasons(): CallReasonServiceAsync = callReasons
@@ -2378,11 +2369,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             VoiceSdkCallReportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val sipRegistrationStatus:
-            SipRegistrationStatusServiceAsync.WithRawResponse by lazy {
-            SipRegistrationStatusServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val callReasons: CallReasonServiceAsync.WithRawResponse by lazy {
             CallReasonServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -3014,10 +3000,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         override fun voiceSdkCallReports(): VoiceSdkCallReportServiceAsync.WithRawResponse =
             voiceSdkCallReports
-
-        /** UAC connection operations */
-        override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse =
-            sipRegistrationStatus
 
         /**
          * Static reference values the API accepts: call reasons, document types, rejection types.

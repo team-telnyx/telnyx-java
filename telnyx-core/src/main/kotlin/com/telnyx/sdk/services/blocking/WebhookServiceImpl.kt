@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.UnwrapWebhookParams
-import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.errors.TelnyxWebhookException
 import com.telnyx.sdk.lib.WebhookVerification
@@ -35,6 +34,11 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         }
 
     override fun unwrap(body: String): UnwrapWebhookEvent =
+        throw TelnyxWebhookException(
+            "Webhook headers are required for verified unwrap; use unsafeUnwrap to parse without verification"
+        )
+
+    private fun parseVerifiedUnwrap(body: String): UnwrapWebhookEvent =
         try {
             clientOptions.jsonMapper.readValue(body, jacksonTypeRef<UnwrapWebhookEvent>())
         } catch (e: Exception) {
@@ -42,16 +46,18 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         }
 
     override fun unwrap(unwrapParams: UnwrapWebhookParams): UnwrapWebhookEvent {
-        val headers = unwrapParams.headers().getOrNull()
-        if (headers != null) {
-            val publicKey =
-                checkRequired(
-                    "publicKey",
-                    unwrapParams.secret().getOrNull() ?: clientOptions.publicKey().getOrNull(),
+        val headers =
+            unwrapParams.headers().getOrNull()
+                ?: throw TelnyxWebhookException(
+                    "Webhook headers are required for verified unwrap; use unsafeUnwrap to parse without verification"
                 )
-            verifyWebhookSignature(unwrapParams.body(), headers, publicKey)
-        }
-        return unwrap(unwrapParams.body())
+        val publicKey =
+            unwrapParams.secret().getOrNull()
+                ?: clientOptions.publicKey().getOrNull()
+                ?: throw TelnyxWebhookException("Public key is required for webhook verification")
+
+        verifyWebhookSignature(unwrapParams.body(), headers, publicKey)
+        return parseVerifiedUnwrap(unwrapParams.body())
     }
 
     private fun verifyWebhookSignature(

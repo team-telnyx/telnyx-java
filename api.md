@@ -2800,12 +2800,6 @@ Methods:
 - <code title="get /voice_sdk_call_reports/{call_id}">client.voiceSdkCallReports().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/VoiceSdkCallReportService.kt">retrieve</a>(params)</code>
 - <code title="get /voice_sdk_call_reports">client.voiceSdkCallReports().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/VoiceSdkCallReportService.kt">list</a>(params)</code>
 
-# SipRegistrationStatus
-
-Methods:
-
-- <code title="get /sip_registration_status">client.sipRegistrationStatus().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SipRegistrationStatusService.kt">retrieve</a>(params)</code>
-
 # CallReasons
 
 Methods:
