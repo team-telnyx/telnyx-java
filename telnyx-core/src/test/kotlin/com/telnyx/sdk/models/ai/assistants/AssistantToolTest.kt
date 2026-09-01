@@ -540,6 +540,7 @@ internal class AssistantToolTest {
                                 .build()
                         )
                         .description("Transfer the call to a human agent.")
+                        .diversion("{{telnyx_agent_target}}")
                         .voicemailDetection(
                             AssistantTool.Transfer.TransferConfig.VoicemailDetection.builder()
                                 .detectionConfig(
@@ -646,6 +647,7 @@ internal class AssistantToolTest {
                                     .build()
                             )
                             .description("Transfer the call to a human agent.")
+                            .diversion("{{telnyx_agent_target}}")
                             .voicemailDetection(
                                 AssistantTool.Transfer.TransferConfig.VoicemailDetection.builder()
                                     .detectionConfig(

@@ -98,6 +98,8 @@ import com.telnyx.sdk.services.blocking.EnterpriseService
 import com.telnyx.sdk.services.blocking.EnterpriseServiceImpl
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
 import com.telnyx.sdk.services.blocking.ExternalConnectionServiceImpl
+import com.telnyx.sdk.services.blocking.ExternalRequirementService
+import com.telnyx.sdk.services.blocking.ExternalRequirementServiceImpl
 import com.telnyx.sdk.services.blocking.FaxApplicationService
 import com.telnyx.sdk.services.blocking.FaxApplicationServiceImpl
 import com.telnyx.sdk.services.blocking.FaxService
@@ -296,8 +298,6 @@ import com.telnyx.sdk.services.blocking.SimCardOrderService
 import com.telnyx.sdk.services.blocking.SimCardOrderServiceImpl
 import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SimCardServiceImpl
-import com.telnyx.sdk.services.blocking.SipRegistrationStatusService
-import com.telnyx.sdk.services.blocking.SipRegistrationStatusServiceImpl
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
 import com.telnyx.sdk.services.blocking.SiprecConnectorServiceImpl
 import com.telnyx.sdk.services.blocking.SpeechToTextService
@@ -990,10 +990,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         VoiceSdkCallReportServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val sipRegistrationStatus: SipRegistrationStatusService by lazy {
-        SipRegistrationStatusServiceImpl(clientOptionsWithUserAgent)
-    }
-
     private val callReasons: CallReasonService by lazy {
         CallReasonServiceImpl(clientOptionsWithUserAgent)
     }
@@ -1048,6 +1044,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     private val meetingSessions: MeetingSessionService by lazy {
         MeetingSessionServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val externalRequirements: ExternalRequirementService by lazy {
+        ExternalRequirementServiceImpl(clientOptionsWithUserAgent)
     }
 
     override fun async(): TelnyxClientAsync = async
@@ -1551,9 +1551,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     override fun voiceSdkCallReports(): VoiceSdkCallReportService = voiceSdkCallReports
 
-    /** UAC connection operations */
-    override fun sipRegistrationStatus(): SipRegistrationStatusService = sipRegistrationStatus
-
     /** Static reference values the API accepts: call reasons, document types, rejection types. */
     override fun callReasons(): CallReasonService = callReasons
 
@@ -1604,6 +1601,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun webSearch(): WebSearchService = webSearch
 
     override fun meetingSessions(): MeetingSessionService = meetingSessions
+
+    override fun externalRequirements(): ExternalRequirementService = externalRequirements
 
     override fun close() = clientOptions.close()
 
@@ -2289,10 +2288,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             VoiceSdkCallReportServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val sipRegistrationStatus: SipRegistrationStatusService.WithRawResponse by lazy {
-            SipRegistrationStatusServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val callReasons: CallReasonService.WithRawResponse by lazy {
             CallReasonServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2351,6 +2346,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         private val meetingSessions: MeetingSessionService.WithRawResponse by lazy {
             MeetingSessionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val externalRequirements: ExternalRequirementService.WithRawResponse by lazy {
+            ExternalRequirementServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -2907,10 +2906,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun voiceSdkCallReports(): VoiceSdkCallReportService.WithRawResponse =
             voiceSdkCallReports
 
-        /** UAC connection operations */
-        override fun sipRegistrationStatus(): SipRegistrationStatusService.WithRawResponse =
-            sipRegistrationStatus
-
         /**
          * Static reference values the API accepts: call reasons, document types, rejection types.
          */
@@ -2966,5 +2961,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun webSearch(): WebSearchService.WithRawResponse = webSearch
 
         override fun meetingSessions(): MeetingSessionService.WithRawResponse = meetingSessions
+
+        override fun externalRequirements(): ExternalRequirementService.WithRawResponse =
+            externalRequirements
     }
 }

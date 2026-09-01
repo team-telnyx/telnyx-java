@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.91.0](https://github.com/team-telnyx/telnyx-java/compare/v6.90.0...v6.91.0) (2026-09-01)
+
+
+### Features
+
+* promote from staging 59b9da6 ([c72d365](https://github.com/team-telnyx/telnyx-java/commit/c72d365250cbd02d303cae90e5acbf0b8da2c43f))
+
+
+### Bug Fixes
+
+* **ci:** skip post-merge release readiness ([#233](https://github.com/team-telnyx/telnyx-java/issues/233)) ([d673427](https://github.com/team-telnyx/telnyx-java/commit/d673427e4cc0ead914b8e5bc7d805cffb1177bff))
+
 ## [6.90.0](https://github.com/team-telnyx/telnyx-java/compare/v6.89.0...v6.90.0) (2026-08-31)
 
 

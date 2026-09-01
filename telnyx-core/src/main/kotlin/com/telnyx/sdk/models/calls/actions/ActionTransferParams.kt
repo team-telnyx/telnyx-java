@@ -129,6 +129,17 @@ private constructor(
     fun customHeaders(): Optional<List<CustomSipHeader>> = body.customHeaders()
 
     /**
+     * The number the inbound call being transferred was originally received on, in +E164 format.
+     * Supplying it lets an unverified non-Telnyx `from` be used as the caller id, provided that
+     * number is still on an active inbound call to this `diversion` number for your account. The
+     * `diversion` number itself must be one you own or have verified.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun diversion(): Optional<String> = body.diversion()
+
+    /**
      * If set to false, early media will not be passed to the originating leg.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -492,6 +503,13 @@ private constructor(
      * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _customHeaders(): JsonField<List<CustomSipHeader>> = body._customHeaders()
+
+    /**
+     * Returns the raw JSON value of [diversion].
+     *
+     * Unlike [diversion], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _diversion(): JsonField<String> = body._diversion()
 
     /**
      * Returns the raw JSON value of [earlyMedia].
@@ -929,6 +947,23 @@ private constructor(
         fun addCustomHeader(customHeader: CustomSipHeader) = apply {
             body.addCustomHeader(customHeader)
         }
+
+        /**
+         * The number the inbound call being transferred was originally received on, in +E164
+         * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
+         * provided that number is still on an active inbound call to this `diversion` number for
+         * your account. The `diversion` number itself must be one you own or have verified.
+         */
+        fun diversion(diversion: String) = apply { body.diversion(diversion) }
+
+        /**
+         * Sets [Builder.diversion] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.diversion] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun diversion(diversion: JsonField<String>) = apply { body.diversion(diversion) }
 
         /** If set to false, early media will not be passed to the originating leg. */
         fun earlyMedia(earlyMedia: Boolean) = apply { body.earlyMedia(earlyMedia) }
@@ -1664,6 +1699,7 @@ private constructor(
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
         private val customHeaders: JsonField<List<CustomSipHeader>>,
+        private val diversion: JsonField<String>,
         private val earlyMedia: JsonField<Boolean>,
         private val from: JsonField<String>,
         private val fromDisplayName: JsonField<String>,
@@ -1722,6 +1758,9 @@ private constructor(
             @JsonProperty("custom_headers")
             @ExcludeMissing
             customHeaders: JsonField<List<CustomSipHeader>> = JsonMissing.of(),
+            @JsonProperty("diversion")
+            @ExcludeMissing
+            diversion: JsonField<String> = JsonMissing.of(),
             @JsonProperty("early_media")
             @ExcludeMissing
             earlyMedia: JsonField<Boolean> = JsonMissing.of(),
@@ -1823,6 +1862,7 @@ private constructor(
             clientState,
             commandId,
             customHeaders,
+            diversion,
             earlyMedia,
             from,
             fromDisplayName,
@@ -1936,6 +1976,17 @@ private constructor(
          */
         fun customHeaders(): Optional<List<CustomSipHeader>> =
             customHeaders.getOptional("custom_headers")
+
+        /**
+         * The number the inbound call being transferred was originally received on, in +E164
+         * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
+         * provided that number is still on an active inbound call to this `diversion` number for
+         * your account. The `diversion` number itself must be one you own or have verified.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun diversion(): Optional<String> = diversion.getOptional("diversion")
 
         /**
          * If set to false, early media will not be passed to the originating leg.
@@ -2325,6 +2376,13 @@ private constructor(
         fun _customHeaders(): JsonField<List<CustomSipHeader>> = customHeaders
 
         /**
+         * Returns the raw JSON value of [diversion].
+         *
+         * Unlike [diversion], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("diversion") @ExcludeMissing fun _diversion(): JsonField<String> = diversion
+
+        /**
          * Returns the raw JSON value of [earlyMedia].
          *
          * Unlike [earlyMedia], this method doesn't throw if the JSON field has an unexpected type.
@@ -2669,6 +2727,7 @@ private constructor(
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
             private var customHeaders: JsonField<MutableList<CustomSipHeader>>? = null
+            private var diversion: JsonField<String> = JsonMissing.of()
             private var earlyMedia: JsonField<Boolean> = JsonMissing.of()
             private var from: JsonField<String> = JsonMissing.of()
             private var fromDisplayName: JsonField<String> = JsonMissing.of()
@@ -2713,6 +2772,7 @@ private constructor(
                 clientState = body.clientState
                 commandId = body.commandId
                 customHeaders = body.customHeaders.map { it.toMutableList() }
+                diversion = body.diversion
                 earlyMedia = body.earlyMedia
                 from = body.from
                 fromDisplayName = body.fromDisplayName
@@ -2887,6 +2947,23 @@ private constructor(
                         checkKnown("customHeaders", it).add(customHeader)
                     }
             }
+
+            /**
+             * The number the inbound call being transferred was originally received on, in +E164
+             * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
+             * provided that number is still on an active inbound call to this `diversion` number
+             * for your account. The `diversion` number itself must be one you own or have verified.
+             */
+            fun diversion(diversion: String) = diversion(JsonField.of(diversion))
+
+            /**
+             * Sets [Builder.diversion] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.diversion] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun diversion(diversion: JsonField<String>) = apply { this.diversion = diversion }
 
             /** If set to false, early media will not be passed to the originating leg. */
             fun earlyMedia(earlyMedia: Boolean) = earlyMedia(JsonField.of(earlyMedia))
@@ -3506,6 +3583,7 @@ private constructor(
                     clientState,
                     commandId,
                     (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                    diversion,
                     earlyMedia,
                     from,
                     fromDisplayName,
@@ -3566,6 +3644,7 @@ private constructor(
             clientState()
             commandId()
             customHeaders().ifPresent { it.forEach { it.validate() } }
+            diversion()
             earlyMedia()
             from()
             fromDisplayName()
@@ -3625,6 +3704,7 @@ private constructor(
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (diversion.asKnown().isPresent) 1 else 0) +
                 (if (earlyMedia.asKnown().isPresent) 1 else 0) +
                 (if (from.asKnown().isPresent) 1 else 0) +
                 (if (fromDisplayName.asKnown().isPresent) 1 else 0) +
@@ -3672,6 +3752,7 @@ private constructor(
                 clientState == other.clientState &&
                 commandId == other.commandId &&
                 customHeaders == other.customHeaders &&
+                diversion == other.diversion &&
                 earlyMedia == other.earlyMedia &&
                 from == other.from &&
                 fromDisplayName == other.fromDisplayName &&
@@ -3717,6 +3798,7 @@ private constructor(
                 clientState,
                 commandId,
                 customHeaders,
+                diversion,
                 earlyMedia,
                 from,
                 fromDisplayName,
@@ -3757,7 +3839,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, earlyMedia=$earlyMedia, from=$from, fromDisplayName=$fromDisplayName, mediaEncryption=$mediaEncryption, mediaName=$mediaName, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, routeToMobile=$routeToMobile, sendDigitsOnAnswer=$sendDigitsOnAnswer, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, targetLegClientState=$targetLegClientState, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+            "Body{to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, diversion=$diversion, earlyMedia=$earlyMedia, from=$from, fromDisplayName=$fromDisplayName, mediaEncryption=$mediaEncryption, mediaName=$mediaName, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, routeToMobile=$routeToMobile, sendDigitsOnAnswer=$sendDigitsOnAnswer, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, targetLegClientState=$targetLegClientState, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
     }
 
     /**

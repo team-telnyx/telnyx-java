@@ -113,6 +113,7 @@ internal class VersionServiceAsyncTest {
                                                     .region("region")
                                                     .settings(
                                                         TranscriptionSettingsConfig.builder()
+                                                            .context("context")
                                                             .eagerEotThreshold(0.3)
                                                             .enableEndpointDetection(true)
                                                             .endOfTurnConfidenceThreshold(0.0)
@@ -120,6 +121,7 @@ internal class VersionServiceAsyncTest {
                                                             .eotTimeoutMs(500L)
                                                             .interimResults(true)
                                                             .keyterm("keyterm")
+                                                            .addLanguageHint("string")
                                                             .maxEndpointDelayMs(500L)
                                                             .maxTurnSilence(100L)
                                                             .minTurnSilence(100L)
@@ -197,6 +199,7 @@ internal class VersionServiceAsyncTest {
                                                     .region("region")
                                                     .settings(
                                                         TranscriptionSettingsConfig.builder()
+                                                            .context("context")
                                                             .eagerEotThreshold(0.3)
                                                             .enableEndpointDetection(true)
                                                             .endOfTurnConfidenceThreshold(0.0)
@@ -204,6 +207,7 @@ internal class VersionServiceAsyncTest {
                                                             .eotTimeoutMs(500L)
                                                             .interimResults(true)
                                                             .keyterm("keyterm")
+                                                            .addLanguageHint("string")
                                                             .maxEndpointDelayMs(500L)
                                                             .maxTurnSilence(100L)
                                                             .minTurnSilence(100L)
@@ -583,6 +587,7 @@ internal class VersionServiceAsyncTest {
                                     .region("region")
                                     .settings(
                                         TranscriptionSettingsConfig.builder()
+                                            .context("context")
                                             .eagerEotThreshold(0.3)
                                             .enableEndpointDetection(true)
                                             .endOfTurnConfidenceThreshold(0.0)
@@ -590,6 +595,7 @@ internal class VersionServiceAsyncTest {
                                             .eotTimeoutMs(500L)
                                             .interimResults(true)
                                             .keyterm("keyterm")
+                                            .addLanguageHint("string")
                                             .maxEndpointDelayMs(500L)
                                             .maxTurnSilence(100L)
                                             .minTurnSilence(100L)

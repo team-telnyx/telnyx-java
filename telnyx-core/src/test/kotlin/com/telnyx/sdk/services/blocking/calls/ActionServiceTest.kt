@@ -1702,6 +1702,7 @@ internal class ActionServiceTest {
                     .addCustomHeader(
                         CustomSipHeader.builder().name("head_2").value("val_2").build()
                     )
+                    .diversion("+18005550101")
                     .earlyMedia(true)
                     .from("+18005550101")
                     .fromDisplayName("Company Name")

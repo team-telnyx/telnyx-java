@@ -38,8 +38,8 @@ private constructor(
     ) : this(captureEnabled, port, reportFrequencySecs, mutableMapOf())
 
     /**
-     * BETA - Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx
-     * Mission Control Portal.
+     * Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx Mission
+     * Control Portal.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -125,8 +125,8 @@ private constructor(
         }
 
         /**
-         * BETA - Enable the capture and storage of RTCP messages to create QoS reports on the
-         * Telnyx Mission Control Portal.
+         * Enable the capture and storage of RTCP messages to create QoS reports on the Telnyx
+         * Mission Control Portal.
          */
         fun captureEnabled(captureEnabled: Boolean) = captureEnabled(JsonField.of(captureEnabled))
 
