@@ -370,7 +370,10 @@ private constructor(
             }
 
             /** The ip used during the SIP connection */
-            fun ipAddress(ipAddress: String) = ipAddress(JsonField.of(ipAddress))
+            fun ipAddress(ipAddress: String?) = ipAddress(JsonField.ofNullable(ipAddress))
+
+            /** Alias for calling [Builder.ipAddress] with `ipAddress.orElse(null)`. */
+            fun ipAddress(ipAddress: Optional<String>) = ipAddress(ipAddress.getOrNull())
 
             /**
              * Sets [Builder.ipAddress] to an arbitrary JSON value.
@@ -382,8 +385,14 @@ private constructor(
             fun ipAddress(ipAddress: JsonField<String>) = apply { this.ipAddress = ipAddress }
 
             /** ISO 8601 formatted date indicating when the resource was last updated. */
-            fun lastRegistration(lastRegistration: String) =
-                lastRegistration(JsonField.of(lastRegistration))
+            fun lastRegistration(lastRegistration: String?) =
+                lastRegistration(JsonField.ofNullable(lastRegistration))
+
+            /**
+             * Alias for calling [Builder.lastRegistration] with `lastRegistration.orElse(null)`.
+             */
+            fun lastRegistration(lastRegistration: Optional<String>) =
+                lastRegistration(lastRegistration.getOrNull())
 
             /**
              * Sets [Builder.lastRegistration] to an arbitrary JSON value.
@@ -397,7 +406,17 @@ private constructor(
             }
 
             /** The port of the SIP connection */
-            fun port(port: Long) = port(JsonField.of(port))
+            fun port(port: Long?) = port(JsonField.ofNullable(port))
+
+            /**
+             * Alias for [Builder.port].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun port(port: Long) = port(port as Long?)
+
+            /** Alias for calling [Builder.port] with `port.orElse(null)`. */
+            fun port(port: Optional<Long>) = port(port.getOrNull())
 
             /**
              * Sets [Builder.port] to an arbitrary JSON value.
@@ -421,7 +440,10 @@ private constructor(
             fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
 
             /** The user name of the SIP connection */
-            fun sipUsername(sipUsername: String) = sipUsername(JsonField.of(sipUsername))
+            fun sipUsername(sipUsername: String?) = sipUsername(JsonField.ofNullable(sipUsername))
+
+            /** Alias for calling [Builder.sipUsername] with `sipUsername.orElse(null)`. */
+            fun sipUsername(sipUsername: Optional<String>) = sipUsername(sipUsername.getOrNull())
 
             /**
              * Sets [Builder.sipUsername] to an arbitrary JSON value.
@@ -447,7 +469,10 @@ private constructor(
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
             /** The protocol of the SIP connection */
-            fun transport(transport: String) = transport(JsonField.of(transport))
+            fun transport(transport: String?) = transport(JsonField.ofNullable(transport))
+
+            /** Alias for calling [Builder.transport] with `transport.orElse(null)`. */
+            fun transport(transport: Optional<String>) = transport(transport.getOrNull())
 
             /**
              * Sets [Builder.transport] to an arbitrary JSON value.
@@ -459,7 +484,10 @@ private constructor(
             fun transport(transport: JsonField<String>) = apply { this.transport = transport }
 
             /** The user agent of the SIP connection */
-            fun userAgent(userAgent: String) = userAgent(JsonField.of(userAgent))
+            fun userAgent(userAgent: String?) = userAgent(JsonField.ofNullable(userAgent))
+
+            /** Alias for calling [Builder.userAgent] with `userAgent.orElse(null)`. */
+            fun userAgent(userAgent: Optional<String>) = userAgent(userAgent.getOrNull())
 
             /**
              * Sets [Builder.userAgent] to an arbitrary JSON value.

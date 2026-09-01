@@ -41,6 +41,7 @@ internal class ActionTransferParamsTest {
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
             .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
+            .diversion("+18005550101")
             .earlyMedia(true)
             .from("+18005550101")
             .fromDisplayName("Company Name")
@@ -148,6 +149,7 @@ internal class ActionTransferParamsTest {
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
                 .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
+                .diversion("+18005550101")
                 .earlyMedia(true)
                 .from("+18005550101")
                 .fromDisplayName("Company Name")
@@ -242,6 +244,7 @@ internal class ActionTransferParamsTest {
                 CustomSipHeader.builder().name("head_1").value("val_1").build(),
                 CustomSipHeader.builder().name("head_2").value("val_2").build(),
             )
+        assertThat(body.diversion()).contains("+18005550101")
         assertThat(body.earlyMedia()).contains(true)
         assertThat(body.from()).contains("+18005550101")
         assertThat(body.fromDisplayName()).contains("Company Name")
