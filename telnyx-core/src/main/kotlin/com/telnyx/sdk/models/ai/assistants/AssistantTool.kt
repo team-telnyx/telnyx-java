@@ -2668,6 +2668,7 @@ private constructor(
             private val targets: JsonField<Targets>,
             private val customHeaders: JsonField<List<CustomHeader>>,
             private val description: JsonField<String>,
+            private val diversion: JsonField<String>,
             private val voicemailDetection: JsonField<VoicemailDetection>,
             private val warmMessageDelayMs: JsonField<Long>,
             private val warmTransferAcceptance: JsonField<WarmTransferAcceptance>,
@@ -2687,6 +2688,9 @@ private constructor(
                 @JsonProperty("description")
                 @ExcludeMissing
                 description: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("diversion")
+                @ExcludeMissing
+                diversion: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("voicemail_detection")
                 @ExcludeMissing
                 voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of(),
@@ -2704,6 +2708,7 @@ private constructor(
                 targets,
                 customHeaders,
                 description,
+                diversion,
                 voicemailDetection,
                 warmMessageDelayMs,
                 warmTransferAcceptance,
@@ -2751,6 +2756,19 @@ private constructor(
              *   the server responded with an unexpected value).
              */
             fun description(): Optional<String> = description.getOptional("description")
+
+            /**
+             * The number the inbound call was received on, forwarded so an unverified non-Telnyx
+             * `from` can be used as the caller id -- typically to transfer out as the original
+             * caller by pairing `from: "{{telnyx_end_user_target}}"` with `diversion:
+             * "{{telnyx_agent_target}}"`. The caller id is only accepted while that number is still
+             * on an active inbound call to this `diversion` number, and the `diversion` number must
+             * be one you own or have verified.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun diversion(): Optional<String> = diversion.getOptional("diversion")
 
             /**
              * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
@@ -2838,6 +2856,16 @@ private constructor(
             fun _description(): JsonField<String> = description
 
             /**
+             * Returns the raw JSON value of [diversion].
+             *
+             * Unlike [diversion], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("diversion")
+            @ExcludeMissing
+            fun _diversion(): JsonField<String> = diversion
+
+            /**
              * Returns the raw JSON value of [voicemailDetection].
              *
              * Unlike [voicemailDetection], this method doesn't throw if the JSON field has an
@@ -2911,6 +2939,7 @@ private constructor(
                 private var targets: JsonField<Targets>? = null
                 private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
                 private var description: JsonField<String> = JsonMissing.of()
+                private var diversion: JsonField<String> = JsonMissing.of()
                 private var voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of()
                 private var warmMessageDelayMs: JsonField<Long> = JsonMissing.of()
                 private var warmTransferAcceptance: JsonField<WarmTransferAcceptance> =
@@ -2924,6 +2953,7 @@ private constructor(
                     targets = transferConfig.targets
                     customHeaders = transferConfig.customHeaders.map { it.toMutableList() }
                     description = transferConfig.description
+                    diversion = transferConfig.diversion
                     voicemailDetection = transferConfig.voicemailDetection
                     warmMessageDelayMs = transferConfig.warmMessageDelayMs
                     warmTransferAcceptance = transferConfig.warmTransferAcceptance
@@ -3012,6 +3042,25 @@ private constructor(
                 fun description(description: JsonField<String>) = apply {
                     this.description = description
                 }
+
+                /**
+                 * The number the inbound call was received on, forwarded so an unverified
+                 * non-Telnyx `from` can be used as the caller id -- typically to transfer out as
+                 * the original caller by pairing `from: "{{telnyx_end_user_target}}"` with
+                 * `diversion: "{{telnyx_agent_target}}"`. The caller id is only accepted while that
+                 * number is still on an active inbound call to this `diversion` number, and the
+                 * `diversion` number must be one you own or have verified.
+                 */
+                fun diversion(diversion: String) = diversion(JsonField.of(diversion))
+
+                /**
+                 * Sets [Builder.diversion] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.diversion] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun diversion(diversion: JsonField<String>) = apply { this.diversion = diversion }
 
                 /**
                  * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
@@ -3153,6 +3202,7 @@ private constructor(
                         checkRequired("targets", targets),
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
                         description,
+                        diversion,
                         voicemailDetection,
                         warmMessageDelayMs,
                         warmTransferAcceptance,
@@ -3182,6 +3232,7 @@ private constructor(
                 targets().validate()
                 customHeaders().ifPresent { it.forEach { it.validate() } }
                 description()
+                diversion()
                 voicemailDetection().ifPresent { it.validate() }
                 warmMessageDelayMs()
                 warmTransferAcceptance().ifPresent { it.validate() }
@@ -3209,6 +3260,7 @@ private constructor(
                     (targets.asKnown().getOrNull()?.validity() ?: 0) +
                     (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (if (description.asKnown().isPresent) 1 else 0) +
+                    (if (diversion.asKnown().isPresent) 1 else 0) +
                     (voicemailDetection.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (warmMessageDelayMs.asKnown().isPresent) 1 else 0) +
                     (warmTransferAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
@@ -6199,6 +6251,7 @@ private constructor(
                     targets == other.targets &&
                     customHeaders == other.customHeaders &&
                     description == other.description &&
+                    diversion == other.diversion &&
                     voicemailDetection == other.voicemailDetection &&
                     warmMessageDelayMs == other.warmMessageDelayMs &&
                     warmTransferAcceptance == other.warmTransferAcceptance &&
@@ -6212,6 +6265,7 @@ private constructor(
                     targets,
                     customHeaders,
                     description,
+                    diversion,
                     voicemailDetection,
                     warmMessageDelayMs,
                     warmTransferAcceptance,
@@ -6223,7 +6277,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "TransferConfig{from=$from, targets=$targets, customHeaders=$customHeaders, description=$description, voicemailDetection=$voicemailDetection, warmMessageDelayMs=$warmMessageDelayMs, warmTransferAcceptance=$warmTransferAcceptance, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
+                "TransferConfig{from=$from, targets=$targets, customHeaders=$customHeaders, description=$description, diversion=$diversion, voicemailDetection=$voicemailDetection, warmMessageDelayMs=$warmMessageDelayMs, warmTransferAcceptance=$warmTransferAcceptance, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

@@ -50,6 +50,7 @@ import com.telnyx.sdk.services.blocking.EmailUnsubscribeGroupService
 import com.telnyx.sdk.services.blocking.EmailValidationService
 import com.telnyx.sdk.services.blocking.EnterpriseService
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
+import com.telnyx.sdk.services.blocking.ExternalRequirementService
 import com.telnyx.sdk.services.blocking.FaxApplicationService
 import com.telnyx.sdk.services.blocking.FaxService
 import com.telnyx.sdk.services.blocking.FqdnConnectionService
@@ -149,7 +150,6 @@ import com.telnyx.sdk.services.blocking.SimCardGroupService
 import com.telnyx.sdk.services.blocking.SimCardOrderPreviewService
 import com.telnyx.sdk.services.blocking.SimCardOrderService
 import com.telnyx.sdk.services.blocking.SimCardService
-import com.telnyx.sdk.services.blocking.SipRegistrationStatusService
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
 import com.telnyx.sdk.services.blocking.SpeechToTextService
 import com.telnyx.sdk.services.blocking.StorageService
@@ -702,9 +702,6 @@ interface TelnyxClient {
     /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
     fun voiceSdkCallReports(): VoiceSdkCallReportService
 
-    /** UAC connection operations */
-    fun sipRegistrationStatus(): SipRegistrationStatusService
-
     /** Static reference values the API accepts: call reasons, document types, rejection types. */
     fun callReasons(): CallReasonService
 
@@ -755,6 +752,8 @@ interface TelnyxClient {
     fun webSearch(): WebSearchService
 
     fun meetingSessions(): MeetingSessionService
+
+    fun externalRequirements(): ExternalRequirementService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1259,9 +1258,6 @@ interface TelnyxClient {
         /** Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting. */
         fun voiceSdkCallReports(): VoiceSdkCallReportService.WithRawResponse
 
-        /** UAC connection operations */
-        fun sipRegistrationStatus(): SipRegistrationStatusService.WithRawResponse
-
         /**
          * Static reference values the API accepts: call reasons, document types, rejection types.
          */
@@ -1315,5 +1311,7 @@ interface TelnyxClient {
         fun webSearch(): WebSearchService.WithRawResponse
 
         fun meetingSessions(): MeetingSessionService.WithRawResponse
+
+        fun externalRequirements(): ExternalRequirementService.WithRawResponse
     }
 }

@@ -339,6 +339,7 @@ internal class ServiceParamsTest {
                         .partialAutomatedAgentReply(false)
                         .build()
                 )
+                .diversion("+18005550101")
                 .enableDialogflow(false)
                 .fromDisplayName("Company Name")
                 .linkTo("ilditnZK_eVysupV21KzmzN_sM29ygfauQojpm4BgFtfX5hXAcjotg==")

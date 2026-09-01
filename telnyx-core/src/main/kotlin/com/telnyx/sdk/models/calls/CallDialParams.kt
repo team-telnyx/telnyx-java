@@ -241,6 +241,17 @@ private constructor(
     fun dialogflowConfig(): Optional<DialogflowConfig> = body.dialogflowConfig()
 
     /**
+     * The number the inbound call being transferred was originally received on, in +E164 format.
+     * Supplying it lets an unverified non-Telnyx `from` be used as the caller id, provided that
+     * number is still on an active inbound call to this `diversion` number for your account. The
+     * `diversion` number itself must be one you own or have verified.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun diversion(): Optional<String> = body.diversion()
+
+    /**
      * Enables Dialogflow for the current call. The default value is false.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -799,6 +810,13 @@ private constructor(
      * type.
      */
     fun _dialogflowConfig(): JsonField<DialogflowConfig> = body._dialogflowConfig()
+
+    /**
+     * Returns the raw JSON value of [diversion].
+     *
+     * Unlike [diversion], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _diversion(): JsonField<String> = body._diversion()
 
     /**
      * Returns the raw JSON value of [enableDialogflow].
@@ -1532,6 +1550,23 @@ private constructor(
         fun dialogflowConfig(dialogflowConfig: JsonField<DialogflowConfig>) = apply {
             body.dialogflowConfig(dialogflowConfig)
         }
+
+        /**
+         * The number the inbound call being transferred was originally received on, in +E164
+         * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
+         * provided that number is still on an active inbound call to this `diversion` number for
+         * your account. The `diversion` number itself must be one you own or have verified.
+         */
+        fun diversion(diversion: String) = apply { body.diversion(diversion) }
+
+        /**
+         * Sets [Builder.diversion] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.diversion] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun diversion(diversion: JsonField<String>) = apply { body.diversion(diversion) }
 
         /** Enables Dialogflow for the current call. The default value is false. */
         fun enableDialogflow(enableDialogflow: Boolean) = apply {
@@ -2504,6 +2539,7 @@ private constructor(
         private val customHeaders: JsonField<List<CustomSipHeader>>,
         private val deepfakeDetection: JsonField<DeepfakeDetection>,
         private val dialogflowConfig: JsonField<DialogflowConfig>,
+        private val diversion: JsonField<String>,
         private val enableDialogflow: JsonField<Boolean>,
         private val fromDisplayName: JsonField<String>,
         private val linkTo: JsonField<String>,
@@ -2604,6 +2640,9 @@ private constructor(
             @JsonProperty("dialogflow_config")
             @ExcludeMissing
             dialogflowConfig: JsonField<DialogflowConfig> = JsonMissing.of(),
+            @JsonProperty("diversion")
+            @ExcludeMissing
+            diversion: JsonField<String> = JsonMissing.of(),
             @JsonProperty("enable_dialogflow")
             @ExcludeMissing
             enableDialogflow: JsonField<Boolean> = JsonMissing.of(),
@@ -2759,6 +2798,7 @@ private constructor(
             customHeaders,
             deepfakeDetection,
             dialogflowConfig,
+            diversion,
             enableDialogflow,
             fromDisplayName,
             linkTo,
@@ -2991,6 +3031,17 @@ private constructor(
          */
         fun dialogflowConfig(): Optional<DialogflowConfig> =
             dialogflowConfig.getOptional("dialogflow_config")
+
+        /**
+         * The number the inbound call being transferred was originally received on, in +E164
+         * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
+         * provided that number is still on an active inbound call to this `diversion` number for
+         * your account. The `diversion` number itself must be one you own or have verified.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun diversion(): Optional<String> = diversion.getOptional("diversion")
 
         /**
          * Enables Dialogflow for the current call. The default value is false.
@@ -3604,6 +3655,13 @@ private constructor(
         fun _dialogflowConfig(): JsonField<DialogflowConfig> = dialogflowConfig
 
         /**
+         * Returns the raw JSON value of [diversion].
+         *
+         * Unlike [diversion], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("diversion") @ExcludeMissing fun _diversion(): JsonField<String> = diversion
+
+        /**
          * Returns the raw JSON value of [enableDialogflow].
          *
          * Unlike [enableDialogflow], this method doesn't throw if the JSON field has an unexpected
@@ -4104,6 +4162,7 @@ private constructor(
             private var customHeaders: JsonField<MutableList<CustomSipHeader>>? = null
             private var deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of()
             private var dialogflowConfig: JsonField<DialogflowConfig> = JsonMissing.of()
+            private var diversion: JsonField<String> = JsonMissing.of()
             private var enableDialogflow: JsonField<Boolean> = JsonMissing.of()
             private var fromDisplayName: JsonField<String> = JsonMissing.of()
             private var linkTo: JsonField<String> = JsonMissing.of()
@@ -4177,6 +4236,7 @@ private constructor(
                 customHeaders = body.customHeaders.map { it.toMutableList() }
                 deepfakeDetection = body.deepfakeDetection
                 dialogflowConfig = body.dialogflowConfig
+                diversion = body.diversion
                 enableDialogflow = body.enableDialogflow
                 fromDisplayName = body.fromDisplayName
                 linkTo = body.linkTo
@@ -4554,6 +4614,23 @@ private constructor(
             fun dialogflowConfig(dialogflowConfig: JsonField<DialogflowConfig>) = apply {
                 this.dialogflowConfig = dialogflowConfig
             }
+
+            /**
+             * The number the inbound call being transferred was originally received on, in +E164
+             * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
+             * provided that number is still on an active inbound call to this `diversion` number
+             * for your account. The `diversion` number itself must be one you own or have verified.
+             */
+            fun diversion(diversion: String) = diversion(JsonField.of(diversion))
+
+            /**
+             * Sets [Builder.diversion] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.diversion] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun diversion(diversion: JsonField<String>) = apply { this.diversion = diversion }
 
             /** Enables Dialogflow for the current call. The default value is false. */
             fun enableDialogflow(enableDialogflow: Boolean) =
@@ -5412,6 +5489,7 @@ private constructor(
                     (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
                     deepfakeDetection,
                     dialogflowConfig,
+                    diversion,
                     enableDialogflow,
                     fromDisplayName,
                     linkTo,
@@ -5496,6 +5574,7 @@ private constructor(
             customHeaders().ifPresent { it.forEach { it.validate() } }
             deepfakeDetection().ifPresent { it.validate() }
             dialogflowConfig().ifPresent { it.validate() }
+            diversion()
             enableDialogflow()
             fromDisplayName()
             linkTo()
@@ -5579,6 +5658,7 @@ private constructor(
                 (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (deepfakeDetection.asKnown().getOrNull()?.validity() ?: 0) +
                 (dialogflowConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (diversion.asKnown().isPresent) 1 else 0) +
                 (if (enableDialogflow.asKnown().isPresent) 1 else 0) +
                 (if (fromDisplayName.asKnown().isPresent) 1 else 0) +
                 (if (linkTo.asKnown().isPresent) 1 else 0) +
@@ -5650,6 +5730,7 @@ private constructor(
                 customHeaders == other.customHeaders &&
                 deepfakeDetection == other.deepfakeDetection &&
                 dialogflowConfig == other.dialogflowConfig &&
+                diversion == other.diversion &&
                 enableDialogflow == other.enableDialogflow &&
                 fromDisplayName == other.fromDisplayName &&
                 linkTo == other.linkTo &&
@@ -5719,6 +5800,7 @@ private constructor(
                 customHeaders,
                 deepfakeDetection,
                 dialogflowConfig,
+                diversion,
                 enableDialogflow,
                 fromDisplayName,
                 linkTo,
@@ -5773,7 +5855,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, assistant=$assistant, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, conversationRelayConfig=$conversationRelayConfig, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, retryOnTimeout=$retryOnTimeout, routeToMobile=$routeToMobile, sendDigitsOnAnswer=$sendDigitsOnAnswer, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, assistant=$assistant, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, conversationRelayConfig=$conversationRelayConfig, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, dialogflowConfig=$dialogflowConfig, diversion=$diversion, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, retryOnTimeout=$retryOnTimeout, routeToMobile=$routeToMobile, sendDigitsOnAnswer=$sendDigitsOnAnswer, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
     }
 
     /**

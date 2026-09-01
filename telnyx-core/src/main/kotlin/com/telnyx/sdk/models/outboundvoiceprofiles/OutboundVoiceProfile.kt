@@ -147,8 +147,8 @@ private constructor(
         callRecording.getOptional("call_recording")
 
     /**
-     * (BETA) Specifies the time window and call limits for calls made using this outbound voice
-     * profile. Note that all times are UTC in 24-hour clock time.
+     * Specifies the time window and call limits for calls made using this outbound voice profile.
+     * Note that all times are UTC in 24-hour clock time.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -569,7 +569,7 @@ private constructor(
         }
 
         /**
-         * (BETA) Specifies the time window and call limits for calls made using this outbound voice
+         * Specifies the time window and call limits for calls made using this outbound voice
          * profile. Note that all times are UTC in 24-hour clock time.
          */
         fun callingWindow(callingWindow: CallingWindow) = callingWindow(JsonField.of(callingWindow))
@@ -954,8 +954,8 @@ private constructor(
             (whitelistedDestinations.asKnown().getOrNull()?.size ?: 0)
 
     /**
-     * (BETA) Specifies the time window and call limits for calls made using this outbound voice
-     * profile. Note that all times are UTC in 24-hour clock time.
+     * Specifies the time window and call limits for calls made using this outbound voice profile.
+     * Note that all times are UTC in 24-hour clock time.
      */
     class CallingWindow
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -978,8 +978,8 @@ private constructor(
         ) : this(callsPerCld, endTime, startTime, mutableMapOf())
 
         /**
-         * (BETA) The maximum number of calls that can be initiated to a single called party (CLD)
-         * within the calling window. A null value means no limit.
+         * The maximum number of calls that can be initiated to a single called party (CLD) within
+         * the calling window. A null value means no limit.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -987,8 +987,8 @@ private constructor(
         fun callsPerCld(): Optional<Long> = callsPerCld.getOptional("calls_per_cld")
 
         /**
-         * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are no longer
-         * allowed to start.
+         * The UTC time of day (in HH:MM format, 24-hour clock) when calls are no longer allowed to
+         * start.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -996,8 +996,7 @@ private constructor(
         fun endTime(): Optional<String> = endTime.getOptional("end_time")
 
         /**
-         * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are allowed to
-         * start.
+         * The UTC time of day (in HH:MM format, 24-hour clock) when calls are allowed to start.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1062,8 +1061,8 @@ private constructor(
             }
 
             /**
-             * (BETA) The maximum number of calls that can be initiated to a single called party
-             * (CLD) within the calling window. A null value means no limit.
+             * The maximum number of calls that can be initiated to a single called party (CLD)
+             * within the calling window. A null value means no limit.
              */
             fun callsPerCld(callsPerCld: Long) = callsPerCld(JsonField.of(callsPerCld))
 
@@ -1077,8 +1076,8 @@ private constructor(
             fun callsPerCld(callsPerCld: JsonField<Long>) = apply { this.callsPerCld = callsPerCld }
 
             /**
-             * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are no longer
-             * allowed to start.
+             * The UTC time of day (in HH:MM format, 24-hour clock) when calls are no longer allowed
+             * to start.
              */
             fun endTime(endTime: String) = endTime(JsonField.of(endTime))
 
@@ -1092,8 +1091,7 @@ private constructor(
             fun endTime(endTime: JsonField<String>) = apply { this.endTime = endTime }
 
             /**
-             * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are allowed to
-             * start.
+             * The UTC time of day (in HH:MM format, 24-hour clock) when calls are allowed to start.
              */
             fun startTime(startTime: String) = startTime(JsonField.of(startTime))
 

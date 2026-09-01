@@ -13,6 +13,22 @@ import org.junit.jupiter.api.assertThrows
 internal class WebhookServiceAsyncTest {
 
     @Test
+    fun unwrapBodyOnlyFailsClosedBeforeParsing() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+
+        assertThrows<TelnyxWebhookException> { client.webhooks().unwrap("not json") }
+    }
+
+    @Test
+    fun unwrapParamsWithoutHeadersFailsClosed() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+
+        assertThrows<TelnyxWebhookException> {
+            client.webhooks().unwrap(UnwrapWebhookParams.builder().body("{}").build())
+        }
+    }
+
+    @Test
     fun unsafeUnwrap() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val webhookServiceAsync = client.webhooks()
