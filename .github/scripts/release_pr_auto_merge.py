@@ -52,7 +52,7 @@ def require_version_only_change(kind: str, head_text: str, next_text: str, expec
     patterns = {
         "json-version": re.compile(r'(?m)^(?P<prefix>\s*"version"\s*:\s*")[^"]+(?P<suffix>",?\s*)$'),
         "toml-version": re.compile(r'(?m)^(?P<prefix>version\s*=\s*")[^"]+(?P<suffix>"\s*)$'),
-        "gradle-version": re.compile(r'(?m)^(?P<prefix>version\s*=\s*")[^"]+(?P<suffix>"\s*// x-release-please-version\s*)$'),
+        "gradle-version": re.compile(r'(?m)^(?P<prefix>\s*version\s*=\s*")[^"]+(?P<suffix>"\s*// x-release-please-version\s*)$'),
     }
     pattern = patterns.get(kind)
     if pattern is None:
