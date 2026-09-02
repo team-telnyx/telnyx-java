@@ -89,6 +89,12 @@ class FixtureClient:
                 "src/telnyx/client.py": ("100644", "blob", "a" * 40),
                 "CHANGELOG.md": ("100644", "blob", "c" * 40),
             },
+            "version_file_contents": {
+                "pyproject.toml": {
+                    "head": 'version = "4.174.0"\n',
+                    "next": 'version = "4.173.0"\n',
+                }
+            },
             "promotion": {
                 "sha": NEXT,
                 "subject": "feat: promote from staging %s" % STAGING,
