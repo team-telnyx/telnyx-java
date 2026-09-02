@@ -16,6 +16,7 @@ from release_pr_auto_merge import (
     GateConfig,
     GitHubClient,
     ReleasePRAutoMergeGate,
+    require_version_only_change,
 )
 
 HEAD = "1" * 40
@@ -496,6 +497,14 @@ class WorkflowDependencyPolicyTests(unittest.TestCase):
                     continue
                 with self.subTest(workflow=workflow.name, line=line_number, action=action):
                     self.assertRegex(action, r"@[0-9a-f]{40}$")
+
+
+class GradleVersionContractTests(unittest.TestCase):
+    def test_accepts_indented_root_gradle_version_marker(self):
+        next_text = 'allprojects {\n    version = "6.78.0" // x-release-please-version\n}\n'
+        head_text = 'allprojects {\n    version = "6.92.0" // x-release-please-version\n}\n'
+
+        require_version_only_change("gradle-version", head_text, next_text, "6.92.0")
 
 
 if __name__ == "__main__":
