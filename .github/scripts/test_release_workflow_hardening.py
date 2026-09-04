@@ -62,6 +62,19 @@ class ReleaseWorkflowHardeningTests(unittest.TestCase):
         self.assertIn("--force-with-lease", workflow)
         self.assertNotIn("git push --force origin", workflow)
 
+    def test_release_doctor_does_not_receive_publishing_secrets(self):
+        workflow = Path(".github/workflows/release-doctor.yml").read_text()
+        script = Path("bin/check-release-environment").read_text()
+        self.assertNotIn("secrets.", workflow)
+        for secret_name in (
+            "SONATYPE_USERNAME",
+            "SONATYPE_PASSWORD",
+            "GPG_SIGNING_KEY",
+            "GPG_SIGNING_PASSWORD",
+        ):
+            self.assertNotIn(secret_name, workflow)
+            self.assertNotIn(secret_name, script)
+
     def test_auto_merge_workflow_can_only_attest(self):
         workflow = Path(".github/workflows/release-pr-auto-merge.yml").read_text()
         self.assertIn("--dry-run", workflow)
