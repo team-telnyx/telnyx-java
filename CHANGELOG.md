@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.92.0](https://github.com/team-telnyx/telnyx-java/compare/v6.91.0...v6.92.0) (2026-09-04)
+
+
+### Features
+
+* promote from staging ae1205e ([22d74a2](https://github.com/team-telnyx/telnyx-java/commit/22d74a2199e759327bad5a0779a03eaf916b613c))
+
+
+### Bug Fixes
+
+* **release:** accept indented Gradle version marker ([#238](https://github.com/team-telnyx/telnyx-java/issues/238)) ([883fbb6](https://github.com/team-telnyx/telnyx-java/commit/883fbb6f2b669fe1aefb9902b27b26f8477b2af0))
+* **release:** remove secrets from release doctor ([#239](https://github.com/team-telnyx/telnyx-java/issues/239)) ([56568e4](https://github.com/team-telnyx/telnyx-java/commit/56568e47c971259e85221530f995140fed13f989))
+
 ## [6.91.0](https://github.com/team-telnyx/telnyx-java/compare/v6.90.0...v6.91.0) (2026-09-01)
 
 
