@@ -146,6 +146,26 @@ private constructor(
     fun recordType(): Optional<RecordType> = body.recordType()
 
     /**
+     * Set to true to enable message content redaction on this profile, or false to disable it.
+     * Ignored if the organization is not on the redaction allowlist. See the
+     * [Message Redaction guide](/docs/messaging/messages/message-redaction) for what is redacted.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun redactionEnabled(): Optional<Boolean> = body.redactionEnabled()
+
+    /**
+     * The redaction level to apply when redaction is enabled. 1: redact message records and
+     * reporting only. 2 (default): also redact inbound webhook payloads. See the
+     * [Message Redaction guide](/docs/messaging/messages/message-redaction).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun redactionLevel(): Optional<Long> = body.redactionLevel()
+
+    /**
      * Enables automatic character encoding optimization for SMS messages. When enabled, the system
      * automatically selects the most efficient encoding (GSM-7 or UCS-2) based on message content
      * to maximize character limits and minimize costs.
@@ -315,6 +335,21 @@ private constructor(
      * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _recordType(): JsonField<RecordType> = body._recordType()
+
+    /**
+     * Returns the raw JSON value of [redactionEnabled].
+     *
+     * Unlike [redactionEnabled], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _redactionEnabled(): JsonField<Boolean> = body._redactionEnabled()
+
+    /**
+     * Returns the raw JSON value of [redactionLevel].
+     *
+     * Unlike [redactionLevel], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _redactionLevel(): JsonField<Long> = body._redactionLevel()
 
     /**
      * Returns the raw JSON value of [smartEncoding].
@@ -634,6 +669,45 @@ private constructor(
          * supported value.
          */
         fun recordType(recordType: JsonField<RecordType>) = apply { body.recordType(recordType) }
+
+        /**
+         * Set to true to enable message content redaction on this profile, or false to disable it.
+         * Ignored if the organization is not on the redaction allowlist. See the
+         * [Message Redaction guide](/docs/messaging/messages/message-redaction) for what is
+         * redacted.
+         */
+        fun redactionEnabled(redactionEnabled: Boolean) = apply {
+            body.redactionEnabled(redactionEnabled)
+        }
+
+        /**
+         * Sets [Builder.redactionEnabled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.redactionEnabled] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun redactionEnabled(redactionEnabled: JsonField<Boolean>) = apply {
+            body.redactionEnabled(redactionEnabled)
+        }
+
+        /**
+         * The redaction level to apply when redaction is enabled. 1: redact message records and
+         * reporting only. 2 (default): also redact inbound webhook payloads. See the
+         * [Message Redaction guide](/docs/messaging/messages/message-redaction).
+         */
+        fun redactionLevel(redactionLevel: Long) = apply { body.redactionLevel(redactionLevel) }
+
+        /**
+         * Sets [Builder.redactionLevel] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.redactionLevel] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun redactionLevel(redactionLevel: JsonField<Long>) = apply {
+            body.redactionLevel(redactionLevel)
+        }
 
         /**
          * Enables automatic character encoding optimization for SMS messages. When enabled, the
@@ -957,6 +1031,8 @@ private constructor(
         private val name: JsonField<String>,
         private val numberPoolSettings: JsonField<NumberPoolSettings>,
         private val recordType: JsonField<RecordType>,
+        private val redactionEnabled: JsonField<Boolean>,
+        private val redactionLevel: JsonField<Long>,
         private val smartEncoding: JsonField<Boolean>,
         private val updatedAt: JsonField<OffsetDateTime>,
         private val urlShortenerSettings: JsonField<UrlShortenerSettings>,
@@ -1003,6 +1079,12 @@ private constructor(
             @JsonProperty("record_type")
             @ExcludeMissing
             recordType: JsonField<RecordType> = JsonMissing.of(),
+            @JsonProperty("redaction_enabled")
+            @ExcludeMissing
+            redactionEnabled: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("redaction_level")
+            @ExcludeMissing
+            redactionLevel: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("smart_encoding")
             @ExcludeMissing
             smartEncoding: JsonField<Boolean> = JsonMissing.of(),
@@ -1041,6 +1123,8 @@ private constructor(
             name,
             numberPoolSettings,
             recordType,
+            redactionEnabled,
+            redactionLevel,
             smartEncoding,
             updatedAt,
             urlShortenerSettings,
@@ -1164,6 +1248,28 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun recordType(): Optional<RecordType> = recordType.getOptional("record_type")
+
+        /**
+         * Set to true to enable message content redaction on this profile, or false to disable it.
+         * Ignored if the organization is not on the redaction allowlist. See the
+         * [Message Redaction guide](/docs/messaging/messages/message-redaction) for what is
+         * redacted.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun redactionEnabled(): Optional<Boolean> =
+            redactionEnabled.getOptional("redaction_enabled")
+
+        /**
+         * The redaction level to apply when redaction is enabled. 1: redact message records and
+         * reporting only. 2 (default): also redact inbound webhook payloads. See the
+         * [Message Redaction guide](/docs/messaging/messages/message-redaction).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun redactionLevel(): Optional<Long> = redactionLevel.getOptional("redaction_level")
 
         /**
          * Enables automatic character encoding optimization for SMS messages. When enabled, the
@@ -1365,6 +1471,26 @@ private constructor(
         fun _recordType(): JsonField<RecordType> = recordType
 
         /**
+         * Returns the raw JSON value of [redactionEnabled].
+         *
+         * Unlike [redactionEnabled], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("redaction_enabled")
+        @ExcludeMissing
+        fun _redactionEnabled(): JsonField<Boolean> = redactionEnabled
+
+        /**
+         * Returns the raw JSON value of [redactionLevel].
+         *
+         * Unlike [redactionLevel], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("redaction_level")
+        @ExcludeMissing
+        fun _redactionLevel(): JsonField<Long> = redactionLevel
+
+        /**
          * Returns the raw JSON value of [smartEncoding].
          *
          * Unlike [smartEncoding], this method doesn't throw if the JSON field has an unexpected
@@ -1473,6 +1599,8 @@ private constructor(
             private var name: JsonField<String> = JsonMissing.of()
             private var numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of()
             private var recordType: JsonField<RecordType> = JsonMissing.of()
+            private var redactionEnabled: JsonField<Boolean> = JsonMissing.of()
+            private var redactionLevel: JsonField<Long> = JsonMissing.of()
             private var smartEncoding: JsonField<Boolean> = JsonMissing.of()
             private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var urlShortenerSettings: JsonField<UrlShortenerSettings> = JsonMissing.of()
@@ -1498,6 +1626,8 @@ private constructor(
                 name = body.name
                 numberPoolSettings = body.numberPoolSettings
                 recordType = body.recordType
+                redactionEnabled = body.redactionEnabled
+                redactionLevel = body.redactionLevel
                 smartEncoding = body.smartEncoding
                 updatedAt = body.updatedAt
                 urlShortenerSettings = body.urlShortenerSettings
@@ -1716,6 +1846,44 @@ private constructor(
             }
 
             /**
+             * Set to true to enable message content redaction on this profile, or false to disable
+             * it. Ignored if the organization is not on the redaction allowlist. See the
+             * [Message Redaction guide](/docs/messaging/messages/message-redaction) for what is
+             * redacted.
+             */
+            fun redactionEnabled(redactionEnabled: Boolean) =
+                redactionEnabled(JsonField.of(redactionEnabled))
+
+            /**
+             * Sets [Builder.redactionEnabled] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.redactionEnabled] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun redactionEnabled(redactionEnabled: JsonField<Boolean>) = apply {
+                this.redactionEnabled = redactionEnabled
+            }
+
+            /**
+             * The redaction level to apply when redaction is enabled. 1: redact message records and
+             * reporting only. 2 (default): also redact inbound webhook payloads. See the
+             * [Message Redaction guide](/docs/messaging/messages/message-redaction).
+             */
+            fun redactionLevel(redactionLevel: Long) = redactionLevel(JsonField.of(redactionLevel))
+
+            /**
+             * Sets [Builder.redactionLevel] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.redactionLevel] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun redactionLevel(redactionLevel: JsonField<Long>) = apply {
+                this.redactionLevel = redactionLevel
+            }
+
+            /**
              * Enables automatic character encoding optimization for SMS messages. When enabled, the
              * system automatically selects the most efficient encoding (GSM-7 or UCS-2) based on
              * message content to maximize character limits and minimize costs.
@@ -1920,6 +2088,8 @@ private constructor(
                     name,
                     numberPoolSettings,
                     recordType,
+                    redactionEnabled,
+                    redactionLevel,
                     smartEncoding,
                     updatedAt,
                     urlShortenerSettings,
@@ -1961,6 +2131,8 @@ private constructor(
             name()
             numberPoolSettings().ifPresent { it.validate() }
             recordType().ifPresent { it.validate() }
+            redactionEnabled()
+            redactionLevel()
             smartEncoding()
             updatedAt()
             urlShortenerSettings().ifPresent { it.validate() }
@@ -2001,6 +2173,8 @@ private constructor(
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (numberPoolSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordType.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (redactionEnabled.asKnown().isPresent) 1 else 0) +
+                (if (redactionLevel.asKnown().isPresent) 1 else 0) +
                 (if (smartEncoding.asKnown().isPresent) 1 else 0) +
                 (if (updatedAt.asKnown().isPresent) 1 else 0) +
                 (urlShortenerSettings.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2029,6 +2203,8 @@ private constructor(
                 name == other.name &&
                 numberPoolSettings == other.numberPoolSettings &&
                 recordType == other.recordType &&
+                redactionEnabled == other.redactionEnabled &&
+                redactionLevel == other.redactionLevel &&
                 smartEncoding == other.smartEncoding &&
                 updatedAt == other.updatedAt &&
                 urlShortenerSettings == other.urlShortenerSettings &&
@@ -2055,6 +2231,8 @@ private constructor(
                 name,
                 numberPoolSettings,
                 recordType,
+                redactionEnabled,
+                redactionLevel,
                 smartEncoding,
                 updatedAt,
                 urlShortenerSettings,
@@ -2070,7 +2248,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+            "Body{id=$id, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, redactionEnabled=$redactionEnabled, redactionLevel=$redactionLevel, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
     }
 
     /** Identifies the type of the resource. */

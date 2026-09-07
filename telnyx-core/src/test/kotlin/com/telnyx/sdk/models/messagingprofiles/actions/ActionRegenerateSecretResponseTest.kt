@@ -4,7 +4,7 @@ package com.telnyx.sdk.models.messagingprofiles.actions
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfile
+import com.telnyx.sdk.models.messagingprofiles.MessagingMessagingProfile
 import com.telnyx.sdk.models.messagingprofiles.NumberPoolSettings
 import com.telnyx.sdk.models.messagingprofiles.UrlShortenerSettings
 import java.time.OffsetDateTime
@@ -18,7 +18,7 @@ internal class ActionRegenerateSecretResponseTest {
         val actionRegenerateSecretResponse =
             ActionRegenerateSecretResponse.builder()
                 .data(
-                    MessagingProfile.builder()
+                    MessagingMessagingProfile.builder()
                         .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                         .aiAssistantId("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
                         .alphaSender("sqF")
@@ -41,7 +41,7 @@ internal class ActionRegenerateSecretResponseTest {
                                 .build()
                         )
                         .organizationId("organization_id")
-                        .recordType(MessagingProfile.RecordType.MESSAGING_PROFILE)
+                        .recordType(MessagingMessagingProfile.RecordType.MESSAGING_PROFILE)
                         .redactionEnabled(false)
                         .redactionLevel(2L)
                         .resourceGroupId("resource_group_id")
@@ -56,7 +56,7 @@ internal class ActionRegenerateSecretResponseTest {
                                 .build()
                         )
                         .v1Secret("rP1VamejkU2v0qIUxntqLW2c")
-                        .webhookApiVersion(MessagingProfile.WebhookApiVersion.V2)
+                        .webhookApiVersion(MessagingMessagingProfile.WebhookApiVersion.V2)
                         .webhookFailoverUrl("https://backup.example.com/hooks")
                         .webhookUrl("https://www.example.com/hooks")
                         .addWhitelistedDestination("US")
@@ -66,7 +66,7 @@ internal class ActionRegenerateSecretResponseTest {
 
         assertThat(actionRegenerateSecretResponse.data())
             .contains(
-                MessagingProfile.builder()
+                MessagingMessagingProfile.builder()
                     .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                     .aiAssistantId("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
                     .alphaSender("sqF")
@@ -89,7 +89,7 @@ internal class ActionRegenerateSecretResponseTest {
                             .build()
                     )
                     .organizationId("organization_id")
-                    .recordType(MessagingProfile.RecordType.MESSAGING_PROFILE)
+                    .recordType(MessagingMessagingProfile.RecordType.MESSAGING_PROFILE)
                     .redactionEnabled(false)
                     .redactionLevel(2L)
                     .resourceGroupId("resource_group_id")
@@ -104,7 +104,7 @@ internal class ActionRegenerateSecretResponseTest {
                             .build()
                     )
                     .v1Secret("rP1VamejkU2v0qIUxntqLW2c")
-                    .webhookApiVersion(MessagingProfile.WebhookApiVersion.V2)
+                    .webhookApiVersion(MessagingMessagingProfile.WebhookApiVersion.V2)
                     .webhookFailoverUrl("https://backup.example.com/hooks")
                     .webhookUrl("https://www.example.com/hooks")
                     .addWhitelistedDestination("US")
@@ -118,7 +118,7 @@ internal class ActionRegenerateSecretResponseTest {
         val actionRegenerateSecretResponse =
             ActionRegenerateSecretResponse.builder()
                 .data(
-                    MessagingProfile.builder()
+                    MessagingMessagingProfile.builder()
                         .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
                         .aiAssistantId("ai_assistant-a80a9d4a-728c-4593-852c-2e93ad890000")
                         .alphaSender("sqF")
@@ -141,7 +141,7 @@ internal class ActionRegenerateSecretResponseTest {
                                 .build()
                         )
                         .organizationId("organization_id")
-                        .recordType(MessagingProfile.RecordType.MESSAGING_PROFILE)
+                        .recordType(MessagingMessagingProfile.RecordType.MESSAGING_PROFILE)
                         .redactionEnabled(false)
                         .redactionLevel(2L)
                         .resourceGroupId("resource_group_id")
@@ -156,7 +156,7 @@ internal class ActionRegenerateSecretResponseTest {
                                 .build()
                         )
                         .v1Secret("rP1VamejkU2v0qIUxntqLW2c")
-                        .webhookApiVersion(MessagingProfile.WebhookApiVersion.V2)
+                        .webhookApiVersion(MessagingMessagingProfile.WebhookApiVersion.V2)
                         .webhookFailoverUrl("https://backup.example.com/hooks")
                         .webhookUrl("https://www.example.com/hooks")
                         .addWhitelistedDestination("US")
