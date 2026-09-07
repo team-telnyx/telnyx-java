@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -14,6 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.portabilitychecks.PortabilityCheckRunParams
 import com.telnyx.sdk.models.portabilitychecks.PortabilityCheckRunResponse
@@ -40,7 +43,7 @@ internal constructor(private val clientOptions: ClientOptions) : PortabilityChec
         requestOptions: RequestOptions,
     ): CompletableFuture<PortabilityCheckRunResponse> =
         // post /portability_checks
-        withRawResponse().run(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().run(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PortabilityCheckServiceAsync.WithRawResponse {
@@ -72,8 +75,10 @@ internal constructor(private val clientOptions: ClientOptions) : PortabilityChec
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { runHandler.handle(it) }

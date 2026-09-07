@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateResponse
@@ -51,35 +54,35 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
         requestOptions: RequestOptions,
     ): CompletableFuture<WirelessBlocklistCreateResponse> =
         // post /wireless_blocklists
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: WirelessBlocklistRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<WirelessBlocklistRetrieveResponse> =
         // get /wireless_blocklists/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: WirelessBlocklistUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<WirelessBlocklistUpdateResponse> =
         // patch /wireless_blocklists/{id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: WirelessBlocklistListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<WirelessBlocklistListPageAsync> =
         // get /wireless_blocklists
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: WirelessBlocklistDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /wireless_blocklists/{id}
-        withRawResponse().delete(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).mapCancellable { null }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WirelessBlocklistServiceAsync.WithRawResponse {
@@ -111,8 +114,10 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -144,8 +149,10 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -178,8 +185,10 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -208,8 +217,10 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -249,8 +260,10 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
                     }

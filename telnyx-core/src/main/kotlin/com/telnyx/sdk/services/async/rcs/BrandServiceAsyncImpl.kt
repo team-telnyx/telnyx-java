@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.rcs
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.rcs.brands.BrandCreateParams
 import com.telnyx.sdk.models.rcs.brands.BrandListParams
@@ -44,35 +47,35 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandResponse> =
         // post /rcs/brands
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: BrandRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandResponse> =
         // get /rcs/brands/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: BrandUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandResponse> =
         // patch /rcs/brands/{id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: BrandListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<List<BrandResponse>> =
         // get /rcs/brands
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun submit(
         params: BrandSubmitParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandResponse> =
         // post /rcs/brands/{id}/submit
-        withRawResponse().submit(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().submit(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BrandServiceAsync.WithRawResponse {
@@ -104,8 +107,10 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -137,8 +142,10 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -171,8 +178,10 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -201,8 +210,10 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -235,8 +246,10 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { submitHandler.handle(it) }

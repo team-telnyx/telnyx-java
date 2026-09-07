@@ -83,6 +83,17 @@ private constructor(
     fun instructions(): Optional<String> = body.instructions()
 
     /**
+     * How strictly `region` is applied. `preferred` (the default when `region` is set) tries that
+     * region first and falls back to another when the model cannot be served there, so a request
+     * that would have succeeded still succeeds. `strict` pins the request: it is served from that
+     * region or it fails with a 422, never redirected to another region. Requires `region`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mode(): Optional<Mode> = body.mode()
+
+    /**
      * Model identifier to use for the response, for example `zai-org/GLM-5.1-FP8` or another model
      * available from the Telnyx OpenAI-compatible models endpoint.
      *
@@ -96,6 +107,18 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun reasoning(): Optional<Reasoning> = body.reasoning()
+
+    /**
+     * Optional data-residency region the request should be served from, using the same vocabulary
+     * as your account's Data Locality setting. Behavior depends on `mode`. Supported for
+     * Telnyx-hosted models only: a request routed to an external provider never passes through
+     * Telnyx model routing, so a region cannot be enforced for it. Omit for today's latency-based
+     * routing.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun region(): Optional<Region> = body.region()
 
     /**
      * The service tier to use for this request. Supported values vary by model; use `GET
@@ -137,6 +160,13 @@ private constructor(
     fun _instructions(): JsonField<String> = body._instructions()
 
     /**
+     * Returns the raw JSON value of [mode].
+     *
+     * Unlike [mode], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mode(): JsonField<Mode> = body._mode()
+
+    /**
      * Returns the raw JSON value of [model].
      *
      * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
@@ -149,6 +179,13 @@ private constructor(
      * Unlike [reasoning], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _reasoning(): JsonField<Reasoning> = body._reasoning()
+
+    /**
+     * Returns the raw JSON value of [region].
+     *
+     * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _region(): JsonField<Region> = body._region()
 
     /**
      * Returns the raw JSON value of [serviceTier].
@@ -207,8 +244,8 @@ private constructor(
          * - [conversation]
          * - [input]
          * - [instructions]
+         * - [mode]
          * - [model]
-         * - [reasoning]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -262,6 +299,23 @@ private constructor(
         }
 
         /**
+         * How strictly `region` is applied. `preferred` (the default when `region` is set) tries
+         * that region first and falls back to another when the model cannot be served there, so a
+         * request that would have succeeded still succeeds. `strict` pins the request: it is served
+         * from that region or it fails with a 422, never redirected to another region. Requires
+         * `region`.
+         */
+        fun mode(mode: Mode) = apply { body.mode(mode) }
+
+        /**
+         * Sets [Builder.mode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mode] with a well-typed [Mode] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun mode(mode: JsonField<Mode>) = apply { body.mode(mode) }
+
+        /**
          * Model identifier to use for the response, for example `zai-org/GLM-5.1-FP8` or another
          * model available from the Telnyx OpenAI-compatible models endpoint.
          */
@@ -285,6 +339,23 @@ private constructor(
          * value.
          */
         fun reasoning(reasoning: JsonField<Reasoning>) = apply { body.reasoning(reasoning) }
+
+        /**
+         * Optional data-residency region the request should be served from, using the same
+         * vocabulary as your account's Data Locality setting. Behavior depends on `mode`. Supported
+         * for Telnyx-hosted models only: a request routed to an external provider never passes
+         * through Telnyx model routing, so a region cannot be enforced for it. Omit for today's
+         * latency-based routing.
+         */
+        fun region(region: Region) = apply { body.region(region) }
+
+        /**
+         * Sets [Builder.region] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.region] with a well-typed [Region] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun region(region: JsonField<Region>) = apply { body.region(region) }
 
         /**
          * The service tier to use for this request. Supported values vary by model; use `GET
@@ -458,8 +529,10 @@ private constructor(
         private val conversation: JsonField<String>,
         private val input: JsonField<Input>,
         private val instructions: JsonField<String>,
+        private val mode: JsonField<Mode>,
         private val model: JsonField<String>,
         private val reasoning: JsonField<Reasoning>,
+        private val region: JsonField<Region>,
         private val serviceTier: JsonField<String>,
         private val stream: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -474,10 +547,12 @@ private constructor(
             @JsonProperty("instructions")
             @ExcludeMissing
             instructions: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("mode") @ExcludeMissing mode: JsonField<Mode> = JsonMissing.of(),
             @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
             @JsonProperty("reasoning")
             @ExcludeMissing
             reasoning: JsonField<Reasoning> = JsonMissing.of(),
+            @JsonProperty("region") @ExcludeMissing region: JsonField<Region> = JsonMissing.of(),
             @JsonProperty("service_tier")
             @ExcludeMissing
             serviceTier: JsonField<String> = JsonMissing.of(),
@@ -486,8 +561,10 @@ private constructor(
             conversation,
             input,
             instructions,
+            mode,
             model,
             reasoning,
+            region,
             serviceTier,
             stream,
             mutableMapOf(),
@@ -523,6 +600,18 @@ private constructor(
         fun instructions(): Optional<String> = instructions.getOptional("instructions")
 
         /**
+         * How strictly `region` is applied. `preferred` (the default when `region` is set) tries
+         * that region first and falls back to another when the model cannot be served there, so a
+         * request that would have succeeded still succeeds. `strict` pins the request: it is served
+         * from that region or it fails with a 422, never redirected to another region. Requires
+         * `region`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mode(): Optional<Mode> = mode.getOptional("mode")
+
+        /**
          * Model identifier to use for the response, for example `zai-org/GLM-5.1-FP8` or another
          * model available from the Telnyx OpenAI-compatible models endpoint.
          *
@@ -536,6 +625,18 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun reasoning(): Optional<Reasoning> = reasoning.getOptional("reasoning")
+
+        /**
+         * Optional data-residency region the request should be served from, using the same
+         * vocabulary as your account's Data Locality setting. Behavior depends on `mode`. Supported
+         * for Telnyx-hosted models only: a request routed to an external provider never passes
+         * through Telnyx model routing, so a region cannot be enforced for it. Omit for today's
+         * latency-based routing.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun region(): Optional<Region> = region.getOptional("region")
 
         /**
          * The service tier to use for this request. Supported values vary by model; use `GET
@@ -583,6 +684,13 @@ private constructor(
         fun _instructions(): JsonField<String> = instructions
 
         /**
+         * Returns the raw JSON value of [mode].
+         *
+         * Unlike [mode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("mode") @ExcludeMissing fun _mode(): JsonField<Mode> = mode
+
+        /**
          * Returns the raw JSON value of [model].
          *
          * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
@@ -597,6 +705,13 @@ private constructor(
         @JsonProperty("reasoning")
         @ExcludeMissing
         fun _reasoning(): JsonField<Reasoning> = reasoning
+
+        /**
+         * Returns the raw JSON value of [region].
+         *
+         * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<Region> = region
 
         /**
          * Returns the raw JSON value of [serviceTier].
@@ -638,8 +753,10 @@ private constructor(
             private var conversation: JsonField<String> = JsonMissing.of()
             private var input: JsonField<Input> = JsonMissing.of()
             private var instructions: JsonField<String> = JsonMissing.of()
+            private var mode: JsonField<Mode> = JsonMissing.of()
             private var model: JsonField<String> = JsonMissing.of()
             private var reasoning: JsonField<Reasoning> = JsonMissing.of()
+            private var region: JsonField<Region> = JsonMissing.of()
             private var serviceTier: JsonField<String> = JsonMissing.of()
             private var stream: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -649,8 +766,10 @@ private constructor(
                 conversation = body.conversation
                 input = body.input
                 instructions = body.instructions
+                mode = body.mode
                 model = body.model
                 reasoning = body.reasoning
+                region = body.region
                 serviceTier = body.serviceTier
                 stream = body.stream
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -706,6 +825,24 @@ private constructor(
             }
 
             /**
+             * How strictly `region` is applied. `preferred` (the default when `region` is set)
+             * tries that region first and falls back to another when the model cannot be served
+             * there, so a request that would have succeeded still succeeds. `strict` pins the
+             * request: it is served from that region or it fails with a 422, never redirected to
+             * another region. Requires `region`.
+             */
+            fun mode(mode: Mode) = mode(JsonField.of(mode))
+
+            /**
+             * Sets [Builder.mode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mode] with a well-typed [Mode] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun mode(mode: JsonField<Mode>) = apply { this.mode = mode }
+
+            /**
              * Model identifier to use for the response, for example `zai-org/GLM-5.1-FP8` or
              * another model available from the Telnyx OpenAI-compatible models endpoint.
              */
@@ -730,6 +867,24 @@ private constructor(
              * supported value.
              */
             fun reasoning(reasoning: JsonField<Reasoning>) = apply { this.reasoning = reasoning }
+
+            /**
+             * Optional data-residency region the request should be served from, using the same
+             * vocabulary as your account's Data Locality setting. Behavior depends on `mode`.
+             * Supported for Telnyx-hosted models only: a request routed to an external provider
+             * never passes through Telnyx model routing, so a region cannot be enforced for it.
+             * Omit for today's latency-based routing.
+             */
+            fun region(region: Region) = region(JsonField.of(region))
+
+            /**
+             * Sets [Builder.region] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.region] with a well-typed [Region] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun region(region: JsonField<Region>) = apply { this.region = region }
 
             /**
              * The service tier to use for this request. Supported values vary by model; use `GET
@@ -793,8 +948,10 @@ private constructor(
                     conversation,
                     input,
                     instructions,
+                    mode,
                     model,
                     reasoning,
+                    region,
                     serviceTier,
                     stream,
                     additionalProperties.toMutableMap(),
@@ -820,8 +977,10 @@ private constructor(
             conversation()
             input().ifPresent { it.validate() }
             instructions()
+            mode().ifPresent { it.validate() }
             model()
             reasoning().ifPresent { it.validate() }
+            region().ifPresent { it.validate() }
             serviceTier()
             stream()
             validated = true
@@ -846,8 +1005,10 @@ private constructor(
             (if (conversation.asKnown().isPresent) 1 else 0) +
                 (input.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (instructions.asKnown().isPresent) 1 else 0) +
+                (mode.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (model.asKnown().isPresent) 1 else 0) +
                 (reasoning.asKnown().getOrNull()?.validity() ?: 0) +
+                (region.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (serviceTier.asKnown().isPresent) 1 else 0) +
                 (if (stream.asKnown().isPresent) 1 else 0)
 
@@ -860,8 +1021,10 @@ private constructor(
                 conversation == other.conversation &&
                 input == other.input &&
                 instructions == other.instructions &&
+                mode == other.mode &&
                 model == other.model &&
                 reasoning == other.reasoning &&
+                region == other.region &&
                 serviceTier == other.serviceTier &&
                 stream == other.stream &&
                 additionalProperties == other.additionalProperties
@@ -872,8 +1035,10 @@ private constructor(
                 conversation,
                 input,
                 instructions,
+                mode,
                 model,
                 reasoning,
+                region,
                 serviceTier,
                 stream,
                 additionalProperties,
@@ -883,7 +1048,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{conversation=$conversation, input=$input, instructions=$instructions, model=$model, reasoning=$reasoning, serviceTier=$serviceTier, stream=$stream, additionalProperties=$additionalProperties}"
+            "Body{conversation=$conversation, input=$input, instructions=$instructions, mode=$mode, model=$model, reasoning=$reasoning, region=$region, serviceTier=$serviceTier, stream=$stream, additionalProperties=$additionalProperties}"
     }
 
     /** The input items for this turn, using the OpenAI Responses API input format. */
@@ -993,6 +1158,146 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() = "Input{additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * How strictly `region` is applied. `preferred` (the default when `region` is set) tries that
+     * region first and falls back to another when the model cannot be served there, so a request
+     * that would have succeeded still succeeds. `strict` pins the request: it is served from that
+     * region or it fails with a 422, never redirected to another region. Requires `region`.
+     */
+    class Mode @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val PREFERRED = of("preferred")
+
+            @JvmField val STRICT = of("strict")
+
+            @JvmStatic fun of(value: String) = Mode(JsonField.of(value))
+        }
+
+        /** An enum containing [Mode]'s known values. */
+        enum class Known {
+            PREFERRED,
+            STRICT,
+        }
+
+        /**
+         * An enum containing [Mode]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Mode] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PREFERRED,
+            STRICT,
+            /** An enum member indicating that [Mode] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PREFERRED -> Value.PREFERRED
+                STRICT -> Value.STRICT
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                PREFERRED -> Known.PREFERRED
+                STRICT -> Known.STRICT
+                else -> throw TelnyxInvalidDataException("Unknown Mode: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Mode = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Mode && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     class Reasoning
@@ -1320,6 +1625,159 @@ private constructor(
 
         override fun toString() =
             "Reasoning{effort=$effort, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Optional data-residency region the request should be served from, using the same vocabulary
+     * as your account's Data Locality setting. Behavior depends on `mode`. Supported for
+     * Telnyx-hosted models only: a request routed to an external provider never passes through
+     * Telnyx model routing, so a region cannot be enforced for it. Omit for today's latency-based
+     * routing.
+     */
+    class Region @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val USA = of("USA")
+
+            @JvmField val EU = of("EU")
+
+            @JvmField val AUS = of("AUS")
+
+            @JvmField val UAE = of("UAE")
+
+            @JvmStatic fun of(value: String) = Region(JsonField.of(value))
+        }
+
+        /** An enum containing [Region]'s known values. */
+        enum class Known {
+            USA,
+            EU,
+            AUS,
+            UAE,
+        }
+
+        /**
+         * An enum containing [Region]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Region] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            USA,
+            EU,
+            AUS,
+            UAE,
+            /** An enum member indicating that [Region] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                USA -> Value.USA
+                EU -> Value.EU
+                AUS -> Value.AUS
+                UAE -> Value.UAE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                USA -> Known.USA
+                EU -> Known.EU
+                AUS -> Known.AUS
+                UAE -> Known.UAE
+                else -> throw TelnyxInvalidDataException("Unknown Region: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Region = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Region && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

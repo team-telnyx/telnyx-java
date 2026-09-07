@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateSpeechParams
 import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateSpeechResponse
@@ -42,21 +45,21 @@ class TextToSpeechServiceAsyncImpl internal constructor(private val clientOption
         requestOptions: RequestOptions,
     ): CompletableFuture<TextToSpeechGenerateSpeechResponse> =
         // post /text-to-speech/speech
-        withRawResponse().generateSpeech(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().generateSpeech(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listVoices(
         params: TextToSpeechListVoicesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TextToSpeechListVoicesResponse> =
         // get /text-to-speech/voices
-        withRawResponse().listVoices(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listVoices(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveSpeech(
         params: TextToSpeechRetrieveSpeechParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // get /text-to-speech/speech
-        withRawResponse().retrieveSpeech(params, requestOptions).thenAccept {}
+        withRawResponse().retrieveSpeech(params, requestOptions).mapCancellable { null }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TextToSpeechServiceAsync.WithRawResponse {
@@ -88,8 +91,10 @@ class TextToSpeechServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { generateSpeechHandler.handle(it) }
@@ -118,8 +123,10 @@ class TextToSpeechServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listVoicesHandler.handle(it) }
@@ -147,8 +154,10 @@ class TextToSpeechServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { retrieveSpeechHandler.handle(it) }
                     }

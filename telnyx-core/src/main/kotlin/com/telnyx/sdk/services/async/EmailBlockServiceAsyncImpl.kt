@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emailblocks.EmailBlockCreateParams
 import com.telnyx.sdk.models.emailblocks.EmailBlockDeleteParams
@@ -57,42 +60,42 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailBlockResponse> =
         // post /email_blocks
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: EmailBlockRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailBlockResponse> =
         // get /email_blocks/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: EmailBlockListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailBlockListPageAsync> =
         // get /email_blocks
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: EmailBlockDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailBlockResponse> =
         // delete /email_blocks/{id}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveEvents(
         params: EmailBlockRetrieveEventsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailBlockRetrieveEventsPageAsync> =
         // get /email_blocks/{id}/events
-        withRawResponse().retrieveEvents(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveEvents(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveExport(
         params: EmailBlockRetrieveExportParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<String> =
         // get /email_blocks/export
-        withRawResponse().retrieveExport(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveExport(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EmailBlockServiceAsync.WithRawResponse {
@@ -131,8 +134,10 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -164,8 +169,10 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -194,8 +201,10 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -236,8 +245,10 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { deleteHandler.handle(it) }
@@ -269,8 +280,10 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveEventsHandler.handle(it) }
@@ -307,8 +320,10 @@ class EmailBlockServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { retrieveExportHandler.handle(it) }
                     }

@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.messages
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkParams
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkResponse
@@ -42,14 +45,14 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         requestOptions: RequestOptions,
     ): CompletableFuture<RcGenerateDeeplinkResponse> =
         // get /messages/rcs/deeplinks/{agent_id}
-        withRawResponse().generateDeeplink(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().generateDeeplink(params, requestOptions).mapCancellable { it.parse() }
 
     override fun send(
         params: RcSendParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<RcSendResponse> =
         // post /messages/rcs
-        withRawResponse().send(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().send(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RcServiceAsync.WithRawResponse {
@@ -83,8 +86,10 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { generateDeeplinkHandler.handle(it) }
@@ -114,8 +119,10 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendHandler.handle(it) }

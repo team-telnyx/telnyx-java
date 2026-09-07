@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.simcardgroups
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.simcardgroups.actions.ActionListPageAsync
 import com.telnyx.sdk.models.simcardgroups.actions.ActionListPageResponse
@@ -50,21 +53,21 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionRetrieveResponse> =
         // get /sim_card_group_actions/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: ActionListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionListPageAsync> =
         // get /sim_card_group_actions
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun removePrivateWirelessGateway(
         params: ActionRemovePrivateWirelessGatewayParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionRemovePrivateWirelessGatewayResponse> =
         // post /sim_card_groups/{id}/actions/remove_private_wireless_gateway
-        withRawResponse().removePrivateWirelessGateway(params, requestOptions).thenApply {
+        withRawResponse().removePrivateWirelessGateway(params, requestOptions).mapCancellable {
             it.parse()
         }
 
@@ -73,21 +76,25 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionRemoveWirelessBlocklistResponse> =
         // post /sim_card_groups/{id}/actions/remove_wireless_blocklist
-        withRawResponse().removeWirelessBlocklist(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().removeWirelessBlocklist(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun setPrivateWirelessGateway(
         params: ActionSetPrivateWirelessGatewayParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionSetPrivateWirelessGatewayResponse> =
         // post /sim_card_groups/{id}/actions/set_private_wireless_gateway
-        withRawResponse().setPrivateWirelessGateway(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().setPrivateWirelessGateway(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun setWirelessBlocklist(
         params: ActionSetWirelessBlocklistParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionSetWirelessBlocklistResponse> =
         // post /sim_card_groups/{id}/actions/set_wireless_blocklist
-        withRawResponse().setWirelessBlocklist(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().setWirelessBlocklist(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ActionServiceAsync.WithRawResponse {
@@ -121,8 +128,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -151,8 +160,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -199,8 +210,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { removePrivateWirelessGatewayHandler.handle(it) }
@@ -238,8 +251,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { removeWirelessBlocklistHandler.handle(it) }
@@ -278,8 +293,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { setPrivateWirelessGatewayHandler.handle(it) }
@@ -317,8 +334,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { setWirelessBlocklistHandler.handle(it) }

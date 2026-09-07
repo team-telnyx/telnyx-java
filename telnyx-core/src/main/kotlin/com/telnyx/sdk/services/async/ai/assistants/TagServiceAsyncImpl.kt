@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.assistants
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.assistants.tags.TagAddParams
 import com.telnyx.sdk.models.ai.assistants.tags.TagListParams
@@ -42,21 +45,21 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
         requestOptions: RequestOptions,
     ): CompletableFuture<TagsResponse> =
         // get /ai/assistants/tags
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun add(
         params: TagAddParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TagsResponse> =
         // post /ai/assistants/{assistant_id}/tags
-        withRawResponse().add(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().add(params, requestOptions).mapCancellable { it.parse() }
 
     override fun remove(
         params: TagRemoveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TagsResponse> =
         // delete /ai/assistants/{assistant_id}/tags/{tag}
-        withRawResponse().remove(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().remove(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TagServiceAsync.WithRawResponse {
@@ -87,8 +90,10 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -121,8 +126,10 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { addHandler.handle(it) }
@@ -161,8 +168,10 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { removeHandler.handle(it) }

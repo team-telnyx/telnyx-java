@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateParams
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateResponse
@@ -47,21 +50,21 @@ internal constructor(private val clientOptions: ClientOptions) : IntegrationSecr
         requestOptions: RequestOptions,
     ): CompletableFuture<IntegrationSecretCreateResponse> =
         // post /integration_secrets
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: IntegrationSecretListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<IntegrationSecretListPageAsync> =
         // get /integration_secrets
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: IntegrationSecretDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /integration_secrets/{id}
-        withRawResponse().delete(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).mapCancellable { null }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         IntegrationSecretServiceAsync.WithRawResponse {
@@ -93,8 +96,10 @@ internal constructor(private val clientOptions: ClientOptions) : IntegrationSecr
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -123,8 +128,10 @@ internal constructor(private val clientOptions: ClientOptions) : IntegrationSecr
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -164,8 +171,10 @@ internal constructor(private val clientOptions: ClientOptions) : IntegrationSecr
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
                     }

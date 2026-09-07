@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emaildomains.EmailDomainCreateParams
 import com.telnyx.sdk.models.emaildomains.EmailDomainDeleteParams
@@ -57,56 +60,56 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDomainResponse> =
         // post /email_domains
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: EmailDomainRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDomainResponse> =
         // get /email_domains/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: EmailDomainUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDomainResponse> =
         // patch /email_domains/{id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: EmailDomainListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDomainListPageAsync> =
         // get /email_domains
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: EmailDomainDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDomainResponse> =
         // delete /email_domains/{id}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveDnsRecords(
         params: EmailDomainRetrieveDnsRecordsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDomainRetrieveDnsRecordsResponse> =
         // get /email_domains/{domain_id}/dns_records
-        withRawResponse().retrieveDnsRecords(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveDnsRecords(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveHealth(
         params: EmailDomainRetrieveHealthParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDomainRetrieveHealthResponse> =
         // get /email_domains/{id}/health
-        withRawResponse().retrieveHealth(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveHealth(params, requestOptions).mapCancellable { it.parse() }
 
     override fun verify(
         params: EmailDomainVerifyParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDomainResponse> =
         // post /email_domains/{domain_id}/verify
-        withRawResponse().verify(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().verify(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EmailDomainServiceAsync.WithRawResponse {
@@ -145,8 +148,10 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -178,8 +183,10 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -212,8 +219,10 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -242,8 +251,10 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -284,8 +295,10 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { deleteHandler.handle(it) }
@@ -317,8 +330,10 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveDnsRecordsHandler.handle(it) }
@@ -350,8 +365,10 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHealthHandler.handle(it) }
@@ -384,8 +401,10 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { verifyHandler.handle(it) }

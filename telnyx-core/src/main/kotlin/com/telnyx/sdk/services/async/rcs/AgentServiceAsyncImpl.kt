@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.rcs
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.rcs.agents.AgentCreateParams
 import com.telnyx.sdk.models.rcs.agents.AgentLaunchParams
@@ -56,49 +59,51 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
         requestOptions: RequestOptions,
     ): CompletableFuture<AgentResponse> =
         // post /rcs/agents
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: AgentRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AgentResponse> =
         // get /rcs/agents/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: AgentUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AgentResponse> =
         // patch /rcs/agents/{id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: AgentListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<List<AgentResponse>> =
         // get /rcs/agents
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun launch(
         params: AgentLaunchParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AgentResponse> =
         // post /rcs/agents/{id}/launch
-        withRawResponse().launch(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().launch(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveCarrierApprovals(
         params: AgentRetrieveCarrierApprovalsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<List<CarrierApprovalResponse>> =
         // get /rcs/agents/{id}/carrier_approvals
-        withRawResponse().retrieveCarrierApprovals(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveCarrierApprovals(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun submit(
         params: AgentSubmitParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AgentResponse> =
         // post /rcs/agents/{id}/submit
-        withRawResponse().submit(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().submit(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AgentServiceAsync.WithRawResponse {
@@ -137,8 +142,10 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -170,8 +177,10 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -204,8 +213,10 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -234,8 +245,10 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -268,8 +281,10 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { launchHandler.handle(it) }
@@ -301,8 +316,10 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveCarrierApprovalsHandler.handle(it) }
@@ -335,8 +352,10 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { submitHandler.handle(it) }

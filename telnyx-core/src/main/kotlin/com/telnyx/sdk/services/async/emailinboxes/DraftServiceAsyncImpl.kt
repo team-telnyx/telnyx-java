@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.emailinboxes
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftCreateParams
 import com.telnyx.sdk.models.emailinboxes.drafts.DraftDeleteParams
@@ -53,49 +56,49 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDraftResponse> =
         // post /email_inboxes/{inbox_id}/drafts
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: DraftRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDraftResponse> =
         // get /email_inboxes/{inbox_id}/drafts/{draft_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: DraftUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDraftResponse> =
         // put /email_inboxes/{inbox_id}/drafts/{draft_id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: DraftListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<DraftListPageAsync> =
         // get /email_inboxes/{inbox_id}/drafts
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: DraftDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /email_inboxes/{inbox_id}/drafts/{draft_id}
-        withRawResponse().delete(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).mapCancellable { null }
 
     override fun patch(
         params: DraftPatchParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDraftResponse> =
         // patch /email_inboxes/{inbox_id}/drafts/{draft_id}
-        withRawResponse().patch(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().patch(params, requestOptions).mapCancellable { it.parse() }
 
     override fun send(
         params: DraftSendParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailMessageResponse> =
         // post /email_inboxes/{inbox_id}/drafts/{draft_id}/send
-        withRawResponse().send(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().send(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DraftServiceAsync.WithRawResponse {
@@ -130,8 +133,10 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -168,8 +173,10 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -207,8 +214,10 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -240,8 +249,10 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -286,8 +297,10 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
                     }
@@ -319,8 +332,10 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { patchHandler.handle(it) }
@@ -359,8 +374,10 @@ class DraftServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendHandler.handle(it) }

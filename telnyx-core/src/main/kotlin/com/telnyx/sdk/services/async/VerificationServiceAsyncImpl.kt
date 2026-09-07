@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.verifications.CreateVerificationResponse
 import com.telnyx.sdk.models.verifications.VerificationRetrieveParams
@@ -61,35 +64,35 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
         requestOptions: RequestOptions,
     ): CompletableFuture<VerificationRetrieveResponse> =
         // get /verifications/{verification_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun triggerCall(
         params: VerificationTriggerCallParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CreateVerificationResponse> =
         // post /verifications/call
-        withRawResponse().triggerCall(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().triggerCall(params, requestOptions).mapCancellable { it.parse() }
 
     override fun triggerFlashcall(
         params: VerificationTriggerFlashcallParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CreateVerificationResponse> =
         // post /verifications/flashcall
-        withRawResponse().triggerFlashcall(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().triggerFlashcall(params, requestOptions).mapCancellable { it.parse() }
 
     override fun triggerSms(
         params: VerificationTriggerSmsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CreateVerificationResponse> =
         // post /verifications/sms
-        withRawResponse().triggerSms(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().triggerSms(params, requestOptions).mapCancellable { it.parse() }
 
     override fun triggerWhatsappVerification(
         params: VerificationTriggerWhatsappVerificationParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CreateVerificationResponse> =
         // post /verifications/whatsapp
-        withRawResponse().triggerWhatsappVerification(params, requestOptions).thenApply {
+        withRawResponse().triggerWhatsappVerification(params, requestOptions).mapCancellable {
             it.parse()
         }
 
@@ -139,8 +142,10 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -170,8 +175,10 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { triggerCallHandler.handle(it) }
@@ -201,8 +208,10 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { triggerFlashcallHandler.handle(it) }
@@ -232,8 +241,10 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { triggerSmsHandler.handle(it) }
@@ -263,8 +274,10 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { triggerWhatsappVerificationHandler.handle(it) }

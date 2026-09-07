@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.missions.runs
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanAddStepsToPlanParams
 import com.telnyx.sdk.models.ai.missions.runs.plan.PlanCreateParams
@@ -45,35 +48,35 @@ class PlanServiceAsyncImpl internal constructor(private val clientOptions: Clien
         requestOptions: RequestOptions,
     ): CompletableFuture<PlanStepsCreatedResponse> =
         // post /ai/missions/{mission_id}/runs/{run_id}/plan
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: PlanRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PlanRetrieveResponse> =
         // get /ai/missions/{mission_id}/runs/{run_id}/plan
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun addStepsToPlan(
         params: PlanAddStepsToPlanParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PlanStepsCreatedResponse> =
         // post /ai/missions/{mission_id}/runs/{run_id}/plan/steps
-        withRawResponse().addStepsToPlan(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().addStepsToPlan(params, requestOptions).mapCancellable { it.parse() }
 
     override fun getStepDetails(
         params: PlanGetStepDetailsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PlanStepResponse> =
         // get /ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}
-        withRawResponse().getStepDetails(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getStepDetails(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateStep(
         params: PlanUpdateStepParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PlanStepResponse> =
         // patch /ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}
-        withRawResponse().updateStep(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateStep(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PlanServiceAsync.WithRawResponse {
@@ -115,8 +118,10 @@ class PlanServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -155,8 +160,10 @@ class PlanServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -197,8 +204,10 @@ class PlanServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { addStepsToPlanHandler.handle(it) }
@@ -239,8 +248,10 @@ class PlanServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { getStepDetailsHandler.handle(it) }
@@ -282,8 +293,10 @@ class PlanServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateStepHandler.handle(it) }

@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.sessionanalysis
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -14,6 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.sessionanalysis.metadata.MetadataRetrieveParams
 import com.telnyx.sdk.models.sessionanalysis.metadata.MetadataRetrieveRecordTypeParams
@@ -41,14 +44,14 @@ class MetadataServiceAsyncImpl internal constructor(private val clientOptions: C
         requestOptions: RequestOptions,
     ): CompletableFuture<MetadataRetrieveResponse> =
         // get /session_analysis/metadata
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveRecordType(
         params: MetadataRetrieveRecordTypeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MetadataRetrieveRecordTypeResponse> =
         // get /session_analysis/metadata/{record_type}
-        withRawResponse().retrieveRecordType(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveRecordType(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MetadataServiceAsync.WithRawResponse {
@@ -79,8 +82,10 @@ class MetadataServiceAsyncImpl internal constructor(private val clientOptions: C
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -112,8 +117,10 @@ class MetadataServiceAsyncImpl internal constructor(private val clientOptions: C
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveRecordTypeHandler.handle(it) }

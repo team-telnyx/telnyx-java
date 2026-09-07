@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.storage.kvs
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.storage.kvs.keys.KeyDeleteParams
 import com.telnyx.sdk.models.storage.kvs.keys.KeyListPageAsync
@@ -52,21 +55,21 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // put /storage/kvs/{id}/keys/{key}
-        withRawResponse().update(params, requestOptions).thenAccept {}
+        withRawResponse().update(params, requestOptions).mapCancellable { null }
 
     override fun list(
         params: KeyListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<KeyListPageAsync> =
         // get /storage/kvs/{id}/keys
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: KeyDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /storage/kvs/{id}/keys/{key}
-        withRawResponse().delete(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).mapCancellable { null }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         KeyServiceAsync.WithRawResponse {
@@ -104,8 +107,10 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response -> errorHandler.handle(response) }
         }
 
         private val updateHandler: Handler<Void?> = emptyHandler()
@@ -134,8 +139,10 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { updateHandler.handle(it) }
                     }
@@ -161,8 +168,10 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -208,8 +217,10 @@ class KeyServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
                     }

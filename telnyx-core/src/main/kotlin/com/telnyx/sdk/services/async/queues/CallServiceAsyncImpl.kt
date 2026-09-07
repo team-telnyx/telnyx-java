@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.queues
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.queues.calls.CallListPageAsync
 import com.telnyx.sdk.models.queues.calls.CallListPageResponse
@@ -46,28 +49,28 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
         requestOptions: RequestOptions,
     ): CompletableFuture<CallRetrieveResponse> =
         // get /queues/{queue_name}/calls/{call_control_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: CallUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // patch /queues/{queue_name}/calls/{call_control_id}
-        withRawResponse().update(params, requestOptions).thenAccept {}
+        withRawResponse().update(params, requestOptions).mapCancellable { null }
 
     override fun list(
         params: CallListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CallListPageAsync> =
         // get /queues/{queue_name}/calls
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun remove(
         params: CallRemoveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /queues/{queue_name}/calls/{call_control_id}
-        withRawResponse().remove(params, requestOptions).thenAccept {}
+        withRawResponse().remove(params, requestOptions).mapCancellable { null }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CallServiceAsync.WithRawResponse {
@@ -101,8 +104,10 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -134,8 +139,10 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { updateHandler.handle(it) }
                     }
@@ -161,8 +168,10 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -202,8 +211,10 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { removeHandler.handle(it) }
                     }

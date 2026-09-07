@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.advancedorders.AdvancedOrder
 import com.telnyx.sdk.models.advancedorders.AdvancedOrderCreateParams
@@ -43,28 +46,30 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
         requestOptions: RequestOptions,
     ): CompletableFuture<AdvancedOrder> =
         // post /advanced_orders
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: AdvancedOrderRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AdvancedOrder> =
         // get /advanced_orders/{order_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: AdvancedOrderListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AdvancedOrderListResponse> =
         // get /advanced_orders
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateRequirementGroup(
         params: AdvancedOrderUpdateRequirementGroupParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AdvancedOrder> =
         // patch /advanced_orders/{advanced-order-id}/requirement_group
-        withRawResponse().updateRequirementGroup(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateRequirementGroup(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AdvancedOrderServiceAsync.WithRawResponse {
@@ -96,8 +101,10 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -129,8 +136,10 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -159,8 +168,10 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -193,8 +204,10 @@ class AdvancedOrderServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateRequirementGroupHandler.handle(it) }

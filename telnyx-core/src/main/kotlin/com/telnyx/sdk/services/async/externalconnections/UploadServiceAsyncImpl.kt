@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.externalconnections
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateResponse
@@ -51,42 +54,42 @@ class UploadServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<UploadCreateResponse> =
         // post /external_connections/{id}/uploads
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: UploadRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UploadRetrieveResponse> =
         // get /external_connections/{id}/uploads/{ticket_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: UploadListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UploadListPageAsync> =
         // get /external_connections/{id}/uploads
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun pendingCount(
         params: UploadPendingCountParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UploadPendingCountResponse> =
         // get /external_connections/{id}/uploads/status
-        withRawResponse().pendingCount(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().pendingCount(params, requestOptions).mapCancellable { it.parse() }
 
     override fun refreshStatus(
         params: UploadRefreshStatusParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UploadRefreshStatusResponse> =
         // post /external_connections/{id}/uploads/refresh
-        withRawResponse().refreshStatus(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().refreshStatus(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retry(
         params: UploadRetryParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UploadRetryResponse> =
         // post /external_connections/{id}/uploads/{ticket_id}/retry
-        withRawResponse().retry(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retry(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         UploadServiceAsync.WithRawResponse {
@@ -121,8 +124,10 @@ class UploadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -159,8 +164,10 @@ class UploadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -192,8 +199,10 @@ class UploadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -238,8 +247,10 @@ class UploadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { pendingCountHandler.handle(it) }
@@ -277,8 +288,10 @@ class UploadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { refreshStatusHandler.handle(it) }
@@ -317,8 +330,10 @@ class UploadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retryHandler.handle(it) }

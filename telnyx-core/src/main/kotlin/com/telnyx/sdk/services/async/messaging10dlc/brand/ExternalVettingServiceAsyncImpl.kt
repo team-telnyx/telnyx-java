@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.messaging10dlc.brand
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVetting
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingImportsParams
@@ -44,21 +47,21 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
         requestOptions: RequestOptions,
     ): CompletableFuture<List<ExternalVetting>> =
         // get /10dlc/brand/{brandId}/externalVetting
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun imports(
         params: ExternalVettingImportsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ExternalVetting> =
         // put /10dlc/brand/{brandId}/externalVetting
-        withRawResponse().imports(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().imports(params, requestOptions).mapCancellable { it.parse() }
 
     override fun order(
         params: ExternalVettingOrderParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ExternalVetting> =
         // post /10dlc/brand/{brandId}/externalVetting
-        withRawResponse().order(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().order(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ExternalVettingServiceAsync.WithRawResponse {
@@ -92,8 +95,10 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -126,8 +131,10 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { importsHandler.handle(it) }
@@ -160,8 +167,10 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalVetting
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { orderHandler.handle(it) }

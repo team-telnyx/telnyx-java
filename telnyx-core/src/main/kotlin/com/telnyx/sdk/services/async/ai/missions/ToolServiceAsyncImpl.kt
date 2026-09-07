@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.missions
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.missions.tools.ToolCreateToolParams
 import com.telnyx.sdk.models.ai.missions.tools.ToolCreateToolResponse
@@ -47,35 +50,35 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
         requestOptions: RequestOptions,
     ): CompletableFuture<ToolCreateToolResponse> =
         // post /ai/missions/{mission_id}/tools
-        withRawResponse().createTool(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().createTool(params, requestOptions).mapCancellable { it.parse() }
 
     override fun deleteTool(
         params: ToolDeleteToolParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /ai/missions/{mission_id}/tools/{tool_id}
-        withRawResponse().deleteTool(params, requestOptions).thenAccept {}
+        withRawResponse().deleteTool(params, requestOptions).mapCancellable { null }
 
     override fun getTool(
         params: ToolGetToolParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ToolGetToolResponse> =
         // get /ai/missions/{mission_id}/tools/{tool_id}
-        withRawResponse().getTool(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getTool(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listTools(
         params: ToolListToolsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ToolListToolsResponse> =
         // get /ai/missions/{mission_id}/tools
-        withRawResponse().listTools(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listTools(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateTool(
         params: ToolUpdateToolParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ToolUpdateToolResponse> =
         // put /ai/missions/{mission_id}/tools/{tool_id}
-        withRawResponse().updateTool(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateTool(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ToolServiceAsync.WithRawResponse {
@@ -110,8 +113,10 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createToolHandler.handle(it) }
@@ -149,8 +154,10 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteToolHandler.handle(it) }
                     }
@@ -182,8 +189,10 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { getToolHandler.handle(it) }
@@ -215,8 +224,10 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listToolsHandler.handle(it) }
@@ -255,8 +266,10 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateToolHandler.handle(it) }

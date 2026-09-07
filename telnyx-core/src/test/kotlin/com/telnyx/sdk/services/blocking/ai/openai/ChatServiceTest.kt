@@ -47,10 +47,12 @@ internal class ChatServiceTest {
                     .logprobs(true)
                     .maxTokens(0L)
                     .minP(0.0)
+                    .mode(ChatCompletionRequest.Mode.PREFERRED)
                     .model("model")
                     .n(0.0)
                     .presencePenalty(0.0)
                     .reasoningEffort(ChatCompletionRequest.ReasoningEffort.NONE)
+                    .region(ChatCompletionRequest.Region.USA)
                     .responseFormat(
                         ChatCompletionRequest.ResponseFormat.builder()
                             .type(ChatCompletionRequest.ResponseFormat.Type.TEXT)

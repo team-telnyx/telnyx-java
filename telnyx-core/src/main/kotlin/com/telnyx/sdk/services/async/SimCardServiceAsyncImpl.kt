@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.simcards.SimCardDeleteParams
 import com.telnyx.sdk.models.simcards.SimCardDeleteResponse
@@ -62,56 +65,56 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
         requestOptions: RequestOptions,
     ): CompletableFuture<SimCardRetrieveResponse> =
         // get /sim_cards/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: SimCardUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimCardUpdateResponse> =
         // patch /sim_cards/{id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: SimCardListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimCardListPageAsync> =
         // get /sim_cards
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: SimCardDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimCardDeleteResponse> =
         // delete /sim_cards/{id}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).mapCancellable { it.parse() }
 
     override fun getActivationCode(
         params: SimCardGetActivationCodeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimCardGetActivationCodeResponse> =
         // get /sim_cards/{id}/activation_code
-        withRawResponse().getActivationCode(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getActivationCode(params, requestOptions).mapCancellable { it.parse() }
 
     override fun getDeviceDetails(
         params: SimCardGetDeviceDetailsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimCardGetDeviceDetailsResponse> =
         // get /sim_cards/{id}/device_details
-        withRawResponse().getDeviceDetails(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getDeviceDetails(params, requestOptions).mapCancellable { it.parse() }
 
     override fun getPublicIp(
         params: SimCardGetPublicIpParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimCardGetPublicIpResponse> =
         // get /sim_cards/{id}/public_ip
-        withRawResponse().getPublicIp(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getPublicIp(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listWirelessConnectivityLogs(
         params: SimCardListWirelessConnectivityLogsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimCardListWirelessConnectivityLogsPageAsync> =
         // get /sim_cards/{id}/wireless_connectivity_logs
-        withRawResponse().listWirelessConnectivityLogs(params, requestOptions).thenApply {
+        withRawResponse().listWirelessConnectivityLogs(params, requestOptions).mapCancellable {
             it.parse()
         }
 
@@ -153,8 +156,10 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -187,8 +192,10 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -217,8 +224,10 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -259,8 +268,10 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { deleteHandler.handle(it) }
@@ -292,8 +303,10 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { getActivationCodeHandler.handle(it) }
@@ -325,8 +338,10 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { getDeviceDetailsHandler.handle(it) }
@@ -358,8 +373,10 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { getPublicIpHandler.handle(it) }
@@ -396,8 +413,10 @@ class SimCardServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listWirelessConnectivityLogsHandler.handle(it) }

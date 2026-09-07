@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.missions.EventsListResponse
 import com.telnyx.sdk.models.ai.missions.MissionCloneMissionParams
@@ -79,49 +82,49 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
         requestOptions: RequestOptions,
     ): CompletableFuture<MissionResponse> =
         // post /ai/missions
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: MissionRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MissionResponse> =
         // get /ai/missions/{mission_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: MissionListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MissionListPageAsync> =
         // get /ai/missions
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun cloneMission(
         params: MissionCloneMissionParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MissionCloneMissionResponse> =
         // post /ai/missions/{mission_id}/clone
-        withRawResponse().cloneMission(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().cloneMission(params, requestOptions).mapCancellable { it.parse() }
 
     override fun deleteMission(
         params: MissionDeleteMissionParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /ai/missions/{mission_id}
-        withRawResponse().deleteMission(params, requestOptions).thenAccept {}
+        withRawResponse().deleteMission(params, requestOptions).mapCancellable { null }
 
     override fun listEvents(
         params: MissionListEventsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MissionListEventsPageAsync> =
         // get /ai/missions/events
-        withRawResponse().listEvents(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listEvents(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateMission(
         params: MissionUpdateMissionParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MissionResponse> =
         // put /ai/missions/{mission_id}
-        withRawResponse().updateMission(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateMission(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MissionServiceAsync.WithRawResponse {
@@ -177,8 +180,10 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -210,8 +215,10 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -240,8 +247,10 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -282,8 +291,10 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { cloneMissionHandler.handle(it) }
@@ -315,8 +326,10 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteMissionHandler.handle(it) }
                     }
@@ -339,8 +352,10 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listEventsHandler.handle(it) }
@@ -381,8 +396,10 @@ class MissionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateMissionHandler.handle(it) }

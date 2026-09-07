@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.missions
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.missions.mcpservers.McpServerCreateMcpServerParams
 import com.telnyx.sdk.models.ai.missions.mcpservers.McpServerCreateMcpServerResponse
@@ -47,35 +50,35 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
         requestOptions: RequestOptions,
     ): CompletableFuture<McpServerCreateMcpServerResponse> =
         // post /ai/missions/{mission_id}/mcp-servers
-        withRawResponse().createMcpServer(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().createMcpServer(params, requestOptions).mapCancellable { it.parse() }
 
     override fun deleteMcpServer(
         params: McpServerDeleteMcpServerParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /ai/missions/{mission_id}/mcp-servers/{mcp_server_id}
-        withRawResponse().deleteMcpServer(params, requestOptions).thenAccept {}
+        withRawResponse().deleteMcpServer(params, requestOptions).mapCancellable { null }
 
     override fun getMcpServer(
         params: McpServerGetMcpServerParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<McpServerGetMcpServerResponse> =
         // get /ai/missions/{mission_id}/mcp-servers/{mcp_server_id}
-        withRawResponse().getMcpServer(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getMcpServer(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listMcpServers(
         params: McpServerListMcpServersParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<McpServerListMcpServersResponse> =
         // get /ai/missions/{mission_id}/mcp-servers
-        withRawResponse().listMcpServers(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listMcpServers(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateMcpServer(
         params: McpServerUpdateMcpServerParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<McpServerUpdateMcpServerResponse> =
         // put /ai/missions/{mission_id}/mcp-servers/{mcp_server_id}
-        withRawResponse().updateMcpServer(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateMcpServer(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         McpServerServiceAsync.WithRawResponse {
@@ -110,8 +113,10 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createMcpServerHandler.handle(it) }
@@ -149,8 +154,10 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteMcpServerHandler.handle(it) }
                     }
@@ -182,8 +189,10 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { getMcpServerHandler.handle(it) }
@@ -215,8 +224,10 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listMcpServersHandler.handle(it) }
@@ -255,8 +266,10 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateMcpServerHandler.handle(it) }

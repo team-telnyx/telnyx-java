@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.uacconnections
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.uacconnections.actions.ActionCheckRegistrationStatusParams
 import com.telnyx.sdk.models.uacconnections.actions.ActionCheckRegistrationStatusResponse
@@ -40,7 +43,9 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionCheckRegistrationStatusResponse> =
         // post /uac_connections/{id}/actions/check_registration_status
-        withRawResponse().checkRegistrationStatus(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().checkRegistrationStatus(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ActionServiceAsync.WithRawResponse {
@@ -80,8 +85,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { checkRegistrationStatusHandler.handle(it) }

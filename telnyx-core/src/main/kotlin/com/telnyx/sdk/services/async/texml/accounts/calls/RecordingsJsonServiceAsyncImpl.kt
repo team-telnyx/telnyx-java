@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.texml.accounts.calls
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRecordingsJsonParams
 import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonRetrieveRecordingsJsonParams
@@ -44,14 +47,16 @@ internal constructor(private val clientOptions: ClientOptions) : RecordingsJsonS
         requestOptions: RequestOptions,
     ): CompletableFuture<TexmlCreateCallRecordingResponseBody> =
         // post /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json
-        withRawResponse().recordingsJson(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().recordingsJson(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveRecordingsJson(
         params: RecordingsJsonRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         // get /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json
-        withRawResponse().retrieveRecordingsJson(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveRecordingsJson(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RecordingsJsonServiceAsync.WithRawResponse {
@@ -93,8 +98,10 @@ internal constructor(private val clientOptions: ClientOptions) : RecordingsJsonS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { recordingsJsonHandler.handle(it) }
@@ -133,8 +140,10 @@ internal constructor(private val clientOptions: ClientOptions) : RecordingsJsonS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveRecordingsJsonHandler.handle(it) }
