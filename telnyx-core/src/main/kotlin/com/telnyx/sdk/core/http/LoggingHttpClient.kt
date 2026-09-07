@@ -5,6 +5,8 @@ package com.telnyx.sdk.core.http
 import com.telnyx.sdk.core.LogLevel
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handleCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.toImmutable
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -75,18 +77,18 @@ private constructor(
         val before = OffsetDateTime.now(clock)
         val future =
             try {
-                httpClient.executeAsync(loggingRequest, requestOptions)
+                httpClient.executeAsync(loggingRequest, requestOptions).ownResponse()
             } catch (e: Throwable) {
                 logFailure(e, Duration.between(before, OffsetDateTime.now(clock)))
                 throw e
             }
-        return future.handle { response, error ->
+        return future.handleCancellable { response, error ->
             val took = Duration.between(before, OffsetDateTime.now(clock))
             if (error != null) {
                 logFailure(unwrapCompletionException(error), took)
                 throw error
             }
-            logResponse(response, took)
+            logResponse(response!!, took)
         }
     }
 

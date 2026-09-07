@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.portingorders.PortingOrderCreateParams
 import com.telnyx.sdk.models.portingorders.PortingOrderCreateResponse
@@ -147,49 +150,53 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
         requestOptions: RequestOptions,
     ): CompletableFuture<PortingOrderCreateResponse> =
         // post /porting_orders
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: PortingOrderRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PortingOrderRetrieveResponse> =
         // get /porting_orders/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: PortingOrderUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PortingOrderUpdateResponse> =
         // patch /porting_orders/{id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: PortingOrderListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PortingOrderListPageAsync> =
         // get /porting_orders
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: PortingOrderDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /porting_orders/{id}
-        withRawResponse().delete(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).mapCancellable { null }
 
     override fun retrieveAllowedFocWindows(
         params: PortingOrderRetrieveAllowedFocWindowsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PortingOrderRetrieveAllowedFocWindowsResponse> =
         // get /porting_orders/{id}/allowed_foc_windows
-        withRawResponse().retrieveAllowedFocWindows(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveAllowedFocWindows(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun retrieveExceptionTypes(
         params: PortingOrderRetrieveExceptionTypesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PortingOrderRetrieveExceptionTypesResponse> =
         // get /porting_orders/exception_types
-        withRawResponse().retrieveExceptionTypes(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveExceptionTypes(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun retrieveLoaTemplate(
         params: PortingOrderRetrieveLoaTemplateParams,
@@ -203,14 +210,14 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
         requestOptions: RequestOptions,
     ): CompletableFuture<PortingOrderRetrieveRequirementsPageAsync> =
         // get /porting_orders/{id}/requirements
-        withRawResponse().retrieveRequirements(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveRequirements(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveSubRequest(
         params: PortingOrderRetrieveSubRequestParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PortingOrderRetrieveSubRequestResponse> =
         // get /porting_orders/{id}/sub_request
-        withRawResponse().retrieveSubRequest(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveSubRequest(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PortingOrderServiceAsync.WithRawResponse {
@@ -322,8 +329,10 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -355,8 +364,10 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -389,8 +400,10 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -419,8 +432,10 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -460,8 +475,10 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
                     }
@@ -488,8 +505,10 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveAllowedFocWindowsHandler.handle(it) }
@@ -519,8 +538,10 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveExceptionTypesHandler.handle(it) }
@@ -550,8 +571,10 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response -> errorHandler.handle(response) }
         }
 
         private val retrieveRequirementsHandler:
@@ -574,8 +597,10 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveRequirementsHandler.handle(it) }
@@ -615,8 +640,10 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveSubRequestHandler.handle(it) }

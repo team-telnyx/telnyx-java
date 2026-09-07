@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async.x402
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -14,6 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteParams
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteResponse
@@ -43,14 +46,14 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
         requestOptions: RequestOptions,
     ): CompletableFuture<CreditAccountCreateQuoteResponse> =
         // post /v2/x402/credit_account/quote
-        withRawResponse().createQuote(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().createQuote(params, requestOptions).mapCancellable { it.parse() }
 
     override fun settle(
         params: CreditAccountSettleParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CreditAccountSettleResponse> =
         // post /v2/x402/credit_account
-        withRawResponse().settle(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().settle(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CreditAccountServiceAsync.WithRawResponse {
@@ -82,8 +85,10 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createQuoteHandler.handle(it) }
@@ -113,8 +118,10 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { settleHandler.handle(it) }

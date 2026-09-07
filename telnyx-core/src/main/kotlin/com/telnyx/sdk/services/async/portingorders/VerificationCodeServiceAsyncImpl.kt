@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.portingorders
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListPageAsync
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListPageResponse
@@ -47,21 +50,21 @@ internal constructor(private val clientOptions: ClientOptions) : VerificationCod
         requestOptions: RequestOptions,
     ): CompletableFuture<VerificationCodeListPageAsync> =
         // get /porting_orders/{id}/verification_codes
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun send(
         params: VerificationCodeSendParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // post /porting_orders/{id}/verification_codes/send
-        withRawResponse().send(params, requestOptions).thenAccept {}
+        withRawResponse().send(params, requestOptions).mapCancellable { null }
 
     override fun verify(
         params: VerificationCodeVerifyParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<VerificationCodeVerifyResponse> =
         // post /porting_orders/{id}/verification_codes/verify
-        withRawResponse().verify(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().verify(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         VerificationCodeServiceAsync.WithRawResponse {
@@ -95,8 +98,10 @@ internal constructor(private val clientOptions: ClientOptions) : VerificationCod
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -141,8 +146,10 @@ internal constructor(private val clientOptions: ClientOptions) : VerificationCod
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { sendHandler.handle(it) }
                     }
@@ -174,8 +181,10 @@ internal constructor(private val clientOptions: ClientOptions) : VerificationCod
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { verifyHandler.handle(it) }

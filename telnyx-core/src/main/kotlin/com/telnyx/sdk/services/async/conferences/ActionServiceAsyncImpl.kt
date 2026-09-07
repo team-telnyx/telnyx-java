@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.conferences
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceParams
 import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceResponse
@@ -72,119 +75,119 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionUpdateResponse> =
         // post /conferences/{id}/actions/update
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun endConference(
         params: ActionEndConferenceParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionEndConferenceResponse> =
         // post /conferences/{id}/actions/end
-        withRawResponse().endConference(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().endConference(params, requestOptions).mapCancellable { it.parse() }
 
     override fun gatherDtmfAudio(
         params: ActionGatherDtmfAudioParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionGatherDtmfAudioResponse> =
         // post /conferences/{id}/actions/gather_using_audio
-        withRawResponse().gatherDtmfAudio(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().gatherDtmfAudio(params, requestOptions).mapCancellable { it.parse() }
 
     override fun hold(
         params: ActionHoldParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionHoldResponse> =
         // post /conferences/{id}/actions/hold
-        withRawResponse().hold(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().hold(params, requestOptions).mapCancellable { it.parse() }
 
     override fun join(
         params: ActionJoinParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionJoinResponse> =
         // post /conferences/{id}/actions/join
-        withRawResponse().join(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().join(params, requestOptions).mapCancellable { it.parse() }
 
     override fun leave(
         params: ActionLeaveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionLeaveResponse> =
         // post /conferences/{id}/actions/leave
-        withRawResponse().leave(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().leave(params, requestOptions).mapCancellable { it.parse() }
 
     override fun mute(
         params: ActionMuteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionMuteResponse> =
         // post /conferences/{id}/actions/mute
-        withRawResponse().mute(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().mute(params, requestOptions).mapCancellable { it.parse() }
 
     override fun play(
         params: ActionPlayParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionPlayResponse> =
         // post /conferences/{id}/actions/play
-        withRawResponse().play(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().play(params, requestOptions).mapCancellable { it.parse() }
 
     override fun recordPause(
         params: ActionRecordPauseParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionRecordPauseResponse> =
         // post /conferences/{id}/actions/record_pause
-        withRawResponse().recordPause(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().recordPause(params, requestOptions).mapCancellable { it.parse() }
 
     override fun recordResume(
         params: ActionRecordResumeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionRecordResumeResponse> =
         // post /conferences/{id}/actions/record_resume
-        withRawResponse().recordResume(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().recordResume(params, requestOptions).mapCancellable { it.parse() }
 
     override fun recordStart(
         params: ActionRecordStartParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionRecordStartResponse> =
         // post /conferences/{id}/actions/record_start
-        withRawResponse().recordStart(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().recordStart(params, requestOptions).mapCancellable { it.parse() }
 
     override fun recordStop(
         params: ActionRecordStopParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionRecordStopResponse> =
         // post /conferences/{id}/actions/record_stop
-        withRawResponse().recordStop(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().recordStop(params, requestOptions).mapCancellable { it.parse() }
 
     override fun sendDtmf(
         params: ActionSendDtmfParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionSendDtmfResponse> =
         // post /conferences/{id}/actions/send_dtmf
-        withRawResponse().sendDtmf(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().sendDtmf(params, requestOptions).mapCancellable { it.parse() }
 
     override fun speak(
         params: ActionSpeakParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionSpeakResponse> =
         // post /conferences/{id}/actions/speak
-        withRawResponse().speak(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().speak(params, requestOptions).mapCancellable { it.parse() }
 
     override fun stop(
         params: ActionStopParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionStopResponse> =
         // post /conferences/{id}/actions/stop
-        withRawResponse().stop(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().stop(params, requestOptions).mapCancellable { it.parse() }
 
     override fun unhold(
         params: ActionUnholdParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionUnholdResponse> =
         // post /conferences/{id}/actions/unhold
-        withRawResponse().unhold(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().unhold(params, requestOptions).mapCancellable { it.parse() }
 
     override fun unmute(
         params: ActionUnmuteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionUnmuteResponse> =
         // post /conferences/{id}/actions/unmute
-        withRawResponse().unmute(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().unmute(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ActionServiceAsync.WithRawResponse {
@@ -219,8 +222,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -253,8 +258,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { endConferenceHandler.handle(it) }
@@ -292,8 +299,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { gatherDtmfAudioHandler.handle(it) }
@@ -326,8 +335,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { holdHandler.handle(it) }
@@ -360,8 +371,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { joinHandler.handle(it) }
@@ -394,8 +407,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { leaveHandler.handle(it) }
@@ -428,8 +443,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { muteHandler.handle(it) }
@@ -462,8 +479,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { playHandler.handle(it) }
@@ -496,8 +515,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { recordPauseHandler.handle(it) }
@@ -535,8 +556,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { recordResumeHandler.handle(it) }
@@ -569,8 +592,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { recordStartHandler.handle(it) }
@@ -603,8 +628,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { recordStopHandler.handle(it) }
@@ -637,8 +664,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendDtmfHandler.handle(it) }
@@ -671,8 +700,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { speakHandler.handle(it) }
@@ -705,8 +736,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { stopHandler.handle(it) }
@@ -739,8 +772,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { unholdHandler.handle(it) }
@@ -773,8 +808,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { unmuteHandler.handle(it) }

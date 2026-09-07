@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.whatsapp
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberDeleteParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberGetParams
@@ -75,35 +78,35 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberListPageAsync> =
         // get /v2/whatsapp/phone_numbers
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: PhoneNumberDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /v2/whatsapp/phone_numbers/{phone_number}
-        withRawResponse().delete(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).mapCancellable { null }
 
     override fun get(
         params: PhoneNumberGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberGetResponse> =
         // get /whatsapp/phone_numbers
-        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).mapCancellable { it.parse() }
 
     override fun resendVerification(
         params: PhoneNumberResendVerificationParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // post /v2/whatsapp/phone_numbers/{phone_number}/resend_verification
-        withRawResponse().resendVerification(params, requestOptions).thenAccept {}
+        withRawResponse().resendVerification(params, requestOptions).mapCancellable { null }
 
     override fun retrieveConversationWindow(
         params: PhoneNumberRetrieveConversationWindowParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberRetrieveConversationWindowResponse> =
         // get /v2/whatsapp/phone_numbers/{phone_number}/conversation_window
-        withRawResponse().retrieveConversationWindow(params, requestOptions).thenApply {
+        withRawResponse().retrieveConversationWindow(params, requestOptions).mapCancellable {
             it.parse()
         }
 
@@ -112,7 +115,7 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // post /v2/whatsapp/phone_numbers/{phone_number}/verify
-        withRawResponse().verify(params, requestOptions).thenAccept {}
+        withRawResponse().verify(params, requestOptions).mapCancellable { null }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PhoneNumberServiceAsync.WithRawResponse {
@@ -166,8 +169,10 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -207,8 +212,10 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
                     }
@@ -231,8 +238,10 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { getHandler.handle(it) }
@@ -270,8 +279,10 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { resendVerificationHandler.handle(it) }
                     }
@@ -304,8 +315,10 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveConversationWindowHandler.handle(it) }
@@ -343,8 +356,10 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { verifyHandler.handle(it) }
                     }

@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -13,6 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.wellknown.WellKnownRetrieveAuthorizationServerMetadataParams
 import com.telnyx.sdk.models.wellknown.WellKnownRetrieveAuthorizationServerMetadataResponse
@@ -38,16 +41,16 @@ class WellKnownServiceAsyncImpl internal constructor(private val clientOptions: 
         requestOptions: RequestOptions,
     ): CompletableFuture<WellKnownRetrieveAuthorizationServerMetadataResponse> =
         // get /.well-known/oauth-authorization-server
-        withRawResponse().retrieveAuthorizationServerMetadata(params, requestOptions).thenApply {
-            it.parse()
-        }
+        withRawResponse()
+            .retrieveAuthorizationServerMetadata(params, requestOptions)
+            .mapCancellable { it.parse() }
 
     override fun retrieveProtectedResourceMetadata(
         params: WellKnownRetrieveProtectedResourceMetadataParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<WellKnownRetrieveProtectedResourceMetadataResponse> =
         // get /.well-known/oauth-protected-resource
-        withRawResponse().retrieveProtectedResourceMetadata(params, requestOptions).thenApply {
+        withRawResponse().retrieveProtectedResourceMetadata(params, requestOptions).mapCancellable {
             it.parse()
         }
 
@@ -88,8 +91,10 @@ class WellKnownServiceAsyncImpl internal constructor(private val clientOptions: 
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveAuthorizationServerMetadataHandler.handle(it) }
@@ -124,8 +129,10 @@ class WellKnownServiceAsyncImpl internal constructor(private val clientOptions: 
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveProtectedResourceMetadataHandler.handle(it) }

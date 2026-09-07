@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.messaging10dlc
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messaging10dlc.partnercampaigns.PartnerCampaignListPageAsync
 import com.telnyx.sdk.models.messaging10dlc.partnercampaigns.PartnerCampaignListPageResponse
@@ -50,35 +53,37 @@ internal constructor(private val clientOptions: ClientOptions) : PartnerCampaign
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxDownstreamCampaign> =
         // get /10dlc/partner_campaigns/{campaignId}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: PartnerCampaignUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxDownstreamCampaign> =
         // patch /10dlc/partner_campaigns/{campaignId}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: PartnerCampaignListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PartnerCampaignListPageAsync> =
         // get /10dlc/partner_campaigns
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listSharedByMe(
         params: PartnerCampaignListSharedByMeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PartnerCampaignListSharedByMePageAsync> =
         // get /10dlc/partnerCampaign/sharedByMe
-        withRawResponse().listSharedByMe(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listSharedByMe(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveSharingStatus(
         params: PartnerCampaignRetrieveSharingStatusParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PartnerCampaignRetrieveSharingStatusResponse> =
         // get /10dlc/partnerCampaign/{campaignId}/sharing
-        withRawResponse().retrieveSharingStatus(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveSharingStatus(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PartnerCampaignServiceAsync.WithRawResponse {
@@ -112,8 +117,10 @@ internal constructor(private val clientOptions: ClientOptions) : PartnerCampaign
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -146,8 +153,10 @@ internal constructor(private val clientOptions: ClientOptions) : PartnerCampaign
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -176,8 +185,10 @@ internal constructor(private val clientOptions: ClientOptions) : PartnerCampaign
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -214,8 +225,10 @@ internal constructor(private val clientOptions: ClientOptions) : PartnerCampaign
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listSharedByMeHandler.handle(it) }
@@ -256,8 +269,10 @@ internal constructor(private val clientOptions: ClientOptions) : PartnerCampaign
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveSharingStatusHandler.handle(it) }

@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.emailinboxes
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emailinboxes.filters.FilterAddParams
 import com.telnyx.sdk.models.emailinboxes.filters.FilterAddResponse
@@ -49,28 +52,28 @@ class FilterServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<FilterListResponse> =
         // get /email_inboxes/{inbox_id}/filters
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun add(
         params: FilterAddParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<FilterAddResponse> =
         // post /email_inboxes/{inbox_id}/filters
-        withRawResponse().add(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().add(params, requestOptions).mapCancellable { it.parse() }
 
     override fun deleteAll(
         params: FilterDeleteAllParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<FilterDeleteAllResponse> =
         // delete /email_inboxes/{inbox_id}/filters
-        withRawResponse().deleteAll(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().deleteAll(params, requestOptions).mapCancellable { it.parse() }
 
     override fun replace(
         params: FilterReplaceParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<FilterReplaceResponse> =
         // put /email_inboxes/{inbox_id}/filters
-        withRawResponse().replace(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().replace(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         FilterServiceAsync.WithRawResponse {
@@ -104,8 +107,10 @@ class FilterServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -138,8 +143,10 @@ class FilterServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { addHandler.handle(it) }
@@ -172,8 +179,10 @@ class FilterServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { deleteAllHandler.handle(it) }
@@ -206,8 +215,10 @@ class FilterServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { replaceHandler.handle(it) }

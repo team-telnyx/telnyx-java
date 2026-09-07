@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.emailinboxes.messages
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.emailinboxes.drafts.EmailMessageResponse
 import com.telnyx.sdk.models.emailinboxes.messages.actions.ActionForwardParams
@@ -45,21 +48,21 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailMessageResponse> =
         // post /email_inboxes/{inbox_id}/messages/{message_id}/actions/forward
-        withRawResponse().forward(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().forward(params, requestOptions).mapCancellable { it.parse() }
 
     override fun reply(
         params: ActionReplyParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailMessageResponse> =
         // post /email_inboxes/{inbox_id}/messages/{message_id}/actions/reply
-        withRawResponse().reply(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().reply(params, requestOptions).mapCancellable { it.parse() }
 
     override fun replyAll(
         params: ActionReplyAllParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailMessageResponse> =
         // post /email_inboxes/{inbox_id}/messages/{message_id}/actions/reply_all
-        withRawResponse().replyAll(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().replyAll(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ActionServiceAsync.WithRawResponse {
@@ -101,8 +104,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { forwardHandler.handle(it) }
@@ -142,8 +147,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { replyHandler.handle(it) }
@@ -183,8 +190,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { replyAllHandler.handle(it) }

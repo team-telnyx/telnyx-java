@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.numberorderphonenumbers.NumberOrderPhoneNumberListParams
 import com.telnyx.sdk.models.numberorderphonenumbers.NumberOrderPhoneNumberListResponse
@@ -51,28 +54,30 @@ internal constructor(private val clientOptions: ClientOptions) :
         requestOptions: RequestOptions,
     ): CompletableFuture<NumberOrderPhoneNumberRetrieveResponse> =
         // get /number_order_phone_numbers/{number_order_phone_number_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: NumberOrderPhoneNumberListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<NumberOrderPhoneNumberListResponse> =
         // get /number_order_phone_numbers
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateRequirementGroup(
         params: NumberOrderPhoneNumberUpdateRequirementGroupParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<NumberOrderPhoneNumberUpdateRequirementGroupResponse> =
         // post /number_order_phone_numbers/{id}/requirement_group
-        withRawResponse().updateRequirementGroup(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateRequirementGroup(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun updateRequirements(
         params: NumberOrderPhoneNumberUpdateRequirementsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<NumberOrderPhoneNumberUpdateRequirementsResponse> =
         // patch /number_order_phone_numbers/{number_order_phone_number_id}
-        withRawResponse().updateRequirements(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateRequirements(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         NumberOrderPhoneNumberServiceAsync.WithRawResponse {
@@ -106,8 +111,10 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -136,8 +143,10 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -179,8 +188,10 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateRequirementGroupHandler.handle(it) }
@@ -214,8 +225,10 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateRequirementsHandler.handle(it) }

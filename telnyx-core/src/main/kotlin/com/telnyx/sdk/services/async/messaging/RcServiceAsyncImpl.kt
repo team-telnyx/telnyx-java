@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.messaging
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messaging.rcs.RcInviteTestNumberParams
 import com.telnyx.sdk.models.messaging.rcs.RcInviteTestNumberResponse
@@ -51,21 +54,21 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         requestOptions: RequestOptions,
     ): CompletableFuture<RcInviteTestNumberResponse> =
         // put /messaging/rcs/test_number_invite/{id}/{phone_number}
-        withRawResponse().inviteTestNumber(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().inviteTestNumber(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listBulkCapabilities(
         params: RcListBulkCapabilitiesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<RcListBulkCapabilitiesResponse> =
         // post /messaging/rcs/bulk_capabilities
-        withRawResponse().listBulkCapabilities(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listBulkCapabilities(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveCapabilities(
         params: RcRetrieveCapabilitiesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<RcRetrieveCapabilitiesResponse> =
         // get /messaging/rcs/capabilities/{agent_id}/{phone_number}
-        withRawResponse().retrieveCapabilities(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveCapabilities(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RcServiceAsync.WithRawResponse {
@@ -113,8 +116,10 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { inviteTestNumberHandler.handle(it) }
@@ -144,8 +149,10 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listBulkCapabilitiesHandler.handle(it) }
@@ -183,8 +190,10 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveCapabilitiesHandler.handle(it) }

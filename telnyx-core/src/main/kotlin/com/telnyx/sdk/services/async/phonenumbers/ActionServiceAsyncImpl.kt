@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.phonenumbers
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.phonenumbers.actions.ActionChangeBundleStatusParams
 import com.telnyx.sdk.models.phonenumbers.actions.ActionChangeBundleStatusResponse
@@ -44,21 +47,21 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionChangeBundleStatusResponse> =
         // patch /phone_numbers/{id}/actions/bundle_status_change
-        withRawResponse().changeBundleStatus(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().changeBundleStatus(params, requestOptions).mapCancellable { it.parse() }
 
     override fun enableEmergency(
         params: ActionEnableEmergencyParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionEnableEmergencyResponse> =
         // post /phone_numbers/{id}/actions/enable_emergency
-        withRawResponse().enableEmergency(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().enableEmergency(params, requestOptions).mapCancellable { it.parse() }
 
     override fun verifyOwnership(
         params: ActionVerifyOwnershipParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionVerifyOwnershipResponse> =
         // post /phone_numbers/actions/verify_ownership
-        withRawResponse().verifyOwnership(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().verifyOwnership(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ActionServiceAsync.WithRawResponse {
@@ -98,8 +101,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { changeBundleStatusHandler.handle(it) }
@@ -137,8 +142,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { enableEmergencyHandler.handle(it) }
@@ -168,8 +175,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { verifyOwnershipHandler.handle(it) }

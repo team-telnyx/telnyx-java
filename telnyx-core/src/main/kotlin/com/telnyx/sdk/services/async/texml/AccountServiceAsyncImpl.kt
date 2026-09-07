@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.texml
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -14,6 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveRecordingsJsonParams
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonParams
@@ -80,14 +83,16 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
         requestOptions: RequestOptions,
     ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         // get /texml/Accounts/{account_sid}/Recordings.json
-        withRawResponse().retrieveRecordingsJson(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveRecordingsJson(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun retrieveTranscriptionsJson(
         params: AccountRetrieveTranscriptionsJsonParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AccountRetrieveTranscriptionsJsonResponse> =
         // get /texml/Accounts/{account_sid}/Transcriptions.json
-        withRawResponse().retrieveTranscriptionsJson(params, requestOptions).thenApply {
+        withRawResponse().retrieveTranscriptionsJson(params, requestOptions).mapCancellable {
             it.parse()
         }
 
@@ -156,8 +161,10 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveRecordingsJsonHandler.handle(it) }
@@ -195,8 +202,10 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveTranscriptionsJsonHandler.handle(it) }

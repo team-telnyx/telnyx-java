@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.bundlepricing
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateResponse
@@ -50,42 +53,42 @@ class UserBundleServiceAsyncImpl internal constructor(private val clientOptions:
         requestOptions: RequestOptions,
     ): CompletableFuture<UserBundleCreateResponse> =
         // post /bundle_pricing/user_bundles/bulk
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: UserBundleRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UserBundleRetrieveResponse> =
         // get /bundle_pricing/user_bundles/{user_bundle_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: UserBundleListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UserBundleListPageAsync> =
         // get /bundle_pricing/user_bundles
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun deactivate(
         params: UserBundleDeactivateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UserBundleDeactivateResponse> =
         // delete /bundle_pricing/user_bundles/{user_bundle_id}
-        withRawResponse().deactivate(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().deactivate(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listResources(
         params: UserBundleListResourcesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UserBundleListResourcesResponse> =
         // get /bundle_pricing/user_bundles/{user_bundle_id}/resources
-        withRawResponse().listResources(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listResources(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listUnused(
         params: UserBundleListUnusedParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UserBundleListUnusedResponse> =
         // get /bundle_pricing/user_bundles/unused
-        withRawResponse().listUnused(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listUnused(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         UserBundleServiceAsync.WithRawResponse {
@@ -117,8 +120,10 @@ class UserBundleServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -150,8 +155,10 @@ class UserBundleServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -180,8 +187,10 @@ class UserBundleServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -222,8 +231,10 @@ class UserBundleServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { deactivateHandler.handle(it) }
@@ -260,8 +271,10 @@ class UserBundleServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listResourcesHandler.handle(it) }
@@ -290,8 +303,10 @@ class UserBundleServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listUnusedHandler.handle(it) }

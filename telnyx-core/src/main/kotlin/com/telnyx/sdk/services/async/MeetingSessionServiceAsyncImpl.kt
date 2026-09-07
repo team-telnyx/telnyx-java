@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionCreateParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionDeleteParams
@@ -68,63 +71,63 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
         requestOptions: RequestOptions,
     ): CompletableFuture<MeetingSessionResponse> =
         // post /meeting_sessions
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: MeetingSessionRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MeetingSessionResponse> =
         // get /meeting_sessions/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: MeetingSessionUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MeetingSessionResponse> =
         // patch /meeting_sessions/{id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: MeetingSessionListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MeetingSessionListResponse> =
         // get /meeting_sessions
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: MeetingSessionDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MeetingSessionResponse> =
         // delete /meeting_sessions/{id}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).mapCancellable { it.parse() }
 
     override fun deleteRecordingMedia(
         params: MeetingSessionDeleteRecordingMediaParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MeetingSessionDeleteRecordingMediaResponse> =
         // delete /meeting_sessions/{id}/recording_media
-        withRawResponse().deleteRecordingMedia(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().deleteRecordingMedia(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveEvents(
         params: MeetingSessionRetrieveEventsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MeetingSessionRetrieveEventsResponse> =
         // get /meeting_sessions/{id}/events
-        withRawResponse().retrieveEvents(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveEvents(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveRecordings(
         params: MeetingSessionRetrieveRecordingsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MeetingSessionRetrieveRecordingsResponse> =
         // get /meeting_sessions/{id}/recordings
-        withRawResponse().retrieveRecordings(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveRecordings(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveTranscript(
         params: MeetingSessionRetrieveTranscriptParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MeetingSessionRetrieveTranscriptResponse> =
         // get /meeting_sessions/{id}/transcript
-        withRawResponse().retrieveTranscript(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveTranscript(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MeetingSessionServiceAsync.WithRawResponse {
@@ -170,8 +173,10 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -203,8 +208,10 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -237,8 +244,10 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -267,8 +276,10 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -301,8 +312,10 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { deleteHandler.handle(it) }
@@ -336,8 +349,10 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { deleteRecordingMediaHandler.handle(it) }
@@ -369,8 +384,10 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveEventsHandler.handle(it) }
@@ -402,8 +419,10 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveRecordingsHandler.handle(it) }
@@ -435,8 +454,10 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveTranscriptHandler.handle(it) }

@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.rooms
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -14,6 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.rooms.sessions.SessionList0PageAsync
 import com.telnyx.sdk.models.rooms.sessions.SessionList0PageResponse
@@ -54,28 +57,28 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
         requestOptions: RequestOptions,
     ): CompletableFuture<SessionRetrieveResponse> =
         // get /room_sessions/{room_session_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list0(
         params: SessionList0Params,
         requestOptions: RequestOptions,
     ): CompletableFuture<SessionList0PageAsync> =
         // get /room_sessions
-        withRawResponse().list0(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list0(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list1(
         params: SessionList1Params,
         requestOptions: RequestOptions,
     ): CompletableFuture<SessionList1PageAsync> =
         // get /rooms/{room_id}/sessions
-        withRawResponse().list1(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list1(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveParticipants(
         params: SessionRetrieveParticipantsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SessionRetrieveParticipantsPageAsync> =
         // get /room_sessions/{room_session_id}/participants
-        withRawResponse().retrieveParticipants(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveParticipants(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SessionServiceAsync.WithRawResponse {
@@ -116,8 +119,10 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -146,8 +151,10 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { list0Handler.handle(it) }
@@ -187,8 +194,10 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { list1Handler.handle(it) }
@@ -228,8 +237,10 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveParticipantsHandler.handle(it) }
