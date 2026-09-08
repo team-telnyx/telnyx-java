@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.dir.DirDeleteParams
 import com.telnyx.sdk.models.dir.DirList
@@ -108,42 +111,44 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
         requestOptions: RequestOptions,
     ): CompletableFuture<DirWrapped> =
         // get /dir/{dir_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: DirUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<DirWrapped> =
         // patch /dir/{dir_id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: DirListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<DirListPageAsync> =
         // get /dir
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: DirDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /dir/{dir_id}
-        withRawResponse().delete(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).mapCancellable { null }
 
     override fun listDocumentTypes(
         params: DirListDocumentTypesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<DirListDocumentTypesResponse> =
         // get /dir/document_types
-        withRawResponse().listDocumentTypes(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listDocumentTypes(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listInfringementClaims(
         params: DirListInfringementClaimsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<DirListInfringementClaimsPageAsync> =
         // get /dir/{dir_id}/infringement_claims
-        withRawResponse().listInfringementClaims(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listInfringementClaims(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun newLoa(
         params: DirNewLoaParams,
@@ -157,14 +162,14 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
         requestOptions: RequestOptions,
     ): CompletableFuture<DirWrapped> =
         // post /dir/{dir_id}/submit
-        withRawResponse().submit(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().submit(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateInfringement(
         params: DirUpdateInfringementParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<DirWrapped> =
         // put /dir/{dir_id}/infringement_update
-        withRawResponse().updateInfringement(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateInfringement(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DirServiceAsync.WithRawResponse {
@@ -246,8 +251,10 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -280,8 +287,10 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -309,8 +318,10 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -350,8 +361,10 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
                     }
@@ -374,8 +387,10 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listDocumentTypesHandler.handle(it) }
@@ -407,8 +422,10 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listInfringementClaimsHandler.handle(it) }
@@ -447,8 +464,10 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response -> errorHandler.handle(response) }
         }
 
         private val submitHandler: Handler<DirWrapped> =
@@ -471,8 +490,10 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { submitHandler.handle(it) }
@@ -505,8 +526,10 @@ class DirServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateInfringementHandler.handle(it) }

@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class MessagingProfileListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<MessagingProfile>>,
+    private val data: JsonField<List<MessagingMessagingProfile>>,
     private val meta: JsonField<MessagingPaginationMeta0b38e7044b>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<MessagingProfile>> = JsonMissing.of(),
+        data: JsonField<List<MessagingMessagingProfile>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<MessagingPaginationMeta0b38e7044b> = JsonMissing.of(),
@@ -41,7 +41,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<MessagingProfile>> = data.getOptional("data")
+    fun data(): Optional<List<MessagingMessagingProfile>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -54,7 +54,9 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<MessagingProfile>> = data
+    @JsonProperty("data")
+    @ExcludeMissing
+    fun _data(): JsonField<List<MessagingMessagingProfile>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -89,7 +91,7 @@ private constructor(
     /** A builder for [MessagingProfileListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<MessagingProfile>>? = null
+        private var data: JsonField<MutableList<MessagingMessagingProfile>>? = null
         private var meta: JsonField<MessagingPaginationMeta0b38e7044b> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -102,25 +104,25 @@ private constructor(
                     messagingProfileListPageResponse.additionalProperties.toMutableMap()
             }
 
-        fun data(data: List<MessagingProfile>) = data(JsonField.of(data))
+        fun data(data: List<MessagingMessagingProfile>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<MessagingProfile>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed
+         * `List<MessagingMessagingProfile>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun data(data: JsonField<List<MessagingProfile>>) = apply {
+        fun data(data: JsonField<List<MessagingMessagingProfile>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [MessagingProfile] to [Builder.data].
+         * Adds a single [MessagingMessagingProfile] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: MessagingProfile) = apply {
+        fun addData(data: MessagingMessagingProfile) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

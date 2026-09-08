@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateResponse
@@ -60,44 +63,46 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
         requestOptions: RequestOptions,
     ): CompletableFuture<ManagedAccountCreateResponse> =
         // post /managed_accounts
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: ManagedAccountRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ManagedAccountRetrieveResponse> =
         // get /managed_accounts/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: ManagedAccountUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ManagedAccountUpdateResponse> =
         // patch /managed_accounts/{id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: ManagedAccountListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ManagedAccountListPageAsync> =
         // get /managed_accounts
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun getAllocatableGlobalOutboundChannels(
         params: ManagedAccountGetAllocatableGlobalOutboundChannelsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ManagedAccountGetAllocatableGlobalOutboundChannelsResponse> =
         // get /managed_accounts/allocatable_global_outbound_channels
-        withRawResponse().getAllocatableGlobalOutboundChannels(params, requestOptions).thenApply {
-            it.parse()
-        }
+        withRawResponse()
+            .getAllocatableGlobalOutboundChannels(params, requestOptions)
+            .mapCancellable { it.parse() }
 
     override fun updateGlobalChannelLimit(
         params: ManagedAccountUpdateGlobalChannelLimitParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ManagedAccountUpdateGlobalChannelLimitResponse> =
         // patch /managed_accounts/{id}/update_global_channel_limit
-        withRawResponse().updateGlobalChannelLimit(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateGlobalChannelLimit(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ManagedAccountServiceAsync.WithRawResponse {
@@ -136,8 +141,10 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -169,8 +176,10 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -203,8 +212,10 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -233,8 +244,10 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -276,8 +289,10 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { getAllocatableGlobalOutboundChannelsHandler.handle(it) }
@@ -315,8 +330,10 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateGlobalChannelLimitHandler.handle(it) }

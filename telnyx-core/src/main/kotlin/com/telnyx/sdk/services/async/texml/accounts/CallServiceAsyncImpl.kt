@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.texml.accounts
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsResponse
@@ -81,42 +84,42 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
         requestOptions: RequestOptions,
     ): CompletableFuture<CallResource> =
         // get /texml/Accounts/{account_sid}/Calls/{call_sid}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: CallUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CallResource> =
         // post /texml/Accounts/{account_sid}/Calls/{call_sid}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun calls(
         params: CallCallsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CallCallsResponse> =
         // post /texml/Accounts/{account_sid}/Calls
-        withRawResponse().calls(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().calls(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveCalls(
         params: CallRetrieveCallsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CallRetrieveCallsResponse> =
         // get /texml/Accounts/{account_sid}/Calls
-        withRawResponse().retrieveCalls(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveCalls(params, requestOptions).mapCancellable { it.parse() }
 
     override fun siprecJson(
         params: CallSiprecJsonParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CallSiprecJsonResponse> =
         // post /texml/Accounts/{account_sid}/Calls/{call_sid}/Siprec.json
-        withRawResponse().siprecJson(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().siprecJson(params, requestOptions).mapCancellable { it.parse() }
 
     override fun streamsJson(
         params: CallStreamsJsonParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CallStreamsJsonResponse> =
         // post /texml/Accounts/{account_sid}/Calls/{call_sid}/Streams.json
-        withRawResponse().streamsJson(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().streamsJson(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CallServiceAsync.WithRawResponse {
@@ -184,8 +187,10 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -224,8 +229,10 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -258,8 +265,10 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { callsHandler.handle(it) }
@@ -291,8 +300,10 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveCallsHandler.handle(it) }
@@ -332,8 +343,10 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { siprecJsonHandler.handle(it) }
@@ -373,8 +386,10 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { streamsJsonHandler.handle(it) }

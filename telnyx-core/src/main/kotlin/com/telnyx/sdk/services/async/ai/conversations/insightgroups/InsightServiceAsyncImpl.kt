@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.conversations.insightgroups
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -14,6 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.conversations.insightgroups.insights.InsightAssignParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.insights.InsightDeleteUnassignParams
@@ -39,14 +42,14 @@ class InsightServiceAsyncImpl internal constructor(private val clientOptions: Cl
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // post /ai/conversations/insight-groups/{group_id}/insights/{insight_id}/assign
-        withRawResponse().assign(params, requestOptions).thenAccept {}
+        withRawResponse().assign(params, requestOptions).mapCancellable { null }
 
     override fun deleteUnassign(
         params: InsightDeleteUnassignParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /ai/conversations/insight-groups/{group_id}/insights/{insight_id}/unassign
-        withRawResponse().deleteUnassign(params, requestOptions).thenAccept {}
+        withRawResponse().deleteUnassign(params, requestOptions).mapCancellable { null }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         InsightServiceAsync.WithRawResponse {
@@ -88,8 +91,10 @@ class InsightServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { assignHandler.handle(it) }
                     }
@@ -123,8 +128,10 @@ class InsightServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteUnassignHandler.handle(it) }
                     }

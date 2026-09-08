@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.missions.runs
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.missions.runs.telnyxagents.TelnyxAgentLinkParams
 import com.telnyx.sdk.models.ai.missions.runs.telnyxagents.TelnyxAgentLinkResponse
@@ -43,21 +46,21 @@ class TelnyxAgentServiceAsyncImpl internal constructor(private val clientOptions
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxAgentListResponse> =
         // get /ai/missions/{mission_id}/runs/{run_id}/telnyx-agents
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun link(
         params: TelnyxAgentLinkParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxAgentLinkResponse> =
         // post /ai/missions/{mission_id}/runs/{run_id}/telnyx-agents
-        withRawResponse().link(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().link(params, requestOptions).mapCancellable { it.parse() }
 
     override fun unlink(
         params: TelnyxAgentUnlinkParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /ai/missions/{mission_id}/runs/{run_id}/telnyx-agents/{telnyx_agent_id}
-        withRawResponse().unlink(params, requestOptions).thenAccept {}
+        withRawResponse().unlink(params, requestOptions).mapCancellable { null }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TelnyxAgentServiceAsync.WithRawResponse {
@@ -98,8 +101,10 @@ class TelnyxAgentServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -139,8 +144,10 @@ class TelnyxAgentServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { linkHandler.handle(it) }
@@ -180,8 +187,10 @@ class TelnyxAgentServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { unlinkHandler.handle(it) }
                     }

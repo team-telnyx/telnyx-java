@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.rooms
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.rooms.actions.ActionGenerateJoinClientTokenParams
 import com.telnyx.sdk.models.rooms.actions.ActionGenerateJoinClientTokenResponse
@@ -42,14 +45,16 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionGenerateJoinClientTokenResponse> =
         // post /rooms/{room_id}/actions/generate_join_client_token
-        withRawResponse().generateJoinClientToken(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().generateJoinClientToken(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun refreshClientToken(
         params: ActionRefreshClientTokenParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionRefreshClientTokenResponse> =
         // post /rooms/{room_id}/actions/refresh_client_token
-        withRawResponse().refreshClientToken(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().refreshClientToken(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ActionServiceAsync.WithRawResponse {
@@ -89,8 +94,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { generateJoinClientTokenHandler.handle(it) }
@@ -128,8 +135,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { refreshClientTokenHandler.handle(it) }

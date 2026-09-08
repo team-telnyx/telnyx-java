@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messages.MessageCancelScheduledParams
 import com.telnyx.sdk.models.messages.MessageCancelScheduledResponse
@@ -66,70 +69,72 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageRetrieveResponse> =
         // get /messages/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun cancelScheduled(
         params: MessageCancelScheduledParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageCancelScheduledResponse> =
         // delete /messages/{id}
-        withRawResponse().cancelScheduled(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().cancelScheduled(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveGroupMessages(
         params: MessageRetrieveGroupMessagesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageRetrieveGroupMessagesResponse> =
         // get /messages/group/{message_id}
-        withRawResponse().retrieveGroupMessages(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveGroupMessages(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun schedule(
         params: MessageScheduleParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageScheduleResponse> =
         // post /messages/schedule
-        withRawResponse().schedule(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().schedule(params, requestOptions).mapCancellable { it.parse() }
 
     override fun send(
         params: MessageSendParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageSendResponse> =
         // post /messages
-        withRawResponse().send(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().send(params, requestOptions).mapCancellable { it.parse() }
 
     override fun sendGroupMms(
         params: MessageSendGroupMmsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageSendGroupMmsResponse> =
         // post /messages/group_mms
-        withRawResponse().sendGroupMms(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().sendGroupMms(params, requestOptions).mapCancellable { it.parse() }
 
     override fun sendLongCode(
         params: MessageSendLongCodeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageSendLongCodeResponse> =
         // post /messages/long_code
-        withRawResponse().sendLongCode(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().sendLongCode(params, requestOptions).mapCancellable { it.parse() }
 
     override fun sendNumberPool(
         params: MessageSendNumberPoolParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageSendNumberPoolResponse> =
         // post /messages/number_pool
-        withRawResponse().sendNumberPool(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().sendNumberPool(params, requestOptions).mapCancellable { it.parse() }
 
     override fun sendShortCode(
         params: MessageSendShortCodeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageSendShortCodeResponse> =
         // post /messages/short_code
-        withRawResponse().sendShortCode(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().sendShortCode(params, requestOptions).mapCancellable { it.parse() }
 
     override fun sendWithAlphanumericSender(
         params: MessageSendWithAlphanumericSenderParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageSendWithAlphanumericSenderResponse> =
         // post /messages/alphanumeric_sender_id
-        withRawResponse().sendWithAlphanumericSender(params, requestOptions).thenApply {
+        withRawResponse().sendWithAlphanumericSender(params, requestOptions).mapCancellable {
             it.parse()
         }
 
@@ -138,7 +143,7 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageWhatsappResponse> =
         // post /messages/whatsapp
-        withRawResponse().whatsapp(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().whatsapp(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MessageServiceAsync.WithRawResponse {
@@ -179,8 +184,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -213,8 +220,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { cancelScheduledHandler.handle(it) }
@@ -246,8 +255,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveGroupMessagesHandler.handle(it) }
@@ -277,8 +288,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { scheduleHandler.handle(it) }
@@ -308,8 +321,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendHandler.handle(it) }
@@ -339,8 +354,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendGroupMmsHandler.handle(it) }
@@ -370,8 +387,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendLongCodeHandler.handle(it) }
@@ -401,8 +420,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendNumberPoolHandler.handle(it) }
@@ -432,8 +453,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendShortCodeHandler.handle(it) }
@@ -464,8 +487,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendWithAlphanumericSenderHandler.handle(it) }
@@ -495,8 +520,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { whatsappHandler.handle(it) }

@@ -45,6 +45,8 @@ internal class V1ServiceTest {
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
+                    .mode(V1MessagesParams.Mode.PREFERRED)
+                    .region(V1MessagesParams.Region.USA)
                     .serviceTier("service_tier")
                     .addStopSequence("string")
                     .stream(true)

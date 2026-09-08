@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.enterprises
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.enterprises.reputation.EnterpriseReputationPublicWrapped
 import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
@@ -67,28 +70,28 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
         requestOptions: RequestOptions,
     ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         // get /enterprises/{enterprise_id}/reputation
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun disable(
         params: ReputationDisableParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /enterprises/{enterprise_id}/reputation
-        withRawResponse().disable(params, requestOptions).thenAccept {}
+        withRawResponse().disable(params, requestOptions).mapCancellable { null }
 
     override fun enable(
         params: ReputationEnableParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         // post /enterprises/{enterprise_id}/reputation
-        withRawResponse().enable(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().enable(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateFrequency(
         params: ReputationUpdateFrequencyParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<EnterpriseReputationPublicWrapped> =
         // patch /enterprises/{enterprise_id}/reputation/frequency
-        withRawResponse().updateFrequency(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateFrequency(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ReputationServiceAsync.WithRawResponse {
@@ -143,8 +146,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -176,8 +181,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { disableHandler.handle(it) }
                     }
@@ -204,8 +211,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { enableHandler.handle(it) }
@@ -238,8 +247,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateFrequencyHandler.handle(it) }

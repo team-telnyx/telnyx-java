@@ -3,9 +3,13 @@
 package com.telnyx.sdk.core.http
 
 import com.telnyx.sdk.core.DefaultSleeper
+import com.telnyx.sdk.core.RequestCancellationScope
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.Sleeper
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellable
+import com.telnyx.sdk.core.handleCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.errors.TelnyxIoException
 import com.telnyx.sdk.errors.TelnyxRetryableException
 import java.io.IOException
@@ -19,7 +23,6 @@ import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.TimeUnit
-import java.util.function.Function
 import kotlin.math.min
 import kotlin.math.pow
 
@@ -83,6 +86,7 @@ private constructor(
         val shouldSendRetryCount =
             !modifiedRequest.headers.names().contains("X-Stainless-Retry-Count")
 
+        val cancellation = RequestCancellationScope()
         var retries = 0
 
         fun executeWithRetries(
@@ -92,13 +96,16 @@ private constructor(
             val requestWithRetryCount =
                 if (shouldSendRetryCount) setRetryCountHeader(request, retries) else request
 
-            val responseFuture = httpClient.executeAsync(requestWithRetryCount, requestOptions)
+            val responseFuture =
+                cancellation.start {
+                    httpClient.executeAsync(requestWithRetryCount, requestOptions).ownResponse()
+                }
             if (!isRetryable(requestWithRetryCount)) {
                 return responseFuture
             }
 
             return responseFuture
-                .handleAsync(
+                .handleCancellable(
                     fun(
                         response: HttpResponse?,
                         throwable: Throwable?,
@@ -118,18 +125,17 @@ private constructor(
                         val backoffDuration = getRetryBackoffDuration(retries, response)
                         // All responses must be closed, so close the failed one before retrying.
                         response?.close()
-                        return sleeper.sleepAsync(backoffDuration).thenCompose {
-                            executeWithRetries(requestWithRetryCount, requestOptions)
-                        }
+                        return cancellation
+                            .start { sleeper.sleepAsync(backoffDuration) }
+                            .composeCancellable { _: Void? ->
+                                executeWithRetries(requestWithRetryCount, requestOptions)
+                            }
                     }
-                ) {
-                    // Run in the same thread.
-                    it.run()
-                }
-                .thenCompose(Function.identity())
+                )
+                .composeCancellable { it }
         }
 
-        return executeWithRetries(modifiedRequest, requestOptions)
+        return cancellation.bind(executeWithRetries(modifiedRequest, requestOptions))
     }
 
     override fun close() {

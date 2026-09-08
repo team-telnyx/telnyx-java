@@ -79,15 +79,14 @@ private constructor(
         request: HttpRequest,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
-        getOrFetchAccessTokenAsync()
-            .thenCompose { token ->
-                val authorizationHeader = "Bearer $token"
-                val requestWithAuth =
-                    request.toBuilder().putHeader("Authorization", authorizationHeader).build()
+        getOrFetchAccessTokenAsync().thenCompose { token ->
+            val authorizationHeader = "Bearer $token"
+            val requestWithAuth =
+                request.toBuilder().putHeader("Authorization", authorizationHeader).build()
 
-                httpClient.executeAsync(requestWithAuth, requestOptions)
-            }
-            .thenApply { response ->
+            // Keep response cleanup on the transport child. Cancelling the returned
+            // dependent must not suppress late 401 cleanup or cancel shared token work.
+            httpClient.executeAsync(requestWithAuth, requestOptions).thenApply { response ->
                 if (response.statusCode() == 401) {
                     response.close()
 
@@ -98,6 +97,7 @@ private constructor(
 
                 response
             }
+        }
 
     private fun getOrFetchAccessTokenAsync(): CompletableFuture<String> =
         lock.withLockAsync {

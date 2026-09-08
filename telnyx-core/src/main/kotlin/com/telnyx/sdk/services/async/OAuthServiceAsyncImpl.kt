@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.oauth.OAuthGrantsParams
 import com.telnyx.sdk.models.oauth.OAuthGrantsResponse
@@ -51,49 +54,49 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
         requestOptions: RequestOptions,
     ): CompletableFuture<OAuthRetrieveResponse> =
         // get /oauth/consent/{consent_token}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun grants(
         params: OAuthGrantsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<OAuthGrantsResponse> =
         // post /oauth/grants
-        withRawResponse().grants(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().grants(params, requestOptions).mapCancellable { it.parse() }
 
     override fun introspect(
         params: OAuthIntrospectParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<OAuthIntrospectResponse> =
         // post /oauth/introspect
-        withRawResponse().introspect(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().introspect(params, requestOptions).mapCancellable { it.parse() }
 
     override fun register(
         params: OAuthRegisterParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<OAuthRegisterResponse> =
         // post /oauth/register
-        withRawResponse().register(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().register(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveAuthorize(
         params: OAuthRetrieveAuthorizeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<String> =
         // get /oauth/authorize
-        withRawResponse().retrieveAuthorize(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveAuthorize(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveJwks(
         params: OAuthRetrieveJwksParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<OAuthRetrieveJwksResponse> =
         // get /oauth/jwks
-        withRawResponse().retrieveJwks(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveJwks(params, requestOptions).mapCancellable { it.parse() }
 
     override fun token(
         params: OAuthTokenParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<OAuthTokenResponse> =
         // post /oauth/token
-        withRawResponse().token(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().token(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         OAuthServiceAsync.WithRawResponse {
@@ -127,8 +130,10 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -158,8 +163,10 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { grantsHandler.handle(it) }
@@ -189,8 +196,10 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { introspectHandler.handle(it) }
@@ -220,8 +229,10 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { registerHandler.handle(it) }
@@ -250,8 +261,10 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { retrieveAuthorizeHandler.handle(it) }
                     }
@@ -274,8 +287,10 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveJwksHandler.handle(it) }
@@ -305,8 +320,10 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { tokenHandler.handle(it) }

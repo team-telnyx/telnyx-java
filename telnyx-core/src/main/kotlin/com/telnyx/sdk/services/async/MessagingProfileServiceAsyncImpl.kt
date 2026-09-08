@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateResponse
@@ -76,63 +79,65 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileCreateResponse> =
         // post /messaging_profiles
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: MessagingProfileRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileRetrieveResponse> =
         // get /messaging_profiles/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: MessagingProfileUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileUpdateResponse> =
         // patch /messaging_profiles/{id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: MessagingProfileListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileListPageAsync> =
         // get /messaging_profiles
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: MessagingProfileDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileDeleteResponse> =
         // delete /messaging_profiles/{id}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listAlphanumericSenderIds(
         params: MessagingProfileListAlphanumericSenderIdsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileListAlphanumericSenderIdsPageAsync> =
         // get /messaging_profiles/{id}/alphanumeric_sender_ids
-        withRawResponse().listAlphanumericSenderIds(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listAlphanumericSenderIds(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun listPhoneNumbers(
         params: MessagingProfileListPhoneNumbersParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileListPhoneNumbersPageAsync> =
         // get /messaging_profiles/{id}/phone_numbers
-        withRawResponse().listPhoneNumbers(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listPhoneNumbers(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listShortCodes(
         params: MessagingProfileListShortCodesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileListShortCodesPageAsync> =
         // get /messaging_profiles/{id}/short_codes
-        withRawResponse().listShortCodes(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listShortCodes(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveMetrics(
         params: MessagingProfileRetrieveMetricsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessagingProfileRetrieveMetricsResponse> =
         // get /messaging_profiles/{id}/metrics
-        withRawResponse().retrieveMetrics(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveMetrics(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MessagingProfileServiceAsync.WithRawResponse {
@@ -177,8 +182,10 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -210,8 +217,10 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -244,8 +253,10 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -274,8 +285,10 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -316,8 +329,10 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { deleteHandler.handle(it) }
@@ -356,8 +371,10 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listAlphanumericSenderIdsHandler.handle(it) }
@@ -397,8 +414,10 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listPhoneNumbersHandler.handle(it) }
@@ -438,8 +457,10 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listShortCodesHandler.handle(it) }
@@ -479,8 +500,10 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveMetricsHandler.handle(it) }

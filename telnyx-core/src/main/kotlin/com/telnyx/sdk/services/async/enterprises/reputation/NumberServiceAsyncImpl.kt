@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.enterprises.reputation
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
@@ -48,35 +51,35 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<ReputationPhoneNumberWithReputation> =
         // get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: NumberListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<NumberListPageAsync> =
         // get /enterprises/{enterprise_id}/reputation/numbers
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun associate(
         params: NumberAssociateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ReputationPhoneNumberList> =
         // post /enterprises/{enterprise_id}/reputation/numbers
-        withRawResponse().associate(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().associate(params, requestOptions).mapCancellable { it.parse() }
 
     override fun disassociate(
         params: NumberDisassociateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}
-        withRawResponse().disassociate(params, requestOptions).thenAccept {}
+        withRawResponse().disassociate(params, requestOptions).mapCancellable { null }
 
     override fun refresh(
         params: NumberRefreshParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<NumberRefreshResponse> =
         // post /enterprises/{enterprise_id}/reputation/numbers/refresh
-        withRawResponse().refresh(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().refresh(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         NumberServiceAsync.WithRawResponse {
@@ -116,8 +119,10 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -149,8 +154,10 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -191,8 +198,10 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { associateHandler.handle(it) }
@@ -230,8 +239,10 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { disassociateHandler.handle(it) }
                     }
@@ -264,8 +275,10 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { refreshHandler.handle(it) }

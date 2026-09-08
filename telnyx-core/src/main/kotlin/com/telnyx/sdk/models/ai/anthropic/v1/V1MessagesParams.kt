@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.BaseDeserializer
 import com.telnyx.sdk.core.BaseSerializer
+import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -126,6 +127,29 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun metadata(): Optional<Metadata> = body.metadata()
+
+    /**
+     * How strictly `region` is applied. `preferred` (the default when `region` is set) tries that
+     * region first and falls back to another when the model cannot be served there, so a request
+     * that would have succeeded still succeeds. `strict` pins the request: it is served from that
+     * region or it fails with a 422, never redirected to another region. Requires `region`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mode(): Optional<Mode> = body.mode()
+
+    /**
+     * Optional data-residency region the request should be served from, using the same vocabulary
+     * as your account's Data Locality setting. Behavior depends on `mode`. Supported for
+     * Telnyx-hosted models only: a request routed to an external provider never passes through
+     * Telnyx model routing, so a region cannot be enforced for it. Omit for today's latency-based
+     * routing.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun region(): Optional<Region> = body.region()
 
     /**
      * The service tier to use for this request. Supported values vary by model; use the Telnyx
@@ -281,6 +305,20 @@ private constructor(
      * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    /**
+     * Returns the raw JSON value of [mode].
+     *
+     * Unlike [mode], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mode(): JsonField<Mode> = body._mode()
+
+    /**
+     * Returns the raw JSON value of [region].
+     *
+     * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _region(): JsonField<Region> = body._region()
 
     /**
      * Returns the raw JSON value of [serviceTier].
@@ -550,6 +588,40 @@ private constructor(
          * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
+
+        /**
+         * How strictly `region` is applied. `preferred` (the default when `region` is set) tries
+         * that region first and falls back to another when the model cannot be served there, so a
+         * request that would have succeeded still succeeds. `strict` pins the request: it is served
+         * from that region or it fails with a 422, never redirected to another region. Requires
+         * `region`.
+         */
+        fun mode(mode: Mode) = apply { body.mode(mode) }
+
+        /**
+         * Sets [Builder.mode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mode] with a well-typed [Mode] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun mode(mode: JsonField<Mode>) = apply { body.mode(mode) }
+
+        /**
+         * Optional data-residency region the request should be served from, using the same
+         * vocabulary as your account's Data Locality setting. Behavior depends on `mode`. Supported
+         * for Telnyx-hosted models only: a request routed to an external provider never passes
+         * through Telnyx model routing, so a region cannot be enforced for it. Omit for today's
+         * latency-based routing.
+         */
+        fun region(region: Region) = apply { body.region(region) }
+
+        /**
+         * Sets [Builder.region] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.region] with a well-typed [Region] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun region(region: JsonField<Region>) = apply { body.region(region) }
 
         /**
          * The service tier to use for this request. Supported values vary by model; use the Telnyx
@@ -872,6 +944,8 @@ private constructor(
         private val maxRetries: JsonField<Long>,
         private val mcpServers: JsonField<List<McpServer>>,
         private val metadata: JsonField<Metadata>,
+        private val mode: JsonField<Mode>,
+        private val region: JsonField<Region>,
         private val serviceTier: JsonField<String>,
         private val stopSequences: JsonField<List<String>>,
         private val stream: JsonField<Boolean>,
@@ -913,6 +987,8 @@ private constructor(
             @JsonProperty("metadata")
             @ExcludeMissing
             metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("mode") @ExcludeMissing mode: JsonField<Mode> = JsonMissing.of(),
+            @JsonProperty("region") @ExcludeMissing region: JsonField<Region> = JsonMissing.of(),
             @JsonProperty("service_tier")
             @ExcludeMissing
             serviceTier: JsonField<String> = JsonMissing.of(),
@@ -944,6 +1020,8 @@ private constructor(
             maxRetries,
             mcpServers,
             metadata,
+            mode,
+            region,
             serviceTier,
             stopSequences,
             stream,
@@ -1035,6 +1113,30 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
+
+        /**
+         * How strictly `region` is applied. `preferred` (the default when `region` is set) tries
+         * that region first and falls back to another when the model cannot be served there, so a
+         * request that would have succeeded still succeeds. `strict` pins the request: it is served
+         * from that region or it fails with a 422, never redirected to another region. Requires
+         * `region`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mode(): Optional<Mode> = mode.getOptional("mode")
+
+        /**
+         * Optional data-residency region the request should be served from, using the same
+         * vocabulary as your account's Data Locality setting. Behavior depends on `mode`. Supported
+         * for Telnyx-hosted models only: a request routed to an external provider never passes
+         * through Telnyx model routing, so a region cannot be enforced for it. Omit for today's
+         * latency-based routing.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun region(): Optional<Region> = region.getOptional("region")
 
         /**
          * The service tier to use for this request. Supported values vary by model; use the Telnyx
@@ -1202,6 +1304,20 @@ private constructor(
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         /**
+         * Returns the raw JSON value of [mode].
+         *
+         * Unlike [mode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("mode") @ExcludeMissing fun _mode(): JsonField<Mode> = mode
+
+        /**
+         * Returns the raw JSON value of [region].
+         *
+         * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<Region> = region
+
+        /**
          * Returns the raw JSON value of [serviceTier].
          *
          * Unlike [serviceTier], this method doesn't throw if the JSON field has an unexpected type.
@@ -1326,6 +1442,8 @@ private constructor(
             private var maxRetries: JsonField<Long> = JsonMissing.of()
             private var mcpServers: JsonField<MutableList<McpServer>>? = null
             private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var mode: JsonField<Mode> = JsonMissing.of()
+            private var region: JsonField<Region> = JsonMissing.of()
             private var serviceTier: JsonField<String> = JsonMissing.of()
             private var stopSequences: JsonField<MutableList<String>>? = null
             private var stream: JsonField<Boolean> = JsonMissing.of()
@@ -1350,6 +1468,8 @@ private constructor(
                 maxRetries = body.maxRetries
                 mcpServers = body.mcpServers.map { it.toMutableList() }
                 metadata = body.metadata
+                mode = body.mode
+                region = body.region
                 serviceTier = body.serviceTier
                 stopSequences = body.stopSequences.map { it.toMutableList() }
                 stream = body.stream
@@ -1516,6 +1636,42 @@ private constructor(
              * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            /**
+             * How strictly `region` is applied. `preferred` (the default when `region` is set)
+             * tries that region first and falls back to another when the model cannot be served
+             * there, so a request that would have succeeded still succeeds. `strict` pins the
+             * request: it is served from that region or it fails with a 422, never redirected to
+             * another region. Requires `region`.
+             */
+            fun mode(mode: Mode) = mode(JsonField.of(mode))
+
+            /**
+             * Sets [Builder.mode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mode] with a well-typed [Mode] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun mode(mode: JsonField<Mode>) = apply { this.mode = mode }
+
+            /**
+             * Optional data-residency region the request should be served from, using the same
+             * vocabulary as your account's Data Locality setting. Behavior depends on `mode`.
+             * Supported for Telnyx-hosted models only: a request routed to an external provider
+             * never passes through Telnyx model routing, so a region cannot be enforced for it.
+             * Omit for today's latency-based routing.
+             */
+            fun region(region: Region) = region(JsonField.of(region))
+
+            /**
+             * Sets [Builder.region] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.region] with a well-typed [Region] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun region(region: JsonField<Region>) = apply { this.region = region }
 
             /**
              * The service tier to use for this request. Supported values vary by model; use the
@@ -1752,6 +1908,8 @@ private constructor(
                     maxRetries,
                     (mcpServers ?: JsonMissing.of()).map { it.toImmutable() },
                     metadata,
+                    mode,
+                    region,
                     serviceTier,
                     (stopSequences ?: JsonMissing.of()).map { it.toImmutable() },
                     stream,
@@ -1792,6 +1950,8 @@ private constructor(
             maxRetries()
             mcpServers().ifPresent { it.forEach { it.validate() } }
             metadata().ifPresent { it.validate() }
+            mode().ifPresent { it.validate() }
+            region().ifPresent { it.validate() }
             serviceTier()
             stopSequences()
             stream()
@@ -1831,6 +1991,8 @@ private constructor(
                 (if (maxRetries.asKnown().isPresent) 1 else 0) +
                 (mcpServers.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (metadata.asKnown().getOrNull()?.validity() ?: 0) +
+                (mode.asKnown().getOrNull()?.validity() ?: 0) +
+                (region.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (serviceTier.asKnown().isPresent) 1 else 0) +
                 (stopSequences.asKnown().getOrNull()?.size ?: 0) +
                 (if (stream.asKnown().isPresent) 1 else 0) +
@@ -1858,6 +2020,8 @@ private constructor(
                 maxRetries == other.maxRetries &&
                 mcpServers == other.mcpServers &&
                 metadata == other.metadata &&
+                mode == other.mode &&
+                region == other.region &&
                 serviceTier == other.serviceTier &&
                 stopSequences == other.stopSequences &&
                 stream == other.stream &&
@@ -1883,6 +2047,8 @@ private constructor(
                 maxRetries,
                 mcpServers,
                 metadata,
+                mode,
+                region,
                 serviceTier,
                 stopSequences,
                 stream,
@@ -1901,7 +2067,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{maxTokens=$maxTokens, messages=$messages, model=$model, apiKeyRef=$apiKeyRef, billingGroupId=$billingGroupId, fallbackConfig=$fallbackConfig, maxRetries=$maxRetries, mcpServers=$mcpServers, metadata=$metadata, serviceTier=$serviceTier, stopSequences=$stopSequences, stream=$stream, system=$system, temperature=$temperature, thinking=$thinking, timeout=$timeout, toolChoice=$toolChoice, tools=$tools, topK=$topK, topP=$topP, additionalProperties=$additionalProperties}"
+            "Body{maxTokens=$maxTokens, messages=$messages, model=$model, apiKeyRef=$apiKeyRef, billingGroupId=$billingGroupId, fallbackConfig=$fallbackConfig, maxRetries=$maxRetries, mcpServers=$mcpServers, metadata=$metadata, mode=$mode, region=$region, serviceTier=$serviceTier, stopSequences=$stopSequences, stream=$stream, system=$system, temperature=$temperature, thinking=$thinking, timeout=$timeout, toolChoice=$toolChoice, tools=$tools, topK=$topK, topP=$topP, additionalProperties=$additionalProperties}"
     }
 
     class Message
@@ -2336,6 +2502,299 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * How strictly `region` is applied. `preferred` (the default when `region` is set) tries that
+     * region first and falls back to another when the model cannot be served there, so a request
+     * that would have succeeded still succeeds. `strict` pins the request: it is served from that
+     * region or it fails with a 422, never redirected to another region. Requires `region`.
+     */
+    class Mode @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val PREFERRED = of("preferred")
+
+            @JvmField val STRICT = of("strict")
+
+            @JvmStatic fun of(value: String) = Mode(JsonField.of(value))
+        }
+
+        /** An enum containing [Mode]'s known values. */
+        enum class Known {
+            PREFERRED,
+            STRICT,
+        }
+
+        /**
+         * An enum containing [Mode]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Mode] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PREFERRED,
+            STRICT,
+            /** An enum member indicating that [Mode] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PREFERRED -> Value.PREFERRED
+                STRICT -> Value.STRICT
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                PREFERRED -> Known.PREFERRED
+                STRICT -> Known.STRICT
+                else -> throw TelnyxInvalidDataException("Unknown Mode: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Mode = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Mode && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Optional data-residency region the request should be served from, using the same vocabulary
+     * as your account's Data Locality setting. Behavior depends on `mode`. Supported for
+     * Telnyx-hosted models only: a request routed to an external provider never passes through
+     * Telnyx model routing, so a region cannot be enforced for it. Omit for today's latency-based
+     * routing.
+     */
+    class Region @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val USA = of("USA")
+
+            @JvmField val EU = of("EU")
+
+            @JvmField val AUS = of("AUS")
+
+            @JvmField val UAE = of("UAE")
+
+            @JvmStatic fun of(value: String) = Region(JsonField.of(value))
+        }
+
+        /** An enum containing [Region]'s known values. */
+        enum class Known {
+            USA,
+            EU,
+            AUS,
+            UAE,
+        }
+
+        /**
+         * An enum containing [Region]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Region] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            USA,
+            EU,
+            AUS,
+            UAE,
+            /** An enum member indicating that [Region] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                USA -> Value.USA
+                EU -> Value.EU
+                AUS -> Value.AUS
+                UAE -> Value.UAE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                USA -> Known.USA
+                EU -> Known.EU
+                AUS -> Known.AUS
+                UAE -> Known.UAE
+                else -> throw TelnyxInvalidDataException("Unknown Region: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Region = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Region && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     /**

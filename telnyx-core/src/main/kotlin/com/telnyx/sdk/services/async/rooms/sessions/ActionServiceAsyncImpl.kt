@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.rooms.sessions
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.rooms.sessions.actions.ActionEndParams
 import com.telnyx.sdk.models.rooms.sessions.actions.ActionEndResponse
@@ -46,28 +49,28 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionEndResponse> =
         // post /room_sessions/{room_session_id}/actions/end
-        withRawResponse().end(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().end(params, requestOptions).mapCancellable { it.parse() }
 
     override fun kick(
         params: ActionKickParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionKickResponse> =
         // post /room_sessions/{room_session_id}/actions/kick
-        withRawResponse().kick(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().kick(params, requestOptions).mapCancellable { it.parse() }
 
     override fun mute(
         params: ActionMuteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionMuteResponse> =
         // post /room_sessions/{room_session_id}/actions/mute
-        withRawResponse().mute(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().mute(params, requestOptions).mapCancellable { it.parse() }
 
     override fun unmute(
         params: ActionUnmuteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActionUnmuteResponse> =
         // post /room_sessions/{room_session_id}/actions/unmute
-        withRawResponse().unmute(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().unmute(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ActionServiceAsync.WithRawResponse {
@@ -102,8 +105,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { endHandler.handle(it) }
@@ -136,8 +141,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { kickHandler.handle(it) }
@@ -170,8 +177,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { muteHandler.handle(it) }
@@ -204,8 +213,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { unmuteHandler.handle(it) }

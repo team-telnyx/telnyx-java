@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.phonenumbers
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.phonenumbers.jobs.JobDeleteBatchParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobDeleteBatchResponse
@@ -49,35 +52,35 @@ class JobServiceAsyncImpl internal constructor(private val clientOptions: Client
         requestOptions: RequestOptions,
     ): CompletableFuture<JobRetrieveResponse> =
         // get /phone_numbers/jobs/{id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: JobListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<JobListPageAsync> =
         // get /phone_numbers/jobs
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun deleteBatch(
         params: JobDeleteBatchParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<JobDeleteBatchResponse> =
         // post /phone_numbers/jobs/delete_phone_numbers
-        withRawResponse().deleteBatch(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().deleteBatch(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateBatch(
         params: JobUpdateBatchParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<JobUpdateBatchResponse> =
         // post /phone_numbers/jobs/update_phone_numbers
-        withRawResponse().updateBatch(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateBatch(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateEmergencySettingsBatch(
         params: JobUpdateEmergencySettingsBatchParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<JobUpdateEmergencySettingsBatchResponse> =
         // post /phone_numbers/jobs/update_emergency_settings
-        withRawResponse().updateEmergencySettingsBatch(params, requestOptions).thenApply {
+        withRawResponse().updateEmergencySettingsBatch(params, requestOptions).mapCancellable {
             it.parse()
         }
 
@@ -113,8 +116,10 @@ class JobServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -143,8 +148,10 @@ class JobServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -182,8 +189,10 @@ class JobServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { deleteBatchHandler.handle(it) }
@@ -213,8 +222,10 @@ class JobServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateBatchHandler.handle(it) }
@@ -245,8 +256,10 @@ class JobServiceAsyncImpl internal constructor(private val clientOptions: Client
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateEmergencySettingsBatchHandler.handle(it) }

@@ -18,14 +18,14 @@ private constructor(
     private val service: MessagingProfileService,
     private val params: MessagingProfileListParams,
     private val response: MessagingProfileListPageResponse,
-) : Page<MessagingProfile> {
+) : Page<MessagingMessagingProfile> {
 
     /**
      * Delegates to [MessagingProfileListPageResponse], but gracefully handles missing data.
      *
      * @see MessagingProfileListPageResponse.data
      */
-    fun data(): List<MessagingProfile> =
+    fun data(): List<MessagingMessagingProfile> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta0b38e7044b> = response._meta().getOptional("meta")
 
-    override fun items(): List<MessagingProfile> = data()
+    override fun items(): List<MessagingMessagingProfile> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -64,7 +64,7 @@ private constructor(
 
     override fun nextPage(): MessagingProfileListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<MessagingProfile> = AutoPager.from(this)
+    fun autoPager(): AutoPager<MessagingMessagingProfile> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): MessagingProfileListParams = params

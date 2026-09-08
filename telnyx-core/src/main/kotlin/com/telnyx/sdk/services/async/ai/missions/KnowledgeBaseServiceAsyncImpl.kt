@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.missions
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
@@ -16,6 +17,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.missions.knowledgebases.KnowledgeBaseCreateKnowledgeBaseParams
 import com.telnyx.sdk.models.ai.missions.knowledgebases.KnowledgeBaseCreateKnowledgeBaseResponse
@@ -47,35 +50,35 @@ class KnowledgeBaseServiceAsyncImpl internal constructor(private val clientOptio
         requestOptions: RequestOptions,
     ): CompletableFuture<KnowledgeBaseCreateKnowledgeBaseResponse> =
         // post /ai/missions/{mission_id}/knowledge-bases
-        withRawResponse().createKnowledgeBase(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().createKnowledgeBase(params, requestOptions).mapCancellable { it.parse() }
 
     override fun deleteKnowledgeBase(
         params: KnowledgeBaseDeleteKnowledgeBaseParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}
-        withRawResponse().deleteKnowledgeBase(params, requestOptions).thenAccept {}
+        withRawResponse().deleteKnowledgeBase(params, requestOptions).mapCancellable { null }
 
     override fun getKnowledgeBase(
         params: KnowledgeBaseGetKnowledgeBaseParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<KnowledgeBaseGetKnowledgeBaseResponse> =
         // get /ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}
-        withRawResponse().getKnowledgeBase(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getKnowledgeBase(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listKnowledgeBases(
         params: KnowledgeBaseListKnowledgeBasesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<KnowledgeBaseListKnowledgeBasesResponse> =
         // get /ai/missions/{mission_id}/knowledge-bases
-        withRawResponse().listKnowledgeBases(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listKnowledgeBases(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateKnowledgeBase(
         params: KnowledgeBaseUpdateKnowledgeBaseParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<KnowledgeBaseUpdateKnowledgeBaseResponse> =
         // put /ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}
-        withRawResponse().updateKnowledgeBase(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateKnowledgeBase(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         KnowledgeBaseServiceAsync.WithRawResponse {
@@ -110,8 +113,10 @@ class KnowledgeBaseServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createKnowledgeBaseHandler.handle(it) }
@@ -149,8 +154,10 @@ class KnowledgeBaseServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteKnowledgeBaseHandler.handle(it) }
                     }
@@ -182,8 +189,10 @@ class KnowledgeBaseServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { getKnowledgeBaseHandler.handle(it) }
@@ -215,8 +224,10 @@ class KnowledgeBaseServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listKnowledgeBasesHandler.handle(it) }
@@ -255,8 +266,10 @@ class KnowledgeBaseServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateKnowledgeBaseHandler.handle(it) }

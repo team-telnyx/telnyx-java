@@ -19,27 +19,29 @@ import kotlin.jvm.optionals.getOrNull
 class MessagingProfileDeleteResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<MessagingProfile>,
+    private val data: JsonField<MessagingMessagingProfile>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<MessagingProfile> = JsonMissing.of()
+        @JsonProperty("data")
+        @ExcludeMissing
+        data: JsonField<MessagingMessagingProfile> = JsonMissing.of()
     ) : this(data, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<MessagingProfile> = data.getOptional("data")
+    fun data(): Optional<MessagingMessagingProfile> = data.getOptional("data")
 
     /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<MessagingProfile> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<MessagingMessagingProfile> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -65,7 +67,7 @@ private constructor(
     /** A builder for [MessagingProfileDeleteResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MessagingProfile> = JsonMissing.of()
+        private var data: JsonField<MessagingMessagingProfile> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -75,16 +77,16 @@ private constructor(
                 messagingProfileDeleteResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: MessagingProfile) = data(JsonField.of(data))
+        fun data(data: MessagingMessagingProfile) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed [MessagingProfile] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed [MessagingMessagingProfile]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<MessagingProfile>) = apply { this.data = data }
+        fun data(data: JsonField<MessagingMessagingProfile>) = apply { this.data = data }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

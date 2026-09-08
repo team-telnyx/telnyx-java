@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.messaging10dlc
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileAssignParams
 import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileAssignResponse
@@ -53,28 +56,32 @@ internal constructor(private val clientOptions: ClientOptions) :
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberAssignmentByProfileAssignResponse> =
         // post /10dlc/phoneNumberAssignmentByProfile
-        withRawResponse().assign(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().assign(params, requestOptions).mapCancellable { it.parse() }
 
     override fun listPhoneNumberStatus(
         params: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> =
         // get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers
-        withRawResponse().listPhoneNumberStatus(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listPhoneNumberStatus(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun retrievePhoneNumberStatus(
         params: PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse> =
         // get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers
-        withRawResponse().retrievePhoneNumberStatus(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrievePhoneNumberStatus(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     override fun retrieveStatus(
         params: PhoneNumberAssignmentByProfileRetrieveStatusParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberAssignmentByProfileRetrieveStatusResponse> =
         // get /10dlc/phoneNumberAssignmentByProfile/{taskId}
-        withRawResponse().retrieveStatus(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveStatus(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse {
@@ -106,8 +113,10 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { assignHandler.handle(it) }
@@ -149,8 +158,10 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listPhoneNumberStatusHandler.handle(it) }
@@ -192,8 +203,10 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrievePhoneNumberStatusHandler.handle(it) }
@@ -234,8 +247,10 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveStatusHandler.handle(it) }

@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.texml.accounts
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.TexmlGetCallRecordingsResponseBody
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceResource
@@ -56,35 +59,37 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
         requestOptions: RequestOptions,
     ): CompletableFuture<ConferenceResource> =
         // get /texml/Accounts/{account_sid}/Conferences/{conference_sid}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: ConferenceUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ConferenceResource> =
         // post /texml/Accounts/{account_sid}/Conferences/{conference_sid}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveConferences(
         params: ConferenceRetrieveConferencesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ConferenceRetrieveConferencesResponse> =
         // get /texml/Accounts/{account_sid}/Conferences
-        withRawResponse().retrieveConferences(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveConferences(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveRecordings(
         params: ConferenceRetrieveRecordingsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ConferenceRetrieveRecordingsResponse> =
         // get /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings
-        withRawResponse().retrieveRecordings(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveRecordings(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveRecordingsJson(
         params: ConferenceRetrieveRecordingsJsonParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TexmlGetCallRecordingsResponseBody> =
         // get /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings.json
-        withRawResponse().retrieveRecordingsJson(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveRecordingsJson(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ConferenceServiceAsync.WithRawResponse {
@@ -131,8 +136,10 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -171,8 +178,10 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -204,8 +213,10 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveConferencesHandler.handle(it) }
@@ -244,8 +255,10 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveRecordingsHandler.handle(it) }
@@ -284,8 +297,10 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveRecordingsJsonHandler.handle(it) }

@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.composeCancellableAsync
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -15,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.mapCancellable
+import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.verifyprofiles.MessageTemplate
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateParams
@@ -51,56 +54,56 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
         requestOptions: RequestOptions,
     ): CompletableFuture<VerifyProfileData> =
         // post /verify_profiles
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: VerifyProfileRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<VerifyProfileData> =
         // get /verify_profiles/{verify_profile_id}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: VerifyProfileUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<VerifyProfileData> =
         // patch /verify_profiles/{verify_profile_id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: VerifyProfileListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<VerifyProfileListPageAsync> =
         // get /verify_profiles
-        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: VerifyProfileDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<VerifyProfileData> =
         // delete /verify_profiles/{verify_profile_id}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).mapCancellable { it.parse() }
 
     override fun createTemplate(
         params: VerifyProfileCreateTemplateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageTemplate> =
         // post /verify_profiles/templates
-        withRawResponse().createTemplate(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().createTemplate(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveTemplates(
         params: VerifyProfileRetrieveTemplatesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<VerifyProfileRetrieveTemplatesResponse> =
         // get /verify_profiles/templates
-        withRawResponse().retrieveTemplates(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().retrieveTemplates(params, requestOptions).mapCancellable { it.parse() }
 
     override fun updateTemplate(
         params: VerifyProfileUpdateTemplateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MessageTemplate> =
         // patch /verify_profiles/templates/{template_id}
-        withRawResponse().updateTemplate(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().updateTemplate(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         VerifyProfileServiceAsync.WithRawResponse {
@@ -132,8 +135,10 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
@@ -165,8 +170,10 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
@@ -199,8 +206,10 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
@@ -229,8 +238,10 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
@@ -271,8 +282,10 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { deleteHandler.handle(it) }
@@ -302,8 +315,10 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { createTemplateHandler.handle(it) }
@@ -332,8 +347,10 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveTemplatesHandler.handle(it) }
@@ -366,8 +383,10 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateTemplateHandler.handle(it) }
