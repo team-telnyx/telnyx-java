@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteParams
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteResponse
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleParams
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleResponse
+import com.telnyx.sdk.services.blocking.x402.creditaccount.PaymentService
 import java.util.function.Consumer
 
 /**
@@ -29,6 +30,12 @@ interface CreditAccountService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CreditAccountService
+
+    /**
+     * Operations for x402 cryptocurrency payment transactions. Fund your Telnyx account using USDC
+     * stablecoin payments via the x402 protocol.
+     */
+    fun payments(): PaymentService
 
     /**
      * Creates a payment quote for the specified USD amount. Returns payment details including the
@@ -72,6 +79,12 @@ interface CreditAccountService {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): CreditAccountService.WithRawResponse
+
+        /**
+         * Operations for x402 cryptocurrency payment transactions. Fund your Telnyx account using
+         * USDC stablecoin payments via the x402 protocol.
+         */
+        fun payments(): PaymentService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /v2/x402/credit_account/quote`, but is otherwise

@@ -22,6 +22,8 @@ import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteParams
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteResponse
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleParams
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleResponse
+import com.telnyx.sdk.services.async.x402.creditaccount.PaymentServiceAsync
+import com.telnyx.sdk.services.async.x402.creditaccount.PaymentServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -36,10 +38,18 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
         WithRawResponseImpl(clientOptions)
     }
 
+    private val payments: PaymentServiceAsync by lazy { PaymentServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): CreditAccountServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CreditAccountServiceAsync =
         CreditAccountServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    /**
+     * Operations for x402 cryptocurrency payment transactions. Fund your Telnyx account using USDC
+     * stablecoin payments via the x402 protocol.
+     */
+    override fun payments(): PaymentServiceAsync = payments
 
     override fun createQuote(
         params: CreditAccountCreateQuoteParams,
@@ -61,12 +71,22 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val payments: PaymentServiceAsync.WithRawResponse by lazy {
+            PaymentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): CreditAccountServiceAsync.WithRawResponse =
             CreditAccountServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        /**
+         * Operations for x402 cryptocurrency payment transactions. Fund your Telnyx account using
+         * USDC stablecoin payments via the x402 protocol.
+         */
+        override fun payments(): PaymentServiceAsync.WithRawResponse = payments
 
         private val createQuoteHandler: Handler<CreditAccountCreateQuoteResponse> =
             jsonHandler<CreditAccountCreateQuoteResponse>(clientOptions.jsonMapper)
