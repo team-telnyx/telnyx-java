@@ -26,6 +26,7 @@ import com.telnyx.sdk.services.blocking.ChannelZoneService
 import com.telnyx.sdk.services.blocking.ChargesBreakdownService
 import com.telnyx.sdk.services.blocking.ChargesSummaryService
 import com.telnyx.sdk.services.blocking.CommentService
+import com.telnyx.sdk.services.blocking.ComputeService
 import com.telnyx.sdk.services.blocking.ConferenceService
 import com.telnyx.sdk.services.blocking.ConnectionService
 import com.telnyx.sdk.services.blocking.CountryCoverageService
@@ -755,6 +756,8 @@ interface TelnyxClient {
 
     fun externalRequirements(): ExternalRequirementService
 
+    fun compute(): ComputeService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1313,5 +1316,7 @@ interface TelnyxClient {
         fun meetingSessions(): MeetingSessionService.WithRawResponse
 
         fun externalRequirements(): ExternalRequirementService.WithRawResponse
+
+        fun compute(): ComputeService.WithRawResponse
     }
 }

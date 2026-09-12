@@ -22,6 +22,29 @@ internal class AssistantsListTest {
                         .instructions("instructions")
                         .model("model")
                         .name("name")
+                        .addA2aAgent(
+                            AssistantA2AAgent.builder()
+                                .name("billing_agent")
+                                .url("https://agents.example.com")
+                                .async(true)
+                                .addHeader(
+                                    AssistantA2AAgent.Header.builder()
+                                        .name("X-Api-Key")
+                                        .value(
+                                            "{{#integration_secret}}my_agent_api_key{{/integration_secret}}"
+                                        )
+                                        .build()
+                                )
+                                .addMessage(
+                                    AssistantA2AAgent.Message.A2AAgentRequestStartMessage.builder()
+                                        .content("x")
+                                        .timingMs(100L)
+                                        .build()
+                                )
+                                .pollIntervalMs(500L)
+                                .timeoutMs(30000L)
+                                .build()
+                        )
                         .conversationFlow(
                             ConversationFlow.builder()
                                 .addNode(
@@ -715,6 +738,7 @@ internal class AssistantsListTest {
                             TelephonySettings.builder()
                                 .defaultTexmlAppId("default_texml_app_id")
                                 .disableDtmf(true)
+                                .fallbackDestination("fallback_destination")
                                 .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                                 .noiseSuppressionConfig(
                                     TelephonySettings.NoiseSuppressionConfig.builder()
@@ -980,6 +1004,29 @@ internal class AssistantsListTest {
                     .instructions("instructions")
                     .model("model")
                     .name("name")
+                    .addA2aAgent(
+                        AssistantA2AAgent.builder()
+                            .name("billing_agent")
+                            .url("https://agents.example.com")
+                            .async(true)
+                            .addHeader(
+                                AssistantA2AAgent.Header.builder()
+                                    .name("X-Api-Key")
+                                    .value(
+                                        "{{#integration_secret}}my_agent_api_key{{/integration_secret}}"
+                                    )
+                                    .build()
+                            )
+                            .addMessage(
+                                AssistantA2AAgent.Message.A2AAgentRequestStartMessage.builder()
+                                    .content("x")
+                                    .timingMs(100L)
+                                    .build()
+                            )
+                            .pollIntervalMs(500L)
+                            .timeoutMs(30000L)
+                            .build()
+                    )
                     .conversationFlow(
                         ConversationFlow.builder()
                             .addNode(
@@ -1665,6 +1712,7 @@ internal class AssistantsListTest {
                         TelephonySettings.builder()
                             .defaultTexmlAppId("default_texml_app_id")
                             .disableDtmf(true)
+                            .fallbackDestination("fallback_destination")
                             .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                             .noiseSuppressionConfig(
                                 TelephonySettings.NoiseSuppressionConfig.builder()
@@ -1918,6 +1966,29 @@ internal class AssistantsListTest {
                         .instructions("instructions")
                         .model("model")
                         .name("name")
+                        .addA2aAgent(
+                            AssistantA2AAgent.builder()
+                                .name("billing_agent")
+                                .url("https://agents.example.com")
+                                .async(true)
+                                .addHeader(
+                                    AssistantA2AAgent.Header.builder()
+                                        .name("X-Api-Key")
+                                        .value(
+                                            "{{#integration_secret}}my_agent_api_key{{/integration_secret}}"
+                                        )
+                                        .build()
+                                )
+                                .addMessage(
+                                    AssistantA2AAgent.Message.A2AAgentRequestStartMessage.builder()
+                                        .content("x")
+                                        .timingMs(100L)
+                                        .build()
+                                )
+                                .pollIntervalMs(500L)
+                                .timeoutMs(30000L)
+                                .build()
+                        )
                         .conversationFlow(
                             ConversationFlow.builder()
                                 .addNode(
@@ -2611,6 +2682,7 @@ internal class AssistantsListTest {
                             TelephonySettings.builder()
                                 .defaultTexmlAppId("default_texml_app_id")
                                 .disableDtmf(true)
+                                .fallbackDestination("fallback_destination")
                                 .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                                 .noiseSuppressionConfig(
                                     TelephonySettings.NoiseSuppressionConfig.builder()

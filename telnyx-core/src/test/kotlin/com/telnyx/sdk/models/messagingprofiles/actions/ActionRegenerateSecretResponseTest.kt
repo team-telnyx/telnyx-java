@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.messagingprofiles.actions
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.messagingprofiles.MessagingMessagingProfile
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileFeatures
 import com.telnyx.sdk.models.messagingprofiles.NumberPoolSettings
 import com.telnyx.sdk.models.messagingprofiles.UrlShortenerSettings
 import java.time.OffsetDateTime
@@ -26,6 +27,11 @@ internal class ActionRegenerateSecretResponseTest {
                         .dailySpendLimit("100.00")
                         .dailySpendLimitEnabled(false)
                         .enabled(true)
+                        .features(
+                            MessagingProfileFeatures.builder()
+                                .aiOptOutDetectionEnabled(true)
+                                .build()
+                        )
                         .healthWebhookUrl(null)
                         .mmsFallBackToSms(false)
                         .mmsTranscoding(false)
@@ -74,6 +80,9 @@ internal class ActionRegenerateSecretResponseTest {
                     .dailySpendLimit("100.00")
                     .dailySpendLimitEnabled(false)
                     .enabled(true)
+                    .features(
+                        MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
+                    )
                     .healthWebhookUrl(null)
                     .mmsFallBackToSms(false)
                     .mmsTranscoding(false)
@@ -126,6 +135,11 @@ internal class ActionRegenerateSecretResponseTest {
                         .dailySpendLimit("100.00")
                         .dailySpendLimitEnabled(false)
                         .enabled(true)
+                        .features(
+                            MessagingProfileFeatures.builder()
+                                .aiOptOutDetectionEnabled(true)
+                                .build()
+                        )
                         .healthWebhookUrl(null)
                         .mmsFallBackToSms(false)
                         .mmsTranscoding(false)

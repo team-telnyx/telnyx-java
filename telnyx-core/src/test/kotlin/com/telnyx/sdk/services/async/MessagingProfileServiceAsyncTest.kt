@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.messagingprofilemetrics.MessagingMetricsTimeFrame
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileFeatures
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveMetricsParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
 import com.telnyx.sdk.models.messagingprofiles.NumberPoolSettings
@@ -31,6 +32,9 @@ internal class MessagingProfileServiceAsyncTest {
                     .dailySpendLimit("269125115713")
                     .dailySpendLimitEnabled(true)
                     .enabled(true)
+                    .features(
+                        MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
+                    )
                     .healthWebhookUrl("health_webhook_url")
                     .mmsFallBackToSms(true)
                     .mmsTranscoding(true)
@@ -94,6 +98,9 @@ internal class MessagingProfileServiceAsyncTest {
                     .dailySpendLimit("269125115713")
                     .dailySpendLimitEnabled(true)
                     .enabled(true)
+                    .features(
+                        MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
+                    )
                     .mmsFallBackToSms(true)
                     .mmsTranscoding(true)
                     .mobileOnly(true)

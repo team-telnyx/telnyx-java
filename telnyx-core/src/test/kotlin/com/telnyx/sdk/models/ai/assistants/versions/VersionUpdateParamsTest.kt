@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.ai.assistants.versions
 
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.ai.assistants.AssistantA2AAgent
 import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
 import com.telnyx.sdk.models.ai.assistants.AssistantMcpServer
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
@@ -42,6 +43,29 @@ internal class VersionUpdateParamsTest {
             .versionId("version_id")
             .updateAssistant(
                 UpdateAssistant.builder()
+                    .addA2aAgent(
+                        AssistantA2AAgent.builder()
+                            .name("billing_agent")
+                            .url("https://agents.example.com")
+                            .async(true)
+                            .addHeader(
+                                AssistantA2AAgent.Header.builder()
+                                    .name("X-Api-Key")
+                                    .value(
+                                        "{{#integration_secret}}my_agent_api_key{{/integration_secret}}"
+                                    )
+                                    .build()
+                            )
+                            .addMessage(
+                                AssistantA2AAgent.Message.A2AAgentRequestStartMessage.builder()
+                                    .content("x")
+                                    .timingMs(100L)
+                                    .build()
+                            )
+                            .pollIntervalMs(500L)
+                            .timeoutMs(30000L)
+                            .build()
+                    )
                     .conversationFlow(
                         ConversationFlowReq.builder()
                             .addNode(
@@ -329,6 +353,7 @@ internal class VersionUpdateParamsTest {
                         TelephonySettings.builder()
                             .defaultTexmlAppId("default_texml_app_id")
                             .disableDtmf(true)
+                            .fallbackDestination("fallback_destination")
                             .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                             .noiseSuppressionConfig(
                                 TelephonySettings.NoiseSuppressionConfig.builder()
@@ -593,6 +618,29 @@ internal class VersionUpdateParamsTest {
                 .versionId("version_id")
                 .updateAssistant(
                     UpdateAssistant.builder()
+                        .addA2aAgent(
+                            AssistantA2AAgent.builder()
+                                .name("billing_agent")
+                                .url("https://agents.example.com")
+                                .async(true)
+                                .addHeader(
+                                    AssistantA2AAgent.Header.builder()
+                                        .name("X-Api-Key")
+                                        .value(
+                                            "{{#integration_secret}}my_agent_api_key{{/integration_secret}}"
+                                        )
+                                        .build()
+                                )
+                                .addMessage(
+                                    AssistantA2AAgent.Message.A2AAgentRequestStartMessage.builder()
+                                        .content("x")
+                                        .timingMs(100L)
+                                        .build()
+                                )
+                                .pollIntervalMs(500L)
+                                .timeoutMs(30000L)
+                                .build()
+                        )
                         .conversationFlow(
                             ConversationFlowReq.builder()
                                 .addNode(
@@ -886,6 +934,7 @@ internal class VersionUpdateParamsTest {
                             TelephonySettings.builder()
                                 .defaultTexmlAppId("default_texml_app_id")
                                 .disableDtmf(true)
+                                .fallbackDestination("fallback_destination")
                                 .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                                 .noiseSuppressionConfig(
                                     TelephonySettings.NoiseSuppressionConfig.builder()
@@ -1147,6 +1196,29 @@ internal class VersionUpdateParamsTest {
         assertThat(body)
             .isEqualTo(
                 UpdateAssistant.builder()
+                    .addA2aAgent(
+                        AssistantA2AAgent.builder()
+                            .name("billing_agent")
+                            .url("https://agents.example.com")
+                            .async(true)
+                            .addHeader(
+                                AssistantA2AAgent.Header.builder()
+                                    .name("X-Api-Key")
+                                    .value(
+                                        "{{#integration_secret}}my_agent_api_key{{/integration_secret}}"
+                                    )
+                                    .build()
+                            )
+                            .addMessage(
+                                AssistantA2AAgent.Message.A2AAgentRequestStartMessage.builder()
+                                    .content("x")
+                                    .timingMs(100L)
+                                    .build()
+                            )
+                            .pollIntervalMs(500L)
+                            .timeoutMs(30000L)
+                            .build()
+                    )
                     .conversationFlow(
                         ConversationFlowReq.builder()
                             .addNode(
@@ -1434,6 +1506,7 @@ internal class VersionUpdateParamsTest {
                         TelephonySettings.builder()
                             .defaultTexmlAppId("default_texml_app_id")
                             .disableDtmf(true)
+                            .fallbackDestination("fallback_destination")
                             .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                             .noiseSuppressionConfig(
                                 TelephonySettings.NoiseSuppressionConfig.builder()

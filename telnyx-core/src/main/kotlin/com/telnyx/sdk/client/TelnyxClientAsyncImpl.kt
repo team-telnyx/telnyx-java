@@ -50,6 +50,8 @@ import com.telnyx.sdk.services.async.ChargesSummaryServiceAsync
 import com.telnyx.sdk.services.async.ChargesSummaryServiceAsyncImpl
 import com.telnyx.sdk.services.async.CommentServiceAsync
 import com.telnyx.sdk.services.async.CommentServiceAsyncImpl
+import com.telnyx.sdk.services.async.ComputeServiceAsync
+import com.telnyx.sdk.services.async.ComputeServiceAsyncImpl
 import com.telnyx.sdk.services.async.ConferenceServiceAsync
 import com.telnyx.sdk.services.async.ConferenceServiceAsyncImpl
 import com.telnyx.sdk.services.async.ConnectionServiceAsync
@@ -1094,6 +1096,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         ExternalRequirementServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val compute: ComputeServiceAsync by lazy {
+        ComputeServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1662,6 +1668,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun meetingSessions(): MeetingSessionServiceAsync = meetingSessions
 
     override fun externalRequirements(): ExternalRequirementServiceAsync = externalRequirements
+
+    override fun compute(): ComputeServiceAsync = compute
 
     override fun close() = clientOptions.close()
 
@@ -2434,6 +2442,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             ExternalRequirementServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val compute: ComputeServiceAsync.WithRawResponse by lazy {
+            ComputeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3060,5 +3072,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun externalRequirements(): ExternalRequirementServiceAsync.WithRawResponse =
             externalRequirements
+
+        override fun compute(): ComputeServiceAsync.WithRawResponse = compute
     }
 }

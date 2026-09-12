@@ -31,6 +31,7 @@ private constructor(
     private val instructions: JsonField<String>,
     private val model: JsonField<String>,
     private val name: JsonField<String>,
+    private val a2aAgents: JsonField<List<AssistantA2AAgent>>,
     private val conversationFlow: JsonField<ConversationFlow>,
     private val description: JsonField<String>,
     private val dynamicVariables: JsonField<DynamicVariables>,
@@ -74,6 +75,9 @@ private constructor(
         instructions: JsonField<String> = JsonMissing.of(),
         @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("a2a_agents")
+        @ExcludeMissing
+        a2aAgents: JsonField<List<AssistantA2AAgent>> = JsonMissing.of(),
         @JsonProperty("conversation_flow")
         @ExcludeMissing
         conversationFlow: JsonField<ConversationFlow> = JsonMissing.of(),
@@ -161,6 +165,7 @@ private constructor(
         instructions,
         model,
         name,
+        a2aAgents,
         conversationFlow,
         description,
         dynamicVariables,
@@ -231,6 +236,20 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
+
+    /**
+     * A2A agents this assistant can delegate to. Tools are not stored here: at the start of every
+     * conversation each agent's card is fetched and one tool is derived per skill the card
+     * advertises, named `a2a_<name>_<skill_id>`. The following limits are not enforced when the
+     * assistant is saved, and anything past them is dropped when the conversation starts: 64 agents
+     * per assistant, 64 skills per card, 128 derived tools per assistant, and a 6 second budget for
+     * all card fetches combined. An agent whose card cannot be fetched costs the assistant that
+     * capability for the conversation; it does not fail the call.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun a2aAgents(): Optional<List<AssistantA2AAgent>> = a2aAgents.getOptional("a2a_agents")
 
     /**
      * Conversation flow as returned by the API.
@@ -525,6 +544,15 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+    /**
+     * Returns the raw JSON value of [a2aAgents].
+     *
+     * Unlike [a2aAgents], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("a2a_agents")
+    @ExcludeMissing
+    fun _a2aAgents(): JsonField<List<AssistantA2AAgent>> = a2aAgents
 
     /**
      * Returns the raw JSON value of [conversationFlow].
@@ -826,6 +854,7 @@ private constructor(
         private var instructions: JsonField<String>? = null
         private var model: JsonField<String>? = null
         private var name: JsonField<String>? = null
+        private var a2aAgents: JsonField<MutableList<AssistantA2AAgent>>? = null
         private var conversationFlow: JsonField<ConversationFlow> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
@@ -865,6 +894,7 @@ private constructor(
             instructions = inferenceEmbedding.instructions
             model = inferenceEmbedding.model
             name = inferenceEmbedding.name
+            a2aAgents = inferenceEmbedding.a2aAgents.map { it.toMutableList() }
             conversationFlow = inferenceEmbedding.conversationFlow
             description = inferenceEmbedding.description
             dynamicVariables = inferenceEmbedding.dynamicVariables
@@ -961,6 +991,40 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
+
+        /**
+         * A2A agents this assistant can delegate to. Tools are not stored here: at the start of
+         * every conversation each agent's card is fetched and one tool is derived per skill the
+         * card advertises, named `a2a_<name>_<skill_id>`. The following limits are not enforced
+         * when the assistant is saved, and anything past them is dropped when the conversation
+         * starts: 64 agents per assistant, 64 skills per card, 128 derived tools per assistant, and
+         * a 6 second budget for all card fetches combined. An agent whose card cannot be fetched
+         * costs the assistant that capability for the conversation; it does not fail the call.
+         */
+        fun a2aAgents(a2aAgents: List<AssistantA2AAgent>) = a2aAgents(JsonField.of(a2aAgents))
+
+        /**
+         * Sets [Builder.a2aAgents] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.a2aAgents] with a well-typed `List<AssistantA2AAgent>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun a2aAgents(a2aAgents: JsonField<List<AssistantA2AAgent>>) = apply {
+            this.a2aAgents = a2aAgents.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [AssistantA2AAgent] to [a2aAgents].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addA2aAgent(a2aAgent: AssistantA2AAgent) = apply {
+            a2aAgents =
+                (a2aAgents ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("a2aAgents", it).add(a2aAgent)
+                }
+        }
 
         /** Conversation flow as returned by the API. */
         fun conversationFlow(conversationFlow: ConversationFlow) =
@@ -1735,6 +1799,7 @@ private constructor(
                 checkRequired("instructions", instructions),
                 checkRequired("model", model),
                 checkRequired("name", name),
+                (a2aAgents ?: JsonMissing.of()).map { it.toImmutable() },
                 conversationFlow,
                 description,
                 dynamicVariables,
@@ -1788,6 +1853,7 @@ private constructor(
         instructions()
         model()
         name()
+        a2aAgents().ifPresent { it.forEach { it.validate() } }
         conversationFlow().ifPresent { it.validate() }
         description()
         dynamicVariables().ifPresent { it.validate() }
@@ -1840,6 +1906,7 @@ private constructor(
             (if (instructions.asKnown().isPresent) 1 else 0) +
             (if (model.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
+            (a2aAgents.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (conversationFlow.asKnown().getOrNull()?.validity() ?: 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
             (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1990,6 +2057,7 @@ private constructor(
             instructions == other.instructions &&
             model == other.model &&
             name == other.name &&
+            a2aAgents == other.a2aAgents &&
             conversationFlow == other.conversationFlow &&
             description == other.description &&
             dynamicVariables == other.dynamicVariables &&
@@ -2029,6 +2097,7 @@ private constructor(
             instructions,
             model,
             name,
+            a2aAgents,
             conversationFlow,
             description,
             dynamicVariables,
@@ -2065,5 +2134,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InferenceEmbedding{id=$id, createdAt=$createdAt, instructions=$instructions, model=$model, name=$name, conversationFlow=$conversationFlow, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, importMetadata=$importMetadata, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, relatedMissionIds=$relatedMissionIds, tags=$tags, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, versionCreatedAt=$versionCreatedAt, versionId=$versionId, versionName=$versionName, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+        "InferenceEmbedding{id=$id, createdAt=$createdAt, instructions=$instructions, model=$model, name=$name, a2aAgents=$a2aAgents, conversationFlow=$conversationFlow, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, importMetadata=$importMetadata, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, relatedMissionIds=$relatedMissionIds, tags=$tags, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, versionCreatedAt=$versionCreatedAt, versionId=$versionId, versionName=$versionName, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
 }
