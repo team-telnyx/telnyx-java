@@ -40,9 +40,6 @@ private constructor(
     private val earlyStopping: JsonField<Boolean>,
     private val enableThinking: JsonField<Boolean>,
     private val frequencyPenalty: JsonField<Double>,
-    private val guidedChoice: JsonField<List<String>>,
-    private val guidedJson: JsonField<GuidedJson>,
-    private val guidedRegex: JsonField<String>,
     private val lengthPenalty: JsonField<Double>,
     private val logprobs: JsonField<Boolean>,
     private val maxTokens: JsonField<Long>,
@@ -85,15 +82,6 @@ private constructor(
         @JsonProperty("frequency_penalty")
         @ExcludeMissing
         frequencyPenalty: JsonField<Double> = JsonMissing.of(),
-        @JsonProperty("guided_choice")
-        @ExcludeMissing
-        guidedChoice: JsonField<List<String>> = JsonMissing.of(),
-        @JsonProperty("guided_json")
-        @ExcludeMissing
-        guidedJson: JsonField<GuidedJson> = JsonMissing.of(),
-        @JsonProperty("guided_regex")
-        @ExcludeMissing
-        guidedRegex: JsonField<String> = JsonMissing.of(),
         @JsonProperty("length_penalty")
         @ExcludeMissing
         lengthPenalty: JsonField<Double> = JsonMissing.of(),
@@ -140,9 +128,6 @@ private constructor(
         earlyStopping,
         enableThinking,
         frequencyPenalty,
-        guidedChoice,
-        guidedJson,
-        guidedRegex,
         lengthPenalty,
         logprobs,
         maxTokens,
@@ -221,30 +206,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun frequencyPenalty(): Optional<Double> = frequencyPenalty.getOptional("frequency_penalty")
-
-    /**
-     * If specified, the output will be exactly one of the choices.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun guidedChoice(): Optional<List<String>> = guidedChoice.getOptional("guided_choice")
-
-    /**
-     * Must be a valid JSON schema. If specified, the output will follow the JSON schema.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun guidedJson(): Optional<GuidedJson> = guidedJson.getOptional("guided_json")
-
-    /**
-     * If specified, the output will follow the regex pattern.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun guidedRegex(): Optional<String> = guidedRegex.getOptional("guided_regex")
 
     /**
      * This is used with `use_beam_search` to prefer shorter or longer completions.
@@ -340,8 +301,10 @@ private constructor(
     fun region(): Optional<Region> = region.getOptional("region")
 
     /**
-     * Use this is you want to guarantee a JSON output without defining a schema. For control over
-     * the schema, use `guided_json`.
+     * Controls the format of the model output. `json_object` guarantees valid JSON output without
+     * defining a schema; `json_schema` constrains the output to the JSON schema you supply via the
+     * `json_schema` property and is the supported way to get guaranteed structured output on
+     * Telnyx-hosted models.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -487,33 +450,6 @@ private constructor(
     @JsonProperty("frequency_penalty")
     @ExcludeMissing
     fun _frequencyPenalty(): JsonField<Double> = frequencyPenalty
-
-    /**
-     * Returns the raw JSON value of [guidedChoice].
-     *
-     * Unlike [guidedChoice], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("guided_choice")
-    @ExcludeMissing
-    fun _guidedChoice(): JsonField<List<String>> = guidedChoice
-
-    /**
-     * Returns the raw JSON value of [guidedJson].
-     *
-     * Unlike [guidedJson], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("guided_json")
-    @ExcludeMissing
-    fun _guidedJson(): JsonField<GuidedJson> = guidedJson
-
-    /**
-     * Returns the raw JSON value of [guidedRegex].
-     *
-     * Unlike [guidedRegex], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("guided_regex")
-    @ExcludeMissing
-    fun _guidedRegex(): JsonField<String> = guidedRegex
 
     /**
      * Returns the raw JSON value of [lengthPenalty].
@@ -710,9 +646,6 @@ private constructor(
         private var earlyStopping: JsonField<Boolean> = JsonMissing.of()
         private var enableThinking: JsonField<Boolean> = JsonMissing.of()
         private var frequencyPenalty: JsonField<Double> = JsonMissing.of()
-        private var guidedChoice: JsonField<MutableList<String>>? = null
-        private var guidedJson: JsonField<GuidedJson> = JsonMissing.of()
-        private var guidedRegex: JsonField<String> = JsonMissing.of()
         private var lengthPenalty: JsonField<Double> = JsonMissing.of()
         private var logprobs: JsonField<Boolean> = JsonMissing.of()
         private var maxTokens: JsonField<Long> = JsonMissing.of()
@@ -744,9 +677,6 @@ private constructor(
             earlyStopping = chatCompletionRequest.earlyStopping
             enableThinking = chatCompletionRequest.enableThinking
             frequencyPenalty = chatCompletionRequest.frequencyPenalty
-            guidedChoice = chatCompletionRequest.guidedChoice.map { it.toMutableList() }
-            guidedJson = chatCompletionRequest.guidedJson
-            guidedRegex = chatCompletionRequest.guidedRegex
             lengthPenalty = chatCompletionRequest.lengthPenalty
             logprobs = chatCompletionRequest.logprobs
             maxTokens = chatCompletionRequest.maxTokens
@@ -875,56 +805,6 @@ private constructor(
         fun frequencyPenalty(frequencyPenalty: JsonField<Double>) = apply {
             this.frequencyPenalty = frequencyPenalty
         }
-
-        /** If specified, the output will be exactly one of the choices. */
-        fun guidedChoice(guidedChoice: List<String>) = guidedChoice(JsonField.of(guidedChoice))
-
-        /**
-         * Sets [Builder.guidedChoice] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.guidedChoice] with a well-typed `List<String>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun guidedChoice(guidedChoice: JsonField<List<String>>) = apply {
-            this.guidedChoice = guidedChoice.map { it.toMutableList() }
-        }
-
-        /**
-         * Adds a single [String] to [Builder.guidedChoice].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addGuidedChoice(guidedChoice: String) = apply {
-            this.guidedChoice =
-                (this.guidedChoice ?: JsonField.of(mutableListOf())).also {
-                    checkKnown("guidedChoice", it).add(guidedChoice)
-                }
-        }
-
-        /** Must be a valid JSON schema. If specified, the output will follow the JSON schema. */
-        fun guidedJson(guidedJson: GuidedJson) = guidedJson(JsonField.of(guidedJson))
-
-        /**
-         * Sets [Builder.guidedJson] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.guidedJson] with a well-typed [GuidedJson] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun guidedJson(guidedJson: JsonField<GuidedJson>) = apply { this.guidedJson = guidedJson }
-
-        /** If specified, the output will follow the regex pattern. */
-        fun guidedRegex(guidedRegex: String) = guidedRegex(JsonField.of(guidedRegex))
-
-        /**
-         * Sets [Builder.guidedRegex] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.guidedRegex] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun guidedRegex(guidedRegex: JsonField<String>) = apply { this.guidedRegex = guidedRegex }
 
         /** This is used with `use_beam_search` to prefer shorter or longer completions. */
         fun lengthPenalty(lengthPenalty: Double) = lengthPenalty(JsonField.of(lengthPenalty))
@@ -1074,8 +954,10 @@ private constructor(
         fun region(region: JsonField<Region>) = apply { this.region = region }
 
         /**
-         * Use this is you want to guarantee a JSON output without defining a schema. For control
-         * over the schema, use `guided_json`.
+         * Controls the format of the model output. `json_object` guarantees valid JSON output
+         * without defining a schema; `json_schema` constrains the output to the JSON schema you
+         * supply via the `json_schema` property and is the supported way to get guaranteed
+         * structured output on Telnyx-hosted models.
          */
         fun responseFormat(responseFormat: ResponseFormat) =
             responseFormat(JsonField.of(responseFormat))
@@ -1090,6 +972,19 @@ private constructor(
         fun responseFormat(responseFormat: JsonField<ResponseFormat>) = apply {
             this.responseFormat = responseFormat
         }
+
+        /** Alias for calling [responseFormat] with `ResponseFormat.ofText()`. */
+        fun responseFormatText() = responseFormat(ResponseFormat.ofText())
+
+        /** Alias for calling [responseFormat] with `ResponseFormat.ofJsonObject()`. */
+        fun responseFormatJsonObject() = responseFormat(ResponseFormat.ofJsonObject())
+
+        /**
+         * Alias for calling [responseFormat] with
+         * `ResponseFormat.ofJsonSchemaParam(jsonSchemaParam)`.
+         */
+        fun responseFormat(jsonSchemaParam: ResponseFormat.ResponseFormatJsonSchemaParam) =
+            responseFormat(ResponseFormat.ofJsonSchemaParam(jsonSchemaParam))
 
         /**
          * If specified, the system will make a best effort to sample deterministically, such that
@@ -1322,9 +1217,6 @@ private constructor(
                 earlyStopping,
                 enableThinking,
                 frequencyPenalty,
-                (guidedChoice ?: JsonMissing.of()).map { it.toImmutable() },
-                guidedJson,
-                guidedRegex,
                 lengthPenalty,
                 logprobs,
                 maxTokens,
@@ -1371,9 +1263,6 @@ private constructor(
         earlyStopping()
         enableThinking()
         frequencyPenalty()
-        guidedChoice()
-        guidedJson().ifPresent { it.validate() }
-        guidedRegex()
         lengthPenalty()
         logprobs()
         maxTokens()
@@ -1419,9 +1308,6 @@ private constructor(
             (if (earlyStopping.asKnown().isPresent) 1 else 0) +
             (if (enableThinking.asKnown().isPresent) 1 else 0) +
             (if (frequencyPenalty.asKnown().isPresent) 1 else 0) +
-            (guidedChoice.asKnown().getOrNull()?.size ?: 0) +
-            (guidedJson.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (guidedRegex.asKnown().isPresent) 1 else 0) +
             (if (lengthPenalty.asKnown().isPresent) 1 else 0) +
             (if (logprobs.asKnown().isPresent) 1 else 0) +
             (if (maxTokens.asKnown().isPresent) 1 else 0) +
@@ -2411,115 +2297,6 @@ private constructor(
             "Message{content=$content, role=$role, additionalProperties=$additionalProperties}"
     }
 
-    /** Must be a valid JSON schema. If specified, the output will follow the JSON schema. */
-    class GuidedJson
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
-    ) {
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [GuidedJson]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [GuidedJson]. */
-        class Builder internal constructor() {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(guidedJson: GuidedJson) = apply {
-                additionalProperties = guidedJson.additionalProperties.toMutableMap()
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [GuidedJson].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): GuidedJson = GuidedJson(additionalProperties.toImmutable())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): GuidedJson = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is GuidedJson && additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() = "GuidedJson{additionalProperties=$additionalProperties}"
-    }
-
     /**
      * How strictly `region` is applied. `preferred` (the default when `region` is set) tries that
      * region first and falls back to another when the model cannot be served there, so a request
@@ -2988,116 +2765,91 @@ private constructor(
     }
 
     /**
-     * Use this is you want to guarantee a JSON output without defining a schema. For control over
-     * the schema, use `guided_json`.
+     * Controls the format of the model output. `json_object` guarantees valid JSON output without
+     * defining a schema; `json_schema` constrains the output to the JSON schema you supply via the
+     * `json_schema` property and is the supported way to get guaranteed structured output on
+     * Telnyx-hosted models.
      */
+    @JsonDeserialize(using = ResponseFormat.Deserializer::class)
+    @JsonSerialize(using = ResponseFormat.Serializer::class)
     class ResponseFormat
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val type: JsonField<Type>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
+        private val text: JsonValue? = null,
+        private val jsonObject: JsonValue? = null,
+        private val jsonSchemaParam: ResponseFormatJsonSchemaParam? = null,
+        private val _json: JsonValue? = null,
     ) {
 
-        @JsonCreator
-        private constructor(
-            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of()
-        ) : this(type, mutableMapOf())
+        /** Plain text output. */
+        fun text(): Optional<JsonValue> = Optional.ofNullable(text)
+
+        /** JSON mode: the model output is valid JSON, without a schema. */
+        fun jsonObject(): Optional<JsonValue> = Optional.ofNullable(jsonObject)
 
         /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * Structured output: the model output is constrained to the JSON schema supplied in
+         * `json_schema`.
          */
-        fun type(): Type = type.getRequired("type")
+        fun jsonSchemaParam(): Optional<ResponseFormatJsonSchemaParam> =
+            Optional.ofNullable(jsonSchemaParam)
+
+        fun isText(): Boolean = text != null
+
+        fun isJsonObject(): Boolean = jsonObject != null
+
+        fun isJsonSchemaParam(): Boolean = jsonSchemaParam != null
+
+        /** Plain text output. */
+        fun asText(): JsonValue = text.getOrThrow("text")
+
+        /** JSON mode: the model output is valid JSON, without a schema. */
+        fun asJsonObject(): JsonValue = jsonObject.getOrThrow("jsonObject")
 
         /**
-         * Returns the raw JSON value of [type].
+         * Structured output: the model output is constrained to the JSON schema supplied in
+         * `json_schema`.
+         */
+        fun asJsonSchemaParam(): ResponseFormatJsonSchemaParam =
+            jsonSchemaParam.getOrThrow("jsonSchemaParam")
+
+        fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+        /**
+         * Maps this instance's current variant to a value of type [T] using the given [visitor].
          *
-         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+         * Note that this method is _not_ forwards compatible with new variants from the API, unless
+         * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of
+         * the SDK gracefully, consider overriding [Visitor.unknown]:
+         * ```java
+         * import com.telnyx.sdk.core.JsonValue;
+         * import java.util.Optional;
+         *
+         * Optional<String> result = responseFormat.accept(new ResponseFormat.Visitor<Optional<String>>() {
+         *     @Override
+         *     public Optional<String> visitText(JsonValue text) {
+         *         return Optional.of(text.toString());
+         *     }
+         *
+         *     // ...
+         *
+         *     @Override
+         *     public Optional<String> unknown(JsonValue json) {
+         *         // Or inspect the `json`.
+         *         return Optional.empty();
+         *     }
+         * });
+         * ```
+         *
+         * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in [visitor]
+         *   and the current variant is unknown.
          */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [ResponseFormat].
-             *
-             * The following fields are required:
-             * ```java
-             * .type()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [ResponseFormat]. */
-        class Builder internal constructor() {
-
-            private var type: JsonField<Type>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(responseFormat: ResponseFormat) = apply {
-                type = responseFormat.type
-                additionalProperties = responseFormat.additionalProperties.toMutableMap()
+        fun <T> accept(visitor: Visitor<T>): T =
+            when {
+                text != null -> visitor.visitText(text)
+                jsonObject != null -> visitor.visitJsonObject(jsonObject)
+                jsonSchemaParam != null -> visitor.visitJsonSchemaParam(jsonSchemaParam)
+                else -> visitor.unknown(_json)
             }
-
-            fun type(type: Type) = type(JsonField.of(type))
-
-            /**
-             * Sets [Builder.type] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun type(type: JsonField<Type>) = apply { this.type = type }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [ResponseFormat].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .type()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): ResponseFormat =
-                ResponseFormat(checkRequired("type", type), additionalProperties.toMutableMap())
-        }
 
         private var validated: Boolean = false
 
@@ -3115,7 +2867,33 @@ private constructor(
                 return@apply
             }
 
-            type().validate()
+            accept(
+                object : Visitor<Unit> {
+                    override fun visitText(text: JsonValue) {
+                        text.let {
+                            if (it != JsonValue.from(mapOf("type" to "text"))) {
+                                throw TelnyxInvalidDataException("'text' is invalid, received $it")
+                            }
+                        }
+                    }
+
+                    override fun visitJsonObject(jsonObject: JsonValue) {
+                        jsonObject.let {
+                            if (it != JsonValue.from(mapOf("type" to "json_object"))) {
+                                throw TelnyxInvalidDataException(
+                                    "'jsonObject' is invalid, received $it"
+                                )
+                            }
+                        }
+                    }
+
+                    override fun visitJsonSchemaParam(
+                        jsonSchemaParam: ResponseFormatJsonSchemaParam
+                    ) {
+                        jsonSchemaParam.validate()
+                    }
+                }
+            )
             validated = true
         }
 
@@ -3133,94 +2911,316 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic internal fun validity(): Int = (type.asKnown().getOrNull()?.validity() ?: 0)
+        @JvmSynthetic
+        internal fun validity(): Int =
+            accept(
+                object : Visitor<Int> {
+                    override fun visitText(text: JsonValue) =
+                        text.let { if (it == JsonValue.from(mapOf("type" to "text"))) 1 else 0 }
 
-        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+                    override fun visitJsonObject(jsonObject: JsonValue) =
+                        jsonObject.let {
+                            if (it == JsonValue.from(mapOf("type" to "json_object"))) 1 else 0
+                        }
+
+                    override fun visitJsonSchemaParam(
+                        jsonSchemaParam: ResponseFormatJsonSchemaParam
+                    ) = jsonSchemaParam.validity()
+
+                    override fun unknown(json: JsonValue?) = 0
+                }
+            )
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ResponseFormat &&
+                text == other.text &&
+                jsonObject == other.jsonObject &&
+                jsonSchemaParam == other.jsonSchemaParam
+        }
+
+        override fun hashCode(): Int = Objects.hash(text, jsonObject, jsonSchemaParam)
+
+        override fun toString(): String =
+            when {
+                text != null -> "ResponseFormat{text=$text}"
+                jsonObject != null -> "ResponseFormat{jsonObject=$jsonObject}"
+                jsonSchemaParam != null -> "ResponseFormat{jsonSchemaParam=$jsonSchemaParam}"
+                _json != null -> "ResponseFormat{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid ResponseFormat")
+            }
+
+        companion object {
+
+            /** Plain text output. */
+            @JvmStatic fun ofText() = ResponseFormat(text = JsonValue.from(mapOf("type" to "text")))
+
+            /** JSON mode: the model output is valid JSON, without a schema. */
+            @JvmStatic
+            fun ofJsonObject() =
+                ResponseFormat(jsonObject = JsonValue.from(mapOf("type" to "json_object")))
 
             /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
+             * Structured output: the model output is constrained to the JSON schema supplied in
+             * `json_schema`.
              */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @JvmStatic
+            fun ofJsonSchemaParam(jsonSchemaParam: ResponseFormatJsonSchemaParam) =
+                ResponseFormat(jsonSchemaParam = jsonSchemaParam)
+        }
+
+        /**
+         * An interface that defines how to map each variant of [ResponseFormat] to a value of type
+         * [T].
+         */
+        interface Visitor<out T> {
+
+            /** Plain text output. */
+            fun visitText(text: JsonValue): T
+
+            /** JSON mode: the model output is valid JSON, without a schema. */
+            fun visitJsonObject(jsonObject: JsonValue): T
+
+            /**
+             * Structured output: the model output is constrained to the JSON schema supplied in
+             * `json_schema`.
+             */
+            fun visitJsonSchemaParam(jsonSchemaParam: ResponseFormatJsonSchemaParam): T
+
+            /**
+             * Maps an unknown variant of [ResponseFormat] to a value of type [T].
+             *
+             * An instance of [ResponseFormat] can contain an unknown variant if it was deserialized
+             * from data that doesn't match any known variant. For example, if the SDK is on an
+             * older version than the API, then the API may respond with new variants that the SDK
+             * is unaware of.
+             *
+             * @throws TelnyxInvalidDataException in the default implementation.
+             */
+            fun unknown(json: JsonValue?): T {
+                throw TelnyxInvalidDataException("Unknown ResponseFormat: $json")
+            }
+        }
+
+        internal class Deserializer : BaseDeserializer<ResponseFormat>(ResponseFormat::class) {
+
+            override fun ObjectCodec.deserialize(node: JsonNode): ResponseFormat {
+                val json = JsonValue.fromJsonNode(node)
+
+                val bestMatches =
+                    sequenceOf(
+                            tryDeserialize(node, jacksonTypeRef<JsonValue>())
+                                ?.let { ResponseFormat(text = it, _json = json) }
+                                ?.takeIf { it.isValid() },
+                            tryDeserialize(node, jacksonTypeRef<JsonValue>())
+                                ?.let { ResponseFormat(jsonObject = it, _json = json) }
+                                ?.takeIf { it.isValid() },
+                            tryDeserialize(node, jacksonTypeRef<ResponseFormatJsonSchemaParam>())
+                                ?.let { ResponseFormat(jsonSchemaParam = it, _json = json) },
+                        )
+                        .filterNotNull()
+                        .allMaxBy { it.validity() }
+                        .toList()
+                return when (bestMatches.size) {
+                    // This can happen if what we're deserializing is completely incompatible with
+                    // all the possible variants (e.g. deserializing from boolean).
+                    0 -> ResponseFormat(_json = json)
+                    1 -> bestMatches.single()
+                    // If there's more than one match with the highest validity, then use the first
+                    // completely valid match, or simply the first match if none are completely
+                    // valid.
+                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                }
+            }
+        }
+
+        internal class Serializer : BaseSerializer<ResponseFormat>(ResponseFormat::class) {
+
+            override fun serialize(
+                value: ResponseFormat,
+                generator: JsonGenerator,
+                provider: SerializerProvider,
+            ) {
+                when {
+                    value.text != null -> generator.writeObject(value.text)
+                    value.jsonObject != null -> generator.writeObject(value.jsonObject)
+                    value.jsonSchemaParam != null -> generator.writeObject(value.jsonSchemaParam)
+                    value._json != null -> generator.writeObject(value._json)
+                    else -> throw IllegalStateException("Invalid ResponseFormat")
+                }
+            }
+        }
+
+        /**
+         * Structured output: the model output is constrained to the JSON schema supplied in
+         * `json_schema`.
+         */
+        class ResponseFormatJsonSchemaParam
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val jsonSchema: JsonField<JsonSchema>,
+            private val type: JsonValue,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("json_schema")
+                @ExcludeMissing
+                jsonSchema: JsonField<JsonSchema> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+            ) : this(jsonSchema, type, mutableMapOf())
+
+            /**
+             * The JSON schema configuration, required when `type` is `json_schema`. Matches the
+             * [OpenAI structured outputs](https://platform.openai.com/docs/guides/structured-outputs)
+             * `json_schema` response format.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun jsonSchema(): JsonSchema = jsonSchema.getRequired("json_schema")
+
+            /**
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("json_schema")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+            /**
+             * Returns the raw JSON value of [jsonSchema].
+             *
+             * Unlike [jsonSchema], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("json_schema")
+            @ExcludeMissing
+            fun _jsonSchema(): JsonField<JsonSchema> = jsonSchema
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
 
             companion object {
 
-                @JvmField val TEXT = of("text")
-
-                @JvmField val JSON_OBJECT = of("json_object")
-
-                @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [ResponseFormatJsonSchemaParam].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .jsonSchema()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
             }
 
-            /** An enum containing [Type]'s known values. */
-            enum class Known {
-                TEXT,
-                JSON_OBJECT,
+            /** A builder for [ResponseFormatJsonSchemaParam]. */
+            class Builder internal constructor() {
+
+                private var jsonSchema: JsonField<JsonSchema>? = null
+                private var type: JsonValue = JsonValue.from("json_schema")
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(responseFormatJsonSchemaParam: ResponseFormatJsonSchemaParam) =
+                    apply {
+                        jsonSchema = responseFormatJsonSchemaParam.jsonSchema
+                        type = responseFormatJsonSchemaParam.type
+                        additionalProperties =
+                            responseFormatJsonSchemaParam.additionalProperties.toMutableMap()
+                    }
+
+                /**
+                 * The JSON schema configuration, required when `type` is `json_schema`. Matches the
+                 * [OpenAI structured outputs](https://platform.openai.com/docs/guides/structured-outputs)
+                 * `json_schema` response format.
+                 */
+                fun jsonSchema(jsonSchema: JsonSchema) = jsonSchema(JsonField.of(jsonSchema))
+
+                /**
+                 * Sets [Builder.jsonSchema] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.jsonSchema] with a well-typed [JsonSchema] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun jsonSchema(jsonSchema: JsonField<JsonSchema>) = apply {
+                    this.jsonSchema = jsonSchema
+                }
+
+                /**
+                 * Sets the field to an arbitrary JSON value.
+                 *
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("json_schema")
+                 * ```
+                 *
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun type(type: JsonValue) = apply { this.type = type }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [ResponseFormatJsonSchemaParam].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .jsonSchema()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): ResponseFormatJsonSchemaParam =
+                    ResponseFormatJsonSchemaParam(
+                        checkRequired("jsonSchema", jsonSchema),
+                        type,
+                        additionalProperties.toMutableMap(),
+                    )
             }
-
-            /**
-             * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Type] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                TEXT,
-                JSON_OBJECT,
-                /** An enum member indicating that [Type] was instantiated with an unknown value. */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    TEXT -> Value.TEXT
-                    JSON_OBJECT -> Value.JSON_OBJECT
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    TEXT -> Known.TEXT
-                    JSON_OBJECT -> Known.JSON_OBJECT
-                    else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
-                }
 
             private var validated: Boolean = false
 
@@ -3234,12 +3234,17 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): Type = apply {
+            fun validate(): ResponseFormatJsonSchemaParam = apply {
                 if (validated) {
                     return@apply
                 }
 
-                known()
+                jsonSchema().validate()
+                _type().let {
+                    if (it != JsonValue.from("json_schema")) {
+                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                    }
+                }
                 validated = true
             }
 
@@ -3257,37 +3262,470 @@ private constructor(
              *
              * Used for best match union deserialization.
              */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (jsonSchema.asKnown().getOrNull()?.validity() ?: 0) +
+                    type.let { if (it == JsonValue.from("json_schema")) 1 else 0 }
+
+            /**
+             * The JSON schema configuration, required when `type` is `json_schema`. Matches the
+             * [OpenAI structured outputs](https://platform.openai.com/docs/guides/structured-outputs)
+             * `json_schema` response format.
+             */
+            class JsonSchema
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val name: JsonField<String>,
+                private val description: JsonField<String>,
+                private val schema: JsonField<Schema>,
+                private val strict: JsonField<Boolean>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("name")
+                    @ExcludeMissing
+                    name: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("description")
+                    @ExcludeMissing
+                    description: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("schema")
+                    @ExcludeMissing
+                    schema: JsonField<Schema> = JsonMissing.of(),
+                    @JsonProperty("strict")
+                    @ExcludeMissing
+                    strict: JsonField<Boolean> = JsonMissing.of(),
+                ) : this(name, description, schema, strict, mutableMapOf())
+
+                /**
+                 * The name of the response format. Used for clarity only.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun name(): String = name.getRequired("name")
+
+                /**
+                 * A description of what the response format is for, typically used to guide the
+                 * model.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun description(): Optional<String> = description.getOptional("description")
+
+                /**
+                 * The JSON schema the model output must conform to. A valid
+                 * [JSON Schema](https://json-schema.org) object, e.g. a Pydantic
+                 * `model_json_schema()` export.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun schema(): Optional<Schema> = schema.getOptional("schema")
+
+                /**
+                 * Enables strict schema adherence when supported by the model. If the generated
+                 * output does not match the provided schema, the request fails instead of returning
+                 * non-conformant output.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun strict(): Optional<Boolean> = strict.getOptional("strict")
+
+                /**
+                 * Returns the raw JSON value of [name].
+                 *
+                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+                /**
+                 * Returns the raw JSON value of [description].
+                 *
+                 * Unlike [description], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("description")
+                @ExcludeMissing
+                fun _description(): JsonField<String> = description
+
+                /**
+                 * Returns the raw JSON value of [schema].
+                 *
+                 * Unlike [schema], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("schema") @ExcludeMissing fun _schema(): JsonField<Schema> = schema
+
+                /**
+                 * Returns the raw JSON value of [strict].
+                 *
+                 * Unlike [strict], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("strict") @ExcludeMissing fun _strict(): JsonField<Boolean> = strict
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [JsonSchema].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .name()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [JsonSchema]. */
+                class Builder internal constructor() {
+
+                    private var name: JsonField<String>? = null
+                    private var description: JsonField<String> = JsonMissing.of()
+                    private var schema: JsonField<Schema> = JsonMissing.of()
+                    private var strict: JsonField<Boolean> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(jsonSchema: JsonSchema) = apply {
+                        name = jsonSchema.name
+                        description = jsonSchema.description
+                        schema = jsonSchema.schema
+                        strict = jsonSchema.strict
+                        additionalProperties = jsonSchema.additionalProperties.toMutableMap()
+                    }
+
+                    /** The name of the response format. Used for clarity only. */
+                    fun name(name: String) = name(JsonField.of(name))
+
+                    /**
+                     * Sets [Builder.name] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.name] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun name(name: JsonField<String>) = apply { this.name = name }
+
+                    /**
+                     * A description of what the response format is for, typically used to guide the
+                     * model.
+                     */
+                    fun description(description: String) = description(JsonField.of(description))
+
+                    /**
+                     * Sets [Builder.description] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.description] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun description(description: JsonField<String>) = apply {
+                        this.description = description
+                    }
+
+                    /**
+                     * The JSON schema the model output must conform to. A valid
+                     * [JSON Schema](https://json-schema.org) object, e.g. a Pydantic
+                     * `model_json_schema()` export.
+                     */
+                    fun schema(schema: Schema) = schema(JsonField.of(schema))
+
+                    /**
+                     * Sets [Builder.schema] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.schema] with a well-typed [Schema] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun schema(schema: JsonField<Schema>) = apply { this.schema = schema }
+
+                    /**
+                     * Enables strict schema adherence when supported by the model. If the generated
+                     * output does not match the provided schema, the request fails instead of
+                     * returning non-conformant output.
+                     */
+                    fun strict(strict: Boolean) = strict(JsonField.of(strict))
+
+                    /**
+                     * Sets [Builder.strict] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.strict] with a well-typed [Boolean] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun strict(strict: JsonField<Boolean>) = apply { this.strict = strict }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [JsonSchema].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .name()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): JsonSchema =
+                        JsonSchema(
+                            checkRequired("name", name),
+                            description,
+                            schema,
+                            strict,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): JsonSchema = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    name()
+                    description()
+                    schema().ifPresent { it.validate() }
+                    strict()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (name.asKnown().isPresent) 1 else 0) +
+                        (if (description.asKnown().isPresent) 1 else 0) +
+                        (schema.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (strict.asKnown().isPresent) 1 else 0)
+
+                /**
+                 * The JSON schema the model output must conform to. A valid
+                 * [JSON Schema](https://json-schema.org) object, e.g. a Pydantic
+                 * `model_json_schema()` export.
+                 */
+                class Schema
+                @JsonCreator
+                private constructor(
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    private val additionalProperties: Map<String, JsonValue>
+                ) {
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /** Returns a mutable builder for constructing an instance of [Schema]. */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Schema]. */
+                    class Builder internal constructor() {
+
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(schema: Schema) = apply {
+                            additionalProperties = schema.additionalProperties.toMutableMap()
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Schema].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): Schema = Schema(additionalProperties.toImmutable())
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Schema = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        additionalProperties.count { (_, value) ->
+                            !value.isNull() && !value.isMissing()
+                        }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Schema && additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() = "Schema{additionalProperties=$additionalProperties}"
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is JsonSchema &&
+                        name == other.name &&
+                        description == other.description &&
+                        schema == other.schema &&
+                        strict == other.strict &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(name, description, schema, strict, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "JsonSchema{name=$name, description=$description, schema=$schema, strict=$strict, additionalProperties=$additionalProperties}"
+            }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is Type && value == other.value
+                return other is ResponseFormatJsonSchemaParam &&
+                    jsonSchema == other.jsonSchema &&
+                    type == other.type &&
+                    additionalProperties == other.additionalProperties
             }
 
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
+            private val hashCode: Int by lazy {
+                Objects.hash(jsonSchema, type, additionalProperties)
             }
 
-            return other is ResponseFormat &&
-                type == other.type &&
-                additionalProperties == other.additionalProperties
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "ResponseFormatJsonSchemaParam{jsonSchema=$jsonSchema, type=$type, additionalProperties=$additionalProperties}"
         }
-
-        private val hashCode: Int by lazy { Objects.hash(type, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "ResponseFormat{type=$type, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -4659,9 +5097,6 @@ private constructor(
             earlyStopping == other.earlyStopping &&
             enableThinking == other.enableThinking &&
             frequencyPenalty == other.frequencyPenalty &&
-            guidedChoice == other.guidedChoice &&
-            guidedJson == other.guidedJson &&
-            guidedRegex == other.guidedRegex &&
             lengthPenalty == other.lengthPenalty &&
             logprobs == other.logprobs &&
             maxTokens == other.maxTokens &&
@@ -4694,9 +5129,6 @@ private constructor(
             earlyStopping,
             enableThinking,
             frequencyPenalty,
-            guidedChoice,
-            guidedJson,
-            guidedRegex,
             lengthPenalty,
             logprobs,
             maxTokens,
@@ -4725,5 +5157,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ChatCompletionRequest{messages=$messages, apiKeyRef=$apiKeyRef, bestOf=$bestOf, earlyStopping=$earlyStopping, enableThinking=$enableThinking, frequencyPenalty=$frequencyPenalty, guidedChoice=$guidedChoice, guidedJson=$guidedJson, guidedRegex=$guidedRegex, lengthPenalty=$lengthPenalty, logprobs=$logprobs, maxTokens=$maxTokens, minP=$minP, mode=$mode, model=$model, n=$n, presencePenalty=$presencePenalty, reasoningEffort=$reasoningEffort, region=$region, responseFormat=$responseFormat, seed=$seed, serviceTier=$serviceTier, stop=$stop, stream=$stream, temperature=$temperature, toolChoice=$toolChoice, tools=$tools, topLogprobs=$topLogprobs, topP=$topP, useBeamSearch=$useBeamSearch, additionalProperties=$additionalProperties}"
+        "ChatCompletionRequest{messages=$messages, apiKeyRef=$apiKeyRef, bestOf=$bestOf, earlyStopping=$earlyStopping, enableThinking=$enableThinking, frequencyPenalty=$frequencyPenalty, lengthPenalty=$lengthPenalty, logprobs=$logprobs, maxTokens=$maxTokens, minP=$minP, mode=$mode, model=$model, n=$n, presencePenalty=$presencePenalty, reasoningEffort=$reasoningEffort, region=$region, responseFormat=$responseFormat, seed=$seed, serviceTier=$serviceTier, stop=$stop, stream=$stream, temperature=$temperature, toolChoice=$toolChoice, tools=$tools, topLogprobs=$topLogprobs, topP=$topP, useBeamSearch=$useBeamSearch, additionalProperties=$additionalProperties}"
 }

@@ -54,6 +54,20 @@ private constructor(
     fun name(): String = body.name()
 
     /**
+     * A2A agents this assistant can delegate to. Tools are not stored here: at the start of every
+     * conversation each agent's card is fetched and one tool is derived per skill the card
+     * advertises, named `a2a_<name>_<skill_id>`. The following limits are not enforced when the
+     * assistant is saved, and anything past them is dropped when the conversation starts: 64 agents
+     * per assistant, 64 skills per card, 128 derived tools per assistant, and a 6 second budget for
+     * all card fetches combined. An agent whose card cannot be fetched costs the assistant that
+     * capability for the conversation; it does not fail the call.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun a2aAgents(): Optional<List<AssistantA2AAgent>> = body.a2aAgents()
+
+    /**
      * Conversation flow as supplied by API clients (create / update).
      *
      * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
@@ -294,6 +308,13 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
+
+    /**
+     * Returns the raw JSON value of [a2aAgents].
+     *
+     * Unlike [a2aAgents], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _a2aAgents(): JsonField<List<AssistantA2AAgent>> = body._a2aAgents()
 
     /**
      * Returns the raw JSON value of [conversationFlow].
@@ -543,9 +564,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [instructions]
          * - [name]
+         * - [a2aAgents]
          * - [conversationFlow]
          * - [description]
-         * - [dynamicVariables]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -576,6 +597,35 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
+
+        /**
+         * A2A agents this assistant can delegate to. Tools are not stored here: at the start of
+         * every conversation each agent's card is fetched and one tool is derived per skill the
+         * card advertises, named `a2a_<name>_<skill_id>`. The following limits are not enforced
+         * when the assistant is saved, and anything past them is dropped when the conversation
+         * starts: 64 agents per assistant, 64 skills per card, 128 derived tools per assistant, and
+         * a 6 second budget for all card fetches combined. An agent whose card cannot be fetched
+         * costs the assistant that capability for the conversation; it does not fail the call.
+         */
+        fun a2aAgents(a2aAgents: List<AssistantA2AAgent>) = apply { body.a2aAgents(a2aAgents) }
+
+        /**
+         * Sets [Builder.a2aAgents] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.a2aAgents] with a well-typed `List<AssistantA2AAgent>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun a2aAgents(a2aAgents: JsonField<List<AssistantA2AAgent>>) = apply {
+            body.a2aAgents(a2aAgents)
+        }
+
+        /**
+         * Adds a single [AssistantA2AAgent] to [a2aAgents].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addA2aAgent(a2aAgent: AssistantA2AAgent) = apply { body.addA2aAgent(a2aAgent) }
 
         /**
          * Conversation flow as supplied by API clients (create / update).
@@ -1421,6 +1471,7 @@ private constructor(
     private constructor(
         private val instructions: JsonField<String>,
         private val name: JsonField<String>,
+        private val a2aAgents: JsonField<List<AssistantA2AAgent>>,
         private val conversationFlow: JsonField<ConversationFlowReq>,
         private val description: JsonField<String>,
         private val dynamicVariables: JsonField<DynamicVariables>,
@@ -1456,6 +1507,9 @@ private constructor(
             @ExcludeMissing
             instructions: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("a2a_agents")
+            @ExcludeMissing
+            a2aAgents: JsonField<List<AssistantA2AAgent>> = JsonMissing.of(),
             @JsonProperty("conversation_flow")
             @ExcludeMissing
             conversationFlow: JsonField<ConversationFlowReq> = JsonMissing.of(),
@@ -1534,6 +1588,7 @@ private constructor(
         ) : this(
             instructions,
             name,
+            a2aAgents,
             conversationFlow,
             description,
             dynamicVariables,
@@ -1577,6 +1632,20 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun name(): String = name.getRequired("name")
+
+        /**
+         * A2A agents this assistant can delegate to. Tools are not stored here: at the start of
+         * every conversation each agent's card is fetched and one tool is derived per skill the
+         * card advertises, named `a2a_<name>_<skill_id>`. The following limits are not enforced
+         * when the assistant is saved, and anything past them is dropped when the conversation
+         * starts: 64 agents per assistant, 64 skills per card, 128 derived tools per assistant, and
+         * a 6 second budget for all card fetches combined. An agent whose card cannot be fetched
+         * costs the assistant that capability for the conversation; it does not fail the call.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun a2aAgents(): Optional<List<AssistantA2AAgent>> = a2aAgents.getOptional("a2a_agents")
 
         /**
          * Conversation flow as supplied by API clients (create / update).
@@ -1837,6 +1906,15 @@ private constructor(
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [a2aAgents].
+         *
+         * Unlike [a2aAgents], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("a2a_agents")
+        @ExcludeMissing
+        fun _a2aAgents(): JsonField<List<AssistantA2AAgent>> = a2aAgents
 
         /**
          * Returns the raw JSON value of [conversationFlow].
@@ -2113,6 +2191,7 @@ private constructor(
 
             private var instructions: JsonField<String>? = null
             private var name: JsonField<String>? = null
+            private var a2aAgents: JsonField<MutableList<AssistantA2AAgent>>? = null
             private var conversationFlow: JsonField<ConversationFlowReq> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
             private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
@@ -2147,6 +2226,7 @@ private constructor(
             internal fun from(body: Body) = apply {
                 instructions = body.instructions
                 name = body.name
+                a2aAgents = body.a2aAgents.map { it.toMutableList() }
                 conversationFlow = body.conversationFlow
                 description = body.description
                 dynamicVariables = body.dynamicVariables
@@ -2203,6 +2283,41 @@ private constructor(
              * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /**
+             * A2A agents this assistant can delegate to. Tools are not stored here: at the start of
+             * every conversation each agent's card is fetched and one tool is derived per skill the
+             * card advertises, named `a2a_<name>_<skill_id>`. The following limits are not enforced
+             * when the assistant is saved, and anything past them is dropped when the conversation
+             * starts: 64 agents per assistant, 64 skills per card, 128 derived tools per assistant,
+             * and a 6 second budget for all card fetches combined. An agent whose card cannot be
+             * fetched costs the assistant that capability for the conversation; it does not fail
+             * the call.
+             */
+            fun a2aAgents(a2aAgents: List<AssistantA2AAgent>) = a2aAgents(JsonField.of(a2aAgents))
+
+            /**
+             * Sets [Builder.a2aAgents] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.a2aAgents] with a well-typed
+             * `List<AssistantA2AAgent>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun a2aAgents(a2aAgents: JsonField<List<AssistantA2AAgent>>) = apply {
+                this.a2aAgents = a2aAgents.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [AssistantA2AAgent] to [a2aAgents].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addA2aAgent(a2aAgent: AssistantA2AAgent) = apply {
+                a2aAgents =
+                    (a2aAgents ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("a2aAgents", it).add(a2aAgent)
+                    }
+            }
 
             /**
              * Conversation flow as supplied by API clients (create / update).
@@ -2961,6 +3076,7 @@ private constructor(
                 Body(
                     checkRequired("instructions", instructions),
                     checkRequired("name", name),
+                    (a2aAgents ?: JsonMissing.of()).map { it.toImmutable() },
                     conversationFlow,
                     description,
                     dynamicVariables,
@@ -3009,6 +3125,7 @@ private constructor(
 
             instructions()
             name()
+            a2aAgents().ifPresent { it.forEach { it.validate() } }
             conversationFlow().ifPresent { it.validate() }
             description()
             dynamicVariables().ifPresent { it.validate() }
@@ -3056,6 +3173,7 @@ private constructor(
         internal fun validity(): Int =
             (if (instructions.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
+                (a2aAgents.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (conversationFlow.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (description.asKnown().isPresent) 1 else 0) +
                 (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
@@ -3091,6 +3209,7 @@ private constructor(
             return other is Body &&
                 instructions == other.instructions &&
                 name == other.name &&
+                a2aAgents == other.a2aAgents &&
                 conversationFlow == other.conversationFlow &&
                 description == other.description &&
                 dynamicVariables == other.dynamicVariables &&
@@ -3124,6 +3243,7 @@ private constructor(
             Objects.hash(
                 instructions,
                 name,
+                a2aAgents,
                 conversationFlow,
                 description,
                 dynamicVariables,
@@ -3157,7 +3277,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{instructions=$instructions, name=$name, conversationFlow=$conversationFlow, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+            "Body{instructions=$instructions, name=$name, a2aAgents=$a2aAgents, conversationFlow=$conversationFlow, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
     }
 
     /** Map of dynamic variables and their default values */

@@ -15,6 +15,8 @@ import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberResendVerificationParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversationWindowParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversationWindowResponse
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrievePhoneNumberParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrievePhoneNumberResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberVerifyParams
 import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.CallingSettingService
 import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.ConversationalComponentService
@@ -171,6 +173,50 @@ interface PhoneNumberService {
         params: PhoneNumberRetrieveConversationWindowParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhoneNumberRetrieveConversationWindowResponse
+
+    /**
+     * Returns one WhatsApp phone number linked to the authenticated Telnyx account. For a
+     * coexistence number in the `syncing` state, the response includes `sync_progress`.
+     */
+    fun retrievePhoneNumber(phoneNumber: String): PhoneNumberRetrievePhoneNumberResponse =
+        retrievePhoneNumber(phoneNumber, PhoneNumberRetrievePhoneNumberParams.none())
+
+    /** @see retrievePhoneNumber */
+    fun retrievePhoneNumber(
+        phoneNumber: String,
+        params: PhoneNumberRetrievePhoneNumberParams = PhoneNumberRetrievePhoneNumberParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhoneNumberRetrievePhoneNumberResponse =
+        retrievePhoneNumber(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+    /** @see retrievePhoneNumber */
+    fun retrievePhoneNumber(
+        phoneNumber: String,
+        params: PhoneNumberRetrievePhoneNumberParams = PhoneNumberRetrievePhoneNumberParams.none(),
+    ): PhoneNumberRetrievePhoneNumberResponse =
+        retrievePhoneNumber(phoneNumber, params, RequestOptions.none())
+
+    /** @see retrievePhoneNumber */
+    fun retrievePhoneNumber(
+        params: PhoneNumberRetrievePhoneNumberParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhoneNumberRetrievePhoneNumberResponse
+
+    /** @see retrievePhoneNumber */
+    fun retrievePhoneNumber(
+        params: PhoneNumberRetrievePhoneNumberParams
+    ): PhoneNumberRetrievePhoneNumberResponse = retrievePhoneNumber(params, RequestOptions.none())
+
+    /** @see retrievePhoneNumber */
+    fun retrievePhoneNumber(
+        phoneNumber: String,
+        requestOptions: RequestOptions,
+    ): PhoneNumberRetrievePhoneNumberResponse =
+        retrievePhoneNumber(
+            phoneNumber,
+            PhoneNumberRetrievePhoneNumberParams.none(),
+            requestOptions,
+        )
 
     /** Submits the verification code received for the specified WhatsApp phone number. */
     fun verify(phoneNumber: String, params: PhoneNumberVerifyParams) =
@@ -390,6 +436,61 @@ interface PhoneNumberService {
             params: PhoneNumberRetrieveConversationWindowParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhoneNumberRetrieveConversationWindowResponse>
+
+        /**
+         * Returns a raw HTTP response for `get /whatsapp/phone_numbers/{phone_number}`, but is
+         * otherwise the same as [PhoneNumberService.retrievePhoneNumber].
+         */
+        @MustBeClosed
+        fun retrievePhoneNumber(
+            phoneNumber: String
+        ): HttpResponseFor<PhoneNumberRetrievePhoneNumberResponse> =
+            retrievePhoneNumber(phoneNumber, PhoneNumberRetrievePhoneNumberParams.none())
+
+        /** @see retrievePhoneNumber */
+        @MustBeClosed
+        fun retrievePhoneNumber(
+            phoneNumber: String,
+            params: PhoneNumberRetrievePhoneNumberParams =
+                PhoneNumberRetrievePhoneNumberParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhoneNumberRetrievePhoneNumberResponse> =
+            retrievePhoneNumber(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+        /** @see retrievePhoneNumber */
+        @MustBeClosed
+        fun retrievePhoneNumber(
+            phoneNumber: String,
+            params: PhoneNumberRetrievePhoneNumberParams =
+                PhoneNumberRetrievePhoneNumberParams.none(),
+        ): HttpResponseFor<PhoneNumberRetrievePhoneNumberResponse> =
+            retrievePhoneNumber(phoneNumber, params, RequestOptions.none())
+
+        /** @see retrievePhoneNumber */
+        @MustBeClosed
+        fun retrievePhoneNumber(
+            params: PhoneNumberRetrievePhoneNumberParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhoneNumberRetrievePhoneNumberResponse>
+
+        /** @see retrievePhoneNumber */
+        @MustBeClosed
+        fun retrievePhoneNumber(
+            params: PhoneNumberRetrievePhoneNumberParams
+        ): HttpResponseFor<PhoneNumberRetrievePhoneNumberResponse> =
+            retrievePhoneNumber(params, RequestOptions.none())
+
+        /** @see retrievePhoneNumber */
+        @MustBeClosed
+        fun retrievePhoneNumber(
+            phoneNumber: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhoneNumberRetrievePhoneNumberResponse> =
+            retrievePhoneNumber(
+                phoneNumber,
+                PhoneNumberRetrievePhoneNumberParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /v2/whatsapp/phone_numbers/{phone_number}/verify`,

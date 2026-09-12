@@ -134,7 +134,10 @@ private constructor(
         microsoftTeamsSbc.getOptional("microsoft_teams_sbc")
 
     /**
-     * The password for authentication.
+     * The password for authentication. For primary accounts created on or after September 8, 2026,
+     * this password is returned as `********`. The password is returned in full on create, and on
+     * update only when that update changed the password. Accounts created before September 8, 2026
+     * are unaffected.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -432,7 +435,12 @@ private constructor(
             this.microsoftTeamsSbc = microsoftTeamsSbc
         }
 
-        /** The password for authentication. */
+        /**
+         * The password for authentication. For primary accounts created on or after September 8,
+         * 2026, this password is returned as `********`. The password is returned in full on
+         * create, and on update only when that update changed the password. Accounts created before
+         * September 8, 2026 are unaffected.
+         */
         fun password(password: String) = password(JsonField.of(password))
 
         /**
