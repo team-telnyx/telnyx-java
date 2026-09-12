@@ -340,7 +340,10 @@ private constructor(
     fun outbound(): Optional<CredentialOutbound> = outbound.getOptional("outbound")
 
     /**
-     * The password to be used as part of the credentials. Must be 8 to 128 characters long.
+     * The password to be used as part of the credentials. Must be 8 to 128 characters long. For
+     * primary accounts created on or after September 8, 2026, this password is returned as
+     * `********`. The password is returned in full on create, and on update only when that update
+     * changed the password. Accounts created before September 8, 2026 are unaffected.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1104,7 +1107,12 @@ private constructor(
          */
         fun outbound(outbound: JsonField<CredentialOutbound>) = apply { this.outbound = outbound }
 
-        /** The password to be used as part of the credentials. Must be 8 to 128 characters long. */
+        /**
+         * The password to be used as part of the credentials. Must be 8 to 128 characters long. For
+         * primary accounts created on or after September 8, 2026, this password is returned as
+         * `********`. The password is returned in full on create, and on update only when that
+         * update changed the password. Accounts created before September 8, 2026 are unaffected.
+         */
         fun password(password: String) = password(JsonField.of(password))
 
         /**

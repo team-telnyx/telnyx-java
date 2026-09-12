@@ -15,6 +15,7 @@ internal class TelephonySettingsTest {
             TelephonySettings.builder()
                 .defaultTexmlAppId("default_texml_app_id")
                 .disableDtmf(true)
+                .fallbackDestination("fallback_destination")
                 .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                 .noiseSuppressionConfig(
                     TelephonySettings.NoiseSuppressionConfig.builder()
@@ -65,6 +66,7 @@ internal class TelephonySettingsTest {
 
         assertThat(telephonySettings.defaultTexmlAppId()).contains("default_texml_app_id")
         assertThat(telephonySettings.disableDtmf()).contains(true)
+        assertThat(telephonySettings.fallbackDestination()).contains("fallback_destination")
         assertThat(telephonySettings.noiseSuppression())
             .contains(TelephonySettings.NoiseSuppression.KRISP)
         assertThat(telephonySettings.noiseSuppressionConfig())
@@ -124,6 +126,7 @@ internal class TelephonySettingsTest {
             TelephonySettings.builder()
                 .defaultTexmlAppId("default_texml_app_id")
                 .disableDtmf(true)
+                .fallbackDestination("fallback_destination")
                 .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                 .noiseSuppressionConfig(
                     TelephonySettings.NoiseSuppressionConfig.builder()

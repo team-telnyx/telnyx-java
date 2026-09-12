@@ -93,6 +93,16 @@ private constructor(
     fun enabled(): Optional<Boolean> = body.enabled()
 
     /**
+     * Telnyx product features the messaging customer can enable on the messaging profile. Keys map
+     * to individual feature flags; unknown keys are accepted and preserved for forward
+     * compatibility with rolling deployments.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun features(): Optional<MessagingProfileFeatures> = body.features()
+
+    /**
      * A URL to receive health check webhooks for numbers in this profile.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -243,6 +253,13 @@ private constructor(
      * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _enabled(): JsonField<Boolean> = body._enabled()
+
+    /**
+     * Returns the raw JSON value of [features].
+     *
+     * Unlike [features], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _features(): JsonField<MessagingProfileFeatures> = body._features()
 
     /**
      * Returns the raw JSON value of [healthWebhookUrl].
@@ -501,6 +518,27 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun enabled(enabled: JsonField<Boolean>) = apply { body.enabled(enabled) }
+
+        /**
+         * Telnyx product features the messaging customer can enable on the messaging profile. Keys
+         * map to individual feature flags; unknown keys are accepted and preserved for forward
+         * compatibility with rolling deployments.
+         */
+        fun features(features: MessagingProfileFeatures?) = apply { body.features(features) }
+
+        /** Alias for calling [Builder.features] with `features.orElse(null)`. */
+        fun features(features: Optional<MessagingProfileFeatures>) = features(features.getOrNull())
+
+        /**
+         * Sets [Builder.features] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.features] with a well-typed [MessagingProfileFeatures]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun features(features: JsonField<MessagingProfileFeatures>) = apply {
+            body.features(features)
+        }
 
         /** A URL to receive health check webhooks for numbers in this profile. */
         fun healthWebhookUrl(healthWebhookUrl: String?) = apply {
@@ -875,6 +913,7 @@ private constructor(
         private val dailySpendLimit: JsonField<String>,
         private val dailySpendLimitEnabled: JsonField<Boolean>,
         private val enabled: JsonField<Boolean>,
+        private val features: JsonField<MessagingProfileFeatures>,
         private val healthWebhookUrl: JsonField<String>,
         private val mmsFallBackToSms: JsonField<Boolean>,
         private val mmsTranscoding: JsonField<Boolean>,
@@ -908,6 +947,9 @@ private constructor(
             @ExcludeMissing
             dailySpendLimitEnabled: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("enabled") @ExcludeMissing enabled: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("features")
+            @ExcludeMissing
+            features: JsonField<MessagingProfileFeatures> = JsonMissing.of(),
             @JsonProperty("health_webhook_url")
             @ExcludeMissing
             healthWebhookUrl: JsonField<String> = JsonMissing.of(),
@@ -949,6 +991,7 @@ private constructor(
             dailySpendLimit,
             dailySpendLimitEnabled,
             enabled,
+            features,
             healthWebhookUrl,
             mmsFallBackToSms,
             mmsTranscoding,
@@ -1024,6 +1067,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun enabled(): Optional<Boolean> = enabled.getOptional("enabled")
+
+        /**
+         * Telnyx product features the messaging customer can enable on the messaging profile. Keys
+         * map to individual feature flags; unknown keys are accepted and preserved for forward
+         * compatibility with rolling deployments.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun features(): Optional<MessagingProfileFeatures> = features.getOptional("features")
 
         /**
          * A URL to receive health check webhooks for numbers in this profile.
@@ -1197,6 +1250,15 @@ private constructor(
         @JsonProperty("enabled") @ExcludeMissing fun _enabled(): JsonField<Boolean> = enabled
 
         /**
+         * Returns the raw JSON value of [features].
+         *
+         * Unlike [features], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("features")
+        @ExcludeMissing
+        fun _features(): JsonField<MessagingProfileFeatures> = features
+
+        /**
          * Returns the raw JSON value of [healthWebhookUrl].
          *
          * Unlike [healthWebhookUrl], this method doesn't throw if the JSON field has an unexpected
@@ -1340,6 +1402,7 @@ private constructor(
             private var dailySpendLimit: JsonField<String> = JsonMissing.of()
             private var dailySpendLimitEnabled: JsonField<Boolean> = JsonMissing.of()
             private var enabled: JsonField<Boolean> = JsonMissing.of()
+            private var features: JsonField<MessagingProfileFeatures> = JsonMissing.of()
             private var healthWebhookUrl: JsonField<String> = JsonMissing.of()
             private var mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of()
             private var mmsTranscoding: JsonField<Boolean> = JsonMissing.of()
@@ -1362,6 +1425,7 @@ private constructor(
                 dailySpendLimit = body.dailySpendLimit
                 dailySpendLimitEnabled = body.dailySpendLimitEnabled
                 enabled = body.enabled
+                features = body.features
                 healthWebhookUrl = body.healthWebhookUrl
                 mmsFallBackToSms = body.mmsFallBackToSms
                 mmsTranscoding = body.mmsTranscoding
@@ -1502,6 +1566,29 @@ private constructor(
              * supported value.
              */
             fun enabled(enabled: JsonField<Boolean>) = apply { this.enabled = enabled }
+
+            /**
+             * Telnyx product features the messaging customer can enable on the messaging profile.
+             * Keys map to individual feature flags; unknown keys are accepted and preserved for
+             * forward compatibility with rolling deployments.
+             */
+            fun features(features: MessagingProfileFeatures?) =
+                features(JsonField.ofNullable(features))
+
+            /** Alias for calling [Builder.features] with `features.orElse(null)`. */
+            fun features(features: Optional<MessagingProfileFeatures>) =
+                features(features.getOrNull())
+
+            /**
+             * Sets [Builder.features] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.features] with a well-typed
+             * [MessagingProfileFeatures] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun features(features: JsonField<MessagingProfileFeatures>) = apply {
+                this.features = features
+            }
 
             /** A URL to receive health check webhooks for numbers in this profile. */
             fun healthWebhookUrl(healthWebhookUrl: String?) =
@@ -1763,6 +1850,7 @@ private constructor(
                     dailySpendLimit,
                     dailySpendLimitEnabled,
                     enabled,
+                    features,
                     healthWebhookUrl,
                     mmsFallBackToSms,
                     mmsTranscoding,
@@ -1801,6 +1889,7 @@ private constructor(
             dailySpendLimit()
             dailySpendLimitEnabled()
             enabled()
+            features().ifPresent { it.validate() }
             healthWebhookUrl()
             mmsFallBackToSms()
             mmsTranscoding()
@@ -1838,6 +1927,7 @@ private constructor(
                 (if (dailySpendLimit.asKnown().isPresent) 1 else 0) +
                 (if (dailySpendLimitEnabled.asKnown().isPresent) 1 else 0) +
                 (if (enabled.asKnown().isPresent) 1 else 0) +
+                (features.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (healthWebhookUrl.asKnown().isPresent) 1 else 0) +
                 (if (mmsFallBackToSms.asKnown().isPresent) 1 else 0) +
                 (if (mmsTranscoding.asKnown().isPresent) 1 else 0) +
@@ -1863,6 +1953,7 @@ private constructor(
                 dailySpendLimit == other.dailySpendLimit &&
                 dailySpendLimitEnabled == other.dailySpendLimitEnabled &&
                 enabled == other.enabled &&
+                features == other.features &&
                 healthWebhookUrl == other.healthWebhookUrl &&
                 mmsFallBackToSms == other.mmsFallBackToSms &&
                 mmsTranscoding == other.mmsTranscoding &&
@@ -1886,6 +1977,7 @@ private constructor(
                 dailySpendLimit,
                 dailySpendLimitEnabled,
                 enabled,
+                features,
                 healthWebhookUrl,
                 mmsFallBackToSms,
                 mmsTranscoding,
@@ -1904,7 +1996,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{name=$name, whitelistedDestinations=$whitelistedDestinations, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, healthWebhookUrl=$healthWebhookUrl, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, numberPoolSettings=$numberPoolSettings, resourceGroupId=$resourceGroupId, smartEncoding=$smartEncoding, urlShortenerSettings=$urlShortenerSettings, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{name=$name, whitelistedDestinations=$whitelistedDestinations, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, features=$features, healthWebhookUrl=$healthWebhookUrl, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, numberPoolSettings=$numberPoolSettings, resourceGroupId=$resourceGroupId, smartEncoding=$smartEncoding, urlShortenerSettings=$urlShortenerSettings, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     /**

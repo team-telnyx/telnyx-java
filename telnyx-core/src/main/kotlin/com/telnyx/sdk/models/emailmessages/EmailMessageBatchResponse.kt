@@ -506,6 +506,8 @@ private constructor(
 
                 @JvmField val SERVICE_UNAVAILABLE = of("service_unavailable")
 
+                @JvmField val UNPROCESSABLE_ENTITY = of("unprocessable_entity")
+
                 @JvmField val VALIDATION_ERROR = of("validation_error")
 
                 @JvmField val RECIPIENT_SUPPRESSED = of("recipient_suppressed")
@@ -521,6 +523,7 @@ private constructor(
                 NOT_FOUND,
                 FORBIDDEN,
                 SERVICE_UNAVAILABLE,
+                UNPROCESSABLE_ENTITY,
                 VALIDATION_ERROR,
                 RECIPIENT_SUPPRESSED,
                 REPUTATION_SUSPENDED,
@@ -540,6 +543,7 @@ private constructor(
                 NOT_FOUND,
                 FORBIDDEN,
                 SERVICE_UNAVAILABLE,
+                UNPROCESSABLE_ENTITY,
                 VALIDATION_ERROR,
                 RECIPIENT_SUPPRESSED,
                 REPUTATION_SUSPENDED,
@@ -560,6 +564,7 @@ private constructor(
                     NOT_FOUND -> Value.NOT_FOUND
                     FORBIDDEN -> Value.FORBIDDEN
                     SERVICE_UNAVAILABLE -> Value.SERVICE_UNAVAILABLE
+                    UNPROCESSABLE_ENTITY -> Value.UNPROCESSABLE_ENTITY
                     VALIDATION_ERROR -> Value.VALIDATION_ERROR
                     RECIPIENT_SUPPRESSED -> Value.RECIPIENT_SUPPRESSED
                     REPUTATION_SUSPENDED -> Value.REPUTATION_SUSPENDED
@@ -581,6 +586,7 @@ private constructor(
                     NOT_FOUND -> Known.NOT_FOUND
                     FORBIDDEN -> Known.FORBIDDEN
                     SERVICE_UNAVAILABLE -> Known.SERVICE_UNAVAILABLE
+                    UNPROCESSABLE_ENTITY -> Known.UNPROCESSABLE_ENTITY
                     VALIDATION_ERROR -> Known.VALIDATION_ERROR
                     RECIPIENT_SUPPRESSED -> Known.RECIPIENT_SUPPRESSED
                     REPUTATION_SUSPENDED -> Known.REPUTATION_SUSPENDED

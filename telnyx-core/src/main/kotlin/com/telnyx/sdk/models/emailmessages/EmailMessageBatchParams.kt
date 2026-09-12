@@ -23,7 +23,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Creates up to 50 email messages in a single request. */
+/**
+ * Creates up to 1,000 email messages in a single request. Each message is validated and sent
+ * independently; per-message failures do not affect other messages in the batch. All responses use
+ * 207 Multi-Status.
+ */
 class EmailMessageBatchParams
 private constructor(
     private val idempotencyKey: String?,
@@ -35,6 +39,10 @@ private constructor(
     fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
     /**
+     * Array of email messages to send. Up to 1,000 messages per batch request. Each message is
+     * validated and sent independently; per-message failures do not affect other messages in the
+     * batch.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -119,6 +127,11 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
+        /**
+         * Array of email messages to send. Up to 1,000 messages per batch request. Each message is
+         * validated and sent independently; per-message failures do not affect other messages in
+         * the batch.
+         */
         fun messages(messages: List<Message>) = apply { body.messages(messages) }
 
         /**
@@ -322,6 +335,10 @@ private constructor(
         ) : this(messages, sandboxMode, mutableMapOf())
 
         /**
+         * Array of email messages to send. Up to 1,000 messages per batch request. Each message is
+         * validated and sent independently; per-message failures do not affect other messages in
+         * the batch.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
@@ -393,6 +410,11 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
+            /**
+             * Array of email messages to send. Up to 1,000 messages per batch request. Each message
+             * is validated and sent independently; per-message failures do not affect other
+             * messages in the batch.
+             */
             fun messages(messages: List<Message>) = messages(JsonField.of(messages))
 
             /**

@@ -16,6 +16,7 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.emailmessages.MessageEvent
+import com.telnyx.sdk.models.emailmessages.SuppressedRecipient
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -43,6 +44,7 @@ private constructor(
     private val recipientStatuses: JsonField<RecipientStatuses>,
     private val sandbox: JsonField<Boolean>,
     private val scheduledAt: JsonField<OffsetDateTime>,
+    private val suppressed: JsonField<List<SuppressedRecipient>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -84,6 +86,9 @@ private constructor(
         @JsonProperty("scheduled_at")
         @ExcludeMissing
         scheduledAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("suppressed")
+        @ExcludeMissing
+        suppressed: JsonField<List<SuppressedRecipient>> = JsonMissing.of(),
     ) : this(
         id,
         attachments,
@@ -103,6 +108,7 @@ private constructor(
         recipientStatuses,
         sandbox,
         scheduledAt,
+        suppressed,
         mutableMapOf(),
     )
 
@@ -230,6 +236,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun scheduledAt(): Optional<OffsetDateTime> = scheduledAt.getOptional("scheduled_at")
+
+    /**
+     * Recipients excluded from delivery by suppression checks, with reasons. On batch items,
+     * present when that item had suppressed recipients; all other recipients of the item still
+     * receive the message. For single sends this information appears at the top level of the
+     * response instead (see EmailMessageResponse.suppressed).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun suppressed(): Optional<List<SuppressedRecipient>> = suppressed.getOptional("suppressed")
 
     /**
      * Returns the raw JSON value of [id].
@@ -371,6 +388,15 @@ private constructor(
     @ExcludeMissing
     fun _scheduledAt(): JsonField<OffsetDateTime> = scheduledAt
 
+    /**
+     * Returns the raw JSON value of [suppressed].
+     *
+     * Unlike [suppressed], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("suppressed")
+    @ExcludeMissing
+    fun _suppressed(): JsonField<List<SuppressedRecipient>> = suppressed
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -430,6 +456,7 @@ private constructor(
         private var recipientStatuses: JsonField<RecipientStatuses> = JsonMissing.of()
         private var sandbox: JsonField<Boolean> = JsonMissing.of()
         private var scheduledAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var suppressed: JsonField<MutableList<SuppressedRecipient>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -452,6 +479,7 @@ private constructor(
             recipientStatuses = emailMessage.recipientStatuses
             sandbox = emailMessage.sandbox
             scheduledAt = emailMessage.scheduledAt
+            suppressed = emailMessage.suppressed.map { it.toMutableList() }
             additionalProperties = emailMessage.additionalProperties.toMutableMap()
         }
 
@@ -745,6 +773,37 @@ private constructor(
             this.scheduledAt = scheduledAt
         }
 
+        /**
+         * Recipients excluded from delivery by suppression checks, with reasons. On batch items,
+         * present when that item had suppressed recipients; all other recipients of the item still
+         * receive the message. For single sends this information appears at the top level of the
+         * response instead (see EmailMessageResponse.suppressed).
+         */
+        fun suppressed(suppressed: List<SuppressedRecipient>) = suppressed(JsonField.of(suppressed))
+
+        /**
+         * Sets [Builder.suppressed] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.suppressed] with a well-typed
+         * `List<SuppressedRecipient>` value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun suppressed(suppressed: JsonField<List<SuppressedRecipient>>) = apply {
+            this.suppressed = suppressed.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [SuppressedRecipient] to [Builder.suppressed].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addSuppressed(suppressed: SuppressedRecipient) = apply {
+            this.suppressed =
+                (this.suppressed ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("suppressed", it).add(suppressed)
+                }
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -809,6 +868,7 @@ private constructor(
                 recipientStatuses,
                 sandbox,
                 scheduledAt,
+                (suppressed ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
     }
@@ -846,6 +906,7 @@ private constructor(
         recipientStatuses().ifPresent { it.validate() }
         sandbox()
         scheduledAt()
+        suppressed().ifPresent { it.forEach { it.validate() } }
         validated = true
     }
 
@@ -881,7 +942,8 @@ private constructor(
             (if (inlineCss.asKnown().isPresent) 1 else 0) +
             (recipientStatuses.asKnown().getOrNull()?.validity() ?: 0) +
             (if (sandbox.asKnown().isPresent) 1 else 0) +
-            (if (scheduledAt.asKnown().isPresent) 1 else 0)
+            (if (scheduledAt.asKnown().isPresent) 1 else 0) +
+            (suppressed.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
     /** EDR-aligned attachment metadata. The base64 `content` is never returned. */
     class Attachment
@@ -1923,6 +1985,7 @@ private constructor(
             recipientStatuses == other.recipientStatuses &&
             sandbox == other.sandbox &&
             scheduledAt == other.scheduledAt &&
+            suppressed == other.suppressed &&
             additionalProperties == other.additionalProperties
     }
 
@@ -1946,6 +2009,7 @@ private constructor(
             recipientStatuses,
             sandbox,
             scheduledAt,
+            suppressed,
             additionalProperties,
         )
     }
@@ -1953,5 +2017,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EmailMessage{id=$id, attachments=$attachments, bcc=$bcc, cc=$cc, createdAt=$createdAt, events=$events, from=$from, recordType=$recordType, replyTo=$replyTo, status=$status, subject=$subject, templateId=$templateId, templateVariables=$templateVariables, to=$to, inlineCss=$inlineCss, recipientStatuses=$recipientStatuses, sandbox=$sandbox, scheduledAt=$scheduledAt, additionalProperties=$additionalProperties}"
+        "EmailMessage{id=$id, attachments=$attachments, bcc=$bcc, cc=$cc, createdAt=$createdAt, events=$events, from=$from, recordType=$recordType, replyTo=$replyTo, status=$status, subject=$subject, templateId=$templateId, templateVariables=$templateVariables, to=$to, inlineCss=$inlineCss, recipientStatuses=$recipientStatuses, sandbox=$sandbox, scheduledAt=$scheduledAt, suppressed=$suppressed, additionalProperties=$additionalProperties}"
 }

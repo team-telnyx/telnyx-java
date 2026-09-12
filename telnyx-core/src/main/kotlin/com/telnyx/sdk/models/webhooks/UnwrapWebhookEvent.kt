@@ -106,6 +106,8 @@ private constructor(
     private val sessionStatusChanged: SessionStatusChangedWebhookEvent? = null,
     private val transcriptCompleted: TranscriptCompletedWebhookEvent? = null,
     private val transcription: TranscriptionWebhookEvent? = null,
+    private val whatsappAccountUpdate: WhatsappAccountUpdate? = null,
+    private val whatsappMessageEcho: WhatsappMessageEcho? = null,
     private val _json: JsonValue? = null,
 ) {
 
@@ -314,6 +316,12 @@ private constructor(
 
     fun transcription(): Optional<TranscriptionWebhookEvent> = Optional.ofNullable(transcription)
 
+    fun whatsappAccountUpdate(): Optional<WhatsappAccountUpdate> =
+        Optional.ofNullable(whatsappAccountUpdate)
+
+    fun whatsappMessageEcho(): Optional<WhatsappMessageEcho> =
+        Optional.ofNullable(whatsappMessageEcho)
+
     fun isCallAiGatherEnded(): Boolean = callAiGatherEnded != null
 
     fun isCallAiGatherMessageHistoryUpdated(): Boolean = callAiGatherMessageHistoryUpdated != null
@@ -460,6 +468,10 @@ private constructor(
     fun isTranscriptCompleted(): Boolean = transcriptCompleted != null
 
     fun isTranscription(): Boolean = transcription != null
+
+    fun isWhatsappAccountUpdate(): Boolean = whatsappAccountUpdate != null
+
+    fun isWhatsappMessageEcho(): Boolean = whatsappMessageEcho != null
 
     fun asCallAiGatherEnded(): CallAiGatherEndedWebhookEvent =
         callAiGatherEnded.getOrThrow("callAiGatherEnded")
@@ -661,6 +673,12 @@ private constructor(
 
     fun asTranscription(): TranscriptionWebhookEvent = transcription.getOrThrow("transcription")
 
+    fun asWhatsappAccountUpdate(): WhatsappAccountUpdate =
+        whatsappAccountUpdate.getOrThrow("whatsappAccountUpdate")
+
+    fun asWhatsappMessageEcho(): WhatsappMessageEcho =
+        whatsappMessageEcho.getOrThrow("whatsappMessageEcho")
+
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
     /**
@@ -793,6 +811,9 @@ private constructor(
             sessionStatusChanged != null -> visitor.visitSessionStatusChanged(sessionStatusChanged)
             transcriptCompleted != null -> visitor.visitTranscriptCompleted(transcriptCompleted)
             transcription != null -> visitor.visitTranscription(transcription)
+            whatsappAccountUpdate != null ->
+                visitor.visitWhatsappAccountUpdate(whatsappAccountUpdate)
+            whatsappMessageEcho != null -> visitor.visitWhatsappMessageEcho(whatsappMessageEcho)
             else -> visitor.unknown(_json)
         }
 
@@ -1194,6 +1215,16 @@ private constructor(
                 override fun visitTranscription(transcription: TranscriptionWebhookEvent) {
                     transcription.validate()
                 }
+
+                override fun visitWhatsappAccountUpdate(
+                    whatsappAccountUpdate: WhatsappAccountUpdate
+                ) {
+                    whatsappAccountUpdate.validate()
+                }
+
+                override fun visitWhatsappMessageEcho(whatsappMessageEcho: WhatsappMessageEcho) {
+                    whatsappMessageEcho.validate()
+                }
             }
         )
         validated = true
@@ -1476,6 +1507,13 @@ private constructor(
                 override fun visitTranscription(transcription: TranscriptionWebhookEvent) =
                     transcription.validity()
 
+                override fun visitWhatsappAccountUpdate(
+                    whatsappAccountUpdate: WhatsappAccountUpdate
+                ) = whatsappAccountUpdate.validity()
+
+                override fun visitWhatsappMessageEcho(whatsappMessageEcho: WhatsappMessageEcho) =
+                    whatsappMessageEcho.validity()
+
                 override fun unknown(json: JsonValue?) = 0
             }
         )
@@ -1558,7 +1596,9 @@ private constructor(
             replacedLinkClick == other.replacedLinkClick &&
             sessionStatusChanged == other.sessionStatusChanged &&
             transcriptCompleted == other.transcriptCompleted &&
-            transcription == other.transcription
+            transcription == other.transcription &&
+            whatsappAccountUpdate == other.whatsappAccountUpdate &&
+            whatsappMessageEcho == other.whatsappMessageEcho
     }
 
     override fun hashCode(): Int =
@@ -1636,6 +1676,8 @@ private constructor(
             sessionStatusChanged,
             transcriptCompleted,
             transcription,
+            whatsappAccountUpdate,
+            whatsappMessageEcho,
         )
 
     override fun toString(): String =
@@ -1751,6 +1793,10 @@ private constructor(
             transcriptCompleted != null ->
                 "UnwrapWebhookEvent{transcriptCompleted=$transcriptCompleted}"
             transcription != null -> "UnwrapWebhookEvent{transcription=$transcription}"
+            whatsappAccountUpdate != null ->
+                "UnwrapWebhookEvent{whatsappAccountUpdate=$whatsappAccountUpdate}"
+            whatsappMessageEcho != null ->
+                "UnwrapWebhookEvent{whatsappMessageEcho=$whatsappMessageEcho}"
             _json != null -> "UnwrapWebhookEvent{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid UnwrapWebhookEvent")
         }
@@ -2077,6 +2123,14 @@ private constructor(
         @JvmStatic
         fun ofTranscription(transcription: TranscriptionWebhookEvent) =
             UnwrapWebhookEvent(transcription = transcription)
+
+        @JvmStatic
+        fun ofWhatsappAccountUpdate(whatsappAccountUpdate: WhatsappAccountUpdate) =
+            UnwrapWebhookEvent(whatsappAccountUpdate = whatsappAccountUpdate)
+
+        @JvmStatic
+        fun ofWhatsappMessageEcho(whatsappMessageEcho: WhatsappMessageEcho) =
+            UnwrapWebhookEvent(whatsappMessageEcho = whatsappMessageEcho)
     }
 
     /**
@@ -2274,6 +2328,10 @@ private constructor(
         fun visitTranscriptCompleted(transcriptCompleted: TranscriptCompletedWebhookEvent): T
 
         fun visitTranscription(transcription: TranscriptionWebhookEvent): T
+
+        fun visitWhatsappAccountUpdate(whatsappAccountUpdate: WhatsappAccountUpdate): T
+
+        fun visitWhatsappMessageEcho(whatsappMessageEcho: WhatsappMessageEcho): T
 
         /**
          * Maps an unknown variant of [UnwrapWebhookEvent] to a value of type [T].
@@ -2595,6 +2653,12 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<TranscriptionWebhookEvent>())?.let {
                             UnwrapWebhookEvent(transcription = it, _json = json)
                         },
+                        tryDeserialize(node, jacksonTypeRef<WhatsappAccountUpdate>())?.let {
+                            UnwrapWebhookEvent(whatsappAccountUpdate = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<WhatsappMessageEcho>())?.let {
+                            UnwrapWebhookEvent(whatsappMessageEcho = it, _json = json)
+                        },
                     )
                     .filterNotNull()
                     .allMaxBy { it.validity() }
@@ -2726,6 +2790,10 @@ private constructor(
                 value.transcriptCompleted != null ->
                     generator.writeObject(value.transcriptCompleted)
                 value.transcription != null -> generator.writeObject(value.transcription)
+                value.whatsappAccountUpdate != null ->
+                    generator.writeObject(value.whatsappAccountUpdate)
+                value.whatsappMessageEcho != null ->
+                    generator.writeObject(value.whatsappMessageEcho)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid UnwrapWebhookEvent")
             }
