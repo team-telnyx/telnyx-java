@@ -25,6 +25,34 @@ internal class InboundMessageWebhookEventTest {
                         .payload(
                             MessagingInboundMessagePayload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                                .body(
+                                    MessagingInboundMessagePayload.Body.builder()
+                                        .id("id")
+                                        .edit(
+                                            MessagingInboundMessagePayload.Body.Edit.builder()
+                                                .message(
+                                                    MessagingInboundMessagePayload.Body.Edit.Message
+                                                        .builder()
+                                                        .putAdditionalProperty(
+                                                            "foo",
+                                                            JsonValue.from("bar"),
+                                                        )
+                                                        .build()
+                                                )
+                                                .originalMessageId("original_message_id")
+                                                .build()
+                                        )
+                                        .foreignId("foreign_id")
+                                        .from("from")
+                                        .revoke(
+                                            MessagingInboundMessagePayload.Body.Revoke.builder()
+                                                .originalMessageId("original_message_id")
+                                                .build()
+                                        )
+                                        .timestamp("timestamp")
+                                        .type("edit")
+                                        .build()
+                                )
                                 .addCc(
                                     MessagingInboundMessagePayload.Cc.builder()
                                         .carrier("carrier")
@@ -111,13 +139,27 @@ internal class InboundMessageWebhookEventTest {
                                 .tcrCampaignId("TCPA3X7")
                                 .tcrCampaignRegistered("REGISTERED")
                                 .text("Hello, World!")
-                                .addTo(
-                                    MessagingInboundMessagePayload.To.builder()
-                                        .carrier("TELNYX LLC")
-                                        .lineType(MessagingInboundMessagePayload.To.LineType.VO_IP)
-                                        .phoneNumber("+18445550001")
-                                        .status(MessagingInboundMessagePayload.To.Status.DELIVERED)
-                                        .build()
+                                .toOfUnnamedSchemaWithArrayParent0s(
+                                    listOf(
+                                        MessagingInboundMessagePayload.To
+                                            .UnnamedSchemaWithArrayParent0
+                                            .builder()
+                                            .carrier("TELNYX LLC")
+                                            .lineType(
+                                                MessagingInboundMessagePayload.To
+                                                    .UnnamedSchemaWithArrayParent0
+                                                    .LineType
+                                                    .VO_IP
+                                            )
+                                            .phoneNumber("+18445550001")
+                                            .status(
+                                                MessagingInboundMessagePayload.To
+                                                    .UnnamedSchemaWithArrayParent0
+                                                    .Status
+                                                    .DELIVERED
+                                            )
+                                            .build()
+                                    )
                                 )
                                 .type(MessagingInboundMessagePayload.Type.SMS)
                                 .validUntil(null)
@@ -139,6 +181,34 @@ internal class InboundMessageWebhookEventTest {
                     .payload(
                         MessagingInboundMessagePayload.builder()
                             .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                            .body(
+                                MessagingInboundMessagePayload.Body.builder()
+                                    .id("id")
+                                    .edit(
+                                        MessagingInboundMessagePayload.Body.Edit.builder()
+                                            .message(
+                                                MessagingInboundMessagePayload.Body.Edit.Message
+                                                    .builder()
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from("bar"),
+                                                    )
+                                                    .build()
+                                            )
+                                            .originalMessageId("original_message_id")
+                                            .build()
+                                    )
+                                    .foreignId("foreign_id")
+                                    .from("from")
+                                    .revoke(
+                                        MessagingInboundMessagePayload.Body.Revoke.builder()
+                                            .originalMessageId("original_message_id")
+                                            .build()
+                                    )
+                                    .timestamp("timestamp")
+                                    .type("edit")
+                                    .build()
+                            )
                             .addCc(
                                 MessagingInboundMessagePayload.Cc.builder()
                                     .carrier("carrier")
@@ -220,13 +290,26 @@ internal class InboundMessageWebhookEventTest {
                             .tcrCampaignId("TCPA3X7")
                             .tcrCampaignRegistered("REGISTERED")
                             .text("Hello, World!")
-                            .addTo(
-                                MessagingInboundMessagePayload.To.builder()
-                                    .carrier("TELNYX LLC")
-                                    .lineType(MessagingInboundMessagePayload.To.LineType.VO_IP)
-                                    .phoneNumber("+18445550001")
-                                    .status(MessagingInboundMessagePayload.To.Status.DELIVERED)
-                                    .build()
+                            .toOfUnnamedSchemaWithArrayParent0s(
+                                listOf(
+                                    MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0
+                                        .builder()
+                                        .carrier("TELNYX LLC")
+                                        .lineType(
+                                            MessagingInboundMessagePayload.To
+                                                .UnnamedSchemaWithArrayParent0
+                                                .LineType
+                                                .VO_IP
+                                        )
+                                        .phoneNumber("+18445550001")
+                                        .status(
+                                            MessagingInboundMessagePayload.To
+                                                .UnnamedSchemaWithArrayParent0
+                                                .Status
+                                                .DELIVERED
+                                        )
+                                        .build()
+                                )
                             )
                             .type(MessagingInboundMessagePayload.Type.SMS)
                             .validUntil(null)
@@ -252,6 +335,34 @@ internal class InboundMessageWebhookEventTest {
                         .payload(
                             MessagingInboundMessagePayload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                                .body(
+                                    MessagingInboundMessagePayload.Body.builder()
+                                        .id("id")
+                                        .edit(
+                                            MessagingInboundMessagePayload.Body.Edit.builder()
+                                                .message(
+                                                    MessagingInboundMessagePayload.Body.Edit.Message
+                                                        .builder()
+                                                        .putAdditionalProperty(
+                                                            "foo",
+                                                            JsonValue.from("bar"),
+                                                        )
+                                                        .build()
+                                                )
+                                                .originalMessageId("original_message_id")
+                                                .build()
+                                        )
+                                        .foreignId("foreign_id")
+                                        .from("from")
+                                        .revoke(
+                                            MessagingInboundMessagePayload.Body.Revoke.builder()
+                                                .originalMessageId("original_message_id")
+                                                .build()
+                                        )
+                                        .timestamp("timestamp")
+                                        .type("edit")
+                                        .build()
+                                )
                                 .addCc(
                                     MessagingInboundMessagePayload.Cc.builder()
                                         .carrier("carrier")
@@ -338,13 +449,27 @@ internal class InboundMessageWebhookEventTest {
                                 .tcrCampaignId("TCPA3X7")
                                 .tcrCampaignRegistered("REGISTERED")
                                 .text("Hello, World!")
-                                .addTo(
-                                    MessagingInboundMessagePayload.To.builder()
-                                        .carrier("TELNYX LLC")
-                                        .lineType(MessagingInboundMessagePayload.To.LineType.VO_IP)
-                                        .phoneNumber("+18445550001")
-                                        .status(MessagingInboundMessagePayload.To.Status.DELIVERED)
-                                        .build()
+                                .toOfUnnamedSchemaWithArrayParent0s(
+                                    listOf(
+                                        MessagingInboundMessagePayload.To
+                                            .UnnamedSchemaWithArrayParent0
+                                            .builder()
+                                            .carrier("TELNYX LLC")
+                                            .lineType(
+                                                MessagingInboundMessagePayload.To
+                                                    .UnnamedSchemaWithArrayParent0
+                                                    .LineType
+                                                    .VO_IP
+                                            )
+                                            .phoneNumber("+18445550001")
+                                            .status(
+                                                MessagingInboundMessagePayload.To
+                                                    .UnnamedSchemaWithArrayParent0
+                                                    .Status
+                                                    .DELIVERED
+                                            )
+                                            .build()
+                                    )
                                 )
                                 .type(MessagingInboundMessagePayload.Type.SMS)
                                 .validUntil(null)

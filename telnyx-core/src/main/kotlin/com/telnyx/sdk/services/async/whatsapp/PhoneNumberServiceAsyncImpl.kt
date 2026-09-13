@@ -29,6 +29,8 @@ import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberListParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberResendVerificationParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversationWindowParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversationWindowResponse
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrievePhoneNumberParams
+import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrievePhoneNumberResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberVerifyParams
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.CallingSettingServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.CallingSettingServiceAsyncImpl
@@ -109,6 +111,13 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
         withRawResponse().retrieveConversationWindow(params, requestOptions).mapCancellable {
             it.parse()
         }
+
+    override fun retrievePhoneNumber(
+        params: PhoneNumberRetrievePhoneNumberParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PhoneNumberRetrievePhoneNumberResponse> =
+        // get /whatsapp/phone_numbers/{phone_number}
+        withRawResponse().retrievePhoneNumber(params, requestOptions).mapCancellable { it.parse() }
 
     override fun verify(
         params: PhoneNumberVerifyParams,
@@ -322,6 +331,41 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveConversationWindowHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val retrievePhoneNumberHandler: Handler<PhoneNumberRetrievePhoneNumberResponse> =
+            jsonHandler<PhoneNumberRetrievePhoneNumberResponse>(clientOptions.jsonMapper)
+
+        override fun retrievePhoneNumber(
+            params: PhoneNumberRetrievePhoneNumberParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PhoneNumberRetrievePhoneNumberResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("phoneNumber", params.phoneNumber().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("whatsapp", "phone_numbers", params._pathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrievePhoneNumberHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

@@ -23,6 +23,11 @@ internal class MessagingProfileCreateResponseTest {
                         .dailySpendLimit("100.00")
                         .dailySpendLimitEnabled(false)
                         .enabled(true)
+                        .features(
+                            MessagingProfileFeatures.builder()
+                                .aiOptOutDetectionEnabled(true)
+                                .build()
+                        )
                         .healthWebhookUrl(null)
                         .mmsFallBackToSms(false)
                         .mmsTranscoding(false)
@@ -71,6 +76,9 @@ internal class MessagingProfileCreateResponseTest {
                     .dailySpendLimit("100.00")
                     .dailySpendLimitEnabled(false)
                     .enabled(true)
+                    .features(
+                        MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
+                    )
                     .healthWebhookUrl(null)
                     .mmsFallBackToSms(false)
                     .mmsTranscoding(false)
@@ -123,6 +131,11 @@ internal class MessagingProfileCreateResponseTest {
                         .dailySpendLimit("100.00")
                         .dailySpendLimitEnabled(false)
                         .enabled(true)
+                        .features(
+                            MessagingProfileFeatures.builder()
+                                .aiOptOutDetectionEnabled(true)
+                                .build()
+                        )
                         .healthWebhookUrl(null)
                         .mmsFallBackToSms(false)
                         .mmsTranscoding(false)
