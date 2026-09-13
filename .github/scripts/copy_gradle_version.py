@@ -32,11 +32,11 @@ def extract(text: str, label: str) -> tuple[re.Match[str], str]:
 # even prose inside a release-please marker block.
 README_PATTERNS = (
     re.compile(
-        r"https://central\.sonatype\.com/artifact/com\.telnyx\.sdk/telnyx/(?P<version>[^)\s]+)\)"
+        r"https://central\.sonatype\.com/artifact/com\.telnyx\.sdk/telnyx/(?P<version>[^)]*)\)"
     ),
-    re.compile(r'implementation\("com\.telnyx\.sdk:telnyx:(?P<version>[^"\s]+)"\)'),
+    re.compile(r'implementation\("com\.telnyx\.sdk:telnyx:(?P<version>[^"]*)"\)'),
     re.compile(
-        r"<groupId>com\.telnyx\.sdk</groupId>\s*<artifactId>telnyx</artifactId>\s*<version>(?P<version>[^<]+)</version>"
+        r"<groupId>com\.telnyx\.sdk</groupId>\s*<artifactId>telnyx</artifactId>\s*<version>(?P<version>[^<]*)</version>"
     ),
 )
 

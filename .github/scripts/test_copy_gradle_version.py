@@ -61,7 +61,12 @@ class CopyGradleVersionTests(unittest.TestCase):
 class ReadmeVersionTests(unittest.TestCase):
     def test_readme_invalid_shapes_leave_target_unchanged(self):
         baseline = readme_fixture().encode()
-        malformed = (
+        empty_slots = (
+            b"https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/)",
+            b'implementation("com.telnyx.sdk:telnyx:")',
+            b"<groupId>com.telnyx.sdk</groupId><artifactId>telnyx</artifactId><version></version>",
+        )
+        malformed = tuple(baseline + b"\n" + slot for slot in empty_slots) + (
             baseline.replace(
                 b"<artifactId>telnyx</artifactId>", b"<artifactId>unknown</artifactId>"
             ),
@@ -130,8 +135,15 @@ class ReadmeVersionTests(unittest.TestCase):
 
         repo = SCRIPT.resolve().parents[2]
         baseline = (repo / "README.md").read_text()
+        current_version = re.search(
+            r"<version>([0-9]+\.[0-9]+\.[0-9]+)</version>", baseline
+        )
+        self.assertIsNotNone(current_version)
+        original_version = current_version.group(1)
+        different_version = "6.80.0" if original_version != "6.80.0" else "6.81.0"
+        self.assertEqual(baseline.count(original_version), 3)
         next_readme = (
-            baseline.replace("6.92.0", "6.80.0")
+            baseline.replace(original_version, different_version)
             + "\n## MCP Server\nArbitrary new prose, version 1.2.3.\n"
         )
         workflow = (repo / ".github/workflows/release-please.yml").read_text()
