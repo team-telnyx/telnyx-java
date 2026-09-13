@@ -51,14 +51,14 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
         params: CreditAccountCreateQuoteParams,
         requestOptions: RequestOptions,
     ): CreditAccountCreateQuoteResponse =
-        // post /v2/x402/credit_account/quote
+        // post /x402/credit_account/quote
         withRawResponse().createQuote(params, requestOptions).parse()
 
     override fun settle(
         params: CreditAccountSettleParams,
         requestOptions: RequestOptions,
     ): CreditAccountSettleResponse =
-        // post /v2/x402/credit_account
+        // post /x402/credit_account
         withRawResponse().settle(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -95,7 +95,7 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "x402", "credit_account", "quote")
+                    .addPathSegments("x402", "credit_account", "quote")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -123,7 +123,7 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "x402", "credit_account")
+                    .addPathSegments("x402", "credit_account")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

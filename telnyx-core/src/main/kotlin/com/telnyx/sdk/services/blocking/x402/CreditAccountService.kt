@@ -87,8 +87,8 @@ interface CreditAccountService {
         fun payments(): PaymentService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /v2/x402/credit_account/quote`, but is otherwise
-         * the same as [CreditAccountService.createQuote].
+         * Returns a raw HTTP response for `post /x402/credit_account/quote`, but is otherwise the
+         * same as [CreditAccountService.createQuote].
          */
         @MustBeClosed
         fun createQuote(
@@ -104,8 +104,8 @@ interface CreditAccountService {
         ): HttpResponseFor<CreditAccountCreateQuoteResponse>
 
         /**
-         * Returns a raw HTTP response for `post /v2/x402/credit_account`, but is otherwise the same
-         * as [CreditAccountService.settle].
+         * Returns a raw HTTP response for `post /x402/credit_account`, but is otherwise the same as
+         * [CreditAccountService.settle].
          */
         @MustBeClosed
         fun settle(

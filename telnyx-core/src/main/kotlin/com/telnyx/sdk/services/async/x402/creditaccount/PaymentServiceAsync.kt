@@ -106,7 +106,7 @@ interface PaymentServiceAsync {
         ): PaymentServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /v2/x402/credit_account/payments/{id}`, but is
+         * Returns a raw HTTP response for `get /x402/credit_account/payments/{id}`, but is
          * otherwise the same as [PaymentServiceAsync.retrieve].
          */
         fun retrieve(id: String): CompletableFuture<HttpResponseFor<PaymentRetrieveResponse>> =
@@ -147,8 +147,8 @@ interface PaymentServiceAsync {
             retrieve(id, PaymentRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /v2/x402/credit_account/payments`, but is otherwise
-         * the same as [PaymentServiceAsync.list].
+         * Returns a raw HTTP response for `get /x402/credit_account/payments`, but is otherwise the
+         * same as [PaymentServiceAsync.list].
          */
         fun list(): CompletableFuture<HttpResponseFor<PaymentListPageAsync>> =
             list(PaymentListParams.none())

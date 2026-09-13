@@ -90,8 +90,8 @@ interface CreditAccountServiceAsync {
         fun payments(): PaymentServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /v2/x402/credit_account/quote`, but is otherwise
-         * the same as [CreditAccountServiceAsync.createQuote].
+         * Returns a raw HTTP response for `post /x402/credit_account/quote`, but is otherwise the
+         * same as [CreditAccountServiceAsync.createQuote].
          */
         fun createQuote(
             params: CreditAccountCreateQuoteParams
@@ -105,8 +105,8 @@ interface CreditAccountServiceAsync {
         ): CompletableFuture<HttpResponseFor<CreditAccountCreateQuoteResponse>>
 
         /**
-         * Returns a raw HTTP response for `post /v2/x402/credit_account`, but is otherwise the same
-         * as [CreditAccountServiceAsync.settle].
+         * Returns a raw HTTP response for `post /x402/credit_account`, but is otherwise the same as
+         * [CreditAccountServiceAsync.settle].
          */
         fun settle(
             params: CreditAccountSettleParams

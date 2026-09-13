@@ -2643,15 +2643,15 @@ Methods:
 
 Methods:
 
-- <code title="post /v2/x402/credit_account/quote">client.x402().creditAccount().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/CreditAccountService.kt">createQuote</a>(params)</code>
-- <code title="post /v2/x402/credit_account">client.x402().creditAccount().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/CreditAccountService.kt">settle</a>(params)</code>
+- <code title="post /x402/credit_account/quote">client.x402().creditAccount().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/CreditAccountService.kt">createQuote</a>(params)</code>
+- <code title="post /x402/credit_account">client.x402().creditAccount().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/CreditAccountService.kt">settle</a>(params)</code>
 
 ### Payments
 
 Methods:
 
-- <code title="get /v2/x402/credit_account/payments/{id}">client.x402().creditAccount().payments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/creditaccount/PaymentService.kt">retrieve</a>(params)</code>
-- <code title="get /v2/x402/credit_account/payments">client.x402().creditAccount().payments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/creditaccount/PaymentService.kt">list</a>(params)</code>
+- <code title="get /x402/credit_account/payments/{id}">client.x402().creditAccount().payments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/creditaccount/PaymentService.kt">retrieve</a>(params)</code>
+- <code title="get /x402/credit_account/payments">client.x402().creditAccount().payments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/creditaccount/PaymentService.kt">list</a>(params)</code>
 
 # VoiceClones
 

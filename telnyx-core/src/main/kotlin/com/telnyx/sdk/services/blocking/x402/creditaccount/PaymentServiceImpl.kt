@@ -43,11 +43,11 @@ class PaymentServiceImpl internal constructor(private val clientOptions: ClientO
         params: PaymentRetrieveParams,
         requestOptions: RequestOptions,
     ): PaymentRetrieveResponse =
-        // get /v2/x402/credit_account/payments/{id}
+        // get /x402/credit_account/payments/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     override fun list(params: PaymentListParams, requestOptions: RequestOptions): PaymentListPage =
-        // get /v2/x402/credit_account/payments
+        // get /x402/credit_account/payments
         withRawResponse().list(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -77,13 +77,7 @@ class PaymentServiceImpl internal constructor(private val clientOptions: ClientO
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "v2",
-                        "x402",
-                        "credit_account",
-                        "payments",
-                        params._pathParam(0),
-                    )
+                    .addPathSegments("x402", "credit_account", "payments", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -110,7 +104,7 @@ class PaymentServiceImpl internal constructor(private val clientOptions: ClientO
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "x402", "credit_account", "payments")
+                    .addPathSegments("x402", "credit_account", "payments")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

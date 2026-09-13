@@ -55,14 +55,14 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
         params: CreditAccountCreateQuoteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CreditAccountCreateQuoteResponse> =
-        // post /v2/x402/credit_account/quote
+        // post /x402/credit_account/quote
         withRawResponse().createQuote(params, requestOptions).mapCancellable { it.parse() }
 
     override fun settle(
         params: CreditAccountSettleParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CreditAccountSettleResponse> =
-        // post /v2/x402/credit_account
+        // post /x402/credit_account
         withRawResponse().settle(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -99,7 +99,7 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "x402", "credit_account", "quote")
+                    .addPathSegments("x402", "credit_account", "quote")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -132,7 +132,7 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "x402", "credit_account")
+                    .addPathSegments("x402", "credit_account")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

@@ -47,14 +47,14 @@ class PaymentServiceAsyncImpl internal constructor(private val clientOptions: Cl
         params: PaymentRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PaymentRetrieveResponse> =
-        // get /v2/x402/credit_account/payments/{id}
+        // get /x402/credit_account/payments/{id}
         withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: PaymentListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PaymentListPageAsync> =
-        // get /v2/x402/credit_account/payments
+        // get /x402/credit_account/payments
         withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -84,13 +84,7 @@ class PaymentServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "v2",
-                        "x402",
-                        "credit_account",
-                        "payments",
-                        params._pathParam(0),
-                    )
+                    .addPathSegments("x402", "credit_account", "payments", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -122,7 +116,7 @@ class PaymentServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "x402", "credit_account", "payments")
+                    .addPathSegments("x402", "credit_account", "payments")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

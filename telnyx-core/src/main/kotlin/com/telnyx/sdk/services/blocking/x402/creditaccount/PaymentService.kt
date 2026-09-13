@@ -96,7 +96,7 @@ interface PaymentService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): PaymentService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /v2/x402/credit_account/payments/{id}`, but is
+         * Returns a raw HTTP response for `get /x402/credit_account/payments/{id}`, but is
          * otherwise the same as [PaymentService.retrieve].
          */
         @MustBeClosed
@@ -140,8 +140,8 @@ interface PaymentService {
             retrieve(id, PaymentRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /v2/x402/credit_account/payments`, but is otherwise
-         * the same as [PaymentService.list].
+         * Returns a raw HTTP response for `get /x402/credit_account/payments`, but is otherwise the
+         * same as [PaymentService.list].
          */
         @MustBeClosed fun list(): HttpResponseFor<PaymentListPage> = list(PaymentListParams.none())
 
