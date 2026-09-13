@@ -145,7 +145,11 @@ interface EmailMessageService {
     fun delete(id: String, requestOptions: RequestOptions) =
         delete(id, EmailMessageDeleteParams.none(), requestOptions)
 
-    /** Creates up to 50 email messages in a single request. */
+    /**
+     * Creates up to 1,000 email messages in a single request. Each message is validated and sent
+     * independently; per-message failures do not affect other messages in the batch. All responses
+     * use 207 Multi-Status.
+     */
     fun batch(params: EmailMessageBatchParams): EmailMessageBatchResponse =
         batch(params, RequestOptions.none())
 

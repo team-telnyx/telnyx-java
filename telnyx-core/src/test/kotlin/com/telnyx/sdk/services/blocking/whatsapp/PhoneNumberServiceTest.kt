@@ -79,6 +79,17 @@ internal class PhoneNumberServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun retrievePhoneNumber() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val phoneNumberService = client.whatsapp().phoneNumbers()
+
+        val response = phoneNumberService.retrievePhoneNumber("phone_number")
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun verify() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberService = client.whatsapp().phoneNumbers()

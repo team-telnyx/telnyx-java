@@ -26,6 +26,7 @@ import com.telnyx.sdk.services.async.ChannelZoneServiceAsync
 import com.telnyx.sdk.services.async.ChargesBreakdownServiceAsync
 import com.telnyx.sdk.services.async.ChargesSummaryServiceAsync
 import com.telnyx.sdk.services.async.CommentServiceAsync
+import com.telnyx.sdk.services.async.ComputeServiceAsync
 import com.telnyx.sdk.services.async.ConferenceServiceAsync
 import com.telnyx.sdk.services.async.ConnectionServiceAsync
 import com.telnyx.sdk.services.async.CountryCoverageServiceAsync
@@ -755,6 +756,8 @@ interface TelnyxClientAsync {
 
     fun externalRequirements(): ExternalRequirementServiceAsync
 
+    fun compute(): ComputeServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1316,5 +1319,7 @@ interface TelnyxClientAsync {
         fun meetingSessions(): MeetingSessionServiceAsync.WithRawResponse
 
         fun externalRequirements(): ExternalRequirementServiceAsync.WithRawResponse
+
+        fun compute(): ComputeServiceAsync.WithRawResponse
     }
 }

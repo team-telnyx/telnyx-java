@@ -7,7 +7,9 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.emailevents.EmailEventType
 import com.telnyx.sdk.models.emailmessages.MessageEvent
+import com.telnyx.sdk.models.emailmessages.SuppressedRecipient
 import java.time.OffsetDateTime
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -64,6 +66,14 @@ internal class EmailMessageTest {
                 )
                 .sandbox(true)
                 .scheduledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addSuppressed(
+                    SuppressedRecipient.builder()
+                        .overrideAllowed(true)
+                        .reason("reason")
+                        .scope("scope")
+                        .to("dev@stainless.com")
+                        .build()
+                )
                 .build()
 
         assertThat(emailMessage.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -123,6 +133,15 @@ internal class EmailMessageTest {
         assertThat(emailMessage.sandbox()).contains(true)
         assertThat(emailMessage.scheduledAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(emailMessage.suppressed().getOrNull())
+            .containsExactly(
+                SuppressedRecipient.builder()
+                    .overrideAllowed(true)
+                    .reason("reason")
+                    .scope("scope")
+                    .to("dev@stainless.com")
+                    .build()
+            )
     }
 
     @Test
@@ -177,6 +196,14 @@ internal class EmailMessageTest {
                 )
                 .sandbox(true)
                 .scheduledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addSuppressed(
+                    SuppressedRecipient.builder()
+                        .overrideAllowed(true)
+                        .reason("reason")
+                        .scope("scope")
+                        .to("dev@stainless.com")
+                        .build()
+                )
                 .build()
 
         val roundtrippedEmailMessage =
