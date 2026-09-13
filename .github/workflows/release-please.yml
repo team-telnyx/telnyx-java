@@ -123,8 +123,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          RELEASE_FILES=("CHANGELOG.md" "build.gradle.kts" "README.md" ".release-please-manifest.json")
+          RELEASE_FILES=("CHANGELOG.md" "build.gradle.kts" ".release-please-manifest.json")
           git restore --source=refs/remotes/origin/release-base --staged --worktree -- "${RELEASE_FILES[@]}"
+          # Keep next's README prose; reset only recognized release versions.
+          BASE_README=$(mktemp)
+          git show refs/remotes/origin/release-base:README.md > "$BASE_README"
+          python3 .github/scripts/copy_gradle_version.py --readme "$BASE_README" README.md
+          rm -f "$BASE_README"
+          git add README.md
           SCAN_TREE=$(git write-tree)
           PROMOTE_SUBJECT=$(git log --format=%s --max-count=50 HEAD \
             | grep -m1 -E '^(feat|fix|chore)(\([^)]*\))?!?: promote from staging ' || true)
@@ -256,7 +262,7 @@ jobs:
 
           # Restore release metadata from Release Please. Generated Gradle state
           # remains from next; only the marked root version is overlaid below.
-          for f in CHANGELOG.md README.md .release-please-manifest.json; do
+          for f in CHANGELOG.md .release-please-manifest.json; do
             if [ -f "$STASH_DIR/$f" ]; then
               mkdir -p "$(dirname "$f")"
               cp "$STASH_DIR/$f" "$f"
@@ -264,7 +270,8 @@ jobs:
             fi
           done
           python3 .github/scripts/copy_gradle_version.py "$STASH_DIR/build.gradle.kts" build.gradle.kts
-          git add build.gradle.kts
+          python3 .github/scripts/copy_gradle_version.py --readme "$STASH_DIR/README.md" README.md
+          git add build.gradle.kts README.md
           rm -rf "$STASH_DIR"
 
           # Commit if there are changes
