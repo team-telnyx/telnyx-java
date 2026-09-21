@@ -32,13 +32,46 @@ internal class MessagingInboundMessagePayloadTest {
                         )
                         .foreignId("foreign_id")
                         .from("from")
+                        .location(
+                            MessagingInboundMessagePayload.Body.Location.builder()
+                                .latitude(0.0)
+                                .longitude(0.0)
+                                .build()
+                        )
                         .revoke(
                             MessagingInboundMessagePayload.Body.Revoke.builder()
                                 .originalMessageId("original_message_id")
                                 .build()
                         )
+                        .suggestionResponse(
+                            MessagingInboundMessagePayload.Body.SuggestionResponse.builder()
+                                .postbackData("postback_data")
+                                .text("text")
+                                .build()
+                        )
+                        .text("string")
                         .timestamp("timestamp")
                         .type("edit")
+                        .userFile(
+                            MessagingInboundMessagePayload.Body.UserFile.builder()
+                                .payload(
+                                    MessagingInboundMessagePayload.Body.UserFile.Payload.builder()
+                                        .fileName("file_name")
+                                        .fileSizeBytes(0L)
+                                        .fileUri("file_uri")
+                                        .mimeType("mime_type")
+                                        .build()
+                                )
+                                .thumbnail(
+                                    MessagingInboundMessagePayload.Body.UserFile.Thumbnail.builder()
+                                        .fileName("file_name")
+                                        .fileSizeBytes(0L)
+                                        .fileUri("file_uri")
+                                        .mimeType("mime_type")
+                                        .build()
+                                )
+                                .build()
+                        )
                         .build()
                 )
                 .addCc(
@@ -124,6 +157,8 @@ internal class MessagingInboundMessagePayloadTest {
                 .toOfUnnamedSchemaWithArrayParent0s(
                     listOf(
                         MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0.builder()
+                            .agentId("agent_id")
+                            .agentName("agent_name")
                             .carrier("TELNYX LLC")
                             .lineType(
                                 MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0
@@ -163,13 +198,46 @@ internal class MessagingInboundMessagePayloadTest {
                     )
                     .foreignId("foreign_id")
                     .from("from")
+                    .location(
+                        MessagingInboundMessagePayload.Body.Location.builder()
+                            .latitude(0.0)
+                            .longitude(0.0)
+                            .build()
+                    )
                     .revoke(
                         MessagingInboundMessagePayload.Body.Revoke.builder()
                             .originalMessageId("original_message_id")
                             .build()
                     )
+                    .suggestionResponse(
+                        MessagingInboundMessagePayload.Body.SuggestionResponse.builder()
+                            .postbackData("postback_data")
+                            .text("text")
+                            .build()
+                    )
+                    .text("string")
                     .timestamp("timestamp")
                     .type("edit")
+                    .userFile(
+                        MessagingInboundMessagePayload.Body.UserFile.builder()
+                            .payload(
+                                MessagingInboundMessagePayload.Body.UserFile.Payload.builder()
+                                    .fileName("file_name")
+                                    .fileSizeBytes(0L)
+                                    .fileUri("file_uri")
+                                    .mimeType("mime_type")
+                                    .build()
+                            )
+                            .thumbnail(
+                                MessagingInboundMessagePayload.Body.UserFile.Thumbnail.builder()
+                                    .fileName("file_name")
+                                    .fileSizeBytes(0L)
+                                    .fileUri("file_uri")
+                                    .mimeType("mime_type")
+                                    .build()
+                            )
+                            .build()
+                    )
                     .build()
             )
         assertThat(messagingInboundMessagePayload.cc().getOrNull())
@@ -268,6 +336,8 @@ internal class MessagingInboundMessagePayloadTest {
                 MessagingInboundMessagePayload.To.ofUnnamedSchemaWithArrayParent0s(
                     listOf(
                         MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0.builder()
+                            .agentId("agent_id")
+                            .agentName("agent_name")
                             .carrier("TELNYX LLC")
                             .lineType(
                                 MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0
@@ -314,13 +384,46 @@ internal class MessagingInboundMessagePayloadTest {
                         )
                         .foreignId("foreign_id")
                         .from("from")
+                        .location(
+                            MessagingInboundMessagePayload.Body.Location.builder()
+                                .latitude(0.0)
+                                .longitude(0.0)
+                                .build()
+                        )
                         .revoke(
                             MessagingInboundMessagePayload.Body.Revoke.builder()
                                 .originalMessageId("original_message_id")
                                 .build()
                         )
+                        .suggestionResponse(
+                            MessagingInboundMessagePayload.Body.SuggestionResponse.builder()
+                                .postbackData("postback_data")
+                                .text("text")
+                                .build()
+                        )
+                        .text("string")
                         .timestamp("timestamp")
                         .type("edit")
+                        .userFile(
+                            MessagingInboundMessagePayload.Body.UserFile.builder()
+                                .payload(
+                                    MessagingInboundMessagePayload.Body.UserFile.Payload.builder()
+                                        .fileName("file_name")
+                                        .fileSizeBytes(0L)
+                                        .fileUri("file_uri")
+                                        .mimeType("mime_type")
+                                        .build()
+                                )
+                                .thumbnail(
+                                    MessagingInboundMessagePayload.Body.UserFile.Thumbnail.builder()
+                                        .fileName("file_name")
+                                        .fileSizeBytes(0L)
+                                        .fileUri("file_uri")
+                                        .mimeType("mime_type")
+                                        .build()
+                                )
+                                .build()
+                        )
                         .build()
                 )
                 .addCc(
@@ -406,6 +509,8 @@ internal class MessagingInboundMessagePayloadTest {
                 .toOfUnnamedSchemaWithArrayParent0s(
                     listOf(
                         MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0.builder()
+                            .agentId("agent_id")
+                            .agentName("agent_name")
                             .carrier("TELNYX LLC")
                             .lineType(
                                 MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0

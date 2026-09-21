@@ -797,6 +797,8 @@ private constructor(
 
             @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
+            @JvmField val OMI_HEALTH_OMI_MED_STT_V1 = of("omi-health/omi-med-stt-v1")
+
             @JvmField val HUMAIN_REALTIME = of("humain/realtime")
 
             @JvmField val RESON8_TURNS = of("reson8/turns")
@@ -825,6 +827,7 @@ private constructor(
             SPEECHMATICS_STANDARD,
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
+            OMI_HEALTH_OMI_MED_STT_V1,
             HUMAIN_REALTIME,
             RESON8_TURNS,
             COHERE_AR_STT,
@@ -857,6 +860,7 @@ private constructor(
             SPEECHMATICS_STANDARD,
             SONIOX_STT_RT_V4,
             NVIDIA_PARAKEET_V3,
+            OMI_HEALTH_OMI_MED_STT_V1,
             HUMAIN_REALTIME,
             RESON8_TURNS,
             COHERE_AR_STT,
@@ -890,6 +894,7 @@ private constructor(
                 SPEECHMATICS_STANDARD -> Value.SPEECHMATICS_STANDARD
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
+                OMI_HEALTH_OMI_MED_STT_V1 -> Value.OMI_HEALTH_OMI_MED_STT_V1
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
                 RESON8_TURNS -> Value.RESON8_TURNS
                 COHERE_AR_STT -> Value.COHERE_AR_STT
@@ -924,6 +929,7 @@ private constructor(
                 SPEECHMATICS_STANDARD -> Known.SPEECHMATICS_STANDARD
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
+                OMI_HEALTH_OMI_MED_STT_V1 -> Known.OMI_HEALTH_OMI_MED_STT_V1
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
                 RESON8_TURNS -> Known.RESON8_TURNS
                 COHERE_AR_STT -> Known.COHERE_AR_STT

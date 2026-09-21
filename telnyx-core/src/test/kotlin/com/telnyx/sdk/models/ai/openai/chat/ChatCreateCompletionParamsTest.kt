@@ -49,12 +49,11 @@ internal class ChatCreateCompletionParamsTest {
                     .temperature(0.0)
                     .toolChoice(ChatCompletionRequest.ToolChoice.NONE)
                     .addFunctionTool(
-                        ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                        FunctionDefinition.builder()
                             .name("name")
                             .description("description")
                             .parameters(
-                                ChatCompletionRequest.Tool.ChatCompletionTool.Function.Parameters
-                                    .builder()
+                                FunctionDefinition.Parameters.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
@@ -109,13 +108,11 @@ internal class ChatCreateCompletionParamsTest {
                         .temperature(0.0)
                         .toolChoice(ChatCompletionRequest.ToolChoice.NONE)
                         .addFunctionTool(
-                            ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                            FunctionDefinition.builder()
                                 .name("name")
                                 .description("description")
                                 .parameters(
-                                    ChatCompletionRequest.Tool.ChatCompletionTool.Function
-                                        .Parameters
-                                        .builder()
+                                    FunctionDefinition.Parameters.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
@@ -168,12 +165,11 @@ internal class ChatCreateCompletionParamsTest {
                     .temperature(0.0)
                     .toolChoice(ChatCompletionRequest.ToolChoice.NONE)
                     .addFunctionTool(
-                        ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                        FunctionDefinition.builder()
                             .name("name")
                             .description("description")
                             .parameters(
-                                ChatCompletionRequest.Tool.ChatCompletionTool.Function.Parameters
-                                    .builder()
+                                FunctionDefinition.Parameters.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )

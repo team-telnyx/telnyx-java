@@ -92,7 +92,7 @@ private constructor(
         fun data(data: JsonField<Data>) = apply { this.data = data }
 
         /** Alias for calling [data] with `Data.ofOutbound(outbound)`. */
-        fun data(outbound: MessagingOutboundMessagePayload) = data(Data.ofOutbound(outbound))
+        fun data(outbound: OutboundMessagePayload) = data(Data.ofOutbound(outbound))
 
         /** Alias for calling [data] with `Data.ofInbound(inbound)`. */
         fun data(inbound: MessagingInboundMessagePayload) = data(Data.ofInbound(inbound))
@@ -163,12 +163,12 @@ private constructor(
     @JsonSerialize(using = Data.Serializer::class)
     class Data
     private constructor(
-        private val outbound: MessagingOutboundMessagePayload? = null,
+        private val outbound: OutboundMessagePayload? = null,
         private val inbound: MessagingInboundMessagePayload? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun outbound(): Optional<MessagingOutboundMessagePayload> = Optional.ofNullable(outbound)
+        fun outbound(): Optional<OutboundMessagePayload> = Optional.ofNullable(outbound)
 
         fun inbound(): Optional<MessagingInboundMessagePayload> = Optional.ofNullable(inbound)
 
@@ -176,7 +176,7 @@ private constructor(
 
         fun isInbound(): Boolean = inbound != null
 
-        fun asOutbound(): MessagingOutboundMessagePayload = outbound.getOrThrow("outbound")
+        fun asOutbound(): OutboundMessagePayload = outbound.getOrThrow("outbound")
 
         fun asInbound(): MessagingInboundMessagePayload = inbound.getOrThrow("inbound")
 
@@ -194,7 +194,7 @@ private constructor(
          *
          * Optional<String> result = data.accept(new Data.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitOutbound(MessagingOutboundMessagePayload outbound) {
+         *     public Optional<String> visitOutbound(OutboundMessagePayload outbound) {
          *         return Optional.of(outbound.toString());
          *     }
          *
@@ -236,7 +236,7 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitOutbound(outbound: MessagingOutboundMessagePayload) {
+                    override fun visitOutbound(outbound: OutboundMessagePayload) {
                         outbound.validate()
                     }
 
@@ -266,7 +266,7 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitOutbound(outbound: MessagingOutboundMessagePayload) =
+                    override fun visitOutbound(outbound: OutboundMessagePayload) =
                         outbound.validity()
 
                     override fun visitInbound(inbound: MessagingInboundMessagePayload) =
@@ -296,8 +296,7 @@ private constructor(
 
         companion object {
 
-            @JvmStatic
-            fun ofOutbound(outbound: MessagingOutboundMessagePayload) = Data(outbound = outbound)
+            @JvmStatic fun ofOutbound(outbound: OutboundMessagePayload) = Data(outbound = outbound)
 
             @JvmStatic
             fun ofInbound(inbound: MessagingInboundMessagePayload) = Data(inbound = inbound)
@@ -306,7 +305,7 @@ private constructor(
         /** An interface that defines how to map each variant of [Data] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitOutbound(outbound: MessagingOutboundMessagePayload): T
+            fun visitOutbound(outbound: OutboundMessagePayload): T
 
             fun visitInbound(inbound: MessagingInboundMessagePayload): T
 
@@ -333,11 +332,9 @@ private constructor(
 
                 when (direction) {
                     "outbound" -> {
-                        return tryDeserialize(
-                                node,
-                                jacksonTypeRef<MessagingOutboundMessagePayload>(),
-                            )
-                            ?.let { Data(outbound = it, _json = json) } ?: Data(_json = json)
+                        return tryDeserialize(node, jacksonTypeRef<OutboundMessagePayload>())?.let {
+                            Data(outbound = it, _json = json)
+                        } ?: Data(_json = json)
                     }
                     "inbound" -> {
                         return tryDeserialize(

@@ -128,8 +128,9 @@ private constructor(
         enableEndpointDetection.getOptional("enable_endpoint_detection")
 
     /**
-     * Available only for assemblyai/universal-streaming. Confidence level required to trigger an
-     * end of turn. Higher values require more certainty before ending a turn.
+     * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+     * assemblyai/universal-streaming). Confidence level required to trigger an end of turn. Higher
+     * values require more certainty before ending a turn.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -199,8 +200,9 @@ private constructor(
         maxEndpointDelayMs.getOptional("max_endpoint_delay_ms")
 
     /**
-     * Available only for assemblyai/universal-streaming. Maximum duration of silence in
-     * milliseconds before forcing an end of turn.
+     * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+     * assemblyai/universal-streaming). Maximum duration of silence in milliseconds before forcing
+     * an end of turn.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -208,8 +210,9 @@ private constructor(
     fun maxTurnSilence(): Optional<Long> = maxTurnSilence.getOptional("max_turn_silence")
 
     /**
-     * Available only for assemblyai/universal-streaming. Minimum duration of silence in
-     * milliseconds before a turn can end. Must be less than or equal to max_turn_silence.
+     * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+     * assemblyai/universal-streaming). Minimum duration of silence in milliseconds before a turn
+     * can end. Must be less than or equal to max_turn_silence.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -466,8 +469,9 @@ private constructor(
         }
 
         /**
-         * Available only for assemblyai/universal-streaming. Confidence level required to trigger
-         * an end of turn. Higher values require more certainty before ending a turn.
+         * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+         * assemblyai/universal-streaming). Confidence level required to trigger an end of turn.
+         * Higher values require more certainty before ending a turn.
          */
         fun endOfTurnConfidenceThreshold(endOfTurnConfidenceThreshold: Double) =
             endOfTurnConfidenceThreshold(JsonField.of(endOfTurnConfidenceThreshold))
@@ -600,8 +604,9 @@ private constructor(
         }
 
         /**
-         * Available only for assemblyai/universal-streaming. Maximum duration of silence in
-         * milliseconds before forcing an end of turn.
+         * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+         * assemblyai/universal-streaming). Maximum duration of silence in milliseconds before
+         * forcing an end of turn.
          */
         fun maxTurnSilence(maxTurnSilence: Long) = maxTurnSilence(JsonField.of(maxTurnSilence))
 
@@ -617,8 +622,9 @@ private constructor(
         }
 
         /**
-         * Available only for assemblyai/universal-streaming. Minimum duration of silence in
-         * milliseconds before a turn can end. Must be less than or equal to max_turn_silence.
+         * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+         * assemblyai/universal-streaming). Minimum duration of silence in milliseconds before a
+         * turn can end. Must be less than or equal to max_turn_silence.
          */
         fun minTurnSilence(minTurnSilence: Long) = minTurnSilence(JsonField.of(minTurnSilence))
 

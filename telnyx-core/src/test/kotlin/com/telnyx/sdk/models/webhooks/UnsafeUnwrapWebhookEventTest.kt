@@ -6,7 +6,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.MessagingError
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.messages.MessagingError0b38e7044b
 import com.telnyx.sdk.models.messages.MessagingInboundMessagePayload
@@ -9418,6 +9417,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                         .payload(
                             OutboundMessagePayload.builder()
                                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                                .body(OutboundMessagePayload.Body.builder().text("text").build())
                                 .addCc(
                                     OutboundMessagePayload.Cc.builder()
                                         .carrier("carrier")
@@ -9453,17 +9453,17 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 .direction(OutboundMessagePayload.Direction.OUTBOUND)
                                 .encoding("GSM-7")
                                 .addError(
-                                    MessagingError.builder()
+                                    MessagingError0b38e7044b.builder()
                                         .code("code")
                                         .title("title")
                                         .detail("detail")
                                         .meta(
-                                            MessagingError.Meta.builder()
+                                            MessagingError0b38e7044b.Meta.builder()
                                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .build()
                                         )
                                         .source(
-                                            MessagingError.Source.builder()
+                                            MessagingError0b38e7044b.Source.builder()
                                                 .parameter("parameter")
                                                 .pointer("pointer")
                                                 .build()
@@ -9472,6 +9472,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 )
                                 .from(
                                     OutboundMessagePayload.From.builder()
+                                        .agentId("agent_id")
+                                        .agentName("agent_name")
                                         .carrier("TELNYX LLC")
                                         .lineType(OutboundMessagePayload.From.LineType.VO_IP)
                                         .phoneNumber("+18445550001")
@@ -9620,6 +9622,9 @@ internal class UnsafeUnwrapWebhookEventTest {
                             .payload(
                                 OutboundMessagePayload.builder()
                                     .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                                    .body(
+                                        OutboundMessagePayload.Body.builder().text("text").build()
+                                    )
                                     .addCc(
                                         OutboundMessagePayload.Cc.builder()
                                             .carrier("carrier")
@@ -9655,12 +9660,12 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     .direction(OutboundMessagePayload.Direction.OUTBOUND)
                                     .encoding("GSM-7")
                                     .addError(
-                                        MessagingError.builder()
+                                        MessagingError0b38e7044b.builder()
                                             .code("code")
                                             .title("title")
                                             .detail("detail")
                                             .meta(
-                                                MessagingError.Meta.builder()
+                                                MessagingError0b38e7044b.Meta.builder()
                                                     .putAdditionalProperty(
                                                         "foo",
                                                         JsonValue.from("bar"),
@@ -9668,7 +9673,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                                     .build()
                                             )
                                             .source(
-                                                MessagingError.Source.builder()
+                                                MessagingError0b38e7044b.Source.builder()
                                                     .parameter("parameter")
                                                     .pointer("pointer")
                                                     .build()
@@ -9677,6 +9682,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     )
                                     .from(
                                         OutboundMessagePayload.From.builder()
+                                            .agentId("agent_id")
+                                            .agentName("agent_name")
                                             .carrier("TELNYX LLC")
                                             .lineType(OutboundMessagePayload.From.LineType.VO_IP)
                                             .phoneNumber("+18445550001")
@@ -10739,9 +10746,9 @@ internal class UnsafeUnwrapWebhookEventTest {
         val inboundMessage =
             InboundMessageWebhookEvent.builder()
                 .data(
-                    InboundMessageWebhookEvent.Data.builder()
+                    MessagingInboundMessage.builder()
                         .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                        .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
+                        .eventType(MessagingInboundMessage.EventType.MESSAGE_RECEIVED)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             MessagingInboundMessagePayload.builder()
@@ -10765,13 +10772,51 @@ internal class UnsafeUnwrapWebhookEventTest {
                                         )
                                         .foreignId("foreign_id")
                                         .from("from")
+                                        .location(
+                                            MessagingInboundMessagePayload.Body.Location.builder()
+                                                .latitude(0.0)
+                                                .longitude(0.0)
+                                                .build()
+                                        )
                                         .revoke(
                                             MessagingInboundMessagePayload.Body.Revoke.builder()
                                                 .originalMessageId("original_message_id")
                                                 .build()
                                         )
+                                        .suggestionResponse(
+                                            MessagingInboundMessagePayload.Body.SuggestionResponse
+                                                .builder()
+                                                .postbackData("postback_data")
+                                                .text("text")
+                                                .build()
+                                        )
+                                        .text("string")
                                         .timestamp("timestamp")
                                         .type("edit")
+                                        .userFile(
+                                            MessagingInboundMessagePayload.Body.UserFile.builder()
+                                                .payload(
+                                                    MessagingInboundMessagePayload.Body.UserFile
+                                                        .Payload
+                                                        .builder()
+                                                        .fileName("file_name")
+                                                        .fileSizeBytes(0L)
+                                                        .fileUri("file_uri")
+                                                        .mimeType("mime_type")
+                                                        .build()
+                                                )
+                                                .thumbnail(
+                                                    MessagingInboundMessagePayload.Body.UserFile
+                                                        .Thumbnail
+                                                        .builder()
+                                                        .fileName("file_name")
+                                                        .fileSizeBytes(0L)
+                                                        .fileUri("file_uri")
+                                                        .mimeType("mime_type")
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .addCc(
@@ -10865,6 +10910,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                                         MessagingInboundMessagePayload.To
                                             .UnnamedSchemaWithArrayParent0
                                             .builder()
+                                            .agentId("agent_id")
+                                            .agentName("agent_name")
                                             .carrier("TELNYX LLC")
                                             .lineType(
                                                 MessagingInboundMessagePayload.To
@@ -10888,7 +10935,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 .webhookUrl("https://www.example.com/hooks")
                                 .build()
                         )
-                        .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(MessagingInboundMessage.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -10979,9 +11026,9 @@ internal class UnsafeUnwrapWebhookEventTest {
             UnsafeUnwrapWebhookEvent.ofInboundMessage(
                 InboundMessageWebhookEvent.builder()
                     .data(
-                        InboundMessageWebhookEvent.Data.builder()
+                        MessagingInboundMessage.builder()
                             .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                            .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
+                            .eventType(MessagingInboundMessage.EventType.MESSAGE_RECEIVED)
                             .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                             .payload(
                                 MessagingInboundMessagePayload.builder()
@@ -11006,13 +11053,54 @@ internal class UnsafeUnwrapWebhookEventTest {
                                             )
                                             .foreignId("foreign_id")
                                             .from("from")
+                                            .location(
+                                                MessagingInboundMessagePayload.Body.Location
+                                                    .builder()
+                                                    .latitude(0.0)
+                                                    .longitude(0.0)
+                                                    .build()
+                                            )
                                             .revoke(
                                                 MessagingInboundMessagePayload.Body.Revoke.builder()
                                                     .originalMessageId("original_message_id")
                                                     .build()
                                             )
+                                            .suggestionResponse(
+                                                MessagingInboundMessagePayload.Body
+                                                    .SuggestionResponse
+                                                    .builder()
+                                                    .postbackData("postback_data")
+                                                    .text("text")
+                                                    .build()
+                                            )
+                                            .text("string")
                                             .timestamp("timestamp")
                                             .type("edit")
+                                            .userFile(
+                                                MessagingInboundMessagePayload.Body.UserFile
+                                                    .builder()
+                                                    .payload(
+                                                        MessagingInboundMessagePayload.Body.UserFile
+                                                            .Payload
+                                                            .builder()
+                                                            .fileName("file_name")
+                                                            .fileSizeBytes(0L)
+                                                            .fileUri("file_uri")
+                                                            .mimeType("mime_type")
+                                                            .build()
+                                                    )
+                                                    .thumbnail(
+                                                        MessagingInboundMessagePayload.Body.UserFile
+                                                            .Thumbnail
+                                                            .builder()
+                                                            .fileName("file_name")
+                                                            .fileSizeBytes(0L)
+                                                            .fileUri("file_uri")
+                                                            .mimeType("mime_type")
+                                                            .build()
+                                                    )
+                                                    .build()
+                                            )
                                             .build()
                                     )
                                     .addCc(
@@ -11113,6 +11201,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                                             MessagingInboundMessagePayload.To
                                                 .UnnamedSchemaWithArrayParent0
                                                 .builder()
+                                                .agentId("agent_id")
+                                                .agentName("agent_name")
                                                 .carrier("TELNYX LLC")
                                                 .lineType(
                                                     MessagingInboundMessagePayload.To
@@ -11136,7 +11226,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     .webhookUrl("https://www.example.com/hooks")
                                     .build()
                             )
-                            .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(MessagingInboundMessage.RecordType.EVENT)
                             .build()
                     )
                     .build()

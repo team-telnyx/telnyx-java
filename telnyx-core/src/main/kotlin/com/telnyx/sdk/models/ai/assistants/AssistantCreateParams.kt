@@ -17,6 +17,7 @@ import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.chat.BucketIds
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import com.telnyx.sdk.models.ai.tools.PayToolParams
 import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
 import java.util.Collections
@@ -225,10 +226,10 @@ private constructor(
 
     /**
      * Configuration for post-conversation processing. When enabled, the assistant receives one
-     * additional LLM turn after the conversation ends, allowing it to execute tool calls such as
-     * logging to a CRM or sending a summary. The assistant can execute multiple parallel or
-     * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
-     * unavailable post-conversation. Beta feature.
+     * additional LLM turn after the conversation ends, allowing it to execute final tool calls such
+     * as sending a summary or updating a record via webhook or function tools. Integration and MCP
+     * server tools are not available post-conversation; call-control tools (e.g. hangup, transfer)
+     * are also unavailable. Beta feature.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -953,10 +954,10 @@ private constructor(
 
         /**
          * Configuration for post-conversation processing. When enabled, the assistant receives one
-         * additional LLM turn after the conversation ends, allowing it to execute tool calls such
-         * as logging to a CRM or sending a summary. The assistant can execute multiple parallel or
-         * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
-         * unavailable post-conversation. Beta feature.
+         * additional LLM turn after the conversation ends, allowing it to execute final tool calls
+         * such as sending a summary or updating a record via webhook or function tools. Integration
+         * and MCP server tools are not available post-conversation; call-control tools (e.g.
+         * hangup, transfer) are also unavailable. Beta feature.
          */
         fun postConversationSettings(postConversationSettings: PostConversationSettingsReq) =
             apply {
@@ -1070,6 +1071,19 @@ private constructor(
          */
         fun addTool(tool: AssistantTool) = apply { body.addTool(tool) }
 
+        /** Alias for calling [addTool] with `AssistantTool.ofFunction(function)`. */
+        fun addTool(function: AssistantTool.Function) = apply { body.addTool(function) }
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.Function.builder()
+         *     .function(function)
+         *     .build()
+         * ```
+         */
+        fun addFunctionTool(function: FunctionDefinition) = apply { body.addFunctionTool(function) }
+
         /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
         fun addTool(webhook: InferenceEmbeddingWebhookToolParams) = apply { body.addTool(webhook) }
 
@@ -1132,13 +1146,12 @@ private constructor(
         }
 
         /** Alias for calling [addTool] with `AssistantTool.ofHangup(hangup)`. */
-        fun addTool(hangup: HangupTool) = apply { body.addTool(hangup) }
+        fun addTool(hangup: AssistantTool.Hangup) = apply { body.addTool(hangup) }
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * HangupTool.builder()
-         *     .type(HangupTool.Type.HANGUP)
+         * AssistantTool.Hangup.builder()
          *     .hangup(hangup)
          *     .build()
          * ```
@@ -1816,10 +1829,10 @@ private constructor(
 
         /**
          * Configuration for post-conversation processing. When enabled, the assistant receives one
-         * additional LLM turn after the conversation ends, allowing it to execute tool calls such
-         * as logging to a CRM or sending a summary. The assistant can execute multiple parallel or
-         * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
-         * unavailable post-conversation. Beta feature.
+         * additional LLM turn after the conversation ends, allowing it to execute final tool calls
+         * such as sending a summary or updating a record via webhook or function tools. Integration
+         * and MCP server tools are not available post-conversation; call-control tools (e.g.
+         * hangup, transfer) are also unavailable. Beta feature.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2649,10 +2662,10 @@ private constructor(
 
             /**
              * Configuration for post-conversation processing. When enabled, the assistant receives
-             * one additional LLM turn after the conversation ends, allowing it to execute tool
-             * calls such as logging to a CRM or sending a summary. The assistant can execute
-             * multiple parallel or sequential tools during this phase. Telephony-control tools
-             * (e.g. hangup, transfer) are unavailable post-conversation. Beta feature.
+             * one additional LLM turn after the conversation ends, allowing it to execute final
+             * tool calls such as sending a summary or updating a record via webhook or function
+             * tools. Integration and MCP server tools are not available post-conversation;
+             * call-control tools (e.g. hangup, transfer) are also unavailable. Beta feature.
              */
             fun postConversationSettings(postConversationSettings: PostConversationSettingsReq) =
                 postConversationSettings(JsonField.of(postConversationSettings))
@@ -2781,6 +2794,21 @@ private constructor(
                     }
             }
 
+            /** Alias for calling [addTool] with `AssistantTool.ofFunction(function)`. */
+            fun addTool(function: AssistantTool.Function) =
+                addTool(AssistantTool.ofFunction(function))
+
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * AssistantTool.Function.builder()
+             *     .function(function)
+             *     .build()
+             * ```
+             */
+            fun addFunctionTool(function: FunctionDefinition) =
+                addTool(AssistantTool.Function.builder().function(function).build())
+
             /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
             fun addTool(webhook: InferenceEmbeddingWebhookToolParams) =
                 addTool(AssistantTool.ofWebhook(webhook))
@@ -2857,19 +2885,18 @@ private constructor(
                 addTool(AssistantTool.HandoffTool.builder().handoff(handoff).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofHangup(hangup)`. */
-            fun addTool(hangup: HangupTool) = addTool(AssistantTool.ofHangup(hangup))
+            fun addTool(hangup: AssistantTool.Hangup) = addTool(AssistantTool.ofHangup(hangup))
 
             /**
              * Alias for calling [addTool] with the following:
              * ```java
-             * HangupTool.builder()
-             *     .type(HangupTool.Type.HANGUP)
+             * AssistantTool.Hangup.builder()
              *     .hangup(hangup)
              *     .build()
              * ```
              */
             fun addHangupTool(hangup: HangupToolParams) =
-                addTool(HangupTool.builder().type(HangupTool.Type.HANGUP).hangup(hangup).build())
+                addTool(AssistantTool.Hangup.builder().hangup(hangup).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofTransfer(transfer)`. */
             fun addTool(transfer: AssistantTool.Transfer) =

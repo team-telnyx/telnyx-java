@@ -241,10 +241,11 @@ private constructor(
     fun dialogflowConfig(): Optional<DialogflowConfig> = body.dialogflowConfig()
 
     /**
-     * The number the inbound call being transferred was originally received on, in +E164 format.
-     * Supplying it lets an unverified non-Telnyx `from` be used as the caller id, provided that
-     * number is still on an active inbound call to this `diversion` number for your account. The
-     * `diversion` number itself must be one you own or have verified.
+     * The `to` number of an active inbound call, in +E164 format. Telnyx checks whether there is
+     * currently an active inbound call where `to` matches this `diversion` value and `from` matches
+     * the `from` number supplied for this request. If such a call exists, the `from` number is
+     * treated as verified (since it is already on an active inbound call to you) and can be used as
+     * the caller id for this outbound call.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1552,10 +1553,11 @@ private constructor(
         }
 
         /**
-         * The number the inbound call being transferred was originally received on, in +E164
-         * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
-         * provided that number is still on an active inbound call to this `diversion` number for
-         * your account. The `diversion` number itself must be one you own or have verified.
+         * The `to` number of an active inbound call, in +E164 format. Telnyx checks whether there
+         * is currently an active inbound call where `to` matches this `diversion` value and `from`
+         * matches the `from` number supplied for this request. If such a call exists, the `from`
+         * number is treated as verified (since it is already on an active inbound call to you) and
+         * can be used as the caller id for this outbound call.
          */
         fun diversion(diversion: String) = apply { body.diversion(diversion) }
 
@@ -3033,10 +3035,11 @@ private constructor(
             dialogflowConfig.getOptional("dialogflow_config")
 
         /**
-         * The number the inbound call being transferred was originally received on, in +E164
-         * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
-         * provided that number is still on an active inbound call to this `diversion` number for
-         * your account. The `diversion` number itself must be one you own or have verified.
+         * The `to` number of an active inbound call, in +E164 format. Telnyx checks whether there
+         * is currently an active inbound call where `to` matches this `diversion` value and `from`
+         * matches the `from` number supplied for this request. If such a call exists, the `from`
+         * number is treated as verified (since it is already on an active inbound call to you) and
+         * can be used as the caller id for this outbound call.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -4616,10 +4619,11 @@ private constructor(
             }
 
             /**
-             * The number the inbound call being transferred was originally received on, in +E164
-             * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
-             * provided that number is still on an active inbound call to this `diversion` number
-             * for your account. The `diversion` number itself must be one you own or have verified.
+             * The `to` number of an active inbound call, in +E164 format. Telnyx checks whether
+             * there is currently an active inbound call where `to` matches this `diversion` value
+             * and `from` matches the `from` number supplied for this request. If such a call
+             * exists, the `from` number is treated as verified (since it is already on an active
+             * inbound call to you) and can be used as the caller id for this outbound call.
              */
             fun diversion(diversion: String) = diversion(JsonField.of(diversion))
 

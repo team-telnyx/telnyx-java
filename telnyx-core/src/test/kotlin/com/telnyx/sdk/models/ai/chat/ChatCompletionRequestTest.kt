@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.ai.chat
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -50,12 +51,11 @@ internal class ChatCompletionRequestTest {
                 .temperature(0.0)
                 .toolChoice(ChatCompletionRequest.ToolChoice.NONE)
                 .addFunctionTool(
-                    ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                    FunctionDefinition.builder()
                         .name("name")
                         .description("description")
                         .parameters(
-                            ChatCompletionRequest.Tool.ChatCompletionTool.Function.Parameters
-                                .builder()
+                            FunctionDefinition.Parameters.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -108,13 +108,11 @@ internal class ChatCompletionRequestTest {
                 ChatCompletionRequest.Tool.ofFunction(
                     ChatCompletionRequest.Tool.ChatCompletionTool.builder()
                         .function(
-                            ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                            FunctionDefinition.builder()
                                 .name("name")
                                 .description("description")
                                 .parameters(
-                                    ChatCompletionRequest.Tool.ChatCompletionTool.Function
-                                        .Parameters
-                                        .builder()
+                                    FunctionDefinition.Parameters.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
@@ -168,12 +166,11 @@ internal class ChatCompletionRequestTest {
                 .temperature(0.0)
                 .toolChoice(ChatCompletionRequest.ToolChoice.NONE)
                 .addFunctionTool(
-                    ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                    FunctionDefinition.builder()
                         .name("name")
                         .description("description")
                         .parameters(
-                            ChatCompletionRequest.Tool.ChatCompletionTool.Function.Parameters
-                                .builder()
+                            FunctionDefinition.Parameters.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

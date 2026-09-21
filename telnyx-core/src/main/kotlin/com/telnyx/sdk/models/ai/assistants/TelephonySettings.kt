@@ -124,7 +124,9 @@ private constructor(
         fallbackDestination.getOptional("fallback_destination")
 
     /**
-     * The noise suppression engine to use. Use 'disabled' to turn off noise suppression.
+     * The noise suppression engine to use. 'aicoustics' is STT-optimized and recommended for AI
+     * assistants (configure through noise_suppression_config). Use 'disabled' to turn off noise
+     * suppression.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -133,8 +135,9 @@ private constructor(
         noiseSuppression.getOptional("noise_suppression")
 
     /**
-     * Configuration for noise suppression. Only applicable when noise_suppression is
-     * 'deepfilternet'.
+     * Configuration for noise suppression. Applicable fields depend on the engine:
+     * 'attenuation_limit' and 'mode' only when noise_suppression is 'deepfilternet'; 'family',
+     * 'size' and 'enhancement_level' only when noise_suppression is 'aicoustics'.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -447,7 +450,11 @@ private constructor(
             this.fallbackDestination = fallbackDestination
         }
 
-        /** The noise suppression engine to use. Use 'disabled' to turn off noise suppression. */
+        /**
+         * The noise suppression engine to use. 'aicoustics' is STT-optimized and recommended for AI
+         * assistants (configure through noise_suppression_config). Use 'disabled' to turn off noise
+         * suppression.
+         */
         fun noiseSuppression(noiseSuppression: NoiseSuppression) =
             noiseSuppression(JsonField.of(noiseSuppression))
 
@@ -463,8 +470,9 @@ private constructor(
         }
 
         /**
-         * Configuration for noise suppression. Only applicable when noise_suppression is
-         * 'deepfilternet'.
+         * Configuration for noise suppression. Applicable fields depend on the engine:
+         * 'attenuation_limit' and 'mode' only when noise_suppression is 'deepfilternet'; 'family',
+         * 'size' and 'enhancement_level' only when noise_suppression is 'aicoustics'.
          */
         fun noiseSuppressionConfig(noiseSuppressionConfig: NoiseSuppressionConfig) =
             noiseSuppressionConfig(JsonField.of(noiseSuppressionConfig))
@@ -717,7 +725,11 @@ private constructor(
             (if (userIdleTimeoutSecs.asKnown().isPresent) 1 else 0) +
             (voicemailDetection.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** The noise suppression engine to use. Use 'disabled' to turn off noise suppression. */
+    /**
+     * The noise suppression engine to use. 'aicoustics' is STT-optimized and recommended for AI
+     * assistants (configure through noise_suppression_config). Use 'disabled' to turn off noise
+     * suppression.
+     */
     class NoiseSuppression @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -733,6 +745,8 @@ private constructor(
 
         companion object {
 
+            @JvmField val AICOUSTICS = of("aicoustics")
+
             @JvmField val KRISP = of("krisp")
 
             @JvmField val DEEPFILTERNET = of("deepfilternet")
@@ -744,6 +758,7 @@ private constructor(
 
         /** An enum containing [NoiseSuppression]'s known values. */
         enum class Known {
+            AICOUSTICS,
             KRISP,
             DEEPFILTERNET,
             DISABLED,
@@ -759,6 +774,7 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            AICOUSTICS,
             KRISP,
             DEEPFILTERNET,
             DISABLED,
@@ -778,6 +794,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                AICOUSTICS -> Value.AICOUSTICS
                 KRISP -> Value.KRISP
                 DEEPFILTERNET -> Value.DEEPFILTERNET
                 DISABLED -> Value.DISABLED
@@ -795,6 +812,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                AICOUSTICS -> Known.AICOUSTICS
                 KRISP -> Known.KRISP
                 DEEPFILTERNET -> Known.DEEPFILTERNET
                 DISABLED -> Known.DISABLED
@@ -863,14 +881,18 @@ private constructor(
     }
 
     /**
-     * Configuration for noise suppression. Only applicable when noise_suppression is
-     * 'deepfilternet'.
+     * Configuration for noise suppression. Applicable fields depend on the engine:
+     * 'attenuation_limit' and 'mode' only when noise_suppression is 'deepfilternet'; 'family',
+     * 'size' and 'enhancement_level' only when noise_suppression is 'aicoustics'.
      */
     class NoiseSuppressionConfig
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val attenuationLimit: JsonField<Long>,
+        private val enhancementLevel: JsonField<Double>,
+        private val family: JsonField<Family>,
         private val mode: JsonField<Mode>,
+        private val size: JsonField<Size>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -879,11 +901,17 @@ private constructor(
             @JsonProperty("attenuation_limit")
             @ExcludeMissing
             attenuationLimit: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("enhancement_level")
+            @ExcludeMissing
+            enhancementLevel: JsonField<Double> = JsonMissing.of(),
+            @JsonProperty("family") @ExcludeMissing family: JsonField<Family> = JsonMissing.of(),
             @JsonProperty("mode") @ExcludeMissing mode: JsonField<Mode> = JsonMissing.of(),
-        ) : this(attenuationLimit, mode, mutableMapOf())
+            @JsonProperty("size") @ExcludeMissing size: JsonField<Size> = JsonMissing.of(),
+        ) : this(attenuationLimit, enhancementLevel, family, mode, size, mutableMapOf())
 
         /**
-         * Attenuation limit for noise suppression. Range: 0-100.
+         * Attenuation limit for noise suppression. Range: 0-100. Only applicable when
+         * noise_suppression is 'deepfilternet'.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -891,12 +919,41 @@ private constructor(
         fun attenuationLimit(): Optional<Long> = attenuationLimit.getOptional("attenuation_limit")
 
         /**
-         * Mode for noise suppression configuration.
+         * AiCoustics enhancement intensity. Range: 0-1. Only applicable when noise_suppression is
+         * 'aicoustics'.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun enhancementLevel(): Optional<Double> = enhancementLevel.getOptional("enhancement_level")
+
+        /**
+         * AiCoustics model family optimized for Voice AI and STT. Only applicable when
+         * noise_suppression is 'aicoustics'.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun family(): Optional<Family> = family.getOptional("family")
+
+        /**
+         * Mode for noise suppression configuration. Only applicable when noise_suppression is
+         * 'deepfilternet'.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun mode(): Optional<Mode> = mode.getOptional("mode")
+
+        /**
+         * AiCoustics model size. 'vf' tracks the latest model release; 'vf_2_0_l' is pinned to
+         * version 2.0 for consistent, predictable behavior. Only applicable when noise_suppression
+         * is 'aicoustics'.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun size(): Optional<Size> = size.getOptional("size")
 
         /**
          * Returns the raw JSON value of [attenuationLimit].
@@ -909,11 +966,35 @@ private constructor(
         fun _attenuationLimit(): JsonField<Long> = attenuationLimit
 
         /**
+         * Returns the raw JSON value of [enhancementLevel].
+         *
+         * Unlike [enhancementLevel], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("enhancement_level")
+        @ExcludeMissing
+        fun _enhancementLevel(): JsonField<Double> = enhancementLevel
+
+        /**
+         * Returns the raw JSON value of [family].
+         *
+         * Unlike [family], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("family") @ExcludeMissing fun _family(): JsonField<Family> = family
+
+        /**
          * Returns the raw JSON value of [mode].
          *
          * Unlike [mode], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("mode") @ExcludeMissing fun _mode(): JsonField<Mode> = mode
+
+        /**
+         * Returns the raw JSON value of [size].
+         *
+         * Unlike [size], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("size") @ExcludeMissing fun _size(): JsonField<Size> = size
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -939,17 +1020,26 @@ private constructor(
         class Builder internal constructor() {
 
             private var attenuationLimit: JsonField<Long> = JsonMissing.of()
+            private var enhancementLevel: JsonField<Double> = JsonMissing.of()
+            private var family: JsonField<Family> = JsonMissing.of()
             private var mode: JsonField<Mode> = JsonMissing.of()
+            private var size: JsonField<Size> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(noiseSuppressionConfig: NoiseSuppressionConfig) = apply {
                 attenuationLimit = noiseSuppressionConfig.attenuationLimit
+                enhancementLevel = noiseSuppressionConfig.enhancementLevel
+                family = noiseSuppressionConfig.family
                 mode = noiseSuppressionConfig.mode
+                size = noiseSuppressionConfig.size
                 additionalProperties = noiseSuppressionConfig.additionalProperties.toMutableMap()
             }
 
-            /** Attenuation limit for noise suppression. Range: 0-100. */
+            /**
+             * Attenuation limit for noise suppression. Range: 0-100. Only applicable when
+             * noise_suppression is 'deepfilternet'.
+             */
             fun attenuationLimit(attenuationLimit: Long) =
                 attenuationLimit(JsonField.of(attenuationLimit))
 
@@ -964,7 +1054,43 @@ private constructor(
                 this.attenuationLimit = attenuationLimit
             }
 
-            /** Mode for noise suppression configuration. */
+            /**
+             * AiCoustics enhancement intensity. Range: 0-1. Only applicable when noise_suppression
+             * is 'aicoustics'.
+             */
+            fun enhancementLevel(enhancementLevel: Double) =
+                enhancementLevel(JsonField.of(enhancementLevel))
+
+            /**
+             * Sets [Builder.enhancementLevel] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enhancementLevel] with a well-typed [Double] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun enhancementLevel(enhancementLevel: JsonField<Double>) = apply {
+                this.enhancementLevel = enhancementLevel
+            }
+
+            /**
+             * AiCoustics model family optimized for Voice AI and STT. Only applicable when
+             * noise_suppression is 'aicoustics'.
+             */
+            fun family(family: Family) = family(JsonField.of(family))
+
+            /**
+             * Sets [Builder.family] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.family] with a well-typed [Family] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun family(family: JsonField<Family>) = apply { this.family = family }
+
+            /**
+             * Mode for noise suppression configuration. Only applicable when noise_suppression is
+             * 'deepfilternet'.
+             */
             fun mode(mode: Mode) = mode(JsonField.of(mode))
 
             /**
@@ -975,6 +1101,22 @@ private constructor(
              * value.
              */
             fun mode(mode: JsonField<Mode>) = apply { this.mode = mode }
+
+            /**
+             * AiCoustics model size. 'vf' tracks the latest model release; 'vf_2_0_l' is pinned to
+             * version 2.0 for consistent, predictable behavior. Only applicable when
+             * noise_suppression is 'aicoustics'.
+             */
+            fun size(size: Size) = size(JsonField.of(size))
+
+            /**
+             * Sets [Builder.size] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.size] with a well-typed [Size] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun size(size: JsonField<Size>) = apply { this.size = size }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1001,7 +1143,14 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): NoiseSuppressionConfig =
-                NoiseSuppressionConfig(attenuationLimit, mode, additionalProperties.toMutableMap())
+                NoiseSuppressionConfig(
+                    attenuationLimit,
+                    enhancementLevel,
+                    family,
+                    mode,
+                    size,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -1021,7 +1170,10 @@ private constructor(
             }
 
             attenuationLimit()
+            enhancementLevel()
+            family().ifPresent { it.validate() }
             mode().ifPresent { it.validate() }
+            size().ifPresent { it.validate() }
             validated = true
         }
 
@@ -1042,9 +1194,152 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (attenuationLimit.asKnown().isPresent) 1 else 0) +
-                (mode.asKnown().getOrNull()?.validity() ?: 0)
+                (if (enhancementLevel.asKnown().isPresent) 1 else 0) +
+                (family.asKnown().getOrNull()?.validity() ?: 0) +
+                (mode.asKnown().getOrNull()?.validity() ?: 0) +
+                (size.asKnown().getOrNull()?.validity() ?: 0)
 
-        /** Mode for noise suppression configuration. */
+        /**
+         * AiCoustics model family optimized for Voice AI and STT. Only applicable when
+         * noise_suppression is 'aicoustics'.
+         */
+        class Family @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val QUAIL = of("quail")
+
+                @JvmStatic fun of(value: String) = Family(JsonField.of(value))
+            }
+
+            /** An enum containing [Family]'s known values. */
+            enum class Known {
+                QUAIL
+            }
+
+            /**
+             * An enum containing [Family]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Family] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                QUAIL,
+                /**
+                 * An enum member indicating that [Family] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    QUAIL -> Value.QUAIL
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    QUAIL -> Known.QUAIL
+                    else -> throw TelnyxInvalidDataException("Unknown Family: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Family = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Family && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * Mode for noise suppression configuration. Only applicable when noise_suppression is
+         * 'deepfilternet'.
+         */
         class Mode @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
@@ -1176,6 +1471,148 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * AiCoustics model size. 'vf' tracks the latest model release; 'vf_2_0_l' is pinned to
+         * version 2.0 for consistent, predictable behavior. Only applicable when noise_suppression
+         * is 'aicoustics'.
+         */
+        class Size @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val VF = of("vf")
+
+                @JvmField val VF_2_0_L = of("vf_2_0_l")
+
+                @JvmStatic fun of(value: String) = Size(JsonField.of(value))
+            }
+
+            /** An enum containing [Size]'s known values. */
+            enum class Known {
+                VF,
+                VF_2_0_L,
+            }
+
+            /**
+             * An enum containing [Size]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Size] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                VF,
+                VF_2_0_L,
+                /** An enum member indicating that [Size] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    VF -> Value.VF
+                    VF_2_0_L -> Value.VF_2_0_L
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    VF -> Known.VF
+                    VF_2_0_L -> Known.VF_2_0_L
+                    else -> throw TelnyxInvalidDataException("Unknown Size: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Size = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Size && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -1183,18 +1620,28 @@ private constructor(
 
             return other is NoiseSuppressionConfig &&
                 attenuationLimit == other.attenuationLimit &&
+                enhancementLevel == other.enhancementLevel &&
+                family == other.family &&
                 mode == other.mode &&
+                size == other.size &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(attenuationLimit, mode, additionalProperties)
+            Objects.hash(
+                attenuationLimit,
+                enhancementLevel,
+                family,
+                mode,
+                size,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "NoiseSuppressionConfig{attenuationLimit=$attenuationLimit, mode=$mode, additionalProperties=$additionalProperties}"
+            "NoiseSuppressionConfig{attenuationLimit=$attenuationLimit, enhancementLevel=$enhancementLevel, family=$family, mode=$mode, size=$size, additionalProperties=$additionalProperties}"
     }
 
     /** Configuration for call recording format and channel settings. */

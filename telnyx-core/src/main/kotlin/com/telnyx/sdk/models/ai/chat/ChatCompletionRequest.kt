@@ -26,6 +26,7 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -1114,7 +1115,7 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addFunctionTool(function: Tool.ChatCompletionTool.Function) =
+        fun addFunctionTool(function: FunctionDefinition) =
             addTool(Tool.ChatCompletionTool.builder().function(function).build())
 
         /** Alias for calling [addTool] with `Tool.ofRetrieval(retrieval)`. */
@@ -4281,7 +4282,7 @@ private constructor(
         class ChatCompletionTool
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val function: JsonField<Function>,
+            private val function: JsonField<FunctionDefinition>,
             private val type: JsonValue,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -4290,7 +4291,7 @@ private constructor(
             private constructor(
                 @JsonProperty("function")
                 @ExcludeMissing
-                function: JsonField<Function> = JsonMissing.of(),
+                function: JsonField<FunctionDefinition> = JsonMissing.of(),
                 @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             ) : this(function, type, mutableMapOf())
 
@@ -4299,7 +4300,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun function(): Function = function.getRequired("function")
+            fun function(): FunctionDefinition = function.getRequired("function")
 
             /**
              * Expected to always return the following:
@@ -4320,7 +4321,7 @@ private constructor(
              */
             @JsonProperty("function")
             @ExcludeMissing
-            fun _function(): JsonField<Function> = function
+            fun _function(): JsonField<FunctionDefinition> = function
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4350,7 +4351,7 @@ private constructor(
             /** A builder for [ChatCompletionTool]. */
             class Builder internal constructor() {
 
-                private var function: JsonField<Function>? = null
+                private var function: JsonField<FunctionDefinition>? = null
                 private var type: JsonValue = JsonValue.from("function")
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -4361,16 +4362,18 @@ private constructor(
                     additionalProperties = chatCompletionTool.additionalProperties.toMutableMap()
                 }
 
-                fun function(function: Function) = function(JsonField.of(function))
+                fun function(function: FunctionDefinition) = function(JsonField.of(function))
 
                 /**
                  * Sets [Builder.function] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.function] with a well-typed [Function] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.function] with a well-typed [FunctionDefinition]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
-                fun function(function: JsonField<Function>) = apply { this.function = function }
+                fun function(function: JsonField<FunctionDefinition>) = apply {
+                    this.function = function
+                }
 
                 /**
                  * Sets the field to an arbitrary JSON value.
@@ -4472,380 +4475,6 @@ private constructor(
             internal fun validity(): Int =
                 (function.asKnown().getOrNull()?.validity() ?: 0) +
                     type.let { if (it == JsonValue.from("function")) 1 else 0 }
-
-            class Function
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val name: JsonField<String>,
-                private val description: JsonField<String>,
-                private val parameters: JsonField<Parameters>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("name")
-                    @ExcludeMissing
-                    name: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("description")
-                    @ExcludeMissing
-                    description: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("parameters")
-                    @ExcludeMissing
-                    parameters: JsonField<Parameters> = JsonMissing.of(),
-                ) : this(name, description, parameters, mutableMapOf())
-
-                /**
-                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-                 *   value).
-                 */
-                fun name(): String = name.getRequired("name")
-
-                /**
-                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
-                 *   if the server responded with an unexpected value).
-                 */
-                fun description(): Optional<String> = description.getOptional("description")
-
-                /**
-                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
-                 *   if the server responded with an unexpected value).
-                 */
-                fun parameters(): Optional<Parameters> = parameters.getOptional("parameters")
-
-                /**
-                 * Returns the raw JSON value of [name].
-                 *
-                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-                /**
-                 * Returns the raw JSON value of [description].
-                 *
-                 * Unlike [description], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("description")
-                @ExcludeMissing
-                fun _description(): JsonField<String> = description
-
-                /**
-                 * Returns the raw JSON value of [parameters].
-                 *
-                 * Unlike [parameters], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("parameters")
-                @ExcludeMissing
-                fun _parameters(): JsonField<Parameters> = parameters
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /**
-                     * Returns a mutable builder for constructing an instance of [Function].
-                     *
-                     * The following fields are required:
-                     * ```java
-                     * .name()
-                     * ```
-                     */
-                    @JvmStatic fun builder() = Builder()
-                }
-
-                /** A builder for [Function]. */
-                class Builder internal constructor() {
-
-                    private var name: JsonField<String>? = null
-                    private var description: JsonField<String> = JsonMissing.of()
-                    private var parameters: JsonField<Parameters> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    @JvmSynthetic
-                    internal fun from(function: Function) = apply {
-                        name = function.name
-                        description = function.description
-                        parameters = function.parameters
-                        additionalProperties = function.additionalProperties.toMutableMap()
-                    }
-
-                    fun name(name: String) = name(JsonField.of(name))
-
-                    /**
-                     * Sets [Builder.name] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.name] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun name(name: JsonField<String>) = apply { this.name = name }
-
-                    fun description(description: String) = description(JsonField.of(description))
-
-                    /**
-                     * Sets [Builder.description] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.description] with a well-typed [String]
-                     * value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun description(description: JsonField<String>) = apply {
-                        this.description = description
-                    }
-
-                    fun parameters(parameters: Parameters) = parameters(JsonField.of(parameters))
-
-                    /**
-                     * Sets [Builder.parameters] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.parameters] with a well-typed [Parameters]
-                     * value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun parameters(parameters: JsonField<Parameters>) = apply {
-                        this.parameters = parameters
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Function].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     *
-                     * The following fields are required:
-                     * ```java
-                     * .name()
-                     * ```
-                     *
-                     * @throws IllegalStateException if any required field is unset.
-                     */
-                    fun build(): Function =
-                        Function(
-                            checkRequired("name", name),
-                            description,
-                            parameters,
-                            additionalProperties.toMutableMap(),
-                        )
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
-                 *   its expected type.
-                 */
-                fun validate(): Function = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    name()
-                    description()
-                    parameters().ifPresent { it.validate() }
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic
-                internal fun validity(): Int =
-                    (if (name.asKnown().isPresent) 1 else 0) +
-                        (if (description.asKnown().isPresent) 1 else 0) +
-                        (parameters.asKnown().getOrNull()?.validity() ?: 0)
-
-                class Parameters
-                @JsonCreator
-                private constructor(
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    private val additionalProperties: Map<String, JsonValue>
-                ) {
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /**
-                         * Returns a mutable builder for constructing an instance of [Parameters].
-                         */
-                        @JvmStatic fun builder() = Builder()
-                    }
-
-                    /** A builder for [Parameters]. */
-                    class Builder internal constructor() {
-
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        @JvmSynthetic
-                        internal fun from(parameters: Parameters) = apply {
-                            additionalProperties = parameters.additionalProperties.toMutableMap()
-                        }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [Parameters].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         */
-                        fun build(): Parameters = Parameters(additionalProperties.toImmutable())
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
-                     *   match its expected type.
-                     */
-                    fun validate(): Parameters = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: TelnyxInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    @JvmSynthetic
-                    internal fun validity(): Int =
-                        additionalProperties.count { (_, value) ->
-                            !value.isNull() && !value.isMissing()
-                        }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Parameters &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() =
-                        "Parameters{additionalProperties=$additionalProperties}"
-                }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Function &&
-                        name == other.name &&
-                        description == other.description &&
-                        parameters == other.parameters &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(name, description, parameters, additionalProperties)
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "Function{name=$name, description=$description, parameters=$parameters, additionalProperties=$additionalProperties}"
-            }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {

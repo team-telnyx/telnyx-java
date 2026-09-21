@@ -25,6 +25,8 @@ import com.telnyx.sdk.models.texml.TexmlSecretsParams
 import com.telnyx.sdk.models.texml.TexmlSecretsResponse
 import com.telnyx.sdk.services.async.texml.AccountServiceAsync
 import com.telnyx.sdk.services.async.texml.AccountServiceAsyncImpl
+import com.telnyx.sdk.services.async.texml.CallServiceAsync
+import com.telnyx.sdk.services.async.texml.CallServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -37,12 +39,17 @@ class TexmlServiceAsyncImpl internal constructor(private val clientOptions: Clie
         WithRawResponseImpl(clientOptions)
     }
 
+    private val calls: CallServiceAsync by lazy { CallServiceAsyncImpl(clientOptions) }
+
     private val accounts: AccountServiceAsync by lazy { AccountServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): TexmlServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlServiceAsync =
         TexmlServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    /** TeXML REST Commands */
+    override fun calls(): CallServiceAsync = calls
 
     /** TeXML REST Commands */
     override fun accounts(): AccountServiceAsync = accounts
@@ -67,6 +74,10 @@ class TexmlServiceAsyncImpl internal constructor(private val clientOptions: Clie
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val calls: CallServiceAsync.WithRawResponse by lazy {
+            CallServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val accounts: AccountServiceAsync.WithRawResponse by lazy {
             AccountServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -77,6 +88,9 @@ class TexmlServiceAsyncImpl internal constructor(private val clientOptions: Clie
             TexmlServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        /** TeXML REST Commands */
+        override fun calls(): CallServiceAsync.WithRawResponse = calls
 
         /** TeXML REST Commands */
         override fun accounts(): AccountServiceAsync.WithRawResponse = accounts

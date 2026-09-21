@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.ai.assistants
 
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -264,6 +265,7 @@ internal class AssistantCreateParamsTest {
                 InferenceEmbeddingInterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
+                    .interruptPredictionThreshold(0.0)
                     .startSpeakingPlan(
                         StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
@@ -301,18 +303,23 @@ internal class AssistantCreateParamsTest {
                     .build()
             )
             .postConversationSettings(PostConversationSettingsReq.builder().enabled(true).build())
-            .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+            .privacySettings(
+                PrivacySettings.builder().dataRetention(true).inTransitDataLocality(true).build()
+            )
             .addTag("string")
             .telephonySettings(
                 TelephonySettings.builder()
                     .defaultTexmlAppId("default_texml_app_id")
                     .disableDtmf(true)
                     .fallbackDestination("fallback_destination")
-                    .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                    .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                     .noiseSuppressionConfig(
                         TelephonySettings.NoiseSuppressionConfig.builder()
                             .attenuationLimit(0L)
+                            .enhancementLevel(0.0)
+                            .family(TelephonySettings.NoiseSuppressionConfig.Family.QUAIL)
                             .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                            .size(TelephonySettings.NoiseSuppressionConfig.Size.VF)
                             .build()
                     )
                     .recordingSettings(
@@ -359,105 +366,20 @@ internal class AssistantCreateParamsTest {
                     .build()
             )
             .addToolId("string")
-            .addWebhookTool(
-                InferenceEmbeddingWebhookToolParams.Webhook.builder()
-                    .description("description")
-                    .name("name")
-                    .url("https://example.com/api/v1/function")
-                    .async(true)
-                    .asyncTimeoutMs(1L)
-                    .bodyParameters(
-                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.builder()
-                            .properties(
-                                InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                    .Properties
-                                    .builder()
-                                    .putAdditionalProperty("age", JsonValue.from("bar"))
-                                    .putAdditionalProperty("location", JsonValue.from("bar"))
-                                    .build()
-                            )
-                            .addRequired("age")
-                            .addRequired("location")
-                            .type(
-                                InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.Type
-                                    .OBJECT
-                            )
-                            .build()
-                    )
-                    .addHeader(
-                        InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+            .addTool(
+                AssistantTool.Function.builder()
+                    .function(
+                        FunctionDefinition.builder()
                             .name("name")
-                            .value("value")
-                            .build()
-                    )
-                    .addMessage(
-                        InferenceEmbeddingWebhookToolParams.Webhook.Message
-                            .WebhookToolRequestStartMessage
-                            .builder()
-                            .content("Let me look that up for you.")
-                            .timingMs(100L)
-                            .build()
-                    )
-                    .addMessage(
-                        InferenceEmbeddingWebhookToolParams.Webhook.Message
-                            .WebhookToolRequestResponseDelayedMessage
-                            .builder()
-                            .content("Still working on that.")
-                            .timingMs(5000L)
-                            .build()
-                    )
-                    .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
-                    .pathParameters(
-                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
-                            .properties(
-                                InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                    .Properties
-                                    .builder()
-                                    .putAdditionalProperty("id", JsonValue.from("bar"))
+                            .description("description")
+                            .parameters(
+                                FunctionDefinition.Parameters.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
-                            .addRequired("id")
-                            .type(
-                                InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.Type
-                                    .OBJECT
-                            )
                             .build()
                     )
-                    .presetBodyFields(
-                        InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields.builder()
-                            .putAdditionalProperty("account_id", JsonValue.from("bar"))
-                            .putAdditionalProperty("source", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .presetQueryParams(
-                        InferenceEmbeddingWebhookToolParams.Webhook.PresetQueryParams.builder()
-                            .putAdditionalProperty("caller", JsonValue.from("bar"))
-                            .putAdditionalProperty("channel", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .queryParameters(
-                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.builder()
-                            .properties(
-                                InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                    .Properties
-                                    .builder()
-                                    .putAdditionalProperty("page", JsonValue.from("bar"))
-                                    .build()
-                            )
-                            .addRequired("page")
-                            .type(
-                                InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.Type
-                                    .OBJECT
-                            )
-                            .build()
-                    )
-                    .addStoreFieldsAsVariable(
-                        InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable.builder()
-                            .name("x")
-                            .valuePath("x")
-                            .build()
-                    )
-                    .timeoutMs(500L)
+                    .shared(true)
                     .build()
             )
             .transcription(
@@ -794,6 +716,7 @@ internal class AssistantCreateParamsTest {
                     InferenceEmbeddingInterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
+                        .interruptPredictionThreshold(0.0)
                         .startSpeakingPlan(
                             StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
@@ -835,18 +758,26 @@ internal class AssistantCreateParamsTest {
                 .postConversationSettings(
                     PostConversationSettingsReq.builder().enabled(true).build()
                 )
-                .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                .privacySettings(
+                    PrivacySettings.builder()
+                        .dataRetention(true)
+                        .inTransitDataLocality(true)
+                        .build()
+                )
                 .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
                         .disableDtmf(true)
                         .fallbackDestination("fallback_destination")
-                        .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                        .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                         .noiseSuppressionConfig(
                             TelephonySettings.NoiseSuppressionConfig.builder()
                                 .attenuationLimit(0L)
+                                .enhancementLevel(0.0)
+                                .family(TelephonySettings.NoiseSuppressionConfig.Family.QUAIL)
                                 .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                                .size(TelephonySettings.NoiseSuppressionConfig.Size.VF)
                                 .build()
                         )
                         .recordingSettings(
@@ -894,106 +825,20 @@ internal class AssistantCreateParamsTest {
                         .build()
                 )
                 .addToolId("string")
-                .addWebhookTool(
-                    InferenceEmbeddingWebhookToolParams.Webhook.builder()
-                        .description("description")
-                        .name("name")
-                        .url("https://example.com/api/v1/function")
-                        .async(true)
-                        .asyncTimeoutMs(1L)
-                        .bodyParameters(
-                            InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.builder()
-                                .properties(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                        .Properties
-                                        .builder()
-                                        .putAdditionalProperty("age", JsonValue.from("bar"))
-                                        .putAdditionalProperty("location", JsonValue.from("bar"))
-                                        .build()
-                                )
-                                .addRequired("age")
-                                .addRequired("location")
-                                .type(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.Type
-                                        .OBJECT
-                                )
-                                .build()
-                        )
-                        .addHeader(
-                            InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                .addTool(
+                    AssistantTool.Function.builder()
+                        .function(
+                            FunctionDefinition.builder()
                                 .name("name")
-                                .value("value")
-                                .build()
-                        )
-                        .addMessage(
-                            InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                .WebhookToolRequestStartMessage
-                                .builder()
-                                .content("Let me look that up for you.")
-                                .timingMs(100L)
-                                .build()
-                        )
-                        .addMessage(
-                            InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                .WebhookToolRequestResponseDelayedMessage
-                                .builder()
-                                .content("Still working on that.")
-                                .timingMs(5000L)
-                                .build()
-                        )
-                        .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
-                        .pathParameters(
-                            InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
-                                .properties(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                        .Properties
-                                        .builder()
-                                        .putAdditionalProperty("id", JsonValue.from("bar"))
+                                .description("description")
+                                .parameters(
+                                    FunctionDefinition.Parameters.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .addRequired("id")
-                                .type(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.Type
-                                        .OBJECT
-                                )
                                 .build()
                         )
-                        .presetBodyFields(
-                            InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields.builder()
-                                .putAdditionalProperty("account_id", JsonValue.from("bar"))
-                                .putAdditionalProperty("source", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .presetQueryParams(
-                            InferenceEmbeddingWebhookToolParams.Webhook.PresetQueryParams.builder()
-                                .putAdditionalProperty("caller", JsonValue.from("bar"))
-                                .putAdditionalProperty("channel", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .queryParameters(
-                            InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.builder()
-                                .properties(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                        .Properties
-                                        .builder()
-                                        .putAdditionalProperty("page", JsonValue.from("bar"))
-                                        .build()
-                                )
-                                .addRequired("page")
-                                .type(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.Type
-                                        .OBJECT
-                                )
-                                .build()
-                        )
-                        .addStoreFieldsAsVariable(
-                            InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
-                                .builder()
-                                .name("x")
-                                .valuePath("x")
-                                .build()
-                        )
-                        .timeoutMs(500L)
+                        .shared(true)
                         .build()
                 )
                 .transcription(
@@ -1350,6 +1195,7 @@ internal class AssistantCreateParamsTest {
                     InferenceEmbeddingInterruptionSettings.builder()
                         .disableGreetingInterruption(true)
                         .enable(true)
+                        .interruptPredictionThreshold(0.0)
                         .startSpeakingPlan(
                             StartSpeakingPlan.builder()
                                 .transcriptionEndpointingPlan(
@@ -1391,18 +1237,26 @@ internal class AssistantCreateParamsTest {
                 .postConversationSettings(
                     PostConversationSettingsReq.builder().enabled(true).build()
                 )
-                .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                .privacySettings(
+                    PrivacySettings.builder()
+                        .dataRetention(true)
+                        .inTransitDataLocality(true)
+                        .build()
+                )
                 .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
                         .disableDtmf(true)
                         .fallbackDestination("fallback_destination")
-                        .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                        .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                         .noiseSuppressionConfig(
                             TelephonySettings.NoiseSuppressionConfig.builder()
                                 .attenuationLimit(0L)
+                                .enhancementLevel(0.0)
+                                .family(TelephonySettings.NoiseSuppressionConfig.Family.QUAIL)
                                 .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                                .size(TelephonySettings.NoiseSuppressionConfig.Size.VF)
                                 .build()
                         )
                         .recordingSettings(
@@ -1450,106 +1304,20 @@ internal class AssistantCreateParamsTest {
                         .build()
                 )
                 .addToolId("string")
-                .addWebhookTool(
-                    InferenceEmbeddingWebhookToolParams.Webhook.builder()
-                        .description("description")
-                        .name("name")
-                        .url("https://example.com/api/v1/function")
-                        .async(true)
-                        .asyncTimeoutMs(1L)
-                        .bodyParameters(
-                            InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.builder()
-                                .properties(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                        .Properties
-                                        .builder()
-                                        .putAdditionalProperty("age", JsonValue.from("bar"))
-                                        .putAdditionalProperty("location", JsonValue.from("bar"))
-                                        .build()
-                                )
-                                .addRequired("age")
-                                .addRequired("location")
-                                .type(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.Type
-                                        .OBJECT
-                                )
-                                .build()
-                        )
-                        .addHeader(
-                            InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                .addTool(
+                    AssistantTool.Function.builder()
+                        .function(
+                            FunctionDefinition.builder()
                                 .name("name")
-                                .value("value")
-                                .build()
-                        )
-                        .addMessage(
-                            InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                .WebhookToolRequestStartMessage
-                                .builder()
-                                .content("Let me look that up for you.")
-                                .timingMs(100L)
-                                .build()
-                        )
-                        .addMessage(
-                            InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                .WebhookToolRequestResponseDelayedMessage
-                                .builder()
-                                .content("Still working on that.")
-                                .timingMs(5000L)
-                                .build()
-                        )
-                        .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
-                        .pathParameters(
-                            InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
-                                .properties(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                        .Properties
-                                        .builder()
-                                        .putAdditionalProperty("id", JsonValue.from("bar"))
+                                .description("description")
+                                .parameters(
+                                    FunctionDefinition.Parameters.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .addRequired("id")
-                                .type(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.Type
-                                        .OBJECT
-                                )
                                 .build()
                         )
-                        .presetBodyFields(
-                            InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields.builder()
-                                .putAdditionalProperty("account_id", JsonValue.from("bar"))
-                                .putAdditionalProperty("source", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .presetQueryParams(
-                            InferenceEmbeddingWebhookToolParams.Webhook.PresetQueryParams.builder()
-                                .putAdditionalProperty("caller", JsonValue.from("bar"))
-                                .putAdditionalProperty("channel", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .queryParameters(
-                            InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.builder()
-                                .properties(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                        .Properties
-                                        .builder()
-                                        .putAdditionalProperty("page", JsonValue.from("bar"))
-                                        .build()
-                                )
-                                .addRequired("page")
-                                .type(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.Type
-                                        .OBJECT
-                                )
-                                .build()
-                        )
-                        .addStoreFieldsAsVariable(
-                            InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
-                                .builder()
-                                .name("x")
-                                .valuePath("x")
-                                .build()
-                        )
-                        .timeoutMs(500L)
+                        .shared(true)
                         .build()
                 )
                 .transcription(
@@ -1885,6 +1653,7 @@ internal class AssistantCreateParamsTest {
                 InferenceEmbeddingInterruptionSettings.builder()
                     .disableGreetingInterruption(true)
                     .enable(true)
+                    .interruptPredictionThreshold(0.0)
                     .startSpeakingPlan(
                         StartSpeakingPlan.builder()
                             .transcriptionEndpointingPlan(
@@ -1927,7 +1696,9 @@ internal class AssistantCreateParamsTest {
         assertThat(body.postConversationSettings())
             .contains(PostConversationSettingsReq.builder().enabled(true).build())
         assertThat(body.privacySettings())
-            .contains(PrivacySettings.builder().dataRetention(true).build())
+            .contains(
+                PrivacySettings.builder().dataRetention(true).inTransitDataLocality(true).build()
+            )
         assertThat(body.tags().getOrNull()).containsExactly("string")
         assertThat(body.telephonySettings())
             .contains(
@@ -1935,11 +1706,14 @@ internal class AssistantCreateParamsTest {
                     .defaultTexmlAppId("default_texml_app_id")
                     .disableDtmf(true)
                     .fallbackDestination("fallback_destination")
-                    .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                    .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                     .noiseSuppressionConfig(
                         TelephonySettings.NoiseSuppressionConfig.builder()
                             .attenuationLimit(0L)
+                            .enhancementLevel(0.0)
+                            .family(TelephonySettings.NoiseSuppressionConfig.Family.QUAIL)
                             .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                            .size(TelephonySettings.NoiseSuppressionConfig.Size.VF)
                             .build()
                     )
                     .recordingSettings(
@@ -1988,132 +1762,20 @@ internal class AssistantCreateParamsTest {
         assertThat(body.toolIds().getOrNull()).containsExactly("string")
         assertThat(body.tools().getOrNull())
             .containsExactly(
-                AssistantTool.ofWebhook(
-                    InferenceEmbeddingWebhookToolParams.builder()
-                        .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
-                        .webhook(
-                            InferenceEmbeddingWebhookToolParams.Webhook.builder()
-                                .description("description")
+                AssistantTool.ofFunction(
+                    AssistantTool.Function.builder()
+                        .function(
+                            FunctionDefinition.builder()
                                 .name("name")
-                                .url("https://example.com/api/v1/function")
-                                .async(true)
-                                .asyncTimeoutMs(1L)
-                                .bodyParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                        .builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .BodyParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("age", JsonValue.from("bar"))
-                                                .putAdditionalProperty(
-                                                    "location",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("age")
-                                        .addRequired("location")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .BodyParameters
-                                                .Type
-                                                .OBJECT
-                                        )
+                                .description("description")
+                                .parameters(
+                                    FunctionDefinition.Parameters.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .addHeader(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
-                                        .name("name")
-                                        .value("value")
-                                        .build()
-                                )
-                                .addMessage(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                        .WebhookToolRequestStartMessage
-                                        .builder()
-                                        .content("Let me look that up for you.")
-                                        .timingMs(100L)
-                                        .build()
-                                )
-                                .addMessage(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                        .WebhookToolRequestResponseDelayedMessage
-                                        .builder()
-                                        .content("Still working on that.")
-                                        .timingMs(5000L)
-                                        .build()
-                                )
-                                .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
-                                .pathParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                        .builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .PathParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("id", JsonValue.from("bar"))
-                                                .build()
-                                        )
-                                        .addRequired("id")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .PathParameters
-                                                .Type
-                                                .OBJECT
-                                        )
-                                        .build()
-                                )
-                                .presetBodyFields(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields
-                                        .builder()
-                                        .putAdditionalProperty("account_id", JsonValue.from("bar"))
-                                        .putAdditionalProperty("source", JsonValue.from("bar"))
-                                        .build()
-                                )
-                                .presetQueryParams(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PresetQueryParams
-                                        .builder()
-                                        .putAdditionalProperty("caller", JsonValue.from("bar"))
-                                        .putAdditionalProperty("channel", JsonValue.from("bar"))
-                                        .build()
-                                )
-                                .queryParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                        .builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .QueryParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty(
-                                                    "page",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("page")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .QueryParameters
-                                                .Type
-                                                .OBJECT
-                                        )
-                                        .build()
-                                )
-                                .addStoreFieldsAsVariable(
-                                    InferenceEmbeddingWebhookToolParams.Webhook
-                                        .StoreFieldsAsVariable
-                                        .builder()
-                                        .name("x")
-                                        .valuePath("x")
-                                        .build()
-                                )
-                                .timeoutMs(500L)
                                 .build()
                         )
+                        .shared(true)
                         .build()
                 )
             )

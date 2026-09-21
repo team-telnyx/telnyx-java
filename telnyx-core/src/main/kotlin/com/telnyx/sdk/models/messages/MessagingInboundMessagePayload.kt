@@ -170,8 +170,9 @@ private constructor(
     fun id(): Optional<String> = id.getOptional("id")
 
     /**
-     * WhatsApp message body. For message edits and revocations, inspect `type` and the
-     * corresponding `edit` or `revoke` object.
+     * Message body for RCS and WhatsApp. RCS messages contain text, user_file, location, or
+     * suggestion_response. For WhatsApp edits and revocations, inspect type and the corresponding
+     * edit or revoke object.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -354,8 +355,8 @@ private constructor(
     fun text(): Optional<String> = text.getOptional("text")
 
     /**
-     * Receiving address. SMS and MMS webhooks use an array of recipients. WhatsApp webhooks use one
-     * E.164 phone number.
+     * Receiving address. SMS, MMS and RCS webhooks use an array of recipients. RCS recipients are
+     * identified by agent_id and agent_name. WhatsApp webhooks use one E.164 phone number.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -729,8 +730,9 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * WhatsApp message body. For message edits and revocations, inspect `type` and the
-         * corresponding `edit` or `revoke` object.
+         * Message body for RCS and WhatsApp. RCS messages contain text, user_file, location, or
+         * suggestion_response. For WhatsApp edits and revocations, inspect type and the
+         * corresponding edit or revoke object.
          */
         fun body(body: Body) = body(JsonField.of(body))
 
@@ -1104,8 +1106,8 @@ private constructor(
         fun text(text: JsonField<String>) = apply { this.text = text }
 
         /**
-         * Receiving address. SMS and MMS webhooks use an array of recipients. WhatsApp webhooks use
-         * one E.164 phone number.
+         * Receiving address. SMS, MMS and RCS webhooks use an array of recipients. RCS recipients
+         * are identified by agent_id and agent_name. WhatsApp webhooks use one E.164 phone number.
          */
         fun to(to: To) = to(JsonField.of(to))
 
@@ -1347,8 +1349,9 @@ private constructor(
             (if (webhookUrl.asKnown().isPresent) 1 else 0)
 
     /**
-     * WhatsApp message body. For message edits and revocations, inspect `type` and the
-     * corresponding `edit` or `revoke` object.
+     * Message body for RCS and WhatsApp. RCS messages contain text, user_file, location, or
+     * suggestion_response. For WhatsApp edits and revocations, inspect type and the corresponding
+     * edit or revoke object.
      */
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -1357,9 +1360,13 @@ private constructor(
         private val edit: JsonField<Edit>,
         private val foreignId: JsonField<String>,
         private val from: JsonField<String>,
+        private val location: JsonField<Location>,
         private val revoke: JsonField<Revoke>,
+        private val suggestionResponse: JsonField<SuggestionResponse>,
+        private val text: JsonField<Text>,
         private val timestamp: JsonField<String>,
         private val type: JsonField<String>,
+        private val userFile: JsonField<UserFile>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1371,12 +1378,35 @@ private constructor(
             @ExcludeMissing
             foreignId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("location")
+            @ExcludeMissing
+            location: JsonField<Location> = JsonMissing.of(),
             @JsonProperty("revoke") @ExcludeMissing revoke: JsonField<Revoke> = JsonMissing.of(),
+            @JsonProperty("suggestion_response")
+            @ExcludeMissing
+            suggestionResponse: JsonField<SuggestionResponse> = JsonMissing.of(),
+            @JsonProperty("text") @ExcludeMissing text: JsonField<Text> = JsonMissing.of(),
             @JsonProperty("timestamp")
             @ExcludeMissing
             timestamp: JsonField<String> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
-        ) : this(id, edit, foreignId, from, revoke, timestamp, type, mutableMapOf())
+            @JsonProperty("user_file")
+            @ExcludeMissing
+            userFile: JsonField<UserFile> = JsonMissing.of(),
+        ) : this(
+            id,
+            edit,
+            foreignId,
+            from,
+            location,
+            revoke,
+            suggestionResponse,
+            text,
+            timestamp,
+            type,
+            userFile,
+            mutableMapOf(),
+        )
 
         /**
          * Telnyx identifier for this webhook message.
@@ -1411,12 +1441,37 @@ private constructor(
         fun from(): Optional<String> = from.getOptional("from")
 
         /**
+         * Location shared in an RCS message.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun location(): Optional<Location> = location.getOptional("location")
+
+        /**
          * Details for a revoked WhatsApp message.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun revoke(): Optional<Revoke> = revoke.getOptional("revoke")
+
+        /**
+         * Selected RCS suggestion.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun suggestionResponse(): Optional<SuggestionResponse> =
+            suggestionResponse.getOptional("suggestion_response")
+
+        /**
+         * RCS text string or WhatsApp text object.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun text(): Optional<Text> = text.getOptional("text")
 
         /**
          * Unix timestamp supplied by Meta.
@@ -1433,6 +1488,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun type(): Optional<String> = type.getOptional("type")
+
+        /**
+         * RCS file attachment and optional thumbnail.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun userFile(): Optional<UserFile> = userFile.getOptional("user_file")
 
         /**
          * Returns the raw JSON value of [id].
@@ -1463,11 +1526,35 @@ private constructor(
         @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<String> = from
 
         /**
+         * Returns the raw JSON value of [location].
+         *
+         * Unlike [location], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("location") @ExcludeMissing fun _location(): JsonField<Location> = location
+
+        /**
          * Returns the raw JSON value of [revoke].
          *
          * Unlike [revoke], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("revoke") @ExcludeMissing fun _revoke(): JsonField<Revoke> = revoke
+
+        /**
+         * Returns the raw JSON value of [suggestionResponse].
+         *
+         * Unlike [suggestionResponse], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("suggestion_response")
+        @ExcludeMissing
+        fun _suggestionResponse(): JsonField<SuggestionResponse> = suggestionResponse
+
+        /**
+         * Returns the raw JSON value of [text].
+         *
+         * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("text") @ExcludeMissing fun _text(): JsonField<Text> = text
 
         /**
          * Returns the raw JSON value of [timestamp].
@@ -1482,6 +1569,13 @@ private constructor(
          * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
+
+        /**
+         * Returns the raw JSON value of [userFile].
+         *
+         * Unlike [userFile], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("user_file") @ExcludeMissing fun _userFile(): JsonField<UserFile> = userFile
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1508,9 +1602,13 @@ private constructor(
             private var edit: JsonField<Edit> = JsonMissing.of()
             private var foreignId: JsonField<String> = JsonMissing.of()
             private var from: JsonField<String> = JsonMissing.of()
+            private var location: JsonField<Location> = JsonMissing.of()
             private var revoke: JsonField<Revoke> = JsonMissing.of()
+            private var suggestionResponse: JsonField<SuggestionResponse> = JsonMissing.of()
+            private var text: JsonField<Text> = JsonMissing.of()
             private var timestamp: JsonField<String> = JsonMissing.of()
             private var type: JsonField<String> = JsonMissing.of()
+            private var userFile: JsonField<UserFile> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1519,9 +1617,13 @@ private constructor(
                 edit = body.edit
                 foreignId = body.foreignId
                 from = body.from
+                location = body.location
                 revoke = body.revoke
+                suggestionResponse = body.suggestionResponse
+                text = body.text
                 timestamp = body.timestamp
                 type = body.type
+                userFile = body.userFile
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -1573,6 +1675,18 @@ private constructor(
              */
             fun from(from: JsonField<String>) = apply { this.from = from }
 
+            /** Location shared in an RCS message. */
+            fun location(location: Location) = location(JsonField.of(location))
+
+            /**
+             * Sets [Builder.location] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.location] with a well-typed [Location] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun location(location: JsonField<Location>) = apply { this.location = location }
+
             /** Details for a revoked WhatsApp message. */
             fun revoke(revoke: Revoke) = revoke(JsonField.of(revoke))
 
@@ -1584,6 +1698,39 @@ private constructor(
              * supported value.
              */
             fun revoke(revoke: JsonField<Revoke>) = apply { this.revoke = revoke }
+
+            /** Selected RCS suggestion. */
+            fun suggestionResponse(suggestionResponse: SuggestionResponse) =
+                suggestionResponse(JsonField.of(suggestionResponse))
+
+            /**
+             * Sets [Builder.suggestionResponse] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.suggestionResponse] with a well-typed
+             * [SuggestionResponse] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun suggestionResponse(suggestionResponse: JsonField<SuggestionResponse>) = apply {
+                this.suggestionResponse = suggestionResponse
+            }
+
+            /** RCS text string or WhatsApp text object. */
+            fun text(text: Text) = text(JsonField.of(text))
+
+            /**
+             * Sets [Builder.text] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.text] with a well-typed [Text] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun text(text: JsonField<Text>) = apply { this.text = text }
+
+            /** Alias for calling [text] with `Text.ofString(string)`. */
+            fun text(string: String) = text(Text.ofString(string))
+
+            /** Alias for calling [text] with `Text.ofInnerBody(innerBody)`. */
+            fun text(innerBody: Text.InnerBody) = text(Text.ofInnerBody(innerBody))
 
             /** Unix timestamp supplied by Meta. */
             fun timestamp(timestamp: String) = timestamp(JsonField.of(timestamp))
@@ -1611,6 +1758,18 @@ private constructor(
              * value.
              */
             fun type(type: JsonField<String>) = apply { this.type = type }
+
+            /** RCS file attachment and optional thumbnail. */
+            fun userFile(userFile: UserFile) = userFile(JsonField.of(userFile))
+
+            /**
+             * Sets [Builder.userFile] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.userFile] with a well-typed [UserFile] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun userFile(userFile: JsonField<UserFile>) = apply { this.userFile = userFile }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1642,9 +1801,13 @@ private constructor(
                     edit,
                     foreignId,
                     from,
+                    location,
                     revoke,
+                    suggestionResponse,
+                    text,
                     timestamp,
                     type,
+                    userFile,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1669,9 +1832,13 @@ private constructor(
             edit().ifPresent { it.validate() }
             foreignId()
             from()
+            location().ifPresent { it.validate() }
             revoke().ifPresent { it.validate() }
+            suggestionResponse().ifPresent { it.validate() }
+            text().ifPresent { it.validate() }
             timestamp()
             type()
+            userFile().ifPresent { it.validate() }
             validated = true
         }
 
@@ -1695,9 +1862,13 @@ private constructor(
                 (edit.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (foreignId.asKnown().isPresent) 1 else 0) +
                 (if (from.asKnown().isPresent) 1 else 0) +
+                (location.asKnown().getOrNull()?.validity() ?: 0) +
                 (revoke.asKnown().getOrNull()?.validity() ?: 0) +
+                (suggestionResponse.asKnown().getOrNull()?.validity() ?: 0) +
+                (text.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (timestamp.asKnown().isPresent) 1 else 0) +
-                (if (type.asKnown().isPresent) 1 else 0)
+                (if (type.asKnown().isPresent) 1 else 0) +
+                (userFile.asKnown().getOrNull()?.validity() ?: 0)
 
         /** Details for an edited WhatsApp message. */
         class Edit
@@ -2044,6 +2215,202 @@ private constructor(
                 "Edit{message=$message, originalMessageId=$originalMessageId, additionalProperties=$additionalProperties}"
         }
 
+        /** Location shared in an RCS message. */
+        class Location
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val latitude: JsonField<Double>,
+            private val longitude: JsonField<Double>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("latitude")
+                @ExcludeMissing
+                latitude: JsonField<Double> = JsonMissing.of(),
+                @JsonProperty("longitude")
+                @ExcludeMissing
+                longitude: JsonField<Double> = JsonMissing.of(),
+            ) : this(latitude, longitude, mutableMapOf())
+
+            /**
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun latitude(): Optional<Double> = latitude.getOptional("latitude")
+
+            /**
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun longitude(): Optional<Double> = longitude.getOptional("longitude")
+
+            /**
+             * Returns the raw JSON value of [latitude].
+             *
+             * Unlike [latitude], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("latitude") @ExcludeMissing fun _latitude(): JsonField<Double> = latitude
+
+            /**
+             * Returns the raw JSON value of [longitude].
+             *
+             * Unlike [longitude], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("longitude")
+            @ExcludeMissing
+            fun _longitude(): JsonField<Double> = longitude
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Location]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Location]. */
+            class Builder internal constructor() {
+
+                private var latitude: JsonField<Double> = JsonMissing.of()
+                private var longitude: JsonField<Double> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(location: Location) = apply {
+                    latitude = location.latitude
+                    longitude = location.longitude
+                    additionalProperties = location.additionalProperties.toMutableMap()
+                }
+
+                fun latitude(latitude: Double) = latitude(JsonField.of(latitude))
+
+                /**
+                 * Sets [Builder.latitude] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.latitude] with a well-typed [Double] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun latitude(latitude: JsonField<Double>) = apply { this.latitude = latitude }
+
+                fun longitude(longitude: Double) = longitude(JsonField.of(longitude))
+
+                /**
+                 * Sets [Builder.longitude] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.longitude] with a well-typed [Double] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun longitude(longitude: JsonField<Double>) = apply { this.longitude = longitude }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Location].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Location =
+                    Location(latitude, longitude, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Location = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                latitude()
+                longitude()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (latitude.asKnown().isPresent) 1 else 0) +
+                    (if (longitude.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Location &&
+                    latitude == other.latitude &&
+                    longitude == other.longitude &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(latitude, longitude, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Location{latitude=$latitude, longitude=$longitude, additionalProperties=$additionalProperties}"
+        }
+
         /** Details for a revoked WhatsApp message. */
         class Revoke
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -2233,6 +2600,1321 @@ private constructor(
                 "Revoke{originalMessageId=$originalMessageId, additionalProperties=$additionalProperties}"
         }
 
+        /** Selected RCS suggestion. */
+        class SuggestionResponse
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val postbackData: JsonField<String>,
+            private val text: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("postback_data")
+                @ExcludeMissing
+                postbackData: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
+            ) : this(postbackData, text, mutableMapOf())
+
+            /**
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun postbackData(): Optional<String> = postbackData.getOptional("postback_data")
+
+            /**
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun text(): Optional<String> = text.getOptional("text")
+
+            /**
+             * Returns the raw JSON value of [postbackData].
+             *
+             * Unlike [postbackData], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("postback_data")
+            @ExcludeMissing
+            fun _postbackData(): JsonField<String> = postbackData
+
+            /**
+             * Returns the raw JSON value of [text].
+             *
+             * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("text") @ExcludeMissing fun _text(): JsonField<String> = text
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [SuggestionResponse].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [SuggestionResponse]. */
+            class Builder internal constructor() {
+
+                private var postbackData: JsonField<String> = JsonMissing.of()
+                private var text: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(suggestionResponse: SuggestionResponse) = apply {
+                    postbackData = suggestionResponse.postbackData
+                    text = suggestionResponse.text
+                    additionalProperties = suggestionResponse.additionalProperties.toMutableMap()
+                }
+
+                fun postbackData(postbackData: String) = postbackData(JsonField.of(postbackData))
+
+                /**
+                 * Sets [Builder.postbackData] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.postbackData] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun postbackData(postbackData: JsonField<String>) = apply {
+                    this.postbackData = postbackData
+                }
+
+                fun text(text: String) = text(JsonField.of(text))
+
+                /**
+                 * Sets [Builder.text] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.text] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun text(text: JsonField<String>) = apply { this.text = text }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [SuggestionResponse].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): SuggestionResponse =
+                    SuggestionResponse(postbackData, text, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): SuggestionResponse = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                postbackData()
+                text()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (postbackData.asKnown().isPresent) 1 else 0) +
+                    (if (text.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is SuggestionResponse &&
+                    postbackData == other.postbackData &&
+                    text == other.text &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(postbackData, text, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "SuggestionResponse{postbackData=$postbackData, text=$text, additionalProperties=$additionalProperties}"
+        }
+
+        /** RCS text string or WhatsApp text object. */
+        @JsonDeserialize(using = Text.Deserializer::class)
+        @JsonSerialize(using = Text.Serializer::class)
+        class Text
+        private constructor(
+            private val string: String? = null,
+            private val innerBody: InnerBody? = null,
+            private val _json: JsonValue? = null,
+        ) {
+
+            fun string(): Optional<String> = Optional.ofNullable(string)
+
+            fun innerBody(): Optional<InnerBody> = Optional.ofNullable(innerBody)
+
+            fun isString(): Boolean = string != null
+
+            fun isInnerBody(): Boolean = innerBody != null
+
+            fun asString(): String = string.getOrThrow("string")
+
+            fun asInnerBody(): InnerBody = innerBody.getOrThrow("innerBody")
+
+            fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             *
+             * Note that this method is _not_ forwards compatible with new variants from the API,
+             * unless [visitor] overrides [Visitor.unknown]. To handle variants not known to this
+             * version of the SDK gracefully, consider overriding [Visitor.unknown]:
+             * ```java
+             * import com.telnyx.sdk.core.JsonValue;
+             * import java.util.Optional;
+             *
+             * Optional<String> result = text.accept(new Text.Visitor<Optional<String>>() {
+             *     @Override
+             *     public Optional<String> visitString(String string) {
+             *         return Optional.of(string.toString());
+             *     }
+             *
+             *     // ...
+             *
+             *     @Override
+             *     public Optional<String> unknown(JsonValue json) {
+             *         // Or inspect the `json`.
+             *         return Optional.empty();
+             *     }
+             * });
+             * ```
+             *
+             * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in
+             *   [visitor] and the current variant is unknown.
+             */
+            fun <T> accept(visitor: Visitor<T>): T =
+                when {
+                    string != null -> visitor.visitString(string)
+                    innerBody != null -> visitor.visitInnerBody(innerBody)
+                    else -> visitor.unknown(_json)
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Text = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                accept(
+                    object : Visitor<Unit> {
+                        override fun visitString(string: String) {}
+
+                        override fun visitInnerBody(innerBody: InnerBody) {
+                            innerBody.validate()
+                        }
+                    }
+                )
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                accept(
+                    object : Visitor<Int> {
+                        override fun visitString(string: String) = 1
+
+                        override fun visitInnerBody(innerBody: InnerBody) = innerBody.validity()
+
+                        override fun unknown(json: JsonValue?) = 0
+                    }
+                )
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Text && string == other.string && innerBody == other.innerBody
+            }
+
+            override fun hashCode(): Int = Objects.hash(string, innerBody)
+
+            override fun toString(): String =
+                when {
+                    string != null -> "Text{string=$string}"
+                    innerBody != null -> "Text{innerBody=$innerBody}"
+                    _json != null -> "Text{_unknown=$_json}"
+                    else -> throw IllegalStateException("Invalid Text")
+                }
+
+            companion object {
+
+                @JvmStatic fun ofString(string: String) = Text(string = string)
+
+                @JvmStatic fun ofInnerBody(innerBody: InnerBody) = Text(innerBody = innerBody)
+            }
+
+            /**
+             * An interface that defines how to map each variant of [Text] to a value of type [T].
+             */
+            interface Visitor<out T> {
+
+                fun visitString(string: String): T
+
+                fun visitInnerBody(innerBody: InnerBody): T
+
+                /**
+                 * Maps an unknown variant of [Text] to a value of type [T].
+                 *
+                 * An instance of [Text] can contain an unknown variant if it was deserialized from
+                 * data that doesn't match any known variant. For example, if the SDK is on an older
+                 * version than the API, then the API may respond with new variants that the SDK is
+                 * unaware of.
+                 *
+                 * @throws TelnyxInvalidDataException in the default implementation.
+                 */
+                fun unknown(json: JsonValue?): T {
+                    throw TelnyxInvalidDataException("Unknown Text: $json")
+                }
+            }
+
+            internal class Deserializer : BaseDeserializer<Text>(Text::class) {
+
+                override fun ObjectCodec.deserialize(node: JsonNode): Text {
+                    val json = JsonValue.fromJsonNode(node)
+
+                    val bestMatches =
+                        sequenceOf(
+                                tryDeserialize(node, jacksonTypeRef<InnerBody>())?.let {
+                                    Text(innerBody = it, _json = json)
+                                },
+                                tryDeserialize(node, jacksonTypeRef<String>())?.let {
+                                    Text(string = it, _json = json)
+                                },
+                            )
+                            .filterNotNull()
+                            .allMaxBy { it.validity() }
+                            .toList()
+                    return when (bestMatches.size) {
+                        // This can happen if what we're deserializing is completely incompatible
+                        // with all the possible variants (e.g. deserializing from boolean).
+                        0 -> Text(_json = json)
+                        1 -> bestMatches.single()
+                        // If there's more than one match with the highest validity, then use the
+                        // first completely valid match, or simply the first match if none are
+                        // completely valid.
+                        else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                    }
+                }
+            }
+
+            internal class Serializer : BaseSerializer<Text>(Text::class) {
+
+                override fun serialize(
+                    value: Text,
+                    generator: JsonGenerator,
+                    provider: SerializerProvider,
+                ) {
+                    when {
+                        value.string != null -> generator.writeObject(value.string)
+                        value.innerBody != null -> generator.writeObject(value.innerBody)
+                        value._json != null -> generator.writeObject(value._json)
+                        else -> throw IllegalStateException("Invalid Text")
+                    }
+                }
+            }
+
+            class InnerBody
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val body: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("body") @ExcludeMissing body: JsonField<String> = JsonMissing.of()
+                ) : this(body, mutableMapOf())
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun body(): Optional<String> = body.getOptional("body")
+
+                /**
+                 * Returns the raw JSON value of [body].
+                 *
+                 * Unlike [body], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("body") @ExcludeMissing fun _body(): JsonField<String> = body
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [InnerBody]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [InnerBody]. */
+                class Builder internal constructor() {
+
+                    private var body: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(innerBody: InnerBody) = apply {
+                        body = innerBody.body
+                        additionalProperties = innerBody.additionalProperties.toMutableMap()
+                    }
+
+                    fun body(body: String) = body(JsonField.of(body))
+
+                    /**
+                     * Sets [Builder.body] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.body] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun body(body: JsonField<String>) = apply { this.body = body }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [InnerBody].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): InnerBody = InnerBody(body, additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): InnerBody = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    body()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int = (if (body.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is InnerBody &&
+                        body == other.body &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(body, additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "InnerBody{body=$body, additionalProperties=$additionalProperties}"
+            }
+        }
+
+        /** RCS file attachment and optional thumbnail. */
+        class UserFile
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val payload: JsonField<Payload>,
+            private val thumbnail: JsonField<Thumbnail>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("payload")
+                @ExcludeMissing
+                payload: JsonField<Payload> = JsonMissing.of(),
+                @JsonProperty("thumbnail")
+                @ExcludeMissing
+                thumbnail: JsonField<Thumbnail> = JsonMissing.of(),
+            ) : this(payload, thumbnail, mutableMapOf())
+
+            /**
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun payload(): Optional<Payload> = payload.getOptional("payload")
+
+            /**
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun thumbnail(): Optional<Thumbnail> = thumbnail.getOptional("thumbnail")
+
+            /**
+             * Returns the raw JSON value of [payload].
+             *
+             * Unlike [payload], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("payload") @ExcludeMissing fun _payload(): JsonField<Payload> = payload
+
+            /**
+             * Returns the raw JSON value of [thumbnail].
+             *
+             * Unlike [thumbnail], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("thumbnail")
+            @ExcludeMissing
+            fun _thumbnail(): JsonField<Thumbnail> = thumbnail
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [UserFile]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [UserFile]. */
+            class Builder internal constructor() {
+
+                private var payload: JsonField<Payload> = JsonMissing.of()
+                private var thumbnail: JsonField<Thumbnail> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(userFile: UserFile) = apply {
+                    payload = userFile.payload
+                    thumbnail = userFile.thumbnail
+                    additionalProperties = userFile.additionalProperties.toMutableMap()
+                }
+
+                fun payload(payload: Payload) = payload(JsonField.of(payload))
+
+                /**
+                 * Sets [Builder.payload] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.payload] with a well-typed [Payload] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun payload(payload: JsonField<Payload>) = apply { this.payload = payload }
+
+                fun thumbnail(thumbnail: Thumbnail) = thumbnail(JsonField.of(thumbnail))
+
+                /**
+                 * Sets [Builder.thumbnail] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.thumbnail] with a well-typed [Thumbnail] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun thumbnail(thumbnail: JsonField<Thumbnail>) = apply {
+                    this.thumbnail = thumbnail
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [UserFile].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): UserFile =
+                    UserFile(payload, thumbnail, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): UserFile = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                payload().ifPresent { it.validate() }
+                thumbnail().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (payload.asKnown().getOrNull()?.validity() ?: 0) +
+                    (thumbnail.asKnown().getOrNull()?.validity() ?: 0)
+
+            class Payload
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val fileName: JsonField<String>,
+                private val fileSizeBytes: JsonField<Long>,
+                private val fileUri: JsonField<String>,
+                private val mimeType: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("file_name")
+                    @ExcludeMissing
+                    fileName: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("file_size_bytes")
+                    @ExcludeMissing
+                    fileSizeBytes: JsonField<Long> = JsonMissing.of(),
+                    @JsonProperty("file_uri")
+                    @ExcludeMissing
+                    fileUri: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("mime_type")
+                    @ExcludeMissing
+                    mimeType: JsonField<String> = JsonMissing.of(),
+                ) : this(fileName, fileSizeBytes, fileUri, mimeType, mutableMapOf())
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun fileName(): Optional<String> = fileName.getOptional("file_name")
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun fileSizeBytes(): Optional<Long> = fileSizeBytes.getOptional("file_size_bytes")
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun fileUri(): Optional<String> = fileUri.getOptional("file_uri")
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun mimeType(): Optional<String> = mimeType.getOptional("mime_type")
+
+                /**
+                 * Returns the raw JSON value of [fileName].
+                 *
+                 * Unlike [fileName], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("file_name")
+                @ExcludeMissing
+                fun _fileName(): JsonField<String> = fileName
+
+                /**
+                 * Returns the raw JSON value of [fileSizeBytes].
+                 *
+                 * Unlike [fileSizeBytes], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("file_size_bytes")
+                @ExcludeMissing
+                fun _fileSizeBytes(): JsonField<Long> = fileSizeBytes
+
+                /**
+                 * Returns the raw JSON value of [fileUri].
+                 *
+                 * Unlike [fileUri], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("file_uri")
+                @ExcludeMissing
+                fun _fileUri(): JsonField<String> = fileUri
+
+                /**
+                 * Returns the raw JSON value of [mimeType].
+                 *
+                 * Unlike [mimeType], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("mime_type")
+                @ExcludeMissing
+                fun _mimeType(): JsonField<String> = mimeType
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Payload]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Payload]. */
+                class Builder internal constructor() {
+
+                    private var fileName: JsonField<String> = JsonMissing.of()
+                    private var fileSizeBytes: JsonField<Long> = JsonMissing.of()
+                    private var fileUri: JsonField<String> = JsonMissing.of()
+                    private var mimeType: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(payload: Payload) = apply {
+                        fileName = payload.fileName
+                        fileSizeBytes = payload.fileSizeBytes
+                        fileUri = payload.fileUri
+                        mimeType = payload.mimeType
+                        additionalProperties = payload.additionalProperties.toMutableMap()
+                    }
+
+                    fun fileName(fileName: String) = fileName(JsonField.of(fileName))
+
+                    /**
+                     * Sets [Builder.fileName] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fileName] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun fileName(fileName: JsonField<String>) = apply { this.fileName = fileName }
+
+                    fun fileSizeBytes(fileSizeBytes: Long) =
+                        fileSizeBytes(JsonField.of(fileSizeBytes))
+
+                    /**
+                     * Sets [Builder.fileSizeBytes] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fileSizeBytes] with a well-typed [Long]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun fileSizeBytes(fileSizeBytes: JsonField<Long>) = apply {
+                        this.fileSizeBytes = fileSizeBytes
+                    }
+
+                    fun fileUri(fileUri: String) = fileUri(JsonField.of(fileUri))
+
+                    /**
+                     * Sets [Builder.fileUri] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fileUri] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun fileUri(fileUri: JsonField<String>) = apply { this.fileUri = fileUri }
+
+                    fun mimeType(mimeType: String) = mimeType(JsonField.of(mimeType))
+
+                    /**
+                     * Sets [Builder.mimeType] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.mimeType] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun mimeType(mimeType: JsonField<String>) = apply { this.mimeType = mimeType }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Payload].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Payload =
+                        Payload(
+                            fileName,
+                            fileSizeBytes,
+                            fileUri,
+                            mimeType,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Payload = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    fileName()
+                    fileSizeBytes()
+                    fileUri()
+                    mimeType()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (fileName.asKnown().isPresent) 1 else 0) +
+                        (if (fileSizeBytes.asKnown().isPresent) 1 else 0) +
+                        (if (fileUri.asKnown().isPresent) 1 else 0) +
+                        (if (mimeType.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Payload &&
+                        fileName == other.fileName &&
+                        fileSizeBytes == other.fileSizeBytes &&
+                        fileUri == other.fileUri &&
+                        mimeType == other.mimeType &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(fileName, fileSizeBytes, fileUri, mimeType, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Payload{fileName=$fileName, fileSizeBytes=$fileSizeBytes, fileUri=$fileUri, mimeType=$mimeType, additionalProperties=$additionalProperties}"
+            }
+
+            class Thumbnail
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val fileName: JsonField<String>,
+                private val fileSizeBytes: JsonField<Long>,
+                private val fileUri: JsonField<String>,
+                private val mimeType: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("file_name")
+                    @ExcludeMissing
+                    fileName: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("file_size_bytes")
+                    @ExcludeMissing
+                    fileSizeBytes: JsonField<Long> = JsonMissing.of(),
+                    @JsonProperty("file_uri")
+                    @ExcludeMissing
+                    fileUri: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("mime_type")
+                    @ExcludeMissing
+                    mimeType: JsonField<String> = JsonMissing.of(),
+                ) : this(fileName, fileSizeBytes, fileUri, mimeType, mutableMapOf())
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun fileName(): Optional<String> = fileName.getOptional("file_name")
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun fileSizeBytes(): Optional<Long> = fileSizeBytes.getOptional("file_size_bytes")
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun fileUri(): Optional<String> = fileUri.getOptional("file_uri")
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun mimeType(): Optional<String> = mimeType.getOptional("mime_type")
+
+                /**
+                 * Returns the raw JSON value of [fileName].
+                 *
+                 * Unlike [fileName], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("file_name")
+                @ExcludeMissing
+                fun _fileName(): JsonField<String> = fileName
+
+                /**
+                 * Returns the raw JSON value of [fileSizeBytes].
+                 *
+                 * Unlike [fileSizeBytes], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("file_size_bytes")
+                @ExcludeMissing
+                fun _fileSizeBytes(): JsonField<Long> = fileSizeBytes
+
+                /**
+                 * Returns the raw JSON value of [fileUri].
+                 *
+                 * Unlike [fileUri], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("file_uri")
+                @ExcludeMissing
+                fun _fileUri(): JsonField<String> = fileUri
+
+                /**
+                 * Returns the raw JSON value of [mimeType].
+                 *
+                 * Unlike [mimeType], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("mime_type")
+                @ExcludeMissing
+                fun _mimeType(): JsonField<String> = mimeType
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Thumbnail]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Thumbnail]. */
+                class Builder internal constructor() {
+
+                    private var fileName: JsonField<String> = JsonMissing.of()
+                    private var fileSizeBytes: JsonField<Long> = JsonMissing.of()
+                    private var fileUri: JsonField<String> = JsonMissing.of()
+                    private var mimeType: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(thumbnail: Thumbnail) = apply {
+                        fileName = thumbnail.fileName
+                        fileSizeBytes = thumbnail.fileSizeBytes
+                        fileUri = thumbnail.fileUri
+                        mimeType = thumbnail.mimeType
+                        additionalProperties = thumbnail.additionalProperties.toMutableMap()
+                    }
+
+                    fun fileName(fileName: String) = fileName(JsonField.of(fileName))
+
+                    /**
+                     * Sets [Builder.fileName] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fileName] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun fileName(fileName: JsonField<String>) = apply { this.fileName = fileName }
+
+                    fun fileSizeBytes(fileSizeBytes: Long) =
+                        fileSizeBytes(JsonField.of(fileSizeBytes))
+
+                    /**
+                     * Sets [Builder.fileSizeBytes] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fileSizeBytes] with a well-typed [Long]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun fileSizeBytes(fileSizeBytes: JsonField<Long>) = apply {
+                        this.fileSizeBytes = fileSizeBytes
+                    }
+
+                    fun fileUri(fileUri: String) = fileUri(JsonField.of(fileUri))
+
+                    /**
+                     * Sets [Builder.fileUri] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fileUri] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun fileUri(fileUri: JsonField<String>) = apply { this.fileUri = fileUri }
+
+                    fun mimeType(mimeType: String) = mimeType(JsonField.of(mimeType))
+
+                    /**
+                     * Sets [Builder.mimeType] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.mimeType] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun mimeType(mimeType: JsonField<String>) = apply { this.mimeType = mimeType }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Thumbnail].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Thumbnail =
+                        Thumbnail(
+                            fileName,
+                            fileSizeBytes,
+                            fileUri,
+                            mimeType,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Thumbnail = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    fileName()
+                    fileSizeBytes()
+                    fileUri()
+                    mimeType()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (fileName.asKnown().isPresent) 1 else 0) +
+                        (if (fileSizeBytes.asKnown().isPresent) 1 else 0) +
+                        (if (fileUri.asKnown().isPresent) 1 else 0) +
+                        (if (mimeType.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Thumbnail &&
+                        fileName == other.fileName &&
+                        fileSizeBytes == other.fileSizeBytes &&
+                        fileUri == other.fileUri &&
+                        mimeType == other.mimeType &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(fileName, fileSizeBytes, fileUri, mimeType, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Thumbnail{fileName=$fileName, fileSizeBytes=$fileSizeBytes, fileUri=$fileUri, mimeType=$mimeType, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is UserFile &&
+                    payload == other.payload &&
+                    thumbnail == other.thumbnail &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(payload, thumbnail, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "UserFile{payload=$payload, thumbnail=$thumbnail, additionalProperties=$additionalProperties}"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -2243,20 +3925,37 @@ private constructor(
                 edit == other.edit &&
                 foreignId == other.foreignId &&
                 from == other.from &&
+                location == other.location &&
                 revoke == other.revoke &&
+                suggestionResponse == other.suggestionResponse &&
+                text == other.text &&
                 timestamp == other.timestamp &&
                 type == other.type &&
+                userFile == other.userFile &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(id, edit, foreignId, from, revoke, timestamp, type, additionalProperties)
+            Objects.hash(
+                id,
+                edit,
+                foreignId,
+                from,
+                location,
+                revoke,
+                suggestionResponse,
+                text,
+                timestamp,
+                type,
+                userFile,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, edit=$edit, foreignId=$foreignId, from=$from, revoke=$revoke, timestamp=$timestamp, type=$type, additionalProperties=$additionalProperties}"
+            "Body{id=$id, edit=$edit, foreignId=$foreignId, from=$from, location=$location, revoke=$revoke, suggestionResponse=$suggestionResponse, text=$text, timestamp=$timestamp, type=$type, userFile=$userFile, additionalProperties=$additionalProperties}"
     }
 
     class Cc
@@ -4034,6 +5733,8 @@ private constructor(
 
                 @JvmField val EMPTY = of("")
 
+                @JvmField val LONG_CODE = of("long_code")
+
                 @JvmStatic fun of(value: String) = LineType(JsonField.of(value))
             }
 
@@ -4045,6 +5746,7 @@ private constructor(
                 VO_IP,
                 PRE_PAID_WIRELESS,
                 EMPTY,
+                LONG_CODE,
             }
 
             /**
@@ -4063,6 +5765,7 @@ private constructor(
                 VO_IP,
                 PRE_PAID_WIRELESS,
                 EMPTY,
+                LONG_CODE,
                 /**
                  * An enum member indicating that [LineType] was instantiated with an unknown value.
                  */
@@ -4084,6 +5787,7 @@ private constructor(
                     VO_IP -> Value.VO_IP
                     PRE_PAID_WIRELESS -> Value.PRE_PAID_WIRELESS
                     EMPTY -> Value.EMPTY
+                    LONG_CODE -> Value.LONG_CODE
                     else -> Value._UNKNOWN
                 }
 
@@ -4104,6 +5808,7 @@ private constructor(
                     VO_IP -> Known.VO_IP
                     PRE_PAID_WIRELESS -> Known.PRE_PAID_WIRELESS
                     EMPTY -> Known.EMPTY
+                    LONG_CODE -> Known.LONG_CODE
                     else -> throw TelnyxInvalidDataException("Unknown LineType: $value")
                 }
 
@@ -4189,6 +5894,8 @@ private constructor(
 
                 @JvmField val DELIVERED = of("delivered")
 
+                @JvmField val WEBHOOK_DELIVERED = of("webhook_delivered")
+
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
             }
 
@@ -4196,6 +5903,7 @@ private constructor(
             enum class Known {
                 RECEIVED,
                 DELIVERED,
+                WEBHOOK_DELIVERED,
             }
 
             /**
@@ -4210,6 +5918,7 @@ private constructor(
             enum class Value {
                 RECEIVED,
                 DELIVERED,
+                WEBHOOK_DELIVERED,
                 /**
                  * An enum member indicating that [Status] was instantiated with an unknown value.
                  */
@@ -4227,6 +5936,7 @@ private constructor(
                 when (this) {
                     RECEIVED -> Value.RECEIVED
                     DELIVERED -> Value.DELIVERED
+                    WEBHOOK_DELIVERED -> Value.WEBHOOK_DELIVERED
                     else -> Value._UNKNOWN
                 }
 
@@ -4243,6 +5953,7 @@ private constructor(
                 when (this) {
                     RECEIVED -> Known.RECEIVED
                     DELIVERED -> Known.DELIVERED
+                    WEBHOOK_DELIVERED -> Known.WEBHOOK_DELIVERED
                     else -> throw TelnyxInvalidDataException("Unknown Status: $value")
                 }
 
@@ -4732,8 +6443,8 @@ private constructor(
     }
 
     /**
-     * Receiving address. SMS and MMS webhooks use an array of recipients. WhatsApp webhooks use one
-     * E.164 phone number.
+     * Receiving address. SMS, MMS and RCS webhooks use an array of recipients. RCS recipients are
+     * identified by agent_id and agent_name. WhatsApp webhooks use one E.164 phone number.
      */
     @JsonDeserialize(using = To.Deserializer::class)
     @JsonSerialize(using = To.Serializer::class)
@@ -4965,6 +6676,8 @@ private constructor(
         class UnnamedSchemaWithArrayParent0
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
+            private val agentId: JsonField<String>,
+            private val agentName: JsonField<String>,
             private val carrier: JsonField<String>,
             private val lineType: JsonField<LineType>,
             private val phoneNumber: JsonField<String>,
@@ -4974,6 +6687,12 @@ private constructor(
 
             @JsonCreator
             private constructor(
+                @JsonProperty("agent_id")
+                @ExcludeMissing
+                agentId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("agent_name")
+                @ExcludeMissing
+                agentName: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("carrier")
                 @ExcludeMissing
                 carrier: JsonField<String> = JsonMissing.of(),
@@ -4984,7 +6703,23 @@ private constructor(
                 @ExcludeMissing
                 phoneNumber: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-            ) : this(carrier, lineType, phoneNumber, status, mutableMapOf())
+            ) : this(agentId, agentName, carrier, lineType, phoneNumber, status, mutableMapOf())
+
+            /**
+             * RCS agent identifier.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun agentId(): Optional<String> = agentId.getOptional("agent_id")
+
+            /**
+             * RCS agent name.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun agentName(): Optional<String> = agentName.getOptional("agent_name")
 
             /**
              * The carrier of the receiver.
@@ -5015,6 +6750,23 @@ private constructor(
              *   the server responded with an unexpected value).
              */
             fun status(): Optional<Status> = status.getOptional("status")
+
+            /**
+             * Returns the raw JSON value of [agentId].
+             *
+             * Unlike [agentId], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("agent_id") @ExcludeMissing fun _agentId(): JsonField<String> = agentId
+
+            /**
+             * Returns the raw JSON value of [agentName].
+             *
+             * Unlike [agentName], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("agent_name")
+            @ExcludeMissing
+            fun _agentName(): JsonField<String> = agentName
 
             /**
              * Returns the raw JSON value of [carrier].
@@ -5074,6 +6826,8 @@ private constructor(
             /** A builder for [UnnamedSchemaWithArrayParent0]. */
             class Builder internal constructor() {
 
+                private var agentId: JsonField<String> = JsonMissing.of()
+                private var agentName: JsonField<String> = JsonMissing.of()
                 private var carrier: JsonField<String> = JsonMissing.of()
                 private var lineType: JsonField<LineType> = JsonMissing.of()
                 private var phoneNumber: JsonField<String> = JsonMissing.of()
@@ -5083,6 +6837,8 @@ private constructor(
                 @JvmSynthetic
                 internal fun from(unnamedSchemaWithArrayParent0: UnnamedSchemaWithArrayParent0) =
                     apply {
+                        agentId = unnamedSchemaWithArrayParent0.agentId
+                        agentName = unnamedSchemaWithArrayParent0.agentName
                         carrier = unnamedSchemaWithArrayParent0.carrier
                         lineType = unnamedSchemaWithArrayParent0.lineType
                         phoneNumber = unnamedSchemaWithArrayParent0.phoneNumber
@@ -5090,6 +6846,30 @@ private constructor(
                         additionalProperties =
                             unnamedSchemaWithArrayParent0.additionalProperties.toMutableMap()
                     }
+
+                /** RCS agent identifier. */
+                fun agentId(agentId: String) = agentId(JsonField.of(agentId))
+
+                /**
+                 * Sets [Builder.agentId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.agentId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun agentId(agentId: JsonField<String>) = apply { this.agentId = agentId }
+
+                /** RCS agent name. */
+                fun agentName(agentName: String) = agentName(JsonField.of(agentName))
+
+                /**
+                 * Sets [Builder.agentName] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.agentName] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun agentName(agentName: JsonField<String>) = apply { this.agentName = agentName }
 
                 /** The carrier of the receiver. */
                 fun carrier(carrier: String) = carrier(JsonField.of(carrier))
@@ -5169,6 +6949,8 @@ private constructor(
                  */
                 fun build(): UnnamedSchemaWithArrayParent0 =
                     UnnamedSchemaWithArrayParent0(
+                        agentId,
+                        agentName,
                         carrier,
                         lineType,
                         phoneNumber,
@@ -5194,6 +6976,8 @@ private constructor(
                     return@apply
                 }
 
+                agentId()
+                agentName()
                 carrier()
                 lineType().ifPresent { it.validate() }
                 phoneNumber()
@@ -5217,7 +7001,9 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (if (carrier.asKnown().isPresent) 1 else 0) +
+                (if (agentId.asKnown().isPresent) 1 else 0) +
+                    (if (agentName.asKnown().isPresent) 1 else 0) +
+                    (if (carrier.asKnown().isPresent) 1 else 0) +
                     (lineType.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (phoneNumber.asKnown().isPresent) 1 else 0) +
                     (status.asKnown().getOrNull()?.validity() ?: 0)
@@ -5571,6 +7357,8 @@ private constructor(
                 }
 
                 return other is UnnamedSchemaWithArrayParent0 &&
+                    agentId == other.agentId &&
+                    agentName == other.agentName &&
                     carrier == other.carrier &&
                     lineType == other.lineType &&
                     phoneNumber == other.phoneNumber &&
@@ -5579,13 +7367,21 @@ private constructor(
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(carrier, lineType, phoneNumber, status, additionalProperties)
+                Objects.hash(
+                    agentId,
+                    agentName,
+                    carrier,
+                    lineType,
+                    phoneNumber,
+                    status,
+                    additionalProperties,
+                )
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "UnnamedSchemaWithArrayParent0{carrier=$carrier, lineType=$lineType, phoneNumber=$phoneNumber, status=$status, additionalProperties=$additionalProperties}"
+                "UnnamedSchemaWithArrayParent0{agentId=$agentId, agentName=$agentName, carrier=$carrier, lineType=$lineType, phoneNumber=$phoneNumber, status=$status, additionalProperties=$additionalProperties}"
         }
     }
 
@@ -5610,6 +7406,8 @@ private constructor(
 
             @JvmField val WHATSAPP = of("WHATSAPP")
 
+            @JvmField val RCS = of("RCS")
+
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
@@ -5618,6 +7416,7 @@ private constructor(
             SMS,
             MMS,
             WHATSAPP,
+            RCS,
         }
 
         /**
@@ -5633,6 +7432,7 @@ private constructor(
             SMS,
             MMS,
             WHATSAPP,
+            RCS,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -5649,6 +7449,7 @@ private constructor(
                 SMS -> Value.SMS
                 MMS -> Value.MMS
                 WHATSAPP -> Value.WHATSAPP
+                RCS -> Value.RCS
                 else -> Value._UNKNOWN
             }
 
@@ -5666,6 +7467,7 @@ private constructor(
                 SMS -> Known.SMS
                 MMS -> Known.MMS
                 WHATSAPP -> Known.WHATSAPP
+                RCS -> Known.RCS
                 else -> throw TelnyxInvalidDataException("Unknown Type: $value")
             }
 

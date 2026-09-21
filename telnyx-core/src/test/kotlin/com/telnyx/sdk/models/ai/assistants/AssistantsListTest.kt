@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.ai.assistants
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -72,198 +73,24 @@ internal class AssistantsListTest {
                                         .addSharedToolId("tool-faq-kb")
                                         .addTool(
                                             listOf(
-                                                AssistantTool.ofWebhook(
-                                                    InferenceEmbeddingWebhookToolParams.builder()
-                                                        .type(
-                                                            InferenceEmbeddingWebhookToolParams.Type
-                                                                .WEBHOOK
-                                                        )
-                                                        .webhook(
-                                                            InferenceEmbeddingWebhookToolParams
-                                                                .Webhook
-                                                                .builder()
-                                                                .description("description")
+                                                AssistantTool.ofFunction(
+                                                    AssistantTool.Function.builder()
+                                                        .function(
+                                                            FunctionDefinition.builder()
                                                                 .name("name")
-                                                                .url(
-                                                                    "https://example.com/api/v1/function"
-                                                                )
-                                                                .async(true)
-                                                                .asyncTimeoutMs(1L)
-                                                                .bodyParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .BodyParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .BodyParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "age",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .putAdditionalProperty(
-                                                                                    "location",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("age")
-                                                                        .addRequired("location")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .BodyParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .addHeader(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Header
-                                                                        .builder()
-                                                                        .name("name")
-                                                                        .value("value")
-                                                                        .build()
-                                                                )
-                                                                .addMessage(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Message
-                                                                        .WebhookToolRequestStartMessage
-                                                                        .builder()
-                                                                        .content(
-                                                                            "Let me look that up for you."
-                                                                        )
-                                                                        .timingMs(100L)
-                                                                        .build()
-                                                                )
-                                                                .addMessage(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Message
-                                                                        .WebhookToolRequestResponseDelayedMessage
-                                                                        .builder()
-                                                                        .content(
-                                                                            "Still working on that."
-                                                                        )
-                                                                        .timingMs(5000L)
-                                                                        .build()
-                                                                )
-                                                                .method(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Method
-                                                                        .GET
-                                                                )
-                                                                .pathParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PathParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .PathParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "id",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("id")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .PathParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .presetBodyFields(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PresetBodyFields
+                                                                .description("description")
+                                                                .parameters(
+                                                                    FunctionDefinition.Parameters
                                                                         .builder()
                                                                         .putAdditionalProperty(
-                                                                            "account_id",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .putAdditionalProperty(
-                                                                            "source",
+                                                                            "foo",
                                                                             JsonValue.from("bar"),
                                                                         )
                                                                         .build()
                                                                 )
-                                                                .presetQueryParams(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PresetQueryParams
-                                                                        .builder()
-                                                                        .putAdditionalProperty(
-                                                                            "caller",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .putAdditionalProperty(
-                                                                            "channel",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .queryParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .QueryParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .QueryParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "page",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("page")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .QueryParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .addStoreFieldsAsVariable(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .StoreFieldsAsVariable
-                                                                        .builder()
-                                                                        .name("x")
-                                                                        .valuePath("x")
-                                                                        .build()
-                                                                )
-                                                                .timeoutMs(500L)
                                                                 .build()
                                                         )
+                                                        .shared(true)
                                                         .build()
                                                 )
                                             )
@@ -349,198 +176,24 @@ internal class AssistantsListTest {
                                         .addSharedToolId("tool-billing-lookup")
                                         .addTool(
                                             listOf(
-                                                AssistantTool.ofWebhook(
-                                                    InferenceEmbeddingWebhookToolParams.builder()
-                                                        .type(
-                                                            InferenceEmbeddingWebhookToolParams.Type
-                                                                .WEBHOOK
-                                                        )
-                                                        .webhook(
-                                                            InferenceEmbeddingWebhookToolParams
-                                                                .Webhook
-                                                                .builder()
-                                                                .description("description")
+                                                AssistantTool.ofFunction(
+                                                    AssistantTool.Function.builder()
+                                                        .function(
+                                                            FunctionDefinition.builder()
                                                                 .name("name")
-                                                                .url(
-                                                                    "https://example.com/api/v1/function"
-                                                                )
-                                                                .async(true)
-                                                                .asyncTimeoutMs(1L)
-                                                                .bodyParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .BodyParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .BodyParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "age",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .putAdditionalProperty(
-                                                                                    "location",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("age")
-                                                                        .addRequired("location")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .BodyParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .addHeader(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Header
-                                                                        .builder()
-                                                                        .name("name")
-                                                                        .value("value")
-                                                                        .build()
-                                                                )
-                                                                .addMessage(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Message
-                                                                        .WebhookToolRequestStartMessage
-                                                                        .builder()
-                                                                        .content(
-                                                                            "Let me look that up for you."
-                                                                        )
-                                                                        .timingMs(100L)
-                                                                        .build()
-                                                                )
-                                                                .addMessage(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Message
-                                                                        .WebhookToolRequestResponseDelayedMessage
-                                                                        .builder()
-                                                                        .content(
-                                                                            "Still working on that."
-                                                                        )
-                                                                        .timingMs(5000L)
-                                                                        .build()
-                                                                )
-                                                                .method(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Method
-                                                                        .GET
-                                                                )
-                                                                .pathParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PathParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .PathParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "id",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("id")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .PathParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .presetBodyFields(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PresetBodyFields
+                                                                .description("description")
+                                                                .parameters(
+                                                                    FunctionDefinition.Parameters
                                                                         .builder()
                                                                         .putAdditionalProperty(
-                                                                            "account_id",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .putAdditionalProperty(
-                                                                            "source",
+                                                                            "foo",
                                                                             JsonValue.from("bar"),
                                                                         )
                                                                         .build()
                                                                 )
-                                                                .presetQueryParams(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PresetQueryParams
-                                                                        .builder()
-                                                                        .putAdditionalProperty(
-                                                                            "caller",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .putAdditionalProperty(
-                                                                            "channel",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .queryParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .QueryParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .QueryParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "page",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("page")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .QueryParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .addStoreFieldsAsVariable(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .StoreFieldsAsVariable
-                                                                        .builder()
-                                                                        .name("x")
-                                                                        .valuePath("x")
-                                                                        .build()
-                                                                )
-                                                                .timeoutMs(500L)
                                                                 .build()
                                                         )
+                                                        .shared(true)
                                                         .build()
                                                 )
                                             )
@@ -691,6 +344,7 @@ internal class AssistantsListTest {
                             InferenceEmbeddingInterruptionSettings.builder()
                                 .disableGreetingInterruption(true)
                                 .enable(true)
+                                .interruptPredictionThreshold(0.0)
                                 .startSpeakingPlan(
                                     StartSpeakingPlan.builder()
                                         .transcriptionEndpointingPlan(
@@ -731,7 +385,12 @@ internal class AssistantsListTest {
                         .postConversationSettings(
                             PostConversationSettings.builder().enabled(true).build()
                         )
-                        .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                        .privacySettings(
+                            PrivacySettings.builder()
+                                .dataRetention(true)
+                                .inTransitDataLocality(true)
+                                .build()
+                        )
                         .addRelatedMissionId("string")
                         .addTag("string")
                         .telephonySettings(
@@ -739,13 +398,18 @@ internal class AssistantsListTest {
                                 .defaultTexmlAppId("default_texml_app_id")
                                 .disableDtmf(true)
                                 .fallbackDestination("fallback_destination")
-                                .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                                .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                                 .noiseSuppressionConfig(
                                     TelephonySettings.NoiseSuppressionConfig.builder()
                                         .attenuationLimit(0L)
+                                        .enhancementLevel(0.0)
+                                        .family(
+                                            TelephonySettings.NoiseSuppressionConfig.Family.QUAIL
+                                        )
                                         .mode(
                                             TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED
                                         )
+                                        .size(TelephonySettings.NoiseSuppressionConfig.Size.VF)
                                         .build()
                                 )
                                 .recordingSettings(
@@ -796,127 +460,20 @@ internal class AssistantsListTest {
                                 )
                                 .build()
                         )
-                        .addWebhookTool(
-                            InferenceEmbeddingWebhookToolParams.Webhook.builder()
-                                .description("description")
-                                .name("name")
-                                .url("https://example.com/api/v1/function")
-                                .async(true)
-                                .asyncTimeoutMs(1L)
-                                .bodyParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                        .builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .BodyParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("age", JsonValue.from("bar"))
-                                                .putAdditionalProperty(
-                                                    "location",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("age")
-                                        .addRequired("location")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .BodyParameters
-                                                .Type
-                                                .OBJECT
-                                        )
-                                        .build()
-                                )
-                                .addHeader(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                        .addTool(
+                            AssistantTool.Function.builder()
+                                .function(
+                                    FunctionDefinition.builder()
                                         .name("name")
-                                        .value("value")
-                                        .build()
-                                )
-                                .addMessage(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                        .WebhookToolRequestStartMessage
-                                        .builder()
-                                        .content("Let me look that up for you.")
-                                        .timingMs(100L)
-                                        .build()
-                                )
-                                .addMessage(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                        .WebhookToolRequestResponseDelayedMessage
-                                        .builder()
-                                        .content("Still working on that.")
-                                        .timingMs(5000L)
-                                        .build()
-                                )
-                                .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
-                                .pathParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                        .builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .PathParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("id", JsonValue.from("bar"))
+                                        .description("description")
+                                        .parameters(
+                                            FunctionDefinition.Parameters.builder()
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .build()
                                         )
-                                        .addRequired("id")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .PathParameters
-                                                .Type
-                                                .OBJECT
-                                        )
                                         .build()
                                 )
-                                .presetBodyFields(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields
-                                        .builder()
-                                        .putAdditionalProperty("account_id", JsonValue.from("bar"))
-                                        .putAdditionalProperty("source", JsonValue.from("bar"))
-                                        .build()
-                                )
-                                .presetQueryParams(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PresetQueryParams
-                                        .builder()
-                                        .putAdditionalProperty("caller", JsonValue.from("bar"))
-                                        .putAdditionalProperty("channel", JsonValue.from("bar"))
-                                        .build()
-                                )
-                                .queryParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                        .builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .QueryParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty(
-                                                    "page",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("page")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .QueryParameters
-                                                .Type
-                                                .OBJECT
-                                        )
-                                        .build()
-                                )
-                                .addStoreFieldsAsVariable(
-                                    InferenceEmbeddingWebhookToolParams.Webhook
-                                        .StoreFieldsAsVariable
-                                        .builder()
-                                        .name("x")
-                                        .valuePath("x")
-                                        .build()
-                                )
-                                .timeoutMs(500L)
+                                .shared(true)
                                 .build()
                         )
                         .transcription(
@@ -1054,197 +611,24 @@ internal class AssistantsListTest {
                                     .addSharedToolId("tool-faq-kb")
                                     .addTool(
                                         listOf(
-                                            AssistantTool.ofWebhook(
-                                                InferenceEmbeddingWebhookToolParams.builder()
-                                                    .type(
-                                                        InferenceEmbeddingWebhookToolParams.Type
-                                                            .WEBHOOK
-                                                    )
-                                                    .webhook(
-                                                        InferenceEmbeddingWebhookToolParams.Webhook
-                                                            .builder()
-                                                            .description("description")
+                                            AssistantTool.ofFunction(
+                                                AssistantTool.Function.builder()
+                                                    .function(
+                                                        FunctionDefinition.builder()
                                                             .name("name")
-                                                            .url(
-                                                                "https://example.com/api/v1/function"
-                                                            )
-                                                            .async(true)
-                                                            .asyncTimeoutMs(1L)
-                                                            .bodyParameters(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .BodyParameters
-                                                                    .builder()
-                                                                    .properties(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .BodyParameters
-                                                                            .Properties
-                                                                            .builder()
-                                                                            .putAdditionalProperty(
-                                                                                "age",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .putAdditionalProperty(
-                                                                                "location",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .build()
-                                                                    )
-                                                                    .addRequired("age")
-                                                                    .addRequired("location")
-                                                                    .type(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .BodyParameters
-                                                                            .Type
-                                                                            .OBJECT
-                                                                    )
-                                                                    .build()
-                                                            )
-                                                            .addHeader(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .Header
-                                                                    .builder()
-                                                                    .name("name")
-                                                                    .value("value")
-                                                                    .build()
-                                                            )
-                                                            .addMessage(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .Message
-                                                                    .WebhookToolRequestStartMessage
-                                                                    .builder()
-                                                                    .content(
-                                                                        "Let me look that up for you."
-                                                                    )
-                                                                    .timingMs(100L)
-                                                                    .build()
-                                                            )
-                                                            .addMessage(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .Message
-                                                                    .WebhookToolRequestResponseDelayedMessage
-                                                                    .builder()
-                                                                    .content(
-                                                                        "Still working on that."
-                                                                    )
-                                                                    .timingMs(5000L)
-                                                                    .build()
-                                                            )
-                                                            .method(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .Method
-                                                                    .GET
-                                                            )
-                                                            .pathParameters(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .PathParameters
-                                                                    .builder()
-                                                                    .properties(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .PathParameters
-                                                                            .Properties
-                                                                            .builder()
-                                                                            .putAdditionalProperty(
-                                                                                "id",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .build()
-                                                                    )
-                                                                    .addRequired("id")
-                                                                    .type(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .PathParameters
-                                                                            .Type
-                                                                            .OBJECT
-                                                                    )
-                                                                    .build()
-                                                            )
-                                                            .presetBodyFields(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .PresetBodyFields
+                                                            .description("description")
+                                                            .parameters(
+                                                                FunctionDefinition.Parameters
                                                                     .builder()
                                                                     .putAdditionalProperty(
-                                                                        "account_id",
-                                                                        JsonValue.from("bar"),
-                                                                    )
-                                                                    .putAdditionalProperty(
-                                                                        "source",
+                                                                        "foo",
                                                                         JsonValue.from("bar"),
                                                                     )
                                                                     .build()
                                                             )
-                                                            .presetQueryParams(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .PresetQueryParams
-                                                                    .builder()
-                                                                    .putAdditionalProperty(
-                                                                        "caller",
-                                                                        JsonValue.from("bar"),
-                                                                    )
-                                                                    .putAdditionalProperty(
-                                                                        "channel",
-                                                                        JsonValue.from("bar"),
-                                                                    )
-                                                                    .build()
-                                                            )
-                                                            .queryParameters(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .QueryParameters
-                                                                    .builder()
-                                                                    .properties(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .QueryParameters
-                                                                            .Properties
-                                                                            .builder()
-                                                                            .putAdditionalProperty(
-                                                                                "page",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .build()
-                                                                    )
-                                                                    .addRequired("page")
-                                                                    .type(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .QueryParameters
-                                                                            .Type
-                                                                            .OBJECT
-                                                                    )
-                                                                    .build()
-                                                            )
-                                                            .addStoreFieldsAsVariable(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .StoreFieldsAsVariable
-                                                                    .builder()
-                                                                    .name("x")
-                                                                    .valuePath("x")
-                                                                    .build()
-                                                            )
-                                                            .timeoutMs(500L)
                                                             .build()
                                                     )
+                                                    .shared(true)
                                                     .build()
                                             )
                                         )
@@ -1330,197 +714,24 @@ internal class AssistantsListTest {
                                     .addSharedToolId("tool-billing-lookup")
                                     .addTool(
                                         listOf(
-                                            AssistantTool.ofWebhook(
-                                                InferenceEmbeddingWebhookToolParams.builder()
-                                                    .type(
-                                                        InferenceEmbeddingWebhookToolParams.Type
-                                                            .WEBHOOK
-                                                    )
-                                                    .webhook(
-                                                        InferenceEmbeddingWebhookToolParams.Webhook
-                                                            .builder()
-                                                            .description("description")
+                                            AssistantTool.ofFunction(
+                                                AssistantTool.Function.builder()
+                                                    .function(
+                                                        FunctionDefinition.builder()
                                                             .name("name")
-                                                            .url(
-                                                                "https://example.com/api/v1/function"
-                                                            )
-                                                            .async(true)
-                                                            .asyncTimeoutMs(1L)
-                                                            .bodyParameters(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .BodyParameters
-                                                                    .builder()
-                                                                    .properties(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .BodyParameters
-                                                                            .Properties
-                                                                            .builder()
-                                                                            .putAdditionalProperty(
-                                                                                "age",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .putAdditionalProperty(
-                                                                                "location",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .build()
-                                                                    )
-                                                                    .addRequired("age")
-                                                                    .addRequired("location")
-                                                                    .type(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .BodyParameters
-                                                                            .Type
-                                                                            .OBJECT
-                                                                    )
-                                                                    .build()
-                                                            )
-                                                            .addHeader(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .Header
-                                                                    .builder()
-                                                                    .name("name")
-                                                                    .value("value")
-                                                                    .build()
-                                                            )
-                                                            .addMessage(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .Message
-                                                                    .WebhookToolRequestStartMessage
-                                                                    .builder()
-                                                                    .content(
-                                                                        "Let me look that up for you."
-                                                                    )
-                                                                    .timingMs(100L)
-                                                                    .build()
-                                                            )
-                                                            .addMessage(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .Message
-                                                                    .WebhookToolRequestResponseDelayedMessage
-                                                                    .builder()
-                                                                    .content(
-                                                                        "Still working on that."
-                                                                    )
-                                                                    .timingMs(5000L)
-                                                                    .build()
-                                                            )
-                                                            .method(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .Method
-                                                                    .GET
-                                                            )
-                                                            .pathParameters(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .PathParameters
-                                                                    .builder()
-                                                                    .properties(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .PathParameters
-                                                                            .Properties
-                                                                            .builder()
-                                                                            .putAdditionalProperty(
-                                                                                "id",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .build()
-                                                                    )
-                                                                    .addRequired("id")
-                                                                    .type(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .PathParameters
-                                                                            .Type
-                                                                            .OBJECT
-                                                                    )
-                                                                    .build()
-                                                            )
-                                                            .presetBodyFields(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .PresetBodyFields
+                                                            .description("description")
+                                                            .parameters(
+                                                                FunctionDefinition.Parameters
                                                                     .builder()
                                                                     .putAdditionalProperty(
-                                                                        "account_id",
-                                                                        JsonValue.from("bar"),
-                                                                    )
-                                                                    .putAdditionalProperty(
-                                                                        "source",
+                                                                        "foo",
                                                                         JsonValue.from("bar"),
                                                                     )
                                                                     .build()
                                                             )
-                                                            .presetQueryParams(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .PresetQueryParams
-                                                                    .builder()
-                                                                    .putAdditionalProperty(
-                                                                        "caller",
-                                                                        JsonValue.from("bar"),
-                                                                    )
-                                                                    .putAdditionalProperty(
-                                                                        "channel",
-                                                                        JsonValue.from("bar"),
-                                                                    )
-                                                                    .build()
-                                                            )
-                                                            .queryParameters(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .QueryParameters
-                                                                    .builder()
-                                                                    .properties(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .QueryParameters
-                                                                            .Properties
-                                                                            .builder()
-                                                                            .putAdditionalProperty(
-                                                                                "page",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .build()
-                                                                    )
-                                                                    .addRequired("page")
-                                                                    .type(
-                                                                        InferenceEmbeddingWebhookToolParams
-                                                                            .Webhook
-                                                                            .QueryParameters
-                                                                            .Type
-                                                                            .OBJECT
-                                                                    )
-                                                                    .build()
-                                                            )
-                                                            .addStoreFieldsAsVariable(
-                                                                InferenceEmbeddingWebhookToolParams
-                                                                    .Webhook
-                                                                    .StoreFieldsAsVariable
-                                                                    .builder()
-                                                                    .name("x")
-                                                                    .valuePath("x")
-                                                                    .build()
-                                                            )
-                                                            .timeoutMs(500L)
                                                             .build()
                                                     )
+                                                    .shared(true)
                                                     .build()
                                             )
                                         )
@@ -1665,6 +876,7 @@ internal class AssistantsListTest {
                         InferenceEmbeddingInterruptionSettings.builder()
                             .disableGreetingInterruption(true)
                             .enable(true)
+                            .interruptPredictionThreshold(0.0)
                             .startSpeakingPlan(
                                 StartSpeakingPlan.builder()
                                     .transcriptionEndpointingPlan(
@@ -1705,7 +917,12 @@ internal class AssistantsListTest {
                     .postConversationSettings(
                         PostConversationSettings.builder().enabled(true).build()
                     )
-                    .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                    .privacySettings(
+                        PrivacySettings.builder()
+                            .dataRetention(true)
+                            .inTransitDataLocality(true)
+                            .build()
+                    )
                     .addRelatedMissionId("string")
                     .addTag("string")
                     .telephonySettings(
@@ -1713,11 +930,14 @@ internal class AssistantsListTest {
                             .defaultTexmlAppId("default_texml_app_id")
                             .disableDtmf(true)
                             .fallbackDestination("fallback_destination")
-                            .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                            .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                             .noiseSuppressionConfig(
                                 TelephonySettings.NoiseSuppressionConfig.builder()
                                     .attenuationLimit(0L)
+                                    .enhancementLevel(0.0)
+                                    .family(TelephonySettings.NoiseSuppressionConfig.Family.QUAIL)
                                     .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                                    .size(TelephonySettings.NoiseSuppressionConfig.Size.VF)
                                     .build()
                             )
                             .recordingSettings(
@@ -1766,115 +986,20 @@ internal class AssistantsListTest {
                             )
                             .build()
                     )
-                    .addWebhookTool(
-                        InferenceEmbeddingWebhookToolParams.Webhook.builder()
-                            .description("description")
-                            .name("name")
-                            .url("https://example.com/api/v1/function")
-                            .async(true)
-                            .asyncTimeoutMs(1L)
-                            .bodyParameters(
-                                InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.builder()
-                                    .properties(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                            .Properties
-                                            .builder()
-                                            .putAdditionalProperty("age", JsonValue.from("bar"))
-                                            .putAdditionalProperty(
-                                                "location",
-                                                JsonValue.from("bar"),
-                                            )
-                                            .build()
-                                    )
-                                    .addRequired("age")
-                                    .addRequired("location")
-                                    .type(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                            .Type
-                                            .OBJECT
-                                    )
-                                    .build()
-                            )
-                            .addHeader(
-                                InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                    .addTool(
+                        AssistantTool.Function.builder()
+                            .function(
+                                FunctionDefinition.builder()
                                     .name("name")
-                                    .value("value")
-                                    .build()
-                            )
-                            .addMessage(
-                                InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                    .WebhookToolRequestStartMessage
-                                    .builder()
-                                    .content("Let me look that up for you.")
-                                    .timingMs(100L)
-                                    .build()
-                            )
-                            .addMessage(
-                                InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                    .WebhookToolRequestResponseDelayedMessage
-                                    .builder()
-                                    .content("Still working on that.")
-                                    .timingMs(5000L)
-                                    .build()
-                            )
-                            .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
-                            .pathParameters(
-                                InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
-                                    .properties(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                            .Properties
-                                            .builder()
-                                            .putAdditionalProperty("id", JsonValue.from("bar"))
+                                    .description("description")
+                                    .parameters(
+                                        FunctionDefinition.Parameters.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .build()
                                     )
-                                    .addRequired("id")
-                                    .type(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                            .Type
-                                            .OBJECT
-                                    )
                                     .build()
                             )
-                            .presetBodyFields(
-                                InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields
-                                    .builder()
-                                    .putAdditionalProperty("account_id", JsonValue.from("bar"))
-                                    .putAdditionalProperty("source", JsonValue.from("bar"))
-                                    .build()
-                            )
-                            .presetQueryParams(
-                                InferenceEmbeddingWebhookToolParams.Webhook.PresetQueryParams
-                                    .builder()
-                                    .putAdditionalProperty("caller", JsonValue.from("bar"))
-                                    .putAdditionalProperty("channel", JsonValue.from("bar"))
-                                    .build()
-                            )
-                            .queryParameters(
-                                InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                    .builder()
-                                    .properties(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                            .Properties
-                                            .builder()
-                                            .putAdditionalProperty("page", JsonValue.from("bar"))
-                                            .build()
-                                    )
-                                    .addRequired("page")
-                                    .type(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                            .Type
-                                            .OBJECT
-                                    )
-                                    .build()
-                            )
-                            .addStoreFieldsAsVariable(
-                                InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
-                                    .builder()
-                                    .name("x")
-                                    .valuePath("x")
-                                    .build()
-                            )
-                            .timeoutMs(500L)
+                            .shared(true)
                             .build()
                     )
                     .transcription(
@@ -2016,198 +1141,24 @@ internal class AssistantsListTest {
                                         .addSharedToolId("tool-faq-kb")
                                         .addTool(
                                             listOf(
-                                                AssistantTool.ofWebhook(
-                                                    InferenceEmbeddingWebhookToolParams.builder()
-                                                        .type(
-                                                            InferenceEmbeddingWebhookToolParams.Type
-                                                                .WEBHOOK
-                                                        )
-                                                        .webhook(
-                                                            InferenceEmbeddingWebhookToolParams
-                                                                .Webhook
-                                                                .builder()
-                                                                .description("description")
+                                                AssistantTool.ofFunction(
+                                                    AssistantTool.Function.builder()
+                                                        .function(
+                                                            FunctionDefinition.builder()
                                                                 .name("name")
-                                                                .url(
-                                                                    "https://example.com/api/v1/function"
-                                                                )
-                                                                .async(true)
-                                                                .asyncTimeoutMs(1L)
-                                                                .bodyParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .BodyParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .BodyParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "age",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .putAdditionalProperty(
-                                                                                    "location",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("age")
-                                                                        .addRequired("location")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .BodyParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .addHeader(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Header
-                                                                        .builder()
-                                                                        .name("name")
-                                                                        .value("value")
-                                                                        .build()
-                                                                )
-                                                                .addMessage(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Message
-                                                                        .WebhookToolRequestStartMessage
-                                                                        .builder()
-                                                                        .content(
-                                                                            "Let me look that up for you."
-                                                                        )
-                                                                        .timingMs(100L)
-                                                                        .build()
-                                                                )
-                                                                .addMessage(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Message
-                                                                        .WebhookToolRequestResponseDelayedMessage
-                                                                        .builder()
-                                                                        .content(
-                                                                            "Still working on that."
-                                                                        )
-                                                                        .timingMs(5000L)
-                                                                        .build()
-                                                                )
-                                                                .method(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Method
-                                                                        .GET
-                                                                )
-                                                                .pathParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PathParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .PathParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "id",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("id")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .PathParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .presetBodyFields(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PresetBodyFields
+                                                                .description("description")
+                                                                .parameters(
+                                                                    FunctionDefinition.Parameters
                                                                         .builder()
                                                                         .putAdditionalProperty(
-                                                                            "account_id",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .putAdditionalProperty(
-                                                                            "source",
+                                                                            "foo",
                                                                             JsonValue.from("bar"),
                                                                         )
                                                                         .build()
                                                                 )
-                                                                .presetQueryParams(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PresetQueryParams
-                                                                        .builder()
-                                                                        .putAdditionalProperty(
-                                                                            "caller",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .putAdditionalProperty(
-                                                                            "channel",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .queryParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .QueryParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .QueryParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "page",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("page")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .QueryParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .addStoreFieldsAsVariable(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .StoreFieldsAsVariable
-                                                                        .builder()
-                                                                        .name("x")
-                                                                        .valuePath("x")
-                                                                        .build()
-                                                                )
-                                                                .timeoutMs(500L)
                                                                 .build()
                                                         )
+                                                        .shared(true)
                                                         .build()
                                                 )
                                             )
@@ -2293,198 +1244,24 @@ internal class AssistantsListTest {
                                         .addSharedToolId("tool-billing-lookup")
                                         .addTool(
                                             listOf(
-                                                AssistantTool.ofWebhook(
-                                                    InferenceEmbeddingWebhookToolParams.builder()
-                                                        .type(
-                                                            InferenceEmbeddingWebhookToolParams.Type
-                                                                .WEBHOOK
-                                                        )
-                                                        .webhook(
-                                                            InferenceEmbeddingWebhookToolParams
-                                                                .Webhook
-                                                                .builder()
-                                                                .description("description")
+                                                AssistantTool.ofFunction(
+                                                    AssistantTool.Function.builder()
+                                                        .function(
+                                                            FunctionDefinition.builder()
                                                                 .name("name")
-                                                                .url(
-                                                                    "https://example.com/api/v1/function"
-                                                                )
-                                                                .async(true)
-                                                                .asyncTimeoutMs(1L)
-                                                                .bodyParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .BodyParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .BodyParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "age",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .putAdditionalProperty(
-                                                                                    "location",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("age")
-                                                                        .addRequired("location")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .BodyParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .addHeader(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Header
-                                                                        .builder()
-                                                                        .name("name")
-                                                                        .value("value")
-                                                                        .build()
-                                                                )
-                                                                .addMessage(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Message
-                                                                        .WebhookToolRequestStartMessage
-                                                                        .builder()
-                                                                        .content(
-                                                                            "Let me look that up for you."
-                                                                        )
-                                                                        .timingMs(100L)
-                                                                        .build()
-                                                                )
-                                                                .addMessage(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Message
-                                                                        .WebhookToolRequestResponseDelayedMessage
-                                                                        .builder()
-                                                                        .content(
-                                                                            "Still working on that."
-                                                                        )
-                                                                        .timingMs(5000L)
-                                                                        .build()
-                                                                )
-                                                                .method(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .Method
-                                                                        .GET
-                                                                )
-                                                                .pathParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PathParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .PathParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "id",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("id")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .PathParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .presetBodyFields(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PresetBodyFields
+                                                                .description("description")
+                                                                .parameters(
+                                                                    FunctionDefinition.Parameters
                                                                         .builder()
                                                                         .putAdditionalProperty(
-                                                                            "account_id",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .putAdditionalProperty(
-                                                                            "source",
+                                                                            "foo",
                                                                             JsonValue.from("bar"),
                                                                         )
                                                                         .build()
                                                                 )
-                                                                .presetQueryParams(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .PresetQueryParams
-                                                                        .builder()
-                                                                        .putAdditionalProperty(
-                                                                            "caller",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .putAdditionalProperty(
-                                                                            "channel",
-                                                                            JsonValue.from("bar"),
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .queryParameters(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .QueryParameters
-                                                                        .builder()
-                                                                        .properties(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .QueryParameters
-                                                                                .Properties
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "page",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
-                                                                        )
-                                                                        .addRequired("page")
-                                                                        .type(
-                                                                            InferenceEmbeddingWebhookToolParams
-                                                                                .Webhook
-                                                                                .QueryParameters
-                                                                                .Type
-                                                                                .OBJECT
-                                                                        )
-                                                                        .build()
-                                                                )
-                                                                .addStoreFieldsAsVariable(
-                                                                    InferenceEmbeddingWebhookToolParams
-                                                                        .Webhook
-                                                                        .StoreFieldsAsVariable
-                                                                        .builder()
-                                                                        .name("x")
-                                                                        .valuePath("x")
-                                                                        .build()
-                                                                )
-                                                                .timeoutMs(500L)
                                                                 .build()
                                                         )
+                                                        .shared(true)
                                                         .build()
                                                 )
                                             )
@@ -2635,6 +1412,7 @@ internal class AssistantsListTest {
                             InferenceEmbeddingInterruptionSettings.builder()
                                 .disableGreetingInterruption(true)
                                 .enable(true)
+                                .interruptPredictionThreshold(0.0)
                                 .startSpeakingPlan(
                                     StartSpeakingPlan.builder()
                                         .transcriptionEndpointingPlan(
@@ -2675,7 +1453,12 @@ internal class AssistantsListTest {
                         .postConversationSettings(
                             PostConversationSettings.builder().enabled(true).build()
                         )
-                        .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                        .privacySettings(
+                            PrivacySettings.builder()
+                                .dataRetention(true)
+                                .inTransitDataLocality(true)
+                                .build()
+                        )
                         .addRelatedMissionId("string")
                         .addTag("string")
                         .telephonySettings(
@@ -2683,13 +1466,18 @@ internal class AssistantsListTest {
                                 .defaultTexmlAppId("default_texml_app_id")
                                 .disableDtmf(true)
                                 .fallbackDestination("fallback_destination")
-                                .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                                .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                                 .noiseSuppressionConfig(
                                     TelephonySettings.NoiseSuppressionConfig.builder()
                                         .attenuationLimit(0L)
+                                        .enhancementLevel(0.0)
+                                        .family(
+                                            TelephonySettings.NoiseSuppressionConfig.Family.QUAIL
+                                        )
                                         .mode(
                                             TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED
                                         )
+                                        .size(TelephonySettings.NoiseSuppressionConfig.Size.VF)
                                         .build()
                                 )
                                 .recordingSettings(
@@ -2740,127 +1528,20 @@ internal class AssistantsListTest {
                                 )
                                 .build()
                         )
-                        .addWebhookTool(
-                            InferenceEmbeddingWebhookToolParams.Webhook.builder()
-                                .description("description")
-                                .name("name")
-                                .url("https://example.com/api/v1/function")
-                                .async(true)
-                                .asyncTimeoutMs(1L)
-                                .bodyParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                        .builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .BodyParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("age", JsonValue.from("bar"))
-                                                .putAdditionalProperty(
-                                                    "location",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("age")
-                                        .addRequired("location")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .BodyParameters
-                                                .Type
-                                                .OBJECT
-                                        )
-                                        .build()
-                                )
-                                .addHeader(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                        .addTool(
+                            AssistantTool.Function.builder()
+                                .function(
+                                    FunctionDefinition.builder()
                                         .name("name")
-                                        .value("value")
-                                        .build()
-                                )
-                                .addMessage(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                        .WebhookToolRequestStartMessage
-                                        .builder()
-                                        .content("Let me look that up for you.")
-                                        .timingMs(100L)
-                                        .build()
-                                )
-                                .addMessage(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                        .WebhookToolRequestResponseDelayedMessage
-                                        .builder()
-                                        .content("Still working on that.")
-                                        .timingMs(5000L)
-                                        .build()
-                                )
-                                .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
-                                .pathParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                        .builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .PathParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("id", JsonValue.from("bar"))
+                                        .description("description")
+                                        .parameters(
+                                            FunctionDefinition.Parameters.builder()
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .build()
                                         )
-                                        .addRequired("id")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .PathParameters
-                                                .Type
-                                                .OBJECT
-                                        )
                                         .build()
                                 )
-                                .presetBodyFields(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields
-                                        .builder()
-                                        .putAdditionalProperty("account_id", JsonValue.from("bar"))
-                                        .putAdditionalProperty("source", JsonValue.from("bar"))
-                                        .build()
-                                )
-                                .presetQueryParams(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PresetQueryParams
-                                        .builder()
-                                        .putAdditionalProperty("caller", JsonValue.from("bar"))
-                                        .putAdditionalProperty("channel", JsonValue.from("bar"))
-                                        .build()
-                                )
-                                .queryParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                        .builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .QueryParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty(
-                                                    "page",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("page")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .QueryParameters
-                                                .Type
-                                                .OBJECT
-                                        )
-                                        .build()
-                                )
-                                .addStoreFieldsAsVariable(
-                                    InferenceEmbeddingWebhookToolParams.Webhook
-                                        .StoreFieldsAsVariable
-                                        .builder()
-                                        .name("x")
-                                        .valuePath("x")
-                                        .build()
-                                )
-                                .timeoutMs(500L)
+                                .shared(true)
                                 .build()
                         )
                         .transcription(

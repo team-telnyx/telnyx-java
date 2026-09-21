@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.openai
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.chat.ChatCompletionRequest
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -54,12 +55,11 @@ internal class ChatServiceAsyncTest {
                     .temperature(0.0)
                     .toolChoice(ChatCompletionRequest.ToolChoice.NONE)
                     .addFunctionTool(
-                        ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                        FunctionDefinition.builder()
                             .name("name")
                             .description("description")
                             .parameters(
-                                ChatCompletionRequest.Tool.ChatCompletionTool.Function.Parameters
-                                    .builder()
+                                FunctionDefinition.Parameters.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )

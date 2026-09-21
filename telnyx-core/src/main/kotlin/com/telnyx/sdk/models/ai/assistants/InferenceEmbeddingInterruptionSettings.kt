@@ -28,6 +28,7 @@ class InferenceEmbeddingInterruptionSettings
 private constructor(
     private val disableGreetingInterruption: JsonField<Boolean>,
     private val enable: JsonField<Boolean>,
+    private val interruptPredictionThreshold: JsonField<Double>,
     private val startSpeakingPlan: JsonField<StartSpeakingPlan>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -38,10 +39,19 @@ private constructor(
         @ExcludeMissing
         disableGreetingInterruption: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("enable") @ExcludeMissing enable: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("interrupt_prediction_threshold")
+        @ExcludeMissing
+        interruptPredictionThreshold: JsonField<Double> = JsonMissing.of(),
         @JsonProperty("start_speaking_plan")
         @ExcludeMissing
         startSpeakingPlan: JsonField<StartSpeakingPlan> = JsonMissing.of(),
-    ) : this(disableGreetingInterruption, enable, startSpeakingPlan, mutableMapOf())
+    ) : this(
+        disableGreetingInterruption,
+        enable,
+        interruptPredictionThreshold,
+        startSpeakingPlan,
+        mutableMapOf(),
+    )
 
     /**
      * When true, disables user interruptions while the assistant greeting is playing.
@@ -59,6 +69,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun enable(): Optional<Boolean> = enable.getOptional("enable")
+
+    /**
+     * Interrupt-prediction sensitivity, from 0.0 to 1.0. Set to null or 0.0 to disable interrupt
+     * prediction.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun interruptPredictionThreshold(): Optional<Double> =
+        interruptPredictionThreshold.getOptional("interrupt_prediction_threshold")
 
     /**
      * Controls when the assistant starts speaking after the user stops. These thresholds primarily
@@ -88,6 +108,16 @@ private constructor(
      * Unlike [enable], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("enable") @ExcludeMissing fun _enable(): JsonField<Boolean> = enable
+
+    /**
+     * Returns the raw JSON value of [interruptPredictionThreshold].
+     *
+     * Unlike [interruptPredictionThreshold], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("interrupt_prediction_threshold")
+    @ExcludeMissing
+    fun _interruptPredictionThreshold(): JsonField<Double> = interruptPredictionThreshold
 
     /**
      * Returns the raw JSON value of [startSpeakingPlan].
@@ -125,6 +155,7 @@ private constructor(
 
         private var disableGreetingInterruption: JsonField<Boolean> = JsonMissing.of()
         private var enable: JsonField<Boolean> = JsonMissing.of()
+        private var interruptPredictionThreshold: JsonField<Double> = JsonMissing.of()
         private var startSpeakingPlan: JsonField<StartSpeakingPlan> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -135,6 +166,8 @@ private constructor(
             disableGreetingInterruption =
                 inferenceEmbeddingInterruptionSettings.disableGreetingInterruption
             enable = inferenceEmbeddingInterruptionSettings.enable
+            interruptPredictionThreshold =
+                inferenceEmbeddingInterruptionSettings.interruptPredictionThreshold
             startSpeakingPlan = inferenceEmbeddingInterruptionSettings.startSpeakingPlan
             additionalProperties =
                 inferenceEmbeddingInterruptionSettings.additionalProperties.toMutableMap()
@@ -165,6 +198,39 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun enable(enable: JsonField<Boolean>) = apply { this.enable = enable }
+
+        /**
+         * Interrupt-prediction sensitivity, from 0.0 to 1.0. Set to null or 0.0 to disable
+         * interrupt prediction.
+         */
+        fun interruptPredictionThreshold(interruptPredictionThreshold: Double?) =
+            interruptPredictionThreshold(JsonField.ofNullable(interruptPredictionThreshold))
+
+        /**
+         * Alias for [Builder.interruptPredictionThreshold].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun interruptPredictionThreshold(interruptPredictionThreshold: Double) =
+            interruptPredictionThreshold(interruptPredictionThreshold as Double?)
+
+        /**
+         * Alias for calling [Builder.interruptPredictionThreshold] with
+         * `interruptPredictionThreshold.orElse(null)`.
+         */
+        fun interruptPredictionThreshold(interruptPredictionThreshold: Optional<Double>) =
+            interruptPredictionThreshold(interruptPredictionThreshold.getOrNull())
+
+        /**
+         * Sets [Builder.interruptPredictionThreshold] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interruptPredictionThreshold] with a well-typed [Double]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun interruptPredictionThreshold(interruptPredictionThreshold: JsonField<Double>) = apply {
+            this.interruptPredictionThreshold = interruptPredictionThreshold
+        }
 
         /**
          * Controls when the assistant starts speaking after the user stops. These thresholds
@@ -214,6 +280,7 @@ private constructor(
             InferenceEmbeddingInterruptionSettings(
                 disableGreetingInterruption,
                 enable,
+                interruptPredictionThreshold,
                 startSpeakingPlan,
                 additionalProperties.toMutableMap(),
             )
@@ -236,6 +303,7 @@ private constructor(
 
         disableGreetingInterruption()
         enable()
+        interruptPredictionThreshold()
         startSpeakingPlan().ifPresent { it.validate() }
         validated = true
     }
@@ -257,6 +325,7 @@ private constructor(
     internal fun validity(): Int =
         (if (disableGreetingInterruption.asKnown().isPresent) 1 else 0) +
             (if (enable.asKnown().isPresent) 1 else 0) +
+            (if (interruptPredictionThreshold.asKnown().isPresent) 1 else 0) +
             (startSpeakingPlan.asKnown().getOrNull()?.validity() ?: 0)
 
     override fun equals(other: Any?): Boolean {
@@ -267,16 +336,23 @@ private constructor(
         return other is InferenceEmbeddingInterruptionSettings &&
             disableGreetingInterruption == other.disableGreetingInterruption &&
             enable == other.enable &&
+            interruptPredictionThreshold == other.interruptPredictionThreshold &&
             startSpeakingPlan == other.startSpeakingPlan &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(disableGreetingInterruption, enable, startSpeakingPlan, additionalProperties)
+        Objects.hash(
+            disableGreetingInterruption,
+            enable,
+            interruptPredictionThreshold,
+            startSpeakingPlan,
+            additionalProperties,
+        )
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InferenceEmbeddingInterruptionSettings{disableGreetingInterruption=$disableGreetingInterruption, enable=$enable, startSpeakingPlan=$startSpeakingPlan, additionalProperties=$additionalProperties}"
+        "InferenceEmbeddingInterruptionSettings{disableGreetingInterruption=$disableGreetingInterruption, enable=$enable, interruptPredictionThreshold=$interruptPredictionThreshold, startSpeakingPlan=$startSpeakingPlan, additionalProperties=$additionalProperties}"
 }

@@ -15,6 +15,7 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.chat.BucketIds
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import com.telnyx.sdk.models.ai.tools.PayToolParams
 import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
 import java.time.OffsetDateTime
@@ -408,10 +409,10 @@ private constructor(
 
     /**
      * Configuration for post-conversation processing. When enabled, the assistant receives one
-     * additional LLM turn after the conversation ends, allowing it to execute tool calls such as
-     * logging to a CRM or sending a summary. The assistant can execute multiple parallel or
-     * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
-     * unavailable post-conversation. Beta feature.
+     * additional LLM turn after the conversation ends, allowing it to execute final tool calls such
+     * as sending a summary or updating a record via webhook or function tools. Integration and MCP
+     * server tools are not available post-conversation; call-control tools (e.g. hangup, transfer)
+     * are also unavailable. Beta feature.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -452,8 +453,11 @@ private constructor(
         telephonySettings.getOptional("telephony_settings")
 
     /**
-     * Deprecated for new integrations. Inline tool definitions available to the assistant. Prefer
-     * `tool_ids` to attach shared tools created with the AI Tools endpoints.
+     * The assistant's tools. Responses merge the assistant's shared Tools Library tools into this
+     * array alongside inline tools, each flagged `shared: true`; inline tools carry `shared:
+     * false`. On update, a sent `tools` array fully replaces the inline tools only — shared tools
+     * stay attached unless `tool_ids` changes. Each tool type except `function`, `webhook`, and
+     * `client_side_tool` allows at most one instance per assistant across both sources.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1342,10 +1346,10 @@ private constructor(
 
         /**
          * Configuration for post-conversation processing. When enabled, the assistant receives one
-         * additional LLM turn after the conversation ends, allowing it to execute tool calls such
-         * as logging to a CRM or sending a summary. The assistant can execute multiple parallel or
-         * sequential tools during this phase. Telephony-control tools (e.g. hangup, transfer) are
-         * unavailable post-conversation. Beta feature.
+         * additional LLM turn after the conversation ends, allowing it to execute final tool calls
+         * such as sending a summary or updating a record via webhook or function tools. Integration
+         * and MCP server tools are not available post-conversation; call-control tools (e.g.
+         * hangup, transfer) are also unavailable. Beta feature.
          */
         fun postConversationSettings(postConversationSettings: PostConversationSettings) =
             postConversationSettings(JsonField.of(postConversationSettings))
@@ -1443,8 +1447,12 @@ private constructor(
         }
 
         /**
-         * Deprecated for new integrations. Inline tool definitions available to the assistant.
-         * Prefer `tool_ids` to attach shared tools created with the AI Tools endpoints.
+         * The assistant's tools. Responses merge the assistant's shared Tools Library tools into
+         * this array alongside inline tools, each flagged `shared: true`; inline tools carry
+         * `shared: false`. On update, a sent `tools` array fully replaces the inline tools only —
+         * shared tools stay attached unless `tool_ids` changes. Each tool type except `function`,
+         * `webhook`, and `client_side_tool` allows at most one instance per assistant across both
+         * sources.
          */
         fun tools(tools: List<AssistantTool>) = tools(JsonField.of(tools))
 
@@ -1468,6 +1476,20 @@ private constructor(
             tools =
                 (tools ?: JsonField.of(mutableListOf())).also { checkKnown("tools", it).add(tool) }
         }
+
+        /** Alias for calling [addTool] with `AssistantTool.ofFunction(function)`. */
+        fun addTool(function: AssistantTool.Function) = addTool(AssistantTool.ofFunction(function))
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.Function.builder()
+         *     .function(function)
+         *     .build()
+         * ```
+         */
+        fun addFunctionTool(function: FunctionDefinition) =
+            addTool(AssistantTool.Function.builder().function(function).build())
 
         /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
         fun addTool(webhook: InferenceEmbeddingWebhookToolParams) =
@@ -1540,19 +1562,18 @@ private constructor(
             addTool(AssistantTool.HandoffTool.builder().handoff(handoff).build())
 
         /** Alias for calling [addTool] with `AssistantTool.ofHangup(hangup)`. */
-        fun addTool(hangup: HangupTool) = addTool(AssistantTool.ofHangup(hangup))
+        fun addTool(hangup: AssistantTool.Hangup) = addTool(AssistantTool.ofHangup(hangup))
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * HangupTool.builder()
-         *     .type(HangupTool.Type.HANGUP)
+         * AssistantTool.Hangup.builder()
          *     .hangup(hangup)
          *     .build()
          * ```
          */
         fun addHangupTool(hangup: HangupToolParams) =
-            addTool(HangupTool.builder().type(HangupTool.Type.HANGUP).hangup(hangup).build())
+            addTool(AssistantTool.Hangup.builder().hangup(hangup).build())
 
         /** Alias for calling [addTool] with `AssistantTool.ofTransfer(transfer)`. */
         fun addTool(transfer: AssistantTool.Transfer) = addTool(AssistantTool.ofTransfer(transfer))

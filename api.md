@@ -738,6 +738,7 @@ Methods:
 - <code title="get /connections/{id}">client.connections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ConnectionService.kt">retrieve</a>(params)</code>
 - <code title="get /connections">client.connections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ConnectionService.kt">list</a>(params)</code>
 - <code title="get /connections/{connection_id}/active_calls">client.connections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ConnectionService.kt">listActiveCalls</a>(params)</code>
+- <code title="get /connections/count">client.connections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ConnectionService.kt">retrieveCount</a>()</code>
 
 # CountryCoverage
 
@@ -2108,6 +2109,12 @@ Methods:
 - <code title="post /texml/ai_calls/{connection_id}">client.texml().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TexmlService.kt">initiateAiCall</a>(params)</code>
 - <code title="post /texml/secrets">client.texml().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TexmlService.kt">secrets</a>(params)</code>
 
+## Calls
+
+Methods:
+
+- <code title="post /texml/calls/{connection_id}">client.texml().calls().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/texml/CallService.kt">create</a>(params)</code>
+
 ## Accounts
 
 Methods:
@@ -3131,3 +3138,28 @@ Methods:
 - <code title="get /compute/funcs/{id}/metric_aggregates">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveMetricAggregates</a>(params)</code>
 - <code title="get /compute/funcs/{id}/revisions">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveRevisions</a>(params)</code>
 - <code title="get /compute/funcs/{id}/ship_inspection">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveShipInspection</a>(params)</code>
+
+# NoiseSuppressionEngines
+
+Methods:
+
+- <code title="get /noise_suppression_engines">client.noiseSuppressionEngines().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/NoiseSuppressionEngineService.kt">list</a>()</code>
+
+# BotChallenge
+
+Methods:
+
+- <code title="post /v2/bot_challenge">client.botChallenge().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotChallengeService.kt">create</a>(params)</code>
+
+# BotSessions
+
+Methods:
+
+- <code title="get /v2/bot_sessions">client.botSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSessionService.kt">list</a>(params)</code>
+
+# BotSignup
+
+Methods:
+
+- <code title="post /v2/bot_signup">client.botSignup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSignupService.kt">create</a>(params)</code>
+- <code title="post /v2/bot_signup/resend_magic_link">client.botSignup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSignupService.kt">resendMagicLink</a>(params)</code>

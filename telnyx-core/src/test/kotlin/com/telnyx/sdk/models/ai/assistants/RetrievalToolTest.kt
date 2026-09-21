@@ -16,11 +16,13 @@ internal class RetrievalToolTest {
             RetrievalTool.builder()
                 .retrieval(BucketIds.builder().addBucketId("string").maxNumResults(0L).build())
                 .type(RetrievalTool.Type.RETRIEVAL)
+                .shared(true)
                 .build()
 
         assertThat(retrievalTool.retrieval())
             .isEqualTo(BucketIds.builder().addBucketId("string").maxNumResults(0L).build())
         assertThat(retrievalTool.type()).isEqualTo(RetrievalTool.Type.RETRIEVAL)
+        assertThat(retrievalTool.shared()).contains(true)
     }
 
     @Test
@@ -30,6 +32,7 @@ internal class RetrievalToolTest {
             RetrievalTool.builder()
                 .retrieval(BucketIds.builder().addBucketId("string").maxNumResults(0L).build())
                 .type(RetrievalTool.Type.RETRIEVAL)
+                .shared(true)
                 .build()
 
         val roundtrippedRetrievalTool =

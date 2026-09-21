@@ -18,9 +18,9 @@ internal class InboundMessageWebhookEventTest {
         val inboundMessageWebhookEvent =
             InboundMessageWebhookEvent.builder()
                 .data(
-                    InboundMessageWebhookEvent.Data.builder()
+                    MessagingInboundMessage.builder()
                         .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                        .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
+                        .eventType(MessagingInboundMessage.EventType.MESSAGE_RECEIVED)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             MessagingInboundMessagePayload.builder()
@@ -44,13 +44,51 @@ internal class InboundMessageWebhookEventTest {
                                         )
                                         .foreignId("foreign_id")
                                         .from("from")
+                                        .location(
+                                            MessagingInboundMessagePayload.Body.Location.builder()
+                                                .latitude(0.0)
+                                                .longitude(0.0)
+                                                .build()
+                                        )
                                         .revoke(
                                             MessagingInboundMessagePayload.Body.Revoke.builder()
                                                 .originalMessageId("original_message_id")
                                                 .build()
                                         )
+                                        .suggestionResponse(
+                                            MessagingInboundMessagePayload.Body.SuggestionResponse
+                                                .builder()
+                                                .postbackData("postback_data")
+                                                .text("text")
+                                                .build()
+                                        )
+                                        .text("string")
                                         .timestamp("timestamp")
                                         .type("edit")
+                                        .userFile(
+                                            MessagingInboundMessagePayload.Body.UserFile.builder()
+                                                .payload(
+                                                    MessagingInboundMessagePayload.Body.UserFile
+                                                        .Payload
+                                                        .builder()
+                                                        .fileName("file_name")
+                                                        .fileSizeBytes(0L)
+                                                        .fileUri("file_uri")
+                                                        .mimeType("mime_type")
+                                                        .build()
+                                                )
+                                                .thumbnail(
+                                                    MessagingInboundMessagePayload.Body.UserFile
+                                                        .Thumbnail
+                                                        .builder()
+                                                        .fileName("file_name")
+                                                        .fileSizeBytes(0L)
+                                                        .fileUri("file_uri")
+                                                        .mimeType("mime_type")
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .addCc(
@@ -144,6 +182,8 @@ internal class InboundMessageWebhookEventTest {
                                         MessagingInboundMessagePayload.To
                                             .UnnamedSchemaWithArrayParent0
                                             .builder()
+                                            .agentId("agent_id")
+                                            .agentName("agent_name")
                                             .carrier("TELNYX LLC")
                                             .lineType(
                                                 MessagingInboundMessagePayload.To
@@ -167,16 +207,16 @@ internal class InboundMessageWebhookEventTest {
                                 .webhookUrl("https://www.example.com/hooks")
                                 .build()
                         )
-                        .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(MessagingInboundMessage.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(inboundMessageWebhookEvent.data())
             .contains(
-                InboundMessageWebhookEvent.Data.builder()
+                MessagingInboundMessage.builder()
                     .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                    .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
+                    .eventType(MessagingInboundMessage.EventType.MESSAGE_RECEIVED)
                     .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .payload(
                         MessagingInboundMessagePayload.builder()
@@ -200,13 +240,50 @@ internal class InboundMessageWebhookEventTest {
                                     )
                                     .foreignId("foreign_id")
                                     .from("from")
+                                    .location(
+                                        MessagingInboundMessagePayload.Body.Location.builder()
+                                            .latitude(0.0)
+                                            .longitude(0.0)
+                                            .build()
+                                    )
                                     .revoke(
                                         MessagingInboundMessagePayload.Body.Revoke.builder()
                                             .originalMessageId("original_message_id")
                                             .build()
                                     )
+                                    .suggestionResponse(
+                                        MessagingInboundMessagePayload.Body.SuggestionResponse
+                                            .builder()
+                                            .postbackData("postback_data")
+                                            .text("text")
+                                            .build()
+                                    )
+                                    .text("string")
                                     .timestamp("timestamp")
                                     .type("edit")
+                                    .userFile(
+                                        MessagingInboundMessagePayload.Body.UserFile.builder()
+                                            .payload(
+                                                MessagingInboundMessagePayload.Body.UserFile.Payload
+                                                    .builder()
+                                                    .fileName("file_name")
+                                                    .fileSizeBytes(0L)
+                                                    .fileUri("file_uri")
+                                                    .mimeType("mime_type")
+                                                    .build()
+                                            )
+                                            .thumbnail(
+                                                MessagingInboundMessagePayload.Body.UserFile
+                                                    .Thumbnail
+                                                    .builder()
+                                                    .fileName("file_name")
+                                                    .fileSizeBytes(0L)
+                                                    .fileUri("file_uri")
+                                                    .mimeType("mime_type")
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
                                     .build()
                             )
                             .addCc(
@@ -294,6 +371,8 @@ internal class InboundMessageWebhookEventTest {
                                 listOf(
                                     MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0
                                         .builder()
+                                        .agentId("agent_id")
+                                        .agentName("agent_name")
                                         .carrier("TELNYX LLC")
                                         .lineType(
                                             MessagingInboundMessagePayload.To
@@ -317,7 +396,7 @@ internal class InboundMessageWebhookEventTest {
                             .webhookUrl("https://www.example.com/hooks")
                             .build()
                     )
-                    .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(MessagingInboundMessage.RecordType.EVENT)
                     .build()
             )
     }
@@ -328,9 +407,9 @@ internal class InboundMessageWebhookEventTest {
         val inboundMessageWebhookEvent =
             InboundMessageWebhookEvent.builder()
                 .data(
-                    InboundMessageWebhookEvent.Data.builder()
+                    MessagingInboundMessage.builder()
                         .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                        .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
+                        .eventType(MessagingInboundMessage.EventType.MESSAGE_RECEIVED)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             MessagingInboundMessagePayload.builder()
@@ -354,13 +433,51 @@ internal class InboundMessageWebhookEventTest {
                                         )
                                         .foreignId("foreign_id")
                                         .from("from")
+                                        .location(
+                                            MessagingInboundMessagePayload.Body.Location.builder()
+                                                .latitude(0.0)
+                                                .longitude(0.0)
+                                                .build()
+                                        )
                                         .revoke(
                                             MessagingInboundMessagePayload.Body.Revoke.builder()
                                                 .originalMessageId("original_message_id")
                                                 .build()
                                         )
+                                        .suggestionResponse(
+                                            MessagingInboundMessagePayload.Body.SuggestionResponse
+                                                .builder()
+                                                .postbackData("postback_data")
+                                                .text("text")
+                                                .build()
+                                        )
+                                        .text("string")
                                         .timestamp("timestamp")
                                         .type("edit")
+                                        .userFile(
+                                            MessagingInboundMessagePayload.Body.UserFile.builder()
+                                                .payload(
+                                                    MessagingInboundMessagePayload.Body.UserFile
+                                                        .Payload
+                                                        .builder()
+                                                        .fileName("file_name")
+                                                        .fileSizeBytes(0L)
+                                                        .fileUri("file_uri")
+                                                        .mimeType("mime_type")
+                                                        .build()
+                                                )
+                                                .thumbnail(
+                                                    MessagingInboundMessagePayload.Body.UserFile
+                                                        .Thumbnail
+                                                        .builder()
+                                                        .fileName("file_name")
+                                                        .fileSizeBytes(0L)
+                                                        .fileUri("file_uri")
+                                                        .mimeType("mime_type")
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .addCc(
@@ -454,6 +571,8 @@ internal class InboundMessageWebhookEventTest {
                                         MessagingInboundMessagePayload.To
                                             .UnnamedSchemaWithArrayParent0
                                             .builder()
+                                            .agentId("agent_id")
+                                            .agentName("agent_name")
                                             .carrier("TELNYX LLC")
                                             .lineType(
                                                 MessagingInboundMessagePayload.To
@@ -477,7 +596,7 @@ internal class InboundMessageWebhookEventTest {
                                 .webhookUrl("https://www.example.com/hooks")
                                 .build()
                         )
-                        .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(MessagingInboundMessage.RecordType.EVENT)
                         .build()
                 )
                 .build()

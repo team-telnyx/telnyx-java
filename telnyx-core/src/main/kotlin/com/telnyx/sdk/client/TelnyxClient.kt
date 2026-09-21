@@ -16,6 +16,9 @@ import com.telnyx.sdk.services.blocking.AvailablePhoneNumberBlockService
 import com.telnyx.sdk.services.blocking.AvailablePhoneNumberService
 import com.telnyx.sdk.services.blocking.BalanceService
 import com.telnyx.sdk.services.blocking.BillingGroupService
+import com.telnyx.sdk.services.blocking.BotChallengeService
+import com.telnyx.sdk.services.blocking.BotSessionService
+import com.telnyx.sdk.services.blocking.BotSignupService
 import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BundlePricingService
 import com.telnyx.sdk.services.blocking.CallControlApplicationService
@@ -97,6 +100,7 @@ import com.telnyx.sdk.services.blocking.MobilePushCredentialService
 import com.telnyx.sdk.services.blocking.MobileVoiceConnectionService
 import com.telnyx.sdk.services.blocking.NetworkCoverageService
 import com.telnyx.sdk.services.blocking.NetworkService
+import com.telnyx.sdk.services.blocking.NoiseSuppressionEngineService
 import com.telnyx.sdk.services.blocking.NotificationChannelService
 import com.telnyx.sdk.services.blocking.NotificationEventConditionService
 import com.telnyx.sdk.services.blocking.NotificationEventService
@@ -759,6 +763,39 @@ interface TelnyxClient {
     fun compute(): ComputeService
 
     /**
+     * Noise suppression engines that can be selected when configuring noise suppression on voice
+     * connections.
+     */
+    fun noiseSuppressionEngines(): NoiseSuppressionEngineService
+
+    /**
+     * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+     * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+     * consuming a magic link emailed to the account owner. All endpoints are public and
+     * unauthenticated; signup endpoints are additionally gated by the freemium feature flags and
+     * per-country availability.
+     */
+    fun botChallenge(): BotChallengeService
+
+    /**
+     * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+     * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+     * consuming a magic link emailed to the account owner. All endpoints are public and
+     * unauthenticated; signup endpoints are additionally gated by the freemium feature flags and
+     * per-country availability.
+     */
+    fun botSessions(): BotSessionService
+
+    /**
+     * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+     * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+     * consuming a magic link emailed to the account owner. All endpoints are public and
+     * unauthenticated; signup endpoints are additionally gated by the freemium feature flags and
+     * per-country availability.
+     */
+    fun botSignup(): BotSignupService
+
+    /**
      * Closes this client, relinquishing any underlying resources.
      *
      * This is purposefully not inherited from [AutoCloseable] because the client is long-lived and
@@ -1318,5 +1355,38 @@ interface TelnyxClient {
         fun externalRequirements(): ExternalRequirementService.WithRawResponse
 
         fun compute(): ComputeService.WithRawResponse
+
+        /**
+         * Noise suppression engines that can be selected when configuring noise suppression on
+         * voice connections.
+         */
+        fun noiseSuppressionEngines(): NoiseSuppressionEngineService.WithRawResponse
+
+        /**
+         * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+         * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+         * consuming a magic link emailed to the account owner. All endpoints are public and
+         * unauthenticated; signup endpoints are additionally gated by the freemium feature flags
+         * and per-country availability.
+         */
+        fun botChallenge(): BotChallengeService.WithRawResponse
+
+        /**
+         * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+         * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+         * consuming a magic link emailed to the account owner. All endpoints are public and
+         * unauthenticated; signup endpoints are additionally gated by the freemium feature flags
+         * and per-country availability.
+         */
+        fun botSessions(): BotSessionService.WithRawResponse
+
+        /**
+         * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+         * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+         * consuming a magic link emailed to the account owner. All endpoints are public and
+         * unauthenticated; signup endpoints are additionally gated by the freemium feature flags
+         * and per-country availability.
+         */
+        fun botSignup(): BotSignupService.WithRawResponse
     }
 }

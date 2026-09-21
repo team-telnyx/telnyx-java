@@ -30,6 +30,12 @@ import com.telnyx.sdk.services.blocking.BalanceService
 import com.telnyx.sdk.services.blocking.BalanceServiceImpl
 import com.telnyx.sdk.services.blocking.BillingGroupService
 import com.telnyx.sdk.services.blocking.BillingGroupServiceImpl
+import com.telnyx.sdk.services.blocking.BotChallengeService
+import com.telnyx.sdk.services.blocking.BotChallengeServiceImpl
+import com.telnyx.sdk.services.blocking.BotSessionService
+import com.telnyx.sdk.services.blocking.BotSessionServiceImpl
+import com.telnyx.sdk.services.blocking.BotSignupService
+import com.telnyx.sdk.services.blocking.BotSignupServiceImpl
 import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BulkSimCardActionServiceImpl
 import com.telnyx.sdk.services.blocking.BundlePricingService
@@ -192,6 +198,8 @@ import com.telnyx.sdk.services.blocking.NetworkCoverageService
 import com.telnyx.sdk.services.blocking.NetworkCoverageServiceImpl
 import com.telnyx.sdk.services.blocking.NetworkService
 import com.telnyx.sdk.services.blocking.NetworkServiceImpl
+import com.telnyx.sdk.services.blocking.NoiseSuppressionEngineService
+import com.telnyx.sdk.services.blocking.NoiseSuppressionEngineServiceImpl
 import com.telnyx.sdk.services.blocking.NotificationChannelService
 import com.telnyx.sdk.services.blocking.NotificationChannelServiceImpl
 import com.telnyx.sdk.services.blocking.NotificationEventConditionService
@@ -1054,6 +1062,22 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     private val compute: ComputeService by lazy { ComputeServiceImpl(clientOptionsWithUserAgent) }
 
+    private val noiseSuppressionEngines: NoiseSuppressionEngineService by lazy {
+        NoiseSuppressionEngineServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val botChallenge: BotChallengeService by lazy {
+        BotChallengeServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val botSessions: BotSessionService by lazy {
+        BotSessionServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val botSignup: BotSignupService by lazy {
+        BotSignupServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1609,6 +1633,39 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun externalRequirements(): ExternalRequirementService = externalRequirements
 
     override fun compute(): ComputeService = compute
+
+    /**
+     * Noise suppression engines that can be selected when configuring noise suppression on voice
+     * connections.
+     */
+    override fun noiseSuppressionEngines(): NoiseSuppressionEngineService = noiseSuppressionEngines
+
+    /**
+     * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+     * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+     * consuming a magic link emailed to the account owner. All endpoints are public and
+     * unauthenticated; signup endpoints are additionally gated by the freemium feature flags and
+     * per-country availability.
+     */
+    override fun botChallenge(): BotChallengeService = botChallenge
+
+    /**
+     * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+     * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+     * consuming a magic link emailed to the account owner. All endpoints are public and
+     * unauthenticated; signup endpoints are additionally gated by the freemium feature flags and
+     * per-country availability.
+     */
+    override fun botSessions(): BotSessionService = botSessions
+
+    /**
+     * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+     * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+     * consuming a magic link emailed to the account owner. All endpoints are public and
+     * unauthenticated; signup endpoints are additionally gated by the freemium feature flags and
+     * per-country availability.
+     */
+    override fun botSignup(): BotSignupService = botSignup
 
     override fun close() = clientOptions.close()
 
@@ -2362,6 +2419,22 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             ComputeServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val noiseSuppressionEngines: NoiseSuppressionEngineService.WithRawResponse by lazy {
+            NoiseSuppressionEngineServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val botChallenge: BotChallengeService.WithRawResponse by lazy {
+            BotChallengeServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val botSessions: BotSessionService.WithRawResponse by lazy {
+            BotSessionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val botSignup: BotSignupService.WithRawResponse by lazy {
+            BotSignupServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2976,5 +3049,39 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             externalRequirements
 
         override fun compute(): ComputeService.WithRawResponse = compute
+
+        /**
+         * Noise suppression engines that can be selected when configuring noise suppression on
+         * voice connections.
+         */
+        override fun noiseSuppressionEngines(): NoiseSuppressionEngineService.WithRawResponse =
+            noiseSuppressionEngines
+
+        /**
+         * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+         * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+         * consuming a magic link emailed to the account owner. All endpoints are public and
+         * unauthenticated; signup endpoints are additionally gated by the freemium feature flags
+         * and per-country availability.
+         */
+        override fun botChallenge(): BotChallengeService.WithRawResponse = botChallenge
+
+        /**
+         * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+         * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+         * consuming a magic link emailed to the account owner. All endpoints are public and
+         * unauthenticated; signup endpoints are additionally gated by the freemium feature flags
+         * and per-country availability.
+         */
+        override fun botSessions(): BotSessionService.WithRawResponse = botSessions
+
+        /**
+         * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+         * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+         * consuming a magic link emailed to the account owner. All endpoints are public and
+         * unauthenticated; signup endpoints are additionally gated by the freemium feature flags
+         * and per-country availability.
+         */
+        override fun botSignup(): BotSignupService.WithRawResponse = botSignup
     }
 }
