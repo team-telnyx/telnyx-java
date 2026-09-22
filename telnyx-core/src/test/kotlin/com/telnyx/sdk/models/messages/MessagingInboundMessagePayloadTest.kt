@@ -17,6 +17,7 @@ internal class MessagingInboundMessagePayloadTest {
         val messagingInboundMessagePayload =
             MessagingInboundMessagePayload.builder()
                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                .autoresponseType("STOP")
                 .body(
                     MessagingInboundMessagePayload.Body.builder()
                         .id("id")
@@ -182,6 +183,7 @@ internal class MessagingInboundMessagePayloadTest {
 
         assertThat(messagingInboundMessagePayload.id())
             .contains("7ee4241c-f127-47e5-9c34-3aac291f8058")
+        assertThat(messagingInboundMessagePayload.autoresponseType()).contains("STOP")
         assertThat(messagingInboundMessagePayload.body())
             .contains(
                 MessagingInboundMessagePayload.Body.builder()
@@ -369,6 +371,7 @@ internal class MessagingInboundMessagePayloadTest {
         val messagingInboundMessagePayload =
             MessagingInboundMessagePayload.builder()
                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                .autoresponseType("STOP")
                 .body(
                     MessagingInboundMessagePayload.Body.builder()
                         .id("id")

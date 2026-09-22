@@ -26,6 +26,8 @@ import com.telnyx.sdk.models.compute.funcs.FuncRetrieveRevisionsParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveRevisionsResponse
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveShipInspectionParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveShipInspectionResponse
+import com.telnyx.sdk.services.async.compute.funcs.ExportServiceAsync
+import com.telnyx.sdk.services.async.compute.funcs.ExportServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -37,10 +39,14 @@ class FuncServiceAsyncImpl internal constructor(private val clientOptions: Clien
         WithRawResponseImpl(clientOptions)
     }
 
+    private val export: ExportServiceAsync by lazy { ExportServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): FuncServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncServiceAsync =
         FuncServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun export(): ExportServiceAsync = export
 
     override fun retrieveLogs(
         params: FuncRetrieveLogsParams,
@@ -80,12 +86,18 @@ class FuncServiceAsyncImpl internal constructor(private val clientOptions: Clien
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val export: ExportServiceAsync.WithRawResponse by lazy {
+            ExportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): FuncServiceAsync.WithRawResponse =
             FuncServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun export(): ExportServiceAsync.WithRawResponse = export
 
         private val retrieveLogsHandler: Handler<FuncRetrieveLogsResponse> =
             jsonHandler<FuncRetrieveLogsResponse>(clientOptions.jsonMapper)

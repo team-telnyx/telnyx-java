@@ -10753,6 +10753,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                         .payload(
                             MessagingInboundMessagePayload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                                .autoresponseType("STOP")
                                 .body(
                                     MessagingInboundMessagePayload.Body.builder()
                                         .id("id")
@@ -11033,6 +11034,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                             .payload(
                                 MessagingInboundMessagePayload.builder()
                                     .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                                    .autoresponseType("STOP")
                                     .body(
                                         MessagingInboundMessagePayload.Body.builder()
                                             .id("id")
@@ -11249,7 +11251,9 @@ internal class UnsafeUnwrapWebhookEventTest {
                 .data(
                     NumberOrderStatusUpdateWebhookEvent.Data.builder()
                         .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
-                        .eventType("number_order.complete")
+                        .eventType(
+                            NumberOrderStatusUpdateWebhookEvent.Data.EventType.NUMBER_ORDER_COMPLETE
+                        )
                         .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
                         .payload(
                             NumberOrderStatusUpdateWebhookEvent.Data.Payload.builder()
@@ -11419,7 +11423,10 @@ internal class UnsafeUnwrapWebhookEventTest {
                     .data(
                         NumberOrderStatusUpdateWebhookEvent.Data.builder()
                             .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
-                            .eventType("number_order.complete")
+                            .eventType(
+                                NumberOrderStatusUpdateWebhookEvent.Data.EventType
+                                    .NUMBER_ORDER_COMPLETE
+                            )
                             .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
                             .payload(
                                 NumberOrderStatusUpdateWebhookEvent.Data.Payload.builder()

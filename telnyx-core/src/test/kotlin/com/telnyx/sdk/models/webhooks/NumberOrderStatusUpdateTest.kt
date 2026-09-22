@@ -20,7 +20,7 @@ internal class NumberOrderStatusUpdateTest {
                 .data(
                     NumberOrderStatusUpdate.Data.builder()
                         .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
-                        .eventType("number_order.complete")
+                        .eventType(NumberOrderStatusUpdate.Data.EventType.NUMBER_ORDER_COMPLETE)
                         .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
                         .payload(
                             NumberOrderWithPhoneNumbers.builder()
@@ -81,7 +81,7 @@ internal class NumberOrderStatusUpdateTest {
             .isEqualTo(
                 NumberOrderStatusUpdate.Data.builder()
                     .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
-                    .eventType("number_order.complete")
+                    .eventType(NumberOrderStatusUpdate.Data.EventType.NUMBER_ORDER_COMPLETE)
                     .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
                     .payload(
                         NumberOrderWithPhoneNumbers.builder()
@@ -145,7 +145,7 @@ internal class NumberOrderStatusUpdateTest {
                 .data(
                     NumberOrderStatusUpdate.Data.builder()
                         .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
-                        .eventType("number_order.complete")
+                        .eventType(NumberOrderStatusUpdate.Data.EventType.NUMBER_ORDER_COMPLETE)
                         .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
                         .payload(
                             NumberOrderWithPhoneNumbers.builder()

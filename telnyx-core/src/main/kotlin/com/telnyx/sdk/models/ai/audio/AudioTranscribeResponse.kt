@@ -23,7 +23,8 @@ import kotlin.jvm.optionals.getOrNull
  * Response fields vary by model. `distil-whisper/distil-large-v2` returns `text`, `duration`, and
  * `segments` in `verbose_json` mode. `openai/whisper-large-v3-turbo` returns `text` only. The
  * `deepgram&#47;*` models return `text` and, depending on `model_config`, may include `words` with
- * per-word timestamps and speaker labels.
+ * per-word timestamps and speaker labels. The Parakeet models (`nvidia/parakeet-v3`,
+ * `omi-health/omi-med-stt-v1`) return `text` only.
  */
 class AudioTranscribeResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)

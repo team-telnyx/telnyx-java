@@ -36,6 +36,7 @@ class MessagingInboundMessagePayload
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val autoresponseType: JsonField<String>,
     private val body: JsonField<Body>,
     private val cc: JsonField<List<Cc>>,
     private val completedAt: JsonField<OffsetDateTime>,
@@ -70,6 +71,9 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("autoresponse_type")
+        @ExcludeMissing
+        autoresponseType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("body") @ExcludeMissing body: JsonField<Body> = JsonMissing.of(),
         @JsonProperty("cc") @ExcludeMissing cc: JsonField<List<Cc>> = JsonMissing.of(),
         @JsonProperty("completed_at")
@@ -130,6 +134,7 @@ private constructor(
         webhookUrl: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
+        autoresponseType,
         body,
         cc,
         completedAt,
@@ -168,6 +173,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun id(): Optional<String> = id.getOptional("id")
+
+    /**
+     * Automatic response type triggered by an inbound opt-in, opt-out, or help keyword. Examples
+     * include START, STOP, and HELP.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun autoresponseType(): Optional<String> = autoresponseType.getOptional("autoresponse_type")
 
     /**
      * Message body for RCS and WhatsApp. RCS messages contain text, user_file, location, or
@@ -403,6 +417,16 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [autoresponseType].
+     *
+     * Unlike [autoresponseType], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("autoresponse_type")
+    @ExcludeMissing
+    fun _autoresponseType(): JsonField<String> = autoresponseType
 
     /**
      * Returns the raw JSON value of [body].
@@ -653,6 +677,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
+        private var autoresponseType: JsonField<String> = JsonMissing.of()
         private var body: JsonField<Body> = JsonMissing.of()
         private var cc: JsonField<MutableList<Cc>>? = null
         private var completedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -686,6 +711,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(messagingInboundMessagePayload: MessagingInboundMessagePayload) = apply {
             id = messagingInboundMessagePayload.id
+            autoresponseType = messagingInboundMessagePayload.autoresponseType
             body = messagingInboundMessagePayload.body
             cc = messagingInboundMessagePayload.cc.map { it.toMutableList() }
             completedAt = messagingInboundMessagePayload.completedAt
@@ -728,6 +754,24 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * Automatic response type triggered by an inbound opt-in, opt-out, or help keyword.
+         * Examples include START, STOP, and HELP.
+         */
+        fun autoresponseType(autoresponseType: String) =
+            autoresponseType(JsonField.of(autoresponseType))
+
+        /**
+         * Sets [Builder.autoresponseType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.autoresponseType] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun autoresponseType(autoresponseType: JsonField<String>) = apply {
+            this.autoresponseType = autoresponseType
+        }
 
         /**
          * Message body for RCS and WhatsApp. RCS messages contain text, user_file, location, or
@@ -1224,6 +1268,7 @@ private constructor(
         fun build(): MessagingInboundMessagePayload =
             MessagingInboundMessagePayload(
                 id,
+                autoresponseType,
                 body,
                 (cc ?: JsonMissing.of()).map { it.toImmutable() },
                 completedAt,
@@ -1272,6 +1317,7 @@ private constructor(
         }
 
         id()
+        autoresponseType()
         body().ifPresent { it.validate() }
         cc().ifPresent { it.forEach { it.validate() } }
         completedAt()
@@ -1319,6 +1365,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (if (autoresponseType.asKnown().isPresent) 1 else 0) +
             (body.asKnown().getOrNull()?.validity() ?: 0) +
             (cc.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (completedAt.asKnown().isPresent) 1 else 0) +
@@ -7539,6 +7586,7 @@ private constructor(
 
         return other is MessagingInboundMessagePayload &&
             id == other.id &&
+            autoresponseType == other.autoresponseType &&
             body == other.body &&
             cc == other.cc &&
             completedAt == other.completedAt &&
@@ -7573,6 +7621,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            autoresponseType,
             body,
             cc,
             completedAt,
@@ -7608,5 +7657,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingInboundMessagePayload{id=$id, body=$body, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, numChars=$numChars, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "MessagingInboundMessagePayload{id=$id, autoresponseType=$autoresponseType, body=$body, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, numChars=$numChars, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

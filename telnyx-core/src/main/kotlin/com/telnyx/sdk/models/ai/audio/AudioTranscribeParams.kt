@@ -42,7 +42,8 @@ private constructor(
      * `deepgram&#47;*` models only accept mp3/wav files: `deepgram/nova-3` covers ~49 languages
      * plus `multi` and `deepgram/nova-2` covers ~33, while the `-medical` variants are tuned for
      * clinical vocabulary and accept English only (`en` and its regional variants, e.g. `en-US`,
-     * `en-GB`).
+     * `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic language detection;
+     * `omi-health/omi-med-stt-v1` is a medical model, English only.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -76,7 +77,8 @@ private constructor(
      * base language and forward the full tag, so regional variants such as `de-CH` and `pt-BR` are
      * accepted where the base language is supported; an unsupported language returns a 400. For
      * `openai/whisper-large-v3-turbo`, supports multiple languages.
-     * `distil-whisper/distil-large-v2` does not support language parameter.
+     * `distil-whisper/distil-large-v2` does not support language parameter. `nvidia/parakeet-v3`
+     * detects the language automatically; `omi-health/omi-med-stt-v1` is English only.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -222,7 +224,8 @@ private constructor(
          * latency. The `deepgram&#47;*` models only accept mp3/wav files: `deepgram/nova-3` covers
          * ~49 languages plus `multi` and `deepgram/nova-2` covers ~33, while the `-medical`
          * variants are tuned for clinical vocabulary and accept English only (`en` and its regional
-         * variants, e.g. `en-US`, `en-GB`).
+         * variants, e.g. `en-US`, `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic
+         * language detection; `omi-health/omi-med-stt-v1` is a medical model, English only.
          */
         fun model(model: Model) = apply { body.model(model) }
 
@@ -287,6 +290,8 @@ private constructor(
          * `de-CH` and `pt-BR` are accepted where the base language is supported; an unsupported
          * language returns a 400. For `openai/whisper-large-v3-turbo`, supports multiple languages.
          * `distil-whisper/distil-large-v2` does not support language parameter.
+         * `nvidia/parakeet-v3` detects the language automatically; `omi-health/omi-med-stt-v1` is
+         * English only.
          */
         fun language(language: String) = apply { body.language(language) }
 
@@ -528,7 +533,8 @@ private constructor(
          * latency. The `deepgram&#47;*` models only accept mp3/wav files: `deepgram/nova-3` covers
          * ~49 languages plus `multi` and `deepgram/nova-2` covers ~33, while the `-medical`
          * variants are tuned for clinical vocabulary and accept English only (`en` and its regional
-         * variants, e.g. `en-US`, `en-GB`).
+         * variants, e.g. `en-US`, `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic
+         * language detection; `omi-health/omi-med-stt-v1` is a medical model, English only.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -563,6 +569,8 @@ private constructor(
          * `de-CH` and `pt-BR` are accepted where the base language is supported; an unsupported
          * language returns a 400. For `openai/whisper-large-v3-turbo`, supports multiple languages.
          * `distil-whisper/distil-large-v2` does not support language parameter.
+         * `nvidia/parakeet-v3` detects the language automatically; `omi-health/omi-med-stt-v1` is
+         * English only.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -717,7 +725,9 @@ private constructor(
              * latency. The `deepgram&#47;*` models only accept mp3/wav files: `deepgram/nova-3`
              * covers ~49 languages plus `multi` and `deepgram/nova-2` covers ~33, while the
              * `-medical` variants are tuned for clinical vocabulary and accept English only (`en`
-             * and its regional variants, e.g. `en-US`, `en-GB`).
+             * and its regional variants, e.g. `en-US`, `en-GB`). `nvidia/parakeet-v3` is
+             * multilingual with automatic language detection; `omi-health/omi-med-stt-v1` is a
+             * medical model, English only.
              */
             fun model(model: Model) = model(MultipartField.of(model))
 
@@ -794,6 +804,8 @@ private constructor(
              * supported; an unsupported language returns a 400. For
              * `openai/whisper-large-v3-turbo`, supports multiple languages.
              * `distil-whisper/distil-large-v2` does not support language parameter.
+             * `nvidia/parakeet-v3` detects the language automatically; `omi-health/omi-med-stt-v1`
+             * is English only.
              */
             fun language(language: String) = language(MultipartField.of(language))
 
@@ -982,7 +994,8 @@ private constructor(
      * `deepgram&#47;*` models only accept mp3/wav files: `deepgram/nova-3` covers ~49 languages
      * plus `multi` and `deepgram/nova-2` covers ~33, while the `-medical` variants are tuned for
      * clinical vocabulary and accept English only (`en` and its regional variants, e.g. `en-US`,
-     * `en-GB`).
+     * `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic language detection;
+     * `omi-health/omi-med-stt-v1` is a medical model, English only.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1010,6 +1023,10 @@ private constructor(
 
             @JvmField val DEEPGRAM_NOVA_3_MEDICAL = of("deepgram/nova-3-medical")
 
+            @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
+
+            @JvmField val OMI_HEALTH_OMI_MED_STT_V1 = of("omi-health/omi-med-stt-v1")
+
             @JvmStatic fun of(value: String) = Model(JsonField.of(value))
         }
 
@@ -1021,6 +1038,8 @@ private constructor(
             DEEPGRAM_NOVA_2_MEDICAL,
             DEEPGRAM_NOVA_3,
             DEEPGRAM_NOVA_3_MEDICAL,
+            NVIDIA_PARAKEET_V3,
+            OMI_HEALTH_OMI_MED_STT_V1,
         }
 
         /**
@@ -1039,6 +1058,8 @@ private constructor(
             DEEPGRAM_NOVA_2_MEDICAL,
             DEEPGRAM_NOVA_3,
             DEEPGRAM_NOVA_3_MEDICAL,
+            NVIDIA_PARAKEET_V3,
+            OMI_HEALTH_OMI_MED_STT_V1,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1058,6 +1079,8 @@ private constructor(
                 DEEPGRAM_NOVA_2_MEDICAL -> Value.DEEPGRAM_NOVA_2_MEDICAL
                 DEEPGRAM_NOVA_3 -> Value.DEEPGRAM_NOVA_3
                 DEEPGRAM_NOVA_3_MEDICAL -> Value.DEEPGRAM_NOVA_3_MEDICAL
+                NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
+                OMI_HEALTH_OMI_MED_STT_V1 -> Value.OMI_HEALTH_OMI_MED_STT_V1
                 else -> Value._UNKNOWN
             }
 
@@ -1078,6 +1101,8 @@ private constructor(
                 DEEPGRAM_NOVA_2_MEDICAL -> Known.DEEPGRAM_NOVA_2_MEDICAL
                 DEEPGRAM_NOVA_3 -> Known.DEEPGRAM_NOVA_3
                 DEEPGRAM_NOVA_3_MEDICAL -> Known.DEEPGRAM_NOVA_3_MEDICAL
+                NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
+                OMI_HEALTH_OMI_MED_STT_V1 -> Known.OMI_HEALTH_OMI_MED_STT_V1
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
             }
 

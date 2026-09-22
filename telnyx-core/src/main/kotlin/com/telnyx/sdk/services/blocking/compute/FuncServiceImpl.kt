@@ -23,6 +23,8 @@ import com.telnyx.sdk.models.compute.funcs.FuncRetrieveRevisionsParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveRevisionsResponse
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveShipInspectionParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveShipInspectionResponse
+import com.telnyx.sdk.services.blocking.compute.funcs.ExportService
+import com.telnyx.sdk.services.blocking.compute.funcs.ExportServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -32,10 +34,14 @@ class FuncServiceImpl internal constructor(private val clientOptions: ClientOpti
         WithRawResponseImpl(clientOptions)
     }
 
+    private val export: ExportService by lazy { ExportServiceImpl(clientOptions) }
+
     override fun withRawResponse(): FuncService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncService =
         FuncServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun export(): ExportService = export
 
     override fun retrieveLogs(
         params: FuncRetrieveLogsParams,
@@ -71,12 +77,18 @@ class FuncServiceImpl internal constructor(private val clientOptions: ClientOpti
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val export: ExportService.WithRawResponse by lazy {
+            ExportServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): FuncService.WithRawResponse =
             FuncServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun export(): ExportService.WithRawResponse = export
 
         private val retrieveLogsHandler: Handler<FuncRetrieveLogsResponse> =
             jsonHandler<FuncRetrieveLogsResponse>(clientOptions.jsonMapper)

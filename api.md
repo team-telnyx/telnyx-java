@@ -530,6 +530,14 @@ Methods:
 
 - <code title="get /ai/knowledge/collections/{slug}/documents">client.ai().knowledge().collections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/knowledge/CollectionService.kt">retrieveDocuments</a>(params)</code>
 
+## Typesafe
+
+### V1
+
+Methods:
+
+- <code title="post /ai/typesafe/v1/systemone">client.ai().typesafe().v1().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/typesafe/V1Service.kt">systemone</a>(params)</code>
+
 # AuditEvents
 
 Methods:
@@ -3138,6 +3146,14 @@ Methods:
 - <code title="get /compute/funcs/{id}/metric_aggregates">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveMetricAggregates</a>(params)</code>
 - <code title="get /compute/funcs/{id}/revisions">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveRevisions</a>(params)</code>
 - <code title="get /compute/funcs/{id}/ship_inspection">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveShipInspection</a>(params)</code>
+
+### Export
+
+Methods:
+
+- <code title="put /compute/funcs/{id}/logs/export">client.compute().funcs().export().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/funcs/ExportService.kt">create</a>(params)</code>
+- <code title="get /compute/funcs/{id}/logs/export">client.compute().funcs().export().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/funcs/ExportService.kt">list</a>(params)</code>
+- <code title="delete /compute/funcs/{id}/logs/export">client.compute().funcs().export().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/funcs/ExportService.kt">deleteAll</a>(params)</code>
 
 # NoiseSuppressionEngines
 

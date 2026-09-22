@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.compute.funcs.FuncRetrieveRevisionsParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveRevisionsResponse
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveShipInspectionParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveShipInspectionResponse
+import com.telnyx.sdk.services.blocking.compute.funcs.ExportService
 import java.util.function.Consumer
 
 interface FuncService {
@@ -29,6 +30,8 @@ interface FuncService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncService
+
+    fun export(): ExportService
 
     /**
      * Returns logs oldest first. `type=runtime` (default) returns function stdout/stderr.
@@ -183,6 +186,8 @@ interface FuncService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncService.WithRawResponse
+
+        fun export(): ExportService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /compute/funcs/{id}/logs`, but is otherwise the same

@@ -25,6 +25,7 @@ internal class InboundMessageWebhookEventTest {
                         .payload(
                             MessagingInboundMessagePayload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                                .autoresponseType("STOP")
                                 .body(
                                     MessagingInboundMessagePayload.Body.builder()
                                         .id("id")
@@ -221,6 +222,7 @@ internal class InboundMessageWebhookEventTest {
                     .payload(
                         MessagingInboundMessagePayload.builder()
                             .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                            .autoresponseType("STOP")
                             .body(
                                 MessagingInboundMessagePayload.Body.builder()
                                     .id("id")
@@ -414,6 +416,7 @@ internal class InboundMessageWebhookEventTest {
                         .payload(
                             MessagingInboundMessagePayload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                                .autoresponseType("STOP")
                                 .body(
                                     MessagingInboundMessagePayload.Body.builder()
                                         .id("id")

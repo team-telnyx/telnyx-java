@@ -13,6 +13,7 @@ import com.telnyx.sdk.models.compute.funcs.FuncRetrieveRevisionsParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveRevisionsResponse
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveShipInspectionParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveShipInspectionResponse
+import com.telnyx.sdk.services.async.compute.funcs.ExportServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -29,6 +30,8 @@ interface FuncServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncServiceAsync
+
+    fun export(): ExportServiceAsync
 
     /**
      * Returns logs oldest first. `type=runtime` (default) returns function stdout/stderr.
@@ -191,6 +194,8 @@ interface FuncServiceAsync {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncServiceAsync.WithRawResponse
+
+        fun export(): ExportServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /compute/funcs/{id}/logs`, but is otherwise the same
