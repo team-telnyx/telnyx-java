@@ -16,6 +16,7 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.chat.BucketIds
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import com.telnyx.sdk.models.ai.tools.PayToolParams
 import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
 import java.util.Collections
@@ -286,6 +287,20 @@ private constructor(
                 }
         }
 
+        /** Alias for calling [addTool] with `AssistantTool.ofFunction(function)`. */
+        fun addTool(function: AssistantTool.Function) = addTool(AssistantTool.ofFunction(function))
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.Function.builder()
+         *     .function(function)
+         *     .build()
+         * ```
+         */
+        fun addFunctionTool(function: FunctionDefinition) =
+            addTool(AssistantTool.Function.builder().function(function).build())
+
         /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
         fun addTool(webhook: InferenceEmbeddingWebhookToolParams) =
             addTool(AssistantTool.ofWebhook(webhook))
@@ -357,19 +372,18 @@ private constructor(
             addTool(AssistantTool.HandoffTool.builder().handoff(handoff).build())
 
         /** Alias for calling [addTool] with `AssistantTool.ofHangup(hangup)`. */
-        fun addTool(hangup: HangupTool) = addTool(AssistantTool.ofHangup(hangup))
+        fun addTool(hangup: AssistantTool.Hangup) = addTool(AssistantTool.ofHangup(hangup))
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * HangupTool.builder()
-         *     .type(HangupTool.Type.HANGUP)
+         * AssistantTool.Hangup.builder()
          *     .hangup(hangup)
          *     .build()
          * ```
          */
         fun addHangupTool(hangup: HangupToolParams) =
-            addTool(HangupTool.builder().type(HangupTool.Type.HANGUP).hangup(hangup).build())
+            addTool(AssistantTool.Hangup.builder().hangup(hangup).build())
 
         /** Alias for calling [addTool] with `AssistantTool.ofTransfer(transfer)`. */
         fun addTool(transfer: AssistantTool.Transfer) = addTool(AssistantTool.ofTransfer(transfer))

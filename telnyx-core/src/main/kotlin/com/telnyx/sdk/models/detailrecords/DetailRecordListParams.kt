@@ -27,7 +27,11 @@ private constructor(
 
     /**
      * Filter records on a given record attribute and value. <br/>Example: filter[status]=delivered.
-     * <br/>Required: filter[record_type] must be specified.
+     * <br/>Required: filter[record_type] must be specified. <br/>The valid filter fields depend on
+     * the record_type: filtering by a field that does not exist for the selected record_type is
+     * rejected with a 400 error. Call-control and sip-trunking records use started_at, finished_at
+     * and answered_at (they have no created_at); messaging records use created_at. To list the
+     * fields available for a record_type, use the /v2/detail_records/options endpoint.
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
@@ -35,7 +39,14 @@ private constructor(
 
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
-    /** Specifies the sort order for results. <br/>Example: sort=-created_at */
+    /**
+     * Specifies the sort order for results. <br/>Example: sort=-created_at <br/>The valid sort
+     * fields depend on the record_type: sort by a field that does not exist for the selected
+     * record_type is rejected with a 400 error. Call-control and sip-trunking records use
+     * started_at, finished_at and answered_at (they have no created_at); messaging records use
+     * created_at. To list the fields available for a record_type, use the
+     * /v2/detail_records/options endpoint.
+     */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
     /** Additional headers to send with the request. */
@@ -77,7 +88,12 @@ private constructor(
 
         /**
          * Filter records on a given record attribute and value. <br/>Example:
-         * filter[status]=delivered. <br/>Required: filter[record_type] must be specified.
+         * filter[status]=delivered. <br/>Required: filter[record_type] must be specified. <br/>The
+         * valid filter fields depend on the record_type: filtering by a field that does not exist
+         * for the selected record_type is rejected with a 400 error. Call-control and sip-trunking
+         * records use started_at, finished_at and answered_at (they have no created_at); messaging
+         * records use created_at. To list the fields available for a record_type, use the
+         * /v2/detail_records/options endpoint.
          */
         fun filter(filter: Filter?) = apply { this.filter = filter }
 
@@ -108,7 +124,14 @@ private constructor(
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
-        /** Specifies the sort order for results. <br/>Example: sort=-created_at */
+        /**
+         * Specifies the sort order for results. <br/>Example: sort=-created_at <br/>The valid sort
+         * fields depend on the record_type: sort by a field that does not exist for the selected
+         * record_type is rejected with a 400 error. Call-control and sip-trunking records use
+         * started_at, finished_at and answered_at (they have no created_at); messaging records use
+         * created_at. To list the fields available for a record_type, use the
+         * /v2/detail_records/options endpoint.
+         */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
@@ -261,7 +284,11 @@ private constructor(
 
     /**
      * Filter records on a given record attribute and value. <br/>Example: filter[status]=delivered.
-     * <br/>Required: filter[record_type] must be specified.
+     * <br/>Required: filter[record_type] must be specified. <br/>The valid filter fields depend on
+     * the record_type: filtering by a field that does not exist for the selected record_type is
+     * rejected with a 400 error. Call-control and sip-trunking records use started_at, finished_at
+     * and answered_at (they have no created_at); messaging records use created_at. To list the
+     * fields available for a record_type, use the /v2/detail_records/options endpoint.
      */
     class Filter
     private constructor(

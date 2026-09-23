@@ -40,4 +40,15 @@ internal class ConnectionServiceTest {
 
         page.response().validate()
     }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveCount() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val connectionService = client.connections()
+
+        val response = connectionService.retrieveCount()
+
+        response.validate()
+    }
 }

@@ -19,7 +19,7 @@ internal class TranscriptionEngineAssemblyaiConfigTest {
                 )
                 .transcriptionModel(
                     TranscriptionEngineAssemblyaiConfig.TranscriptionModel
-                        .ASSEMBLYAI_UNIVERSAL_STREAMING
+                        .ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 )
                 .build()
 
@@ -28,8 +28,7 @@ internal class TranscriptionEngineAssemblyaiConfigTest {
             .contains(TranscriptionEngineAssemblyaiConfig.TranscriptionEngine.ASSEMBLY_AI)
         assertThat(transcriptionEngineAssemblyaiConfig.transcriptionModel())
             .contains(
-                TranscriptionEngineAssemblyaiConfig.TranscriptionModel
-                    .ASSEMBLYAI_UNIVERSAL_STREAMING
+                TranscriptionEngineAssemblyaiConfig.TranscriptionModel.ASSEMBLYAI_UNIVERSAL_3_5_PRO
             )
     }
 
@@ -44,7 +43,7 @@ internal class TranscriptionEngineAssemblyaiConfigTest {
                 )
                 .transcriptionModel(
                     TranscriptionEngineAssemblyaiConfig.TranscriptionModel
-                        .ASSEMBLYAI_UNIVERSAL_STREAMING
+                        .ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 )
                 .build()
 

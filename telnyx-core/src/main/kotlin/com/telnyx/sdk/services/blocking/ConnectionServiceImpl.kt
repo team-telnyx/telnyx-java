@@ -21,6 +21,8 @@ import com.telnyx.sdk.models.connections.ConnectionListActiveCallsParams
 import com.telnyx.sdk.models.connections.ConnectionListPage
 import com.telnyx.sdk.models.connections.ConnectionListPageResponse
 import com.telnyx.sdk.models.connections.ConnectionListParams
+import com.telnyx.sdk.models.connections.ConnectionRetrieveCountParams
+import com.telnyx.sdk.models.connections.ConnectionRetrieveCountResponse
 import com.telnyx.sdk.models.connections.ConnectionRetrieveParams
 import com.telnyx.sdk.models.connections.ConnectionRetrieveResponse
 import java.util.function.Consumer
@@ -58,6 +60,13 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
     ): ConnectionListActiveCallsPage =
         // get /connections/{connection_id}/active_calls
         withRawResponse().listActiveCalls(params, requestOptions).parse()
+
+    override fun retrieveCount(
+        params: ConnectionRetrieveCountParams,
+        requestOptions: RequestOptions,
+    ): ConnectionRetrieveCountResponse =
+        // get /connections/count
+        withRawResponse().retrieveCount(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ConnectionService.WithRawResponse {
@@ -169,6 +178,33 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
                             .params(params)
                             .response(it)
                             .build()
+                    }
+            }
+        }
+
+        private val retrieveCountHandler: Handler<ConnectionRetrieveCountResponse> =
+            jsonHandler<ConnectionRetrieveCountResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveCount(
+            params: ConnectionRetrieveCountParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ConnectionRetrieveCountResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("connections", "count")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveCountHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }

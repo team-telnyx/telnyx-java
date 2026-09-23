@@ -7,6 +7,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.chat.BucketIds
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import com.telnyx.sdk.models.ai.tools.PayToolParams
 import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
 import org.assertj.core.api.Assertions.assertThat
@@ -16,6 +17,73 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 
 internal class AssistantToolTest {
+
+    @Test
+    fun ofFunction() {
+        val function =
+            AssistantTool.Function.builder()
+                .function(
+                    FunctionDefinition.builder()
+                        .name("name")
+                        .description("description")
+                        .parameters(
+                            FunctionDefinition.Parameters.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
+                        .build()
+                )
+                .shared(true)
+                .build()
+
+        val assistantTool = AssistantTool.ofFunction(function)
+
+        assertThat(assistantTool.function()).contains(function)
+        assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
+        assertThat(assistantTool.retrieval()).isEmpty
+        assertThat(assistantTool.handoff()).isEmpty
+        assertThat(assistantTool.hangup()).isEmpty
+        assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
+        assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
+    }
+
+    @Test
+    fun ofFunctionRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val assistantTool =
+            AssistantTool.ofFunction(
+                AssistantTool.Function.builder()
+                    .function(
+                        FunctionDefinition.builder()
+                            .name("name")
+                            .description("description")
+                            .parameters(
+                                FunctionDefinition.Parameters.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .shared(true)
+                    .build()
+            )
+
+        val roundtrippedAssistantTool =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(assistantTool),
+                jacksonTypeRef<AssistantTool>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
+    }
 
     @Test
     fun ofWebhook() {
@@ -124,10 +192,12 @@ internal class AssistantToolTest {
                         .timeoutMs(500L)
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofWebhook(webhook)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).contains(webhook)
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -261,6 +331,7 @@ internal class AssistantToolTest {
                             .timeoutMs(500L)
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 
@@ -302,10 +373,12 @@ internal class AssistantToolTest {
                         )
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofClientSide(clientSide)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).contains(clientSide)
         assertThat(assistantTool.retrieval()).isEmpty
@@ -356,6 +429,7 @@ internal class AssistantToolTest {
                             )
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 
@@ -375,10 +449,12 @@ internal class AssistantToolTest {
             RetrievalTool.builder()
                 .retrieval(BucketIds.builder().addBucketId("string").maxNumResults(0L).build())
                 .type(RetrievalTool.Type.RETRIEVAL)
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofRetrieval(retrieval)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).contains(retrieval)
@@ -402,6 +478,7 @@ internal class AssistantToolTest {
                 RetrievalTool.builder()
                     .retrieval(BucketIds.builder().addBucketId("string").maxNumResults(0L).build())
                     .type(RetrievalTool.Type.RETRIEVAL)
+                    .shared(true)
                     .build()
             )
 
@@ -430,10 +507,12 @@ internal class AssistantToolTest {
                         .voiceMode(AssistantTool.HandoffTool.Handoff.VoiceMode.UNIFIED)
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofHandoff(handoff)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -466,6 +545,7 @@ internal class AssistantToolTest {
                             .voiceMode(AssistantTool.HandoffTool.Handoff.VoiceMode.UNIFIED)
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 
@@ -482,13 +562,14 @@ internal class AssistantToolTest {
     @Test
     fun ofHangup() {
         val hangup =
-            HangupTool.builder()
+            AssistantTool.Hangup.builder()
                 .hangup(HangupToolParams.builder().description("description").build())
-                .type(HangupTool.Type.HANGUP)
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofHangup(hangup)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -509,9 +590,9 @@ internal class AssistantToolTest {
         val jsonMapper = jsonMapper()
         val assistantTool =
             AssistantTool.ofHangup(
-                HangupTool.builder()
+                AssistantTool.Hangup.builder()
                     .hangup(HangupToolParams.builder().description("description").build())
-                    .type(HangupTool.Type.HANGUP)
+                    .shared(true)
                     .build()
             )
 
@@ -611,10 +692,12 @@ internal class AssistantToolTest {
                         )
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofTransfer(transfer)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -721,6 +804,7 @@ internal class AssistantToolTest {
                             )
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 
@@ -772,10 +856,12 @@ internal class AssistantToolTest {
                         )
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofInvite(invite)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -834,6 +920,7 @@ internal class AssistantToolTest {
                             )
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 
@@ -875,10 +962,12 @@ internal class AssistantToolTest {
                         )
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofRefer(refer)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -926,6 +1015,7 @@ internal class AssistantToolTest {
                             )
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 
@@ -948,10 +1038,12 @@ internal class AssistantToolTest {
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofSendDtmf(sendDtmf)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -978,6 +1070,7 @@ internal class AssistantToolTest {
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 
@@ -1000,10 +1093,12 @@ internal class AssistantToolTest {
                         .messageTemplate("message_template")
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofSendMessage(sendMessage)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -1030,6 +1125,7 @@ internal class AssistantToolTest {
                             .messageTemplate("message_template")
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 
@@ -1052,10 +1148,12 @@ internal class AssistantToolTest {
                         .description("description")
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofSkipTurn(skipTurn)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -1082,6 +1180,7 @@ internal class AssistantToolTest {
                             .description("description")
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 
@@ -1107,10 +1206,12 @@ internal class AssistantToolTest {
                         .paymentMethod("payment_method")
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofPay(pay)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -1140,6 +1241,7 @@ internal class AssistantToolTest {
                             .paymentMethod("payment_method")
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 
@@ -1170,10 +1272,12 @@ internal class AssistantToolTest {
                         )
                         .build()
                 )
+                .shared(true)
                 .build()
 
         val assistantTool = AssistantTool.ofUpdateDynamicVariables(updateDynamicVariables)
 
+        assertThat(assistantTool.function()).isEmpty
         assertThat(assistantTool.webhook()).isEmpty
         assertThat(assistantTool.clientSide()).isEmpty
         assertThat(assistantTool.retrieval()).isEmpty
@@ -1208,6 +1312,7 @@ internal class AssistantToolTest {
                             )
                             .build()
                     )
+                    .shared(true)
                     .build()
             )
 

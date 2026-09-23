@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.93.0](https://github.com/team-telnyx/telnyx-java/compare/v6.92.0...v6.93.0) (2026-09-23)
+
+
+### Features
+
+* promote from staging 75ba70a ([447c2d0](https://github.com/team-telnyx/telnyx-java/commit/447c2d0206b4cc838d72a0393ae6c802dbaf72ee))
+
+
+### Bug Fixes
+
+* **ci:** preserve next README prose in release policy ([#241](https://github.com/team-telnyx/telnyx-java/issues/241)) ([7a42368](https://github.com/team-telnyx/telnyx-java/commit/7a42368b9ea4380da7a2ddc41d99d9a5dcd207ab))
+
 ## [6.92.0](https://github.com/team-telnyx/telnyx-java/compare/v6.91.0...v6.92.0) (2026-09-07)
 
 

@@ -129,10 +129,11 @@ private constructor(
     fun customHeaders(): Optional<List<CustomSipHeader>> = body.customHeaders()
 
     /**
-     * The number the inbound call being transferred was originally received on, in +E164 format.
-     * Supplying it lets an unverified non-Telnyx `from` be used as the caller id, provided that
-     * number is still on an active inbound call to this `diversion` number for your account. The
-     * `diversion` number itself must be one you own or have verified.
+     * The `to` number of an active inbound call, in +E164 format. Telnyx checks whether there is
+     * currently an active inbound call where `to` matches this `diversion` value and `from` matches
+     * the `from` number supplied for this request. If such a call exists, the `from` number is
+     * treated as verified (since it is already on an active inbound call to you) and can be used as
+     * the caller id for this outbound call.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -949,10 +950,11 @@ private constructor(
         }
 
         /**
-         * The number the inbound call being transferred was originally received on, in +E164
-         * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
-         * provided that number is still on an active inbound call to this `diversion` number for
-         * your account. The `diversion` number itself must be one you own or have verified.
+         * The `to` number of an active inbound call, in +E164 format. Telnyx checks whether there
+         * is currently an active inbound call where `to` matches this `diversion` value and `from`
+         * matches the `from` number supplied for this request. If such a call exists, the `from`
+         * number is treated as verified (since it is already on an active inbound call to you) and
+         * can be used as the caller id for this outbound call.
          */
         fun diversion(diversion: String) = apply { body.diversion(diversion) }
 
@@ -1978,10 +1980,11 @@ private constructor(
             customHeaders.getOptional("custom_headers")
 
         /**
-         * The number the inbound call being transferred was originally received on, in +E164
-         * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
-         * provided that number is still on an active inbound call to this `diversion` number for
-         * your account. The `diversion` number itself must be one you own or have verified.
+         * The `to` number of an active inbound call, in +E164 format. Telnyx checks whether there
+         * is currently an active inbound call where `to` matches this `diversion` value and `from`
+         * matches the `from` number supplied for this request. If such a call exists, the `from`
+         * number is treated as verified (since it is already on an active inbound call to you) and
+         * can be used as the caller id for this outbound call.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2949,10 +2952,11 @@ private constructor(
             }
 
             /**
-             * The number the inbound call being transferred was originally received on, in +E164
-             * format. Supplying it lets an unverified non-Telnyx `from` be used as the caller id,
-             * provided that number is still on an active inbound call to this `diversion` number
-             * for your account. The `diversion` number itself must be one you own or have verified.
+             * The `to` number of an active inbound call, in +E164 format. Telnyx checks whether
+             * there is currently an active inbound call where `to` matches this `diversion` value
+             * and `from` matches the `from` number supplied for this request. If such a call
+             * exists, the `from` number is treated as verified (since it is already on an active
+             * inbound call to you) and can be used as the caller id for this outbound call.
              */
             fun diversion(diversion: String) = diversion(JsonField.of(diversion))
 
@@ -4027,6 +4031,13 @@ private constructor(
     private constructor(
         private val afterGreetingSilenceMillis: JsonField<Int>,
         private val beepDetectionProfile: JsonField<BeepDetectionProfile>,
+        private val beepMaxFrequencyHz: JsonField<Int>,
+        private val beepMinFrequencyHz: JsonField<Int>,
+        private val beepMinToneDurationMillis: JsonField<Int>,
+        private val beepSpectralConfirmation: JsonField<Boolean>,
+        private val beepSpectralMinPurity: JsonField<Double>,
+        private val beepSpectralRejectFaxCng: JsonField<Boolean>,
+        private val beepSpectralWindowMillis: JsonField<Int>,
         private val betweenWordsSilenceMillis: JsonField<Int>,
         private val greetingDurationMillis: JsonField<Int>,
         private val greetingSilenceDurationMillis: JsonField<Int>,
@@ -4047,6 +4058,27 @@ private constructor(
             @JsonProperty("beep_detection_profile")
             @ExcludeMissing
             beepDetectionProfile: JsonField<BeepDetectionProfile> = JsonMissing.of(),
+            @JsonProperty("beep_max_frequency_hz")
+            @ExcludeMissing
+            beepMaxFrequencyHz: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("beep_min_frequency_hz")
+            @ExcludeMissing
+            beepMinFrequencyHz: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("beep_min_tone_duration_millis")
+            @ExcludeMissing
+            beepMinToneDurationMillis: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("beep_spectral_confirmation")
+            @ExcludeMissing
+            beepSpectralConfirmation: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("beep_spectral_min_purity")
+            @ExcludeMissing
+            beepSpectralMinPurity: JsonField<Double> = JsonMissing.of(),
+            @JsonProperty("beep_spectral_reject_fax_cng")
+            @ExcludeMissing
+            beepSpectralRejectFaxCng: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("beep_spectral_window_millis")
+            @ExcludeMissing
+            beepSpectralWindowMillis: JsonField<Int> = JsonMissing.of(),
             @JsonProperty("between_words_silence_millis")
             @ExcludeMissing
             betweenWordsSilenceMillis: JsonField<Int> = JsonMissing.of(),
@@ -4077,6 +4109,13 @@ private constructor(
         ) : this(
             afterGreetingSilenceMillis,
             beepDetectionProfile,
+            beepMaxFrequencyHz,
+            beepMinFrequencyHz,
+            beepMinToneDurationMillis,
+            beepSpectralConfirmation,
+            beepSpectralMinPurity,
+            beepSpectralRejectFaxCng,
+            beepSpectralWindowMillis,
             betweenWordsSilenceMillis,
             greetingDurationMillis,
             greetingSilenceDurationMillis,
@@ -4108,6 +4147,78 @@ private constructor(
          */
         fun beepDetectionProfile(): Optional<BeepDetectionProfile> =
             beepDetectionProfile.getOptional("beep_detection_profile")
+
+        /**
+         * Highest frequency, in Hz, that a tone can reach and still be treated as a beep. Only used
+         * when beep detection is active.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun beepMaxFrequencyHz(): Optional<Int> =
+            beepMaxFrequencyHz.getOptional("beep_max_frequency_hz")
+
+        /**
+         * Lowest frequency, in Hz, that a tone must reach to be treated as a beep. Raising it above
+         * 480 excludes North American ringback (440 + 480 Hz), which can otherwise be reported as a
+         * beep when the `freq_only` profile is in use. Only used when beep detection is active.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun beepMinFrequencyHz(): Optional<Int> =
+            beepMinFrequencyHz.getOptional("beep_min_frequency_hz")
+
+        /**
+         * Shortest tone, in milliseconds, that can be treated as a beep. Raising it rejects brief
+         * tones such as call-progress blips. Only used when beep detection is active.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun beepMinToneDurationMillis(): Optional<Int> =
+            beepMinToneDurationMillis.getOptional("beep_min_tone_duration_millis")
+
+        /**
+         * When enabled, a candidate beep must pass an additional spectral check before it is
+         * reported. Only used when beep detection is active.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun beepSpectralConfirmation(): Optional<Boolean> =
+            beepSpectralConfirmation.getOptional("beep_spectral_confirmation")
+
+        /**
+         * Minimum spectral purity, from 0 to 1, for a tone to be treated as a beep. Raising it
+         * rejects mixed tones such as ringback, which combines two frequencies. Only used when beep
+         * detection is active.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun beepSpectralMinPurity(): Optional<Double> =
+            beepSpectralMinPurity.getOptional("beep_spectral_min_purity")
+
+        /**
+         * When enabled, the fax CNG tone is rejected rather than reported as a beep. Only used when
+         * beep detection is active.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun beepSpectralRejectFaxCng(): Optional<Boolean> =
+            beepSpectralRejectFaxCng.getOptional("beep_spectral_reject_fax_cng")
+
+        /**
+         * Length of the spectral confirmation window, in milliseconds. Only used when beep
+         * detection is active.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun beepSpectralWindowMillis(): Optional<Int> =
+            beepSpectralWindowMillis.getOptional("beep_spectral_window_millis")
 
         /**
          * Maximum threshold for silence between words.
@@ -4211,6 +4322,76 @@ private constructor(
         @JsonProperty("beep_detection_profile")
         @ExcludeMissing
         fun _beepDetectionProfile(): JsonField<BeepDetectionProfile> = beepDetectionProfile
+
+        /**
+         * Returns the raw JSON value of [beepMaxFrequencyHz].
+         *
+         * Unlike [beepMaxFrequencyHz], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("beep_max_frequency_hz")
+        @ExcludeMissing
+        fun _beepMaxFrequencyHz(): JsonField<Int> = beepMaxFrequencyHz
+
+        /**
+         * Returns the raw JSON value of [beepMinFrequencyHz].
+         *
+         * Unlike [beepMinFrequencyHz], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("beep_min_frequency_hz")
+        @ExcludeMissing
+        fun _beepMinFrequencyHz(): JsonField<Int> = beepMinFrequencyHz
+
+        /**
+         * Returns the raw JSON value of [beepMinToneDurationMillis].
+         *
+         * Unlike [beepMinToneDurationMillis], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("beep_min_tone_duration_millis")
+        @ExcludeMissing
+        fun _beepMinToneDurationMillis(): JsonField<Int> = beepMinToneDurationMillis
+
+        /**
+         * Returns the raw JSON value of [beepSpectralConfirmation].
+         *
+         * Unlike [beepSpectralConfirmation], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("beep_spectral_confirmation")
+        @ExcludeMissing
+        fun _beepSpectralConfirmation(): JsonField<Boolean> = beepSpectralConfirmation
+
+        /**
+         * Returns the raw JSON value of [beepSpectralMinPurity].
+         *
+         * Unlike [beepSpectralMinPurity], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("beep_spectral_min_purity")
+        @ExcludeMissing
+        fun _beepSpectralMinPurity(): JsonField<Double> = beepSpectralMinPurity
+
+        /**
+         * Returns the raw JSON value of [beepSpectralRejectFaxCng].
+         *
+         * Unlike [beepSpectralRejectFaxCng], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("beep_spectral_reject_fax_cng")
+        @ExcludeMissing
+        fun _beepSpectralRejectFaxCng(): JsonField<Boolean> = beepSpectralRejectFaxCng
+
+        /**
+         * Returns the raw JSON value of [beepSpectralWindowMillis].
+         *
+         * Unlike [beepSpectralWindowMillis], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("beep_spectral_window_millis")
+        @ExcludeMissing
+        fun _beepSpectralWindowMillis(): JsonField<Int> = beepSpectralWindowMillis
 
         /**
          * Returns the raw JSON value of [betweenWordsSilenceMillis].
@@ -4328,6 +4509,13 @@ private constructor(
 
             private var afterGreetingSilenceMillis: JsonField<Int> = JsonMissing.of()
             private var beepDetectionProfile: JsonField<BeepDetectionProfile> = JsonMissing.of()
+            private var beepMaxFrequencyHz: JsonField<Int> = JsonMissing.of()
+            private var beepMinFrequencyHz: JsonField<Int> = JsonMissing.of()
+            private var beepMinToneDurationMillis: JsonField<Int> = JsonMissing.of()
+            private var beepSpectralConfirmation: JsonField<Boolean> = JsonMissing.of()
+            private var beepSpectralMinPurity: JsonField<Double> = JsonMissing.of()
+            private var beepSpectralRejectFaxCng: JsonField<Boolean> = JsonMissing.of()
+            private var beepSpectralWindowMillis: JsonField<Int> = JsonMissing.of()
             private var betweenWordsSilenceMillis: JsonField<Int> = JsonMissing.of()
             private var greetingDurationMillis: JsonField<Int> = JsonMissing.of()
             private var greetingSilenceDurationMillis: JsonField<Int> = JsonMissing.of()
@@ -4345,6 +4533,17 @@ private constructor(
                     afterGreetingSilenceMillis =
                         answeringMachineDetectionConfig.afterGreetingSilenceMillis
                     beepDetectionProfile = answeringMachineDetectionConfig.beepDetectionProfile
+                    beepMaxFrequencyHz = answeringMachineDetectionConfig.beepMaxFrequencyHz
+                    beepMinFrequencyHz = answeringMachineDetectionConfig.beepMinFrequencyHz
+                    beepMinToneDurationMillis =
+                        answeringMachineDetectionConfig.beepMinToneDurationMillis
+                    beepSpectralConfirmation =
+                        answeringMachineDetectionConfig.beepSpectralConfirmation
+                    beepSpectralMinPurity = answeringMachineDetectionConfig.beepSpectralMinPurity
+                    beepSpectralRejectFaxCng =
+                        answeringMachineDetectionConfig.beepSpectralRejectFaxCng
+                    beepSpectralWindowMillis =
+                        answeringMachineDetectionConfig.beepSpectralWindowMillis
                     betweenWordsSilenceMillis =
                         answeringMachineDetectionConfig.betweenWordsSilenceMillis
                     greetingDurationMillis = answeringMachineDetectionConfig.greetingDurationMillis
@@ -4400,6 +4599,135 @@ private constructor(
                 apply {
                     this.beepDetectionProfile = beepDetectionProfile
                 }
+
+            /**
+             * Highest frequency, in Hz, that a tone can reach and still be treated as a beep. Only
+             * used when beep detection is active.
+             */
+            fun beepMaxFrequencyHz(beepMaxFrequencyHz: Int) =
+                beepMaxFrequencyHz(JsonField.of(beepMaxFrequencyHz))
+
+            /**
+             * Sets [Builder.beepMaxFrequencyHz] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beepMaxFrequencyHz] with a well-typed [Int] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun beepMaxFrequencyHz(beepMaxFrequencyHz: JsonField<Int>) = apply {
+                this.beepMaxFrequencyHz = beepMaxFrequencyHz
+            }
+
+            /**
+             * Lowest frequency, in Hz, that a tone must reach to be treated as a beep. Raising it
+             * above 480 excludes North American ringback (440 + 480 Hz), which can otherwise be
+             * reported as a beep when the `freq_only` profile is in use. Only used when beep
+             * detection is active.
+             */
+            fun beepMinFrequencyHz(beepMinFrequencyHz: Int) =
+                beepMinFrequencyHz(JsonField.of(beepMinFrequencyHz))
+
+            /**
+             * Sets [Builder.beepMinFrequencyHz] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beepMinFrequencyHz] with a well-typed [Int] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun beepMinFrequencyHz(beepMinFrequencyHz: JsonField<Int>) = apply {
+                this.beepMinFrequencyHz = beepMinFrequencyHz
+            }
+
+            /**
+             * Shortest tone, in milliseconds, that can be treated as a beep. Raising it rejects
+             * brief tones such as call-progress blips. Only used when beep detection is active.
+             */
+            fun beepMinToneDurationMillis(beepMinToneDurationMillis: Int) =
+                beepMinToneDurationMillis(JsonField.of(beepMinToneDurationMillis))
+
+            /**
+             * Sets [Builder.beepMinToneDurationMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beepMinToneDurationMillis] with a well-typed [Int]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun beepMinToneDurationMillis(beepMinToneDurationMillis: JsonField<Int>) = apply {
+                this.beepMinToneDurationMillis = beepMinToneDurationMillis
+            }
+
+            /**
+             * When enabled, a candidate beep must pass an additional spectral check before it is
+             * reported. Only used when beep detection is active.
+             */
+            fun beepSpectralConfirmation(beepSpectralConfirmation: Boolean) =
+                beepSpectralConfirmation(JsonField.of(beepSpectralConfirmation))
+
+            /**
+             * Sets [Builder.beepSpectralConfirmation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beepSpectralConfirmation] with a well-typed
+             * [Boolean] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun beepSpectralConfirmation(beepSpectralConfirmation: JsonField<Boolean>) = apply {
+                this.beepSpectralConfirmation = beepSpectralConfirmation
+            }
+
+            /**
+             * Minimum spectral purity, from 0 to 1, for a tone to be treated as a beep. Raising it
+             * rejects mixed tones such as ringback, which combines two frequencies. Only used when
+             * beep detection is active.
+             */
+            fun beepSpectralMinPurity(beepSpectralMinPurity: Double) =
+                beepSpectralMinPurity(JsonField.of(beepSpectralMinPurity))
+
+            /**
+             * Sets [Builder.beepSpectralMinPurity] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beepSpectralMinPurity] with a well-typed [Double]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun beepSpectralMinPurity(beepSpectralMinPurity: JsonField<Double>) = apply {
+                this.beepSpectralMinPurity = beepSpectralMinPurity
+            }
+
+            /**
+             * When enabled, the fax CNG tone is rejected rather than reported as a beep. Only used
+             * when beep detection is active.
+             */
+            fun beepSpectralRejectFaxCng(beepSpectralRejectFaxCng: Boolean) =
+                beepSpectralRejectFaxCng(JsonField.of(beepSpectralRejectFaxCng))
+
+            /**
+             * Sets [Builder.beepSpectralRejectFaxCng] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beepSpectralRejectFaxCng] with a well-typed
+             * [Boolean] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun beepSpectralRejectFaxCng(beepSpectralRejectFaxCng: JsonField<Boolean>) = apply {
+                this.beepSpectralRejectFaxCng = beepSpectralRejectFaxCng
+            }
+
+            /**
+             * Length of the spectral confirmation window, in milliseconds. Only used when beep
+             * detection is active.
+             */
+            fun beepSpectralWindowMillis(beepSpectralWindowMillis: Int) =
+                beepSpectralWindowMillis(JsonField.of(beepSpectralWindowMillis))
+
+            /**
+             * Sets [Builder.beepSpectralWindowMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beepSpectralWindowMillis] with a well-typed [Int]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun beepSpectralWindowMillis(beepSpectralWindowMillis: JsonField<Int>) = apply {
+                this.beepSpectralWindowMillis = beepSpectralWindowMillis
+            }
 
             /** Maximum threshold for silence between words. */
             fun betweenWordsSilenceMillis(betweenWordsSilenceMillis: Int) =
@@ -4575,6 +4903,13 @@ private constructor(
                 AnsweringMachineDetectionConfig(
                     afterGreetingSilenceMillis,
                     beepDetectionProfile,
+                    beepMaxFrequencyHz,
+                    beepMinFrequencyHz,
+                    beepMinToneDurationMillis,
+                    beepSpectralConfirmation,
+                    beepSpectralMinPurity,
+                    beepSpectralRejectFaxCng,
+                    beepSpectralWindowMillis,
                     betweenWordsSilenceMillis,
                     greetingDurationMillis,
                     greetingSilenceDurationMillis,
@@ -4606,6 +4941,13 @@ private constructor(
 
             afterGreetingSilenceMillis()
             beepDetectionProfile().ifPresent { it.validate() }
+            beepMaxFrequencyHz()
+            beepMinFrequencyHz()
+            beepMinToneDurationMillis()
+            beepSpectralConfirmation()
+            beepSpectralMinPurity()
+            beepSpectralRejectFaxCng()
+            beepSpectralWindowMillis()
             betweenWordsSilenceMillis()
             greetingDurationMillis()
             greetingSilenceDurationMillis()
@@ -4636,6 +4978,13 @@ private constructor(
         internal fun validity(): Int =
             (if (afterGreetingSilenceMillis.asKnown().isPresent) 1 else 0) +
                 (beepDetectionProfile.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (beepMaxFrequencyHz.asKnown().isPresent) 1 else 0) +
+                (if (beepMinFrequencyHz.asKnown().isPresent) 1 else 0) +
+                (if (beepMinToneDurationMillis.asKnown().isPresent) 1 else 0) +
+                (if (beepSpectralConfirmation.asKnown().isPresent) 1 else 0) +
+                (if (beepSpectralMinPurity.asKnown().isPresent) 1 else 0) +
+                (if (beepSpectralRejectFaxCng.asKnown().isPresent) 1 else 0) +
+                (if (beepSpectralWindowMillis.asKnown().isPresent) 1 else 0) +
                 (if (betweenWordsSilenceMillis.asKnown().isPresent) 1 else 0) +
                 (if (greetingDurationMillis.asKnown().isPresent) 1 else 0) +
                 (if (greetingSilenceDurationMillis.asKnown().isPresent) 1 else 0) +
@@ -4803,6 +5152,13 @@ private constructor(
             return other is AnsweringMachineDetectionConfig &&
                 afterGreetingSilenceMillis == other.afterGreetingSilenceMillis &&
                 beepDetectionProfile == other.beepDetectionProfile &&
+                beepMaxFrequencyHz == other.beepMaxFrequencyHz &&
+                beepMinFrequencyHz == other.beepMinFrequencyHz &&
+                beepMinToneDurationMillis == other.beepMinToneDurationMillis &&
+                beepSpectralConfirmation == other.beepSpectralConfirmation &&
+                beepSpectralMinPurity == other.beepSpectralMinPurity &&
+                beepSpectralRejectFaxCng == other.beepSpectralRejectFaxCng &&
+                beepSpectralWindowMillis == other.beepSpectralWindowMillis &&
                 betweenWordsSilenceMillis == other.betweenWordsSilenceMillis &&
                 greetingDurationMillis == other.greetingDurationMillis &&
                 greetingSilenceDurationMillis == other.greetingSilenceDurationMillis &&
@@ -4819,6 +5175,13 @@ private constructor(
             Objects.hash(
                 afterGreetingSilenceMillis,
                 beepDetectionProfile,
+                beepMaxFrequencyHz,
+                beepMinFrequencyHz,
+                beepMinToneDurationMillis,
+                beepSpectralConfirmation,
+                beepSpectralMinPurity,
+                beepSpectralRejectFaxCng,
+                beepSpectralWindowMillis,
                 betweenWordsSilenceMillis,
                 greetingDurationMillis,
                 greetingSilenceDurationMillis,
@@ -4835,7 +5198,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AnsweringMachineDetectionConfig{afterGreetingSilenceMillis=$afterGreetingSilenceMillis, beepDetectionProfile=$beepDetectionProfile, betweenWordsSilenceMillis=$betweenWordsSilenceMillis, greetingDurationMillis=$greetingDurationMillis, greetingSilenceDurationMillis=$greetingSilenceDurationMillis, greetingTotalAnalysisTimeMillis=$greetingTotalAnalysisTimeMillis, initialSilenceMillis=$initialSilenceMillis, maximumNumberOfWords=$maximumNumberOfWords, maximumWordLengthMillis=$maximumWordLengthMillis, silenceThreshold=$silenceThreshold, totalAnalysisTimeMillis=$totalAnalysisTimeMillis, additionalProperties=$additionalProperties}"
+            "AnsweringMachineDetectionConfig{afterGreetingSilenceMillis=$afterGreetingSilenceMillis, beepDetectionProfile=$beepDetectionProfile, beepMaxFrequencyHz=$beepMaxFrequencyHz, beepMinFrequencyHz=$beepMinFrequencyHz, beepMinToneDurationMillis=$beepMinToneDurationMillis, beepSpectralConfirmation=$beepSpectralConfirmation, beepSpectralMinPurity=$beepSpectralMinPurity, beepSpectralRejectFaxCng=$beepSpectralRejectFaxCng, beepSpectralWindowMillis=$beepSpectralWindowMillis, betweenWordsSilenceMillis=$betweenWordsSilenceMillis, greetingDurationMillis=$greetingDurationMillis, greetingSilenceDurationMillis=$greetingSilenceDurationMillis, greetingTotalAnalysisTimeMillis=$greetingTotalAnalysisTimeMillis, initialSilenceMillis=$initialSilenceMillis, maximumNumberOfWords=$maximumNumberOfWords, maximumWordLengthMillis=$maximumWordLengthMillis, silenceThreshold=$silenceThreshold, totalAnalysisTimeMillis=$totalAnalysisTimeMillis, additionalProperties=$additionalProperties}"
     }
 
     /**

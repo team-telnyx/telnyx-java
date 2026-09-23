@@ -17,6 +17,7 @@ internal class MessagingOutboundMessagePayloadTest {
         val messagingOutboundMessagePayload =
             MessagingOutboundMessagePayload.builder()
                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                .body(MessagingOutboundMessagePayload.Body.builder().text("text").build())
                 .addCc(
                     MessagingOutboundMessagePayload.Cc.builder()
                         .carrier("carrier")
@@ -70,6 +71,8 @@ internal class MessagingOutboundMessagePayloadTest {
                 )
                 .from(
                     MessagingOutboundMessagePayload.From.builder()
+                        .agentId("agent_id")
+                        .agentName("agent_name")
                         .carrier("TELNYX LLC")
                         .lineType(MessagingOutboundMessagePayload.From.LineType.VO_IP)
                         .phoneNumber("+18445550001")
@@ -116,6 +119,8 @@ internal class MessagingOutboundMessagePayloadTest {
 
         assertThat(messagingOutboundMessagePayload.id())
             .contains("40385f64-5717-4562-b3fc-2c963f66afa6")
+        assertThat(messagingOutboundMessagePayload.body())
+            .contains(MessagingOutboundMessagePayload.Body.builder().text("text").build())
         assertThat(messagingOutboundMessagePayload.cc().getOrNull())
             .containsExactly(
                 MessagingOutboundMessagePayload.Cc.builder()
@@ -175,6 +180,8 @@ internal class MessagingOutboundMessagePayloadTest {
         assertThat(messagingOutboundMessagePayload.from())
             .contains(
                 MessagingOutboundMessagePayload.From.builder()
+                    .agentId("agent_id")
+                    .agentName("agent_name")
                     .carrier("TELNYX LLC")
                     .lineType(MessagingOutboundMessagePayload.From.LineType.VO_IP)
                     .phoneNumber("+18445550001")
@@ -234,6 +241,7 @@ internal class MessagingOutboundMessagePayloadTest {
         val messagingOutboundMessagePayload =
             MessagingOutboundMessagePayload.builder()
                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                .body(MessagingOutboundMessagePayload.Body.builder().text("text").build())
                 .addCc(
                     MessagingOutboundMessagePayload.Cc.builder()
                         .carrier("carrier")
@@ -287,6 +295,8 @@ internal class MessagingOutboundMessagePayloadTest {
                 )
                 .from(
                     MessagingOutboundMessagePayload.From.builder()
+                        .agentId("agent_id")
+                        .agentName("agent_name")
                         .carrier("TELNYX LLC")
                         .lineType(MessagingOutboundMessagePayload.From.LineType.VO_IP)
                         .phoneNumber("+18445550001")

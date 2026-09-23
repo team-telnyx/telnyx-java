@@ -530,6 +530,14 @@ Methods:
 
 - <code title="get /ai/knowledge/collections/{slug}/documents">client.ai().knowledge().collections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/knowledge/CollectionService.kt">retrieveDocuments</a>(params)</code>
 
+## Typesafe
+
+### V1
+
+Methods:
+
+- <code title="post /ai/typesafe/v1/systemone">client.ai().typesafe().v1().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/typesafe/V1Service.kt">systemone</a>(params)</code>
+
 # AuditEvents
 
 Methods:
@@ -738,6 +746,7 @@ Methods:
 - <code title="get /connections/{id}">client.connections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ConnectionService.kt">retrieve</a>(params)</code>
 - <code title="get /connections">client.connections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ConnectionService.kt">list</a>(params)</code>
 - <code title="get /connections/{connection_id}/active_calls">client.connections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ConnectionService.kt">listActiveCalls</a>(params)</code>
+- <code title="get /connections/count">client.connections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ConnectionService.kt">retrieveCount</a>()</code>
 
 # CountryCoverage
 
@@ -2108,6 +2117,12 @@ Methods:
 - <code title="post /texml/ai_calls/{connection_id}">client.texml().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TexmlService.kt">initiateAiCall</a>(params)</code>
 - <code title="post /texml/secrets">client.texml().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TexmlService.kt">secrets</a>(params)</code>
 
+## Calls
+
+Methods:
+
+- <code title="post /texml/calls/{connection_id}">client.texml().calls().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/texml/CallService.kt">create</a>(params)</code>
+
 ## Accounts
 
 Methods:
@@ -2590,6 +2605,7 @@ Methods:
 - <code title="get /whatsapp/phone_numbers">client.whatsapp().phoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/PhoneNumberService.kt">get</a>(params)</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/resend_verification">client.whatsapp().phoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/PhoneNumberService.kt">resendVerification</a>(params)</code>
 - <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversation_window">client.whatsapp().phoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/PhoneNumberService.kt">retrieveConversationWindow</a>(params)</code>
+- <code title="get /whatsapp/phone_numbers/{phone_number}">client.whatsapp().phoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/PhoneNumberService.kt">retrievePhoneNumber</a>(params)</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/verify">client.whatsapp().phoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/PhoneNumberService.kt">verify</a>(params)</code>
 
 ### CallingSettings
@@ -2642,8 +2658,15 @@ Methods:
 
 Methods:
 
-- <code title="post /v2/x402/credit_account/quote">client.x402().creditAccount().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/CreditAccountService.kt">createQuote</a>(params)</code>
-- <code title="post /v2/x402/credit_account">client.x402().creditAccount().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/CreditAccountService.kt">settle</a>(params)</code>
+- <code title="post /x402/credit_account/quote">client.x402().creditAccount().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/CreditAccountService.kt">createQuote</a>(params)</code>
+- <code title="post /x402/credit_account">client.x402().creditAccount().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/CreditAccountService.kt">settle</a>(params)</code>
+
+### Payments
+
+Methods:
+
+- <code title="get /x402/credit_account/payments/{id}">client.x402().creditAccount().payments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/creditaccount/PaymentService.kt">retrieve</a>(params)</code>
+- <code title="get /x402/credit_account/payments">client.x402().creditAccount().payments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/x402/creditaccount/PaymentService.kt">list</a>(params)</code>
 
 # VoiceClones
 
@@ -3112,3 +3135,53 @@ Methods:
 
 - <code title="get /external_requirements/{regulatory_requirement_id}/sub_number_orders/{sub_number_order_id}">client.externalRequirements().subNumberOrders().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/externalrequirements/SubNumberOrderService.kt">retrieve</a>(params)</code>
 - <code title="post /external_requirements/{regulatory_requirement_id}/sub_number_orders/{sub_number_order_id}">client.externalRequirements().subNumberOrders().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/externalrequirements/SubNumberOrderService.kt">update</a>(params)</code>
+
+# Compute
+
+## Funcs
+
+Methods:
+
+- <code title="get /compute/funcs/{id}/logs">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveLogs</a>(params)</code>
+- <code title="get /compute/funcs/{id}/metric_aggregates">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveMetricAggregates</a>(params)</code>
+- <code title="get /compute/funcs/{id}/revisions">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveRevisions</a>(params)</code>
+- <code title="get /compute/funcs/{id}/ship_inspection">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveShipInspection</a>(params)</code>
+
+### Export
+
+Methods:
+
+- <code title="put /compute/funcs/{id}/logs/export">client.compute().funcs().export().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/funcs/ExportService.kt">create</a>(params)</code>
+- <code title="get /compute/funcs/{id}/logs/export">client.compute().funcs().export().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/funcs/ExportService.kt">list</a>(params)</code>
+- <code title="delete /compute/funcs/{id}/logs/export">client.compute().funcs().export().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/funcs/ExportService.kt">deleteAll</a>(params)</code>
+
+# NoiseSuppressionEngines
+
+Methods:
+
+- <code title="get /noise_suppression_engines">client.noiseSuppressionEngines().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/NoiseSuppressionEngineService.kt">list</a>()</code>
+
+# BotChallenge
+
+Methods:
+
+- <code title="post /v2/bot_challenge">client.botChallenge().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotChallengeService.kt">create</a>(params)</code>
+
+# BotSessions
+
+Methods:
+
+- <code title="get /v2/bot_sessions">client.botSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSessionService.kt">list</a>(params)</code>
+
+# BotSignup
+
+Methods:
+
+- <code title="post /v2/bot_signup">client.botSignup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSignupService.kt">create</a>(params)</code>
+- <code title="post /v2/bot_signup/resend_magic_link">client.botSignup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSignupService.kt">resendMagicLink</a>(params)</code>
+
+# MachinePayments
+
+Methods:
+
+- <code title="post /machine-payments/account-credit">client.machinePayments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MachinePaymentService.kt">accountCredit</a>(params)</code>

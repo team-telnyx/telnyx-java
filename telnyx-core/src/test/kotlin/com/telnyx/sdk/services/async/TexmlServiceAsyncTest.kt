@@ -51,9 +51,16 @@ internal class TexmlServiceAsyncTest {
                     )
                     .detectionMode(TexmlInitiateAiCallParams.DetectionMode.PREMIUM)
                     .machineDetection(TexmlInitiateAiCallParams.MachineDetection.ENABLE)
+                    .machineDetectionBeepMaxFrequency(2000)
+                    .machineDetectionBeepMinFrequency(550)
+                    .machineDetectionBeepMinToneDuration(300)
                     .machineDetectionBeepProfile(
                         TexmlInitiateAiCallParams.MachineDetectionBeepProfile.FREQ_ONLY
                     )
+                    .machineDetectionBeepSpectralConfirmation(true)
+                    .machineDetectionBeepSpectralMinPurity(0.8)
+                    .machineDetectionBeepSpectralRejectFaxCng(true)
+                    .machineDetectionBeepSpectralWindow(100)
                     .machineDetectionPromptEndTimeout(5000L)
                     .machineDetectionSilenceTimeout(2000L)
                     .machineDetectionSpeechEndThreshold(2000L)

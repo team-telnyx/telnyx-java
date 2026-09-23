@@ -36,6 +36,7 @@ class InferenceEmbeddingWebhookToolParams
 private constructor(
     private val type: JsonField<Type>,
     private val webhook: JsonField<Webhook>,
+    private val shared: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -43,7 +44,8 @@ private constructor(
     private constructor(
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("webhook") @ExcludeMissing webhook: JsonField<Webhook> = JsonMissing.of(),
-    ) : this(type, webhook, mutableMapOf())
+        @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+    ) : this(type, webhook, shared, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -58,6 +60,19 @@ private constructor(
     fun webhook(): Webhook = webhook.getRequired("webhook")
 
     /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+     * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+     * server, not accepted in requests. When updating an assistant, omit `shared: true` tools from
+     * the request `tools` array and manage them through `tool_ids` instead — re-sending their
+     * definitions creates an inline duplicate (rejected with error code 10015 when the type allows
+     * only one instance per assistant).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+    /**
      * Returns the raw JSON value of [type].
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
@@ -70,6 +85,13 @@ private constructor(
      * Unlike [webhook], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("webhook") @ExcludeMissing fun _webhook(): JsonField<Webhook> = webhook
+
+    /**
+     * Returns the raw JSON value of [shared].
+     *
+     * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -103,6 +125,7 @@ private constructor(
 
         private var type: JsonField<Type>? = null
         private var webhook: JsonField<Webhook>? = null
+        private var shared: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -111,6 +134,7 @@ private constructor(
         ) = apply {
             type = inferenceEmbeddingWebhookToolParams.type
             webhook = inferenceEmbeddingWebhookToolParams.webhook
+            shared = inferenceEmbeddingWebhookToolParams.shared
             additionalProperties =
                 inferenceEmbeddingWebhookToolParams.additionalProperties.toMutableMap()
         }
@@ -134,6 +158,24 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun webhook(webhook: JsonField<Webhook>) = apply { this.webhook = webhook }
+
+        /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         */
+        fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+        /**
+         * Sets [Builder.shared] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.shared] with a well-typed [Boolean] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -171,6 +213,7 @@ private constructor(
             InferenceEmbeddingWebhookToolParams(
                 checkRequired("type", type),
                 checkRequired("webhook", webhook),
+                shared,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -192,6 +235,7 @@ private constructor(
 
         type().validate()
         webhook().validate()
+        shared()
         validated = true
     }
 
@@ -211,7 +255,8 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (type.asKnown().getOrNull()?.validity() ?: 0) +
-            (webhook.asKnown().getOrNull()?.validity() ?: 0)
+            (webhook.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (shared.asKnown().isPresent) 1 else 0)
 
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -4433,13 +4478,14 @@ private constructor(
         return other is InferenceEmbeddingWebhookToolParams &&
             type == other.type &&
             webhook == other.webhook &&
+            shared == other.shared &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(type, webhook, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(type, webhook, shared, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InferenceEmbeddingWebhookToolParams{type=$type, webhook=$webhook, additionalProperties=$additionalProperties}"
+        "InferenceEmbeddingWebhookToolParams{type=$type, webhook=$webhook, shared=$shared, additionalProperties=$additionalProperties}"
 }

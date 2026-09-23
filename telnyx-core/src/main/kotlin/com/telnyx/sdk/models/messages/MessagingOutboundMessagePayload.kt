@@ -24,6 +24,7 @@ class MessagingOutboundMessagePayload
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val body: JsonField<Body>,
     private val cc: JsonField<List<Cc>>,
     private val completedAt: JsonField<OffsetDateTime>,
     private val cost: JsonField<Cost>,
@@ -59,6 +60,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("body") @ExcludeMissing body: JsonField<Body> = JsonMissing.of(),
         @JsonProperty("cc") @ExcludeMissing cc: JsonField<List<Cc>> = JsonMissing.of(),
         @JsonProperty("completed_at")
         @ExcludeMissing
@@ -124,6 +126,7 @@ private constructor(
         webhookUrl: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
+        body,
         cc,
         completedAt,
         cost,
@@ -163,6 +166,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun id(): Optional<String> = id.getOptional("id")
+
+    /**
+     * RCS webhook message body. Text messages use the text property.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun body(): Optional<Body> = body.getOptional("body")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -407,6 +418,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [body].
+     *
+     * Unlike [body], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("body") @ExcludeMissing fun _body(): JsonField<Body> = body
 
     /**
      * Returns the raw JSON value of [cc].
@@ -667,6 +685,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
+        private var body: JsonField<Body> = JsonMissing.of()
         private var cc: JsonField<MutableList<Cc>>? = null
         private var completedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var cost: JsonField<Cost> = JsonMissing.of()
@@ -702,6 +721,7 @@ private constructor(
         internal fun from(messagingOutboundMessagePayload: MessagingOutboundMessagePayload) =
             apply {
                 id = messagingOutboundMessagePayload.id
+                body = messagingOutboundMessagePayload.body
                 cc = messagingOutboundMessagePayload.cc.map { it.toMutableList() }
                 completedAt = messagingOutboundMessagePayload.completedAt
                 cost = messagingOutboundMessagePayload.cost
@@ -745,6 +765,17 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** RCS webhook message body. Text messages use the text property. */
+        fun body(body: Body) = body(JsonField.of(body))
+
+        /**
+         * Sets [Builder.body] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.body] with a well-typed [Body] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun body(body: JsonField<Body>) = apply { this.body = body }
 
         fun cc(cc: List<Cc>) = cc(JsonField.of(cc))
 
@@ -1269,6 +1300,7 @@ private constructor(
         fun build(): MessagingOutboundMessagePayload =
             MessagingOutboundMessagePayload(
                 id,
+                body,
                 (cc ?: JsonMissing.of()).map { it.toImmutable() },
                 completedAt,
                 cost,
@@ -1318,6 +1350,7 @@ private constructor(
         }
 
         id()
+        body().ifPresent { it.validate() }
         cc().ifPresent { it.forEach { it.validate() } }
         completedAt()
         cost().ifPresent { it.validate() }
@@ -1366,6 +1399,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (body.asKnown().getOrNull()?.validity() ?: 0) +
             (cc.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (completedAt.asKnown().isPresent) 1 else 0) +
             (cost.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1395,6 +1429,156 @@ private constructor(
             (if (waitSeconds.asKnown().isPresent) 1 else 0) +
             (if (webhookFailoverUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookUrl.asKnown().isPresent) 1 else 0)
+
+    /** RCS webhook message body. Text messages use the text property. */
+    class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val text: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of()
+        ) : this(text, mutableMapOf())
+
+        /**
+         * RCS text message.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun text(): Optional<String> = text.getOptional("text")
+
+        /**
+         * Returns the raw JSON value of [text].
+         *
+         * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("text") @ExcludeMissing fun _text(): JsonField<String> = text
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Body]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var text: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                text = body.text
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** RCS text message. */
+            fun text(text: String) = text(JsonField.of(text))
+
+            /**
+             * Sets [Builder.text] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.text] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun text(text: JsonField<String>) = apply { this.text = text }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Body = Body(text, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            text()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = (if (text.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Body &&
+                text == other.text &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(text, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Body{text=$text, additionalProperties=$additionalProperties}"
+    }
 
     class Cc
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -2898,6 +3082,8 @@ private constructor(
     class From
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val agentId: JsonField<String>,
+        private val agentName: JsonField<String>,
         private val carrier: JsonField<String>,
         private val lineType: JsonField<LineType>,
         private val phoneNumber: JsonField<String>,
@@ -2906,6 +3092,10 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("agent_id") @ExcludeMissing agentId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("agent_name")
+            @ExcludeMissing
+            agentName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("carrier") @ExcludeMissing carrier: JsonField<String> = JsonMissing.of(),
             @JsonProperty("line_type")
             @ExcludeMissing
@@ -2913,7 +3103,23 @@ private constructor(
             @JsonProperty("phone_number")
             @ExcludeMissing
             phoneNumber: JsonField<String> = JsonMissing.of(),
-        ) : this(carrier, lineType, phoneNumber, mutableMapOf())
+        ) : this(agentId, agentName, carrier, lineType, phoneNumber, mutableMapOf())
+
+        /**
+         * RCS agent identifier.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun agentId(): Optional<String> = agentId.getOptional("agent_id")
+
+        /**
+         * RCS agent name.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun agentName(): Optional<String> = agentName.getOptional("agent_name")
 
         /**
          * The carrier of the receiver.
@@ -2938,6 +3144,20 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun phoneNumber(): Optional<String> = phoneNumber.getOptional("phone_number")
+
+        /**
+         * Returns the raw JSON value of [agentId].
+         *
+         * Unlike [agentId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("agent_id") @ExcludeMissing fun _agentId(): JsonField<String> = agentId
+
+        /**
+         * Returns the raw JSON value of [agentName].
+         *
+         * Unlike [agentName], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("agent_name") @ExcludeMissing fun _agentName(): JsonField<String> = agentName
 
         /**
          * Returns the raw JSON value of [carrier].
@@ -2983,6 +3203,8 @@ private constructor(
         /** A builder for [From]. */
         class Builder internal constructor() {
 
+            private var agentId: JsonField<String> = JsonMissing.of()
+            private var agentName: JsonField<String> = JsonMissing.of()
             private var carrier: JsonField<String> = JsonMissing.of()
             private var lineType: JsonField<LineType> = JsonMissing.of()
             private var phoneNumber: JsonField<String> = JsonMissing.of()
@@ -2990,11 +3212,37 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(from: From) = apply {
+                agentId = from.agentId
+                agentName = from.agentName
                 carrier = from.carrier
                 lineType = from.lineType
                 phoneNumber = from.phoneNumber
                 additionalProperties = from.additionalProperties.toMutableMap()
             }
+
+            /** RCS agent identifier. */
+            fun agentId(agentId: String) = agentId(JsonField.of(agentId))
+
+            /**
+             * Sets [Builder.agentId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.agentId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun agentId(agentId: JsonField<String>) = apply { this.agentId = agentId }
+
+            /** RCS agent name. */
+            fun agentName(agentName: String) = agentName(JsonField.of(agentName))
+
+            /**
+             * Sets [Builder.agentName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.agentName] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun agentName(agentName: JsonField<String>) = apply { this.agentName = agentName }
 
             /** The carrier of the receiver. */
             fun carrier(carrier: String) = carrier(JsonField.of(carrier))
@@ -3062,7 +3310,14 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): From =
-                From(carrier, lineType, phoneNumber, additionalProperties.toMutableMap())
+                From(
+                    agentId,
+                    agentName,
+                    carrier,
+                    lineType,
+                    phoneNumber,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -3081,6 +3336,8 @@ private constructor(
                 return@apply
             }
 
+            agentId()
+            agentName()
             carrier()
             lineType().ifPresent { it.validate() }
             phoneNumber()
@@ -3103,7 +3360,9 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (carrier.asKnown().isPresent) 1 else 0) +
+            (if (agentId.asKnown().isPresent) 1 else 0) +
+                (if (agentName.asKnown().isPresent) 1 else 0) +
+                (if (carrier.asKnown().isPresent) 1 else 0) +
                 (lineType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (phoneNumber.asKnown().isPresent) 1 else 0)
 
@@ -3278,6 +3537,8 @@ private constructor(
             }
 
             return other is From &&
+                agentId == other.agentId &&
+                agentName == other.agentName &&
                 carrier == other.carrier &&
                 lineType == other.lineType &&
                 phoneNumber == other.phoneNumber &&
@@ -3285,13 +3546,13 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(carrier, lineType, phoneNumber, additionalProperties)
+            Objects.hash(agentId, agentName, carrier, lineType, phoneNumber, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "From{carrier=$carrier, lineType=$lineType, phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
+            "From{agentId=$agentId, agentName=$agentName, carrier=$carrier, lineType=$lineType, phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
     }
 
     class Media
@@ -4142,6 +4403,8 @@ private constructor(
 
                 @JvmField val DELIVERY_FAILED = of("delivery_failed")
 
+                @JvmField val READ = of("read")
+
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
             }
 
@@ -4155,6 +4418,7 @@ private constructor(
                 DELIVERY_UNCONFIRMED,
                 DELIVERED,
                 DELIVERY_FAILED,
+                READ,
             }
 
             /**
@@ -4175,6 +4439,7 @@ private constructor(
                 DELIVERY_UNCONFIRMED,
                 DELIVERED,
                 DELIVERY_FAILED,
+                READ,
                 /**
                  * An enum member indicating that [Status] was instantiated with an unknown value.
                  */
@@ -4198,6 +4463,7 @@ private constructor(
                     DELIVERY_UNCONFIRMED -> Value.DELIVERY_UNCONFIRMED
                     DELIVERED -> Value.DELIVERED
                     DELIVERY_FAILED -> Value.DELIVERY_FAILED
+                    READ -> Value.READ
                     else -> Value._UNKNOWN
                 }
 
@@ -4220,6 +4486,7 @@ private constructor(
                     DELIVERY_UNCONFIRMED -> Known.DELIVERY_UNCONFIRMED
                     DELIVERED -> Known.DELIVERED
                     DELIVERY_FAILED -> Known.DELIVERY_FAILED
+                    READ -> Known.READ
                     else -> throw TelnyxInvalidDataException("Unknown Status: $value")
                 }
 
@@ -4329,6 +4596,8 @@ private constructor(
 
             @JvmField val MMS = of("MMS")
 
+            @JvmField val RCS = of("RCS")
+
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
@@ -4336,6 +4605,7 @@ private constructor(
         enum class Known {
             SMS,
             MMS,
+            RCS,
         }
 
         /**
@@ -4350,6 +4620,7 @@ private constructor(
         enum class Value {
             SMS,
             MMS,
+            RCS,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -4365,6 +4636,7 @@ private constructor(
             when (this) {
                 SMS -> Value.SMS
                 MMS -> Value.MMS
+                RCS -> Value.RCS
                 else -> Value._UNKNOWN
             }
 
@@ -4381,6 +4653,7 @@ private constructor(
             when (this) {
                 SMS -> Known.SMS
                 MMS -> Known.MMS
+                RCS -> Known.RCS
                 else -> throw TelnyxInvalidDataException("Unknown Type: $value")
             }
 
@@ -4452,6 +4725,7 @@ private constructor(
 
         return other is MessagingOutboundMessagePayload &&
             id == other.id &&
+            body == other.body &&
             cc == other.cc &&
             completedAt == other.completedAt &&
             cost == other.cost &&
@@ -4487,6 +4761,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            body,
             cc,
             completedAt,
             cost,
@@ -4523,5 +4798,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingOutboundMessagePayload{id=$id, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, numChars=$numChars, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, waitSeconds=$waitSeconds, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "MessagingOutboundMessagePayload{id=$id, body=$body, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, numChars=$numChars, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, waitSeconds=$waitSeconds, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

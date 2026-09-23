@@ -26,6 +26,7 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import com.telnyx.sdk.models.ai.tools.PayToolParams
 import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
 import java.util.Collections
@@ -41,11 +42,12 @@ import kotlin.jvm.optionals.getOrNull
 @JsonSerialize(using = AssistantTool.Serializer::class)
 class AssistantTool
 private constructor(
+    private val function: Function? = null,
     private val webhook: InferenceEmbeddingWebhookToolParams? = null,
     private val clientSide: ClientSideTool? = null,
     private val retrieval: RetrievalTool? = null,
     private val handoff: HandoffTool? = null,
-    private val hangup: HangupTool? = null,
+    private val hangup: Hangup? = null,
     private val transfer: Transfer? = null,
     private val invite: Invite? = null,
     private val refer: SipReferTool? = null,
@@ -56,6 +58,8 @@ private constructor(
     private val updateDynamicVariables: UpdateDynamicVariables? = null,
     private val _json: JsonValue? = null,
 ) {
+
+    fun function(): Optional<Function> = Optional.ofNullable(function)
 
     fun webhook(): Optional<InferenceEmbeddingWebhookToolParams> = Optional.ofNullable(webhook)
 
@@ -69,7 +73,7 @@ private constructor(
      */
     fun handoff(): Optional<HandoffTool> = Optional.ofNullable(handoff)
 
-    fun hangup(): Optional<HangupTool> = Optional.ofNullable(hangup)
+    fun hangup(): Optional<Hangup> = Optional.ofNullable(hangup)
 
     fun transfer(): Optional<Transfer> = Optional.ofNullable(transfer)
 
@@ -107,6 +111,8 @@ private constructor(
     fun updateDynamicVariables(): Optional<UpdateDynamicVariables> =
         Optional.ofNullable(updateDynamicVariables)
 
+    fun isFunction(): Boolean = function != null
+
     fun isWebhook(): Boolean = webhook != null
 
     fun isClientSide(): Boolean = clientSide != null
@@ -133,6 +139,8 @@ private constructor(
 
     fun isUpdateDynamicVariables(): Boolean = updateDynamicVariables != null
 
+    fun asFunction(): Function = function.getOrThrow("function")
+
     fun asWebhook(): InferenceEmbeddingWebhookToolParams = webhook.getOrThrow("webhook")
 
     fun asClientSide(): ClientSideTool = clientSide.getOrThrow("clientSide")
@@ -145,7 +153,7 @@ private constructor(
      */
     fun asHandoff(): HandoffTool = handoff.getOrThrow("handoff")
 
-    fun asHangup(): HangupTool = hangup.getOrThrow("hangup")
+    fun asHangup(): Hangup = hangup.getOrThrow("hangup")
 
     fun asTransfer(): Transfer = transfer.getOrThrow("transfer")
 
@@ -197,8 +205,8 @@ private constructor(
      *
      * Optional<String> result = assistantTool.accept(new AssistantTool.Visitor<Optional<String>>() {
      *     @Override
-     *     public Optional<String> visitWebhook(InferenceEmbeddingWebhookToolParams webhook) {
-     *         return Optional.of(webhook.toString());
+     *     public Optional<String> visitFunction(Function function) {
+     *         return Optional.of(function.toString());
      *     }
      *
      *     // ...
@@ -216,6 +224,7 @@ private constructor(
      */
     fun <T> accept(visitor: Visitor<T>): T =
         when {
+            function != null -> visitor.visitFunction(function)
             webhook != null -> visitor.visitWebhook(webhook)
             clientSide != null -> visitor.visitClientSide(clientSide)
             retrieval != null -> visitor.visitRetrieval(retrieval)
@@ -250,6 +259,10 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
+                override fun visitFunction(function: Function) {
+                    function.validate()
+                }
+
                 override fun visitWebhook(webhook: InferenceEmbeddingWebhookToolParams) {
                     webhook.validate()
                 }
@@ -266,7 +279,7 @@ private constructor(
                     handoff.validate()
                 }
 
-                override fun visitHangup(hangup: HangupTool) {
+                override fun visitHangup(hangup: Hangup) {
                     hangup.validate()
                 }
 
@@ -325,6 +338,8 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
+                override fun visitFunction(function: Function) = function.validity()
+
                 override fun visitWebhook(webhook: InferenceEmbeddingWebhookToolParams) =
                     webhook.validity()
 
@@ -334,7 +349,7 @@ private constructor(
 
                 override fun visitHandoff(handoff: HandoffTool) = handoff.validity()
 
-                override fun visitHangup(hangup: HangupTool) = hangup.validity()
+                override fun visitHangup(hangup: Hangup) = hangup.validity()
 
                 override fun visitTransfer(transfer: Transfer) = transfer.validity()
 
@@ -364,6 +379,7 @@ private constructor(
         }
 
         return other is AssistantTool &&
+            function == other.function &&
             webhook == other.webhook &&
             clientSide == other.clientSide &&
             retrieval == other.retrieval &&
@@ -381,6 +397,7 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
+            function,
             webhook,
             clientSide,
             retrieval,
@@ -398,6 +415,7 @@ private constructor(
 
     override fun toString(): String =
         when {
+            function != null -> "AssistantTool{function=$function}"
             webhook != null -> "AssistantTool{webhook=$webhook}"
             clientSide != null -> "AssistantTool{clientSide=$clientSide}"
             retrieval != null -> "AssistantTool{retrieval=$retrieval}"
@@ -418,6 +436,8 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun ofFunction(function: Function) = AssistantTool(function = function)
+
         @JvmStatic
         fun ofWebhook(webhook: InferenceEmbeddingWebhookToolParams) =
             AssistantTool(webhook = webhook)
@@ -433,7 +453,7 @@ private constructor(
          */
         @JvmStatic fun ofHandoff(handoff: HandoffTool) = AssistantTool(handoff = handoff)
 
-        @JvmStatic fun ofHangup(hangup: HangupTool) = AssistantTool(hangup = hangup)
+        @JvmStatic fun ofHangup(hangup: Hangup) = AssistantTool(hangup = hangup)
 
         @JvmStatic fun ofTransfer(transfer: Transfer) = AssistantTool(transfer = transfer)
 
@@ -479,6 +499,8 @@ private constructor(
      */
     interface Visitor<out T> {
 
+        fun visitFunction(function: Function): T
+
         fun visitWebhook(webhook: InferenceEmbeddingWebhookToolParams): T
 
         fun visitClientSide(clientSide: ClientSideTool): T
@@ -491,7 +513,7 @@ private constructor(
          */
         fun visitHandoff(handoff: HandoffTool): T
 
-        fun visitHangup(hangup: HangupTool): T
+        fun visitHangup(hangup: Hangup): T
 
         fun visitTransfer(transfer: Transfer): T
 
@@ -549,6 +571,11 @@ private constructor(
             val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
             when (type) {
+                "function" -> {
+                    return tryDeserialize(node, jacksonTypeRef<Function>())?.let {
+                        AssistantTool(function = it, _json = json)
+                    } ?: AssistantTool(_json = json)
+                }
                 "webhook" -> {
                     return tryDeserialize(
                             node,
@@ -573,7 +600,7 @@ private constructor(
                     } ?: AssistantTool(_json = json)
                 }
                 "hangup" -> {
-                    return tryDeserialize(node, jacksonTypeRef<HangupTool>())?.let {
+                    return tryDeserialize(node, jacksonTypeRef<Hangup>())?.let {
                         AssistantTool(hangup = it, _json = json)
                     } ?: AssistantTool(_json = json)
                 }
@@ -631,6 +658,7 @@ private constructor(
             provider: SerializerProvider,
         ) {
             when {
+                value.function != null -> generator.writeObject(value.function)
                 value.webhook != null -> generator.writeObject(value.webhook)
                 value.clientSide != null -> generator.writeObject(value.clientSide)
                 value.retrieval != null -> generator.writeObject(value.retrieval)
@@ -651,11 +679,271 @@ private constructor(
         }
     }
 
+    class Function
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val function: JsonField<FunctionDefinition>,
+        private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("function")
+            @ExcludeMissing
+            function: JsonField<FunctionDefinition> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(function, type, shared, mutableMapOf())
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun function(): FunctionDefinition = function.getRequired("function")
+
+        /**
+         * Expected to always return the following:
+         * ```java
+         * JsonValue.from("function")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+        /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
+         * Returns the raw JSON value of [function].
+         *
+         * Unlike [function], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("function")
+        @ExcludeMissing
+        fun _function(): JsonField<FunctionDefinition> = function
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Function].
+             *
+             * The following fields are required:
+             * ```java
+             * .function()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Function]. */
+        class Builder internal constructor() {
+
+            private var function: JsonField<FunctionDefinition>? = null
+            private var type: JsonValue = JsonValue.from("function")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(function: Function) = apply {
+                this.function = function.function
+                type = function.type
+                shared = function.shared
+                additionalProperties = function.additionalProperties.toMutableMap()
+            }
+
+            fun function(function: FunctionDefinition) = function(JsonField.of(function))
+
+            /**
+             * Sets [Builder.function] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.function] with a well-typed [FunctionDefinition]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun function(function: JsonField<FunctionDefinition>) = apply {
+                this.function = function
+            }
+
+            /**
+             * Sets the field to an arbitrary JSON value.
+             *
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```java
+             * JsonValue.from("function")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Function].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .function()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Function =
+                Function(
+                    checkRequired("function", function),
+                    type,
+                    shared,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Function = apply {
+            if (validated) {
+                return@apply
+            }
+
+            function().validate()
+            _type().let {
+                if (it != JsonValue.from("function")) {
+                    throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                }
+            }
+            shared()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (function.asKnown().getOrNull()?.validity() ?: 0) +
+                type.let { if (it == JsonValue.from("function")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Function &&
+                function == other.function &&
+                type == other.type &&
+                shared == other.shared &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(function, type, shared, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Function{function=$function, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
+    }
+
     class ClientSideTool
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val clientSideTool: JsonField<InnerClientSideTool>,
         private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -665,7 +953,8 @@ private constructor(
             @ExcludeMissing
             clientSideTool: JsonField<InnerClientSideTool> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-        ) : this(clientSideTool, type, mutableMapOf())
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(clientSideTool, type, shared, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -685,6 +974,19 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
          * Returns the raw JSON value of [clientSideTool].
          *
          * Unlike [clientSideTool], this method doesn't throw if the JSON field has an unexpected
@@ -693,6 +995,13 @@ private constructor(
         @JsonProperty("client_side_tool")
         @ExcludeMissing
         fun _clientSideTool(): JsonField<InnerClientSideTool> = clientSideTool
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -724,12 +1033,14 @@ private constructor(
 
             private var clientSideTool: JsonField<InnerClientSideTool>? = null
             private var type: JsonValue = JsonValue.from("client_side_tool")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(clientSideTool: ClientSideTool) = apply {
                 this.clientSideTool = clientSideTool.clientSideTool
                 type = clientSideTool.type
+                shared = clientSideTool.shared
                 additionalProperties = clientSideTool.additionalProperties.toMutableMap()
             }
 
@@ -760,6 +1071,25 @@ private constructor(
              * supported value.
              */
             fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -796,6 +1126,7 @@ private constructor(
                 ClientSideTool(
                     checkRequired("clientSideTool", clientSideTool),
                     type,
+                    shared,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -822,6 +1153,7 @@ private constructor(
                     throw TelnyxInvalidDataException("'type' is invalid, received $it")
                 }
             }
+            shared()
             validated = true
         }
 
@@ -842,7 +1174,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (clientSideTool.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("client_side_tool")) 1 else 0 }
+                type.let { if (it == JsonValue.from("client_side_tool")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
 
         class InnerClientSideTool
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -1643,17 +1976,18 @@ private constructor(
             return other is ClientSideTool &&
                 clientSideTool == other.clientSideTool &&
                 type == other.type &&
+                shared == other.shared &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(clientSideTool, type, additionalProperties)
+            Objects.hash(clientSideTool, type, shared, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ClientSideTool{clientSideTool=$clientSideTool, type=$type, additionalProperties=$additionalProperties}"
+            "ClientSideTool{clientSideTool=$clientSideTool, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1665,6 +1999,7 @@ private constructor(
     private constructor(
         private val handoff: JsonField<Handoff>,
         private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1672,7 +2007,8 @@ private constructor(
         private constructor(
             @JsonProperty("handoff") @ExcludeMissing handoff: JsonField<Handoff> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-        ) : this(handoff, type, mutableMapOf())
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(handoff, type, shared, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -1692,11 +2028,31 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
          * Returns the raw JSON value of [handoff].
          *
          * Unlike [handoff], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("handoff") @ExcludeMissing fun _handoff(): JsonField<Handoff> = handoff
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1728,12 +2084,14 @@ private constructor(
 
             private var handoff: JsonField<Handoff>? = null
             private var type: JsonValue = JsonValue.from("handoff")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(handoffTool: HandoffTool) = apply {
                 handoff = handoffTool.handoff
                 type = handoffTool.type
+                shared = handoffTool.shared
                 additionalProperties = handoffTool.additionalProperties.toMutableMap()
             }
 
@@ -1761,6 +2119,25 @@ private constructor(
              * supported value.
              */
             fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1797,6 +2174,7 @@ private constructor(
                 HandoffTool(
                     checkRequired("handoff", handoff),
                     type,
+                    shared,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1823,6 +2201,7 @@ private constructor(
                     throw TelnyxInvalidDataException("'type' is invalid, received $it")
                 }
             }
+            shared()
             validated = true
         }
 
@@ -1843,7 +2222,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (handoff.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("handoff")) 1 else 0 }
+                type.let { if (it == JsonValue.from("handoff")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
 
         class Handoff
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -2461,15 +2841,273 @@ private constructor(
             return other is HandoffTool &&
                 handoff == other.handoff &&
                 type == other.type &&
+                shared == other.shared &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(handoff, type, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(handoff, type, shared, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "HandoffTool{handoff=$handoff, type=$type, additionalProperties=$additionalProperties}"
+            "HandoffTool{handoff=$handoff, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
+    }
+
+    class Hangup
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val hangup: JsonField<HangupToolParams>,
+        private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("hangup")
+            @ExcludeMissing
+            hangup: JsonField<HangupToolParams> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(hangup, type, shared, mutableMapOf())
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun hangup(): HangupToolParams = hangup.getRequired("hangup")
+
+        /**
+         * Expected to always return the following:
+         * ```java
+         * JsonValue.from("hangup")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+        /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
+         * Returns the raw JSON value of [hangup].
+         *
+         * Unlike [hangup], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("hangup") @ExcludeMissing fun _hangup(): JsonField<HangupToolParams> = hangup
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Hangup].
+             *
+             * The following fields are required:
+             * ```java
+             * .hangup()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Hangup]. */
+        class Builder internal constructor() {
+
+            private var hangup: JsonField<HangupToolParams>? = null
+            private var type: JsonValue = JsonValue.from("hangup")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(hangup: Hangup) = apply {
+                this.hangup = hangup.hangup
+                type = hangup.type
+                shared = hangup.shared
+                additionalProperties = hangup.additionalProperties.toMutableMap()
+            }
+
+            fun hangup(hangup: HangupToolParams) = hangup(JsonField.of(hangup))
+
+            /**
+             * Sets [Builder.hangup] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.hangup] with a well-typed [HangupToolParams] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun hangup(hangup: JsonField<HangupToolParams>) = apply { this.hangup = hangup }
+
+            /**
+             * Sets the field to an arbitrary JSON value.
+             *
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```java
+             * JsonValue.from("hangup")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Hangup].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .hangup()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Hangup =
+                Hangup(
+                    checkRequired("hangup", hangup),
+                    type,
+                    shared,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Hangup = apply {
+            if (validated) {
+                return@apply
+            }
+
+            hangup().validate()
+            _type().let {
+                if (it != JsonValue.from("hangup")) {
+                    throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                }
+            }
+            shared()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (hangup.asKnown().getOrNull()?.validity() ?: 0) +
+                type.let { if (it == JsonValue.from("hangup")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Hangup &&
+                hangup == other.hangup &&
+                type == other.type &&
+                shared == other.shared &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(hangup, type, shared, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Hangup{hangup=$hangup, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
     }
 
     class Transfer
@@ -2477,6 +3115,7 @@ private constructor(
     private constructor(
         private val transfer: JsonField<TransferConfig>,
         private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -2486,7 +3125,8 @@ private constructor(
             @ExcludeMissing
             transfer: JsonField<TransferConfig> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-        ) : this(transfer, type, mutableMapOf())
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(transfer, type, shared, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -2506,6 +3146,19 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
          * Returns the raw JSON value of [transfer].
          *
          * Unlike [transfer], this method doesn't throw if the JSON field has an unexpected type.
@@ -2513,6 +3166,13 @@ private constructor(
         @JsonProperty("transfer")
         @ExcludeMissing
         fun _transfer(): JsonField<TransferConfig> = transfer
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -2544,12 +3204,14 @@ private constructor(
 
             private var transfer: JsonField<TransferConfig>? = null
             private var type: JsonValue = JsonValue.from("transfer")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(transfer: Transfer) = apply {
                 this.transfer = transfer.transfer
                 type = transfer.type
+                shared = transfer.shared
                 additionalProperties = transfer.additionalProperties.toMutableMap()
             }
 
@@ -2577,6 +3239,25 @@ private constructor(
              * supported value.
              */
             fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2613,6 +3294,7 @@ private constructor(
                 Transfer(
                     checkRequired("transfer", transfer),
                     type,
+                    shared,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -2639,6 +3321,7 @@ private constructor(
                     throw TelnyxInvalidDataException("'type' is invalid, received $it")
                 }
             }
+            shared()
             validated = true
         }
 
@@ -2659,7 +3342,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (transfer.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("transfer")) 1 else 0 }
+                type.let { if (it == JsonValue.from("transfer")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
 
         class TransferConfig
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -6288,15 +6972,18 @@ private constructor(
             return other is Transfer &&
                 transfer == other.transfer &&
                 type == other.type &&
+                shared == other.shared &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(transfer, type, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(transfer, type, shared, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Transfer{transfer=$transfer, type=$type, additionalProperties=$additionalProperties}"
+            "Transfer{transfer=$transfer, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
     }
 
     class Invite
@@ -6304,6 +6991,7 @@ private constructor(
     private constructor(
         private val invite: JsonField<InviteToolInviteConfig>,
         private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -6313,7 +7001,8 @@ private constructor(
             @ExcludeMissing
             invite: JsonField<InviteToolInviteConfig> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-        ) : this(invite, type, mutableMapOf())
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(invite, type, shared, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -6333,6 +7022,19 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
          * Returns the raw JSON value of [invite].
          *
          * Unlike [invite], this method doesn't throw if the JSON field has an unexpected type.
@@ -6340,6 +7042,13 @@ private constructor(
         @JsonProperty("invite")
         @ExcludeMissing
         fun _invite(): JsonField<InviteToolInviteConfig> = invite
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -6371,12 +7080,14 @@ private constructor(
 
             private var invite: JsonField<InviteToolInviteConfig>? = null
             private var type: JsonValue = JsonValue.from("invite")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(invite: Invite) = apply {
                 this.invite = invite.invite
                 type = invite.type
+                shared = invite.shared
                 additionalProperties = invite.additionalProperties.toMutableMap()
             }
 
@@ -6404,6 +7115,25 @@ private constructor(
              * supported value.
              */
             fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -6437,7 +7167,12 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Invite =
-                Invite(checkRequired("invite", invite), type, additionalProperties.toMutableMap())
+                Invite(
+                    checkRequired("invite", invite),
+                    type,
+                    shared,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -6462,6 +7197,7 @@ private constructor(
                     throw TelnyxInvalidDataException("'type' is invalid, received $it")
                 }
             }
+            shared()
             validated = true
         }
 
@@ -6482,7 +7218,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (invite.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("invite")) 1 else 0 }
+                type.let { if (it == JsonValue.from("invite")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
 
         class InviteToolInviteConfig
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -8182,15 +8919,18 @@ private constructor(
             return other is Invite &&
                 invite == other.invite &&
                 type == other.type &&
+                shared == other.shared &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(invite, type, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(invite, type, shared, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Invite{invite=$invite, type=$type, additionalProperties=$additionalProperties}"
+            "Invite{invite=$invite, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
     }
 
     class SipReferTool
@@ -8198,6 +8938,7 @@ private constructor(
     private constructor(
         private val refer: JsonField<Refer>,
         private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -8205,7 +8946,8 @@ private constructor(
         private constructor(
             @JsonProperty("refer") @ExcludeMissing refer: JsonField<Refer> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-        ) : this(refer, type, mutableMapOf())
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(refer, type, shared, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -8225,11 +8967,31 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
          * Returns the raw JSON value of [refer].
          *
          * Unlike [refer], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("refer") @ExcludeMissing fun _refer(): JsonField<Refer> = refer
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -8261,12 +9023,14 @@ private constructor(
 
             private var refer: JsonField<Refer>? = null
             private var type: JsonValue = JsonValue.from("refer")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(sipReferTool: SipReferTool) = apply {
                 refer = sipReferTool.refer
                 type = sipReferTool.type
+                shared = sipReferTool.shared
                 additionalProperties = sipReferTool.additionalProperties.toMutableMap()
             }
 
@@ -8294,6 +9058,25 @@ private constructor(
              * supported value.
              */
             fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -8330,6 +9113,7 @@ private constructor(
                 SipReferTool(
                     checkRequired("refer", refer),
                     type,
+                    shared,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -8356,6 +9140,7 @@ private constructor(
                     throw TelnyxInvalidDataException("'type' is invalid, received $it")
                 }
             }
+            shared()
             validated = true
         }
 
@@ -8376,7 +9161,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (refer.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("refer")) 1 else 0 }
+                type.let { if (it == JsonValue.from("refer")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
 
         class Refer
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -9567,15 +10353,18 @@ private constructor(
             return other is SipReferTool &&
                 refer == other.refer &&
                 type == other.type &&
+                shared == other.shared &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(refer, type, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(refer, type, shared, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SipReferTool{refer=$refer, type=$type, additionalProperties=$additionalProperties}"
+            "SipReferTool{refer=$refer, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
     }
 
     class DtmfTool
@@ -9583,6 +10372,7 @@ private constructor(
     private constructor(
         private val sendDtmf: JsonField<SendDtmf>,
         private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -9592,7 +10382,8 @@ private constructor(
             @ExcludeMissing
             sendDtmf: JsonField<SendDtmf> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-        ) : this(sendDtmf, type, mutableMapOf())
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(sendDtmf, type, shared, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -9612,11 +10403,31 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
          * Returns the raw JSON value of [sendDtmf].
          *
          * Unlike [sendDtmf], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("send_dtmf") @ExcludeMissing fun _sendDtmf(): JsonField<SendDtmf> = sendDtmf
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -9648,12 +10459,14 @@ private constructor(
 
             private var sendDtmf: JsonField<SendDtmf>? = null
             private var type: JsonValue = JsonValue.from("send_dtmf")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(dtmfTool: DtmfTool) = apply {
                 sendDtmf = dtmfTool.sendDtmf
                 type = dtmfTool.type
+                shared = dtmfTool.shared
                 additionalProperties = dtmfTool.additionalProperties.toMutableMap()
             }
 
@@ -9681,6 +10494,25 @@ private constructor(
              * supported value.
              */
             fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -9717,6 +10549,7 @@ private constructor(
                 DtmfTool(
                     checkRequired("sendDtmf", sendDtmf),
                     type,
+                    shared,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -9743,6 +10576,7 @@ private constructor(
                     throw TelnyxInvalidDataException("'type' is invalid, received $it")
                 }
             }
+            shared()
             validated = true
         }
 
@@ -9763,7 +10597,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (sendDtmf.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("send_dtmf")) 1 else 0 }
+                type.let { if (it == JsonValue.from("send_dtmf")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
 
         class SendDtmf
         @JsonCreator
@@ -9885,15 +10720,18 @@ private constructor(
             return other is DtmfTool &&
                 sendDtmf == other.sendDtmf &&
                 type == other.type &&
+                shared == other.shared &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(sendDtmf, type, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(sendDtmf, type, shared, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "DtmfTool{sendDtmf=$sendDtmf, type=$type, additionalProperties=$additionalProperties}"
+            "DtmfTool{sendDtmf=$sendDtmf, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -9907,6 +10745,7 @@ private constructor(
     private constructor(
         private val sendMessage: JsonField<SendMessageConfig>,
         private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -9916,7 +10755,8 @@ private constructor(
             @ExcludeMissing
             sendMessage: JsonField<SendMessageConfig> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-        ) : this(sendMessage, type, mutableMapOf())
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(sendMessage, type, shared, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -9936,6 +10776,19 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
          * Returns the raw JSON value of [sendMessage].
          *
          * Unlike [sendMessage], this method doesn't throw if the JSON field has an unexpected type.
@@ -9943,6 +10796,13 @@ private constructor(
         @JsonProperty("send_message")
         @ExcludeMissing
         fun _sendMessage(): JsonField<SendMessageConfig> = sendMessage
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -9974,12 +10834,14 @@ private constructor(
 
             private var sendMessage: JsonField<SendMessageConfig>? = null
             private var type: JsonValue = JsonValue.from("send_message")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(sendMessage: SendMessage) = apply {
                 this.sendMessage = sendMessage.sendMessage
                 type = sendMessage.type
+                shared = sendMessage.shared
                 additionalProperties = sendMessage.additionalProperties.toMutableMap()
             }
 
@@ -10009,6 +10871,25 @@ private constructor(
              * supported value.
              */
             fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -10045,6 +10926,7 @@ private constructor(
                 SendMessage(
                     checkRequired("sendMessage", sendMessage),
                     type,
+                    shared,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -10071,6 +10953,7 @@ private constructor(
                     throw TelnyxInvalidDataException("'type' is invalid, received $it")
                 }
             }
+            shared()
             validated = true
         }
 
@@ -10091,7 +10974,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (sendMessage.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("send_message")) 1 else 0 }
+                type.let { if (it == JsonValue.from("send_message")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
 
         class SendMessageConfig
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -10286,15 +11170,18 @@ private constructor(
             return other is SendMessage &&
                 sendMessage == other.sendMessage &&
                 type == other.type &&
+                shared == other.shared &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(sendMessage, type, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(sendMessage, type, shared, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SendMessage{sendMessage=$sendMessage, type=$type, additionalProperties=$additionalProperties}"
+            "SendMessage{sendMessage=$sendMessage, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
     }
 
     class SkipTurn
@@ -10302,6 +11189,7 @@ private constructor(
     private constructor(
         private val skipTurn: JsonField<SkipTurnConfig>,
         private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -10311,7 +11199,8 @@ private constructor(
             @ExcludeMissing
             skipTurn: JsonField<SkipTurnConfig> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-        ) : this(skipTurn, type, mutableMapOf())
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(skipTurn, type, shared, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -10331,6 +11220,19 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
          * Returns the raw JSON value of [skipTurn].
          *
          * Unlike [skipTurn], this method doesn't throw if the JSON field has an unexpected type.
@@ -10338,6 +11240,13 @@ private constructor(
         @JsonProperty("skip_turn")
         @ExcludeMissing
         fun _skipTurn(): JsonField<SkipTurnConfig> = skipTurn
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -10369,12 +11278,14 @@ private constructor(
 
             private var skipTurn: JsonField<SkipTurnConfig>? = null
             private var type: JsonValue = JsonValue.from("skip_turn")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(skipTurn: SkipTurn) = apply {
                 this.skipTurn = skipTurn.skipTurn
                 type = skipTurn.type
+                shared = skipTurn.shared
                 additionalProperties = skipTurn.additionalProperties.toMutableMap()
             }
 
@@ -10402,6 +11313,25 @@ private constructor(
              * supported value.
              */
             fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -10438,6 +11368,7 @@ private constructor(
                 SkipTurn(
                     checkRequired("skipTurn", skipTurn),
                     type,
+                    shared,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -10464,6 +11395,7 @@ private constructor(
                     throw TelnyxInvalidDataException("'type' is invalid, received $it")
                 }
             }
+            shared()
             validated = true
         }
 
@@ -10484,7 +11416,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (skipTurn.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("skip_turn")) 1 else 0 }
+                type.let { if (it == JsonValue.from("skip_turn")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
 
         class SkipTurnConfig
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -10657,15 +11590,18 @@ private constructor(
             return other is SkipTurn &&
                 skipTurn == other.skipTurn &&
                 type == other.type &&
+                shared == other.shared &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(skipTurn, type, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(skipTurn, type, shared, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SkipTurn{skipTurn=$skipTurn, type=$type, additionalProperties=$additionalProperties}"
+            "SkipTurn{skipTurn=$skipTurn, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -10679,6 +11615,7 @@ private constructor(
     private constructor(
         private val pay: JsonField<PayToolParams>,
         private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -10686,7 +11623,8 @@ private constructor(
         private constructor(
             @JsonProperty("pay") @ExcludeMissing pay: JsonField<PayToolParams> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-        ) : this(pay, type, mutableMapOf())
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(pay, type, shared, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -10706,11 +11644,31 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
          * Returns the raw JSON value of [pay].
          *
          * Unlike [pay], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("pay") @ExcludeMissing fun _pay(): JsonField<PayToolParams> = pay
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -10742,12 +11700,14 @@ private constructor(
 
             private var pay: JsonField<PayToolParams>? = null
             private var type: JsonValue = JsonValue.from("pay")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(pay: Pay) = apply {
                 this.pay = pay.pay
                 type = pay.type
+                shared = pay.shared
                 additionalProperties = pay.additionalProperties.toMutableMap()
             }
 
@@ -10775,6 +11735,25 @@ private constructor(
              * supported value.
              */
             fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -10808,7 +11787,7 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Pay =
-                Pay(checkRequired("pay", pay), type, additionalProperties.toMutableMap())
+                Pay(checkRequired("pay", pay), type, shared, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -10833,6 +11812,7 @@ private constructor(
                     throw TelnyxInvalidDataException("'type' is invalid, received $it")
                 }
             }
+            shared()
             validated = true
         }
 
@@ -10853,7 +11833,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (pay.asKnown().getOrNull()?.validity() ?: 0) +
-                type.let { if (it == JsonValue.from("pay")) 1 else 0 }
+                type.let { if (it == JsonValue.from("pay")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -10863,15 +11844,16 @@ private constructor(
             return other is Pay &&
                 pay == other.pay &&
                 type == other.type &&
+                shared == other.shared &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(pay, type, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(pay, type, shared, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Pay{pay=$pay, type=$type, additionalProperties=$additionalProperties}"
+            "Pay{pay=$pay, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -10886,6 +11868,7 @@ private constructor(
     private constructor(
         private val type: JsonValue,
         private val updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>,
+        private val shared: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -10895,7 +11878,8 @@ private constructor(
             @JsonProperty("update_dynamic_variables")
             @ExcludeMissing
             updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams> = JsonMissing.of(),
-        ) : this(type, updateDynamicVariables, mutableMapOf())
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(type, updateDynamicVariables, shared, mutableMapOf())
 
         /**
          * Expected to always return the following:
@@ -10918,6 +11902,19 @@ private constructor(
             updateDynamicVariables.getRequired("update_dynamic_variables")
 
         /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
          * Returns the raw JSON value of [updateDynamicVariables].
          *
          * Unlike [updateDynamicVariables], this method doesn't throw if the JSON field has an
@@ -10927,6 +11924,13 @@ private constructor(
         @ExcludeMissing
         fun _updateDynamicVariables(): JsonField<UpdateDynamicVariablesToolParams> =
             updateDynamicVariables
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -10958,12 +11962,14 @@ private constructor(
 
             private var type: JsonValue = JsonValue.from("update_dynamic_variables")
             private var updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>? = null
+            private var shared: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(updateDynamicVariables: UpdateDynamicVariables) = apply {
                 type = updateDynamicVariables.type
                 this.updateDynamicVariables = updateDynamicVariables.updateDynamicVariables
+                shared = updateDynamicVariables.shared
                 additionalProperties = updateDynamicVariables.additionalProperties.toMutableMap()
             }
 
@@ -10995,6 +12001,25 @@ private constructor(
             fun updateDynamicVariables(
                 updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>
             ) = apply { this.updateDynamicVariables = updateDynamicVariables }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -11031,6 +12056,7 @@ private constructor(
                 UpdateDynamicVariables(
                     type,
                     checkRequired("updateDynamicVariables", updateDynamicVariables),
+                    shared,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -11057,6 +12083,7 @@ private constructor(
                 }
             }
             updateDynamicVariables().validate()
+            shared()
             validated = true
         }
 
@@ -11077,7 +12104,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             type.let { if (it == JsonValue.from("update_dynamic_variables")) 1 else 0 } +
-                (updateDynamicVariables.asKnown().getOrNull()?.validity() ?: 0)
+                (updateDynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (shared.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -11087,16 +12115,17 @@ private constructor(
             return other is UpdateDynamicVariables &&
                 type == other.type &&
                 updateDynamicVariables == other.updateDynamicVariables &&
+                shared == other.shared &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(type, updateDynamicVariables, additionalProperties)
+            Objects.hash(type, updateDynamicVariables, shared, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "UpdateDynamicVariables{type=$type, updateDynamicVariables=$updateDynamicVariables, additionalProperties=$additionalProperties}"
+            "UpdateDynamicVariables{type=$type, updateDynamicVariables=$updateDynamicVariables, shared=$shared, additionalProperties=$additionalProperties}"
     }
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.MessagingError
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.messages.MessagingError0b38e7044b
 import com.telnyx.sdk.models.messages.MessagingInboundMessagePayload
@@ -145,6 +144,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -346,6 +347,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -549,6 +552,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -724,6 +729,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -859,6 +866,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -1015,6 +1024,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -1187,6 +1198,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -1348,6 +1361,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -1527,6 +1542,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -1714,6 +1731,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -1893,6 +1912,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -2053,6 +2074,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -2207,6 +2230,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -2353,6 +2378,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -2497,6 +2524,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -2639,6 +2668,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -2784,6 +2815,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -2974,6 +3007,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -3170,6 +3205,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -3343,6 +3380,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -3524,6 +3563,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -3673,6 +3714,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -3822,6 +3865,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -3975,6 +4020,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -4131,6 +4178,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -4308,6 +4357,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -4512,6 +4563,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -4692,6 +4745,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -4842,6 +4897,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -4986,6 +5043,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -5143,6 +5202,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -5311,6 +5372,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -5469,6 +5532,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -5615,6 +5680,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -5761,6 +5828,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -5903,6 +5972,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -6040,6 +6111,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -6177,6 +6250,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -6317,6 +6392,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -6458,6 +6535,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -6608,6 +6687,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -6757,6 +6838,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -6895,6 +6978,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -7036,6 +7121,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -7167,6 +7254,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -7297,6 +7386,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -7440,6 +7531,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -7577,6 +7670,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -7719,6 +7814,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -7865,6 +7962,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -8019,6 +8118,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -8177,6 +8278,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -8331,6 +8434,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -8485,6 +8590,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -8629,6 +8736,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -8767,6 +8876,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -8928,6 +9039,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -9087,6 +9200,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -9219,6 +9334,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -9267,6 +9384,7 @@ internal class UnwrapWebhookEventTest {
                         .payload(
                             OutboundMessagePayload.builder()
                                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                                .body(OutboundMessagePayload.Body.builder().text("text").build())
                                 .addCc(
                                     OutboundMessagePayload.Cc.builder()
                                         .carrier("carrier")
@@ -9302,17 +9420,17 @@ internal class UnwrapWebhookEventTest {
                                 .direction(OutboundMessagePayload.Direction.OUTBOUND)
                                 .encoding("GSM-7")
                                 .addError(
-                                    MessagingError.builder()
+                                    MessagingError0b38e7044b.builder()
                                         .code("code")
                                         .title("title")
                                         .detail("detail")
                                         .meta(
-                                            MessagingError.Meta.builder()
+                                            MessagingError0b38e7044b.Meta.builder()
                                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .build()
                                         )
                                         .source(
-                                            MessagingError.Source.builder()
+                                            MessagingError0b38e7044b.Source.builder()
                                                 .parameter("parameter")
                                                 .pointer("pointer")
                                                 .build()
@@ -9321,6 +9439,8 @@ internal class UnwrapWebhookEventTest {
                                 )
                                 .from(
                                     OutboundMessagePayload.From.builder()
+                                        .agentId("agent_id")
+                                        .agentName("agent_name")
                                         .carrier("TELNYX LLC")
                                         .lineType(OutboundMessagePayload.From.LineType.VO_IP)
                                         .phoneNumber("+18445550001")
@@ -9451,6 +9571,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -9467,6 +9589,9 @@ internal class UnwrapWebhookEventTest {
                             .payload(
                                 OutboundMessagePayload.builder()
                                     .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                                    .body(
+                                        OutboundMessagePayload.Body.builder().text("text").build()
+                                    )
                                     .addCc(
                                         OutboundMessagePayload.Cc.builder()
                                             .carrier("carrier")
@@ -9502,12 +9627,12 @@ internal class UnwrapWebhookEventTest {
                                     .direction(OutboundMessagePayload.Direction.OUTBOUND)
                                     .encoding("GSM-7")
                                     .addError(
-                                        MessagingError.builder()
+                                        MessagingError0b38e7044b.builder()
                                             .code("code")
                                             .title("title")
                                             .detail("detail")
                                             .meta(
-                                                MessagingError.Meta.builder()
+                                                MessagingError0b38e7044b.Meta.builder()
                                                     .putAdditionalProperty(
                                                         "foo",
                                                         JsonValue.from("bar"),
@@ -9515,7 +9640,7 @@ internal class UnwrapWebhookEventTest {
                                                     .build()
                                             )
                                             .source(
-                                                MessagingError.Source.builder()
+                                                MessagingError0b38e7044b.Source.builder()
                                                     .parameter("parameter")
                                                     .pointer("pointer")
                                                     .build()
@@ -9524,6 +9649,8 @@ internal class UnwrapWebhookEventTest {
                                     )
                                     .from(
                                         OutboundMessagePayload.From.builder()
+                                            .agentId("agent_id")
+                                            .agentName("agent_name")
                                             .carrier("TELNYX LLC")
                                             .lineType(OutboundMessagePayload.From.LineType.VO_IP)
                                             .phoneNumber("+18445550001")
@@ -9701,6 +9828,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -9863,6 +9992,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -10023,6 +10154,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -10181,6 +10314,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -10339,6 +10474,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -10505,6 +10642,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -10570,13 +10709,80 @@ internal class UnwrapWebhookEventTest {
         val inboundMessage =
             InboundMessageWebhookEvent.builder()
                 .data(
-                    InboundMessageWebhookEvent.Data.builder()
+                    MessagingInboundMessage.builder()
                         .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                        .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
+                        .eventType(MessagingInboundMessage.EventType.MESSAGE_RECEIVED)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             MessagingInboundMessagePayload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                                .autoresponseType("STOP")
+                                .body(
+                                    MessagingInboundMessagePayload.Body.builder()
+                                        .id("id")
+                                        .edit(
+                                            MessagingInboundMessagePayload.Body.Edit.builder()
+                                                .message(
+                                                    MessagingInboundMessagePayload.Body.Edit.Message
+                                                        .builder()
+                                                        .putAdditionalProperty(
+                                                            "foo",
+                                                            JsonValue.from("bar"),
+                                                        )
+                                                        .build()
+                                                )
+                                                .originalMessageId("original_message_id")
+                                                .build()
+                                        )
+                                        .foreignId("foreign_id")
+                                        .from("from")
+                                        .location(
+                                            MessagingInboundMessagePayload.Body.Location.builder()
+                                                .latitude(0.0)
+                                                .longitude(0.0)
+                                                .build()
+                                        )
+                                        .revoke(
+                                            MessagingInboundMessagePayload.Body.Revoke.builder()
+                                                .originalMessageId("original_message_id")
+                                                .build()
+                                        )
+                                        .suggestionResponse(
+                                            MessagingInboundMessagePayload.Body.SuggestionResponse
+                                                .builder()
+                                                .postbackData("postback_data")
+                                                .text("text")
+                                                .build()
+                                        )
+                                        .text("string")
+                                        .timestamp("timestamp")
+                                        .type("edit")
+                                        .userFile(
+                                            MessagingInboundMessagePayload.Body.UserFile.builder()
+                                                .payload(
+                                                    MessagingInboundMessagePayload.Body.UserFile
+                                                        .Payload
+                                                        .builder()
+                                                        .fileName("file_name")
+                                                        .fileSizeBytes(0L)
+                                                        .fileUri("file_uri")
+                                                        .mimeType("mime_type")
+                                                        .build()
+                                                )
+                                                .thumbnail(
+                                                    MessagingInboundMessagePayload.Body.UserFile
+                                                        .Thumbnail
+                                                        .builder()
+                                                        .fileName("file_name")
+                                                        .fileSizeBytes(0L)
+                                                        .fileUri("file_uri")
+                                                        .mimeType("mime_type")
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .build()
+                                )
                                 .addCc(
                                     MessagingInboundMessagePayload.Cc.builder()
                                         .carrier("carrier")
@@ -10663,13 +10869,29 @@ internal class UnwrapWebhookEventTest {
                                 .tcrCampaignId("TCPA3X7")
                                 .tcrCampaignRegistered("REGISTERED")
                                 .text("Hello, World!")
-                                .addTo(
-                                    MessagingInboundMessagePayload.To.builder()
-                                        .carrier("TELNYX LLC")
-                                        .lineType(MessagingInboundMessagePayload.To.LineType.VO_IP)
-                                        .phoneNumber("+18445550001")
-                                        .status(MessagingInboundMessagePayload.To.Status.DELIVERED)
-                                        .build()
+                                .toOfUnnamedSchemaWithArrayParent0s(
+                                    listOf(
+                                        MessagingInboundMessagePayload.To
+                                            .UnnamedSchemaWithArrayParent0
+                                            .builder()
+                                            .agentId("agent_id")
+                                            .agentName("agent_name")
+                                            .carrier("TELNYX LLC")
+                                            .lineType(
+                                                MessagingInboundMessagePayload.To
+                                                    .UnnamedSchemaWithArrayParent0
+                                                    .LineType
+                                                    .VO_IP
+                                            )
+                                            .phoneNumber("+18445550001")
+                                            .status(
+                                                MessagingInboundMessagePayload.To
+                                                    .UnnamedSchemaWithArrayParent0
+                                                    .Status
+                                                    .DELIVERED
+                                            )
+                                            .build()
+                                    )
                                 )
                                 .type(MessagingInboundMessagePayload.Type.SMS)
                                 .validUntil(null)
@@ -10677,7 +10899,7 @@ internal class UnwrapWebhookEventTest {
                                 .webhookUrl("https://www.example.com/hooks")
                                 .build()
                         )
-                        .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(MessagingInboundMessage.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -10757,6 +10979,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -10766,13 +10990,84 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofInboundMessage(
                 InboundMessageWebhookEvent.builder()
                     .data(
-                        InboundMessageWebhookEvent.Data.builder()
+                        MessagingInboundMessage.builder()
                             .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                            .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
+                            .eventType(MessagingInboundMessage.EventType.MESSAGE_RECEIVED)
                             .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                             .payload(
                                 MessagingInboundMessagePayload.builder()
                                     .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
+                                    .autoresponseType("STOP")
+                                    .body(
+                                        MessagingInboundMessagePayload.Body.builder()
+                                            .id("id")
+                                            .edit(
+                                                MessagingInboundMessagePayload.Body.Edit.builder()
+                                                    .message(
+                                                        MessagingInboundMessagePayload.Body.Edit
+                                                            .Message
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "foo",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .originalMessageId("original_message_id")
+                                                    .build()
+                                            )
+                                            .foreignId("foreign_id")
+                                            .from("from")
+                                            .location(
+                                                MessagingInboundMessagePayload.Body.Location
+                                                    .builder()
+                                                    .latitude(0.0)
+                                                    .longitude(0.0)
+                                                    .build()
+                                            )
+                                            .revoke(
+                                                MessagingInboundMessagePayload.Body.Revoke.builder()
+                                                    .originalMessageId("original_message_id")
+                                                    .build()
+                                            )
+                                            .suggestionResponse(
+                                                MessagingInboundMessagePayload.Body
+                                                    .SuggestionResponse
+                                                    .builder()
+                                                    .postbackData("postback_data")
+                                                    .text("text")
+                                                    .build()
+                                            )
+                                            .text("string")
+                                            .timestamp("timestamp")
+                                            .type("edit")
+                                            .userFile(
+                                                MessagingInboundMessagePayload.Body.UserFile
+                                                    .builder()
+                                                    .payload(
+                                                        MessagingInboundMessagePayload.Body.UserFile
+                                                            .Payload
+                                                            .builder()
+                                                            .fileName("file_name")
+                                                            .fileSizeBytes(0L)
+                                                            .fileUri("file_uri")
+                                                            .mimeType("mime_type")
+                                                            .build()
+                                                    )
+                                                    .thumbnail(
+                                                        MessagingInboundMessagePayload.Body.UserFile
+                                                            .Thumbnail
+                                                            .builder()
+                                                            .fileName("file_name")
+                                                            .fileSizeBytes(0L)
+                                                            .fileUri("file_uri")
+                                                            .mimeType("mime_type")
+                                                            .build()
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
                                     .addCc(
                                         MessagingInboundMessagePayload.Cc.builder()
                                             .carrier("carrier")
@@ -10866,17 +11161,29 @@ internal class UnwrapWebhookEventTest {
                                     .tcrCampaignId("TCPA3X7")
                                     .tcrCampaignRegistered("REGISTERED")
                                     .text("Hello, World!")
-                                    .addTo(
-                                        MessagingInboundMessagePayload.To.builder()
-                                            .carrier("TELNYX LLC")
-                                            .lineType(
-                                                MessagingInboundMessagePayload.To.LineType.VO_IP
-                                            )
-                                            .phoneNumber("+18445550001")
-                                            .status(
-                                                MessagingInboundMessagePayload.To.Status.DELIVERED
-                                            )
-                                            .build()
+                                    .toOfUnnamedSchemaWithArrayParent0s(
+                                        listOf(
+                                            MessagingInboundMessagePayload.To
+                                                .UnnamedSchemaWithArrayParent0
+                                                .builder()
+                                                .agentId("agent_id")
+                                                .agentName("agent_name")
+                                                .carrier("TELNYX LLC")
+                                                .lineType(
+                                                    MessagingInboundMessagePayload.To
+                                                        .UnnamedSchemaWithArrayParent0
+                                                        .LineType
+                                                        .VO_IP
+                                                )
+                                                .phoneNumber("+18445550001")
+                                                .status(
+                                                    MessagingInboundMessagePayload.To
+                                                        .UnnamedSchemaWithArrayParent0
+                                                        .Status
+                                                        .DELIVERED
+                                                )
+                                                .build()
+                                        )
                                     )
                                     .type(MessagingInboundMessagePayload.Type.SMS)
                                     .validUntil(null)
@@ -10884,7 +11191,7 @@ internal class UnwrapWebhookEventTest {
                                     .webhookUrl("https://www.example.com/hooks")
                                     .build()
                             )
-                            .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(MessagingInboundMessage.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -10907,7 +11214,9 @@ internal class UnwrapWebhookEventTest {
                 .data(
                     NumberOrderStatusUpdateWebhookEvent.Data.builder()
                         .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
-                        .eventType("number_order.complete")
+                        .eventType(
+                            NumberOrderStatusUpdateWebhookEvent.Data.EventType.NUMBER_ORDER_COMPLETE
+                        )
                         .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
                         .payload(
                             NumberOrderStatusUpdateWebhookEvent.Data.Payload.builder()
@@ -11063,6 +11372,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -11074,7 +11385,10 @@ internal class UnwrapWebhookEventTest {
                     .data(
                         NumberOrderStatusUpdateWebhookEvent.Data.builder()
                             .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
-                            .eventType("number_order.complete")
+                            .eventType(
+                                NumberOrderStatusUpdateWebhookEvent.Data.EventType
+                                    .NUMBER_ORDER_COMPLETE
+                            )
                             .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
                             .payload(
                                 NumberOrderStatusUpdateWebhookEvent.Data.Payload.builder()
@@ -11262,6 +11576,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -11383,6 +11699,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -11506,6 +11824,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).contains(sessionStatusChanged)
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -11632,6 +11952,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).contains(transcriptCompleted)
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -11777,6 +12099,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).contains(transcription)
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
     }
 
     @Test
@@ -11814,6 +12138,387 @@ internal class UnwrapWebhookEventTest {
                                     .build()
                             )
                             .recordType(Transcription.RecordType.EVENT)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unwrapWebhookEvent))
+    }
+
+    @Test
+    fun ofWhatsappAccountUpdate() {
+        val whatsappAccountUpdate =
+            WhatsappAccountUpdate.builder()
+                .data(
+                    WhatsappAccountUpdate.Data.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .eventType(WhatsappAccountUpdate.Data.EventType.WHATSAPP_ACCOUNT_UPDATE)
+                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .payload(
+                            WhatsappAccountUpdate.Data.Payload.builder()
+                                .event("ACCOUNT_OFFBOARDED")
+                                .recordType(
+                                    WhatsappAccountUpdate.Data.Payload.RecordType.WHATSAPP_ACCOUNT
+                                )
+                                .wabaId("waba_id")
+                                .build()
+                        )
+                        .recordType(WhatsappAccountUpdate.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofWhatsappAccountUpdate(whatsappAccountUpdate)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).contains(whatsappAccountUpdate)
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
+    }
+
+    @Test
+    fun ofWhatsappAccountUpdateRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofWhatsappAccountUpdate(
+                WhatsappAccountUpdate.builder()
+                    .data(
+                        WhatsappAccountUpdate.Data.builder()
+                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .eventType(WhatsappAccountUpdate.Data.EventType.WHATSAPP_ACCOUNT_UPDATE)
+                            .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .payload(
+                                WhatsappAccountUpdate.Data.Payload.builder()
+                                    .event("ACCOUNT_OFFBOARDED")
+                                    .recordType(
+                                        WhatsappAccountUpdate.Data.Payload.RecordType
+                                            .WHATSAPP_ACCOUNT
+                                    )
+                                    .wabaId("waba_id")
+                                    .build()
+                            )
+                            .recordType(WhatsappAccountUpdate.Data.RecordType.EVENT)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unwrapWebhookEvent))
+    }
+
+    @Test
+    fun ofWhatsappMessageEcho() {
+        val whatsappMessageEcho =
+            WhatsappMessageEcho.builder()
+                .data(
+                    WhatsappMessageEcho.Data.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .eventType(WhatsappMessageEcho.Data.EventType.MESSAGE_ECHO)
+                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .payload(
+                            WhatsappMessageEcho.Data.Payload.builder()
+                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .body(
+                                    WhatsappMessageEcho.Data.Payload.Body.builder()
+                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                        .foreignId("foreign_id")
+                                        .timestamp("timestamp")
+                                        .type("type")
+                                        .from("from")
+                                        .fromUserId("from_user_id")
+                                        .build()
+                                )
+                                .cost(
+                                    WhatsappMessageEcho.Data.Payload.Cost.builder()
+                                        .amount("amount")
+                                        .currency("currency")
+                                        .build()
+                                )
+                                .direction(WhatsappMessageEcho.Data.Payload.Direction.OUTBOUND)
+                                .addError(
+                                    MessagingError0b38e7044b.builder()
+                                        .code("code")
+                                        .title("title")
+                                        .detail("detail")
+                                        .meta(
+                                            MessagingError0b38e7044b.Meta.builder()
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .build()
+                                        )
+                                        .source(
+                                            MessagingError0b38e7044b.Source.builder()
+                                                .parameter("parameter")
+                                                .pointer("pointer")
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .from(
+                                    WhatsappMessageEcho.Data.Payload.From.builder()
+                                        .phoneNumber("phone_number")
+                                        .carrier("carrier")
+                                        .lineType("line_type")
+                                        .build()
+                                )
+                                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .origin(
+                                    WhatsappMessageEcho.Data.Payload.Origin.WHATSAPP_BUSINESS_APP
+                                )
+                                .recordType(WhatsappMessageEcho.Data.Payload.RecordType.MESSAGE)
+                                .to("to")
+                                .type(WhatsappMessageEcho.Data.Payload.Type.WHATSAPP)
+                                .receivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .addTag("string")
+                                .webhookFailoverUrl("https://example.com")
+                                .webhookUrl("https://example.com")
+                                .build()
+                        )
+                        .recordType(WhatsappMessageEcho.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofWhatsappMessageEcho(whatsappMessageEcho)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingAvailable()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).contains(whatsappMessageEcho)
+    }
+
+    @Test
+    fun ofWhatsappMessageEchoRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofWhatsappMessageEcho(
+                WhatsappMessageEcho.builder()
+                    .data(
+                        WhatsappMessageEcho.Data.builder()
+                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .eventType(WhatsappMessageEcho.Data.EventType.MESSAGE_ECHO)
+                            .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .payload(
+                                WhatsappMessageEcho.Data.Payload.builder()
+                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .body(
+                                        WhatsappMessageEcho.Data.Payload.Body.builder()
+                                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                            .foreignId("foreign_id")
+                                            .timestamp("timestamp")
+                                            .type("type")
+                                            .from("from")
+                                            .fromUserId("from_user_id")
+                                            .build()
+                                    )
+                                    .cost(
+                                        WhatsappMessageEcho.Data.Payload.Cost.builder()
+                                            .amount("amount")
+                                            .currency("currency")
+                                            .build()
+                                    )
+                                    .direction(WhatsappMessageEcho.Data.Payload.Direction.OUTBOUND)
+                                    .addError(
+                                        MessagingError0b38e7044b.builder()
+                                            .code("code")
+                                            .title("title")
+                                            .detail("detail")
+                                            .meta(
+                                                MessagingError0b38e7044b.Meta.builder()
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from("bar"),
+                                                    )
+                                                    .build()
+                                            )
+                                            .source(
+                                                MessagingError0b38e7044b.Source.builder()
+                                                    .parameter("parameter")
+                                                    .pointer("pointer")
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
+                                    .from(
+                                        WhatsappMessageEcho.Data.Payload.From.builder()
+                                            .phoneNumber("phone_number")
+                                            .carrier("carrier")
+                                            .lineType("line_type")
+                                            .build()
+                                    )
+                                    .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .organizationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .origin(
+                                        WhatsappMessageEcho.Data.Payload.Origin
+                                            .WHATSAPP_BUSINESS_APP
+                                    )
+                                    .recordType(WhatsappMessageEcho.Data.Payload.RecordType.MESSAGE)
+                                    .to("to")
+                                    .type(WhatsappMessageEcho.Data.Payload.Type.WHATSAPP)
+                                    .receivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .addTag("string")
+                                    .webhookFailoverUrl("https://example.com")
+                                    .webhookUrl("https://example.com")
+                                    .build()
+                            )
+                            .recordType(WhatsappMessageEcho.Data.RecordType.EVENT)
                             .build()
                     )
                     .build()

@@ -38,9 +38,12 @@ private constructor(
 
     /**
      * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but English-only.
-     * `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency.
-     * `deepgram/nova-3` supports English variants (en, en-US, en-GB, en-AU, en-NZ, en-IN) and only
-     * accepts mp3/wav files.
+     * `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency. The
+     * `deepgram&#47;*` models only accept mp3/wav files: `deepgram/nova-3` covers ~49 languages
+     * plus `multi` and `deepgram/nova-2` covers ~33, while the `-medical` variants are tuned for
+     * clinical vocabulary and accept English only (`en` and its regional variants, e.g. `en-US`,
+     * `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic language detection;
+     * `omi-health/omi-med-stt-v1` is a medical model, English only.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -50,7 +53,7 @@ private constructor(
     /**
      * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga,
      * m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with
-     * `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
+     * `file_url`. Note: the `deepgram&#47;*` models only support mp3 and wav formats.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -60,7 +63,7 @@ private constructor(
     /**
      * Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or
      * webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`.
-     * Note: `deepgram/nova-3` only supports mp3 and wav formats.
+     * Note: the `deepgram&#47;*` models only support mp3 and wav formats.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -68,10 +71,14 @@ private constructor(
     fun fileUrl(): Optional<String> = body.fileUrl()
 
     /**
-     * The language of the audio to be transcribed. For `deepgram/nova-3`, only English variants are
-     * supported: `en`, `en-US`, `en-GB`, `en-AU`, `en-NZ`, `en-IN`. For
+     * The language of the audio to be transcribed. `deepgram/nova-3` supports ~49 languages plus
+     * `multi`, and `deepgram/nova-2` supports ~33 plus `multi`; the `-medical` variants are English
+     * only (`en` and its regional variants, e.g. `en-US`, `en-GB`). Deepgram models validate on the
+     * base language and forward the full tag, so regional variants such as `de-CH` and `pt-BR` are
+     * accepted where the base language is supported; an unsupported language returns a 400. For
      * `openai/whisper-large-v3-turbo`, supports multiple languages.
-     * `distil-whisper/distil-large-v2` does not support language parameter.
+     * `distil-whisper/distil-large-v2` does not support language parameter. `nvidia/parakeet-v3`
+     * detects the language automatically; `omi-health/omi-med-stt-v1` is English only.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -79,8 +86,8 @@ private constructor(
     fun language(): Optional<String> = body.language()
 
     /**
-     * Additional model-specific configuration parameters. Only allowed with `deepgram/nova-3`
-     * model. Can include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize`,
+     * Additional model-specific configuration parameters. Only allowed with the `deepgram&#47;*`
+     * models. Can include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize`,
      * `utterance`, `numerals`, and `language`. If `language` is provided both as a top-level
      * parameter and in `model_config`, the top-level parameter takes precedence.
      *
@@ -214,8 +221,11 @@ private constructor(
         /**
          * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but
          * English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher
-         * latency. `deepgram/nova-3` supports English variants (en, en-US, en-GB, en-AU, en-NZ,
-         * en-IN) and only accepts mp3/wav files.
+         * latency. The `deepgram&#47;*` models only accept mp3/wav files: `deepgram/nova-3` covers
+         * ~49 languages plus `multi` and `deepgram/nova-2` covers ~33, while the `-medical`
+         * variants are tuned for clinical vocabulary and accept English only (`en` and its regional
+         * variants, e.g. `en-US`, `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic
+         * language detection; `omi-health/omi-med-stt-v1` is a medical model, English only.
          */
         fun model(model: Model) = apply { body.model(model) }
 
@@ -230,7 +240,7 @@ private constructor(
         /**
          * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga,
          * m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with
-         * `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
+         * `file_url`. Note: the `deepgram&#47;*` models only support mp3 and wav formats.
          */
         fun file(file: InputStream) = apply { body.file(file) }
 
@@ -246,21 +256,21 @@ private constructor(
         /**
          * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga,
          * m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with
-         * `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
+         * `file_url`. Note: the `deepgram&#47;*` models only support mp3 and wav formats.
          */
         fun file(file: ByteArray) = apply { body.file(file) }
 
         /**
          * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga,
          * m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with
-         * `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
+         * `file_url`. Note: the `deepgram&#47;*` models only support mp3 and wav formats.
          */
         fun file(path: Path) = apply { body.file(path) }
 
         /**
          * Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or
          * webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`.
-         * Note: `deepgram/nova-3` only supports mp3 and wav formats.
+         * Note: the `deepgram&#47;*` models only support mp3 and wav formats.
          */
         fun fileUrl(fileUrl: String) = apply { body.fileUrl(fileUrl) }
 
@@ -273,10 +283,15 @@ private constructor(
         fun fileUrl(fileUrl: MultipartField<String>) = apply { body.fileUrl(fileUrl) }
 
         /**
-         * The language of the audio to be transcribed. For `deepgram/nova-3`, only English variants
-         * are supported: `en`, `en-US`, `en-GB`, `en-AU`, `en-NZ`, `en-IN`. For
-         * `openai/whisper-large-v3-turbo`, supports multiple languages.
+         * The language of the audio to be transcribed. `deepgram/nova-3` supports ~49 languages
+         * plus `multi`, and `deepgram/nova-2` supports ~33 plus `multi`; the `-medical` variants
+         * are English only (`en` and its regional variants, e.g. `en-US`, `en-GB`). Deepgram models
+         * validate on the base language and forward the full tag, so regional variants such as
+         * `de-CH` and `pt-BR` are accepted where the base language is supported; an unsupported
+         * language returns a 400. For `openai/whisper-large-v3-turbo`, supports multiple languages.
          * `distil-whisper/distil-large-v2` does not support language parameter.
+         * `nvidia/parakeet-v3` detects the language automatically; `omi-health/omi-med-stt-v1` is
+         * English only.
          */
         fun language(language: String) = apply { body.language(language) }
 
@@ -289,10 +304,11 @@ private constructor(
         fun language(language: MultipartField<String>) = apply { body.language(language) }
 
         /**
-         * Additional model-specific configuration parameters. Only allowed with `deepgram/nova-3`
-         * model. Can include Deepgram-specific options such as `smart_format`, `punctuate`,
-         * `diarize`, `utterance`, `numerals`, and `language`. If `language` is provided both as a
-         * top-level parameter and in `model_config`, the top-level parameter takes precedence.
+         * Additional model-specific configuration parameters. Only allowed with the
+         * `deepgram&#47;*` models. Can include Deepgram-specific options such as `smart_format`,
+         * `punctuate`, `diarize`, `utterance`, `numerals`, and `language`. If `language` is
+         * provided both as a top-level parameter and in `model_config`, the top-level parameter
+         * takes precedence.
          */
         fun modelConfig(modelConfig: ModelConfig) = apply { body.modelConfig(modelConfig) }
 
@@ -514,8 +530,11 @@ private constructor(
         /**
          * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but
          * English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher
-         * latency. `deepgram/nova-3` supports English variants (en, en-US, en-GB, en-AU, en-NZ,
-         * en-IN) and only accepts mp3/wav files.
+         * latency. The `deepgram&#47;*` models only accept mp3/wav files: `deepgram/nova-3` covers
+         * ~49 languages plus `multi` and `deepgram/nova-2` covers ~33, while the `-medical`
+         * variants are tuned for clinical vocabulary and accept English only (`en` and its regional
+         * variants, e.g. `en-US`, `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic
+         * language detection; `omi-health/omi-med-stt-v1` is a medical model, English only.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -525,7 +544,7 @@ private constructor(
         /**
          * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga,
          * m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with
-         * `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
+         * `file_url`. Note: the `deepgram&#47;*` models only support mp3 and wav formats.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -535,7 +554,7 @@ private constructor(
         /**
          * Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or
          * webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`.
-         * Note: `deepgram/nova-3` only supports mp3 and wav formats.
+         * Note: the `deepgram&#47;*` models only support mp3 and wav formats.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -543,10 +562,15 @@ private constructor(
         fun fileUrl(): Optional<String> = fileUrl.value.getOptional("file_url")
 
         /**
-         * The language of the audio to be transcribed. For `deepgram/nova-3`, only English variants
-         * are supported: `en`, `en-US`, `en-GB`, `en-AU`, `en-NZ`, `en-IN`. For
-         * `openai/whisper-large-v3-turbo`, supports multiple languages.
+         * The language of the audio to be transcribed. `deepgram/nova-3` supports ~49 languages
+         * plus `multi`, and `deepgram/nova-2` supports ~33 plus `multi`; the `-medical` variants
+         * are English only (`en` and its regional variants, e.g. `en-US`, `en-GB`). Deepgram models
+         * validate on the base language and forward the full tag, so regional variants such as
+         * `de-CH` and `pt-BR` are accepted where the base language is supported; an unsupported
+         * language returns a 400. For `openai/whisper-large-v3-turbo`, supports multiple languages.
          * `distil-whisper/distil-large-v2` does not support language parameter.
+         * `nvidia/parakeet-v3` detects the language automatically; `omi-health/omi-med-stt-v1` is
+         * English only.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -554,10 +578,11 @@ private constructor(
         fun language(): Optional<String> = language.value.getOptional("language")
 
         /**
-         * Additional model-specific configuration parameters. Only allowed with `deepgram/nova-3`
-         * model. Can include Deepgram-specific options such as `smart_format`, `punctuate`,
-         * `diarize`, `utterance`, `numerals`, and `language`. If `language` is provided both as a
-         * top-level parameter and in `model_config`, the top-level parameter takes precedence.
+         * Additional model-specific configuration parameters. Only allowed with the
+         * `deepgram&#47;*` models. Can include Deepgram-specific options such as `smart_format`,
+         * `punctuate`, `diarize`, `utterance`, `numerals`, and `language`. If `language` is
+         * provided both as a top-level parameter and in `model_config`, the top-level parameter
+         * takes precedence.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -697,8 +722,12 @@ private constructor(
             /**
              * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but
              * English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher
-             * latency. `deepgram/nova-3` supports English variants (en, en-US, en-GB, en-AU, en-NZ,
-             * en-IN) and only accepts mp3/wav files.
+             * latency. The `deepgram&#47;*` models only accept mp3/wav files: `deepgram/nova-3`
+             * covers ~49 languages plus `multi` and `deepgram/nova-2` covers ~33, while the
+             * `-medical` variants are tuned for clinical vocabulary and accept English only (`en`
+             * and its regional variants, e.g. `en-US`, `en-GB`). `nvidia/parakeet-v3` is
+             * multilingual with automatic language detection; `omi-health/omi-med-stt-v1` is a
+             * medical model, English only.
              */
             fun model(model: Model) = model(MultipartField.of(model))
 
@@ -714,7 +743,8 @@ private constructor(
             /**
              * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg,
              * mpga, m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used
-             * together with `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
+             * together with `file_url`. Note: the `deepgram&#47;*` models only support mp3 and wav
+             * formats.
              */
             fun file(file: InputStream) = file(MultipartField.of(file))
 
@@ -730,14 +760,16 @@ private constructor(
             /**
              * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg,
              * mpga, m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used
-             * together with `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
+             * together with `file_url`. Note: the `deepgram&#47;*` models only support mp3 and wav
+             * formats.
              */
             fun file(file: ByteArray) = file(file.inputStream())
 
             /**
              * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg,
              * mpga, m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used
-             * together with `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
+             * together with `file_url`. Note: the `deepgram&#47;*` models only support mp3 and wav
+             * formats.
              */
             fun file(path: Path) =
                 file(
@@ -750,7 +782,7 @@ private constructor(
             /**
              * Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg,
              * wav, or webm. Support for hosted files is limited to 100MB. Cannot be used together
-             * with `file`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
+             * with `file`. Note: the `deepgram&#47;*` models only support mp3 and wav formats.
              */
             fun fileUrl(fileUrl: String) = fileUrl(MultipartField.of(fileUrl))
 
@@ -764,10 +796,16 @@ private constructor(
             fun fileUrl(fileUrl: MultipartField<String>) = apply { this.fileUrl = fileUrl }
 
             /**
-             * The language of the audio to be transcribed. For `deepgram/nova-3`, only English
-             * variants are supported: `en`, `en-US`, `en-GB`, `en-AU`, `en-NZ`, `en-IN`. For
+             * The language of the audio to be transcribed. `deepgram/nova-3` supports ~49 languages
+             * plus `multi`, and `deepgram/nova-2` supports ~33 plus `multi`; the `-medical`
+             * variants are English only (`en` and its regional variants, e.g. `en-US`, `en-GB`).
+             * Deepgram models validate on the base language and forward the full tag, so regional
+             * variants such as `de-CH` and `pt-BR` are accepted where the base language is
+             * supported; an unsupported language returns a 400. For
              * `openai/whisper-large-v3-turbo`, supports multiple languages.
              * `distil-whisper/distil-large-v2` does not support language parameter.
+             * `nvidia/parakeet-v3` detects the language automatically; `omi-health/omi-med-stt-v1`
+             * is English only.
              */
             fun language(language: String) = language(MultipartField.of(language))
 
@@ -781,8 +819,8 @@ private constructor(
             fun language(language: MultipartField<String>) = apply { this.language = language }
 
             /**
-             * Additional model-specific configuration parameters. Only allowed with
-             * `deepgram/nova-3` model. Can include Deepgram-specific options such as
+             * Additional model-specific configuration parameters. Only allowed with the
+             * `deepgram&#47;*` models. Can include Deepgram-specific options such as
              * `smart_format`, `punctuate`, `diarize`, `utterance`, `numerals`, and `language`. If
              * `language` is provided both as a top-level parameter and in `model_config`, the
              * top-level parameter takes precedence.
@@ -952,9 +990,12 @@ private constructor(
 
     /**
      * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but English-only.
-     * `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency.
-     * `deepgram/nova-3` supports English variants (en, en-US, en-GB, en-AU, en-NZ, en-IN) and only
-     * accepts mp3/wav files.
+     * `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency. The
+     * `deepgram&#47;*` models only accept mp3/wav files: `deepgram/nova-3` covers ~49 languages
+     * plus `multi` and `deepgram/nova-2` covers ~33, while the `-medical` variants are tuned for
+     * clinical vocabulary and accept English only (`en` and its regional variants, e.g. `en-US`,
+     * `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic language detection;
+     * `omi-health/omi-med-stt-v1` is a medical model, English only.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -974,7 +1015,17 @@ private constructor(
 
             @JvmField val OPENAI_WHISPER_LARGE_V3_TURBO = of("openai/whisper-large-v3-turbo")
 
+            @JvmField val DEEPGRAM_NOVA_2 = of("deepgram/nova-2")
+
+            @JvmField val DEEPGRAM_NOVA_2_MEDICAL = of("deepgram/nova-2-medical")
+
             @JvmField val DEEPGRAM_NOVA_3 = of("deepgram/nova-3")
+
+            @JvmField val DEEPGRAM_NOVA_3_MEDICAL = of("deepgram/nova-3-medical")
+
+            @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
+
+            @JvmField val OMI_HEALTH_OMI_MED_STT_V1 = of("omi-health/omi-med-stt-v1")
 
             @JvmStatic fun of(value: String) = Model(JsonField.of(value))
         }
@@ -983,7 +1034,12 @@ private constructor(
         enum class Known {
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
+            DEEPGRAM_NOVA_2,
+            DEEPGRAM_NOVA_2_MEDICAL,
             DEEPGRAM_NOVA_3,
+            DEEPGRAM_NOVA_3_MEDICAL,
+            NVIDIA_PARAKEET_V3,
+            OMI_HEALTH_OMI_MED_STT_V1,
         }
 
         /**
@@ -998,7 +1054,12 @@ private constructor(
         enum class Value {
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
+            DEEPGRAM_NOVA_2,
+            DEEPGRAM_NOVA_2_MEDICAL,
             DEEPGRAM_NOVA_3,
+            DEEPGRAM_NOVA_3_MEDICAL,
+            NVIDIA_PARAKEET_V3,
+            OMI_HEALTH_OMI_MED_STT_V1,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1014,7 +1075,12 @@ private constructor(
             when (this) {
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Value.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Value.OPENAI_WHISPER_LARGE_V3_TURBO
+                DEEPGRAM_NOVA_2 -> Value.DEEPGRAM_NOVA_2
+                DEEPGRAM_NOVA_2_MEDICAL -> Value.DEEPGRAM_NOVA_2_MEDICAL
                 DEEPGRAM_NOVA_3 -> Value.DEEPGRAM_NOVA_3
+                DEEPGRAM_NOVA_3_MEDICAL -> Value.DEEPGRAM_NOVA_3_MEDICAL
+                NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
+                OMI_HEALTH_OMI_MED_STT_V1 -> Value.OMI_HEALTH_OMI_MED_STT_V1
                 else -> Value._UNKNOWN
             }
 
@@ -1031,7 +1097,12 @@ private constructor(
             when (this) {
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Known.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Known.OPENAI_WHISPER_LARGE_V3_TURBO
+                DEEPGRAM_NOVA_2 -> Known.DEEPGRAM_NOVA_2
+                DEEPGRAM_NOVA_2_MEDICAL -> Known.DEEPGRAM_NOVA_2_MEDICAL
                 DEEPGRAM_NOVA_3 -> Known.DEEPGRAM_NOVA_3
+                DEEPGRAM_NOVA_3_MEDICAL -> Known.DEEPGRAM_NOVA_3_MEDICAL
+                NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
+                OMI_HEALTH_OMI_MED_STT_V1 -> Known.OMI_HEALTH_OMI_MED_STT_V1
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
             }
 
@@ -1097,8 +1168,8 @@ private constructor(
     }
 
     /**
-     * Additional model-specific configuration parameters. Only allowed with `deepgram/nova-3`
-     * model. Can include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize`,
+     * Additional model-specific configuration parameters. Only allowed with the `deepgram&#47;*`
+     * models. Can include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize`,
      * `utterance`, `numerals`, and `language`. If `language` is provided both as a top-level
      * parameter and in `model_config`, the top-level parameter takes precedence.
      */

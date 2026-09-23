@@ -53,6 +53,8 @@ import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.ToolServiceAsync
 import com.telnyx.sdk.services.async.ai.ToolServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.TypesafeServiceAsync
+import com.telnyx.sdk.services.async.ai.TypesafeServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -111,6 +113,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         KnowledgeServiceAsyncImpl(clientOptions)
     }
 
+    private val typesafe: TypesafeServiceAsync by lazy { TypesafeServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): AiServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync =
@@ -154,6 +158,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun anthropic(): AnthropicServiceAsync = anthropic
 
     override fun knowledge(): KnowledgeServiceAsync = knowledge
+
+    override fun typesafe(): TypesafeServiceAsync = typesafe
 
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
@@ -237,6 +243,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             KnowledgeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val typesafe: TypesafeServiceAsync.WithRawResponse by lazy {
+            TypesafeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiServiceAsync.WithRawResponse =
@@ -282,6 +292,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         override fun anthropic(): AnthropicServiceAsync.WithRawResponse = anthropic
 
         override fun knowledge(): KnowledgeServiceAsync.WithRawResponse = knowledge
+
+        override fun typesafe(): TypesafeServiceAsync.WithRawResponse = typesafe
 
         private val retrieveConversationHistoriesHandler:
             Handler<AiRetrieveConversationHistoriesPageResponse> =

@@ -237,6 +237,12 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.webSearch()).isNotNull()
         assertThat(client.meetingSessions()).isNotNull()
         assertThat(client.externalRequirements()).isNotNull()
+        assertThat(client.compute()).isNotNull()
+        assertThat(client.noiseSuppressionEngines()).isNotNull()
+        assertThat(client.botChallenge()).isNotNull()
+        assertThat(client.botSessions()).isNotNull()
+        assertThat(client.botSignup()).isNotNull()
+        assertThat(client.machinePayments()).isNotNull()
     }
 
     @Test

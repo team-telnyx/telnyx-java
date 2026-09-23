@@ -43,4 +43,16 @@ internal class ConnectionServiceAsyncTest {
         val page = pageFuture.get()
         page.response().validate()
     }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveCount() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val connectionServiceAsync = client.connections()
+
+        val responseFuture = connectionServiceAsync.retrieveCount()
+
+        val response = responseFuture.get()
+        response.validate()
+    }
 }
