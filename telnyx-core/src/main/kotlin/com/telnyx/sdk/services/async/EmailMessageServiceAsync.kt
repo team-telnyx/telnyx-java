@@ -13,12 +13,13 @@ import com.telnyx.sdk.models.emailmessages.EmailMessageCreateParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteAllParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteScheduleParams
+import com.telnyx.sdk.models.emailmessages.EmailMessageDetailResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageListPageAsync
 import com.telnyx.sdk.models.emailmessages.EmailMessageListParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPageAsync
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveResponse
+import com.telnyx.sdk.models.emailmessages.EmailMessageUpdateScheduleParams
 import com.telnyx.sdk.services.async.emailmessages.RecipientServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -63,7 +64,7 @@ interface EmailMessageServiceAsync {
     ): CompletableFuture<EmailMessageResponse>
 
     /** The legacy `/v2/emails/{id}` GET route is a backward-compatible alias for this operation. */
-    fun retrieve(id: String): CompletableFuture<EmailMessageRetrieveResponse> =
+    fun retrieve(id: String): CompletableFuture<EmailMessageDetailResponse> =
         retrieve(id, EmailMessageRetrieveParams.none())
 
     /** @see retrieve */
@@ -71,36 +72,36 @@ interface EmailMessageServiceAsync {
         id: String,
         params: EmailMessageRetrieveParams = EmailMessageRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailMessageRetrieveResponse> =
+    ): CompletableFuture<EmailMessageDetailResponse> =
         retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: EmailMessageRetrieveParams = EmailMessageRetrieveParams.none(),
-    ): CompletableFuture<EmailMessageRetrieveResponse> = retrieve(id, params, RequestOptions.none())
+    ): CompletableFuture<EmailMessageDetailResponse> = retrieve(id, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: EmailMessageRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailMessageRetrieveResponse>
+    ): CompletableFuture<EmailMessageDetailResponse>
 
     /** @see retrieve */
     fun retrieve(
         params: EmailMessageRetrieveParams
-    ): CompletableFuture<EmailMessageRetrieveResponse> = retrieve(params, RequestOptions.none())
+    ): CompletableFuture<EmailMessageDetailResponse> = retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmailMessageRetrieveResponse> =
+    ): CompletableFuture<EmailMessageDetailResponse> =
         retrieve(id, EmailMessageRetrieveParams.none(), requestOptions)
 
     /**
-     * Lists messages sorted newest first by `created_at desc, id desc`. No filters other than
-     * cursor pagination are implemented. The legacy `/v2/emails` GET route is a backward-compatible
+     * Lists messages sorted newest first by `created_at desc, id desc`. Tags and metadata filters
+     * compose with cursor pagination. The legacy `/v2/emails` GET route is a backward-compatible
      * alias for this operation.
      */
     fun list(): CompletableFuture<EmailMessageListPageAsync> = list(EmailMessageListParams.none())
@@ -158,7 +159,10 @@ interface EmailMessageServiceAsync {
      * Creates up to 1,000 email messages in a single request. Request-wide admission checks run
      * first and can reject the whole batch before message creation. After those checks pass, each
      * message is validated and sent independently; item-level failures do not affect other
-     * messages, and the processed batch returns 207 Multi-Status.
+     * messages, and the processed batch returns 207 Multi-Status. Per-message failures include
+     * validation errors; when a template has `strict_variables` enabled, a missing required
+     * variable produces a per-item `unprocessable_entity` error naming that variable while the
+     * other messages continue.
      */
     fun batch(params: EmailMessageBatchParams): CompletableFuture<EmailMessageBatchResponse> =
         batch(params, RequestOptions.none())
@@ -228,6 +232,14 @@ interface EmailMessageServiceAsync {
     /**
      * Lists events for a single message sorted oldest first by `occurred_at asc, id asc`. The
      * legacy `/v2/emails/{id}/events` GET route is a backward-compatible alias.
+     *
+     * For compatibility, each event carries the legacy customer-visible `event_type`
+     * (`email.`-prefixed), the additive `canonical_event_type` (`email.`-prefixed), and the
+     * deprecated `type` duplicate — whose value keeps the exact legacy format: the bare stored
+     * event name, never `email.`-prefixed. Gateway rejections render `email.failed` + canonical
+     * `email.gw_reject`; MTA expirations render `email.bounced` + canonical `email.expired`; every
+     * unchanged outcome carries identical `event_type` and `canonical_event_type` values (and
+     * `type` keeps the stored name).
      */
     fun retrieveEvents(emailId: String): CompletableFuture<EmailMessageRetrieveEventsPageAsync> =
         retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none())
@@ -265,6 +277,37 @@ interface EmailMessageServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailMessageRetrieveEventsPageAsync> =
         retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none(), requestOptions)
+
+    /**
+     * Moves an existing scheduled email to a new future send time. Only the delivery time
+     * (`scheduled_at`) changes; the message ID, content, recipients, tags, and metadata remain
+     * unchanged. Returns `409 Conflict` if the message is no longer scheduled or its scheduled-send
+     * worker has already started processing it. This route emits no dedicated `rescheduled` event.
+     */
+    fun updateSchedule(
+        emailId: String,
+        params: EmailMessageUpdateScheduleParams,
+    ): CompletableFuture<EmailMessageDetailResponse> =
+        updateSchedule(emailId, params, RequestOptions.none())
+
+    /** @see updateSchedule */
+    fun updateSchedule(
+        emailId: String,
+        params: EmailMessageUpdateScheduleParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EmailMessageDetailResponse> =
+        updateSchedule(params.toBuilder().emailId(emailId).build(), requestOptions)
+
+    /** @see updateSchedule */
+    fun updateSchedule(
+        params: EmailMessageUpdateScheduleParams
+    ): CompletableFuture<EmailMessageDetailResponse> = updateSchedule(params, RequestOptions.none())
+
+    /** @see updateSchedule */
+    fun updateSchedule(
+        params: EmailMessageUpdateScheduleParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EmailMessageDetailResponse>
 
     /**
      * A view of [EmailMessageServiceAsync] that provides access to raw HTTP responses for each
@@ -306,7 +349,7 @@ interface EmailMessageServiceAsync {
          * Returns a raw HTTP response for `get /email_messages/{id}`, but is otherwise the same as
          * [EmailMessageServiceAsync.retrieve].
          */
-        fun retrieve(id: String): CompletableFuture<HttpResponseFor<EmailMessageRetrieveResponse>> =
+        fun retrieve(id: String): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>> =
             retrieve(id, EmailMessageRetrieveParams.none())
 
         /** @see retrieve */
@@ -314,33 +357,33 @@ interface EmailMessageServiceAsync {
             id: String,
             params: EmailMessageRetrieveParams = EmailMessageRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
         fun retrieve(
             id: String,
             params: EmailMessageRetrieveParams = EmailMessageRetrieveParams.none(),
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>> =
             retrieve(id, params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             params: EmailMessageRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveResponse>>
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>>
 
         /** @see retrieve */
         fun retrieve(
             params: EmailMessageRetrieveParams
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>> =
             retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         fun retrieve(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>> =
             retrieve(id, EmailMessageRetrieveParams.none(), requestOptions)
 
         /**
@@ -516,5 +559,35 @@ interface EmailMessageServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveEventsPageAsync>> =
             retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `patch /email_messages/{email_id}/schedule`, but is
+         * otherwise the same as [EmailMessageServiceAsync.updateSchedule].
+         */
+        fun updateSchedule(
+            emailId: String,
+            params: EmailMessageUpdateScheduleParams,
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>> =
+            updateSchedule(emailId, params, RequestOptions.none())
+
+        /** @see updateSchedule */
+        fun updateSchedule(
+            emailId: String,
+            params: EmailMessageUpdateScheduleParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>> =
+            updateSchedule(params.toBuilder().emailId(emailId).build(), requestOptions)
+
+        /** @see updateSchedule */
+        fun updateSchedule(
+            params: EmailMessageUpdateScheduleParams
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>> =
+            updateSchedule(params, RequestOptions.none())
+
+        /** @see updateSchedule */
+        fun updateSchedule(
+            params: EmailMessageUpdateScheduleParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>>
     }
 }

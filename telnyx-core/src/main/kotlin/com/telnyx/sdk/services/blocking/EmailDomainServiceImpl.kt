@@ -27,6 +27,8 @@ import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveDnsRecordsResponse
 import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveHealthParams
 import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveHealthResponse
 import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveParams
+import com.telnyx.sdk.models.emaildomains.EmailDomainRotateDkimParams
+import com.telnyx.sdk.models.emaildomains.EmailDomainRotateDkimResponse
 import com.telnyx.sdk.models.emaildomains.EmailDomainUpdateParams
 import com.telnyx.sdk.models.emaildomains.EmailDomainVerifyParams
 import com.telnyx.sdk.services.blocking.emaildomains.WebhookService
@@ -99,6 +101,13 @@ class EmailDomainServiceImpl internal constructor(private val clientOptions: Cli
     ): EmailDomainRetrieveHealthResponse =
         // get /email_domains/{id}/health
         withRawResponse().retrieveHealth(params, requestOptions).parse()
+
+    override fun rotateDkim(
+        params: EmailDomainRotateDkimParams,
+        requestOptions: RequestOptions,
+    ): EmailDomainRotateDkimResponse =
+        // post /email_domains/{domain_id}/rotate_dkim
+        withRawResponse().rotateDkim(params, requestOptions).parse()
 
     override fun verify(
         params: EmailDomainVerifyParams,
@@ -333,6 +342,37 @@ class EmailDomainServiceImpl internal constructor(private val clientOptions: Cli
             return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHealthHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val rotateDkimHandler: Handler<EmailDomainRotateDkimResponse> =
+            jsonHandler<EmailDomainRotateDkimResponse>(clientOptions.jsonMapper)
+
+        override fun rotateDkim(
+            params: EmailDomainRotateDkimParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EmailDomainRotateDkimResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("domainId", params.domainId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("email_domains", params._pathParam(0), "rotate_dkim")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { rotateDkimHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

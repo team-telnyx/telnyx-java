@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.emailtemplates
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -17,13 +18,25 @@ internal class EmailTemplateRenderResponseTest {
                 .data(
                     EmailTemplateRenderResponse.Data.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .autoescape(true)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .htmlBody("html_body")
                         .name("name")
                         .recordType(EmailTemplate.RecordType.EMAIL_TEMPLATE)
+                        .strictVariables(true)
                         .subject("subject")
                         .textBody("text_body")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .variableSchema(
+                            EmailTemplate.VariableSchema.builder()
+                                .putAdditionalProperty(
+                                    "foo",
+                                    JsonValue.from(
+                                        mapOf("required" to true, "default" to "default")
+                                    ),
+                                )
+                                .build()
+                        )
                         .addVariable("string")
                         .build()
                 )
@@ -33,13 +46,23 @@ internal class EmailTemplateRenderResponseTest {
             .isEqualTo(
                 EmailTemplateRenderResponse.Data.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .autoescape(true)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .htmlBody("html_body")
                     .name("name")
                     .recordType(EmailTemplate.RecordType.EMAIL_TEMPLATE)
+                    .strictVariables(true)
                     .subject("subject")
                     .textBody("text_body")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .variableSchema(
+                        EmailTemplate.VariableSchema.builder()
+                            .putAdditionalProperty(
+                                "foo",
+                                JsonValue.from(mapOf("required" to true, "default" to "default")),
+                            )
+                            .build()
+                    )
                     .addVariable("string")
                     .build()
             )
@@ -53,13 +76,25 @@ internal class EmailTemplateRenderResponseTest {
                 .data(
                     EmailTemplateRenderResponse.Data.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .autoescape(true)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .htmlBody("html_body")
                         .name("name")
                         .recordType(EmailTemplate.RecordType.EMAIL_TEMPLATE)
+                        .strictVariables(true)
                         .subject("subject")
                         .textBody("text_body")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .variableSchema(
+                            EmailTemplate.VariableSchema.builder()
+                                .putAdditionalProperty(
+                                    "foo",
+                                    JsonValue.from(
+                                        mapOf("required" to true, "default" to "default")
+                                    ),
+                                )
+                                .build()
+                        )
                         .addVariable("string")
                         .build()
                 )

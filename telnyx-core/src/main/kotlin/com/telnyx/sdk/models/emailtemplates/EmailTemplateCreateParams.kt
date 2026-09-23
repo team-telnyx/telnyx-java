@@ -41,12 +41,37 @@ private constructor(
     fun name(): String = body.name()
 
     /**
+     * Per-template HTML autoescaping setting. Defaults to `false` for backward compatibility. When
+     * `true`, the rendered `html_body` HTML-escapes each Liquid expression's output at the output
+     * boundary (after its filters run, before concatenation with literal template markup). Input
+     * values are never mutated and `subject`/`text_body` are never autoescaped. The boundary escape
+     * is idempotent: HTML entities already present in the output (e.g. from an explicit `escape`
+     * filter) are preserved, so an explicit `escape`/`escape_once` is never double-escaped, and
+     * markup introduced by any later filter in the chain is still escaped.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun autoescape(): Optional<Boolean> = body.autoescape()
+
+    /**
      * Liquid template HTML body.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun htmlBody(): Optional<String> = body.htmlBody()
+
+    /**
+     * Per-template strict variable-validation setting. Defaults to `false` for backward
+     * compatibility. When `true`, a send or render that is missing a variable marked `required:
+     * true` in `variable_schema` fails with 422 naming the variable. Missing optional variables
+     * never fail; their schema `default` (when set) is applied to the render.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun strictVariables(): Optional<Boolean> = body.strictVariables()
 
     /**
      * Liquid template subject.
@@ -65,6 +90,19 @@ private constructor(
     fun textBody(): Optional<String> = body.textBody()
 
     /**
+     * Structured variable requirements. Required variables cannot define defaults; invalid
+     * combinations return 422. This is independent of the legacy `variables` array. On render with
+     * `strict_variables` enabled: `required` variables must be supplied as non-empty values —
+     * absent, `null`, empty string, empty object `{}`, and empty array `[]` all fail with 422
+     * naming the variable, while present values such as `false` and `0` pass (they are present, not
+     * empty). Optional variables fall back to their `default` when absent.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun variableSchema(): Optional<VariableSchema> = body.variableSchema()
+
+    /**
      * Template variables. Auto-extracted from subject/body fields when absent.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -80,11 +118,25 @@ private constructor(
     fun _name(): JsonField<String> = body._name()
 
     /**
+     * Returns the raw JSON value of [autoescape].
+     *
+     * Unlike [autoescape], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _autoescape(): JsonField<Boolean> = body._autoescape()
+
+    /**
      * Returns the raw JSON value of [htmlBody].
      *
      * Unlike [htmlBody], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _htmlBody(): JsonField<String> = body._htmlBody()
+
+    /**
+     * Returns the raw JSON value of [strictVariables].
+     *
+     * Unlike [strictVariables], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _strictVariables(): JsonField<Boolean> = body._strictVariables()
 
     /**
      * Returns the raw JSON value of [subject].
@@ -99,6 +151,13 @@ private constructor(
      * Unlike [textBody], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _textBody(): JsonField<String> = body._textBody()
+
+    /**
+     * Returns the raw JSON value of [variableSchema].
+     *
+     * Unlike [variableSchema], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _variableSchema(): JsonField<VariableSchema> = body._variableSchema()
 
     /**
      * Returns the raw JSON value of [variables].
@@ -159,10 +218,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [name]
+         * - [autoescape]
          * - [htmlBody]
+         * - [strictVariables]
          * - [subject]
-         * - [textBody]
-         * - [variables]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -178,6 +237,27 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
+        /**
+         * Per-template HTML autoescaping setting. Defaults to `false` for backward compatibility.
+         * When `true`, the rendered `html_body` HTML-escapes each Liquid expression's output at the
+         * output boundary (after its filters run, before concatenation with literal template
+         * markup). Input values are never mutated and `subject`/`text_body` are never autoescaped.
+         * The boundary escape is idempotent: HTML entities already present in the output (e.g. from
+         * an explicit `escape` filter) are preserved, so an explicit `escape`/`escape_once` is
+         * never double-escaped, and markup introduced by any later filter in the chain is still
+         * escaped.
+         */
+        fun autoescape(autoescape: Boolean) = apply { body.autoescape(autoescape) }
+
+        /**
+         * Sets [Builder.autoescape] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.autoescape] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun autoescape(autoescape: JsonField<Boolean>) = apply { body.autoescape(autoescape) }
+
         /** Liquid template HTML body. */
         fun htmlBody(htmlBody: String?) = apply { body.htmlBody(htmlBody) }
 
@@ -191,6 +271,27 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun htmlBody(htmlBody: JsonField<String>) = apply { body.htmlBody(htmlBody) }
+
+        /**
+         * Per-template strict variable-validation setting. Defaults to `false` for backward
+         * compatibility. When `true`, a send or render that is missing a variable marked `required:
+         * true` in `variable_schema` fails with 422 naming the variable. Missing optional variables
+         * never fail; their schema `default` (when set) is applied to the render.
+         */
+        fun strictVariables(strictVariables: Boolean) = apply {
+            body.strictVariables(strictVariables)
+        }
+
+        /**
+         * Sets [Builder.strictVariables] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.strictVariables] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun strictVariables(strictVariables: JsonField<Boolean>) = apply {
+            body.strictVariables(strictVariables)
+        }
 
         /** Liquid template subject. */
         fun subject(subject: String?) = apply { body.subject(subject) }
@@ -219,6 +320,33 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun textBody(textBody: JsonField<String>) = apply { body.textBody(textBody) }
+
+        /**
+         * Structured variable requirements. Required variables cannot define defaults; invalid
+         * combinations return 422. This is independent of the legacy `variables` array. On render
+         * with `strict_variables` enabled: `required` variables must be supplied as non-empty
+         * values — absent, `null`, empty string, empty object `{}`, and empty array `[]` all fail
+         * with 422 naming the variable, while present values such as `false` and `0` pass (they are
+         * present, not empty). Optional variables fall back to their `default` when absent.
+         */
+        fun variableSchema(variableSchema: VariableSchema?) = apply {
+            body.variableSchema(variableSchema)
+        }
+
+        /** Alias for calling [Builder.variableSchema] with `variableSchema.orElse(null)`. */
+        fun variableSchema(variableSchema: Optional<VariableSchema>) =
+            variableSchema(variableSchema.getOrNull())
+
+        /**
+         * Sets [Builder.variableSchema] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.variableSchema] with a well-typed [VariableSchema] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun variableSchema(variableSchema: JsonField<VariableSchema>) = apply {
+            body.variableSchema(variableSchema)
+        }
 
         /** Template variables. Auto-extracted from subject/body fields when absent. */
         fun variables(variables: List<String>) = apply { body.variables(variables) }
@@ -394,9 +522,12 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val name: JsonField<String>,
+        private val autoescape: JsonField<Boolean>,
         private val htmlBody: JsonField<String>,
+        private val strictVariables: JsonField<Boolean>,
         private val subject: JsonField<String>,
         private val textBody: JsonField<String>,
+        private val variableSchema: JsonField<VariableSchema>,
         private val variables: JsonField<List<String>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -404,17 +535,36 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("autoescape")
+            @ExcludeMissing
+            autoescape: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("html_body")
             @ExcludeMissing
             htmlBody: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("strict_variables")
+            @ExcludeMissing
+            strictVariables: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("subject") @ExcludeMissing subject: JsonField<String> = JsonMissing.of(),
             @JsonProperty("text_body")
             @ExcludeMissing
             textBody: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("variable_schema")
+            @ExcludeMissing
+            variableSchema: JsonField<VariableSchema> = JsonMissing.of(),
             @JsonProperty("variables")
             @ExcludeMissing
             variables: JsonField<List<String>> = JsonMissing.of(),
-        ) : this(name, htmlBody, subject, textBody, variables, mutableMapOf())
+        ) : this(
+            name,
+            autoescape,
+            htmlBody,
+            strictVariables,
+            subject,
+            textBody,
+            variableSchema,
+            variables,
+            mutableMapOf(),
+        )
 
         /**
          * Letters, numbers, spaces, hyphens, and underscores only.
@@ -425,12 +575,38 @@ private constructor(
         fun name(): String = name.getRequired("name")
 
         /**
+         * Per-template HTML autoescaping setting. Defaults to `false` for backward compatibility.
+         * When `true`, the rendered `html_body` HTML-escapes each Liquid expression's output at the
+         * output boundary (after its filters run, before concatenation with literal template
+         * markup). Input values are never mutated and `subject`/`text_body` are never autoescaped.
+         * The boundary escape is idempotent: HTML entities already present in the output (e.g. from
+         * an explicit `escape` filter) are preserved, so an explicit `escape`/`escape_once` is
+         * never double-escaped, and markup introduced by any later filter in the chain is still
+         * escaped.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun autoescape(): Optional<Boolean> = autoescape.getOptional("autoescape")
+
+        /**
          * Liquid template HTML body.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun htmlBody(): Optional<String> = htmlBody.getOptional("html_body")
+
+        /**
+         * Per-template strict variable-validation setting. Defaults to `false` for backward
+         * compatibility. When `true`, a send or render that is missing a variable marked `required:
+         * true` in `variable_schema` fails with 422 naming the variable. Missing optional variables
+         * never fail; their schema `default` (when set) is applied to the render.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun strictVariables(): Optional<Boolean> = strictVariables.getOptional("strict_variables")
 
         /**
          * Liquid template subject.
@@ -449,6 +625,20 @@ private constructor(
         fun textBody(): Optional<String> = textBody.getOptional("text_body")
 
         /**
+         * Structured variable requirements. Required variables cannot define defaults; invalid
+         * combinations return 422. This is independent of the legacy `variables` array. On render
+         * with `strict_variables` enabled: `required` variables must be supplied as non-empty
+         * values — absent, `null`, empty string, empty object `{}`, and empty array `[]` all fail
+         * with 422 naming the variable, while present values such as `false` and `0` pass (they are
+         * present, not empty). Optional variables fall back to their `default` when absent.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun variableSchema(): Optional<VariableSchema> =
+            variableSchema.getOptional("variable_schema")
+
+        /**
          * Template variables. Auto-extracted from subject/body fields when absent.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -464,11 +654,30 @@ private constructor(
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /**
+         * Returns the raw JSON value of [autoescape].
+         *
+         * Unlike [autoescape], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("autoescape")
+        @ExcludeMissing
+        fun _autoescape(): JsonField<Boolean> = autoescape
+
+        /**
          * Returns the raw JSON value of [htmlBody].
          *
          * Unlike [htmlBody], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("html_body") @ExcludeMissing fun _htmlBody(): JsonField<String> = htmlBody
+
+        /**
+         * Returns the raw JSON value of [strictVariables].
+         *
+         * Unlike [strictVariables], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("strict_variables")
+        @ExcludeMissing
+        fun _strictVariables(): JsonField<Boolean> = strictVariables
 
         /**
          * Returns the raw JSON value of [subject].
@@ -483,6 +692,16 @@ private constructor(
          * Unlike [textBody], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("text_body") @ExcludeMissing fun _textBody(): JsonField<String> = textBody
+
+        /**
+         * Returns the raw JSON value of [variableSchema].
+         *
+         * Unlike [variableSchema], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("variable_schema")
+        @ExcludeMissing
+        fun _variableSchema(): JsonField<VariableSchema> = variableSchema
 
         /**
          * Returns the raw JSON value of [variables].
@@ -522,18 +741,24 @@ private constructor(
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
+            private var autoescape: JsonField<Boolean> = JsonMissing.of()
             private var htmlBody: JsonField<String> = JsonMissing.of()
+            private var strictVariables: JsonField<Boolean> = JsonMissing.of()
             private var subject: JsonField<String> = JsonMissing.of()
             private var textBody: JsonField<String> = JsonMissing.of()
+            private var variableSchema: JsonField<VariableSchema> = JsonMissing.of()
             private var variables: JsonField<MutableList<String>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 name = body.name
+                autoescape = body.autoescape
                 htmlBody = body.htmlBody
+                strictVariables = body.strictVariables
                 subject = body.subject
                 textBody = body.textBody
+                variableSchema = body.variableSchema
                 variables = body.variables.map { it.toMutableList() }
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -550,6 +775,27 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
+            /**
+             * Per-template HTML autoescaping setting. Defaults to `false` for backward
+             * compatibility. When `true`, the rendered `html_body` HTML-escapes each Liquid
+             * expression's output at the output boundary (after its filters run, before
+             * concatenation with literal template markup). Input values are never mutated and
+             * `subject`/`text_body` are never autoescaped. The boundary escape is idempotent: HTML
+             * entities already present in the output (e.g. from an explicit `escape` filter) are
+             * preserved, so an explicit `escape`/`escape_once` is never double-escaped, and markup
+             * introduced by any later filter in the chain is still escaped.
+             */
+            fun autoescape(autoescape: Boolean) = autoescape(JsonField.of(autoescape))
+
+            /**
+             * Sets [Builder.autoescape] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.autoescape] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun autoescape(autoescape: JsonField<Boolean>) = apply { this.autoescape = autoescape }
+
             /** Liquid template HTML body. */
             fun htmlBody(htmlBody: String?) = htmlBody(JsonField.ofNullable(htmlBody))
 
@@ -564,6 +810,27 @@ private constructor(
              * supported value.
              */
             fun htmlBody(htmlBody: JsonField<String>) = apply { this.htmlBody = htmlBody }
+
+            /**
+             * Per-template strict variable-validation setting. Defaults to `false` for backward
+             * compatibility. When `true`, a send or render that is missing a variable marked
+             * `required: true` in `variable_schema` fails with 422 naming the variable. Missing
+             * optional variables never fail; their schema `default` (when set) is applied to the
+             * render.
+             */
+            fun strictVariables(strictVariables: Boolean) =
+                strictVariables(JsonField.of(strictVariables))
+
+            /**
+             * Sets [Builder.strictVariables] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.strictVariables] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun strictVariables(strictVariables: JsonField<Boolean>) = apply {
+                this.strictVariables = strictVariables
+            }
 
             /** Liquid template subject. */
             fun subject(subject: String?) = subject(JsonField.ofNullable(subject))
@@ -594,6 +861,33 @@ private constructor(
              * supported value.
              */
             fun textBody(textBody: JsonField<String>) = apply { this.textBody = textBody }
+
+            /**
+             * Structured variable requirements. Required variables cannot define defaults; invalid
+             * combinations return 422. This is independent of the legacy `variables` array. On
+             * render with `strict_variables` enabled: `required` variables must be supplied as
+             * non-empty values — absent, `null`, empty string, empty object `{}`, and empty array
+             * `[]` all fail with 422 naming the variable, while present values such as `false` and
+             * `0` pass (they are present, not empty). Optional variables fall back to their
+             * `default` when absent.
+             */
+            fun variableSchema(variableSchema: VariableSchema?) =
+                variableSchema(JsonField.ofNullable(variableSchema))
+
+            /** Alias for calling [Builder.variableSchema] with `variableSchema.orElse(null)`. */
+            fun variableSchema(variableSchema: Optional<VariableSchema>) =
+                variableSchema(variableSchema.getOrNull())
+
+            /**
+             * Sets [Builder.variableSchema] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.variableSchema] with a well-typed [VariableSchema]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun variableSchema(variableSchema: JsonField<VariableSchema>) = apply {
+                this.variableSchema = variableSchema
+            }
 
             /** Template variables. Auto-extracted from subject/body fields when absent. */
             fun variables(variables: List<String>) = variables(JsonField.of(variables))
@@ -655,9 +949,12 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("name", name),
+                    autoescape,
                     htmlBody,
+                    strictVariables,
                     subject,
                     textBody,
+                    variableSchema,
                     (variables ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toMutableMap(),
                 )
@@ -680,9 +977,12 @@ private constructor(
             }
 
             name()
+            autoescape()
             htmlBody()
+            strictVariables()
             subject()
             textBody()
+            variableSchema().ifPresent { it.validate() }
             variables()
             validated = true
         }
@@ -704,9 +1004,12 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (name.asKnown().isPresent) 1 else 0) +
+                (if (autoescape.asKnown().isPresent) 1 else 0) +
                 (if (htmlBody.asKnown().isPresent) 1 else 0) +
+                (if (strictVariables.asKnown().isPresent) 1 else 0) +
                 (if (subject.asKnown().isPresent) 1 else 0) +
                 (if (textBody.asKnown().isPresent) 1 else 0) +
+                (variableSchema.asKnown().getOrNull()?.validity() ?: 0) +
                 (variables.asKnown().getOrNull()?.size ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -716,21 +1019,150 @@ private constructor(
 
             return other is Body &&
                 name == other.name &&
+                autoescape == other.autoescape &&
                 htmlBody == other.htmlBody &&
+                strictVariables == other.strictVariables &&
                 subject == other.subject &&
                 textBody == other.textBody &&
+                variableSchema == other.variableSchema &&
                 variables == other.variables &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(name, htmlBody, subject, textBody, variables, additionalProperties)
+            Objects.hash(
+                name,
+                autoescape,
+                htmlBody,
+                strictVariables,
+                subject,
+                textBody,
+                variableSchema,
+                variables,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{name=$name, htmlBody=$htmlBody, subject=$subject, textBody=$textBody, variables=$variables, additionalProperties=$additionalProperties}"
+            "Body{name=$name, autoescape=$autoescape, htmlBody=$htmlBody, strictVariables=$strictVariables, subject=$subject, textBody=$textBody, variableSchema=$variableSchema, variables=$variables, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Structured variable requirements. Required variables cannot define defaults; invalid
+     * combinations return 422. This is independent of the legacy `variables` array. On render with
+     * `strict_variables` enabled: `required` variables must be supplied as non-empty values —
+     * absent, `null`, empty string, empty object `{}`, and empty array `[]` all fail with 422
+     * naming the variable, while present values such as `false` and `0` pass (they are present, not
+     * empty). Optional variables fall back to their `default` when absent.
+     */
+    class VariableSchema
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [VariableSchema]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [VariableSchema]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(variableSchema: VariableSchema) = apply {
+                additionalProperties = variableSchema.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [VariableSchema].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): VariableSchema = VariableSchema(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): VariableSchema = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is VariableSchema && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "VariableSchema{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -1,87 +1,55 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailblocks.imports
+package com.telnyx.sdk.models.emailmessages
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.telnyx.sdk.core.ExcludeMissing
+import com.telnyx.sdk.core.JsonField
+import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.MultipartField
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
-import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import java.io.InputStream
-import java.nio.file.Path
+import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
-import kotlin.io.path.inputStream
-import kotlin.io.path.name
+import kotlin.jvm.optionals.getOrNull
 
 /**
- * Accepts `multipart/form-data` with a `file` field (the CSV) and an optional `block_ttl_days`
- * (integer >0, default 30). Validates:
- * - content ≤ 25 MiB, else `413`
- * - row count ≤ 250 000, else `413`
- * - header-only / all-blank / undetectable provider → `400` Returns `202` with the import record
- *   (status `pending`); an Oban worker (`EmailBlockImportWorker`, max_attempts 3) transitions
- *   `pending → processing → completed | failed`.
- *
- * Native Telnyx exports are detected by the stable first-12-column header signature (`id` …
- * `group_id`) and are restored with their original `from`, `domain_id`, `group_id`, `source`,
- * `status`, `expires_at`, plus `bounce_category`, `dsn_code`, and `meta` when present (`scope` is
- * re-derived from `domain_id`/`from`; the exported `scope` cell must be a valid enum value).
- * Lifecycle changes reconcile through the same create path as the API: a row already in the
- * requested state restores its mutable backup fields without a new audit event, and a real
- * transition (e.g. tombstone → active) appends the matching lifecycle event. `block_ttl_days` is
- * not applied to native rows — their exported `expires_at` is preserved verbatim.
- *
- * Competitor and generic imports (SendGrid / Mailgun / SES / generic) remain account-scoped
- * (`from`, `domain_id`, `group_id`, `scope` are not read) and `block_ttl_days` applies only to
- * imported `manual_block` rows; other reasons get `expires_at: nil`. Provider is auto-detected from
- * the CSV header (`sendgrid` / `mailgun` / `ses` / `generic`).
+ * Moves an existing scheduled email to a new future send time. Only the delivery time
+ * (`scheduled_at`) changes; the message ID, content, recipients, tags, and metadata remain
+ * unchanged. Returns `409 Conflict` if the message is no longer scheduled or its scheduled-send
+ * worker has already started processing it. This route emits no dedicated `rescheduled` event.
  */
-class ImportCreateParams
+class EmailMessageUpdateScheduleParams
 private constructor(
+    private val emailId: String?,
     private val body: Body,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    fun emailId(): Optional<String> = Optional.ofNullable(emailId)
+
     /**
-     * The CSV file (Plug.Upload). Missing/non-upload → 400.
+     * New ISO 8601 delivery time. Must be strictly in the future.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun file(): InputStream = body.file()
+    fun scheduledAt(): OffsetDateTime = body.scheduledAt()
 
     /**
-     * TTL for imported `manual_block` rows; other reasons get `expires_at: null`. Invalid/missing →
-     * falls back to 30.
+     * Returns the raw JSON value of [scheduledAt].
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * Unlike [scheduledAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun blockTtlDays(): Optional<Long> = body.blockTtlDays()
-
-    /**
-     * Returns the raw multipart value of [file].
-     *
-     * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
-     */
-    fun _file(): MultipartField<InputStream> = body._file()
-
-    /**
-     * Returns the raw multipart value of [blockTtlDays].
-     *
-     * Unlike [blockTtlDays], this method doesn't throw if the multipart field has an unexpected
-     * type.
-     */
-    fun _blockTtlDays(): MultipartField<Long> = body._blockTtlDays()
+    fun _scheduledAt(): JsonField<OffsetDateTime> = body._scheduledAt()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -96,74 +64,62 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [ImportCreateParams].
+         * Returns a mutable builder for constructing an instance of
+         * [EmailMessageUpdateScheduleParams].
          *
          * The following fields are required:
          * ```java
-         * .file()
+         * .scheduledAt()
          * ```
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ImportCreateParams]. */
+    /** A builder for [EmailMessageUpdateScheduleParams]. */
     class Builder internal constructor() {
 
+        private var emailId: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(importCreateParams: ImportCreateParams) = apply {
-            body = importCreateParams.body.toBuilder()
-            additionalHeaders = importCreateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = importCreateParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(emailMessageUpdateScheduleParams: EmailMessageUpdateScheduleParams) =
+            apply {
+                emailId = emailMessageUpdateScheduleParams.emailId
+                body = emailMessageUpdateScheduleParams.body.toBuilder()
+                additionalHeaders = emailMessageUpdateScheduleParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    emailMessageUpdateScheduleParams.additionalQueryParams.toBuilder()
+            }
+
+        fun emailId(emailId: String?) = apply { this.emailId = emailId }
+
+        /** Alias for calling [Builder.emailId] with `emailId.orElse(null)`. */
+        fun emailId(emailId: Optional<String>) = emailId(emailId.getOrNull())
 
         /**
          * Sets the entire request body.
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [file]
-         * - [blockTtlDays]
+         * - [scheduledAt]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The CSV file (Plug.Upload). Missing/non-upload → 400. */
-        fun file(file: InputStream) = apply { body.file(file) }
+        /** New ISO 8601 delivery time. Must be strictly in the future. */
+        fun scheduledAt(scheduledAt: OffsetDateTime) = apply { body.scheduledAt(scheduledAt) }
 
         /**
-         * Sets [Builder.file] to an arbitrary multipart value.
+         * Sets [Builder.scheduledAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.file] with a well-typed [InputStream] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.scheduledAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun file(file: MultipartField<InputStream>) = apply { body.file(file) }
-
-        /** The CSV file (Plug.Upload). Missing/non-upload → 400. */
-        fun file(file: ByteArray) = apply { body.file(file) }
-
-        /** The CSV file (Plug.Upload). Missing/non-upload → 400. */
-        fun file(path: Path) = apply { body.file(path) }
-
-        /**
-         * TTL for imported `manual_block` rows; other reasons get `expires_at: null`.
-         * Invalid/missing → falls back to 30.
-         */
-        fun blockTtlDays(blockTtlDays: Long) = apply { body.blockTtlDays(blockTtlDays) }
-
-        /**
-         * Sets [Builder.blockTtlDays] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.blockTtlDays] with a well-typed [Long] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun blockTtlDays(blockTtlDays: MultipartField<Long>) = apply {
-            body.blockTtlDays(blockTtlDays)
+        fun scheduledAt(scheduledAt: JsonField<OffsetDateTime>) = apply {
+            body.scheduledAt(scheduledAt)
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -285,74 +241,69 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ImportCreateParams].
+         * Returns an immutable instance of [EmailMessageUpdateScheduleParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
          * ```java
-         * .file()
+         * .scheduledAt()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): ImportCreateParams =
-            ImportCreateParams(
+        fun build(): EmailMessageUpdateScheduleParams =
+            EmailMessageUpdateScheduleParams(
+                emailId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Map<String, MultipartField<*>> =
-        (mapOf("file" to _file(), "block_ttl_days" to _blockTtlDays()) +
-                _additionalBodyProperties().mapValues { (_, value) -> MultipartField.of(value) })
-            .toImmutable()
+    fun _body(): Body = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> emailId ?: ""
+            else -> ""
+        }
 
     override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
+    /** Only the delivery time is mutable; any other request fields are ignored. */
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val file: MultipartField<InputStream>,
-        private val blockTtlDays: MultipartField<Long>,
+        private val scheduledAt: JsonField<OffsetDateTime>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
+        @JsonCreator
+        private constructor(
+            @JsonProperty("scheduled_at")
+            @ExcludeMissing
+            scheduledAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        ) : this(scheduledAt, mutableMapOf())
+
         /**
-         * The CSV file (Plug.Upload). Missing/non-upload → 400.
+         * New ISO 8601 delivery time. Must be strictly in the future.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun file(): InputStream = file.value.getRequired("file")
+        fun scheduledAt(): OffsetDateTime = scheduledAt.getRequired("scheduled_at")
 
         /**
-         * TTL for imported `manual_block` rows; other reasons get `expires_at: null`.
-         * Invalid/missing → falls back to 30.
+         * Returns the raw JSON value of [scheduledAt].
          *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
+         * Unlike [scheduledAt], this method doesn't throw if the JSON field has an unexpected type.
          */
-        fun blockTtlDays(): Optional<Long> = blockTtlDays.value.getOptional("block_ttl_days")
-
-        /**
-         * Returns the raw multipart value of [file].
-         *
-         * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
-         */
-        @JsonProperty("file") @ExcludeMissing fun _file(): MultipartField<InputStream> = file
-
-        /**
-         * Returns the raw multipart value of [blockTtlDays].
-         *
-         * Unlike [blockTtlDays], this method doesn't throw if the multipart field has an unexpected
-         * type.
-         */
-        @JsonProperty("block_ttl_days")
+        @JsonProperty("scheduled_at")
         @ExcludeMissing
-        fun _blockTtlDays(): MultipartField<Long> = blockTtlDays
+        fun _scheduledAt(): JsonField<OffsetDateTime> = scheduledAt
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -373,7 +324,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .file()
+             * .scheduledAt()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -382,56 +333,27 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var file: MultipartField<InputStream>? = null
-            private var blockTtlDays: MultipartField<Long> = MultipartField.of(null)
+            private var scheduledAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                file = body.file
-                blockTtlDays = body.blockTtlDays
+                scheduledAt = body.scheduledAt
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The CSV file (Plug.Upload). Missing/non-upload → 400. */
-            fun file(file: InputStream) = file(MultipartField.of(file))
+            /** New ISO 8601 delivery time. Must be strictly in the future. */
+            fun scheduledAt(scheduledAt: OffsetDateTime) = scheduledAt(JsonField.of(scheduledAt))
 
             /**
-             * Sets [Builder.file] to an arbitrary multipart value.
+             * Sets [Builder.scheduledAt] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.file] with a well-typed [InputStream] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.scheduledAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun file(file: MultipartField<InputStream>) = apply { this.file = file }
-
-            /** The CSV file (Plug.Upload). Missing/non-upload → 400. */
-            fun file(file: ByteArray) = file(file.inputStream())
-
-            /** The CSV file (Plug.Upload). Missing/non-upload → 400. */
-            fun file(path: Path) =
-                file(
-                    MultipartField.builder<InputStream>()
-                        .value(path.inputStream())
-                        .filename(path.name)
-                        .build()
-                )
-
-            /**
-             * TTL for imported `manual_block` rows; other reasons get `expires_at: null`.
-             * Invalid/missing → falls back to 30.
-             */
-            fun blockTtlDays(blockTtlDays: Long) = blockTtlDays(MultipartField.of(blockTtlDays))
-
-            /**
-             * Sets [Builder.blockTtlDays] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.blockTtlDays] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun blockTtlDays(blockTtlDays: MultipartField<Long>) = apply {
-                this.blockTtlDays = blockTtlDays
+            fun scheduledAt(scheduledAt: JsonField<OffsetDateTime>) = apply {
+                this.scheduledAt = scheduledAt
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -460,13 +382,13 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .file()
+             * .scheduledAt()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
-                Body(checkRequired("file", file), blockTtlDays, additionalProperties.toMutableMap())
+                Body(checkRequired("scheduledAt", scheduledAt), additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -485,8 +407,7 @@ private constructor(
                 return@apply
             }
 
-            file()
-            blockTtlDays()
+            scheduledAt()
             validated = true
         }
 
@@ -498,23 +419,30 @@ private constructor(
                 false
             }
 
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = (if (scheduledAt.asKnown().isPresent) 1 else 0)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
             return other is Body &&
-                file == other.file &&
-                blockTtlDays == other.blockTtlDays &&
+                scheduledAt == other.scheduledAt &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(file, blockTtlDays, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(scheduledAt, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{file=$file, blockTtlDays=$blockTtlDays, additionalProperties=$additionalProperties}"
+            "Body{scheduledAt=$scheduledAt, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -522,14 +450,16 @@ private constructor(
             return true
         }
 
-        return other is ImportCreateParams &&
+        return other is EmailMessageUpdateScheduleParams &&
+            emailId == other.emailId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(emailId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ImportCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EmailMessageUpdateScheduleParams{emailId=$emailId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -24,6 +24,7 @@ import com.telnyx.sdk.models.emailmessages.EmailMessageCreateParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteAllParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteScheduleParams
+import com.telnyx.sdk.models.emailmessages.EmailMessageDetailResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageListPage
 import com.telnyx.sdk.models.emailmessages.EmailMessageListPageResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageListParams
@@ -31,7 +32,7 @@ import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPage
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPageResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveResponse
+import com.telnyx.sdk.models.emailmessages.EmailMessageUpdateScheduleParams
 import com.telnyx.sdk.services.blocking.emailmessages.RecipientService
 import com.telnyx.sdk.services.blocking.emailmessages.RecipientServiceImpl
 import java.util.function.Consumer
@@ -67,7 +68,7 @@ class EmailMessageServiceImpl internal constructor(private val clientOptions: Cl
     override fun retrieve(
         params: EmailMessageRetrieveParams,
         requestOptions: RequestOptions,
-    ): EmailMessageRetrieveResponse =
+    ): EmailMessageDetailResponse =
         // get /email_messages/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
@@ -108,6 +109,13 @@ class EmailMessageServiceImpl internal constructor(private val clientOptions: Cl
     ): EmailMessageRetrieveEventsPage =
         // get /email_messages/{email_id}/events
         withRawResponse().retrieveEvents(params, requestOptions).parse()
+
+    override fun updateSchedule(
+        params: EmailMessageUpdateScheduleParams,
+        requestOptions: RequestOptions,
+    ): EmailMessageDetailResponse =
+        // patch /email_messages/{email_id}/schedule
+        withRawResponse().updateSchedule(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EmailMessageService.WithRawResponse {
@@ -160,13 +168,13 @@ class EmailMessageServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val retrieveHandler: Handler<EmailMessageRetrieveResponse> =
-            jsonHandler<EmailMessageRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<EmailMessageDetailResponse> =
+            jsonHandler<EmailMessageDetailResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: EmailMessageRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailMessageRetrieveResponse> {
+        ): HttpResponseFor<EmailMessageDetailResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -361,6 +369,37 @@ class EmailMessageServiceImpl internal constructor(private val clientOptions: Cl
                             .params(params)
                             .response(it)
                             .build()
+                    }
+            }
+        }
+
+        private val updateScheduleHandler: Handler<EmailMessageDetailResponse> =
+            jsonHandler<EmailMessageDetailResponse>(clientOptions.jsonMapper)
+
+        override fun updateSchedule(
+            params: EmailMessageUpdateScheduleParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EmailMessageDetailResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("emailId", params.emailId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("email_messages", params._pathParam(0), "schedule")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateScheduleHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }

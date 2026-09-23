@@ -16,8 +16,8 @@ internal class EmailEventListParamsTest {
             .emailId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .eventType("string")
             .from(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .pageCursor("page_cursor")
             .pageSize(1L)
+            .pageCursor("page[cursor]")
             .to(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
     }
@@ -29,8 +29,8 @@ internal class EmailEventListParamsTest {
                 .emailId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .eventType("string")
                 .from(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .pageCursor("page_cursor")
                 .pageSize(1L)
+                .pageCursor("page[cursor]")
                 .to(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
@@ -47,8 +47,8 @@ internal class EmailEventListParamsTest {
                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                         ),
                     )
-                    .put("page_cursor", "page_cursor")
                     .put("page_size", "1")
+                    .put("page[cursor]", "page[cursor]")
                     .put(
                         "to",
                         DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(

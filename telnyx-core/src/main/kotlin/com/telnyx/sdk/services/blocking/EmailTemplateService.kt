@@ -152,6 +152,11 @@ interface EmailTemplateService {
     /**
      * Renders a template using the provided Liquid variables. Missing `template_variables` defaults
      * to `{}`.
+     *
+     * When the template has `strict_variables` enabled and a required variable (per
+     * `variable_schema`) is missing, returns 422 naming the variable. When the template has
+     * `autoescape` enabled, the rendered `html_body` expression output is HTML-escaped at the
+     * output boundary; `subject` and `text_body` are not autoescaped.
      */
     fun render(id: String): EmailTemplateRenderResponse =
         render(id, EmailTemplateRenderParams.none())

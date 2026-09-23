@@ -1,43 +1,36 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailmessages
+package com.telnyx.sdk.models.emaildomains
 
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Lists events for a single message sorted oldest first by `occurred_at asc, id asc`. The legacy
- * `/v2/emails/{id}/events` GET route is a backward-compatible alias.
- *
- * For compatibility, each event carries the legacy customer-visible `event_type`
- * (`email.`-prefixed), the additive `canonical_event_type` (`email.`-prefixed), and the deprecated
- * `type` duplicate — whose value keeps the exact legacy format: the bare stored event name, never
- * `email.`-prefixed. Gateway rejections render `email.failed` + canonical `email.gw_reject`; MTA
- * expirations render `email.bounced` + canonical `email.expired`; every unchanged outcome carries
- * identical `event_type` and `canonical_event_type` values (and `type` keeps the stored name).
+ * Generates a new DKIM key for the domain, activates it, and retires the previous key. The response
+ * includes the updated DKIM DNS records the customer must publish. Selectors are fixed, so rotation
+ * replaces the TXT value at the existing `<selector>._domainkey.<domain>` host rather than adding a
+ * second record — `old_selector_retained` is false and the new TXT value must be published
+ * promptly, since signing switches to the new key immediately and the old TXT value will no longer
+ * match. The previous key is retired to a `retiring` state (retained, not revoked) so it can be
+ * revoked after the DNS propagation grace period.
  */
-class EmailMessageRetrieveEventsParams
+class EmailDomainRotateDkimParams
 private constructor(
-    private val emailId: String?,
-    private val pageCursor: String?,
-    private val pageSize: Long?,
+    private val domainId: String?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun emailId(): Optional<String> = Optional.ofNullable(emailId)
+    fun domainId(): Optional<String> = Optional.ofNullable(domainId)
 
-    /** Opaque URL-safe Base64 cursor returned by a previous list response. */
-    fun pageCursor(): Optional<String> = Optional.ofNullable(pageCursor)
-
-    /**
-     * Number of results to return. Defaults to 25; maximum is 100. Invalid values are clamped to
-     * the valid range.
-     */
-    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
+    /** Additional body properties to send with the request. */
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
@@ -49,62 +42,36 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): EmailMessageRetrieveEventsParams = builder().build()
+        @JvmStatic fun none(): EmailDomainRotateDkimParams = builder().build()
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [EmailMessageRetrieveEventsParams].
+         * Returns a mutable builder for constructing an instance of [EmailDomainRotateDkimParams].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [EmailMessageRetrieveEventsParams]. */
+    /** A builder for [EmailDomainRotateDkimParams]. */
     class Builder internal constructor() {
 
-        private var emailId: String? = null
-        private var pageCursor: String? = null
-        private var pageSize: Long? = null
+        private var domainId: String? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
+        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(emailMessageRetrieveEventsParams: EmailMessageRetrieveEventsParams) =
-            apply {
-                emailId = emailMessageRetrieveEventsParams.emailId
-                pageCursor = emailMessageRetrieveEventsParams.pageCursor
-                pageSize = emailMessageRetrieveEventsParams.pageSize
-                additionalHeaders = emailMessageRetrieveEventsParams.additionalHeaders.toBuilder()
-                additionalQueryParams =
-                    emailMessageRetrieveEventsParams.additionalQueryParams.toBuilder()
-            }
+        internal fun from(emailDomainRotateDkimParams: EmailDomainRotateDkimParams) = apply {
+            domainId = emailDomainRotateDkimParams.domainId
+            additionalHeaders = emailDomainRotateDkimParams.additionalHeaders.toBuilder()
+            additionalQueryParams = emailDomainRotateDkimParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                emailDomainRotateDkimParams.additionalBodyProperties.toMutableMap()
+        }
 
-        fun emailId(emailId: String?) = apply { this.emailId = emailId }
+        fun domainId(domainId: String?) = apply { this.domainId = domainId }
 
-        /** Alias for calling [Builder.emailId] with `emailId.orElse(null)`. */
-        fun emailId(emailId: Optional<String>) = emailId(emailId.getOrNull())
-
-        /** Opaque URL-safe Base64 cursor returned by a previous list response. */
-        fun pageCursor(pageCursor: String?) = apply { this.pageCursor = pageCursor }
-
-        /** Alias for calling [Builder.pageCursor] with `pageCursor.orElse(null)`. */
-        fun pageCursor(pageCursor: Optional<String>) = pageCursor(pageCursor.getOrNull())
-
-        /**
-         * Number of results to return. Defaults to 25; maximum is 100. Invalid values are clamped
-         * to the valid range.
-         */
-        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
-
-        /**
-         * Alias for [Builder.pageSize].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
-
-        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
-        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
+        /** Alias for calling [Builder.domainId] with `domainId.orElse(null)`. */
+        fun domainId(domainId: Optional<String>) = domainId(domainId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
@@ -205,54 +172,70 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.clear()
+            putAllAdditionalBodyProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            additionalBodyProperties.put(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply {
+            additionalBodyProperties.remove(key)
+        }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalBodyProperty)
+        }
+
         /**
-         * Returns an immutable instance of [EmailMessageRetrieveEventsParams].
+         * Returns an immutable instance of [EmailDomainRotateDkimParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): EmailMessageRetrieveEventsParams =
-            EmailMessageRetrieveEventsParams(
-                emailId,
-                pageCursor,
-                pageSize,
+        fun build(): EmailDomainRotateDkimParams =
+            EmailDomainRotateDkimParams(
+                domainId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
+    fun _body(): Optional<Map<String, JsonValue>> =
+        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
+
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> emailId ?: ""
+            0 -> domainId ?: ""
             else -> ""
         }
 
     override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                pageCursor?.let { put("page_cursor", it) }
-                pageSize?.let { put("page_size", it.toString()) }
-                putAll(additionalQueryParams)
-            }
-            .build()
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        return other is EmailMessageRetrieveEventsParams &&
-            emailId == other.emailId &&
-            pageCursor == other.pageCursor &&
-            pageSize == other.pageSize &&
+        return other is EmailDomainRotateDkimParams &&
+            domainId == other.domainId &&
             additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+            additionalQueryParams == other.additionalQueryParams &&
+            additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(emailId, pageCursor, pageSize, additionalHeaders, additionalQueryParams)
+        Objects.hash(domainId, additionalHeaders, additionalQueryParams, additionalBodyProperties)
 
     override fun toString() =
-        "EmailMessageRetrieveEventsParams{emailId=$emailId, pageCursor=$pageCursor, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EmailDomainRotateDkimParams{domainId=$domainId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

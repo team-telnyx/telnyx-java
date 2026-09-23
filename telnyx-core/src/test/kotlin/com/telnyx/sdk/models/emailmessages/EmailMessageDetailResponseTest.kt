@@ -12,14 +12,14 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class EmailMessageRetrieveResponseTest {
+internal class EmailMessageDetailResponseTest {
 
     @Test
     fun create() {
-        val emailMessageRetrieveResponse =
-            EmailMessageRetrieveResponse.builder()
+        val emailMessageDetailResponse =
+            EmailMessageDetailResponse.builder()
                 .data(
-                    EmailMessageRetrieveResponse.Data.builder()
+                    EmailMessageDetailResponse.Data.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAttachment(
                             EmailMessage.Attachment.builder()
@@ -36,21 +36,27 @@ internal class EmailMessageRetrieveResponseTest {
                         .addCc(EmailAddress.builder().email("email").name("name").build())
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .addEvent(
-                            MessageEvent.builder()
+                            EmailMessage.Event.builder()
                                 .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .type(EmailEventType.QUEUED)
                                 .payload(
-                                    MessageEvent.Payload.builder()
+                                    EmailMessage.Event.Payload.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
                                 .build()
                         )
                         .from(EmailAddress.builder().email("email").name("name").build())
+                        .metadata(
+                            EmailMessage.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .recordType(EmailMessage.RecordType.EMAIL_MESSAGE)
                         .replyTo("reply_to")
                         .status(EmailMessage.Status.QUEUED)
                         .subject("subject")
+                        .addTag("string")
                         .templateId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .templateVariables(
                             EmailMessage.TemplateVariables.builder()
@@ -81,9 +87,9 @@ internal class EmailMessageRetrieveResponseTest {
                 )
                 .build()
 
-        assertThat(emailMessageRetrieveResponse.data())
+        assertThat(emailMessageDetailResponse.data())
             .isEqualTo(
-                EmailMessageRetrieveResponse.Data.builder()
+                EmailMessageDetailResponse.Data.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .addAttachment(
                         EmailMessage.Attachment.builder()
@@ -100,21 +106,27 @@ internal class EmailMessageRetrieveResponseTest {
                     .addCc(EmailAddress.builder().email("email").name("name").build())
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .addEvent(
-                        MessageEvent.builder()
+                        EmailMessage.Event.builder()
                             .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .type(EmailEventType.QUEUED)
                             .payload(
-                                MessageEvent.Payload.builder()
+                                EmailMessage.Event.Payload.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
                             .build()
                     )
                     .from(EmailAddress.builder().email("email").name("name").build())
+                    .metadata(
+                        EmailMessage.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .recordType(EmailMessage.RecordType.EMAIL_MESSAGE)
                     .replyTo("reply_to")
                     .status(EmailMessage.Status.QUEUED)
                     .subject("subject")
+                    .addTag("string")
                     .templateId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .templateVariables(
                         EmailMessage.TemplateVariables.builder()
@@ -148,10 +160,10 @@ internal class EmailMessageRetrieveResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val emailMessageRetrieveResponse =
-            EmailMessageRetrieveResponse.builder()
+        val emailMessageDetailResponse =
+            EmailMessageDetailResponse.builder()
                 .data(
-                    EmailMessageRetrieveResponse.Data.builder()
+                    EmailMessageDetailResponse.Data.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAttachment(
                             EmailMessage.Attachment.builder()
@@ -168,21 +180,27 @@ internal class EmailMessageRetrieveResponseTest {
                         .addCc(EmailAddress.builder().email("email").name("name").build())
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .addEvent(
-                            MessageEvent.builder()
+                            EmailMessage.Event.builder()
                                 .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .type(EmailEventType.QUEUED)
                                 .payload(
-                                    MessageEvent.Payload.builder()
+                                    EmailMessage.Event.Payload.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
                                 .build()
                         )
                         .from(EmailAddress.builder().email("email").name("name").build())
+                        .metadata(
+                            EmailMessage.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .recordType(EmailMessage.RecordType.EMAIL_MESSAGE)
                         .replyTo("reply_to")
                         .status(EmailMessage.Status.QUEUED)
                         .subject("subject")
+                        .addTag("string")
                         .templateId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .templateVariables(
                             EmailMessage.TemplateVariables.builder()
@@ -213,12 +231,12 @@ internal class EmailMessageRetrieveResponseTest {
                 )
                 .build()
 
-        val roundtrippedEmailMessageRetrieveResponse =
+        val roundtrippedEmailMessageDetailResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(emailMessageRetrieveResponse),
-                jacksonTypeRef<EmailMessageRetrieveResponse>(),
+                jsonMapper.writeValueAsString(emailMessageDetailResponse),
+                jacksonTypeRef<EmailMessageDetailResponse>(),
             )
 
-        assertThat(roundtrippedEmailMessageRetrieveResponse).isEqualTo(emailMessageRetrieveResponse)
+        assertThat(roundtrippedEmailMessageDetailResponse).isEqualTo(emailMessageDetailResponse)
     }
 }

@@ -19,7 +19,7 @@ import kotlin.jvm.optionals.getOrNull
 class PrivateWirelessGatewayCreateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<PrivateWirelessGateway>,
+    private val data: JsonField<WirelessPrivateWirelessGateway>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -27,21 +27,23 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<PrivateWirelessGateway> = JsonMissing.of()
+        data: JsonField<WirelessPrivateWirelessGateway> = JsonMissing.of()
     ) : this(data, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<PrivateWirelessGateway> = data.getOptional("data")
+    fun data(): Optional<WirelessPrivateWirelessGateway> = data.getOptional("data")
 
     /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<PrivateWirelessGateway> = data
+    @JsonProperty("data")
+    @ExcludeMissing
+    fun _data(): JsonField<WirelessPrivateWirelessGateway> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -67,7 +69,7 @@ private constructor(
     /** A builder for [PrivateWirelessGatewayCreateResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<PrivateWirelessGateway> = JsonMissing.of()
+        private var data: JsonField<WirelessPrivateWirelessGateway> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -79,16 +81,16 @@ private constructor(
                 privateWirelessGatewayCreateResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: PrivateWirelessGateway) = data(JsonField.of(data))
+        fun data(data: WirelessPrivateWirelessGateway) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed [PrivateWirelessGateway] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed [WirelessPrivateWirelessGateway]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<PrivateWirelessGateway>) = apply { this.data = data }
+        fun data(data: JsonField<WirelessPrivateWirelessGateway>) = apply { this.data = data }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

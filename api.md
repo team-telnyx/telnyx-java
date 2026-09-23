@@ -2918,6 +2918,7 @@ Methods:
 - <code title="delete /email_domains/{id}">client.emailDomains().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailDomainService.kt">delete</a>(params)</code>
 - <code title="get /email_domains/{domain_id}/dns_records">client.emailDomains().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailDomainService.kt">retrieveDnsRecords</a>(params)</code>
 - <code title="get /email_domains/{id}/health">client.emailDomains().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailDomainService.kt">retrieveHealth</a>(params)</code>
+- <code title="post /email_domains/{domain_id}/rotate_dkim">client.emailDomains().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailDomainService.kt">rotateDkim</a>(params)</code>
 - <code title="post /email_domains/{domain_id}/verify">client.emailDomains().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailDomainService.kt">verify</a>(params)</code>
 
 ## Webhooks
@@ -3016,6 +3017,7 @@ Methods:
 - <code title="delete /email_messages">client.emailMessages().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailMessageService.kt">deleteAll</a>(params)</code>
 - <code title="delete /email_messages/{email_id}/schedule">client.emailMessages().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailMessageService.kt">deleteSchedule</a>(params)</code>
 - <code title="get /email_messages/{email_id}/events">client.emailMessages().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailMessageService.kt">retrieveEvents</a>(params)</code>
+- <code title="patch /email_messages/{email_id}/schedule">client.emailMessages().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/EmailMessageService.kt">updateSchedule</a>(params)</code>
 
 ## Recipients
 

@@ -27,7 +27,9 @@ import kotlin.jvm.optionals.getOrNull
  * Creates up to 1,000 email messages in a single request. Request-wide admission checks run first
  * and can reject the whole batch before message creation. After those checks pass, each message is
  * validated and sent independently; item-level failures do not affect other messages, and the
- * processed batch returns 207 Multi-Status.
+ * processed batch returns 207 Multi-Status. Per-message failures include validation errors; when a
+ * template has `strict_variables` enabled, a missing required variable produces a per-item
+ * `unprocessable_entity` error naming that variable while the other messages continue.
  */
 class EmailMessageBatchParams
 private constructor(
@@ -50,8 +52,12 @@ private constructor(
     fun messages(): List<Message> = body.messages()
 
     /**
-     * Applies sandbox mode to all messages in the batch. Overrides any per-message sandbox_mode in
-     * the messages array.
+     * Applies sandbox mode to all messages in the batch and overrides any per-message
+     * `sandbox_mode` value — each message's effective `sandbox_mode` is exactly this envelope
+     * value. Reserved recipients at `test.telnyx.com` produce the deterministic event chains
+     * documented on CreateEmailRequest.sandbox_mode; no batch item is injected into the MTA or
+     * outbound Kafka path. Sandbox batch items are non-billable, consume no daily-send-limit quota,
+     * and feed no delivery-reputation signals.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -152,8 +158,12 @@ private constructor(
         fun addMessage(message: Message) = apply { body.addMessage(message) }
 
         /**
-         * Applies sandbox mode to all messages in the batch. Overrides any per-message sandbox_mode
-         * in the messages array.
+         * Applies sandbox mode to all messages in the batch and overrides any per-message
+         * `sandbox_mode` value — each message's effective `sandbox_mode` is exactly this envelope
+         * value. Reserved recipients at `test.telnyx.com` produce the deterministic event chains
+         * documented on CreateEmailRequest.sandbox_mode; no batch item is injected into the MTA or
+         * outbound Kafka path. Sandbox batch items are non-billable, consume no daily-send-limit
+         * quota, and feed no delivery-reputation signals.
          */
         fun sandboxMode(sandboxMode: Boolean) = apply { body.sandboxMode(sandboxMode) }
 
@@ -346,8 +356,12 @@ private constructor(
         fun messages(): List<Message> = messages.getRequired("messages")
 
         /**
-         * Applies sandbox mode to all messages in the batch. Overrides any per-message sandbox_mode
-         * in the messages array.
+         * Applies sandbox mode to all messages in the batch and overrides any per-message
+         * `sandbox_mode` value — each message's effective `sandbox_mode` is exactly this envelope
+         * value. Reserved recipients at `test.telnyx.com` produce the deterministic event chains
+         * documented on CreateEmailRequest.sandbox_mode; no batch item is injected into the MTA or
+         * outbound Kafka path. Sandbox batch items are non-billable, consume no daily-send-limit
+         * quota, and feed no delivery-reputation signals.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -442,8 +456,12 @@ private constructor(
             }
 
             /**
-             * Applies sandbox mode to all messages in the batch. Overrides any per-message
-             * sandbox_mode in the messages array.
+             * Applies sandbox mode to all messages in the batch and overrides any per-message
+             * `sandbox_mode` value — each message's effective `sandbox_mode` is exactly this
+             * envelope value. Reserved recipients at `test.telnyx.com` produce the deterministic
+             * event chains documented on CreateEmailRequest.sandbox_mode; no batch item is injected
+             * into the MTA or outbound Kafka path. Sandbox batch items are non-billable, consume no
+             * daily-send-limit quota, and feed no delivery-reputation signals.
              */
             fun sandboxMode(sandboxMode: Boolean) = sandboxMode(JsonField.of(sandboxMode))
 
@@ -763,7 +781,9 @@ private constructor(
         fun inlineCss(): Optional<Boolean> = inlineCss.getOptional("inline_css")
 
         /**
-         * Custom metadata. Write-only; not returned in responses.
+         * Custom metadata key/value pairs. Stored on the message, returned on message responses,
+         * and propagated to Email Detail Records. Usable in `filter[metadata]` when listing
+         * messages.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -780,15 +800,23 @@ private constructor(
         fun replyTo(): Optional<EmailAddressInput> = replyTo.getOptional("reply_to")
 
         /**
+         * Per-message sandbox flag. The batch-level `sandbox_mode` envelope value is authoritative:
+         * it overwrites every message's `sandbox_mode` before processing, including the `false`
+         * default when the envelope omits the field. A per-item `sandbox_mode: true` inside a
+         * non-sandbox batch is therefore a real send. Set the envelope field to run any batch item
+         * in sandbox mode.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun sandboxMode(): Optional<Boolean> = sandboxMode.getOptional("sandbox_mode")
 
         /**
-         * Future ISO 8601 time to schedule sending. Invalid or past timestamps are silently ignored
-         * and the email is sent immediately. The legacy alias `send_at` is still accepted for
-         * backward compatibility; when both are provided, `scheduled_at` wins.
+         * Future ISO 8601 delivery time. Invalid or non-future timestamps are rejected. Single
+         * sends return HTTP 422; in batch sends the invalid item is reported in the 207 per-item
+         * errors while other items continue. `send_at` remains a deprecated request alias. A
+         * non-null `scheduled_at` takes precedence over `send_at`; when `scheduled_at` is omitted
+         * or null, `send_at` is used.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -814,8 +842,9 @@ private constructor(
         fun subject(): Optional<String> = subject.getOptional("subject")
 
         /**
-         * Tags for categorization and reporting. Stored on the message and propagated to Email
-         * Detail Records. Not returned in API responses.
+         * Tags for categorization and filtering. Stored on the message, returned on message
+         * responses, and propagated to Email Detail Records. Usable in `filter[tags]` when listing
+         * messages.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -831,7 +860,9 @@ private constructor(
         /**
          * Variables for Liquid template rendering. Non-object values may cause a 422 validation
          * error on message creation, but are silently treated as an empty object for template
-         * rendering.
+         * rendering. When the template enables `strict_variables`, a missing required variable
+         * fails the request with 422 (single send) or a per-item `unprocessable_entity` error
+         * (batch) naming the variable; no message is persisted for the failed item.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1337,7 +1368,11 @@ private constructor(
              */
             fun inlineCss(inlineCss: JsonField<Boolean>) = apply { this.inlineCss = inlineCss }
 
-            /** Custom metadata. Write-only; not returned in responses. */
+            /**
+             * Custom metadata key/value pairs. Stored on the message, returned on message
+             * responses, and propagated to Email Detail Records. Usable in `filter[metadata]` when
+             * listing messages.
+             */
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
@@ -1373,6 +1408,13 @@ private constructor(
             fun replyTo(emailAddress: EmailAddress) =
                 replyTo(EmailAddressInput.ofEmailAddress(emailAddress))
 
+            /**
+             * Per-message sandbox flag. The batch-level `sandbox_mode` envelope value is
+             * authoritative: it overwrites every message's `sandbox_mode` before processing,
+             * including the `false` default when the envelope omits the field. A per-item
+             * `sandbox_mode: true` inside a non-sandbox batch is therefore a real send. Set the
+             * envelope field to run any batch item in sandbox mode.
+             */
             fun sandboxMode(sandboxMode: Boolean) = sandboxMode(JsonField.of(sandboxMode))
 
             /**
@@ -1387,9 +1429,11 @@ private constructor(
             }
 
             /**
-             * Future ISO 8601 time to schedule sending. Invalid or past timestamps are silently
-             * ignored and the email is sent immediately. The legacy alias `send_at` is still
-             * accepted for backward compatibility; when both are provided, `scheduled_at` wins.
+             * Future ISO 8601 delivery time. Invalid or non-future timestamps are rejected. Single
+             * sends return HTTP 422; in batch sends the invalid item is reported in the 207
+             * per-item errors while other items continue. `send_at` remains a deprecated request
+             * alias. A non-null `scheduled_at` takes precedence over `send_at`; when `scheduled_at`
+             * is omitted or null, `send_at` is used.
              */
             fun scheduledAt(scheduledAt: OffsetDateTime?) =
                 scheduledAt(JsonField.ofNullable(scheduledAt))
@@ -1440,8 +1484,9 @@ private constructor(
             fun subject(subject: JsonField<String>) = apply { this.subject = subject }
 
             /**
-             * Tags for categorization and reporting. Stored on the message and propagated to Email
-             * Detail Records. Not returned in API responses.
+             * Tags for categorization and filtering. Stored on the message, returned on message
+             * responses, and propagated to Email Detail Records. Usable in `filter[tags]` when
+             * listing messages.
              */
             fun tags(tags: List<String>) = tags(JsonField.of(tags))
 
@@ -1480,7 +1525,9 @@ private constructor(
             /**
              * Variables for Liquid template rendering. Non-object values may cause a 422 validation
              * error on message creation, but are silently treated as an empty object for template
-             * rendering.
+             * rendering. When the template enables `strict_variables`, a missing required variable
+             * fails the request with 422 (single send) or a per-item `unprocessable_entity` error
+             * (batch) naming the variable; no message is persisted for the failed item.
              */
             fun templateVariables(templateVariables: TemplateVariables) =
                 templateVariables(JsonField.of(templateVariables))
@@ -1782,7 +1829,11 @@ private constructor(
             override fun toString() = "Headers{additionalProperties=$additionalProperties}"
         }
 
-        /** Custom metadata. Write-only; not returned in responses. */
+        /**
+         * Custom metadata key/value pairs. Stored on the message, returned on message responses,
+         * and propagated to Email Detail Records. Usable in `filter[metadata]` when listing
+         * messages.
+         */
         class Metadata
         @JsonCreator
         private constructor(
@@ -1898,7 +1949,9 @@ private constructor(
         /**
          * Variables for Liquid template rendering. Non-object values may cause a 422 validation
          * error on message creation, but are silently treated as an empty object for template
-         * rendering.
+         * rendering. When the template enables `strict_variables`, a missing required variable
+         * fails the request with 422 (single send) or a per-item `unprocessable_entity` error
+         * (batch) naming the variable; no message is persisted for the failed item.
          */
         class TemplateVariables
         @JsonCreator

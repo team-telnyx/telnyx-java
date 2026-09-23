@@ -16,8 +16,9 @@ internal class PrivateWirelessGatewayListPageResponseTest {
         val privateWirelessGatewayListPageResponse =
             PrivateWirelessGatewayListPageResponse.builder()
                 .addData(
-                    PrivateWirelessGateway.builder()
+                    WirelessPrivateWirelessGateway.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .addressMode(WirelessPrivateWirelessGateway.AddressMode.DYNAMIC)
                         .addAssignedResource(
                             PwgAssignedResourcesSummary.builder()
                                 .count(1L)
@@ -55,8 +56,9 @@ internal class PrivateWirelessGatewayListPageResponseTest {
 
         assertThat(privateWirelessGatewayListPageResponse.data().getOrNull())
             .containsExactly(
-                PrivateWirelessGateway.builder()
+                WirelessPrivateWirelessGateway.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .addressMode(WirelessPrivateWirelessGateway.AddressMode.DYNAMIC)
                     .addAssignedResource(
                         PwgAssignedResourcesSummary.builder()
                             .count(1L)
@@ -99,8 +101,9 @@ internal class PrivateWirelessGatewayListPageResponseTest {
         val privateWirelessGatewayListPageResponse =
             PrivateWirelessGatewayListPageResponse.builder()
                 .addData(
-                    PrivateWirelessGateway.builder()
+                    WirelessPrivateWirelessGateway.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .addressMode(WirelessPrivateWirelessGateway.AddressMode.DYNAMIC)
                         .addAssignedResource(
                             PwgAssignedResourcesSummary.builder()
                                 .count(1L)
