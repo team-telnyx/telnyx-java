@@ -80,6 +80,7 @@ import com.telnyx.sdk.services.async.IpServiceAsync
 import com.telnyx.sdk.services.async.LedgerBillingGroupReportServiceAsync
 import com.telnyx.sdk.services.async.LegacyServiceAsync
 import com.telnyx.sdk.services.async.ListServiceAsync
+import com.telnyx.sdk.services.async.MachinePaymentServiceAsync
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
 import com.telnyx.sdk.services.async.MediaServiceAsync
 import com.telnyx.sdk.services.async.MeetingSessionServiceAsync
@@ -796,6 +797,13 @@ interface TelnyxClientAsync {
     fun botSignup(): BotSignupServiceAsync
 
     /**
+     * Machine payment (MPP) account-credit operations. Fund your Telnyx account programmatically
+     * from a machine or agent using the Machine Payment Protocol, an HTTP-402 flow settled via
+     * Stripe or Tempo.
+     */
+    fun machinePayments(): MachinePaymentServiceAsync
+
+    /**
      * Closes this client, relinquishing any underlying resources.
      *
      * This is purposefully not inherited from [AutoCloseable] because the client is long-lived and
@@ -1391,5 +1399,12 @@ interface TelnyxClientAsync {
          * and per-country availability.
          */
         fun botSignup(): BotSignupServiceAsync.WithRawResponse
+
+        /**
+         * Machine payment (MPP) account-credit operations. Fund your Telnyx account
+         * programmatically from a machine or agent using the Machine Payment Protocol, an HTTP-402
+         * flow settled via Stripe or Tempo.
+         */
+        fun machinePayments(): MachinePaymentServiceAsync.WithRawResponse
     }
 }

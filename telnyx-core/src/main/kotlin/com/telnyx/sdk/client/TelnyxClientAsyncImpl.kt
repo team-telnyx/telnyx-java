@@ -158,6 +158,8 @@ import com.telnyx.sdk.services.async.LegacyServiceAsync
 import com.telnyx.sdk.services.async.LegacyServiceAsyncImpl
 import com.telnyx.sdk.services.async.ListServiceAsync
 import com.telnyx.sdk.services.async.ListServiceAsyncImpl
+import com.telnyx.sdk.services.async.MachinePaymentServiceAsync
+import com.telnyx.sdk.services.async.MachinePaymentServiceAsyncImpl
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsyncImpl
 import com.telnyx.sdk.services.async.MediaServiceAsync
@@ -1124,6 +1126,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         BotSignupServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val machinePayments: MachinePaymentServiceAsync by lazy {
+        MachinePaymentServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1728,6 +1734,13 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
      * per-country availability.
      */
     override fun botSignup(): BotSignupServiceAsync = botSignup
+
+    /**
+     * Machine payment (MPP) account-credit operations. Fund your Telnyx account programmatically
+     * from a machine or agent using the Machine Payment Protocol, an HTTP-402 flow settled via
+     * Stripe or Tempo.
+     */
+    override fun machinePayments(): MachinePaymentServiceAsync = machinePayments
 
     override fun close() = clientOptions.close()
 
@@ -2521,6 +2534,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             BotSignupServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val machinePayments: MachinePaymentServiceAsync.WithRawResponse by lazy {
+            MachinePaymentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3183,5 +3200,12 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
          * and per-country availability.
          */
         override fun botSignup(): BotSignupServiceAsync.WithRawResponse = botSignup
+
+        /**
+         * Machine payment (MPP) account-credit operations. Fund your Telnyx account
+         * programmatically from a machine or agent using the Machine Payment Protocol, an HTTP-402
+         * flow settled via Stripe or Tempo.
+         */
+        override fun machinePayments(): MachinePaymentServiceAsync.WithRawResponse = machinePayments
     }
 }

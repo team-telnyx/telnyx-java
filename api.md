@@ -3179,3 +3179,9 @@ Methods:
 
 - <code title="post /v2/bot_signup">client.botSignup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSignupService.kt">create</a>(params)</code>
 - <code title="post /v2/bot_signup/resend_magic_link">client.botSignup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSignupService.kt">resendMagicLink</a>(params)</code>
+
+# MachinePayments
+
+Methods:
+
+- <code title="post /machine-payments/account-credit">client.machinePayments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MachinePaymentService.kt">accountCredit</a>(params)</code>
