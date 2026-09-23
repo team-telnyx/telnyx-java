@@ -60,10 +60,9 @@ private constructor(
     fun meetingUrl(): String = body.meetingUrl()
 
     /**
-     * Request options for attaching a voice assistant to the session. Routing fields
-     * (`call_control_connection_id`, `from`, and `loopback_sip_uri`) are used only to establish the
-     * assistant call leg and are omitted from response objects. `audio_gate` is returned with `id`
-     * in the assistant response object.
+     * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the Meeting service
+     * connects it to the meeting directly. The Call Control connection, caller ID and loopback SIP
+     * URI previously required here have been removed and are now rejected as unknown fields.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -109,6 +108,17 @@ private constructor(
     fun cameraImage(): Optional<CameraImage> = body.cameraImage()
 
     /**
+     * A message the bot posts to the meeting's chat as soon as it becomes active — typically a
+     * recording disclosure. Delivered at most once. Independent of `speak_on_enter`: both may be
+     * set, and the chat message posts first because it does not wait for text-to-speech or avatar
+     * startup. Rejected with 422 `unsupported_capability` on platforms without meeting chat.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun chatOnEnter(): Optional<String> = body.chatOnEnter()
+
+    /**
      * Client-supplied idempotency key to safely retry creation requests without duplicating
      * sessions. Lookup is scoped to the authenticated account and compares the key only; the
      * request payload is not fingerprinted or compared.
@@ -137,7 +147,10 @@ private constructor(
     fun metadata(): Optional<Metadata> = body.metadata()
 
     /**
-     * Text the bot speaks when it enters the meeting.
+     * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
+     * attached**: the value is accepted and echoed back on the session, but the assistant owns the
+     * voice and the line is never delivered, with no event reporting the omission. Use
+     * `chat_on_enter` to announce an assistant-backed bot.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -212,6 +225,13 @@ private constructor(
      * Unlike [cameraImage], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _cameraImage(): JsonField<CameraImage> = body._cameraImage()
+
+    /**
+     * Returns the raw JSON value of [chatOnEnter].
+     *
+     * Unlike [chatOnEnter], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _chatOnEnter(): JsonField<String> = body._chatOnEnter()
 
     /**
      * Returns the raw JSON value of [idempotencyKey].
@@ -327,10 +347,10 @@ private constructor(
         fun meetingUrl(meetingUrl: JsonField<String>) = apply { body.meetingUrl(meetingUrl) }
 
         /**
-         * Request options for attaching a voice assistant to the session. Routing fields
-         * (`call_control_connection_id`, `from`, and `loopback_sip_uri`) are used only to establish
-         * the assistant call leg and are omitted from response objects. `audio_gate` is returned
-         * with `id` in the assistant response object.
+         * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the Meeting
+         * service connects it to the meeting directly. The Call Control connection, caller ID and
+         * loopback SIP URI previously required here have been removed and are now rejected as
+         * unknown fields.
          */
         fun assistant(assistant: Assistant) = apply { body.assistant(assistant) }
 
@@ -418,6 +438,24 @@ private constructor(
         ) = apply { body.cameraImage(meetingSessionCameraImageUrlSource) }
 
         /**
+         * A message the bot posts to the meeting's chat as soon as it becomes active — typically a
+         * recording disclosure. Delivered at most once. Independent of `speak_on_enter`: both may
+         * be set, and the chat message posts first because it does not wait for text-to-speech or
+         * avatar startup. Rejected with 422 `unsupported_capability` on platforms without meeting
+         * chat.
+         */
+        fun chatOnEnter(chatOnEnter: String) = apply { body.chatOnEnter(chatOnEnter) }
+
+        /**
+         * Sets [Builder.chatOnEnter] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.chatOnEnter] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun chatOnEnter(chatOnEnter: JsonField<String>) = apply { body.chatOnEnter(chatOnEnter) }
+
+        /**
          * Client-supplied idempotency key to safely retry creation requests without duplicating
          * sessions. Lookup is scoped to the authenticated account and compares the key only; the
          * request payload is not fingerprinted or compared.
@@ -465,7 +503,12 @@ private constructor(
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
-        /** Text the bot speaks when it enters the meeting. */
+        /**
+         * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
+         * attached**: the value is accepted and echoed back on the session, but the assistant owns
+         * the voice and the line is never delivered, with no event reporting the omission. Use
+         * `chat_on_enter` to announce an assistant-backed bot.
+         */
         fun speakOnEnter(speakOnEnter: String) = apply { body.speakOnEnter(speakOnEnter) }
 
         /**
@@ -688,6 +731,7 @@ private constructor(
         private val bargeIn: JsonField<Boolean>,
         private val botName: JsonField<String>,
         private val cameraImage: JsonField<CameraImage>,
+        private val chatOnEnter: JsonField<String>,
         private val idempotencyKey: JsonField<String>,
         private val joinAt: JsonField<OffsetDateTime>,
         private val metadata: JsonField<Metadata>,
@@ -714,6 +758,9 @@ private constructor(
             @JsonProperty("camera_image")
             @ExcludeMissing
             cameraImage: JsonField<CameraImage> = JsonMissing.of(),
+            @JsonProperty("chat_on_enter")
+            @ExcludeMissing
+            chatOnEnter: JsonField<String> = JsonMissing.of(),
             @JsonProperty("idempotency_key")
             @ExcludeMissing
             idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -740,6 +787,7 @@ private constructor(
             bargeIn,
             botName,
             cameraImage,
+            chatOnEnter,
             idempotencyKey,
             joinAt,
             metadata,
@@ -759,10 +807,10 @@ private constructor(
         fun meetingUrl(): String = meetingUrl.getRequired("meeting_url")
 
         /**
-         * Request options for attaching a voice assistant to the session. Routing fields
-         * (`call_control_connection_id`, `from`, and `loopback_sip_uri`) are used only to establish
-         * the assistant call leg and are omitted from response objects. `audio_gate` is returned
-         * with `id` in the assistant response object.
+         * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the Meeting
+         * service connects it to the meeting directly. The Call Control connection, caller ID and
+         * loopback SIP URI previously required here have been removed and are now rejected as
+         * unknown fields.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -809,6 +857,18 @@ private constructor(
         fun cameraImage(): Optional<CameraImage> = cameraImage.getOptional("camera_image")
 
         /**
+         * A message the bot posts to the meeting's chat as soon as it becomes active — typically a
+         * recording disclosure. Delivered at most once. Independent of `speak_on_enter`: both may
+         * be set, and the chat message posts first because it does not wait for text-to-speech or
+         * avatar startup. Rejected with 422 `unsupported_capability` on platforms without meeting
+         * chat.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun chatOnEnter(): Optional<String> = chatOnEnter.getOptional("chat_on_enter")
+
+        /**
          * Client-supplied idempotency key to safely retry creation requests without duplicating
          * sessions. Lookup is scoped to the authenticated account and compares the key only; the
          * request payload is not fingerprinted or compared.
@@ -837,7 +897,10 @@ private constructor(
         fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
 
         /**
-         * Text the bot speaks when it enters the meeting.
+         * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
+         * attached**: the value is accepted and echoed back on the session, but the assistant owns
+         * the voice and the line is never delivered, with no event reporting the omission. Use
+         * `chat_on_enter` to announce an assistant-backed bot.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -918,6 +981,15 @@ private constructor(
         @JsonProperty("camera_image")
         @ExcludeMissing
         fun _cameraImage(): JsonField<CameraImage> = cameraImage
+
+        /**
+         * Returns the raw JSON value of [chatOnEnter].
+         *
+         * Unlike [chatOnEnter], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("chat_on_enter")
+        @ExcludeMissing
+        fun _chatOnEnter(): JsonField<String> = chatOnEnter
 
         /**
          * Returns the raw JSON value of [idempotencyKey].
@@ -1013,6 +1085,7 @@ private constructor(
             private var bargeIn: JsonField<Boolean> = JsonMissing.of()
             private var botName: JsonField<String> = JsonMissing.of()
             private var cameraImage: JsonField<CameraImage> = JsonMissing.of()
+            private var chatOnEnter: JsonField<String> = JsonMissing.of()
             private var idempotencyKey: JsonField<String> = JsonMissing.of()
             private var joinAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -1030,6 +1103,7 @@ private constructor(
                 bargeIn = body.bargeIn
                 botName = body.botName
                 cameraImage = body.cameraImage
+                chatOnEnter = body.chatOnEnter
                 idempotencyKey = body.idempotencyKey
                 joinAt = body.joinAt
                 metadata = body.metadata
@@ -1053,10 +1127,10 @@ private constructor(
             fun meetingUrl(meetingUrl: JsonField<String>) = apply { this.meetingUrl = meetingUrl }
 
             /**
-             * Request options for attaching a voice assistant to the session. Routing fields
-             * (`call_control_connection_id`, `from`, and `loopback_sip_uri`) are used only to
-             * establish the assistant call leg and are omitted from response objects. `audio_gate`
-             * is returned with `id` in the assistant response object.
+             * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the Meeting
+             * service connects it to the meeting directly. The Call Control connection, caller ID
+             * and loopback SIP URI previously required here have been removed and are now rejected
+             * as unknown fields.
              */
             fun assistant(assistant: Assistant) = assistant(JsonField.of(assistant))
 
@@ -1158,6 +1232,26 @@ private constructor(
                 )
 
             /**
+             * A message the bot posts to the meeting's chat as soon as it becomes active —
+             * typically a recording disclosure. Delivered at most once. Independent of
+             * `speak_on_enter`: both may be set, and the chat message posts first because it does
+             * not wait for text-to-speech or avatar startup. Rejected with 422
+             * `unsupported_capability` on platforms without meeting chat.
+             */
+            fun chatOnEnter(chatOnEnter: String) = chatOnEnter(JsonField.of(chatOnEnter))
+
+            /**
+             * Sets [Builder.chatOnEnter] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.chatOnEnter] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun chatOnEnter(chatOnEnter: JsonField<String>) = apply {
+                this.chatOnEnter = chatOnEnter
+            }
+
+            /**
              * Client-supplied idempotency key to safely retry creation requests without duplicating
              * sessions. Lookup is scoped to the authenticated account and compares the key only;
              * the request payload is not fingerprinted or compared.
@@ -1206,7 +1300,12 @@ private constructor(
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
-            /** Text the bot speaks when it enters the meeting. */
+            /**
+             * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
+             * attached**: the value is accepted and echoed back on the session, but the assistant
+             * owns the voice and the line is never delivered, with no event reporting the omission.
+             * Use `chat_on_enter` to announce an assistant-backed bot.
+             */
             fun speakOnEnter(speakOnEnter: String) = speakOnEnter(JsonField.of(speakOnEnter))
 
             /**
@@ -1306,6 +1405,7 @@ private constructor(
                     bargeIn,
                     botName,
                     cameraImage,
+                    chatOnEnter,
                     idempotencyKey,
                     joinAt,
                     metadata,
@@ -1339,6 +1439,7 @@ private constructor(
             bargeIn()
             botName()
             cameraImage().ifPresent { it.validate() }
+            chatOnEnter()
             idempotencyKey()
             joinAt()
             metadata().ifPresent { it.validate() }
@@ -1371,6 +1472,7 @@ private constructor(
                 (if (bargeIn.asKnown().isPresent) 1 else 0) +
                 (if (botName.asKnown().isPresent) 1 else 0) +
                 (cameraImage.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (chatOnEnter.asKnown().isPresent) 1 else 0) +
                 (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
                 (if (joinAt.asKnown().isPresent) 1 else 0) +
                 (metadata.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1391,6 +1493,7 @@ private constructor(
                 bargeIn == other.bargeIn &&
                 botName == other.botName &&
                 cameraImage == other.cameraImage &&
+                chatOnEnter == other.chatOnEnter &&
                 idempotencyKey == other.idempotencyKey &&
                 joinAt == other.joinAt &&
                 metadata == other.metadata &&
@@ -1409,6 +1512,7 @@ private constructor(
                 bargeIn,
                 botName,
                 cameraImage,
+                chatOnEnter,
                 idempotencyKey,
                 joinAt,
                 metadata,
@@ -1423,40 +1527,37 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{meetingUrl=$meetingUrl, assistant=$assistant, avatar=$avatar, bargeIn=$bargeIn, botName=$botName, cameraImage=$cameraImage, idempotencyKey=$idempotencyKey, joinAt=$joinAt, metadata=$metadata, speakOnEnter=$speakOnEnter, summarizeOnEnd=$summarizeOnEnd, voice=$voice, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{meetingUrl=$meetingUrl, assistant=$assistant, avatar=$avatar, bargeIn=$bargeIn, botName=$botName, cameraImage=$cameraImage, chatOnEnter=$chatOnEnter, idempotencyKey=$idempotencyKey, joinAt=$joinAt, metadata=$metadata, speakOnEnter=$speakOnEnter, summarizeOnEnd=$summarizeOnEnd, voice=$voice, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     /**
-     * Request options for attaching a voice assistant to the session. Routing fields
-     * (`call_control_connection_id`, `from`, and `loopback_sip_uri`) are used only to establish the
-     * assistant call leg and are omitted from response objects. `audio_gate` is returned with `id`
-     * in the assistant response object.
+     * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the Meeting service
+     * connects it to the meeting directly. The Call Control connection, caller ID and loopback SIP
+     * URI previously required here have been removed and are now rejected as unknown fields.
      */
     class Assistant
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
-        private val callControlConnectionId: JsonField<String>,
-        private val from: JsonField<String>,
-        private val loopbackSipUri: JsonField<String>,
         private val audioGate: JsonField<AudioGate>,
+        private val dynamicVariables: JsonField<DynamicVariables>,
+        private val leaveOnEnd: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("call_control_connection_id")
-            @ExcludeMissing
-            callControlConnectionId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("loopback_sip_uri")
-            @ExcludeMissing
-            loopbackSipUri: JsonField<String> = JsonMissing.of(),
             @JsonProperty("audio_gate")
             @ExcludeMissing
             audioGate: JsonField<AudioGate> = JsonMissing.of(),
-        ) : this(id, callControlConnectionId, from, loopbackSipUri, audioGate, mutableMapOf())
+            @JsonProperty("dynamic_variables")
+            @ExcludeMissing
+            dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of(),
+            @JsonProperty("leave_on_end")
+            @ExcludeMissing
+            leaveOnEnd: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(id, audioGate, dynamicVariables, leaveOnEnd, mutableMapOf())
 
         /**
          * Identifier of the assistant to attach.
@@ -1467,37 +1568,45 @@ private constructor(
         fun id(): String = id.getRequired("id")
 
         /**
-         * Call control connection used to bridge the assistant into the meeting audio.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun callControlConnectionId(): String =
-            callControlConnectionId.getRequired("call_control_connection_id")
-
-        /**
-         * E.164 calling number used as the originating party for the assistant call leg.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun from(): String = from.getRequired("from")
-
-        /**
-         * SIP URI to which the assistant media loopback is established.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun loopbackSipUri(): String = loopbackSipUri.getRequired("loopback_sip_uri")
-
-        /**
-         * Audio gating strategy for the assistant call leg.
+         * Audio gating strategy for the assistant call leg. `half_duplex` (default) sends the
+         * assistant a single mixed meeting stream and mutes it while the assistant speaks, so the
+         * assistant cannot hear itself and cannot be interrupted. `full_duplex` sends a separate
+         * stream per participant, which allows barge-in and removes self-hearing, and COSTS
+         * SIGNIFICANTLY MORE: per-participant streams multiply the per-minute cost by the number of
+         * participants.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun audioGate(): Optional<AudioGate> = audioGate.getOptional("audio_gate")
+
+        /**
+         * Per-conversation values for the
+         * [dynamic variables](/docs/inference/ai-assistants/dynamic-variables) used in the
+         * Assistant's instructions, greeting, or tools. Delivered before the Assistant's first
+         * utterance, so they resolve for the opening line as well as the rest of the conversation.
+         * At most 63 entries; keys 1-128 characters; values must be strings. The map is budgeted in
+         * aggregate at 1,047,552 bytes (1023 KiB) rather than capped per value. `streaming_audio`,
+         * `ai_assistant_streaming_audio` and `meeting_session_id` are reserved and rejected with
+         * `400 invalid_request` -- they toggle provider infrastructure or are set by the service
+         * rather than fill a prompt template.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun dynamicVariables(): Optional<DynamicVariables> =
+            dynamicVariables.getOptional("dynamic_variables")
+
+        /**
+         * Leave the meeting when the Assistant's conversation reaches a terminal state -- `ended`
+         * **or** `failed`. Off by default, which leaves the bot in the meeting after the Assistant
+         * stops. Fires once: a second terminal transition does not leave twice, and a leave the
+         * provider refuses is logged without changing how the session settles.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun leaveOnEnd(): Optional<Boolean> = leaveOnEnd.getOptional("leave_on_end")
 
         /**
          * Returns the raw JSON value of [id].
@@ -1507,33 +1616,6 @@ private constructor(
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /**
-         * Returns the raw JSON value of [callControlConnectionId].
-         *
-         * Unlike [callControlConnectionId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("call_control_connection_id")
-        @ExcludeMissing
-        fun _callControlConnectionId(): JsonField<String> = callControlConnectionId
-
-        /**
-         * Returns the raw JSON value of [from].
-         *
-         * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<String> = from
-
-        /**
-         * Returns the raw JSON value of [loopbackSipUri].
-         *
-         * Unlike [loopbackSipUri], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("loopback_sip_uri")
-        @ExcludeMissing
-        fun _loopbackSipUri(): JsonField<String> = loopbackSipUri
-
-        /**
          * Returns the raw JSON value of [audioGate].
          *
          * Unlike [audioGate], this method doesn't throw if the JSON field has an unexpected type.
@@ -1541,6 +1623,25 @@ private constructor(
         @JsonProperty("audio_gate")
         @ExcludeMissing
         fun _audioGate(): JsonField<AudioGate> = audioGate
+
+        /**
+         * Returns the raw JSON value of [dynamicVariables].
+         *
+         * Unlike [dynamicVariables], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("dynamic_variables")
+        @ExcludeMissing
+        fun _dynamicVariables(): JsonField<DynamicVariables> = dynamicVariables
+
+        /**
+         * Returns the raw JSON value of [leaveOnEnd].
+         *
+         * Unlike [leaveOnEnd], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("leave_on_end")
+        @ExcludeMissing
+        fun _leaveOnEnd(): JsonField<Boolean> = leaveOnEnd
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1562,9 +1663,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .id()
-             * .callControlConnectionId()
-             * .from()
-             * .loopbackSipUri()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -1574,19 +1672,17 @@ private constructor(
         class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
-            private var callControlConnectionId: JsonField<String>? = null
-            private var from: JsonField<String>? = null
-            private var loopbackSipUri: JsonField<String>? = null
             private var audioGate: JsonField<AudioGate> = JsonMissing.of()
+            private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
+            private var leaveOnEnd: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(assistant: Assistant) = apply {
                 id = assistant.id
-                callControlConnectionId = assistant.callControlConnectionId
-                from = assistant.from
-                loopbackSipUri = assistant.loopbackSipUri
                 audioGate = assistant.audioGate
+                dynamicVariables = assistant.dynamicVariables
+                leaveOnEnd = assistant.leaveOnEnd
                 additionalProperties = assistant.additionalProperties.toMutableMap()
             }
 
@@ -1602,49 +1698,14 @@ private constructor(
              */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            /** Call control connection used to bridge the assistant into the meeting audio. */
-            fun callControlConnectionId(callControlConnectionId: String) =
-                callControlConnectionId(JsonField.of(callControlConnectionId))
-
             /**
-             * Sets [Builder.callControlConnectionId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.callControlConnectionId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * Audio gating strategy for the assistant call leg. `half_duplex` (default) sends the
+             * assistant a single mixed meeting stream and mutes it while the assistant speaks, so
+             * the assistant cannot hear itself and cannot be interrupted. `full_duplex` sends a
+             * separate stream per participant, which allows barge-in and removes self-hearing, and
+             * COSTS SIGNIFICANTLY MORE: per-participant streams multiply the per-minute cost by the
+             * number of participants.
              */
-            fun callControlConnectionId(callControlConnectionId: JsonField<String>) = apply {
-                this.callControlConnectionId = callControlConnectionId
-            }
-
-            /** E.164 calling number used as the originating party for the assistant call leg. */
-            fun from(from: String) = from(JsonField.of(from))
-
-            /**
-             * Sets [Builder.from] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.from] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun from(from: JsonField<String>) = apply { this.from = from }
-
-            /** SIP URI to which the assistant media loopback is established. */
-            fun loopbackSipUri(loopbackSipUri: String) =
-                loopbackSipUri(JsonField.of(loopbackSipUri))
-
-            /**
-             * Sets [Builder.loopbackSipUri] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.loopbackSipUri] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun loopbackSipUri(loopbackSipUri: JsonField<String>) = apply {
-                this.loopbackSipUri = loopbackSipUri
-            }
-
-            /** Audio gating strategy for the assistant call leg. */
             fun audioGate(audioGate: AudioGate) = audioGate(JsonField.of(audioGate))
 
             /**
@@ -1655,6 +1716,48 @@ private constructor(
              * supported value.
              */
             fun audioGate(audioGate: JsonField<AudioGate>) = apply { this.audioGate = audioGate }
+
+            /**
+             * Per-conversation values for the
+             * [dynamic variables](/docs/inference/ai-assistants/dynamic-variables) used in the
+             * Assistant's instructions, greeting, or tools. Delivered before the Assistant's first
+             * utterance, so they resolve for the opening line as well as the rest of the
+             * conversation. At most 63 entries; keys 1-128 characters; values must be strings. The
+             * map is budgeted in aggregate at 1,047,552 bytes (1023 KiB) rather than capped per
+             * value. `streaming_audio`, `ai_assistant_streaming_audio` and `meeting_session_id` are
+             * reserved and rejected with `400 invalid_request` -- they toggle provider
+             * infrastructure or are set by the service rather than fill a prompt template.
+             */
+            fun dynamicVariables(dynamicVariables: DynamicVariables) =
+                dynamicVariables(JsonField.of(dynamicVariables))
+
+            /**
+             * Sets [Builder.dynamicVariables] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dynamicVariables] with a well-typed
+             * [DynamicVariables] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun dynamicVariables(dynamicVariables: JsonField<DynamicVariables>) = apply {
+                this.dynamicVariables = dynamicVariables
+            }
+
+            /**
+             * Leave the meeting when the Assistant's conversation reaches a terminal state --
+             * `ended` **or** `failed`. Off by default, which leaves the bot in the meeting after
+             * the Assistant stops. Fires once: a second terminal transition does not leave twice,
+             * and a leave the provider refuses is logged without changing how the session settles.
+             */
+            fun leaveOnEnd(leaveOnEnd: Boolean) = leaveOnEnd(JsonField.of(leaveOnEnd))
+
+            /**
+             * Sets [Builder.leaveOnEnd] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.leaveOnEnd] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun leaveOnEnd(leaveOnEnd: JsonField<Boolean>) = apply { this.leaveOnEnd = leaveOnEnd }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1683,9 +1786,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .id()
-             * .callControlConnectionId()
-             * .from()
-             * .loopbackSipUri()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -1693,10 +1793,9 @@ private constructor(
             fun build(): Assistant =
                 Assistant(
                     checkRequired("id", id),
-                    checkRequired("callControlConnectionId", callControlConnectionId),
-                    checkRequired("from", from),
-                    checkRequired("loopbackSipUri", loopbackSipUri),
                     audioGate,
+                    dynamicVariables,
+                    leaveOnEnd,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1718,10 +1817,9 @@ private constructor(
             }
 
             id()
-            callControlConnectionId()
-            from()
-            loopbackSipUri()
             audioGate().ifPresent { it.validate() }
+            dynamicVariables().ifPresent { it.validate() }
+            leaveOnEnd()
             validated = true
         }
 
@@ -1742,12 +1840,18 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
-                (if (callControlConnectionId.asKnown().isPresent) 1 else 0) +
-                (if (from.asKnown().isPresent) 1 else 0) +
-                (if (loopbackSipUri.asKnown().isPresent) 1 else 0) +
-                (audioGate.asKnown().getOrNull()?.validity() ?: 0)
+                (audioGate.asKnown().getOrNull()?.validity() ?: 0) +
+                (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (leaveOnEnd.asKnown().isPresent) 1 else 0)
 
-        /** Audio gating strategy for the assistant call leg. */
+        /**
+         * Audio gating strategy for the assistant call leg. `half_duplex` (default) sends the
+         * assistant a single mixed meeting stream and mutes it while the assistant speaks, so the
+         * assistant cannot hear itself and cannot be interrupted. `full_duplex` sends a separate
+         * stream per participant, which allows barge-in and removes self-hearing, and COSTS
+         * SIGNIFICANTLY MORE: per-participant streams multiply the per-minute cost by the number of
+         * participants.
+         */
         class AudioGate @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
 
@@ -1763,17 +1867,17 @@ private constructor(
 
             companion object {
 
-                @JvmField val NONE = of("none")
-
                 @JvmField val HALF_DUPLEX = of("half_duplex")
+
+                @JvmField val FULL_DUPLEX = of("full_duplex")
 
                 @JvmStatic fun of(value: String) = AudioGate(JsonField.of(value))
             }
 
             /** An enum containing [AudioGate]'s known values. */
             enum class Known {
-                NONE,
                 HALF_DUPLEX,
+                FULL_DUPLEX,
             }
 
             /**
@@ -1786,8 +1890,8 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                NONE,
                 HALF_DUPLEX,
+                FULL_DUPLEX,
                 /**
                  * An enum member indicating that [AudioGate] was instantiated with an unknown
                  * value.
@@ -1804,8 +1908,8 @@ private constructor(
              */
             fun value(): Value =
                 when (this) {
-                    NONE -> Value.NONE
                     HALF_DUPLEX -> Value.HALF_DUPLEX
+                    FULL_DUPLEX -> Value.FULL_DUPLEX
                     else -> Value._UNKNOWN
                 }
 
@@ -1820,8 +1924,8 @@ private constructor(
              */
             fun known(): Known =
                 when (this) {
-                    NONE -> Known.NONE
                     HALF_DUPLEX -> Known.HALF_DUPLEX
+                    FULL_DUPLEX -> Known.FULL_DUPLEX
                     else -> throw TelnyxInvalidDataException("Unknown AudioGate: $value")
                 }
 
@@ -1889,6 +1993,130 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * Per-conversation values for the
+         * [dynamic variables](/docs/inference/ai-assistants/dynamic-variables) used in the
+         * Assistant's instructions, greeting, or tools. Delivered before the Assistant's first
+         * utterance, so they resolve for the opening line as well as the rest of the conversation.
+         * At most 63 entries; keys 1-128 characters; values must be strings. The map is budgeted in
+         * aggregate at 1,047,552 bytes (1023 KiB) rather than capped per value. `streaming_audio`,
+         * `ai_assistant_streaming_audio` and `meeting_session_id` are reserved and rejected with
+         * `400 invalid_request` -- they toggle provider infrastructure or are set by the service
+         * rather than fill a prompt template.
+         */
+        class DynamicVariables
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [DynamicVariables]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [DynamicVariables]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(dynamicVariables: DynamicVariables) = apply {
+                    additionalProperties = dynamicVariables.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [DynamicVariables].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): DynamicVariables = DynamicVariables(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): DynamicVariables = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is DynamicVariables &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "DynamicVariables{additionalProperties=$additionalProperties}"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -1896,28 +2124,20 @@ private constructor(
 
             return other is Assistant &&
                 id == other.id &&
-                callControlConnectionId == other.callControlConnectionId &&
-                from == other.from &&
-                loopbackSipUri == other.loopbackSipUri &&
                 audioGate == other.audioGate &&
+                dynamicVariables == other.dynamicVariables &&
+                leaveOnEnd == other.leaveOnEnd &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(
-                id,
-                callControlConnectionId,
-                from,
-                loopbackSipUri,
-                audioGate,
-                additionalProperties,
-            )
+            Objects.hash(id, audioGate, dynamicVariables, leaveOnEnd, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Assistant{id=$id, callControlConnectionId=$callControlConnectionId, from=$from, loopbackSipUri=$loopbackSipUri, audioGate=$audioGate, additionalProperties=$additionalProperties}"
+            "Assistant{id=$id, audioGate=$audioGate, dynamicVariables=$dynamicVariables, leaveOnEnd=$leaveOnEnd, additionalProperties=$additionalProperties}"
     }
 
     /** Request options for attaching a bring-your-own-key avatar to the session. */

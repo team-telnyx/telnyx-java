@@ -11,7 +11,11 @@ internal class ArtifactCreateParamsTest {
     fun create() {
         ArtifactCreateParams.builder()
             .id("mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890")
-            .type(ArtifactCreateParams.Type.SUMMARY)
+            .body(
+                ArtifactCreateParams.Body.NamedArtifact.builder()
+                    .type(ArtifactCreateParams.Body.NamedArtifact.Type.SUMMARY)
+                    .build()
+            )
             .build()
     }
 
@@ -20,7 +24,11 @@ internal class ArtifactCreateParamsTest {
         val params =
             ArtifactCreateParams.builder()
                 .id("mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890")
-                .type(ArtifactCreateParams.Type.SUMMARY)
+                .body(
+                    ArtifactCreateParams.Body.NamedArtifact.builder()
+                        .type(ArtifactCreateParams.Body.NamedArtifact.Type.SUMMARY)
+                        .build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890")
@@ -33,11 +41,22 @@ internal class ArtifactCreateParamsTest {
         val params =
             ArtifactCreateParams.builder()
                 .id("mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890")
-                .type(ArtifactCreateParams.Type.SUMMARY)
+                .body(
+                    ArtifactCreateParams.Body.NamedArtifact.builder()
+                        .type(ArtifactCreateParams.Body.NamedArtifact.Type.SUMMARY)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.type()).isEqualTo(ArtifactCreateParams.Type.SUMMARY)
+        assertThat(body)
+            .isEqualTo(
+                ArtifactCreateParams.Body.ofNamedArtifact(
+                    ArtifactCreateParams.Body.NamedArtifact.builder()
+                        .type(ArtifactCreateParams.Body.NamedArtifact.Type.SUMMARY)
+                        .build()
+                )
+            )
     }
 }

@@ -1150,6 +1150,8 @@ private constructor(
     private constructor(
         private val id: JsonField<String>,
         private val audioGate: JsonField<AudioGate>,
+        private val dynamicVariables: JsonField<DynamicVariables>,
+        private val leaveOnEnd: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1159,7 +1161,13 @@ private constructor(
             @JsonProperty("audio_gate")
             @ExcludeMissing
             audioGate: JsonField<AudioGate> = JsonMissing.of(),
-        ) : this(id, audioGate, mutableMapOf())
+            @JsonProperty("dynamic_variables")
+            @ExcludeMissing
+            dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of(),
+            @JsonProperty("leave_on_end")
+            @ExcludeMissing
+            leaveOnEnd: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(id, audioGate, dynamicVariables, leaveOnEnd, mutableMapOf())
 
         /**
          * Identifier of the assistant.
@@ -1170,12 +1178,29 @@ private constructor(
         fun id(): String = id.getRequired("id")
 
         /**
-         * Audio gating strategy for the assistant call leg.
+         * Audio gating strategy in force for the assistant call leg.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun audioGate(): AudioGate = audioGate.getRequired("audio_gate")
+
+        /**
+         * The dynamic variables in force for this session, or null when none were supplied.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun dynamicVariables(): Optional<DynamicVariables> =
+            dynamicVariables.getOptional("dynamic_variables")
+
+        /**
+         * Whether the bot leaves when the Assistant's conversation ends or fails.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun leaveOnEnd(): Boolean = leaveOnEnd.getRequired("leave_on_end")
 
         /**
          * Returns the raw JSON value of [id].
@@ -1192,6 +1217,25 @@ private constructor(
         @JsonProperty("audio_gate")
         @ExcludeMissing
         fun _audioGate(): JsonField<AudioGate> = audioGate
+
+        /**
+         * Returns the raw JSON value of [dynamicVariables].
+         *
+         * Unlike [dynamicVariables], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("dynamic_variables")
+        @ExcludeMissing
+        fun _dynamicVariables(): JsonField<DynamicVariables> = dynamicVariables
+
+        /**
+         * Returns the raw JSON value of [leaveOnEnd].
+         *
+         * Unlike [leaveOnEnd], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("leave_on_end")
+        @ExcludeMissing
+        fun _leaveOnEnd(): JsonField<Boolean> = leaveOnEnd
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1214,6 +1258,8 @@ private constructor(
              * ```java
              * .id()
              * .audioGate()
+             * .dynamicVariables()
+             * .leaveOnEnd()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -1224,12 +1270,16 @@ private constructor(
 
             private var id: JsonField<String>? = null
             private var audioGate: JsonField<AudioGate>? = null
+            private var dynamicVariables: JsonField<DynamicVariables>? = null
+            private var leaveOnEnd: JsonField<Boolean>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(assistant: Assistant) = apply {
                 id = assistant.id
                 audioGate = assistant.audioGate
+                dynamicVariables = assistant.dynamicVariables
+                leaveOnEnd = assistant.leaveOnEnd
                 additionalProperties = assistant.additionalProperties.toMutableMap()
             }
 
@@ -1245,7 +1295,7 @@ private constructor(
              */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            /** Audio gating strategy for the assistant call leg. */
+            /** Audio gating strategy in force for the assistant call leg. */
             fun audioGate(audioGate: AudioGate) = audioGate(JsonField.of(audioGate))
 
             /**
@@ -1256,6 +1306,39 @@ private constructor(
              * supported value.
              */
             fun audioGate(audioGate: JsonField<AudioGate>) = apply { this.audioGate = audioGate }
+
+            /** The dynamic variables in force for this session, or null when none were supplied. */
+            fun dynamicVariables(dynamicVariables: DynamicVariables?) =
+                dynamicVariables(JsonField.ofNullable(dynamicVariables))
+
+            /**
+             * Alias for calling [Builder.dynamicVariables] with `dynamicVariables.orElse(null)`.
+             */
+            fun dynamicVariables(dynamicVariables: Optional<DynamicVariables>) =
+                dynamicVariables(dynamicVariables.getOrNull())
+
+            /**
+             * Sets [Builder.dynamicVariables] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dynamicVariables] with a well-typed
+             * [DynamicVariables] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun dynamicVariables(dynamicVariables: JsonField<DynamicVariables>) = apply {
+                this.dynamicVariables = dynamicVariables
+            }
+
+            /** Whether the bot leaves when the Assistant's conversation ends or fails. */
+            fun leaveOnEnd(leaveOnEnd: Boolean) = leaveOnEnd(JsonField.of(leaveOnEnd))
+
+            /**
+             * Sets [Builder.leaveOnEnd] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.leaveOnEnd] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun leaveOnEnd(leaveOnEnd: JsonField<Boolean>) = apply { this.leaveOnEnd = leaveOnEnd }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1285,6 +1368,8 @@ private constructor(
              * ```java
              * .id()
              * .audioGate()
+             * .dynamicVariables()
+             * .leaveOnEnd()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -1293,6 +1378,8 @@ private constructor(
                 Assistant(
                     checkRequired("id", id),
                     checkRequired("audioGate", audioGate),
+                    checkRequired("dynamicVariables", dynamicVariables),
+                    checkRequired("leaveOnEnd", leaveOnEnd),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1315,6 +1402,8 @@ private constructor(
 
             id()
             audioGate().validate()
+            dynamicVariables().ifPresent { it.validate() }
+            leaveOnEnd()
             validated = true
         }
 
@@ -1335,9 +1424,11 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
-                (audioGate.asKnown().getOrNull()?.validity() ?: 0)
+                (audioGate.asKnown().getOrNull()?.validity() ?: 0) +
+                (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (leaveOnEnd.asKnown().isPresent) 1 else 0)
 
-        /** Audio gating strategy for the assistant call leg. */
+        /** Audio gating strategy in force for the assistant call leg. */
         class AudioGate @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
 
@@ -1353,17 +1444,17 @@ private constructor(
 
             companion object {
 
-                @JvmField val NONE = of("none")
-
                 @JvmField val HALF_DUPLEX = of("half_duplex")
+
+                @JvmField val FULL_DUPLEX = of("full_duplex")
 
                 @JvmStatic fun of(value: String) = AudioGate(JsonField.of(value))
             }
 
             /** An enum containing [AudioGate]'s known values. */
             enum class Known {
-                NONE,
                 HALF_DUPLEX,
+                FULL_DUPLEX,
             }
 
             /**
@@ -1376,8 +1467,8 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                NONE,
                 HALF_DUPLEX,
+                FULL_DUPLEX,
                 /**
                  * An enum member indicating that [AudioGate] was instantiated with an unknown
                  * value.
@@ -1394,8 +1485,8 @@ private constructor(
              */
             fun value(): Value =
                 when (this) {
-                    NONE -> Value.NONE
                     HALF_DUPLEX -> Value.HALF_DUPLEX
+                    FULL_DUPLEX -> Value.FULL_DUPLEX
                     else -> Value._UNKNOWN
                 }
 
@@ -1410,8 +1501,8 @@ private constructor(
              */
             fun known(): Known =
                 when (this) {
-                    NONE -> Known.NONE
                     HALF_DUPLEX -> Known.HALF_DUPLEX
+                    FULL_DUPLEX -> Known.FULL_DUPLEX
                     else -> throw TelnyxInvalidDataException("Unknown AudioGate: $value")
                 }
 
@@ -1479,6 +1570,120 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** The dynamic variables in force for this session, or null when none were supplied. */
+        class DynamicVariables
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [DynamicVariables]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [DynamicVariables]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(dynamicVariables: DynamicVariables) = apply {
+                    additionalProperties = dynamicVariables.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [DynamicVariables].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): DynamicVariables = DynamicVariables(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): DynamicVariables = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is DynamicVariables &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "DynamicVariables{additionalProperties=$additionalProperties}"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -1487,15 +1692,19 @@ private constructor(
             return other is Assistant &&
                 id == other.id &&
                 audioGate == other.audioGate &&
+                dynamicVariables == other.dynamicVariables &&
+                leaveOnEnd == other.leaveOnEnd &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(id, audioGate, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(id, audioGate, dynamicVariables, leaveOnEnd, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Assistant{id=$id, audioGate=$audioGate, additionalProperties=$additionalProperties}"
+            "Assistant{id=$id, audioGate=$audioGate, dynamicVariables=$dynamicVariables, leaveOnEnd=$leaveOnEnd, additionalProperties=$additionalProperties}"
     }
 
     /** Current state of the assistant, or null if no assistant is attached. */
@@ -2015,6 +2224,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val bargeIn: JsonField<Boolean>,
+        private val chatOnEnter: JsonField<String>,
         private val speakOnEnter: JsonField<String>,
         private val summarizeOnEnd: JsonField<Boolean>,
         private val voice: JsonField<String>,
@@ -2026,6 +2236,9 @@ private constructor(
             @JsonProperty("barge_in")
             @ExcludeMissing
             bargeIn: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("chat_on_enter")
+            @ExcludeMissing
+            chatOnEnter: JsonField<String> = JsonMissing.of(),
             @JsonProperty("speak_on_enter")
             @ExcludeMissing
             speakOnEnter: JsonField<String> = JsonMissing.of(),
@@ -2033,7 +2246,7 @@ private constructor(
             @ExcludeMissing
             summarizeOnEnd: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
-        ) : this(bargeIn, speakOnEnter, summarizeOnEnd, voice, mutableMapOf())
+        ) : this(bargeIn, chatOnEnter, speakOnEnter, summarizeOnEnd, voice, mutableMapOf())
 
         /**
          * When enabled, a human participant `speech_on` event interrupts and stops the current bot
@@ -2044,6 +2257,14 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun bargeIn(): Boolean = bargeIn.getRequired("barge_in")
+
+        /**
+         * The message posted to chat on join, or null when unset.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun chatOnEnter(): Optional<String> = chatOnEnter.getOptional("chat_on_enter")
 
         /**
          * Text spoken on meeting entry, or null if not set.
@@ -2075,6 +2296,15 @@ private constructor(
          * Unlike [bargeIn], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("barge_in") @ExcludeMissing fun _bargeIn(): JsonField<Boolean> = bargeIn
+
+        /**
+         * Returns the raw JSON value of [chatOnEnter].
+         *
+         * Unlike [chatOnEnter], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("chat_on_enter")
+        @ExcludeMissing
+        fun _chatOnEnter(): JsonField<String> = chatOnEnter
 
         /**
          * Returns the raw JSON value of [speakOnEnter].
@@ -2123,6 +2353,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .bargeIn()
+             * .chatOnEnter()
              * .speakOnEnter()
              * .summarizeOnEnd()
              * .voice()
@@ -2135,6 +2366,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var bargeIn: JsonField<Boolean>? = null
+            private var chatOnEnter: JsonField<String>? = null
             private var speakOnEnter: JsonField<String>? = null
             private var summarizeOnEnd: JsonField<Boolean>? = null
             private var voice: JsonField<String>? = null
@@ -2143,6 +2375,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(config: Config) = apply {
                 bargeIn = config.bargeIn
+                chatOnEnter = config.chatOnEnter
                 speakOnEnter = config.speakOnEnter
                 summarizeOnEnd = config.summarizeOnEnd
                 voice = config.voice
@@ -2164,6 +2397,23 @@ private constructor(
              * supported value.
              */
             fun bargeIn(bargeIn: JsonField<Boolean>) = apply { this.bargeIn = bargeIn }
+
+            /** The message posted to chat on join, or null when unset. */
+            fun chatOnEnter(chatOnEnter: String?) = chatOnEnter(JsonField.ofNullable(chatOnEnter))
+
+            /** Alias for calling [Builder.chatOnEnter] with `chatOnEnter.orElse(null)`. */
+            fun chatOnEnter(chatOnEnter: Optional<String>) = chatOnEnter(chatOnEnter.getOrNull())
+
+            /**
+             * Sets [Builder.chatOnEnter] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.chatOnEnter] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun chatOnEnter(chatOnEnter: JsonField<String>) = apply {
+                this.chatOnEnter = chatOnEnter
+            }
 
             /** Text spoken on meeting entry, or null if not set. */
             fun speakOnEnter(speakOnEnter: String?) =
@@ -2241,6 +2491,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .bargeIn()
+             * .chatOnEnter()
              * .speakOnEnter()
              * .summarizeOnEnd()
              * .voice()
@@ -2251,6 +2502,7 @@ private constructor(
             fun build(): Config =
                 Config(
                     checkRequired("bargeIn", bargeIn),
+                    checkRequired("chatOnEnter", chatOnEnter),
                     checkRequired("speakOnEnter", speakOnEnter),
                     checkRequired("summarizeOnEnd", summarizeOnEnd),
                     checkRequired("voice", voice),
@@ -2275,6 +2527,7 @@ private constructor(
             }
 
             bargeIn()
+            chatOnEnter()
             speakOnEnter()
             summarizeOnEnd()
             voice()
@@ -2298,6 +2551,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (bargeIn.asKnown().isPresent) 1 else 0) +
+                (if (chatOnEnter.asKnown().isPresent) 1 else 0) +
                 (if (speakOnEnter.asKnown().isPresent) 1 else 0) +
                 (if (summarizeOnEnd.asKnown().isPresent) 1 else 0) +
                 (if (voice.asKnown().isPresent) 1 else 0)
@@ -2309,6 +2563,7 @@ private constructor(
 
             return other is Config &&
                 bargeIn == other.bargeIn &&
+                chatOnEnter == other.chatOnEnter &&
                 speakOnEnter == other.speakOnEnter &&
                 summarizeOnEnd == other.summarizeOnEnd &&
                 voice == other.voice &&
@@ -2316,13 +2571,20 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(bargeIn, speakOnEnter, summarizeOnEnd, voice, additionalProperties)
+            Objects.hash(
+                bargeIn,
+                chatOnEnter,
+                speakOnEnter,
+                summarizeOnEnd,
+                voice,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Config{bargeIn=$bargeIn, speakOnEnter=$speakOnEnter, summarizeOnEnd=$summarizeOnEnd, voice=$voice, additionalProperties=$additionalProperties}"
+            "Config{bargeIn=$bargeIn, chatOnEnter=$chatOnEnter, speakOnEnter=$speakOnEnter, summarizeOnEnd=$summarizeOnEnd, voice=$voice, additionalProperties=$additionalProperties}"
     }
 
     /** Arbitrary key-value metadata attached to the session. */

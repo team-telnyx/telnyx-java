@@ -564,6 +564,14 @@ private constructor(
 
                 @JvmField val ACTION_ITEMS = of("action_items")
 
+                @JvmField val DECISIONS = of("decisions")
+
+                @JvmField val TOPICS = of("topics")
+
+                @JvmField val OPEN_QUESTIONS = of("open_questions")
+
+                @JvmField val CUSTOM = of("custom")
+
                 @JvmStatic fun of(value: String) = Type(JsonField.of(value))
             }
 
@@ -571,6 +579,10 @@ private constructor(
             enum class Known {
                 SUMMARY,
                 ACTION_ITEMS,
+                DECISIONS,
+                TOPICS,
+                OPEN_QUESTIONS,
+                CUSTOM,
             }
 
             /**
@@ -585,6 +597,10 @@ private constructor(
             enum class Value {
                 SUMMARY,
                 ACTION_ITEMS,
+                DECISIONS,
+                TOPICS,
+                OPEN_QUESTIONS,
+                CUSTOM,
                 /** An enum member indicating that [Type] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
@@ -600,6 +616,10 @@ private constructor(
                 when (this) {
                     SUMMARY -> Value.SUMMARY
                     ACTION_ITEMS -> Value.ACTION_ITEMS
+                    DECISIONS -> Value.DECISIONS
+                    TOPICS -> Value.TOPICS
+                    OPEN_QUESTIONS -> Value.OPEN_QUESTIONS
+                    CUSTOM -> Value.CUSTOM
                     else -> Value._UNKNOWN
                 }
 
@@ -616,6 +636,10 @@ private constructor(
                 when (this) {
                     SUMMARY -> Known.SUMMARY
                     ACTION_ITEMS -> Known.ACTION_ITEMS
+                    DECISIONS -> Known.DECISIONS
+                    TOPICS -> Known.TOPICS
+                    OPEN_QUESTIONS -> Known.OPEN_QUESTIONS
+                    CUSTOM -> Known.CUSTOM
                     else -> throw TelnyxInvalidDataException("Unknown Type: $value")
                 }
 
