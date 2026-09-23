@@ -4250,7 +4250,9 @@ private constructor(
         fun voiceSpeed(): Optional<Float> = voiceSpeed.getOptional("voice_speed")
 
         /**
-         * Volume level for the Ultra model. Range: 0.0 to 2.0.
+         * Volume level for the Ultra model. Telnyx `Ultra` voices accept values from 0.5 to 2.0 —
+         * requests outside that range are rejected by the synthesis engine. `KokoroTTS`,
+         * `Qwen3TTS`, `Bayan`, and `Sukhan` voices accept the field but do not apply it.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -4397,7 +4399,11 @@ private constructor(
              */
             fun voiceSpeed(voiceSpeed: JsonField<Float>) = apply { this.voiceSpeed = voiceSpeed }
 
-            /** Volume level for the Ultra model. Range: 0.0 to 2.0. */
+            /**
+             * Volume level for the Ultra model. Telnyx `Ultra` voices accept values from 0.5 to 2.0
+             * — requests outside that range are rejected by the synthesis engine. `KokoroTTS`,
+             * `Qwen3TTS`, `Bayan`, and `Sukhan` voices accept the field but do not apply it.
+             */
             fun volume(volume: Float) = volume(JsonField.of(volume))
 
             /**
