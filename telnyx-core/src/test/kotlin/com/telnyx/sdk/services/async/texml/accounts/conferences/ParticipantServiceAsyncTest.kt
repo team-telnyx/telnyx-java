@@ -130,9 +130,16 @@ internal class ParticipantServiceAsyncTest {
                     .from("+12065550200")
                     .label("customer")
                     .machineDetection(ParticipantParticipantsParams.MachineDetection.ENABLE)
+                    .machineDetectionBeepMaxFrequency(2000)
+                    .machineDetectionBeepMinFrequency(550)
+                    .machineDetectionBeepMinToneDuration(300)
                     .machineDetectionBeepProfile(
                         ParticipantParticipantsParams.MachineDetectionBeepProfile.FREQ_ONLY
                     )
+                    .machineDetectionBeepSpectralConfirmation(true)
+                    .machineDetectionBeepSpectralMinPurity(0.8)
+                    .machineDetectionBeepSpectralRejectFaxCng(true)
+                    .machineDetectionBeepSpectralWindow(100)
                     .machineDetectionSilenceTimeout(2000L)
                     .machineDetectionSpeechEndThreshold(2000L)
                     .machineDetectionSpeechThreshold(2000L)

@@ -262,6 +262,35 @@ private constructor(
     fun machineDetection(): Optional<MachineDetection> = body.machineDetection()
 
     /**
+     * Highest frequency, in Hz, that a tone can reach and still be treated as a beep. Only used
+     * when MachineDetection is enabled.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun machineDetectionBeepMaxFrequency(): Optional<Int> = body.machineDetectionBeepMaxFrequency()
+
+    /**
+     * Lowest frequency, in Hz, that a tone must reach to be treated as a beep. Raising it above 480
+     * excludes North American ringback (440 + 480 Hz), which can otherwise be reported as a beep
+     * when the `freq_only` profile is in use. Only used when MachineDetection is enabled.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun machineDetectionBeepMinFrequency(): Optional<Int> = body.machineDetectionBeepMinFrequency()
+
+    /**
+     * Shortest tone, in milliseconds, that can be treated as a beep. Raising it rejects brief tones
+     * such as call-progress blips. Only used when MachineDetection is enabled.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun machineDetectionBeepMinToneDuration(): Optional<Int> =
+        body.machineDetectionBeepMinToneDuration()
+
+    /**
      * Selects which detectors must validate a beep. `both` requires the amplitude and frequency
      * detectors to agree. `freq_only` uses the frequency detector alone, for beeps whose volume is
      * too unsteady for the default profile. Only used when MachineDetection is enabled.
@@ -271,6 +300,47 @@ private constructor(
      */
     fun machineDetectionBeepProfile(): Optional<MachineDetectionBeepProfile> =
         body.machineDetectionBeepProfile()
+
+    /**
+     * When enabled, a candidate beep must pass an additional spectral check before it is reported.
+     * Only used when MachineDetection is enabled.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun machineDetectionBeepSpectralConfirmation(): Optional<Boolean> =
+        body.machineDetectionBeepSpectralConfirmation()
+
+    /**
+     * Minimum spectral purity, from 0 to 1, for a tone to be treated as a beep. Raising it rejects
+     * mixed tones such as ringback, which combines two frequencies. Only used when MachineDetection
+     * is enabled.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun machineDetectionBeepSpectralMinPurity(): Optional<Double> =
+        body.machineDetectionBeepSpectralMinPurity()
+
+    /**
+     * When enabled, the fax CNG tone is rejected rather than reported as a beep. Only used when
+     * MachineDetection is enabled.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun machineDetectionBeepSpectralRejectFaxCng(): Optional<Boolean> =
+        body.machineDetectionBeepSpectralRejectFaxCng()
+
+    /**
+     * Length of the spectral confirmation window, in milliseconds. Only used when MachineDetection
+     * is enabled.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun machineDetectionBeepSpectralWindow(): Optional<Int> =
+        body.machineDetectionBeepSpectralWindow()
 
     /**
      * If initial silence duration is greater than this value, consider it a machine. Ignored when
@@ -670,6 +740,33 @@ private constructor(
     fun _machineDetection(): JsonField<MachineDetection> = body._machineDetection()
 
     /**
+     * Returns the raw JSON value of [machineDetectionBeepMaxFrequency].
+     *
+     * Unlike [machineDetectionBeepMaxFrequency], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _machineDetectionBeepMaxFrequency(): JsonField<Int> =
+        body._machineDetectionBeepMaxFrequency()
+
+    /**
+     * Returns the raw JSON value of [machineDetectionBeepMinFrequency].
+     *
+     * Unlike [machineDetectionBeepMinFrequency], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _machineDetectionBeepMinFrequency(): JsonField<Int> =
+        body._machineDetectionBeepMinFrequency()
+
+    /**
+     * Returns the raw JSON value of [machineDetectionBeepMinToneDuration].
+     *
+     * Unlike [machineDetectionBeepMinToneDuration], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    fun _machineDetectionBeepMinToneDuration(): JsonField<Int> =
+        body._machineDetectionBeepMinToneDuration()
+
+    /**
      * Returns the raw JSON value of [machineDetectionBeepProfile].
      *
      * Unlike [machineDetectionBeepProfile], this method doesn't throw if the JSON field has an
@@ -677,6 +774,42 @@ private constructor(
      */
     fun _machineDetectionBeepProfile(): JsonField<MachineDetectionBeepProfile> =
         body._machineDetectionBeepProfile()
+
+    /**
+     * Returns the raw JSON value of [machineDetectionBeepSpectralConfirmation].
+     *
+     * Unlike [machineDetectionBeepSpectralConfirmation], this method doesn't throw if the JSON
+     * field has an unexpected type.
+     */
+    fun _machineDetectionBeepSpectralConfirmation(): JsonField<Boolean> =
+        body._machineDetectionBeepSpectralConfirmation()
+
+    /**
+     * Returns the raw JSON value of [machineDetectionBeepSpectralMinPurity].
+     *
+     * Unlike [machineDetectionBeepSpectralMinPurity], this method doesn't throw if the JSON field
+     * has an unexpected type.
+     */
+    fun _machineDetectionBeepSpectralMinPurity(): JsonField<Double> =
+        body._machineDetectionBeepSpectralMinPurity()
+
+    /**
+     * Returns the raw JSON value of [machineDetectionBeepSpectralRejectFaxCng].
+     *
+     * Unlike [machineDetectionBeepSpectralRejectFaxCng], this method doesn't throw if the JSON
+     * field has an unexpected type.
+     */
+    fun _machineDetectionBeepSpectralRejectFaxCng(): JsonField<Boolean> =
+        body._machineDetectionBeepSpectralRejectFaxCng()
+
+    /**
+     * Returns the raw JSON value of [machineDetectionBeepSpectralWindow].
+     *
+     * Unlike [machineDetectionBeepSpectralWindow], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    fun _machineDetectionBeepSpectralWindow(): JsonField<Int> =
+        body._machineDetectionBeepSpectralWindow()
 
     /**
      * Returns the raw JSON value of [machineDetectionSilenceTimeout].
@@ -1353,6 +1486,66 @@ private constructor(
         }
 
         /**
+         * Highest frequency, in Hz, that a tone can reach and still be treated as a beep. Only used
+         * when MachineDetection is enabled.
+         */
+        fun machineDetectionBeepMaxFrequency(machineDetectionBeepMaxFrequency: Int) = apply {
+            body.machineDetectionBeepMaxFrequency(machineDetectionBeepMaxFrequency)
+        }
+
+        /**
+         * Sets [Builder.machineDetectionBeepMaxFrequency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.machineDetectionBeepMaxFrequency] with a well-typed
+         * [Int] value instead. This method is primarily for setting the field to an undocumented or
+         * not yet supported value.
+         */
+        fun machineDetectionBeepMaxFrequency(machineDetectionBeepMaxFrequency: JsonField<Int>) =
+            apply {
+                body.machineDetectionBeepMaxFrequency(machineDetectionBeepMaxFrequency)
+            }
+
+        /**
+         * Lowest frequency, in Hz, that a tone must reach to be treated as a beep. Raising it above
+         * 480 excludes North American ringback (440 + 480 Hz), which can otherwise be reported as a
+         * beep when the `freq_only` profile is in use. Only used when MachineDetection is enabled.
+         */
+        fun machineDetectionBeepMinFrequency(machineDetectionBeepMinFrequency: Int) = apply {
+            body.machineDetectionBeepMinFrequency(machineDetectionBeepMinFrequency)
+        }
+
+        /**
+         * Sets [Builder.machineDetectionBeepMinFrequency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.machineDetectionBeepMinFrequency] with a well-typed
+         * [Int] value instead. This method is primarily for setting the field to an undocumented or
+         * not yet supported value.
+         */
+        fun machineDetectionBeepMinFrequency(machineDetectionBeepMinFrequency: JsonField<Int>) =
+            apply {
+                body.machineDetectionBeepMinFrequency(machineDetectionBeepMinFrequency)
+            }
+
+        /**
+         * Shortest tone, in milliseconds, that can be treated as a beep. Raising it rejects brief
+         * tones such as call-progress blips. Only used when MachineDetection is enabled.
+         */
+        fun machineDetectionBeepMinToneDuration(machineDetectionBeepMinToneDuration: Int) = apply {
+            body.machineDetectionBeepMinToneDuration(machineDetectionBeepMinToneDuration)
+        }
+
+        /**
+         * Sets [Builder.machineDetectionBeepMinToneDuration] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.machineDetectionBeepMinToneDuration] with a well-typed
+         * [Int] value instead. This method is primarily for setting the field to an undocumented or
+         * not yet supported value.
+         */
+        fun machineDetectionBeepMinToneDuration(
+            machineDetectionBeepMinToneDuration: JsonField<Int>
+        ) = apply { body.machineDetectionBeepMinToneDuration(machineDetectionBeepMinToneDuration) }
+
+        /**
          * Selects which detectors must validate a beep. `both` requires the amplitude and frequency
          * detectors to agree. `freq_only` uses the frequency detector alone, for beeps whose volume
          * is too unsteady for the default profile. Only used when MachineDetection is enabled.
@@ -1372,6 +1565,95 @@ private constructor(
         fun machineDetectionBeepProfile(
             machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile>
         ) = apply { body.machineDetectionBeepProfile(machineDetectionBeepProfile) }
+
+        /**
+         * When enabled, a candidate beep must pass an additional spectral check before it is
+         * reported. Only used when MachineDetection is enabled.
+         */
+        fun machineDetectionBeepSpectralConfirmation(
+            machineDetectionBeepSpectralConfirmation: Boolean
+        ) = apply {
+            body.machineDetectionBeepSpectralConfirmation(machineDetectionBeepSpectralConfirmation)
+        }
+
+        /**
+         * Sets [Builder.machineDetectionBeepSpectralConfirmation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.machineDetectionBeepSpectralConfirmation] with a
+         * well-typed [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun machineDetectionBeepSpectralConfirmation(
+            machineDetectionBeepSpectralConfirmation: JsonField<Boolean>
+        ) = apply {
+            body.machineDetectionBeepSpectralConfirmation(machineDetectionBeepSpectralConfirmation)
+        }
+
+        /**
+         * Minimum spectral purity, from 0 to 1, for a tone to be treated as a beep. Raising it
+         * rejects mixed tones such as ringback, which combines two frequencies. Only used when
+         * MachineDetection is enabled.
+         */
+        fun machineDetectionBeepSpectralMinPurity(machineDetectionBeepSpectralMinPurity: Double) =
+            apply {
+                body.machineDetectionBeepSpectralMinPurity(machineDetectionBeepSpectralMinPurity)
+            }
+
+        /**
+         * Sets [Builder.machineDetectionBeepSpectralMinPurity] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.machineDetectionBeepSpectralMinPurity] with a well-typed
+         * [Double] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun machineDetectionBeepSpectralMinPurity(
+            machineDetectionBeepSpectralMinPurity: JsonField<Double>
+        ) = apply {
+            body.machineDetectionBeepSpectralMinPurity(machineDetectionBeepSpectralMinPurity)
+        }
+
+        /**
+         * When enabled, the fax CNG tone is rejected rather than reported as a beep. Only used when
+         * MachineDetection is enabled.
+         */
+        fun machineDetectionBeepSpectralRejectFaxCng(
+            machineDetectionBeepSpectralRejectFaxCng: Boolean
+        ) = apply {
+            body.machineDetectionBeepSpectralRejectFaxCng(machineDetectionBeepSpectralRejectFaxCng)
+        }
+
+        /**
+         * Sets [Builder.machineDetectionBeepSpectralRejectFaxCng] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.machineDetectionBeepSpectralRejectFaxCng] with a
+         * well-typed [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun machineDetectionBeepSpectralRejectFaxCng(
+            machineDetectionBeepSpectralRejectFaxCng: JsonField<Boolean>
+        ) = apply {
+            body.machineDetectionBeepSpectralRejectFaxCng(machineDetectionBeepSpectralRejectFaxCng)
+        }
+
+        /**
+         * Length of the spectral confirmation window, in milliseconds. Only used when
+         * MachineDetection is enabled.
+         */
+        fun machineDetectionBeepSpectralWindow(machineDetectionBeepSpectralWindow: Int) = apply {
+            body.machineDetectionBeepSpectralWindow(machineDetectionBeepSpectralWindow)
+        }
+
+        /**
+         * Sets [Builder.machineDetectionBeepSpectralWindow] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.machineDetectionBeepSpectralWindow] with a well-typed
+         * [Int] value instead. This method is primarily for setting the field to an undocumented or
+         * not yet supported value.
+         */
+        fun machineDetectionBeepSpectralWindow(machineDetectionBeepSpectralWindow: JsonField<Int>) =
+            apply {
+                body.machineDetectionBeepSpectralWindow(machineDetectionBeepSpectralWindow)
+            }
 
         /**
          * If initial silence duration is greater than this value, consider it a machine. Ignored
@@ -1936,7 +2218,14 @@ private constructor(
         private val from: JsonField<String>,
         private val label: JsonField<String>,
         private val machineDetection: JsonField<MachineDetection>,
+        private val machineDetectionBeepMaxFrequency: JsonField<Int>,
+        private val machineDetectionBeepMinFrequency: JsonField<Int>,
+        private val machineDetectionBeepMinToneDuration: JsonField<Int>,
         private val machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile>,
+        private val machineDetectionBeepSpectralConfirmation: JsonField<Boolean>,
+        private val machineDetectionBeepSpectralMinPurity: JsonField<Double>,
+        private val machineDetectionBeepSpectralRejectFaxCng: JsonField<Boolean>,
+        private val machineDetectionBeepSpectralWindow: JsonField<Int>,
         private val machineDetectionSilenceTimeout: JsonField<Long>,
         private val machineDetectionSpeechEndThreshold: JsonField<Long>,
         private val machineDetectionSpeechThreshold: JsonField<Long>,
@@ -2035,9 +2324,30 @@ private constructor(
             @JsonProperty("MachineDetection")
             @ExcludeMissing
             machineDetection: JsonField<MachineDetection> = JsonMissing.of(),
+            @JsonProperty("MachineDetectionBeepMaxFrequency")
+            @ExcludeMissing
+            machineDetectionBeepMaxFrequency: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("MachineDetectionBeepMinFrequency")
+            @ExcludeMissing
+            machineDetectionBeepMinFrequency: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("MachineDetectionBeepMinToneDuration")
+            @ExcludeMissing
+            machineDetectionBeepMinToneDuration: JsonField<Int> = JsonMissing.of(),
             @JsonProperty("MachineDetectionBeepProfile")
             @ExcludeMissing
             machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile> = JsonMissing.of(),
+            @JsonProperty("MachineDetectionBeepSpectralConfirmation")
+            @ExcludeMissing
+            machineDetectionBeepSpectralConfirmation: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("MachineDetectionBeepSpectralMinPurity")
+            @ExcludeMissing
+            machineDetectionBeepSpectralMinPurity: JsonField<Double> = JsonMissing.of(),
+            @JsonProperty("MachineDetectionBeepSpectralRejectFaxCng")
+            @ExcludeMissing
+            machineDetectionBeepSpectralRejectFaxCng: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("MachineDetectionBeepSpectralWindow")
+            @ExcludeMissing
+            machineDetectionBeepSpectralWindow: JsonField<Int> = JsonMissing.of(),
             @JsonProperty("MachineDetectionSilenceTimeout")
             @ExcludeMissing
             machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of(),
@@ -2124,7 +2434,14 @@ private constructor(
             from,
             label,
             machineDetection,
+            machineDetectionBeepMaxFrequency,
+            machineDetectionBeepMinFrequency,
+            machineDetectionBeepMinToneDuration,
             machineDetectionBeepProfile,
+            machineDetectionBeepSpectralConfirmation,
+            machineDetectionBeepSpectralMinPurity,
+            machineDetectionBeepSpectralRejectFaxCng,
+            machineDetectionBeepSpectralWindow,
             machineDetectionSilenceTimeout,
             machineDetectionSpeechEndThreshold,
             machineDetectionSpeechThreshold,
@@ -2390,6 +2707,37 @@ private constructor(
             machineDetection.getOptional("MachineDetection")
 
         /**
+         * Highest frequency, in Hz, that a tone can reach and still be treated as a beep. Only used
+         * when MachineDetection is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun machineDetectionBeepMaxFrequency(): Optional<Int> =
+            machineDetectionBeepMaxFrequency.getOptional("MachineDetectionBeepMaxFrequency")
+
+        /**
+         * Lowest frequency, in Hz, that a tone must reach to be treated as a beep. Raising it above
+         * 480 excludes North American ringback (440 + 480 Hz), which can otherwise be reported as a
+         * beep when the `freq_only` profile is in use. Only used when MachineDetection is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun machineDetectionBeepMinFrequency(): Optional<Int> =
+            machineDetectionBeepMinFrequency.getOptional("MachineDetectionBeepMinFrequency")
+
+        /**
+         * Shortest tone, in milliseconds, that can be treated as a beep. Raising it rejects brief
+         * tones such as call-progress blips. Only used when MachineDetection is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun machineDetectionBeepMinToneDuration(): Optional<Int> =
+            machineDetectionBeepMinToneDuration.getOptional("MachineDetectionBeepMinToneDuration")
+
+        /**
          * Selects which detectors must validate a beep. `both` requires the amplitude and frequency
          * detectors to agree. `freq_only` uses the frequency detector alone, for beeps whose volume
          * is too unsteady for the default profile. Only used when MachineDetection is enabled.
@@ -2399,6 +2747,53 @@ private constructor(
          */
         fun machineDetectionBeepProfile(): Optional<MachineDetectionBeepProfile> =
             machineDetectionBeepProfile.getOptional("MachineDetectionBeepProfile")
+
+        /**
+         * When enabled, a candidate beep must pass an additional spectral check before it is
+         * reported. Only used when MachineDetection is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun machineDetectionBeepSpectralConfirmation(): Optional<Boolean> =
+            machineDetectionBeepSpectralConfirmation.getOptional(
+                "MachineDetectionBeepSpectralConfirmation"
+            )
+
+        /**
+         * Minimum spectral purity, from 0 to 1, for a tone to be treated as a beep. Raising it
+         * rejects mixed tones such as ringback, which combines two frequencies. Only used when
+         * MachineDetection is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun machineDetectionBeepSpectralMinPurity(): Optional<Double> =
+            machineDetectionBeepSpectralMinPurity.getOptional(
+                "MachineDetectionBeepSpectralMinPurity"
+            )
+
+        /**
+         * When enabled, the fax CNG tone is rejected rather than reported as a beep. Only used when
+         * MachineDetection is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun machineDetectionBeepSpectralRejectFaxCng(): Optional<Boolean> =
+            machineDetectionBeepSpectralRejectFaxCng.getOptional(
+                "MachineDetectionBeepSpectralRejectFaxCng"
+            )
+
+        /**
+         * Length of the spectral confirmation window, in milliseconds. Only used when
+         * MachineDetection is enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun machineDetectionBeepSpectralWindow(): Optional<Int> =
+            machineDetectionBeepSpectralWindow.getOptional("MachineDetectionBeepSpectralWindow")
 
         /**
          * If initial silence duration is greater than this value, consider it a machine. Ignored
@@ -2849,6 +3244,37 @@ private constructor(
         fun _machineDetection(): JsonField<MachineDetection> = machineDetection
 
         /**
+         * Returns the raw JSON value of [machineDetectionBeepMaxFrequency].
+         *
+         * Unlike [machineDetectionBeepMaxFrequency], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("MachineDetectionBeepMaxFrequency")
+        @ExcludeMissing
+        fun _machineDetectionBeepMaxFrequency(): JsonField<Int> = machineDetectionBeepMaxFrequency
+
+        /**
+         * Returns the raw JSON value of [machineDetectionBeepMinFrequency].
+         *
+         * Unlike [machineDetectionBeepMinFrequency], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("MachineDetectionBeepMinFrequency")
+        @ExcludeMissing
+        fun _machineDetectionBeepMinFrequency(): JsonField<Int> = machineDetectionBeepMinFrequency
+
+        /**
+         * Returns the raw JSON value of [machineDetectionBeepMinToneDuration].
+         *
+         * Unlike [machineDetectionBeepMinToneDuration], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("MachineDetectionBeepMinToneDuration")
+        @ExcludeMissing
+        fun _machineDetectionBeepMinToneDuration(): JsonField<Int> =
+            machineDetectionBeepMinToneDuration
+
+        /**
          * Returns the raw JSON value of [machineDetectionBeepProfile].
          *
          * Unlike [machineDetectionBeepProfile], this method doesn't throw if the JSON field has an
@@ -2858,6 +3284,50 @@ private constructor(
         @ExcludeMissing
         fun _machineDetectionBeepProfile(): JsonField<MachineDetectionBeepProfile> =
             machineDetectionBeepProfile
+
+        /**
+         * Returns the raw JSON value of [machineDetectionBeepSpectralConfirmation].
+         *
+         * Unlike [machineDetectionBeepSpectralConfirmation], this method doesn't throw if the JSON
+         * field has an unexpected type.
+         */
+        @JsonProperty("MachineDetectionBeepSpectralConfirmation")
+        @ExcludeMissing
+        fun _machineDetectionBeepSpectralConfirmation(): JsonField<Boolean> =
+            machineDetectionBeepSpectralConfirmation
+
+        /**
+         * Returns the raw JSON value of [machineDetectionBeepSpectralMinPurity].
+         *
+         * Unlike [machineDetectionBeepSpectralMinPurity], this method doesn't throw if the JSON
+         * field has an unexpected type.
+         */
+        @JsonProperty("MachineDetectionBeepSpectralMinPurity")
+        @ExcludeMissing
+        fun _machineDetectionBeepSpectralMinPurity(): JsonField<Double> =
+            machineDetectionBeepSpectralMinPurity
+
+        /**
+         * Returns the raw JSON value of [machineDetectionBeepSpectralRejectFaxCng].
+         *
+         * Unlike [machineDetectionBeepSpectralRejectFaxCng], this method doesn't throw if the JSON
+         * field has an unexpected type.
+         */
+        @JsonProperty("MachineDetectionBeepSpectralRejectFaxCng")
+        @ExcludeMissing
+        fun _machineDetectionBeepSpectralRejectFaxCng(): JsonField<Boolean> =
+            machineDetectionBeepSpectralRejectFaxCng
+
+        /**
+         * Returns the raw JSON value of [machineDetectionBeepSpectralWindow].
+         *
+         * Unlike [machineDetectionBeepSpectralWindow], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("MachineDetectionBeepSpectralWindow")
+        @ExcludeMissing
+        fun _machineDetectionBeepSpectralWindow(): JsonField<Int> =
+            machineDetectionBeepSpectralWindow
 
         /**
          * Returns the raw JSON value of [machineDetectionSilenceTimeout].
@@ -3129,8 +3599,17 @@ private constructor(
             private var from: JsonField<String> = JsonMissing.of()
             private var label: JsonField<String> = JsonMissing.of()
             private var machineDetection: JsonField<MachineDetection> = JsonMissing.of()
+            private var machineDetectionBeepMaxFrequency: JsonField<Int> = JsonMissing.of()
+            private var machineDetectionBeepMinFrequency: JsonField<Int> = JsonMissing.of()
+            private var machineDetectionBeepMinToneDuration: JsonField<Int> = JsonMissing.of()
             private var machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile> =
                 JsonMissing.of()
+            private var machineDetectionBeepSpectralConfirmation: JsonField<Boolean> =
+                JsonMissing.of()
+            private var machineDetectionBeepSpectralMinPurity: JsonField<Double> = JsonMissing.of()
+            private var machineDetectionBeepSpectralRejectFaxCng: JsonField<Boolean> =
+                JsonMissing.of()
+            private var machineDetectionBeepSpectralWindow: JsonField<Int> = JsonMissing.of()
             private var machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of()
             private var machineDetectionSpeechEndThreshold: JsonField<Long> = JsonMissing.of()
             private var machineDetectionSpeechThreshold: JsonField<Long> = JsonMissing.of()
@@ -3185,7 +3664,16 @@ private constructor(
                 from = body.from
                 label = body.label
                 machineDetection = body.machineDetection
+                machineDetectionBeepMaxFrequency = body.machineDetectionBeepMaxFrequency
+                machineDetectionBeepMinFrequency = body.machineDetectionBeepMinFrequency
+                machineDetectionBeepMinToneDuration = body.machineDetectionBeepMinToneDuration
                 machineDetectionBeepProfile = body.machineDetectionBeepProfile
+                machineDetectionBeepSpectralConfirmation =
+                    body.machineDetectionBeepSpectralConfirmation
+                machineDetectionBeepSpectralMinPurity = body.machineDetectionBeepSpectralMinPurity
+                machineDetectionBeepSpectralRejectFaxCng =
+                    body.machineDetectionBeepSpectralRejectFaxCng
+                machineDetectionBeepSpectralWindow = body.machineDetectionBeepSpectralWindow
                 machineDetectionSilenceTimeout = body.machineDetectionSilenceTimeout
                 machineDetectionSpeechEndThreshold = body.machineDetectionSpeechEndThreshold
                 machineDetectionSpeechThreshold = body.machineDetectionSpeechThreshold
@@ -3642,6 +4130,68 @@ private constructor(
             }
 
             /**
+             * Highest frequency, in Hz, that a tone can reach and still be treated as a beep. Only
+             * used when MachineDetection is enabled.
+             */
+            fun machineDetectionBeepMaxFrequency(machineDetectionBeepMaxFrequency: Int) =
+                machineDetectionBeepMaxFrequency(JsonField.of(machineDetectionBeepMaxFrequency))
+
+            /**
+             * Sets [Builder.machineDetectionBeepMaxFrequency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.machineDetectionBeepMaxFrequency] with a well-typed
+             * [Int] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun machineDetectionBeepMaxFrequency(machineDetectionBeepMaxFrequency: JsonField<Int>) =
+                apply {
+                    this.machineDetectionBeepMaxFrequency = machineDetectionBeepMaxFrequency
+                }
+
+            /**
+             * Lowest frequency, in Hz, that a tone must reach to be treated as a beep. Raising it
+             * above 480 excludes North American ringback (440 + 480 Hz), which can otherwise be
+             * reported as a beep when the `freq_only` profile is in use. Only used when
+             * MachineDetection is enabled.
+             */
+            fun machineDetectionBeepMinFrequency(machineDetectionBeepMinFrequency: Int) =
+                machineDetectionBeepMinFrequency(JsonField.of(machineDetectionBeepMinFrequency))
+
+            /**
+             * Sets [Builder.machineDetectionBeepMinFrequency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.machineDetectionBeepMinFrequency] with a well-typed
+             * [Int] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun machineDetectionBeepMinFrequency(machineDetectionBeepMinFrequency: JsonField<Int>) =
+                apply {
+                    this.machineDetectionBeepMinFrequency = machineDetectionBeepMinFrequency
+                }
+
+            /**
+             * Shortest tone, in milliseconds, that can be treated as a beep. Raising it rejects
+             * brief tones such as call-progress blips. Only used when MachineDetection is enabled.
+             */
+            fun machineDetectionBeepMinToneDuration(machineDetectionBeepMinToneDuration: Int) =
+                machineDetectionBeepMinToneDuration(
+                    JsonField.of(machineDetectionBeepMinToneDuration)
+                )
+
+            /**
+             * Sets [Builder.machineDetectionBeepMinToneDuration] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.machineDetectionBeepMinToneDuration] with a
+             * well-typed [Int] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun machineDetectionBeepMinToneDuration(
+                machineDetectionBeepMinToneDuration: JsonField<Int>
+            ) = apply {
+                this.machineDetectionBeepMinToneDuration = machineDetectionBeepMinToneDuration
+            }
+
+            /**
              * Selects which detectors must validate a beep. `both` requires the amplitude and
              * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
              * beeps whose volume is too unsteady for the default profile. Only used when
@@ -3661,6 +4211,101 @@ private constructor(
             fun machineDetectionBeepProfile(
                 machineDetectionBeepProfile: JsonField<MachineDetectionBeepProfile>
             ) = apply { this.machineDetectionBeepProfile = machineDetectionBeepProfile }
+
+            /**
+             * When enabled, a candidate beep must pass an additional spectral check before it is
+             * reported. Only used when MachineDetection is enabled.
+             */
+            fun machineDetectionBeepSpectralConfirmation(
+                machineDetectionBeepSpectralConfirmation: Boolean
+            ) =
+                machineDetectionBeepSpectralConfirmation(
+                    JsonField.of(machineDetectionBeepSpectralConfirmation)
+                )
+
+            /**
+             * Sets [Builder.machineDetectionBeepSpectralConfirmation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.machineDetectionBeepSpectralConfirmation] with a
+             * well-typed [Boolean] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun machineDetectionBeepSpectralConfirmation(
+                machineDetectionBeepSpectralConfirmation: JsonField<Boolean>
+            ) = apply {
+                this.machineDetectionBeepSpectralConfirmation =
+                    machineDetectionBeepSpectralConfirmation
+            }
+
+            /**
+             * Minimum spectral purity, from 0 to 1, for a tone to be treated as a beep. Raising it
+             * rejects mixed tones such as ringback, which combines two frequencies. Only used when
+             * MachineDetection is enabled.
+             */
+            fun machineDetectionBeepSpectralMinPurity(
+                machineDetectionBeepSpectralMinPurity: Double
+            ) =
+                machineDetectionBeepSpectralMinPurity(
+                    JsonField.of(machineDetectionBeepSpectralMinPurity)
+                )
+
+            /**
+             * Sets [Builder.machineDetectionBeepSpectralMinPurity] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.machineDetectionBeepSpectralMinPurity] with a
+             * well-typed [Double] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun machineDetectionBeepSpectralMinPurity(
+                machineDetectionBeepSpectralMinPurity: JsonField<Double>
+            ) = apply {
+                this.machineDetectionBeepSpectralMinPurity = machineDetectionBeepSpectralMinPurity
+            }
+
+            /**
+             * When enabled, the fax CNG tone is rejected rather than reported as a beep. Only used
+             * when MachineDetection is enabled.
+             */
+            fun machineDetectionBeepSpectralRejectFaxCng(
+                machineDetectionBeepSpectralRejectFaxCng: Boolean
+            ) =
+                machineDetectionBeepSpectralRejectFaxCng(
+                    JsonField.of(machineDetectionBeepSpectralRejectFaxCng)
+                )
+
+            /**
+             * Sets [Builder.machineDetectionBeepSpectralRejectFaxCng] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.machineDetectionBeepSpectralRejectFaxCng] with a
+             * well-typed [Boolean] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun machineDetectionBeepSpectralRejectFaxCng(
+                machineDetectionBeepSpectralRejectFaxCng: JsonField<Boolean>
+            ) = apply {
+                this.machineDetectionBeepSpectralRejectFaxCng =
+                    machineDetectionBeepSpectralRejectFaxCng
+            }
+
+            /**
+             * Length of the spectral confirmation window, in milliseconds. Only used when
+             * MachineDetection is enabled.
+             */
+            fun machineDetectionBeepSpectralWindow(machineDetectionBeepSpectralWindow: Int) =
+                machineDetectionBeepSpectralWindow(JsonField.of(machineDetectionBeepSpectralWindow))
+
+            /**
+             * Sets [Builder.machineDetectionBeepSpectralWindow] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.machineDetectionBeepSpectralWindow] with a
+             * well-typed [Int] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun machineDetectionBeepSpectralWindow(
+                machineDetectionBeepSpectralWindow: JsonField<Int>
+            ) = apply {
+                this.machineDetectionBeepSpectralWindow = machineDetectionBeepSpectralWindow
+            }
 
             /**
              * If initial silence duration is greater than this value, consider it a machine.
@@ -4093,7 +4738,14 @@ private constructor(
                     from,
                     label,
                     machineDetection,
+                    machineDetectionBeepMaxFrequency,
+                    machineDetectionBeepMinFrequency,
+                    machineDetectionBeepMinToneDuration,
                     machineDetectionBeepProfile,
+                    machineDetectionBeepSpectralConfirmation,
+                    machineDetectionBeepSpectralMinPurity,
+                    machineDetectionBeepSpectralRejectFaxCng,
+                    machineDetectionBeepSpectralWindow,
                     machineDetectionSilenceTimeout,
                     machineDetectionSpeechEndThreshold,
                     machineDetectionSpeechThreshold,
@@ -4162,7 +4814,14 @@ private constructor(
             from()
             label()
             machineDetection().ifPresent { it.validate() }
+            machineDetectionBeepMaxFrequency()
+            machineDetectionBeepMinFrequency()
+            machineDetectionBeepMinToneDuration()
             machineDetectionBeepProfile().ifPresent { it.validate() }
+            machineDetectionBeepSpectralConfirmation()
+            machineDetectionBeepSpectralMinPurity()
+            machineDetectionBeepSpectralRejectFaxCng()
+            machineDetectionBeepSpectralWindow()
             machineDetectionSilenceTimeout()
             machineDetectionSpeechEndThreshold()
             machineDetectionSpeechThreshold()
@@ -4230,7 +4889,14 @@ private constructor(
                 (if (from.asKnown().isPresent) 1 else 0) +
                 (if (label.asKnown().isPresent) 1 else 0) +
                 (machineDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (machineDetectionBeepMaxFrequency.asKnown().isPresent) 1 else 0) +
+                (if (machineDetectionBeepMinFrequency.asKnown().isPresent) 1 else 0) +
+                (if (machineDetectionBeepMinToneDuration.asKnown().isPresent) 1 else 0) +
                 (machineDetectionBeepProfile.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (machineDetectionBeepSpectralConfirmation.asKnown().isPresent) 1 else 0) +
+                (if (machineDetectionBeepSpectralMinPurity.asKnown().isPresent) 1 else 0) +
+                (if (machineDetectionBeepSpectralRejectFaxCng.asKnown().isPresent) 1 else 0) +
+                (if (machineDetectionBeepSpectralWindow.asKnown().isPresent) 1 else 0) +
                 (if (machineDetectionSilenceTimeout.asKnown().isPresent) 1 else 0) +
                 (if (machineDetectionSpeechEndThreshold.asKnown().isPresent) 1 else 0) +
                 (if (machineDetectionSpeechThreshold.asKnown().isPresent) 1 else 0) +
@@ -4288,7 +4954,17 @@ private constructor(
                 from == other.from &&
                 label == other.label &&
                 machineDetection == other.machineDetection &&
+                machineDetectionBeepMaxFrequency == other.machineDetectionBeepMaxFrequency &&
+                machineDetectionBeepMinFrequency == other.machineDetectionBeepMinFrequency &&
+                machineDetectionBeepMinToneDuration == other.machineDetectionBeepMinToneDuration &&
                 machineDetectionBeepProfile == other.machineDetectionBeepProfile &&
+                machineDetectionBeepSpectralConfirmation ==
+                    other.machineDetectionBeepSpectralConfirmation &&
+                machineDetectionBeepSpectralMinPurity ==
+                    other.machineDetectionBeepSpectralMinPurity &&
+                machineDetectionBeepSpectralRejectFaxCng ==
+                    other.machineDetectionBeepSpectralRejectFaxCng &&
+                machineDetectionBeepSpectralWindow == other.machineDetectionBeepSpectralWindow &&
                 machineDetectionSilenceTimeout == other.machineDetectionSilenceTimeout &&
                 machineDetectionSpeechEndThreshold == other.machineDetectionSpeechEndThreshold &&
                 machineDetectionSpeechThreshold == other.machineDetectionSpeechThreshold &&
@@ -4342,7 +5018,14 @@ private constructor(
                 from,
                 label,
                 machineDetection,
+                machineDetectionBeepMaxFrequency,
+                machineDetectionBeepMinFrequency,
+                machineDetectionBeepMinToneDuration,
                 machineDetectionBeepProfile,
+                machineDetectionBeepSpectralConfirmation,
+                machineDetectionBeepSpectralMinPurity,
+                machineDetectionBeepSpectralRejectFaxCng,
+                machineDetectionBeepSpectralWindow,
                 machineDetectionSilenceTimeout,
                 machineDetectionSpeechEndThreshold,
                 machineDetectionSpeechThreshold,
@@ -4374,7 +5057,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amdStatusCallback=$amdStatusCallback, amdStatusCallbackMethod=$amdStatusCallbackMethod, applicationSid=$applicationSid, beep=$beep, callerId=$callerId, callSidToCoach=$callSidToCoach, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, coaching=$coaching, conferenceRecord=$conferenceRecord, conferenceRecordingStatusCallback=$conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackEvent=$conferenceRecordingStatusCallbackEvent, conferenceRecordingStatusCallbackMethod=$conferenceRecordingStatusCallbackMethod, conferenceRecordingTimeout=$conferenceRecordingTimeout, conferenceStatusCallback=$conferenceStatusCallback, conferenceStatusCallbackEvent=$conferenceStatusCallbackEvent, conferenceStatusCallbackMethod=$conferenceStatusCallbackMethod, conferenceTrim=$conferenceTrim, customHeaders=$customHeaders, earlyMedia=$earlyMedia, endConferenceOnExit=$endConferenceOnExit, from=$from, label=$label, machineDetection=$machineDetection, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, maxParticipants=$maxParticipants, muted=$muted, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTrack=$recordingTrack, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, startConferenceOnEnter=$startConferenceOnEnter, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, waitUrl=$waitUrl, additionalProperties=$additionalProperties}"
+            "Body{amdStatusCallback=$amdStatusCallback, amdStatusCallbackMethod=$amdStatusCallbackMethod, applicationSid=$applicationSid, beep=$beep, callerId=$callerId, callSidToCoach=$callSidToCoach, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, coaching=$coaching, conferenceRecord=$conferenceRecord, conferenceRecordingStatusCallback=$conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackEvent=$conferenceRecordingStatusCallbackEvent, conferenceRecordingStatusCallbackMethod=$conferenceRecordingStatusCallbackMethod, conferenceRecordingTimeout=$conferenceRecordingTimeout, conferenceStatusCallback=$conferenceStatusCallback, conferenceStatusCallbackEvent=$conferenceStatusCallbackEvent, conferenceStatusCallbackMethod=$conferenceStatusCallbackMethod, conferenceTrim=$conferenceTrim, customHeaders=$customHeaders, earlyMedia=$earlyMedia, endConferenceOnExit=$endConferenceOnExit, from=$from, label=$label, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, maxParticipants=$maxParticipants, muted=$muted, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTrack=$recordingTrack, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, startConferenceOnEnter=$startConferenceOnEnter, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, waitUrl=$waitUrl, additionalProperties=$additionalProperties}"
     }
 
     /** HTTP request type used for `AmdStatusCallback`. Defaults to `POST`. */

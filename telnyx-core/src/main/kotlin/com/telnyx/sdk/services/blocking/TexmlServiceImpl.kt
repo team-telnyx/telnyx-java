@@ -22,6 +22,8 @@ import com.telnyx.sdk.models.texml.TexmlSecretsParams
 import com.telnyx.sdk.models.texml.TexmlSecretsResponse
 import com.telnyx.sdk.services.blocking.texml.AccountService
 import com.telnyx.sdk.services.blocking.texml.AccountServiceImpl
+import com.telnyx.sdk.services.blocking.texml.CallService
+import com.telnyx.sdk.services.blocking.texml.CallServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -33,12 +35,17 @@ class TexmlServiceImpl internal constructor(private val clientOptions: ClientOpt
         WithRawResponseImpl(clientOptions)
     }
 
+    private val calls: CallService by lazy { CallServiceImpl(clientOptions) }
+
     private val accounts: AccountService by lazy { AccountServiceImpl(clientOptions) }
 
     override fun withRawResponse(): TexmlService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlService =
         TexmlServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    /** TeXML REST Commands */
+    override fun calls(): CallService = calls
 
     /** TeXML REST Commands */
     override fun accounts(): AccountService = accounts
@@ -63,6 +70,10 @@ class TexmlServiceImpl internal constructor(private val clientOptions: ClientOpt
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val calls: CallService.WithRawResponse by lazy {
+            CallServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val accounts: AccountService.WithRawResponse by lazy {
             AccountServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -73,6 +84,9 @@ class TexmlServiceImpl internal constructor(private val clientOptions: ClientOpt
             TexmlServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        /** TeXML REST Commands */
+        override fun calls(): CallService.WithRawResponse = calls
 
         /** TeXML REST Commands */
         override fun accounts(): AccountService.WithRawResponse = accounts

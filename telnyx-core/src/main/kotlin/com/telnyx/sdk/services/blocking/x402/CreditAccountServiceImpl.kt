@@ -19,6 +19,8 @@ import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteParams
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteResponse
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleParams
 import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleResponse
+import com.telnyx.sdk.services.blocking.x402.creditaccount.PaymentService
+import com.telnyx.sdk.services.blocking.x402.creditaccount.PaymentServiceImpl
 import java.util.function.Consumer
 
 /**
@@ -32,23 +34,31 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
         WithRawResponseImpl(clientOptions)
     }
 
+    private val payments: PaymentService by lazy { PaymentServiceImpl(clientOptions) }
+
     override fun withRawResponse(): CreditAccountService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CreditAccountService =
         CreditAccountServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /**
+     * Operations for x402 cryptocurrency payment transactions. Fund your Telnyx account using USDC
+     * stablecoin payments via the x402 protocol.
+     */
+    override fun payments(): PaymentService = payments
+
     override fun createQuote(
         params: CreditAccountCreateQuoteParams,
         requestOptions: RequestOptions,
     ): CreditAccountCreateQuoteResponse =
-        // post /v2/x402/credit_account/quote
+        // post /x402/credit_account/quote
         withRawResponse().createQuote(params, requestOptions).parse()
 
     override fun settle(
         params: CreditAccountSettleParams,
         requestOptions: RequestOptions,
     ): CreditAccountSettleResponse =
-        // post /v2/x402/credit_account
+        // post /x402/credit_account
         withRawResponse().settle(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -57,12 +67,22 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val payments: PaymentService.WithRawResponse by lazy {
+            PaymentServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): CreditAccountService.WithRawResponse =
             CreditAccountServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        /**
+         * Operations for x402 cryptocurrency payment transactions. Fund your Telnyx account using
+         * USDC stablecoin payments via the x402 protocol.
+         */
+        override fun payments(): PaymentService.WithRawResponse = payments
 
         private val createQuoteHandler: Handler<CreditAccountCreateQuoteResponse> =
             jsonHandler<CreditAccountCreateQuoteResponse>(clientOptions.jsonMapper)
@@ -75,7 +95,7 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "x402", "credit_account", "quote")
+                    .addPathSegments("x402", "credit_account", "quote")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -103,7 +123,7 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "x402", "credit_account")
+                    .addPathSegments("x402", "credit_account")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

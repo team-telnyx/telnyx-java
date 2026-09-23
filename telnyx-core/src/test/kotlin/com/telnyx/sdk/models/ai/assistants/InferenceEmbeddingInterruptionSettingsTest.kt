@@ -15,6 +15,7 @@ internal class InferenceEmbeddingInterruptionSettingsTest {
             InferenceEmbeddingInterruptionSettings.builder()
                 .disableGreetingInterruption(true)
                 .enable(true)
+                .interruptPredictionThreshold(0.0)
                 .startSpeakingPlan(
                     StartSpeakingPlan.builder()
                         .transcriptionEndpointingPlan(
@@ -32,6 +33,8 @@ internal class InferenceEmbeddingInterruptionSettingsTest {
         assertThat(inferenceEmbeddingInterruptionSettings.disableGreetingInterruption())
             .contains(true)
         assertThat(inferenceEmbeddingInterruptionSettings.enable()).contains(true)
+        assertThat(inferenceEmbeddingInterruptionSettings.interruptPredictionThreshold())
+            .contains(0.0)
         assertThat(inferenceEmbeddingInterruptionSettings.startSpeakingPlan())
             .contains(
                 StartSpeakingPlan.builder()
@@ -54,6 +57,7 @@ internal class InferenceEmbeddingInterruptionSettingsTest {
             InferenceEmbeddingInterruptionSettings.builder()
                 .disableGreetingInterruption(true)
                 .enable(true)
+                .interruptPredictionThreshold(0.0)
                 .startSpeakingPlan(
                     StartSpeakingPlan.builder()
                         .transcriptionEndpointingPlan(

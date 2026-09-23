@@ -25,6 +25,13 @@ internal class ActionTransferParamsTest {
                         ActionTransferParams.AnsweringMachineDetectionConfig.BeepDetectionProfile
                             .FREQ_ONLY
                     )
+                    .beepMaxFrequencyHz(2000)
+                    .beepMinFrequencyHz(550)
+                    .beepMinToneDurationMillis(300)
+                    .beepSpectralConfirmation(true)
+                    .beepSpectralMinPurity(0.8)
+                    .beepSpectralRejectFaxCng(true)
+                    .beepSpectralWindowMillis(100)
                     .betweenWordsSilenceMillis(1000)
                     .greetingDurationMillis(1000)
                     .greetingSilenceDurationMillis(2000)
@@ -133,6 +140,13 @@ internal class ActionTransferParamsTest {
                                 .BeepDetectionProfile
                                 .FREQ_ONLY
                         )
+                        .beepMaxFrequencyHz(2000)
+                        .beepMinFrequencyHz(550)
+                        .beepMinToneDurationMillis(300)
+                        .beepSpectralConfirmation(true)
+                        .beepSpectralMinPurity(0.8)
+                        .beepSpectralRejectFaxCng(true)
+                        .beepSpectralWindowMillis(100)
                         .betweenWordsSilenceMillis(1000)
                         .greetingDurationMillis(1000)
                         .greetingSilenceDurationMillis(2000)
@@ -225,6 +239,13 @@ internal class ActionTransferParamsTest {
                         ActionTransferParams.AnsweringMachineDetectionConfig.BeepDetectionProfile
                             .FREQ_ONLY
                     )
+                    .beepMaxFrequencyHz(2000)
+                    .beepMinFrequencyHz(550)
+                    .beepMinToneDurationMillis(300)
+                    .beepSpectralConfirmation(true)
+                    .beepSpectralMinPurity(0.8)
+                    .beepSpectralRejectFaxCng(true)
+                    .beepSpectralWindowMillis(100)
                     .betweenWordsSilenceMillis(1000)
                     .greetingDurationMillis(1000)
                     .greetingSilenceDurationMillis(2000)

@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.webhooks
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.MessagingError
+import com.telnyx.sdk.models.messages.MessagingError0b38e7044b
 import com.telnyx.sdk.models.messages.OutboundMessagePayload
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -25,6 +25,7 @@ internal class DeliveryUpdateWebhookEventTest {
                         .payload(
                             OutboundMessagePayload.builder()
                                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                                .body(OutboundMessagePayload.Body.builder().text("text").build())
                                 .addCc(
                                     OutboundMessagePayload.Cc.builder()
                                         .carrier("carrier")
@@ -60,17 +61,17 @@ internal class DeliveryUpdateWebhookEventTest {
                                 .direction(OutboundMessagePayload.Direction.OUTBOUND)
                                 .encoding("GSM-7")
                                 .addError(
-                                    MessagingError.builder()
+                                    MessagingError0b38e7044b.builder()
                                         .code("code")
                                         .title("title")
                                         .detail("detail")
                                         .meta(
-                                            MessagingError.Meta.builder()
+                                            MessagingError0b38e7044b.Meta.builder()
                                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .build()
                                         )
                                         .source(
-                                            MessagingError.Source.builder()
+                                            MessagingError0b38e7044b.Source.builder()
                                                 .parameter("parameter")
                                                 .pointer("pointer")
                                                 .build()
@@ -79,6 +80,8 @@ internal class DeliveryUpdateWebhookEventTest {
                                 )
                                 .from(
                                     OutboundMessagePayload.From.builder()
+                                        .agentId("agent_id")
+                                        .agentName("agent_name")
                                         .carrier("TELNYX LLC")
                                         .lineType(OutboundMessagePayload.From.LineType.VO_IP)
                                         .phoneNumber("+18445550001")
@@ -143,6 +146,7 @@ internal class DeliveryUpdateWebhookEventTest {
                     .payload(
                         OutboundMessagePayload.builder()
                             .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                            .body(OutboundMessagePayload.Body.builder().text("text").build())
                             .addCc(
                                 OutboundMessagePayload.Cc.builder()
                                     .carrier("carrier")
@@ -177,17 +181,17 @@ internal class DeliveryUpdateWebhookEventTest {
                             .direction(OutboundMessagePayload.Direction.OUTBOUND)
                             .encoding("GSM-7")
                             .addError(
-                                MessagingError.builder()
+                                MessagingError0b38e7044b.builder()
                                     .code("code")
                                     .title("title")
                                     .detail("detail")
                                     .meta(
-                                        MessagingError.Meta.builder()
+                                        MessagingError0b38e7044b.Meta.builder()
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .build()
                                     )
                                     .source(
-                                        MessagingError.Source.builder()
+                                        MessagingError0b38e7044b.Source.builder()
                                             .parameter("parameter")
                                             .pointer("pointer")
                                             .build()
@@ -196,6 +200,8 @@ internal class DeliveryUpdateWebhookEventTest {
                             )
                             .from(
                                 OutboundMessagePayload.From.builder()
+                                    .agentId("agent_id")
+                                    .agentName("agent_name")
                                     .carrier("TELNYX LLC")
                                     .lineType(OutboundMessagePayload.From.LineType.VO_IP)
                                     .phoneNumber("+18445550001")
@@ -265,6 +271,7 @@ internal class DeliveryUpdateWebhookEventTest {
                         .payload(
                             OutboundMessagePayload.builder()
                                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                                .body(OutboundMessagePayload.Body.builder().text("text").build())
                                 .addCc(
                                     OutboundMessagePayload.Cc.builder()
                                         .carrier("carrier")
@@ -300,17 +307,17 @@ internal class DeliveryUpdateWebhookEventTest {
                                 .direction(OutboundMessagePayload.Direction.OUTBOUND)
                                 .encoding("GSM-7")
                                 .addError(
-                                    MessagingError.builder()
+                                    MessagingError0b38e7044b.builder()
                                         .code("code")
                                         .title("title")
                                         .detail("detail")
                                         .meta(
-                                            MessagingError.Meta.builder()
+                                            MessagingError0b38e7044b.Meta.builder()
                                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .build()
                                         )
                                         .source(
-                                            MessagingError.Source.builder()
+                                            MessagingError0b38e7044b.Source.builder()
                                                 .parameter("parameter")
                                                 .pointer("pointer")
                                                 .build()
@@ -319,6 +326,8 @@ internal class DeliveryUpdateWebhookEventTest {
                                 )
                                 .from(
                                     OutboundMessagePayload.From.builder()
+                                        .agentId("agent_id")
+                                        .agentName("agent_name")
                                         .carrier("TELNYX LLC")
                                         .lineType(OutboundMessagePayload.From.LineType.VO_IP)
                                         .phoneNumber("+18445550001")

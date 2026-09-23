@@ -24,6 +24,8 @@ import com.telnyx.sdk.models.connections.ConnectionListActiveCallsParams
 import com.telnyx.sdk.models.connections.ConnectionListPageAsync
 import com.telnyx.sdk.models.connections.ConnectionListPageResponse
 import com.telnyx.sdk.models.connections.ConnectionListParams
+import com.telnyx.sdk.models.connections.ConnectionRetrieveCountParams
+import com.telnyx.sdk.models.connections.ConnectionRetrieveCountResponse
 import com.telnyx.sdk.models.connections.ConnectionRetrieveParams
 import com.telnyx.sdk.models.connections.ConnectionRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -62,6 +64,13 @@ class ConnectionServiceAsyncImpl internal constructor(private val clientOptions:
     ): CompletableFuture<ConnectionListActiveCallsPageAsync> =
         // get /connections/{connection_id}/active_calls
         withRawResponse().listActiveCalls(params, requestOptions).mapCancellable { it.parse() }
+
+    override fun retrieveCount(
+        params: ConnectionRetrieveCountParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ConnectionRetrieveCountResponse> =
+        // get /connections/count
+        withRawResponse().retrieveCount(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ConnectionServiceAsync.WithRawResponse {
@@ -189,6 +198,38 @@ class ConnectionServiceAsyncImpl internal constructor(private val clientOptions:
                                     .params(params)
                                     .response(it)
                                     .build()
+                            }
+                    }
+                }
+        }
+
+        private val retrieveCountHandler: Handler<ConnectionRetrieveCountResponse> =
+            jsonHandler<ConnectionRetrieveCountResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveCount(
+            params: ConnectionRetrieveCountParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ConnectionRetrieveCountResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("connections", "count")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveCountHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
                             }
                     }
                 }

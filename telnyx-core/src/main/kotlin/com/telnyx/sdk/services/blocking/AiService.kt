@@ -25,6 +25,7 @@ import com.telnyx.sdk.services.blocking.ai.McpServerService
 import com.telnyx.sdk.services.blocking.ai.MissionService
 import com.telnyx.sdk.services.blocking.ai.OpenAIService
 import com.telnyx.sdk.services.blocking.ai.ToolService
+import com.telnyx.sdk.services.blocking.ai.TypesafeService
 import java.util.function.Consumer
 
 interface AiService {
@@ -79,6 +80,8 @@ interface AiService {
     fun anthropic(): AnthropicService
 
     fun knowledge(): KnowledgeService
+
+    fun typesafe(): TypesafeService
 
     /**
      * Performs semantic vector search across conversation history records.
@@ -204,6 +207,8 @@ interface AiService {
         fun anthropic(): AnthropicService.WithRawResponse
 
         fun knowledge(): KnowledgeService.WithRawResponse
+
+        fun typesafe(): TypesafeService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the

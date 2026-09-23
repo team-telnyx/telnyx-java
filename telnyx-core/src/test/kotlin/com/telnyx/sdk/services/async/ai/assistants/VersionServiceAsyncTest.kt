@@ -4,8 +4,10 @@ package com.telnyx.sdk.services.async.ai.assistants
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.ai.assistants.AssistantA2AAgent
 import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
 import com.telnyx.sdk.models.ai.assistants.AssistantMcpServer
+import com.telnyx.sdk.models.ai.assistants.AssistantTool
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.AuthenticationMethod
 import com.telnyx.sdk.models.ai.assistants.ConversationFlowReq
@@ -15,7 +17,6 @@ import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
 import com.telnyx.sdk.models.ai.assistants.FlowEdge
 import com.telnyx.sdk.models.ai.assistants.FlowNodeReq
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingInterruptionSettings
-import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.NodePosition
@@ -36,6 +37,7 @@ import com.telnyx.sdk.models.ai.assistants.versions.VersionDeleteParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateParams
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -73,6 +75,30 @@ internal class VersionServiceAsyncTest {
                     .versionId("version_id")
                     .updateAssistant(
                         UpdateAssistant.builder()
+                            .addA2aAgent(
+                                AssistantA2AAgent.builder()
+                                    .name("billing_agent")
+                                    .url("https://agents.example.com")
+                                    .async(true)
+                                    .addHeader(
+                                        AssistantA2AAgent.Header.builder()
+                                            .name("X-Api-Key")
+                                            .value(
+                                                "{{#integration_secret}}my_agent_api_key{{/integration_secret}}"
+                                            )
+                                            .build()
+                                    )
+                                    .addMessage(
+                                        AssistantA2AAgent.Message.A2AAgentRequestStartMessage
+                                            .builder()
+                                            .content("x")
+                                            .timingMs(100L)
+                                            .build()
+                                    )
+                                    .pollIntervalMs(500L)
+                                    .timeoutMs(30000L)
+                                    .build()
+                            )
                             .conversationFlow(
                                 ConversationFlowReq.builder()
                                     .addNode(
@@ -335,6 +361,7 @@ internal class VersionServiceAsyncTest {
                                 InferenceEmbeddingInterruptionSettings.builder()
                                     .disableGreetingInterruption(true)
                                     .enable(true)
+                                    .interruptPredictionThreshold(0.0)
                                     .startSpeakingPlan(
                                         StartSpeakingPlan.builder()
                                             .transcriptionEndpointingPlan(
@@ -380,20 +407,32 @@ internal class VersionServiceAsyncTest {
                             .postConversationSettings(
                                 PostConversationSettingsReq.builder().enabled(true).build()
                             )
-                            .privacySettings(PrivacySettings.builder().dataRetention(true).build())
+                            .privacySettings(
+                                PrivacySettings.builder()
+                                    .dataRetention(true)
+                                    .inTransitDataLocality(true)
+                                    .build()
+                            )
                             .addTag("string")
                             .telephonySettings(
                                 TelephonySettings.builder()
                                     .defaultTexmlAppId("default_texml_app_id")
                                     .disableDtmf(true)
-                                    .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                                    .fallbackDestination("fallback_destination")
+                                    .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                                     .noiseSuppressionConfig(
                                         TelephonySettings.NoiseSuppressionConfig.builder()
                                             .attenuationLimit(0L)
+                                            .enhancementLevel(0.0)
+                                            .family(
+                                                TelephonySettings.NoiseSuppressionConfig.Family
+                                                    .QUAIL
+                                            )
                                             .mode(
                                                 TelephonySettings.NoiseSuppressionConfig.Mode
                                                     .ADVANCED
                                             )
+                                            .size(TelephonySettings.NoiseSuppressionConfig.Size.VF)
                                             .build()
                                     )
                                     .recordingSettings(
@@ -446,137 +485,23 @@ internal class VersionServiceAsyncTest {
                                     .build()
                             )
                             .addToolId("string")
-                            .addWebhookTool(
-                                InferenceEmbeddingWebhookToolParams.Webhook.builder()
-                                    .description("description")
-                                    .name("name")
-                                    .url("https://example.com/api/v1/function")
-                                    .async(true)
-                                    .asyncTimeoutMs(1L)
-                                    .bodyParameters(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                            .builder()
-                                            .properties(
-                                                InferenceEmbeddingWebhookToolParams.Webhook
-                                                    .BodyParameters
-                                                    .Properties
-                                                    .builder()
-                                                    .putAdditionalProperty(
-                                                        "age",
-                                                        JsonValue.from("bar"),
-                                                    )
-                                                    .putAdditionalProperty(
-                                                        "location",
-                                                        JsonValue.from("bar"),
-                                                    )
-                                                    .build()
-                                            )
-                                            .addRequired("age")
-                                            .addRequired("location")
-                                            .type(
-                                                InferenceEmbeddingWebhookToolParams.Webhook
-                                                    .BodyParameters
-                                                    .Type
-                                                    .OBJECT
-                                            )
-                                            .build()
-                                    )
-                                    .addHeader(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                            .addTool(
+                                AssistantTool.Function.builder()
+                                    .function(
+                                        FunctionDefinition.builder()
                                             .name("name")
-                                            .value("value")
-                                            .build()
-                                    )
-                                    .addMessage(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                            .WebhookToolRequestStartMessage
-                                            .builder()
-                                            .content("Let me look that up for you.")
-                                            .timingMs(100L)
-                                            .build()
-                                    )
-                                    .addMessage(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.Message
-                                            .WebhookToolRequestResponseDelayedMessage
-                                            .builder()
-                                            .content("Still working on that.")
-                                            .timingMs(5000L)
-                                            .build()
-                                    )
-                                    .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
-                                    .pathParameters(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                            .builder()
-                                            .properties(
-                                                InferenceEmbeddingWebhookToolParams.Webhook
-                                                    .PathParameters
-                                                    .Properties
-                                                    .builder()
+                                            .description("description")
+                                            .parameters(
+                                                FunctionDefinition.Parameters.builder()
                                                     .putAdditionalProperty(
-                                                        "id",
+                                                        "foo",
                                                         JsonValue.from("bar"),
                                                     )
                                                     .build()
                                             )
-                                            .addRequired("id")
-                                            .type(
-                                                InferenceEmbeddingWebhookToolParams.Webhook
-                                                    .PathParameters
-                                                    .Type
-                                                    .OBJECT
-                                            )
                                             .build()
                                     )
-                                    .presetBodyFields(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.PresetBodyFields
-                                            .builder()
-                                            .putAdditionalProperty(
-                                                "account_id",
-                                                JsonValue.from("bar"),
-                                            )
-                                            .putAdditionalProperty("source", JsonValue.from("bar"))
-                                            .build()
-                                    )
-                                    .presetQueryParams(
-                                        InferenceEmbeddingWebhookToolParams.Webhook
-                                            .PresetQueryParams
-                                            .builder()
-                                            .putAdditionalProperty("caller", JsonValue.from("bar"))
-                                            .putAdditionalProperty("channel", JsonValue.from("bar"))
-                                            .build()
-                                    )
-                                    .queryParameters(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                            .builder()
-                                            .properties(
-                                                InferenceEmbeddingWebhookToolParams.Webhook
-                                                    .QueryParameters
-                                                    .Properties
-                                                    .builder()
-                                                    .putAdditionalProperty(
-                                                        "page",
-                                                        JsonValue.from("bar"),
-                                                    )
-                                                    .build()
-                                            )
-                                            .addRequired("page")
-                                            .type(
-                                                InferenceEmbeddingWebhookToolParams.Webhook
-                                                    .QueryParameters
-                                                    .Type
-                                                    .OBJECT
-                                            )
-                                            .build()
-                                    )
-                                    .addStoreFieldsAsVariable(
-                                        InferenceEmbeddingWebhookToolParams.Webhook
-                                            .StoreFieldsAsVariable
-                                            .builder()
-                                            .name("x")
-                                            .valuePath("x")
-                                            .build()
-                                    )
-                                    .timeoutMs(500L)
+                                    .shared(true)
                                     .build()
                             )
                             .transcription(

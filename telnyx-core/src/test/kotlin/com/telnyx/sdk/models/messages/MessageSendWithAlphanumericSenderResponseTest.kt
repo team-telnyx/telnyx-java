@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.messages
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.MessagingError
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -19,6 +18,7 @@ internal class MessageSendWithAlphanumericSenderResponseTest {
                 .data(
                     OutboundMessagePayload.builder()
                         .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                        .body(OutboundMessagePayload.Body.builder().text("text").build())
                         .addCc(
                             OutboundMessagePayload.Cc.builder()
                                 .carrier("carrier")
@@ -53,17 +53,17 @@ internal class MessageSendWithAlphanumericSenderResponseTest {
                         .direction(OutboundMessagePayload.Direction.OUTBOUND)
                         .encoding("GSM-7")
                         .addError(
-                            MessagingError.builder()
+                            MessagingError0b38e7044b.builder()
                                 .code("code")
                                 .title("title")
                                 .detail("detail")
                                 .meta(
-                                    MessagingError.Meta.builder()
+                                    MessagingError0b38e7044b.Meta.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
                                 .source(
-                                    MessagingError.Source.builder()
+                                    MessagingError0b38e7044b.Source.builder()
                                         .parameter("parameter")
                                         .pointer("pointer")
                                         .build()
@@ -72,6 +72,8 @@ internal class MessageSendWithAlphanumericSenderResponseTest {
                         )
                         .from(
                             OutboundMessagePayload.From.builder()
+                                .agentId("agent_id")
+                                .agentName("agent_name")
                                 .carrier("TELNYX LLC")
                                 .lineType(OutboundMessagePayload.From.LineType.VO_IP)
                                 .phoneNumber("+18445550001")
@@ -122,6 +124,7 @@ internal class MessageSendWithAlphanumericSenderResponseTest {
             .contains(
                 OutboundMessagePayload.builder()
                     .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                    .body(OutboundMessagePayload.Body.builder().text("text").build())
                     .addCc(
                         OutboundMessagePayload.Cc.builder()
                             .carrier("carrier")
@@ -156,17 +159,17 @@ internal class MessageSendWithAlphanumericSenderResponseTest {
                     .direction(OutboundMessagePayload.Direction.OUTBOUND)
                     .encoding("GSM-7")
                     .addError(
-                        MessagingError.builder()
+                        MessagingError0b38e7044b.builder()
                             .code("code")
                             .title("title")
                             .detail("detail")
                             .meta(
-                                MessagingError.Meta.builder()
+                                MessagingError0b38e7044b.Meta.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
                             .source(
-                                MessagingError.Source.builder()
+                                MessagingError0b38e7044b.Source.builder()
                                     .parameter("parameter")
                                     .pointer("pointer")
                                     .build()
@@ -175,6 +178,8 @@ internal class MessageSendWithAlphanumericSenderResponseTest {
                     )
                     .from(
                         OutboundMessagePayload.From.builder()
+                            .agentId("agent_id")
+                            .agentName("agent_name")
                             .carrier("TELNYX LLC")
                             .lineType(OutboundMessagePayload.From.LineType.VO_IP)
                             .phoneNumber("+18445550001")
@@ -229,6 +234,7 @@ internal class MessageSendWithAlphanumericSenderResponseTest {
                 .data(
                     OutboundMessagePayload.builder()
                         .id("40385f64-5717-4562-b3fc-2c963f66afa6")
+                        .body(OutboundMessagePayload.Body.builder().text("text").build())
                         .addCc(
                             OutboundMessagePayload.Cc.builder()
                                 .carrier("carrier")
@@ -263,17 +269,17 @@ internal class MessageSendWithAlphanumericSenderResponseTest {
                         .direction(OutboundMessagePayload.Direction.OUTBOUND)
                         .encoding("GSM-7")
                         .addError(
-                            MessagingError.builder()
+                            MessagingError0b38e7044b.builder()
                                 .code("code")
                                 .title("title")
                                 .detail("detail")
                                 .meta(
-                                    MessagingError.Meta.builder()
+                                    MessagingError0b38e7044b.Meta.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
                                 .source(
-                                    MessagingError.Source.builder()
+                                    MessagingError0b38e7044b.Source.builder()
                                         .parameter("parameter")
                                         .pointer("pointer")
                                         .build()
@@ -282,6 +288,8 @@ internal class MessageSendWithAlphanumericSenderResponseTest {
                         )
                         .from(
                             OutboundMessagePayload.From.builder()
+                                .agentId("agent_id")
+                                .agentName("agent_name")
                                 .carrier("TELNYX LLC")
                                 .lineType(OutboundMessagePayload.From.LineType.VO_IP)
                                 .phoneNumber("+18445550001")

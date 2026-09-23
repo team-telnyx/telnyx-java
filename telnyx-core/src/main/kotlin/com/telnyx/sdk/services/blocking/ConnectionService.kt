@@ -10,6 +10,8 @@ import com.telnyx.sdk.models.connections.ConnectionListActiveCallsPage
 import com.telnyx.sdk.models.connections.ConnectionListActiveCallsParams
 import com.telnyx.sdk.models.connections.ConnectionListPage
 import com.telnyx.sdk.models.connections.ConnectionListParams
+import com.telnyx.sdk.models.connections.ConnectionRetrieveCountParams
+import com.telnyx.sdk.models.connections.ConnectionRetrieveCountResponse
 import com.telnyx.sdk.models.connections.ConnectionRetrieveParams
 import com.telnyx.sdk.models.connections.ConnectionRetrieveResponse
 import java.util.function.Consumer
@@ -117,6 +119,29 @@ interface ConnectionService {
         requestOptions: RequestOptions,
     ): ConnectionListActiveCallsPage =
         listActiveCalls(connectionId, ConnectionListActiveCallsParams.none(), requestOptions)
+
+    /**
+     * Returns the number of connections associated with the authenticated user, grouped by
+     * connection type, together with the connection limits that apply to the user. Forward-only
+     * connections are excluded from the counts.
+     */
+    fun retrieveCount(): ConnectionRetrieveCountResponse =
+        retrieveCount(ConnectionRetrieveCountParams.none())
+
+    /** @see retrieveCount */
+    fun retrieveCount(
+        params: ConnectionRetrieveCountParams = ConnectionRetrieveCountParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ConnectionRetrieveCountResponse
+
+    /** @see retrieveCount */
+    fun retrieveCount(
+        params: ConnectionRetrieveCountParams = ConnectionRetrieveCountParams.none()
+    ): ConnectionRetrieveCountResponse = retrieveCount(params, RequestOptions.none())
+
+    /** @see retrieveCount */
+    fun retrieveCount(requestOptions: RequestOptions): ConnectionRetrieveCountResponse =
+        retrieveCount(ConnectionRetrieveCountParams.none(), requestOptions)
 
     /** A view of [ConnectionService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -246,5 +271,34 @@ interface ConnectionService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<ConnectionListActiveCallsPage> =
             listActiveCalls(connectionId, ConnectionListActiveCallsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /connections/count`, but is otherwise the same as
+         * [ConnectionService.retrieveCount].
+         */
+        @MustBeClosed
+        fun retrieveCount(): HttpResponseFor<ConnectionRetrieveCountResponse> =
+            retrieveCount(ConnectionRetrieveCountParams.none())
+
+        /** @see retrieveCount */
+        @MustBeClosed
+        fun retrieveCount(
+            params: ConnectionRetrieveCountParams = ConnectionRetrieveCountParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ConnectionRetrieveCountResponse>
+
+        /** @see retrieveCount */
+        @MustBeClosed
+        fun retrieveCount(
+            params: ConnectionRetrieveCountParams = ConnectionRetrieveCountParams.none()
+        ): HttpResponseFor<ConnectionRetrieveCountResponse> =
+            retrieveCount(params, RequestOptions.none())
+
+        /** @see retrieveCount */
+        @MustBeClosed
+        fun retrieveCount(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<ConnectionRetrieveCountResponse> =
+            retrieveCount(ConnectionRetrieveCountParams.none(), requestOptions)
     }
 }

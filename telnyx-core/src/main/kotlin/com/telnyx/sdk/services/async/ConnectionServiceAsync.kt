@@ -9,6 +9,8 @@ import com.telnyx.sdk.models.connections.ConnectionListActiveCallsPageAsync
 import com.telnyx.sdk.models.connections.ConnectionListActiveCallsParams
 import com.telnyx.sdk.models.connections.ConnectionListPageAsync
 import com.telnyx.sdk.models.connections.ConnectionListParams
+import com.telnyx.sdk.models.connections.ConnectionRetrieveCountParams
+import com.telnyx.sdk.models.connections.ConnectionRetrieveCountResponse
 import com.telnyx.sdk.models.connections.ConnectionRetrieveParams
 import com.telnyx.sdk.models.connections.ConnectionRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -127,6 +129,32 @@ interface ConnectionServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<ConnectionListActiveCallsPageAsync> =
         listActiveCalls(connectionId, ConnectionListActiveCallsParams.none(), requestOptions)
+
+    /**
+     * Returns the number of connections associated with the authenticated user, grouped by
+     * connection type, together with the connection limits that apply to the user. Forward-only
+     * connections are excluded from the counts.
+     */
+    fun retrieveCount(): CompletableFuture<ConnectionRetrieveCountResponse> =
+        retrieveCount(ConnectionRetrieveCountParams.none())
+
+    /** @see retrieveCount */
+    fun retrieveCount(
+        params: ConnectionRetrieveCountParams = ConnectionRetrieveCountParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ConnectionRetrieveCountResponse>
+
+    /** @see retrieveCount */
+    fun retrieveCount(
+        params: ConnectionRetrieveCountParams = ConnectionRetrieveCountParams.none()
+    ): CompletableFuture<ConnectionRetrieveCountResponse> =
+        retrieveCount(params, RequestOptions.none())
+
+    /** @see retrieveCount */
+    fun retrieveCount(
+        requestOptions: RequestOptions
+    ): CompletableFuture<ConnectionRetrieveCountResponse> =
+        retrieveCount(ConnectionRetrieveCountParams.none(), requestOptions)
 
     /**
      * A view of [ConnectionServiceAsync] that provides access to raw HTTP responses for each
@@ -251,5 +279,30 @@ interface ConnectionServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsPageAsync>> =
             listActiveCalls(connectionId, ConnectionListActiveCallsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /connections/count`, but is otherwise the same as
+         * [ConnectionServiceAsync.retrieveCount].
+         */
+        fun retrieveCount(): CompletableFuture<HttpResponseFor<ConnectionRetrieveCountResponse>> =
+            retrieveCount(ConnectionRetrieveCountParams.none())
+
+        /** @see retrieveCount */
+        fun retrieveCount(
+            params: ConnectionRetrieveCountParams = ConnectionRetrieveCountParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ConnectionRetrieveCountResponse>>
+
+        /** @see retrieveCount */
+        fun retrieveCount(
+            params: ConnectionRetrieveCountParams = ConnectionRetrieveCountParams.none()
+        ): CompletableFuture<HttpResponseFor<ConnectionRetrieveCountResponse>> =
+            retrieveCount(params, RequestOptions.none())
+
+        /** @see retrieveCount */
+        fun retrieveCount(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<ConnectionRetrieveCountResponse>> =
+            retrieveCount(ConnectionRetrieveCountParams.none(), requestOptions)
     }
 }

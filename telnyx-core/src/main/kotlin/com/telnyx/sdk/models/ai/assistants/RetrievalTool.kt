@@ -16,6 +16,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.chat.BucketIds
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class RetrievalTool
@@ -23,6 +24,7 @@ class RetrievalTool
 private constructor(
     private val retrieval: JsonField<BucketIds>,
     private val type: JsonField<Type>,
+    private val shared: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -32,7 +34,8 @@ private constructor(
         @ExcludeMissing
         retrieval: JsonField<BucketIds> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(retrieval, type, mutableMapOf())
+        @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+    ) : this(retrieval, type, shared, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -47,6 +50,19 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+     * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+     * server, not accepted in requests. When updating an assistant, omit `shared: true` tools from
+     * the request `tools` array and manage them through `tool_ids` instead — re-sending their
+     * definitions creates an inline duplicate (rejected with error code 10015 when the type allows
+     * only one instance per assistant).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+    /**
      * Returns the raw JSON value of [retrieval].
      *
      * Unlike [retrieval], this method doesn't throw if the JSON field has an unexpected type.
@@ -59,6 +75,13 @@ private constructor(
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+    /**
+     * Returns the raw JSON value of [shared].
+     *
+     * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -91,12 +114,14 @@ private constructor(
 
         private var retrieval: JsonField<BucketIds>? = null
         private var type: JsonField<Type>? = null
+        private var shared: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(retrievalTool: RetrievalTool) = apply {
             retrieval = retrievalTool.retrieval
             type = retrievalTool.type
+            shared = retrievalTool.shared
             additionalProperties = retrievalTool.additionalProperties.toMutableMap()
         }
 
@@ -120,6 +145,24 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         */
+        fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+        /**
+         * Sets [Builder.shared] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.shared] with a well-typed [Boolean] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -157,6 +200,7 @@ private constructor(
             RetrievalTool(
                 checkRequired("retrieval", retrieval),
                 checkRequired("type", type),
+                shared,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -178,6 +222,7 @@ private constructor(
 
         retrieval().validate()
         type().validate()
+        shared()
         validated = true
     }
 
@@ -197,7 +242,8 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (retrieval.asKnown().getOrNull()?.validity() ?: 0) +
-            (type.asKnown().getOrNull()?.validity() ?: 0)
+            (type.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (shared.asKnown().isPresent) 1 else 0)
 
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -335,13 +381,16 @@ private constructor(
         return other is RetrievalTool &&
             retrieval == other.retrieval &&
             type == other.type &&
+            shared == other.shared &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(retrieval, type, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(retrieval, type, shared, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RetrievalTool{retrieval=$retrieval, type=$type, additionalProperties=$additionalProperties}"
+        "RetrievalTool{retrieval=$retrieval, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
 }

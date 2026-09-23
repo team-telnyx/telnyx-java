@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.ai.chat
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -32,13 +33,6 @@ internal class ChatCompletionRequestTest {
                 .earlyStopping(true)
                 .enableThinking(true)
                 .frequencyPenalty(0.0)
-                .addGuidedChoice("string")
-                .guidedJson(
-                    ChatCompletionRequest.GuidedJson.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .build()
-                )
-                .guidedRegex("guided_regex")
                 .lengthPenalty(0.0)
                 .logprobs(true)
                 .maxTokens(0L)
@@ -49,11 +43,7 @@ internal class ChatCompletionRequestTest {
                 .presencePenalty(0.0)
                 .reasoningEffort(ChatCompletionRequest.ReasoningEffort.NONE)
                 .region(ChatCompletionRequest.Region.USA)
-                .responseFormat(
-                    ChatCompletionRequest.ResponseFormat.builder()
-                        .type(ChatCompletionRequest.ResponseFormat.Type.TEXT)
-                        .build()
-                )
+                .responseFormatText()
                 .seed(0L)
                 .serviceTier("service_tier")
                 .stop("string")
@@ -61,12 +51,11 @@ internal class ChatCompletionRequestTest {
                 .temperature(0.0)
                 .toolChoice(ChatCompletionRequest.ToolChoice.NONE)
                 .addFunctionTool(
-                    ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                    FunctionDefinition.builder()
                         .name("name")
                         .description("description")
                         .parameters(
-                            ChatCompletionRequest.Tool.ChatCompletionTool.Function.Parameters
-                                .builder()
+                            FunctionDefinition.Parameters.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -93,14 +82,6 @@ internal class ChatCompletionRequestTest {
         assertThat(chatCompletionRequest.earlyStopping()).contains(true)
         assertThat(chatCompletionRequest.enableThinking()).contains(true)
         assertThat(chatCompletionRequest.frequencyPenalty()).contains(0.0)
-        assertThat(chatCompletionRequest.guidedChoice().getOrNull()).containsExactly("string")
-        assertThat(chatCompletionRequest.guidedJson())
-            .contains(
-                ChatCompletionRequest.GuidedJson.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .build()
-            )
-        assertThat(chatCompletionRequest.guidedRegex()).contains("guided_regex")
         assertThat(chatCompletionRequest.lengthPenalty()).contains(0.0)
         assertThat(chatCompletionRequest.logprobs()).contains(true)
         assertThat(chatCompletionRequest.maxTokens()).contains(0L)
@@ -113,11 +94,7 @@ internal class ChatCompletionRequestTest {
             .contains(ChatCompletionRequest.ReasoningEffort.NONE)
         assertThat(chatCompletionRequest.region()).contains(ChatCompletionRequest.Region.USA)
         assertThat(chatCompletionRequest.responseFormat())
-            .contains(
-                ChatCompletionRequest.ResponseFormat.builder()
-                    .type(ChatCompletionRequest.ResponseFormat.Type.TEXT)
-                    .build()
-            )
+            .contains(ChatCompletionRequest.ResponseFormat.ofText())
         assertThat(chatCompletionRequest.seed()).contains(0L)
         assertThat(chatCompletionRequest.serviceTier()).contains("service_tier")
         assertThat(chatCompletionRequest.stop())
@@ -131,13 +108,11 @@ internal class ChatCompletionRequestTest {
                 ChatCompletionRequest.Tool.ofFunction(
                     ChatCompletionRequest.Tool.ChatCompletionTool.builder()
                         .function(
-                            ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                            FunctionDefinition.builder()
                                 .name("name")
                                 .description("description")
                                 .parameters(
-                                    ChatCompletionRequest.Tool.ChatCompletionTool.Function
-                                        .Parameters
-                                        .builder()
+                                    FunctionDefinition.Parameters.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
@@ -173,13 +148,6 @@ internal class ChatCompletionRequestTest {
                 .earlyStopping(true)
                 .enableThinking(true)
                 .frequencyPenalty(0.0)
-                .addGuidedChoice("string")
-                .guidedJson(
-                    ChatCompletionRequest.GuidedJson.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .build()
-                )
-                .guidedRegex("guided_regex")
                 .lengthPenalty(0.0)
                 .logprobs(true)
                 .maxTokens(0L)
@@ -190,11 +158,7 @@ internal class ChatCompletionRequestTest {
                 .presencePenalty(0.0)
                 .reasoningEffort(ChatCompletionRequest.ReasoningEffort.NONE)
                 .region(ChatCompletionRequest.Region.USA)
-                .responseFormat(
-                    ChatCompletionRequest.ResponseFormat.builder()
-                        .type(ChatCompletionRequest.ResponseFormat.Type.TEXT)
-                        .build()
-                )
+                .responseFormatText()
                 .seed(0L)
                 .serviceTier("service_tier")
                 .stop("string")
@@ -202,12 +166,11 @@ internal class ChatCompletionRequestTest {
                 .temperature(0.0)
                 .toolChoice(ChatCompletionRequest.ToolChoice.NONE)
                 .addFunctionTool(
-                    ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                    FunctionDefinition.builder()
                         .name("name")
                         .description("description")
                         .parameters(
-                            ChatCompletionRequest.Tool.ChatCompletionTool.Function.Parameters
-                                .builder()
+                            FunctionDefinition.Parameters.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

@@ -30,6 +30,12 @@ import com.telnyx.sdk.services.async.BalanceServiceAsync
 import com.telnyx.sdk.services.async.BalanceServiceAsyncImpl
 import com.telnyx.sdk.services.async.BillingGroupServiceAsync
 import com.telnyx.sdk.services.async.BillingGroupServiceAsyncImpl
+import com.telnyx.sdk.services.async.BotChallengeServiceAsync
+import com.telnyx.sdk.services.async.BotChallengeServiceAsyncImpl
+import com.telnyx.sdk.services.async.BotSessionServiceAsync
+import com.telnyx.sdk.services.async.BotSessionServiceAsyncImpl
+import com.telnyx.sdk.services.async.BotSignupServiceAsync
+import com.telnyx.sdk.services.async.BotSignupServiceAsyncImpl
 import com.telnyx.sdk.services.async.BulkSimCardActionServiceAsync
 import com.telnyx.sdk.services.async.BulkSimCardActionServiceAsyncImpl
 import com.telnyx.sdk.services.async.BundlePricingServiceAsync
@@ -50,6 +56,8 @@ import com.telnyx.sdk.services.async.ChargesSummaryServiceAsync
 import com.telnyx.sdk.services.async.ChargesSummaryServiceAsyncImpl
 import com.telnyx.sdk.services.async.CommentServiceAsync
 import com.telnyx.sdk.services.async.CommentServiceAsyncImpl
+import com.telnyx.sdk.services.async.ComputeServiceAsync
+import com.telnyx.sdk.services.async.ComputeServiceAsyncImpl
 import com.telnyx.sdk.services.async.ConferenceServiceAsync
 import com.telnyx.sdk.services.async.ConferenceServiceAsyncImpl
 import com.telnyx.sdk.services.async.ConnectionServiceAsync
@@ -150,6 +158,8 @@ import com.telnyx.sdk.services.async.LegacyServiceAsync
 import com.telnyx.sdk.services.async.LegacyServiceAsyncImpl
 import com.telnyx.sdk.services.async.ListServiceAsync
 import com.telnyx.sdk.services.async.ListServiceAsyncImpl
+import com.telnyx.sdk.services.async.MachinePaymentServiceAsync
+import com.telnyx.sdk.services.async.MachinePaymentServiceAsyncImpl
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsyncImpl
 import com.telnyx.sdk.services.async.MediaServiceAsync
@@ -190,6 +200,8 @@ import com.telnyx.sdk.services.async.NetworkCoverageServiceAsync
 import com.telnyx.sdk.services.async.NetworkCoverageServiceAsyncImpl
 import com.telnyx.sdk.services.async.NetworkServiceAsync
 import com.telnyx.sdk.services.async.NetworkServiceAsyncImpl
+import com.telnyx.sdk.services.async.NoiseSuppressionEngineServiceAsync
+import com.telnyx.sdk.services.async.NoiseSuppressionEngineServiceAsyncImpl
 import com.telnyx.sdk.services.async.NotificationChannelServiceAsync
 import com.telnyx.sdk.services.async.NotificationChannelServiceAsyncImpl
 import com.telnyx.sdk.services.async.NotificationEventConditionServiceAsync
@@ -1094,6 +1106,30 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         ExternalRequirementServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val compute: ComputeServiceAsync by lazy {
+        ComputeServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val noiseSuppressionEngines: NoiseSuppressionEngineServiceAsync by lazy {
+        NoiseSuppressionEngineServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val botChallenge: BotChallengeServiceAsync by lazy {
+        BotChallengeServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val botSessions: BotSessionServiceAsync by lazy {
+        BotSessionServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val botSignup: BotSignupServiceAsync by lazy {
+        BotSignupServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val machinePayments: MachinePaymentServiceAsync by lazy {
+        MachinePaymentServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1662,6 +1698,49 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun meetingSessions(): MeetingSessionServiceAsync = meetingSessions
 
     override fun externalRequirements(): ExternalRequirementServiceAsync = externalRequirements
+
+    override fun compute(): ComputeServiceAsync = compute
+
+    /**
+     * Noise suppression engines that can be selected when configuring noise suppression on voice
+     * connections.
+     */
+    override fun noiseSuppressionEngines(): NoiseSuppressionEngineServiceAsync =
+        noiseSuppressionEngines
+
+    /**
+     * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+     * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+     * consuming a magic link emailed to the account owner. All endpoints are public and
+     * unauthenticated; signup endpoints are additionally gated by the freemium feature flags and
+     * per-country availability.
+     */
+    override fun botChallenge(): BotChallengeServiceAsync = botChallenge
+
+    /**
+     * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+     * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+     * consuming a magic link emailed to the account owner. All endpoints are public and
+     * unauthenticated; signup endpoints are additionally gated by the freemium feature flags and
+     * per-country availability.
+     */
+    override fun botSessions(): BotSessionServiceAsync = botSessions
+
+    /**
+     * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+     * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+     * consuming a magic link emailed to the account owner. All endpoints are public and
+     * unauthenticated; signup endpoints are additionally gated by the freemium feature flags and
+     * per-country availability.
+     */
+    override fun botSignup(): BotSignupServiceAsync = botSignup
+
+    /**
+     * Machine payment (MPP) account-credit operations. Fund your Telnyx account programmatically
+     * from a machine or agent using the Machine Payment Protocol, an HTTP-402 flow settled via
+     * Stripe or Tempo.
+     */
+    override fun machinePayments(): MachinePaymentServiceAsync = machinePayments
 
     override fun close() = clientOptions.close()
 
@@ -2434,6 +2513,31 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             ExternalRequirementServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val compute: ComputeServiceAsync.WithRawResponse by lazy {
+            ComputeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val noiseSuppressionEngines:
+            NoiseSuppressionEngineServiceAsync.WithRawResponse by lazy {
+            NoiseSuppressionEngineServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val botChallenge: BotChallengeServiceAsync.WithRawResponse by lazy {
+            BotChallengeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val botSessions: BotSessionServiceAsync.WithRawResponse by lazy {
+            BotSessionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val botSignup: BotSignupServiceAsync.WithRawResponse by lazy {
+            BotSignupServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val machinePayments: MachinePaymentServiceAsync.WithRawResponse by lazy {
+            MachinePaymentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3060,5 +3164,48 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun externalRequirements(): ExternalRequirementServiceAsync.WithRawResponse =
             externalRequirements
+
+        override fun compute(): ComputeServiceAsync.WithRawResponse = compute
+
+        /**
+         * Noise suppression engines that can be selected when configuring noise suppression on
+         * voice connections.
+         */
+        override fun noiseSuppressionEngines(): NoiseSuppressionEngineServiceAsync.WithRawResponse =
+            noiseSuppressionEngines
+
+        /**
+         * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+         * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+         * consuming a magic link emailed to the account owner. All endpoints are public and
+         * unauthenticated; signup endpoints are additionally gated by the freemium feature flags
+         * and per-country availability.
+         */
+        override fun botChallenge(): BotChallengeServiceAsync.WithRawResponse = botChallenge
+
+        /**
+         * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+         * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+         * consuming a magic link emailed to the account owner. All endpoints are public and
+         * unauthenticated; signup endpoints are additionally gated by the freemium feature flags
+         * and per-country availability.
+         */
+        override fun botSessions(): BotSessionServiceAsync.WithRawResponse = botSessions
+
+        /**
+         * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge
+         * designed to be easy for LLMs and hard for humans, registers an account, and signs in by
+         * consuming a magic link emailed to the account owner. All endpoints are public and
+         * unauthenticated; signup endpoints are additionally gated by the freemium feature flags
+         * and per-country availability.
+         */
+        override fun botSignup(): BotSignupServiceAsync.WithRawResponse = botSignup
+
+        /**
+         * Machine payment (MPP) account-credit operations. Fund your Telnyx account
+         * programmatically from a machine or agent using the Machine Payment Protocol, an HTTP-402
+         * flow settled via Stripe or Tempo.
+         */
+        override fun machinePayments(): MachinePaymentServiceAsync.WithRawResponse = machinePayments
     }
 }

@@ -207,7 +207,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
-        private val eventType: JsonField<String>,
+        private val eventType: JsonField<EventType>,
         private val occurredAt: JsonField<OffsetDateTime>,
         private val payload: JsonField<Payload>,
         private val recordType: JsonField<String>,
@@ -219,7 +219,7 @@ private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("event_type")
             @ExcludeMissing
-            eventType: JsonField<String> = JsonMissing.of(),
+            eventType: JsonField<EventType> = JsonMissing.of(),
             @JsonProperty("occurred_at")
             @ExcludeMissing
             occurredAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -243,7 +243,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun eventType(): String = eventType.getRequired("event_type")
+        fun eventType(): EventType = eventType.getRequired("event_type")
 
         /**
          * ISO 8601 timestamp of when the event occurred
@@ -282,7 +282,9 @@ private constructor(
          *
          * Unlike [eventType], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("event_type") @ExcludeMissing fun _eventType(): JsonField<String> = eventType
+        @JsonProperty("event_type")
+        @ExcludeMissing
+        fun _eventType(): JsonField<EventType> = eventType
 
         /**
          * Returns the raw JSON value of [occurredAt].
@@ -342,7 +344,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
-            private var eventType: JsonField<String>? = null
+            private var eventType: JsonField<EventType>? = null
             private var occurredAt: JsonField<OffsetDateTime>? = null
             private var payload: JsonField<Payload>? = null
             private var recordType: JsonField<String>? = null
@@ -371,16 +373,16 @@ private constructor(
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** The type of event being sent */
-            fun eventType(eventType: String) = eventType(JsonField.of(eventType))
+            fun eventType(eventType: EventType) = eventType(JsonField.of(eventType))
 
             /**
              * Sets [Builder.eventType] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.eventType] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.eventType] with a well-typed [EventType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun eventType(eventType: JsonField<String>) = apply { this.eventType = eventType }
+            fun eventType(eventType: JsonField<EventType>) = apply { this.eventType = eventType }
 
             /** ISO 8601 timestamp of when the event occurred */
             fun occurredAt(occurredAt: OffsetDateTime) = occurredAt(JsonField.of(occurredAt))
@@ -486,7 +488,7 @@ private constructor(
             }
 
             id()
-            eventType()
+            eventType().validate()
             occurredAt()
             payload().validate()
             recordType()
@@ -510,10 +512,146 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
-                (if (eventType.asKnown().isPresent) 1 else 0) +
+                (eventType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (occurredAt.asKnown().isPresent) 1 else 0) +
                 (payload.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (recordType.asKnown().isPresent) 1 else 0)
+
+        /** The type of event being sent */
+        class EventType @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val NUMBER_ORDER_COMPLETE = of("number_order.complete")
+
+                @JvmStatic fun of(value: String) = EventType(JsonField.of(value))
+            }
+
+            /** An enum containing [EventType]'s known values. */
+            enum class Known {
+                NUMBER_ORDER_COMPLETE
+            }
+
+            /**
+             * An enum containing [EventType]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [EventType] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                NUMBER_ORDER_COMPLETE,
+                /**
+                 * An enum member indicating that [EventType] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    NUMBER_ORDER_COMPLETE -> Value.NUMBER_ORDER_COMPLETE
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    NUMBER_ORDER_COMPLETE -> Known.NUMBER_ORDER_COMPLETE
+                    else -> throw TelnyxInvalidDataException("Unknown EventType: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): EventType = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is EventType && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         /**
          * Number order data delivered in a webhook. Server-generated fields are valid in this

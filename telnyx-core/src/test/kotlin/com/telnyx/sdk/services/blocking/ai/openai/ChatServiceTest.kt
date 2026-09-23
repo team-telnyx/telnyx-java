@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.ai.openai
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.chat.ChatCompletionRequest
+import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -36,13 +37,6 @@ internal class ChatServiceTest {
                     .earlyStopping(true)
                     .enableThinking(true)
                     .frequencyPenalty(0.0)
-                    .addGuidedChoice("string")
-                    .guidedJson(
-                        ChatCompletionRequest.GuidedJson.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .guidedRegex("guided_regex")
                     .lengthPenalty(0.0)
                     .logprobs(true)
                     .maxTokens(0L)
@@ -53,11 +47,7 @@ internal class ChatServiceTest {
                     .presencePenalty(0.0)
                     .reasoningEffort(ChatCompletionRequest.ReasoningEffort.NONE)
                     .region(ChatCompletionRequest.Region.USA)
-                    .responseFormat(
-                        ChatCompletionRequest.ResponseFormat.builder()
-                            .type(ChatCompletionRequest.ResponseFormat.Type.TEXT)
-                            .build()
-                    )
+                    .responseFormatText()
                     .seed(0L)
                     .serviceTier("service_tier")
                     .stop("string")
@@ -65,12 +55,11 @@ internal class ChatServiceTest {
                     .temperature(0.0)
                     .toolChoice(ChatCompletionRequest.ToolChoice.NONE)
                     .addFunctionTool(
-                        ChatCompletionRequest.Tool.ChatCompletionTool.Function.builder()
+                        FunctionDefinition.builder()
                             .name("name")
                             .description("description")
                             .parameters(
-                                ChatCompletionRequest.Tool.ChatCompletionTool.Function.Parameters
-                                    .builder()
+                                FunctionDefinition.Parameters.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )

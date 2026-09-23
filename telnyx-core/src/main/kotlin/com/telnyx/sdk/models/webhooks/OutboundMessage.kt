@@ -322,6 +322,8 @@ private constructor(
 
             @JvmField val MESSAGE_FINALIZED = of("message.finalized")
 
+            @JvmField val MESSAGE_READ = of("message.read")
+
             @JvmStatic fun of(value: String) = EventType(JsonField.of(value))
         }
 
@@ -329,6 +331,7 @@ private constructor(
         enum class Known {
             MESSAGE_SENT,
             MESSAGE_FINALIZED,
+            MESSAGE_READ,
         }
 
         /**
@@ -343,6 +346,7 @@ private constructor(
         enum class Value {
             MESSAGE_SENT,
             MESSAGE_FINALIZED,
+            MESSAGE_READ,
             /**
              * An enum member indicating that [EventType] was instantiated with an unknown value.
              */
@@ -360,6 +364,7 @@ private constructor(
             when (this) {
                 MESSAGE_SENT -> Value.MESSAGE_SENT
                 MESSAGE_FINALIZED -> Value.MESSAGE_FINALIZED
+                MESSAGE_READ -> Value.MESSAGE_READ
                 else -> Value._UNKNOWN
             }
 
@@ -376,6 +381,7 @@ private constructor(
             when (this) {
                 MESSAGE_SENT -> Known.MESSAGE_SENT
                 MESSAGE_FINALIZED -> Known.MESSAGE_FINALIZED
+                MESSAGE_READ -> Known.MESSAGE_READ
                 else -> throw TelnyxInvalidDataException("Unknown EventType: $value")
             }
 

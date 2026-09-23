@@ -78,14 +78,17 @@ private constructor(
      * - `deepgram/nova-3` is multilingual with automatic language detection.
      * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
      * - `azure/fast` is a multilingual Azure transcription model.
-     * - `assemblyai/universal-streaming` is a multilingual streaming model with configurable turn
-     *   detection.
+     * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with configurable turn
+     *   detection. The legacy alias `assemblyai/universal-streaming` is still accepted and resolves
+     *   to the same model.
      * - `xai/grok-stt` is a multilingual Grok STT model.
      * - `soniox/stt-rt-v4` and `soniox/stt-rt-v5` are multilingual streaming models with automatic
      *   language detection, configurable endpointing, term biasing (`context`), and
      *   `language_hints`.
      * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic language
      *   detection.
+     * - `omi-health/omi-med-stt-v1` is an English-only medical transcription model
+     *   (Parakeet-based).
      * - `humain/realtime` is a streaming model with native Arabic and Arabic/English code-switching
      *   support.
      * - `reson8/turns` is a turn-based streaming model covering 10 European languages with
@@ -236,14 +239,17 @@ private constructor(
          * - `deepgram/nova-3` is multilingual with automatic language detection.
          * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
          * - `azure/fast` is a multilingual Azure transcription model.
-         * - `assemblyai/universal-streaming` is a multilingual streaming model with configurable
-         *   turn detection.
+         * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with configurable turn
+         *   detection. The legacy alias `assemblyai/universal-streaming` is still accepted and
+         *   resolves to the same model.
          * - `xai/grok-stt` is a multilingual Grok STT model.
          * - `soniox/stt-rt-v4` and `soniox/stt-rt-v5` are multilingual streaming models with
          *   automatic language detection, configurable endpointing, term biasing (`context`), and
          *   `language_hints`.
          * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic language
          *   detection.
+         * - `omi-health/omi-med-stt-v1` is an English-only medical transcription model
+         *   (Parakeet-based).
          * - `humain/realtime` is a streaming model with native Arabic and Arabic/English
          *   code-switching support.
          * - `reson8/turns` is a turn-based streaming model covering 10 European languages with
@@ -373,14 +379,17 @@ private constructor(
      * - `deepgram/nova-3` is multilingual with automatic language detection.
      * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
      * - `azure/fast` is a multilingual Azure transcription model.
-     * - `assemblyai/universal-streaming` is a multilingual streaming model with configurable turn
-     *   detection.
+     * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with configurable turn
+     *   detection. The legacy alias `assemblyai/universal-streaming` is still accepted and resolves
+     *   to the same model.
      * - `xai/grok-stt` is a multilingual Grok STT model.
      * - `soniox/stt-rt-v4` and `soniox/stt-rt-v5` are multilingual streaming models with automatic
      *   language detection, configurable endpointing, term biasing (`context`), and
      *   `language_hints`.
      * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic language
      *   detection.
+     * - `omi-health/omi-med-stt-v1` is an English-only medical transcription model
+     *   (Parakeet-based).
      * - `humain/realtime` is a streaming model with native Arabic and Arabic/English code-switching
      *   support.
      * - `reson8/turns` is a turn-based streaming model covering 10 European languages with
@@ -409,6 +418,8 @@ private constructor(
 
             @JvmField val AZURE_FAST = of("azure/fast")
 
+            @JvmField val ASSEMBLYAI_UNIVERSAL_3_5_PRO = of("assemblyai/universal-3-5-pro")
+
             @JvmField val ASSEMBLYAI_UNIVERSAL_STREAMING = of("assemblyai/universal-streaming")
 
             @JvmField val XAI_GROK_STT = of("xai/grok-stt")
@@ -418,6 +429,8 @@ private constructor(
             @JvmField val SONIOX_STT_RT_V5 = of("soniox/stt-rt-v5")
 
             @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
+
+            @JvmField val OMI_HEALTH_OMI_MED_STT_V1 = of("omi-health/omi-med-stt-v1")
 
             @JvmField val HUMAIN_REALTIME = of("humain/realtime")
 
@@ -438,11 +451,13 @@ private constructor(
             DEEPGRAM_NOVA_3,
             DEEPGRAM_NOVA_2,
             AZURE_FAST,
+            ASSEMBLYAI_UNIVERSAL_3_5_PRO,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
             SONIOX_STT_RT_V5,
             NVIDIA_PARAKEET_V3,
+            OMI_HEALTH_OMI_MED_STT_V1,
             HUMAIN_REALTIME,
             RESON8_TURNS,
             COHERE_AR_STT,
@@ -464,11 +479,13 @@ private constructor(
             DEEPGRAM_NOVA_3,
             DEEPGRAM_NOVA_2,
             AZURE_FAST,
+            ASSEMBLYAI_UNIVERSAL_3_5_PRO,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
             SONIOX_STT_RT_V5,
             NVIDIA_PARAKEET_V3,
+            OMI_HEALTH_OMI_MED_STT_V1,
             HUMAIN_REALTIME,
             RESON8_TURNS,
             COHERE_AR_STT,
@@ -491,11 +508,13 @@ private constructor(
                 DEEPGRAM_NOVA_3 -> Value.DEEPGRAM_NOVA_3
                 DEEPGRAM_NOVA_2 -> Value.DEEPGRAM_NOVA_2
                 AZURE_FAST -> Value.AZURE_FAST
+                ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Value.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 SONIOX_STT_RT_V5 -> Value.SONIOX_STT_RT_V5
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
+                OMI_HEALTH_OMI_MED_STT_V1 -> Value.OMI_HEALTH_OMI_MED_STT_V1
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
                 RESON8_TURNS -> Value.RESON8_TURNS
                 COHERE_AR_STT -> Value.COHERE_AR_STT
@@ -519,11 +538,13 @@ private constructor(
                 DEEPGRAM_NOVA_3 -> Known.DEEPGRAM_NOVA_3
                 DEEPGRAM_NOVA_2 -> Known.DEEPGRAM_NOVA_2
                 AZURE_FAST -> Known.AZURE_FAST
+                ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Known.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 SONIOX_STT_RT_V5 -> Known.SONIOX_STT_RT_V5
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
+                OMI_HEALTH_OMI_MED_STT_V1 -> Known.OMI_HEALTH_OMI_MED_STT_V1
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
                 RESON8_TURNS -> Known.RESON8_TURNS
                 COHERE_AR_STT -> Known.COHERE_AR_STT

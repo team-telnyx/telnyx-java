@@ -19,6 +19,7 @@ class PrivacySettings
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val dataRetention: JsonField<Boolean>,
+    private val inTransitDataLocality: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -26,8 +27,11 @@ private constructor(
     private constructor(
         @JsonProperty("data_retention")
         @ExcludeMissing
-        dataRetention: JsonField<Boolean> = JsonMissing.of()
-    ) : this(dataRetention, mutableMapOf())
+        dataRetention: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("in_transit_data_locality")
+        @ExcludeMissing
+        inTransitDataLocality: JsonField<Boolean> = JsonMissing.of(),
+    ) : this(dataRetention, inTransitDataLocality, mutableMapOf())
 
     /**
      * If true, conversation history and insights will be stored. If false, they will not be stored.
@@ -42,6 +46,24 @@ private constructor(
     fun dataRetention(): Optional<Boolean> = dataRetention.getOptional("data_retention")
 
     /**
+     * Requires every model call made for a web chat turn to be received and served inside your
+     * organization's data-locality region, rather than only stored there. Applies to web chat only
+     * — voice and messaging assistants are unaffected. Enabling it requires a data-locality region
+     * with in-region inference (USA, EU, AUS, UAE; see
+     * [Inference regions](https://developers.telnyx.com/docs/inference/models/regions)) and
+     * Telnyx-hosted models for the assistant, its fallback, and any conversation-flow node that
+     * overrides the model; the request is rejected otherwise. Once enabled, send chat requests to
+     * your region's API hostname: a request entering the platform in another region is rejected
+     * rather than forwarded, because forwarding it would already have moved the content across the
+     * border. Defaults to false.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun inTransitDataLocality(): Optional<Boolean> =
+        inTransitDataLocality.getOptional("in_transit_data_locality")
+
+    /**
      * Returns the raw JSON value of [dataRetention].
      *
      * Unlike [dataRetention], this method doesn't throw if the JSON field has an unexpected type.
@@ -49,6 +71,16 @@ private constructor(
     @JsonProperty("data_retention")
     @ExcludeMissing
     fun _dataRetention(): JsonField<Boolean> = dataRetention
+
+    /**
+     * Returns the raw JSON value of [inTransitDataLocality].
+     *
+     * Unlike [inTransitDataLocality], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("in_transit_data_locality")
+    @ExcludeMissing
+    fun _inTransitDataLocality(): JsonField<Boolean> = inTransitDataLocality
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -72,11 +104,13 @@ private constructor(
     class Builder internal constructor() {
 
         private var dataRetention: JsonField<Boolean> = JsonMissing.of()
+        private var inTransitDataLocality: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(privacySettings: PrivacySettings) = apply {
             dataRetention = privacySettings.dataRetention
+            inTransitDataLocality = privacySettings.inTransitDataLocality
             additionalProperties = privacySettings.additionalProperties.toMutableMap()
         }
 
@@ -98,6 +132,32 @@ private constructor(
          */
         fun dataRetention(dataRetention: JsonField<Boolean>) = apply {
             this.dataRetention = dataRetention
+        }
+
+        /**
+         * Requires every model call made for a web chat turn to be received and served inside your
+         * organization's data-locality region, rather than only stored there. Applies to web chat
+         * only — voice and messaging assistants are unaffected. Enabling it requires a
+         * data-locality region with in-region inference (USA, EU, AUS, UAE; see
+         * [Inference regions](https://developers.telnyx.com/docs/inference/models/regions)) and
+         * Telnyx-hosted models for the assistant, its fallback, and any conversation-flow node that
+         * overrides the model; the request is rejected otherwise. Once enabled, send chat requests
+         * to your region's API hostname: a request entering the platform in another region is
+         * rejected rather than forwarded, because forwarding it would already have moved the
+         * content across the border. Defaults to false.
+         */
+        fun inTransitDataLocality(inTransitDataLocality: Boolean) =
+            inTransitDataLocality(JsonField.of(inTransitDataLocality))
+
+        /**
+         * Sets [Builder.inTransitDataLocality] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.inTransitDataLocality] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun inTransitDataLocality(inTransitDataLocality: JsonField<Boolean>) = apply {
+            this.inTransitDataLocality = inTransitDataLocality
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -125,7 +185,11 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): PrivacySettings =
-            PrivacySettings(dataRetention, additionalProperties.toMutableMap())
+            PrivacySettings(
+                dataRetention,
+                inTransitDataLocality,
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false
@@ -144,6 +208,7 @@ private constructor(
         }
 
         dataRetention()
+        inTransitDataLocality()
         validated = true
     }
 
@@ -160,7 +225,10 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    @JvmSynthetic internal fun validity(): Int = (if (dataRetention.asKnown().isPresent) 1 else 0)
+    @JvmSynthetic
+    internal fun validity(): Int =
+        (if (dataRetention.asKnown().isPresent) 1 else 0) +
+            (if (inTransitDataLocality.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -169,13 +237,16 @@ private constructor(
 
         return other is PrivacySettings &&
             dataRetention == other.dataRetention &&
+            inTransitDataLocality == other.inTransitDataLocality &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(dataRetention, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(dataRetention, inTransitDataLocality, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PrivacySettings{dataRetention=$dataRetention, additionalProperties=$additionalProperties}"
+        "PrivacySettings{dataRetention=$dataRetention, inTransitDataLocality=$inTransitDataLocality, additionalProperties=$additionalProperties}"
 }

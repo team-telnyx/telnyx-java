@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.texml.TexmlInitiateAiCallResponse
 import com.telnyx.sdk.models.texml.TexmlSecretsParams
 import com.telnyx.sdk.models.texml.TexmlSecretsResponse
 import com.telnyx.sdk.services.async.texml.AccountServiceAsync
+import com.telnyx.sdk.services.async.texml.CallServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -27,6 +28,9 @@ interface TexmlServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlServiceAsync
+
+    /** TeXML REST Commands */
+    fun calls(): CallServiceAsync
 
     /** TeXML REST Commands */
     fun accounts(): AccountServiceAsync
@@ -100,6 +104,9 @@ interface TexmlServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TexmlServiceAsync.WithRawResponse
+
+        /** TeXML REST Commands */
+        fun calls(): CallServiceAsync.WithRawResponse
 
         /** TeXML REST Commands */
         fun accounts(): AccountServiceAsync.WithRawResponse
