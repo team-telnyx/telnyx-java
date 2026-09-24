@@ -44,6 +44,7 @@ internal class PhoneNumberRetrieveResponseTest {
                         .inboundCallScreening(
                             NumbersPhoneNumberDetailed.InboundCallScreening.DISABLED
                         )
+                        .messagingCampaignId("messaging_campaign_id")
                         .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
                         .messagingProfileName("regional-customers")
                         .sourceType(NumbersPhoneNumberDetailed.SourceType.NUMBER_ORDER)
@@ -82,6 +83,7 @@ internal class PhoneNumberRetrieveResponseTest {
                     .emergencyStatus(NumbersPhoneNumberDetailed.EmergencyStatus.ACTIVE)
                     .hdVoiceEnabled(true)
                     .inboundCallScreening(NumbersPhoneNumberDetailed.InboundCallScreening.DISABLED)
+                    .messagingCampaignId("messaging_campaign_id")
                     .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
                     .messagingProfileName("regional-customers")
                     .sourceType(NumbersPhoneNumberDetailed.SourceType.NUMBER_ORDER)
@@ -126,6 +128,7 @@ internal class PhoneNumberRetrieveResponseTest {
                         .inboundCallScreening(
                             NumbersPhoneNumberDetailed.InboundCallScreening.DISABLED
                         )
+                        .messagingCampaignId("messaging_campaign_id")
                         .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
                         .messagingProfileName("regional-customers")
                         .sourceType(NumbersPhoneNumberDetailed.SourceType.NUMBER_ORDER)

@@ -49,6 +49,7 @@ private constructor(
     private val emergencyStatus: JsonField<EmergencyStatus>,
     private val hdVoiceEnabled: JsonField<Boolean>,
     private val inboundCallScreening: JsonField<InboundCallScreening>,
+    private val messagingCampaignId: JsonField<String>,
     private val messagingProfileId: JsonField<String>,
     private val messagingProfileName: JsonField<String>,
     private val sourceType: JsonField<SourceType>,
@@ -128,6 +129,9 @@ private constructor(
         @JsonProperty("inbound_call_screening")
         @ExcludeMissing
         inboundCallScreening: JsonField<InboundCallScreening> = JsonMissing.of(),
+        @JsonProperty("messaging_campaign_id")
+        @ExcludeMissing
+        messagingCampaignId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("messaging_profile_id")
         @ExcludeMissing
         messagingProfileId: JsonField<String> = JsonMissing.of(),
@@ -167,6 +171,7 @@ private constructor(
         emergencyStatus,
         hdVoiceEnabled,
         inboundCallScreening,
+        messagingCampaignId,
         messagingProfileId,
         messagingProfileName,
         sourceType,
@@ -397,7 +402,18 @@ private constructor(
         inboundCallScreening.getOptional("inbound_call_screening")
 
     /**
-     * Identifies the messaging profile associated with the phone number.
+     * Identifies the messaging campaign associated with the phone number's messaging profile. If
+     * the messaging profile details could not be retrieved, this value is the string `UNAVAILABLE`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun messagingCampaignId(): Optional<String> =
+        messagingCampaignId.getOptional("messaging_campaign_id")
+
+    /**
+     * Identifies the messaging profile associated with the phone number. If the messaging profile
+     * details could not be retrieved, this value is the string `UNAVAILABLE`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -406,7 +422,8 @@ private constructor(
         messagingProfileId.getOptional("messaging_profile_id")
 
     /**
-     * The name of the messaging profile associated with the phone number.
+     * The name of the messaging profile associated with the phone number. If the messaging profile
+     * details could not be retrieved, this value is the string `UNAVAILABLE`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -668,6 +685,16 @@ private constructor(
     fun _inboundCallScreening(): JsonField<InboundCallScreening> = inboundCallScreening
 
     /**
+     * Returns the raw JSON value of [messagingCampaignId].
+     *
+     * Unlike [messagingCampaignId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("messaging_campaign_id")
+    @ExcludeMissing
+    fun _messagingCampaignId(): JsonField<String> = messagingCampaignId
+
+    /**
      * Returns the raw JSON value of [messagingProfileId].
      *
      * Unlike [messagingProfileId], this method doesn't throw if the JSON field has an unexpected
@@ -776,6 +803,7 @@ private constructor(
         private var emergencyStatus: JsonField<EmergencyStatus> = JsonMissing.of()
         private var hdVoiceEnabled: JsonField<Boolean> = JsonMissing.of()
         private var inboundCallScreening: JsonField<InboundCallScreening> = JsonMissing.of()
+        private var messagingCampaignId: JsonField<String> = JsonMissing.of()
         private var messagingProfileId: JsonField<String> = JsonMissing.of()
         private var messagingProfileName: JsonField<String> = JsonMissing.of()
         private var sourceType: JsonField<SourceType> = JsonMissing.of()
@@ -810,6 +838,7 @@ private constructor(
             emergencyStatus = numbersPhoneNumberDetailed.emergencyStatus
             hdVoiceEnabled = numbersPhoneNumberDetailed.hdVoiceEnabled
             inboundCallScreening = numbersPhoneNumberDetailed.inboundCallScreening
+            messagingCampaignId = numbersPhoneNumberDetailed.messagingCampaignId
             messagingProfileId = numbersPhoneNumberDetailed.messagingProfileId
             messagingProfileName = numbersPhoneNumberDetailed.messagingProfileName
             sourceType = numbersPhoneNumberDetailed.sourceType
@@ -1234,7 +1263,35 @@ private constructor(
             this.inboundCallScreening = inboundCallScreening
         }
 
-        /** Identifies the messaging profile associated with the phone number. */
+        /**
+         * Identifies the messaging campaign associated with the phone number's messaging profile.
+         * If the messaging profile details could not be retrieved, this value is the string
+         * `UNAVAILABLE`.
+         */
+        fun messagingCampaignId(messagingCampaignId: String?) =
+            messagingCampaignId(JsonField.ofNullable(messagingCampaignId))
+
+        /**
+         * Alias for calling [Builder.messagingCampaignId] with `messagingCampaignId.orElse(null)`.
+         */
+        fun messagingCampaignId(messagingCampaignId: Optional<String>) =
+            messagingCampaignId(messagingCampaignId.getOrNull())
+
+        /**
+         * Sets [Builder.messagingCampaignId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.messagingCampaignId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun messagingCampaignId(messagingCampaignId: JsonField<String>) = apply {
+            this.messagingCampaignId = messagingCampaignId
+        }
+
+        /**
+         * Identifies the messaging profile associated with the phone number. If the messaging
+         * profile details could not be retrieved, this value is the string `UNAVAILABLE`.
+         */
         fun messagingProfileId(messagingProfileId: String?) =
             messagingProfileId(JsonField.ofNullable(messagingProfileId))
 
@@ -1255,7 +1312,10 @@ private constructor(
             this.messagingProfileId = messagingProfileId
         }
 
-        /** The name of the messaging profile associated with the phone number. */
+        /**
+         * The name of the messaging profile associated with the phone number. If the messaging
+         * profile details could not be retrieved, this value is the string `UNAVAILABLE`.
+         */
         fun messagingProfileName(messagingProfileName: String?) =
             messagingProfileName(JsonField.ofNullable(messagingProfileName))
 
@@ -1390,6 +1450,7 @@ private constructor(
                 emergencyStatus,
                 hdVoiceEnabled,
                 inboundCallScreening,
+                messagingCampaignId,
                 messagingProfileId,
                 messagingProfileName,
                 sourceType,
@@ -1439,6 +1500,7 @@ private constructor(
         emergencyStatus().ifPresent { it.validate() }
         hdVoiceEnabled()
         inboundCallScreening().ifPresent { it.validate() }
+        messagingCampaignId()
         messagingProfileId()
         messagingProfileName()
         sourceType().ifPresent { it.validate() }
@@ -1487,6 +1549,7 @@ private constructor(
             (emergencyStatus.asKnown().getOrNull()?.validity() ?: 0) +
             (if (hdVoiceEnabled.asKnown().isPresent) 1 else 0) +
             (inboundCallScreening.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (messagingCampaignId.asKnown().isPresent) 1 else 0) +
             (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
             (if (messagingProfileName.asKnown().isPresent) 1 else 0) +
             (sourceType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2363,6 +2426,7 @@ private constructor(
             emergencyStatus == other.emergencyStatus &&
             hdVoiceEnabled == other.hdVoiceEnabled &&
             inboundCallScreening == other.inboundCallScreening &&
+            messagingCampaignId == other.messagingCampaignId &&
             messagingProfileId == other.messagingProfileId &&
             messagingProfileName == other.messagingProfileName &&
             sourceType == other.sourceType &&
@@ -2398,6 +2462,7 @@ private constructor(
             emergencyStatus,
             hdVoiceEnabled,
             inboundCallScreening,
+            messagingCampaignId,
             messagingProfileId,
             messagingProfileName,
             sourceType,
@@ -2410,5 +2475,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "NumbersPhoneNumberDetailed{id=$id, countryIsoAlpha2=$countryIsoAlpha2, createdAt=$createdAt, deletionLockEnabled=$deletionLockEnabled, externalPin=$externalPin, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, tags=$tags, activatedAt=$activatedAt, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, connectionName=$connectionName, customerReference=$customerReference, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, emergencyStatus=$emergencyStatus, hdVoiceEnabled=$hdVoiceEnabled, inboundCallScreening=$inboundCallScreening, messagingProfileId=$messagingProfileId, messagingProfileName=$messagingProfileName, sourceType=$sourceType, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "NumbersPhoneNumberDetailed{id=$id, countryIsoAlpha2=$countryIsoAlpha2, createdAt=$createdAt, deletionLockEnabled=$deletionLockEnabled, externalPin=$externalPin, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, tags=$tags, activatedAt=$activatedAt, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, connectionName=$connectionName, customerReference=$customerReference, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, emergencyStatus=$emergencyStatus, hdVoiceEnabled=$hdVoiceEnabled, inboundCallScreening=$inboundCallScreening, messagingCampaignId=$messagingCampaignId, messagingProfileId=$messagingProfileId, messagingProfileName=$messagingProfileName, sourceType=$sourceType, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }
