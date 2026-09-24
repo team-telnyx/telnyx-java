@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.BaseDeserializer
 import com.telnyx.sdk.core.BaseSerializer
+import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -32,20 +33,23 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * **Beta API.** Telnyx controls model selection.
+ * **Beta API.** Choose telnyx/decision-flash for the lowest cost and latency, or
+ * telnyx/decision-pro for decisions that require long context, including inputs beyond Jev’s 32k
+ * per-decision limit. Omitted model defaults to telnyx/decision-flash.
  *
  * Evaluate shared context using named choice, noul (yes/no), and score questions. Returns TypeSafe
- * System One-compatible answer shapes, an opaque compatibility identifier, and token usage. See the
+ * System One-compatible answer shapes, the selected public model alias, and token usage. See the
  * [decision model guide](https://developers.telnyx.com/docs/inference/decision-models) for examples
  * and compatibility limits.
  *
  * The supported request subset requires instructions for every question, string descriptions for
  * criteria (or null for choice descriptions), 1–64 questions, and 2–64 options for choice and score
- * questions. The SDK-supplied model value is ignored and cannot select a model. Other unknown
- * fields are rejected. The endpoint is synchronous and does not stream.
+ * questions. The model field accepts only telnyx/decision-flash or telnyx/decision-pro. Unsupported
+ * model values and unknown fields are rejected. The endpoint is synchronous and does not stream.
  *
  * Use the TypeSafe Python SDK with base_url set to https://api.telnyx.com/v2/ai/typesafe and a
- * Telnyx API key. The SDK appends /v1/systemone. Compatibility covers this operation and the
+ * Telnyx API key. The SDK appends /v1/systemone; explicitly set model to a supported Telnyx alias
+ * because its own default model is not supported. Compatibility covers this operation and the
  * documented request subset; it does not include TypeSafe model listing. Scores describe relative
  * preference, not calibrated correctness.
  */
@@ -73,6 +77,17 @@ private constructor(
     fun state(): State = body.state()
 
     /**
+     * Public model alias. telnyx/decision-flash offers the lowest cost and latency;
+     * telnyx/decision-pro supports decisions that require long context, including inputs beyond
+     * Jev’s 32k per-decision limit. Applies to every question in the request. Other values are
+     * rejected.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun model(): Optional<Model> = body.model()
+
+    /**
      * Returns the raw JSON value of [questions].
      *
      * Unlike [questions], this method doesn't throw if the JSON field has an unexpected type.
@@ -85,6 +100,13 @@ private constructor(
      * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _state(): JsonField<State> = body._state()
+
+    /**
+     * Returns the raw JSON value of [model].
+     *
+     * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _model(): JsonField<Model> = body._model()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -132,6 +154,7 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [questions]
          * - [state]
+         * - [model]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -168,6 +191,22 @@ private constructor(
         fun stateOfJsonValues(jsonValues: List<JsonValue>) = apply {
             body.stateOfJsonValues(jsonValues)
         }
+
+        /**
+         * Public model alias. telnyx/decision-flash offers the lowest cost and latency;
+         * telnyx/decision-pro supports decisions that require long context, including inputs beyond
+         * Jev’s 32k per-decision limit. Applies to every question in the request. Other values are
+         * rejected.
+         */
+        fun model(model: Model) = apply { body.model(model) }
+
+        /**
+         * Sets [Builder.model] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.model] with a well-typed [Model] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun model(model: JsonField<Model>) = apply { body.model(model) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -315,14 +354,15 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     /**
-     * Decision Models beta request. Telnyx manages model selection. SDK-supplied model values are
-     * ignored for compatibility; they do not select a model.
+     * Decision Models beta request. Choose a public model alias; omitted model defaults to
+     * telnyx/decision-flash. Telnyx manages the underlying models behind these aliases.
      */
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val questions: JsonField<Questions>,
         private val state: JsonField<State>,
+        private val model: JsonField<Model>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -332,7 +372,8 @@ private constructor(
             @ExcludeMissing
             questions: JsonField<Questions> = JsonMissing.of(),
             @JsonProperty("state") @ExcludeMissing state: JsonField<State> = JsonMissing.of(),
-        ) : this(questions, state, mutableMapOf())
+            @JsonProperty("model") @ExcludeMissing model: JsonField<Model> = JsonMissing.of(),
+        ) : this(questions, state, model, mutableMapOf())
 
         /**
          * Between 1 and 64 named questions. Each key identifies the corresponding answer.
@@ -351,6 +392,17 @@ private constructor(
         fun state(): State = state.getRequired("state")
 
         /**
+         * Public model alias. telnyx/decision-flash offers the lowest cost and latency;
+         * telnyx/decision-pro supports decisions that require long context, including inputs beyond
+         * Jev’s 32k per-decision limit. Applies to every question in the request. Other values are
+         * rejected.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun model(): Optional<Model> = model.getOptional("model")
+
+        /**
          * Returns the raw JSON value of [questions].
          *
          * Unlike [questions], this method doesn't throw if the JSON field has an unexpected type.
@@ -365,6 +417,13 @@ private constructor(
          * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<State> = state
+
+        /**
+         * Returns the raw JSON value of [model].
+         *
+         * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<Model> = model
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -397,12 +456,14 @@ private constructor(
 
             private var questions: JsonField<Questions>? = null
             private var state: JsonField<State>? = null
+            private var model: JsonField<Model> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 questions = body.questions
                 state = body.state
+                model = body.model
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -440,6 +501,23 @@ private constructor(
             fun stateOfJsonValues(jsonValues: List<JsonValue>) =
                 state(State.ofJsonValues(jsonValues))
 
+            /**
+             * Public model alias. telnyx/decision-flash offers the lowest cost and latency;
+             * telnyx/decision-pro supports decisions that require long context, including inputs
+             * beyond Jev’s 32k per-decision limit. Applies to every question in the request. Other
+             * values are rejected.
+             */
+            fun model(model: Model) = model(JsonField.of(model))
+
+            /**
+             * Sets [Builder.model] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.model] with a well-typed [Model] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun model(model: JsonField<Model>) = apply { this.model = model }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -476,6 +554,7 @@ private constructor(
                 Body(
                     checkRequired("questions", questions),
                     checkRequired("state", state),
+                    model,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -498,6 +577,7 @@ private constructor(
 
             questions().validate()
             state().validate()
+            model().ifPresent { it.validate() }
             validated = true
         }
 
@@ -518,7 +598,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (questions.asKnown().getOrNull()?.validity() ?: 0) +
-                (state.asKnown().getOrNull()?.validity() ?: 0)
+                (state.asKnown().getOrNull()?.validity() ?: 0) +
+                (model.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -528,15 +609,18 @@ private constructor(
             return other is Body &&
                 questions == other.questions &&
                 state == other.state &&
+                model == other.model &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(questions, state, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(questions, state, model, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{questions=$questions, state=$state, additionalProperties=$additionalProperties}"
+            "Body{questions=$questions, state=$state, model=$model, additionalProperties=$additionalProperties}"
     }
 
     /** Between 1 and 64 named questions. Each key identifies the corresponding answer. */
@@ -994,6 +1078,146 @@ private constructor(
 
             override fun toString() = "UnionMember1{additionalProperties=$additionalProperties}"
         }
+    }
+
+    /**
+     * Public model alias. telnyx/decision-flash offers the lowest cost and latency;
+     * telnyx/decision-pro supports decisions that require long context, including inputs beyond
+     * Jev’s 32k per-decision limit. Applies to every question in the request. Other values are
+     * rejected.
+     */
+    class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val TELNYX_DECISION_FLASH = of("telnyx/decision-flash")
+
+            @JvmField val TELNYX_DECISION_PRO = of("telnyx/decision-pro")
+
+            @JvmStatic fun of(value: String) = Model(JsonField.of(value))
+        }
+
+        /** An enum containing [Model]'s known values. */
+        enum class Known {
+            TELNYX_DECISION_FLASH,
+            TELNYX_DECISION_PRO,
+        }
+
+        /**
+         * An enum containing [Model]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Model] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            TELNYX_DECISION_FLASH,
+            TELNYX_DECISION_PRO,
+            /** An enum member indicating that [Model] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                TELNYX_DECISION_FLASH -> Value.TELNYX_DECISION_FLASH
+                TELNYX_DECISION_PRO -> Value.TELNYX_DECISION_PRO
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                TELNYX_DECISION_FLASH -> Known.TELNYX_DECISION_FLASH
+                TELNYX_DECISION_PRO -> Known.TELNYX_DECISION_PRO
+                else -> throw TelnyxInvalidDataException("Unknown Model: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Model = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Model && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

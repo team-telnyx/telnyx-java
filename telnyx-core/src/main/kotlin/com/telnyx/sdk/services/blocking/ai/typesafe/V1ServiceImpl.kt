@@ -20,8 +20,8 @@ import com.telnyx.sdk.models.ai.typesafe.v1.V1SystemoneResponse
 import java.util.function.Consumer
 
 /**
- * Beta API for evaluating shared context with typed questions and structured answers. Telnyx
- * manages model selection.
+ * Beta API for evaluating shared context with typed questions and structured answers using Flash or
+ * Pro.
  */
 class V1ServiceImpl internal constructor(private val clientOptions: ClientOptions) : V1Service {
 

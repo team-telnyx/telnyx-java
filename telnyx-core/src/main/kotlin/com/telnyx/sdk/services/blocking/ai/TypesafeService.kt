@@ -21,8 +21,8 @@ interface TypesafeService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TypesafeService
 
     /**
-     * Beta API for evaluating shared context with typed questions and structured answers. Telnyx
-     * manages model selection.
+     * Beta API for evaluating shared context with typed questions and structured answers using
+     * Flash or Pro.
      */
     fun v1(): V1Service
 
@@ -37,8 +37,8 @@ interface TypesafeService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TypesafeService.WithRawResponse
 
         /**
-         * Beta API for evaluating shared context with typed questions and structured answers.
-         * Telnyx manages model selection.
+         * Beta API for evaluating shared context with typed questions and structured answers using
+         * Flash or Pro.
          */
         fun v1(): V1Service.WithRawResponse
     }

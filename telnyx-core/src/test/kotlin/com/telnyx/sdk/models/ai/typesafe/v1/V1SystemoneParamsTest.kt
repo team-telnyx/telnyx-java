@@ -54,6 +54,7 @@ internal class V1SystemoneParamsTest {
                     .build()
             )
             .state("Our production calls are failing. Every customer is affected.")
+            .model(V1SystemoneParams.Model.TELNYX_DECISION_FLASH)
             .build()
     }
 
@@ -104,6 +105,7 @@ internal class V1SystemoneParamsTest {
                         .build()
                 )
                 .state("Our production calls are failing. Every customer is affected.")
+                .model(V1SystemoneParams.Model.TELNYX_DECISION_FLASH)
                 .build()
 
         val body = params._body()
@@ -157,6 +159,7 @@ internal class V1SystemoneParamsTest {
                     "Our production calls are failing. Every customer is affected."
                 )
             )
+        assertThat(body.model()).contains(V1SystemoneParams.Model.TELNYX_DECISION_FLASH)
     }
 
     @Test
