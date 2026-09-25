@@ -10,6 +10,7 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -20,73 +21,66 @@ class Source
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
-    private val bucketId: JsonField<String>,
-    private val collectionId: JsonField<String>,
-    private val recordType: JsonField<String>,
-    private val sourceType: JsonField<SourceType>,
-    private val status: JsonField<String>,
+    private val memoryCount: JsonField<Long>,
+    private val sessionId: JsonField<String>,
+    private val createdAt: JsonField<String>,
+    private val updatedAt: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("bucket_id") @ExcludeMissing bucketId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("collection_id")
+        @JsonProperty("memory_count")
         @ExcludeMissing
-        collectionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("record_type")
-        @ExcludeMissing
-        recordType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("source_type")
-        @ExcludeMissing
-        sourceType: JsonField<SourceType> = JsonMissing.of(),
-        @JsonProperty("status") @ExcludeMissing status: JsonField<String> = JsonMissing.of(),
-    ) : this(id, bucketId, collectionId, recordType, sourceType, status, mutableMapOf())
+        memoryCount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("session_id") @ExcludeMissing sessionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
+    ) : this(id, memoryCount, sessionId, createdAt, updatedAt, mutableMapOf())
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * Identifies one source within its profile: an ingested session, or one remembered fact.
+     * Returned by `ingest` and `remember` when the write is accepted. Re-ingesting a session keeps
+     * its source id.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun id(): Optional<String> = id.getOptional("id")
+    fun id(): String = id.getRequired("id")
 
     /**
-     * The Telnyx Storage bucket name. Present only for `bucket` sources.
+     * Memories extracted from this source. A memory derived from several sources is not counted
+     * here.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun memoryCount(): Long = memoryCount.getRequired("memory_count")
+
+    /**
+     * The session this source was ingested as. Null for a remembered fact.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun bucketId(): Optional<String> = bucketId.getOptional("bucket_id")
+    fun sessionId(): Optional<String> = sessionId.getOptional("session_id")
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun collectionId(): Optional<String> = collectionId.getOptional("collection_id")
-
-    /**
-     * Identifies the record type. Always `ai_collection_source`.
+     * When the source was first stored.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun recordType(): Optional<String> = recordType.getOptional("record_type")
+    fun createdAt(): Optional<String> = createdAt.getOptional("created_at")
 
     /**
-     * The type of Telnyx data attached as a source. `bucket` requires an additional `bucket_id`.
-     * Only `voice` is searchable today; `meeting_bot`, `message`, and `bucket` attach but are not
-     * yet searchable (Coming soon).
+     * When the source was last written; re-ingesting moves it.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun sourceType(): Optional<SourceType> = sourceType.getOptional("source_type")
-
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun status(): Optional<String> = status.getOptional("status")
+    fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
 
     /**
      * Returns the raw JSON value of [id].
@@ -96,43 +90,32 @@ private constructor(
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * Returns the raw JSON value of [bucketId].
+     * Returns the raw JSON value of [memoryCount].
      *
-     * Unlike [bucketId], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [memoryCount], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("bucket_id") @ExcludeMissing fun _bucketId(): JsonField<String> = bucketId
+    @JsonProperty("memory_count") @ExcludeMissing fun _memoryCount(): JsonField<Long> = memoryCount
 
     /**
-     * Returns the raw JSON value of [collectionId].
+     * Returns the raw JSON value of [sessionId].
      *
-     * Unlike [collectionId], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [sessionId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("collection_id")
-    @ExcludeMissing
-    fun _collectionId(): JsonField<String> = collectionId
+    @JsonProperty("session_id") @ExcludeMissing fun _sessionId(): JsonField<String> = sessionId
 
     /**
-     * Returns the raw JSON value of [recordType].
+     * Returns the raw JSON value of [createdAt].
      *
-     * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("record_type") @ExcludeMissing fun _recordType(): JsonField<String> = recordType
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt(): JsonField<String> = createdAt
 
     /**
-     * Returns the raw JSON value of [sourceType].
+     * Returns the raw JSON value of [updatedAt].
      *
-     * Unlike [sourceType], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("source_type")
-    @ExcludeMissing
-    fun _sourceType(): JsonField<SourceType> = sourceType
-
-    /**
-     * Returns the raw JSON value of [status].
-     *
-     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<String> = status
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -148,32 +131,44 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [Source]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [Source].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .memoryCount()
+         * .sessionId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [Source]. */
     class Builder internal constructor() {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var bucketId: JsonField<String> = JsonMissing.of()
-        private var collectionId: JsonField<String> = JsonMissing.of()
-        private var recordType: JsonField<String> = JsonMissing.of()
-        private var sourceType: JsonField<SourceType> = JsonMissing.of()
-        private var status: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var memoryCount: JsonField<Long>? = null
+        private var sessionId: JsonField<String>? = null
+        private var createdAt: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(source: Source) = apply {
             id = source.id
-            bucketId = source.bucketId
-            collectionId = source.collectionId
-            recordType = source.recordType
-            sourceType = source.sourceType
-            status = source.status
+            memoryCount = source.memoryCount
+            sessionId = source.sessionId
+            createdAt = source.createdAt
+            updatedAt = source.updatedAt
             additionalProperties = source.additionalProperties.toMutableMap()
         }
 
+        /**
+         * Identifies one source within its profile: an ingested session, or one remembered fact.
+         * Returned by `ingest` and `remember` when the write is accepted. Re-ingesting a session
+         * keeps its source id.
+         */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -184,67 +179,65 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /** The Telnyx Storage bucket name. Present only for `bucket` sources. */
-        fun bucketId(bucketId: String) = bucketId(JsonField.of(bucketId))
-
         /**
-         * Sets [Builder.bucketId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.bucketId] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * Memories extracted from this source. A memory derived from several sources is not counted
+         * here.
          */
-        fun bucketId(bucketId: JsonField<String>) = apply { this.bucketId = bucketId }
-
-        fun collectionId(collectionId: String) = collectionId(JsonField.of(collectionId))
+        fun memoryCount(memoryCount: Long) = memoryCount(JsonField.of(memoryCount))
 
         /**
-         * Sets [Builder.collectionId] to an arbitrary JSON value.
+         * Sets [Builder.memoryCount] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.collectionId] with a well-typed [String] value instead.
+         * You should usually call [Builder.memoryCount] with a well-typed [Long] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun collectionId(collectionId: JsonField<String>) = apply {
-            this.collectionId = collectionId
-        }
+        fun memoryCount(memoryCount: JsonField<Long>) = apply { this.memoryCount = memoryCount }
 
-        /** Identifies the record type. Always `ai_collection_source`. */
-        fun recordType(recordType: String) = recordType(JsonField.of(recordType))
+        /** The session this source was ingested as. Null for a remembered fact. */
+        fun sessionId(sessionId: String?) = sessionId(JsonField.ofNullable(sessionId))
+
+        /** Alias for calling [Builder.sessionId] with `sessionId.orElse(null)`. */
+        fun sessionId(sessionId: Optional<String>) = sessionId(sessionId.getOrNull())
 
         /**
-         * Sets [Builder.recordType] to an arbitrary JSON value.
+         * Sets [Builder.sessionId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.recordType] with a well-typed [String] value instead.
+         * You should usually call [Builder.sessionId] with a well-typed [String] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
+        fun sessionId(sessionId: JsonField<String>) = apply { this.sessionId = sessionId }
+
+        /** When the source was first stored. */
+        fun createdAt(createdAt: String?) = createdAt(JsonField.ofNullable(createdAt))
+
+        /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
+        fun createdAt(createdAt: Optional<String>) = createdAt(createdAt.getOrNull())
 
         /**
-         * The type of Telnyx data attached as a source. `bucket` requires an additional
-         * `bucket_id`. Only `voice` is searchable today; `meeting_bot`, `message`, and `bucket`
-         * attach but are not yet searchable (Coming soon).
-         */
-        fun sourceType(sourceType: SourceType) = sourceType(JsonField.of(sourceType))
-
-        /**
-         * Sets [Builder.sourceType] to an arbitrary JSON value.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.sourceType] with a well-typed [SourceType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.createdAt] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun sourceType(sourceType: JsonField<SourceType>) = apply { this.sourceType = sourceType }
+        fun createdAt(createdAt: JsonField<String>) = apply { this.createdAt = createdAt }
 
-        fun status(status: String) = status(JsonField.of(status))
+        /** When the source was last written; re-ingesting moves it. */
+        fun updatedAt(updatedAt: String?) = updatedAt(JsonField.ofNullable(updatedAt))
+
+        /** Alias for calling [Builder.updatedAt] with `updatedAt.orElse(null)`. */
+        fun updatedAt(updatedAt: Optional<String>) = updatedAt(updatedAt.getOrNull())
 
         /**
-         * Sets [Builder.status] to an arbitrary JSON value.
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.status] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun status(status: JsonField<String>) = apply { this.status = status }
+        fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -269,15 +262,23 @@ private constructor(
          * Returns an immutable instance of [Source].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .memoryCount()
+         * .sessionId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): Source =
             Source(
-                id,
-                bucketId,
-                collectionId,
-                recordType,
-                sourceType,
-                status,
+                checkRequired("id", id),
+                checkRequired("memoryCount", memoryCount),
+                checkRequired("sessionId", sessionId),
+                createdAt,
+                updatedAt,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -298,11 +299,10 @@ private constructor(
         }
 
         id()
-        bucketId()
-        collectionId()
-        recordType()
-        sourceType().ifPresent { it.validate() }
-        status()
+        memoryCount()
+        sessionId()
+        createdAt()
+        updatedAt()
         validated = true
     }
 
@@ -322,11 +322,10 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
-            (if (bucketId.asKnown().isPresent) 1 else 0) +
-            (if (collectionId.asKnown().isPresent) 1 else 0) +
-            (if (recordType.asKnown().isPresent) 1 else 0) +
-            (sourceType.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (status.asKnown().isPresent) 1 else 0)
+            (if (memoryCount.asKnown().isPresent) 1 else 0) +
+            (if (sessionId.asKnown().isPresent) 1 else 0) +
+            (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -335,28 +334,19 @@ private constructor(
 
         return other is Source &&
             id == other.id &&
-            bucketId == other.bucketId &&
-            collectionId == other.collectionId &&
-            recordType == other.recordType &&
-            sourceType == other.sourceType &&
-            status == other.status &&
+            memoryCount == other.memoryCount &&
+            sessionId == other.sessionId &&
+            createdAt == other.createdAt &&
+            updatedAt == other.updatedAt &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(
-            id,
-            bucketId,
-            collectionId,
-            recordType,
-            sourceType,
-            status,
-            additionalProperties,
-        )
+        Objects.hash(id, memoryCount, sessionId, createdAt, updatedAt, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Source{id=$id, bucketId=$bucketId, collectionId=$collectionId, recordType=$recordType, sourceType=$sourceType, status=$status, additionalProperties=$additionalProperties}"
+        "Source{id=$id, memoryCount=$memoryCount, sessionId=$sessionId, createdAt=$createdAt, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

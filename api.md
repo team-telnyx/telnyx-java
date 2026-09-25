@@ -538,6 +538,47 @@ Methods:
 
 - <code title="post /ai/typesafe/v1/systemone">client.ai().typesafe().v1().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/typesafe/V1Service.kt">systemone</a>(params)</code>
 
+## Memory
+
+### Namespaces
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/operations/{operation_id}">client.ai().memory().namespaces().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/NamespaceService.kt">retrieve</a>(params)</code>
+
+#### Profiles
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/profiles">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">list</a>(params)</code>
+- <code title="delete /ai/memory/namespaces/{namespace}/profiles/{profile_id}">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">delete</a>(params)</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/ingest">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">ingest</a>(params)</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/recall">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">recall</a>(params)</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/remember">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">remember</a>(params)</code>
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">retrieveSummary</a>(params)</code>
+
+##### Memories
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/memories/{memory_id}">client.ai().memory().namespaces().profiles().memories().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/profiles/MemoryService.kt">retrieve</a>(params)</code>
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/memories">client.ai().memory().namespaces().profiles().memories().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/profiles/MemoryService.kt">list</a>(params)</code>
+
+##### Sources
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/sources/{source_id}">client.ai().memory().namespaces().profiles().sources().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/profiles/SourceService.kt">retrieve</a>(params)</code>
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/sources">client.ai().memory().namespaces().profiles().sources().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/profiles/SourceService.kt">list</a>(params)</code>
+- <code title="delete /ai/memory/namespaces/{namespace}/profiles/{profile_id}/sources/{source_id}">client.ai().memory().namespaces().profiles().sources().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/profiles/SourceService.kt">delete</a>(params)</code>
+
+#### Settings
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/settings">client.ai().memory().namespaces().settings().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/SettingService.kt">list</a>(params)</code>
+- <code title="patch /ai/memory/namespaces/{namespace}/settings">client.ai().memory().namespaces().settings().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/SettingService.kt">patchAll</a>(params)</code>
+
 # AuditEvents
 
 Methods:

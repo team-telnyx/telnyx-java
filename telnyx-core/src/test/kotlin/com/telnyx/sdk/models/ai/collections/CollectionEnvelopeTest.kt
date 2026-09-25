@@ -6,7 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.ai.collections.settings.RetrievalSettings
 import com.telnyx.sdk.models.ai.collections.settings.RetrievalSettingsWrapper
-import com.telnyx.sdk.models.ai.collections.sources.Source
+import com.telnyx.sdk.models.ai.collections.sources.CollectionsSource
 import com.telnyx.sdk.models.ai.collections.sources.SourceType
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -37,7 +37,7 @@ internal class CollectionEnvelopeTest {
                         )
                         .slug("support-transcripts")
                         .addSource(
-                            Source.builder()
+                            CollectionsSource.builder()
                                 .id("source_8vkvtcksnawvbnxq48yv2l06wx")
                                 .bucketId("policy-docs")
                                 .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")
@@ -73,7 +73,7 @@ internal class CollectionEnvelopeTest {
                     )
                     .slug("support-transcripts")
                     .addSource(
-                        Source.builder()
+                        CollectionsSource.builder()
                             .id("source_8vkvtcksnawvbnxq48yv2l06wx")
                             .bucketId("policy-docs")
                             .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")
@@ -113,7 +113,7 @@ internal class CollectionEnvelopeTest {
                         )
                         .slug("support-transcripts")
                         .addSource(
-                            Source.builder()
+                            CollectionsSource.builder()
                                 .id("source_8vkvtcksnawvbnxq48yv2l06wx")
                                 .bucketId("policy-docs")
                                 .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")

@@ -21,14 +21,16 @@ import kotlin.jvm.optionals.getOrNull
 class SourceReplaceResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<Source>>,
+    private val data: JsonField<List<CollectionsSource>>,
     private val meta: JsonField<Meta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<List<Source>> = JsonMissing.of(),
+        @JsonProperty("data")
+        @ExcludeMissing
+        data: JsonField<List<CollectionsSource>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -36,7 +38,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<Source>> = data.getOptional("data")
+    fun data(): Optional<List<CollectionsSource>> = data.getOptional("data")
 
     /**
      * Reports which source IDs were added, retained, and removed by a replace operation.
@@ -51,7 +53,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<Source>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<CollectionsSource>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -81,7 +83,7 @@ private constructor(
     /** A builder for [SourceReplaceResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<Source>>? = null
+        private var data: JsonField<MutableList<CollectionsSource>>? = null
         private var meta: JsonField<Meta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -92,25 +94,25 @@ private constructor(
             additionalProperties = sourceReplaceResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<Source>) = data(JsonField.of(data))
+        fun data(data: List<CollectionsSource>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<Source>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.data] with a well-typed `List<CollectionsSource>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun data(data: JsonField<List<Source>>) = apply {
+        fun data(data: JsonField<List<CollectionsSource>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Source] to [Builder.data].
+         * Adds a single [CollectionsSource] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: Source) = apply {
+        fun addData(data: CollectionsSource) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

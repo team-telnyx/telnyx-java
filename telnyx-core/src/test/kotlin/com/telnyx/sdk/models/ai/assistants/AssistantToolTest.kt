@@ -189,10 +189,10 @@ internal class AssistantToolTest {
                                 .valuePath("x")
                                 .build()
                         )
-                        .timeoutMs(500L)
                         .build()
                 )
                 .shared(true)
+                .timeoutMs(60000L)
                 .build()
 
         val assistantTool = AssistantTool.ofWebhook(webhook)
@@ -328,10 +328,10 @@ internal class AssistantToolTest {
                                     .valuePath("x")
                                     .build()
                             )
-                            .timeoutMs(500L)
                             .build()
                     )
                     .shared(true)
+                    .timeoutMs(60000L)
                     .build()
             )
 

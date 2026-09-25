@@ -37,6 +37,7 @@ private constructor(
     private val type: JsonField<Type>,
     private val webhook: JsonField<Webhook>,
     private val shared: JsonField<Boolean>,
+    private val timeoutMs: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -45,7 +46,8 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("webhook") @ExcludeMissing webhook: JsonField<Webhook> = JsonMissing.of(),
         @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
-    ) : this(type, webhook, shared, mutableMapOf())
+        @JsonProperty("timeout_ms") @ExcludeMissing timeoutMs: JsonField<Long> = JsonMissing.of(),
+    ) : this(type, webhook, shared, timeoutMs, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -73,6 +75,17 @@ private constructor(
     fun shared(): Optional<Boolean> = shared.getOptional("shared")
 
     /**
+     * The maximum number of milliseconds to wait for the webhook to respond before the tool call is
+     * aborted. Set this at the tool level, as a sibling of `type` — a `timeout_ms` nested inside
+     * the `webhook` object is stored but not applied, and the tool runs at this default instead.
+     * Applies when `webhook.async` is false.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun timeoutMs(): Optional<Long> = timeoutMs.getOptional("timeout_ms")
+
+    /**
      * Returns the raw JSON value of [type].
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
@@ -92,6 +105,13 @@ private constructor(
      * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
+
+    /**
+     * Returns the raw JSON value of [timeoutMs].
+     *
+     * Unlike [timeoutMs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("timeout_ms") @ExcludeMissing fun _timeoutMs(): JsonField<Long> = timeoutMs
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -126,6 +146,7 @@ private constructor(
         private var type: JsonField<Type>? = null
         private var webhook: JsonField<Webhook>? = null
         private var shared: JsonField<Boolean> = JsonMissing.of()
+        private var timeoutMs: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -135,6 +156,7 @@ private constructor(
             type = inferenceEmbeddingWebhookToolParams.type
             webhook = inferenceEmbeddingWebhookToolParams.webhook
             shared = inferenceEmbeddingWebhookToolParams.shared
+            timeoutMs = inferenceEmbeddingWebhookToolParams.timeoutMs
             additionalProperties =
                 inferenceEmbeddingWebhookToolParams.additionalProperties.toMutableMap()
         }
@@ -177,6 +199,22 @@ private constructor(
          */
         fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
 
+        /**
+         * The maximum number of milliseconds to wait for the webhook to respond before the tool
+         * call is aborted. Set this at the tool level, as a sibling of `type` — a `timeout_ms`
+         * nested inside the `webhook` object is stored but not applied, and the tool runs at this
+         * default instead. Applies when `webhook.async` is false.
+         */
+        fun timeoutMs(timeoutMs: Long) = timeoutMs(JsonField.of(timeoutMs))
+
+        /**
+         * Sets [Builder.timeoutMs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.timeoutMs] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun timeoutMs(timeoutMs: JsonField<Long>) = apply { this.timeoutMs = timeoutMs }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -214,6 +252,7 @@ private constructor(
                 checkRequired("type", type),
                 checkRequired("webhook", webhook),
                 shared,
+                timeoutMs,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -236,6 +275,7 @@ private constructor(
         type().validate()
         webhook().validate()
         shared()
+        timeoutMs()
         validated = true
     }
 
@@ -256,7 +296,8 @@ private constructor(
     internal fun validity(): Int =
         (type.asKnown().getOrNull()?.validity() ?: 0) +
             (webhook.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (shared.asKnown().isPresent) 1 else 0)
+            (if (shared.asKnown().isPresent) 1 else 0) +
+            (if (timeoutMs.asKnown().isPresent) 1 else 0)
 
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -403,7 +444,6 @@ private constructor(
         private val presetQueryParams: JsonField<PresetQueryParams>,
         private val queryParameters: JsonField<QueryParameters>,
         private val storeFieldsAsVariables: JsonField<List<StoreFieldsAsVariable>>,
-        private val timeoutMs: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -443,9 +483,6 @@ private constructor(
             @JsonProperty("store_fields_as_variables")
             @ExcludeMissing
             storeFieldsAsVariables: JsonField<List<StoreFieldsAsVariable>> = JsonMissing.of(),
-            @JsonProperty("timeout_ms")
-            @ExcludeMissing
-            timeoutMs: JsonField<Long> = JsonMissing.of(),
         ) : this(
             description,
             name,
@@ -461,7 +498,6 @@ private constructor(
             presetQueryParams,
             queryParameters,
             storeFieldsAsVariables,
-            timeoutMs,
             mutableMapOf(),
         )
 
@@ -617,15 +653,6 @@ private constructor(
             storeFieldsAsVariables.getOptional("store_fields_as_variables")
 
         /**
-         * The maximum number of milliseconds to wait for the webhook to respond. Only applicable
-         * when async is false.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun timeoutMs(): Optional<Long> = timeoutMs.getOptional("timeout_ms")
-
-        /**
          * Returns the raw JSON value of [description].
          *
          * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
@@ -749,13 +776,6 @@ private constructor(
         fun _storeFieldsAsVariables(): JsonField<List<StoreFieldsAsVariable>> =
             storeFieldsAsVariables
 
-        /**
-         * Returns the raw JSON value of [timeoutMs].
-         *
-         * Unlike [timeoutMs], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("timeout_ms") @ExcludeMissing fun _timeoutMs(): JsonField<Long> = timeoutMs
-
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -801,7 +821,6 @@ private constructor(
             private var queryParameters: JsonField<QueryParameters> = JsonMissing.of()
             private var storeFieldsAsVariables: JsonField<MutableList<StoreFieldsAsVariable>>? =
                 null
-            private var timeoutMs: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -820,7 +839,6 @@ private constructor(
                 presetQueryParams = webhook.presetQueryParams
                 queryParameters = webhook.queryParameters
                 storeFieldsAsVariables = webhook.storeFieldsAsVariables.map { it.toMutableList() }
-                timeoutMs = webhook.timeoutMs
                 additionalProperties = webhook.additionalProperties.toMutableMap()
             }
 
@@ -1127,21 +1145,6 @@ private constructor(
                     }
             }
 
-            /**
-             * The maximum number of milliseconds to wait for the webhook to respond. Only
-             * applicable when async is false.
-             */
-            fun timeoutMs(timeoutMs: Long) = timeoutMs(JsonField.of(timeoutMs))
-
-            /**
-             * Sets [Builder.timeoutMs] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.timeoutMs] with a well-typed [Long] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun timeoutMs(timeoutMs: JsonField<Long>) = apply { this.timeoutMs = timeoutMs }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1191,7 +1194,6 @@ private constructor(
                     presetQueryParams,
                     queryParameters,
                     (storeFieldsAsVariables ?: JsonMissing.of()).map { it.toImmutable() },
-                    timeoutMs,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1226,7 +1228,6 @@ private constructor(
             presetQueryParams().ifPresent { it.validate() }
             queryParameters().ifPresent { it.validate() }
             storeFieldsAsVariables().ifPresent { it.forEach { it.validate() } }
-            timeoutMs()
             validated = true
         }
 
@@ -1259,9 +1260,7 @@ private constructor(
                 (presetBodyFields.asKnown().getOrNull()?.validity() ?: 0) +
                 (presetQueryParams.asKnown().getOrNull()?.validity() ?: 0) +
                 (queryParameters.asKnown().getOrNull()?.validity() ?: 0) +
-                (storeFieldsAsVariables.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
-                    ?: 0) +
-                (if (timeoutMs.asKnown().isPresent) 1 else 0)
+                (storeFieldsAsVariables.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
         /**
          * The body parameters the webhook tool accepts, described as a JSON Schema object. These
@@ -4439,7 +4438,6 @@ private constructor(
                 presetQueryParams == other.presetQueryParams &&
                 queryParameters == other.queryParameters &&
                 storeFieldsAsVariables == other.storeFieldsAsVariables &&
-                timeoutMs == other.timeoutMs &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -4459,7 +4457,6 @@ private constructor(
                 presetQueryParams,
                 queryParameters,
                 storeFieldsAsVariables,
-                timeoutMs,
                 additionalProperties,
             )
         }
@@ -4467,7 +4464,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Webhook{description=$description, name=$name, url=$url, async=$async, asyncTimeoutMs=$asyncTimeoutMs, bodyParameters=$bodyParameters, headers=$headers, messages=$messages, method=$method, pathParameters=$pathParameters, presetBodyFields=$presetBodyFields, presetQueryParams=$presetQueryParams, queryParameters=$queryParameters, storeFieldsAsVariables=$storeFieldsAsVariables, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
+            "Webhook{description=$description, name=$name, url=$url, async=$async, asyncTimeoutMs=$asyncTimeoutMs, bodyParameters=$bodyParameters, headers=$headers, messages=$messages, method=$method, pathParameters=$pathParameters, presetBodyFields=$presetBodyFields, presetQueryParams=$presetQueryParams, queryParameters=$queryParameters, storeFieldsAsVariables=$storeFieldsAsVariables, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -4479,13 +4476,16 @@ private constructor(
             type == other.type &&
             webhook == other.webhook &&
             shared == other.shared &&
+            timeoutMs == other.timeoutMs &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(type, webhook, shared, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(type, webhook, shared, timeoutMs, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InferenceEmbeddingWebhookToolParams{type=$type, webhook=$webhook, shared=$shared, additionalProperties=$additionalProperties}"
+        "InferenceEmbeddingWebhookToolParams{type=$type, webhook=$webhook, shared=$shared, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
 }
