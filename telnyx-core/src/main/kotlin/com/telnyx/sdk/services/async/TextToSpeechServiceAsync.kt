@@ -99,8 +99,8 @@ interface TextToSpeechServiceAsync {
      * JSON frames with text to synthesize; receive JSON frames containing base64-encoded audio
      * chunks.
      *
-     * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `resemble`, `elevenlabs`,
-     * `xai`, `humain`.
+     * Supported providers: `aws`, `telnyx`, `azure`, `minimax`, `resemble`, `elevenlabs`, `xai`,
+     * `humain`.
      *
      * **Connection flow:**
      * 1. Open WebSocket with query parameters specifying provider, voice, and model.

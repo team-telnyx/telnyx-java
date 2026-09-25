@@ -17,8 +17,8 @@ import kotlin.jvm.optionals.getOrNull
  * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header. Send JSON
  * frames with text to synthesize; receive JSON frames containing base64-encoded audio chunks.
  *
- * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `resemble`, `elevenlabs`,
- * `xai`, `humain`.
+ * Supported providers: `aws`, `telnyx`, `azure`, `minimax`, `resemble`, `elevenlabs`, `xai`,
+ * `humain`.
  *
  * **Connection flow:**
  * 1. Open WebSocket with query parameters specifying provider, voice, and model.
@@ -503,8 +503,6 @@ private constructor(
 
             @JvmField val MINIMAX = of("minimax")
 
-            @JvmField val MURFAI = of("murfai")
-
             @JvmField val RESEMBLE = of("resemble")
 
             @JvmField val XAI = of("xai")
@@ -521,7 +519,6 @@ private constructor(
             AZURE,
             ELEVENLABS,
             MINIMAX,
-            MURFAI,
             RESEMBLE,
             XAI,
             HUMAIN,
@@ -542,7 +539,6 @@ private constructor(
             AZURE,
             ELEVENLABS,
             MINIMAX,
-            MURFAI,
             RESEMBLE,
             XAI,
             HUMAIN,
@@ -564,7 +560,6 @@ private constructor(
                 AZURE -> Value.AZURE
                 ELEVENLABS -> Value.ELEVENLABS
                 MINIMAX -> Value.MINIMAX
-                MURFAI -> Value.MURFAI
                 RESEMBLE -> Value.RESEMBLE
                 XAI -> Value.XAI
                 HUMAIN -> Value.HUMAIN
@@ -587,7 +582,6 @@ private constructor(
                 AZURE -> Known.AZURE
                 ELEVENLABS -> Known.ELEVENLABS
                 MINIMAX -> Known.MINIMAX
-                MURFAI -> Known.MURFAI
                 RESEMBLE -> Known.RESEMBLE
                 XAI -> Known.XAI
                 HUMAIN -> Known.HUMAIN
