@@ -33,7 +33,7 @@ import kotlin.jvm.optionals.getOrNull
  * along with provider-specific parameters.
  *
  * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `resemble`, `xai`,
- * `humain`.
+ * `humain`, `soniox`.
  *
  * The Telnyx `Ultra` model supports 44 languages with emotion control, speed adjustment, and volume
  * control. Use the `telnyx` provider-specific parameters to configure these features.
@@ -127,6 +127,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun resemble(): Optional<Resemble> = body.resemble()
+
+    /**
+     * Soniox provider-specific parameters. Every voice speaks all supported languages; set
+     * `language` to the language of the text.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun soniox(): Optional<Soniox> = body.soniox()
 
     /**
      * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`, `volume`, and
@@ -253,6 +262,13 @@ private constructor(
      * Unlike [resemble], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _resemble(): JsonField<Resemble> = body._resemble()
+
+    /**
+     * Returns the raw JSON value of [soniox].
+     *
+     * Unlike [soniox], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _soniox(): JsonField<Soniox> = body._soniox()
 
     /**
      * Returns the raw JSON value of [telnyx].
@@ -471,6 +487,20 @@ private constructor(
          * value.
          */
         fun resemble(resemble: JsonField<Resemble>) = apply { body.resemble(resemble) }
+
+        /**
+         * Soniox provider-specific parameters. Every voice speaks all supported languages; set
+         * `language` to the language of the text.
+         */
+        fun soniox(soniox: Soniox) = apply { body.soniox(soniox) }
+
+        /**
+         * Sets [Builder.soniox] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.soniox] with a well-typed [Soniox] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun soniox(soniox: JsonField<Soniox>) = apply { body.soniox(soniox) }
 
         /**
          * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`, `volume`,
@@ -709,6 +739,7 @@ private constructor(
         private val outputType: JsonField<OutputType>,
         private val provider: JsonField<Provider>,
         private val resemble: JsonField<Resemble>,
+        private val soniox: JsonField<Soniox>,
         private val telnyx: JsonField<Telnyx>,
         private val text: JsonField<String>,
         private val textType: JsonField<TextType>,
@@ -742,6 +773,7 @@ private constructor(
             @JsonProperty("resemble")
             @ExcludeMissing
             resemble: JsonField<Resemble> = JsonMissing.of(),
+            @JsonProperty("soniox") @ExcludeMissing soniox: JsonField<Soniox> = JsonMissing.of(),
             @JsonProperty("telnyx") @ExcludeMissing telnyx: JsonField<Telnyx> = JsonMissing.of(),
             @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
             @JsonProperty("text_type")
@@ -763,6 +795,7 @@ private constructor(
             outputType,
             provider,
             resemble,
+            soniox,
             telnyx,
             text,
             textType,
@@ -854,6 +887,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun resemble(): Optional<Resemble> = resemble.getOptional("resemble")
+
+        /**
+         * Soniox provider-specific parameters. Every voice speaks all supported languages; set
+         * `language` to the language of the text.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun soniox(): Optional<Soniox> = soniox.getOptional("soniox")
 
         /**
          * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`, `volume`,
@@ -989,6 +1031,13 @@ private constructor(
         @JsonProperty("resemble") @ExcludeMissing fun _resemble(): JsonField<Resemble> = resemble
 
         /**
+         * Returns the raw JSON value of [soniox].
+         *
+         * Unlike [soniox], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("soniox") @ExcludeMissing fun _soniox(): JsonField<Soniox> = soniox
+
+        /**
          * Returns the raw JSON value of [telnyx].
          *
          * Unlike [telnyx], this method doesn't throw if the JSON field has an unexpected type.
@@ -1064,6 +1113,7 @@ private constructor(
             private var outputType: JsonField<OutputType> = JsonMissing.of()
             private var provider: JsonField<Provider> = JsonMissing.of()
             private var resemble: JsonField<Resemble> = JsonMissing.of()
+            private var soniox: JsonField<Soniox> = JsonMissing.of()
             private var telnyx: JsonField<Telnyx> = JsonMissing.of()
             private var text: JsonField<String> = JsonMissing.of()
             private var textType: JsonField<TextType> = JsonMissing.of()
@@ -1084,6 +1134,7 @@ private constructor(
                 outputType = body.outputType
                 provider = body.provider
                 resemble = body.resemble
+                soniox = body.soniox
                 telnyx = body.telnyx
                 text = body.text
                 textType = body.textType
@@ -1227,6 +1278,21 @@ private constructor(
             fun resemble(resemble: JsonField<Resemble>) = apply { this.resemble = resemble }
 
             /**
+             * Soniox provider-specific parameters. Every voice speaks all supported languages; set
+             * `language` to the language of the text.
+             */
+            fun soniox(soniox: Soniox) = soniox(JsonField.of(soniox))
+
+            /**
+             * Sets [Builder.soniox] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.soniox] with a well-typed [Soniox] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun soniox(soniox: JsonField<Soniox>) = apply { this.soniox = soniox }
+
+            /**
              * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`,
              * `volume`, and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or
              * `emotion`, and don't support `voice_speed`. `Sukhan`'s `response_format` is
@@ -1351,6 +1417,7 @@ private constructor(
                     outputType,
                     provider,
                     resemble,
+                    soniox,
                     telnyx,
                     text,
                     textType,
@@ -1387,6 +1454,7 @@ private constructor(
             outputType().ifPresent { it.validate() }
             provider().ifPresent { it.validate() }
             resemble().ifPresent { it.validate() }
+            soniox().ifPresent { it.validate() }
             telnyx().ifPresent { it.validate() }
             text()
             textType().ifPresent { it.validate() }
@@ -1422,6 +1490,7 @@ private constructor(
                 (outputType.asKnown().getOrNull()?.validity() ?: 0) +
                 (provider.asKnown().getOrNull()?.validity() ?: 0) +
                 (resemble.asKnown().getOrNull()?.validity() ?: 0) +
+                (soniox.asKnown().getOrNull()?.validity() ?: 0) +
                 (telnyx.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (text.asKnown().isPresent) 1 else 0) +
                 (textType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1445,6 +1514,7 @@ private constructor(
                 outputType == other.outputType &&
                 provider == other.provider &&
                 resemble == other.resemble &&
+                soniox == other.soniox &&
                 telnyx == other.telnyx &&
                 text == other.text &&
                 textType == other.textType &&
@@ -1466,6 +1536,7 @@ private constructor(
                 outputType,
                 provider,
                 resemble,
+                soniox,
                 telnyx,
                 text,
                 textType,
@@ -1479,7 +1550,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, humain=$humain, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, xai=$xai, additionalProperties=$additionalProperties}"
+            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, humain=$humain, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, soniox=$soniox, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, xai=$xai, additionalProperties=$additionalProperties}"
     }
 
     /** AWS Polly provider-specific parameters. */
@@ -3779,6 +3850,8 @@ private constructor(
 
             @JvmField val HUMAIN = of("humain")
 
+            @JvmField val SONIOX = of("soniox")
+
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
 
@@ -3792,6 +3865,7 @@ private constructor(
             RESEMBLE,
             XAI,
             HUMAIN,
+            SONIOX,
         }
 
         /**
@@ -3812,6 +3886,7 @@ private constructor(
             RESEMBLE,
             XAI,
             HUMAIN,
+            SONIOX,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -3833,6 +3908,7 @@ private constructor(
                 RESEMBLE -> Value.RESEMBLE
                 XAI -> Value.XAI
                 HUMAIN -> Value.HUMAIN
+                SONIOX -> Value.SONIOX
                 else -> Value._UNKNOWN
             }
 
@@ -3855,6 +3931,7 @@ private constructor(
                 RESEMBLE -> Known.RESEMBLE
                 XAI -> Known.XAI
                 HUMAIN -> Known.HUMAIN
+                SONIOX -> Known.SONIOX
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 
@@ -4184,6 +4261,898 @@ private constructor(
     }
 
     /**
+     * Soniox provider-specific parameters. Every voice speaks all supported languages; set
+     * `language` to the language of the text.
+     */
+    class Soniox
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val voiceId: JsonField<String>,
+        private val audioFormat: JsonField<AudioFormat>,
+        private val language: JsonField<String>,
+        private val modelId: JsonField<ModelId>,
+        private val reduceSilence: JsonField<Boolean>,
+        private val sampleRate: JsonField<SampleRate>,
+        private val speed: JsonField<Float>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("voice_id") @ExcludeMissing voiceId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("audio_format")
+            @ExcludeMissing
+            audioFormat: JsonField<AudioFormat> = JsonMissing.of(),
+            @JsonProperty("language")
+            @ExcludeMissing
+            language: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("model_id")
+            @ExcludeMissing
+            modelId: JsonField<ModelId> = JsonMissing.of(),
+            @JsonProperty("reduce_silence")
+            @ExcludeMissing
+            reduceSilence: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("sample_rate")
+            @ExcludeMissing
+            sampleRate: JsonField<SampleRate> = JsonMissing.of(),
+            @JsonProperty("speed") @ExcludeMissing speed: JsonField<Float> = JsonMissing.of(),
+        ) : this(
+            voiceId,
+            audioFormat,
+            language,
+            modelId,
+            reduceSilence,
+            sampleRate,
+            speed,
+            mutableMapOf(),
+        )
+
+        /**
+         * Soniox voice name from the
+         * [voices listing](https://developers.telnyx.com/api-reference/text-to-speech-commands/list-available-voices),
+         * for example `Emma`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun voiceId(): String = voiceId.getRequired("voice_id")
+
+        /**
+         * Audio output format.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun audioFormat(): Optional<AudioFormat> = audioFormat.getOptional("audio_format")
+
+        /**
+         * Two-letter ISO 639-1 code of the text.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun language(): Optional<String> = language.getOptional("language")
+
+        /**
+         * Soniox model.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun modelId(): Optional<ModelId> = modelId.getOptional("model_id")
+
+        /**
+         * Shortens the pauses between words.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun reduceSilence(): Optional<Boolean> = reduceSilence.getOptional("reduce_silence")
+
+        /**
+         * Audio sample rate in Hz. `pcm_mulaw` and `pcm_alaw` accept 8000 only; `mp3` does not
+         * accept 8000. Defaults to 24000, or 8000 for `pcm_mulaw` and `pcm_alaw`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sampleRate(): Optional<SampleRate> = sampleRate.getOptional("sample_rate")
+
+        /**
+         * Speaking rate. 1.0 is normal speed.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun speed(): Optional<Float> = speed.getOptional("speed")
+
+        /**
+         * Returns the raw JSON value of [voiceId].
+         *
+         * Unlike [voiceId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("voice_id") @ExcludeMissing fun _voiceId(): JsonField<String> = voiceId
+
+        /**
+         * Returns the raw JSON value of [audioFormat].
+         *
+         * Unlike [audioFormat], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("audio_format")
+        @ExcludeMissing
+        fun _audioFormat(): JsonField<AudioFormat> = audioFormat
+
+        /**
+         * Returns the raw JSON value of [language].
+         *
+         * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<String> = language
+
+        /**
+         * Returns the raw JSON value of [modelId].
+         *
+         * Unlike [modelId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("model_id") @ExcludeMissing fun _modelId(): JsonField<ModelId> = modelId
+
+        /**
+         * Returns the raw JSON value of [reduceSilence].
+         *
+         * Unlike [reduceSilence], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("reduce_silence")
+        @ExcludeMissing
+        fun _reduceSilence(): JsonField<Boolean> = reduceSilence
+
+        /**
+         * Returns the raw JSON value of [sampleRate].
+         *
+         * Unlike [sampleRate], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("sample_rate")
+        @ExcludeMissing
+        fun _sampleRate(): JsonField<SampleRate> = sampleRate
+
+        /**
+         * Returns the raw JSON value of [speed].
+         *
+         * Unlike [speed], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("speed") @ExcludeMissing fun _speed(): JsonField<Float> = speed
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Soniox].
+             *
+             * The following fields are required:
+             * ```java
+             * .voiceId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Soniox]. */
+        class Builder internal constructor() {
+
+            private var voiceId: JsonField<String>? = null
+            private var audioFormat: JsonField<AudioFormat> = JsonMissing.of()
+            private var language: JsonField<String> = JsonMissing.of()
+            private var modelId: JsonField<ModelId> = JsonMissing.of()
+            private var reduceSilence: JsonField<Boolean> = JsonMissing.of()
+            private var sampleRate: JsonField<SampleRate> = JsonMissing.of()
+            private var speed: JsonField<Float> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(soniox: Soniox) = apply {
+                voiceId = soniox.voiceId
+                audioFormat = soniox.audioFormat
+                language = soniox.language
+                modelId = soniox.modelId
+                reduceSilence = soniox.reduceSilence
+                sampleRate = soniox.sampleRate
+                speed = soniox.speed
+                additionalProperties = soniox.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Soniox voice name from the
+             * [voices listing](https://developers.telnyx.com/api-reference/text-to-speech-commands/list-available-voices),
+             * for example `Emma`.
+             */
+            fun voiceId(voiceId: String) = voiceId(JsonField.of(voiceId))
+
+            /**
+             * Sets [Builder.voiceId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.voiceId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun voiceId(voiceId: JsonField<String>) = apply { this.voiceId = voiceId }
+
+            /** Audio output format. */
+            fun audioFormat(audioFormat: AudioFormat) = audioFormat(JsonField.of(audioFormat))
+
+            /**
+             * Sets [Builder.audioFormat] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.audioFormat] with a well-typed [AudioFormat] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun audioFormat(audioFormat: JsonField<AudioFormat>) = apply {
+                this.audioFormat = audioFormat
+            }
+
+            /** Two-letter ISO 639-1 code of the text. */
+            fun language(language: String) = language(JsonField.of(language))
+
+            /**
+             * Sets [Builder.language] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.language] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun language(language: JsonField<String>) = apply { this.language = language }
+
+            /** Soniox model. */
+            fun modelId(modelId: ModelId) = modelId(JsonField.of(modelId))
+
+            /**
+             * Sets [Builder.modelId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.modelId] with a well-typed [ModelId] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun modelId(modelId: JsonField<ModelId>) = apply { this.modelId = modelId }
+
+            /** Shortens the pauses between words. */
+            fun reduceSilence(reduceSilence: Boolean) = reduceSilence(JsonField.of(reduceSilence))
+
+            /**
+             * Sets [Builder.reduceSilence] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reduceSilence] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reduceSilence(reduceSilence: JsonField<Boolean>) = apply {
+                this.reduceSilence = reduceSilence
+            }
+
+            /**
+             * Audio sample rate in Hz. `pcm_mulaw` and `pcm_alaw` accept 8000 only; `mp3` does not
+             * accept 8000. Defaults to 24000, or 8000 for `pcm_mulaw` and `pcm_alaw`.
+             */
+            fun sampleRate(sampleRate: SampleRate) = sampleRate(JsonField.of(sampleRate))
+
+            /**
+             * Sets [Builder.sampleRate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sampleRate] with a well-typed [SampleRate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sampleRate(sampleRate: JsonField<SampleRate>) = apply {
+                this.sampleRate = sampleRate
+            }
+
+            /** Speaking rate. 1.0 is normal speed. */
+            fun speed(speed: Float) = speed(JsonField.of(speed))
+
+            /**
+             * Sets [Builder.speed] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.speed] with a well-typed [Float] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun speed(speed: JsonField<Float>) = apply { this.speed = speed }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Soniox].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .voiceId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Soniox =
+                Soniox(
+                    checkRequired("voiceId", voiceId),
+                    audioFormat,
+                    language,
+                    modelId,
+                    reduceSilence,
+                    sampleRate,
+                    speed,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Soniox = apply {
+            if (validated) {
+                return@apply
+            }
+
+            voiceId()
+            audioFormat().ifPresent { it.validate() }
+            language()
+            modelId().ifPresent { it.validate() }
+            reduceSilence()
+            sampleRate().ifPresent { it.validate() }
+            speed()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (voiceId.asKnown().isPresent) 1 else 0) +
+                (audioFormat.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (language.asKnown().isPresent) 1 else 0) +
+                (modelId.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (reduceSilence.asKnown().isPresent) 1 else 0) +
+                (sampleRate.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (speed.asKnown().isPresent) 1 else 0)
+
+        /** Audio output format. */
+        class AudioFormat @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val MP3 = of("mp3")
+
+                @JvmField val WAV = of("wav")
+
+                @JvmField val PCM_S16LE = of("pcm_s16le")
+
+                @JvmField val PCM_MULAW = of("pcm_mulaw")
+
+                @JvmField val PCM_ALAW = of("pcm_alaw")
+
+                @JvmStatic fun of(value: String) = AudioFormat(JsonField.of(value))
+            }
+
+            /** An enum containing [AudioFormat]'s known values. */
+            enum class Known {
+                MP3,
+                WAV,
+                PCM_S16LE,
+                PCM_MULAW,
+                PCM_ALAW,
+            }
+
+            /**
+             * An enum containing [AudioFormat]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [AudioFormat] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                MP3,
+                WAV,
+                PCM_S16LE,
+                PCM_MULAW,
+                PCM_ALAW,
+                /**
+                 * An enum member indicating that [AudioFormat] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    MP3 -> Value.MP3
+                    WAV -> Value.WAV
+                    PCM_S16LE -> Value.PCM_S16LE
+                    PCM_MULAW -> Value.PCM_MULAW
+                    PCM_ALAW -> Value.PCM_ALAW
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    MP3 -> Known.MP3
+                    WAV -> Known.WAV
+                    PCM_S16LE -> Known.PCM_S16LE
+                    PCM_MULAW -> Known.PCM_MULAW
+                    PCM_ALAW -> Known.PCM_ALAW
+                    else -> throw TelnyxInvalidDataException("Unknown AudioFormat: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): AudioFormat = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AudioFormat && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** Soniox model. */
+        class ModelId @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val TTS_RT_V2 = of("tts-rt-v2")
+
+                @JvmStatic fun of(value: String) = ModelId(JsonField.of(value))
+            }
+
+            /** An enum containing [ModelId]'s known values. */
+            enum class Known {
+                TTS_RT_V2
+            }
+
+            /**
+             * An enum containing [ModelId]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [ModelId] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                TTS_RT_V2,
+                /**
+                 * An enum member indicating that [ModelId] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    TTS_RT_V2 -> Value.TTS_RT_V2
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    TTS_RT_V2 -> Known.TTS_RT_V2
+                    else -> throw TelnyxInvalidDataException("Unknown ModelId: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): ModelId = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ModelId && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * Audio sample rate in Hz. `pcm_mulaw` and `pcm_alaw` accept 8000 only; `mp3` does not
+         * accept 8000. Defaults to 24000, or 8000 for `pcm_mulaw` and `pcm_alaw`.
+         */
+        class SampleRate @JsonCreator private constructor(private val value: JsonField<Long>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<Long> = value
+
+            companion object {
+
+                @JvmField val _8000 = of(8000L)
+
+                @JvmField val _16000 = of(16000L)
+
+                @JvmField val _24000 = of(24000L)
+
+                @JvmField val _44100 = of(44100L)
+
+                @JvmField val _48000 = of(48000L)
+
+                @JvmStatic fun of(value: Long) = SampleRate(JsonField.of(value))
+            }
+
+            /** An enum containing [SampleRate]'s known values. */
+            enum class Known {
+                _8000,
+                _16000,
+                _24000,
+                _44100,
+                _48000,
+            }
+
+            /**
+             * An enum containing [SampleRate]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [SampleRate] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                _8000,
+                _16000,
+                _24000,
+                _44100,
+                _48000,
+                /**
+                 * An enum member indicating that [SampleRate] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    _8000 -> Value._8000
+                    _16000 -> Value._16000
+                    _24000 -> Value._24000
+                    _44100 -> Value._44100
+                    _48000 -> Value._48000
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    _8000 -> Known._8000
+                    _16000 -> Known._16000
+                    _24000 -> Known._24000
+                    _44100 -> Known._44100
+                    _48000 -> Known._48000
+                    else -> throw TelnyxInvalidDataException("Unknown SampleRate: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asLong(): Long =
+                _value().asNumber().getOrNull()?.let {
+                    if (it.toDouble() % 1 == 0.0) it.toLong() else null
+                } ?: throw TelnyxInvalidDataException("Value is not a Long")
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): SampleRate = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is SampleRate && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Soniox &&
+                voiceId == other.voiceId &&
+                audioFormat == other.audioFormat &&
+                language == other.language &&
+                modelId == other.modelId &&
+                reduceSilence == other.reduceSilence &&
+                sampleRate == other.sampleRate &&
+                speed == other.speed &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                voiceId,
+                audioFormat,
+                language,
+                modelId,
+                reduceSilence,
+                sampleRate,
+                speed,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Soniox{voiceId=$voiceId, audioFormat=$audioFormat, language=$language, modelId=$modelId, reduceSilence=$reduceSilence, sampleRate=$sampleRate, speed=$speed, additionalProperties=$additionalProperties}"
+    }
+
+    /**
      * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`, `volume`, and
      * `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`, or `emotion`, and don't
      * support `voice_speed`. `Sukhan`'s `response_format` is restricted to `mp3` or `pcm` (no
@@ -4250,7 +5219,9 @@ private constructor(
         fun voiceSpeed(): Optional<Float> = voiceSpeed.getOptional("voice_speed")
 
         /**
-         * Volume level for the Ultra model. Range: 0.0 to 2.0.
+         * Volume level for the Ultra model. Telnyx `Ultra` voices accept values from 0.5 to 2.0 —
+         * requests outside that range are rejected by the synthesis engine. `KokoroTTS`,
+         * `Qwen3TTS`, `Bayan`, and `Sukhan` voices accept the field but do not apply it.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -4397,7 +5368,11 @@ private constructor(
              */
             fun voiceSpeed(voiceSpeed: JsonField<Float>) = apply { this.voiceSpeed = voiceSpeed }
 
-            /** Volume level for the Ultra model. Range: 0.0 to 2.0. */
+            /**
+             * Volume level for the Ultra model. Telnyx `Ultra` voices accept values from 0.5 to 2.0
+             * — requests outside that range are rejected by the synthesis engine. `KokoroTTS`,
+             * `Qwen3TTS`, `Bayan`, and `Sukhan` voices accept the field but do not apply it.
+             */
             fun volume(volume: Float) = volume(JsonField.of(volume))
 
             /**

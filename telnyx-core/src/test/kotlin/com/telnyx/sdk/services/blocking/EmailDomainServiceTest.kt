@@ -141,6 +141,17 @@ internal class EmailDomainServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun rotateDkim() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val emailDomainService = client.emailDomains()
+
+        val response = emailDomainService.rotateDkim("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun verify() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val emailDomainService = client.emailDomains()

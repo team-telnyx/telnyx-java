@@ -89,21 +89,31 @@ internal class AssistantCreateParamsTest {
                             )
                             .type(FlowNodeReq.Type.PROMPT)
                             .voiceSettings(
-                                VoiceSettings.builder()
+                                InferenceEmbeddingVoiceSettings.builder()
                                     .voice("voice")
                                     .apiKeyRef("api_key_ref")
                                     .backgroundAudio(
-                                        VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                        InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                            .builder()
+                                            .type(
+                                                InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                    .UnionMember0
+                                                    .Type
+                                                    .PREDEFINED_MEDIA
+                                            )
                                             .value(
-                                                VoiceSettings.BackgroundAudio.PredefinedMedia
-                                                    .PredefinedMediaValue
+                                                InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                    .UnionMember0
+                                                    .Value_
                                                     .SILENCE
                                             )
                                             .volume(0.1)
                                             .build()
                                     )
                                     .expressiveMode(true)
-                                    .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                    .languageBoost(
+                                        InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
+                                    )
                                     .similarityBoost(0.0)
                                     .speed(0.0)
                                     .style(0.0)
@@ -166,21 +176,31 @@ internal class AssistantCreateParamsTest {
                             )
                             .type(FlowNodeReq.Type.PROMPT)
                             .voiceSettings(
-                                VoiceSettings.builder()
+                                InferenceEmbeddingVoiceSettings.builder()
                                     .voice("voice")
                                     .apiKeyRef("api_key_ref")
                                     .backgroundAudio(
-                                        VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                        InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                            .builder()
+                                            .type(
+                                                InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                    .UnionMember0
+                                                    .Type
+                                                    .PREDEFINED_MEDIA
+                                            )
                                             .value(
-                                                VoiceSettings.BackgroundAudio.PredefinedMedia
-                                                    .PredefinedMediaValue
+                                                InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                    .UnionMember0
+                                                    .Value_
                                                     .SILENCE
                                             )
                                             .volume(0.1)
                                             .build()
                                     )
                                     .expressiveMode(true)
-                                    .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                    .languageBoost(
+                                        InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
+                                    )
                                     .similarityBoost(0.0)
                                     .speed(0.0)
                                     .style(0.0)
@@ -409,20 +429,24 @@ internal class AssistantCreateParamsTest {
                     .build()
             )
             .voiceSettings(
-                VoiceSettings.builder()
+                InferenceEmbeddingVoiceSettings.builder()
                     .voice("voice")
                     .apiKeyRef("api_key_ref")
                     .backgroundAudio(
-                        VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                        InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.builder()
+                            .type(
+                                InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.Type
+                                    .PREDEFINED_MEDIA
+                            )
                             .value(
-                                VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
+                                InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.Value_
                                     .SILENCE
                             )
                             .volume(0.1)
                             .build()
                     )
                     .expressiveMode(true)
-                    .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                    .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                     .similarityBoost(0.0)
                     .speed(0.0)
                     .style(0.0)
@@ -538,21 +562,32 @@ internal class AssistantCreateParamsTest {
                                 )
                                 .type(FlowNodeReq.Type.PROMPT)
                                 .voiceSettings(
-                                    VoiceSettings.builder()
+                                    InferenceEmbeddingVoiceSettings.builder()
                                         .voice("voice")
                                         .apiKeyRef("api_key_ref")
                                         .backgroundAudio(
-                                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                            InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                .UnionMember0
+                                                .builder()
+                                                .type(
+                                                    InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                        .UnionMember0
+                                                        .Type
+                                                        .PREDEFINED_MEDIA
+                                                )
                                                 .value(
-                                                    VoiceSettings.BackgroundAudio.PredefinedMedia
-                                                        .PredefinedMediaValue
+                                                    InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                        .UnionMember0
+                                                        .Value_
                                                         .SILENCE
                                                 )
                                                 .volume(0.1)
                                                 .build()
                                         )
                                         .expressiveMode(true)
-                                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                        .languageBoost(
+                                            InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
+                                        )
                                         .similarityBoost(0.0)
                                         .speed(0.0)
                                         .style(0.0)
@@ -615,21 +650,32 @@ internal class AssistantCreateParamsTest {
                                 )
                                 .type(FlowNodeReq.Type.PROMPT)
                                 .voiceSettings(
-                                    VoiceSettings.builder()
+                                    InferenceEmbeddingVoiceSettings.builder()
                                         .voice("voice")
                                         .apiKeyRef("api_key_ref")
                                         .backgroundAudio(
-                                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                            InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                .UnionMember0
+                                                .builder()
+                                                .type(
+                                                    InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                        .UnionMember0
+                                                        .Type
+                                                        .PREDEFINED_MEDIA
+                                                )
                                                 .value(
-                                                    VoiceSettings.BackgroundAudio.PredefinedMedia
-                                                        .PredefinedMediaValue
+                                                    InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                        .UnionMember0
+                                                        .Value_
                                                         .SILENCE
                                                 )
                                                 .volume(0.1)
                                                 .build()
                                         )
                                         .expressiveMode(true)
-                                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                        .languageBoost(
+                                            InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
+                                        )
                                         .similarityBoost(0.0)
                                         .speed(0.0)
                                         .style(0.0)
@@ -868,21 +914,26 @@ internal class AssistantCreateParamsTest {
                         .build()
                 )
                 .voiceSettings(
-                    VoiceSettings.builder()
+                    InferenceEmbeddingVoiceSettings.builder()
                         .voice("voice")
                         .apiKeyRef("api_key_ref")
                         .backgroundAudio(
-                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                            InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.builder()
+                                .type(
+                                    InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                        .Type
+                                        .PREDEFINED_MEDIA
+                                )
                                 .value(
-                                    VoiceSettings.BackgroundAudio.PredefinedMedia
-                                        .PredefinedMediaValue
+                                    InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                        .Value_
                                         .SILENCE
                                 )
                                 .volume(0.1)
                                 .build()
                         )
                         .expressiveMode(true)
-                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                        .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                         .similarityBoost(0.0)
                         .speed(0.0)
                         .style(0.0)
@@ -1017,21 +1068,32 @@ internal class AssistantCreateParamsTest {
                                 )
                                 .type(FlowNodeReq.Type.PROMPT)
                                 .voiceSettings(
-                                    VoiceSettings.builder()
+                                    InferenceEmbeddingVoiceSettings.builder()
                                         .voice("voice")
                                         .apiKeyRef("api_key_ref")
                                         .backgroundAudio(
-                                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                            InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                .UnionMember0
+                                                .builder()
+                                                .type(
+                                                    InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                        .UnionMember0
+                                                        .Type
+                                                        .PREDEFINED_MEDIA
+                                                )
                                                 .value(
-                                                    VoiceSettings.BackgroundAudio.PredefinedMedia
-                                                        .PredefinedMediaValue
+                                                    InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                        .UnionMember0
+                                                        .Value_
                                                         .SILENCE
                                                 )
                                                 .volume(0.1)
                                                 .build()
                                         )
                                         .expressiveMode(true)
-                                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                        .languageBoost(
+                                            InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
+                                        )
                                         .similarityBoost(0.0)
                                         .speed(0.0)
                                         .style(0.0)
@@ -1094,21 +1156,32 @@ internal class AssistantCreateParamsTest {
                                 )
                                 .type(FlowNodeReq.Type.PROMPT)
                                 .voiceSettings(
-                                    VoiceSettings.builder()
+                                    InferenceEmbeddingVoiceSettings.builder()
                                         .voice("voice")
                                         .apiKeyRef("api_key_ref")
                                         .backgroundAudio(
-                                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                            InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                .UnionMember0
+                                                .builder()
+                                                .type(
+                                                    InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                        .UnionMember0
+                                                        .Type
+                                                        .PREDEFINED_MEDIA
+                                                )
                                                 .value(
-                                                    VoiceSettings.BackgroundAudio.PredefinedMedia
-                                                        .PredefinedMediaValue
+                                                    InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                        .UnionMember0
+                                                        .Value_
                                                         .SILENCE
                                                 )
                                                 .volume(0.1)
                                                 .build()
                                         )
                                         .expressiveMode(true)
-                                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                        .languageBoost(
+                                            InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
+                                        )
                                         .similarityBoost(0.0)
                                         .speed(0.0)
                                         .style(0.0)
@@ -1347,21 +1420,26 @@ internal class AssistantCreateParamsTest {
                         .build()
                 )
                 .voiceSettings(
-                    VoiceSettings.builder()
+                    InferenceEmbeddingVoiceSettings.builder()
                         .voice("voice")
                         .apiKeyRef("api_key_ref")
                         .backgroundAudio(
-                            VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                            InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.builder()
+                                .type(
+                                    InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                        .Type
+                                        .PREDEFINED_MEDIA
+                                )
                                 .value(
-                                    VoiceSettings.BackgroundAudio.PredefinedMedia
-                                        .PredefinedMediaValue
+                                    InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                        .Value_
                                         .SILENCE
                                 )
                                 .volume(0.1)
                                 .build()
                         )
                         .expressiveMode(true)
-                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                        .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                         .similarityBoost(0.0)
                         .speed(0.0)
                         .style(0.0)
@@ -1471,21 +1549,31 @@ internal class AssistantCreateParamsTest {
                             )
                             .type(FlowNodeReq.Type.PROMPT)
                             .voiceSettings(
-                                VoiceSettings.builder()
+                                InferenceEmbeddingVoiceSettings.builder()
                                     .voice("voice")
                                     .apiKeyRef("api_key_ref")
                                     .backgroundAudio(
-                                        VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                        InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                            .builder()
+                                            .type(
+                                                InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                    .UnionMember0
+                                                    .Type
+                                                    .PREDEFINED_MEDIA
+                                            )
                                             .value(
-                                                VoiceSettings.BackgroundAudio.PredefinedMedia
-                                                    .PredefinedMediaValue
+                                                InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                    .UnionMember0
+                                                    .Value_
                                                     .SILENCE
                                             )
                                             .volume(0.1)
                                             .build()
                                     )
                                     .expressiveMode(true)
-                                    .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                    .languageBoost(
+                                        InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
+                                    )
                                     .similarityBoost(0.0)
                                     .speed(0.0)
                                     .style(0.0)
@@ -1548,21 +1636,31 @@ internal class AssistantCreateParamsTest {
                             )
                             .type(FlowNodeReq.Type.PROMPT)
                             .voiceSettings(
-                                VoiceSettings.builder()
+                                InferenceEmbeddingVoiceSettings.builder()
                                     .voice("voice")
                                     .apiKeyRef("api_key_ref")
                                     .backgroundAudio(
-                                        VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                                        InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                            .builder()
+                                            .type(
+                                                InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                    .UnionMember0
+                                                    .Type
+                                                    .PREDEFINED_MEDIA
+                                            )
                                             .value(
-                                                VoiceSettings.BackgroundAudio.PredefinedMedia
-                                                    .PredefinedMediaValue
+                                                InferenceEmbeddingVoiceSettings.BackgroundAudio
+                                                    .UnionMember0
+                                                    .Value_
                                                     .SILENCE
                                             )
                                             .volume(0.1)
                                             .build()
                                     )
                                     .expressiveMode(true)
-                                    .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                                    .languageBoost(
+                                        InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
+                                    )
                                     .similarityBoost(0.0)
                                     .speed(0.0)
                                     .style(0.0)
@@ -1808,20 +1906,24 @@ internal class AssistantCreateParamsTest {
             )
         assertThat(body.voiceSettings())
             .contains(
-                VoiceSettings.builder()
+                InferenceEmbeddingVoiceSettings.builder()
                     .voice("voice")
                     .apiKeyRef("api_key_ref")
                     .backgroundAudio(
-                        VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                        InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.builder()
+                            .type(
+                                InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.Type
+                                    .PREDEFINED_MEDIA
+                            )
                             .value(
-                                VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
+                                InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.Value_
                                     .SILENCE
                             )
                             .volume(0.1)
                             .build()
                     )
                     .expressiveMode(true)
-                    .languageBoost(VoiceSettings.LanguageBoost.AUTO)
+                    .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                     .similarityBoost(0.0)
                     .speed(0.0)
                     .style(0.0)

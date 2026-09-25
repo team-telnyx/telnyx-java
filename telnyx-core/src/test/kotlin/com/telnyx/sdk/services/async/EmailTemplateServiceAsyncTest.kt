@@ -25,9 +25,19 @@ internal class EmailTemplateServiceAsyncTest {
                 EmailTemplateCreateParams.builder()
                     .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .name("Welcome Email")
+                    .autoescape(true)
                     .htmlBody("<h1>Hello {{ first_name }}</h1>")
+                    .strictVariables(true)
                     .subject("Welcome, {{ first_name }}!")
                     .textBody("Hello {{ first_name }}")
+                    .variableSchema(
+                        EmailTemplateCreateParams.VariableSchema.builder()
+                            .putAdditionalProperty(
+                                "foo",
+                                JsonValue.from(mapOf("required" to true, "default" to "default")),
+                            )
+                            .build()
+                    )
                     .addVariable("string")
                     .build()
             )
@@ -61,10 +71,22 @@ internal class EmailTemplateServiceAsyncTest {
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .updateEmailTemplateRequest(
                         UpdateEmailTemplateRequest.builder()
+                            .autoescape(true)
                             .htmlBody("html_body")
                             .name("name")
+                            .strictVariables(true)
                             .subject("Welcome aboard, {{first_name}}!")
                             .textBody("text_body")
+                            .variableSchema(
+                                UpdateEmailTemplateRequest.VariableSchema.builder()
+                                    .putAdditionalProperty(
+                                        "foo",
+                                        JsonValue.from(
+                                            mapOf("required" to true, "default" to "default")
+                                        ),
+                                    )
+                                    .build()
+                            )
                             .addVariable("string")
                             .build()
                     )
@@ -132,10 +154,22 @@ internal class EmailTemplateServiceAsyncTest {
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .updateEmailTemplateRequest(
                         UpdateEmailTemplateRequest.builder()
+                            .autoescape(true)
                             .htmlBody("html_body")
                             .name("name")
+                            .strictVariables(true)
                             .subject("Welcome aboard, {{first_name}}!")
                             .textBody("text_body")
+                            .variableSchema(
+                                UpdateEmailTemplateRequest.VariableSchema.builder()
+                                    .putAdditionalProperty(
+                                        "foo",
+                                        JsonValue.from(
+                                            mapOf("required" to true, "default" to "default")
+                                        ),
+                                    )
+                                    .build()
+                            )
                             .addVariable("string")
                             .build()
                     )

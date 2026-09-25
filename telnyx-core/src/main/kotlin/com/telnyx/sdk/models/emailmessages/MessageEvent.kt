@@ -20,9 +20,16 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * An event on the per-message events endpoint. The legacy event_type and additive
+ * canonical_event_type are email.-prefixed. The deprecated type preserves the bare stored event
+ * name for compatibility.
+ */
 class MessageEvent
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val canonicalEventType: JsonField<String>,
+    private val eventType: JsonField<String>,
     private val occurredAt: JsonField<OffsetDateTime>,
     private val type: JsonField<EmailEventType>,
     private val payload: JsonField<Payload>,
@@ -31,12 +38,38 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("canonical_event_type")
+        @ExcludeMissing
+        canonicalEventType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("event_type") @ExcludeMissing eventType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("occurred_at")
         @ExcludeMissing
         occurredAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<EmailEventType> = JsonMissing.of(),
         @JsonProperty("payload") @ExcludeMissing payload: JsonField<Payload> = JsonMissing.of(),
-    ) : this(occurredAt, type, payload, mutableMapOf())
+    ) : this(canonicalEventType, eventType, occurredAt, type, payload, mutableMapOf())
+
+    /**
+     * Additive canonical outcome name, prefixed with `email.`. Gateway rejection is
+     * `email.gw_reject`, ambiguous injection timeout is `email.injection_timeout`, and MTA
+     * expiration is `email.expired`. Unchanged outcomes retain their names. Existing stored rows
+     * are translated only when recorded payload evidence proves the outcome; a legacy failed row is
+     * not guessed or sharpened.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun canonicalEventType(): String = canonicalEventType.getRequired("canonical_event_type")
+
+    /**
+     * Legacy customer-visible event name, prefixed with `email.`. Gateway rejections render
+     * `email.failed`; MTA expirations render `email.bounced`. Webhook subscription allowlists match
+     * the legacy name.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun eventType(): String = eventType.getRequired("event_type")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -45,16 +78,40 @@ private constructor(
     fun occurredAt(): OffsetDateTime = occurredAt.getRequired("occurred_at")
 
     /**
+     * Bare stored event names returned by message history. In addition to the normal send and
+     * delivery lifecycle, polling can expose suppression, scan, and quarantine lifecycle rows.
+     * Sharp canonical names gw_reject, injection_timeout, and expired distinguish gateway
+     * rejection, ambiguous injection timeout, and MTA expiration. The failed and bounced names
+     * remain valid for system/admin failures and hard bounces respectively. Existing stored rows
+     * retain their original names.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun type(): EmailEventType = type.getRequired("type")
+    @Deprecated("deprecated") fun type(): EmailEventType = type.getRequired("type")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun payload(): Optional<Payload> = payload.getOptional("payload")
+
+    /**
+     * Returns the raw JSON value of [canonicalEventType].
+     *
+     * Unlike [canonicalEventType], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("canonical_event_type")
+    @ExcludeMissing
+    fun _canonicalEventType(): JsonField<String> = canonicalEventType
+
+    /**
+     * Returns the raw JSON value of [eventType].
+     *
+     * Unlike [eventType], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("event_type") @ExcludeMissing fun _eventType(): JsonField<String> = eventType
 
     /**
      * Returns the raw JSON value of [occurredAt].
@@ -70,7 +127,10 @@ private constructor(
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<EmailEventType> = type
+    @Deprecated("deprecated")
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type(): JsonField<EmailEventType> = type
 
     /**
      * Returns the raw JSON value of [payload].
@@ -98,6 +158,8 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .canonicalEventType()
+         * .eventType()
          * .occurredAt()
          * .type()
          * ```
@@ -108,6 +170,8 @@ private constructor(
     /** A builder for [MessageEvent]. */
     class Builder internal constructor() {
 
+        private var canonicalEventType: JsonField<String>? = null
+        private var eventType: JsonField<String>? = null
         private var occurredAt: JsonField<OffsetDateTime>? = null
         private var type: JsonField<EmailEventType>? = null
         private var payload: JsonField<Payload> = JsonMissing.of()
@@ -115,11 +179,50 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(messageEvent: MessageEvent) = apply {
+            canonicalEventType = messageEvent.canonicalEventType
+            eventType = messageEvent.eventType
             occurredAt = messageEvent.occurredAt
             type = messageEvent.type
             payload = messageEvent.payload
             additionalProperties = messageEvent.additionalProperties.toMutableMap()
         }
+
+        /**
+         * Additive canonical outcome name, prefixed with `email.`. Gateway rejection is
+         * `email.gw_reject`, ambiguous injection timeout is `email.injection_timeout`, and MTA
+         * expiration is `email.expired`. Unchanged outcomes retain their names. Existing stored
+         * rows are translated only when recorded payload evidence proves the outcome; a legacy
+         * failed row is not guessed or sharpened.
+         */
+        fun canonicalEventType(canonicalEventType: String) =
+            canonicalEventType(JsonField.of(canonicalEventType))
+
+        /**
+         * Sets [Builder.canonicalEventType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.canonicalEventType] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun canonicalEventType(canonicalEventType: JsonField<String>) = apply {
+            this.canonicalEventType = canonicalEventType
+        }
+
+        /**
+         * Legacy customer-visible event name, prefixed with `email.`. Gateway rejections render
+         * `email.failed`; MTA expirations render `email.bounced`. Webhook subscription allowlists
+         * match the legacy name.
+         */
+        fun eventType(eventType: String) = eventType(JsonField.of(eventType))
+
+        /**
+         * Sets [Builder.eventType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.eventType] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun eventType(eventType: JsonField<String>) = apply { this.eventType = eventType }
 
         fun occurredAt(occurredAt: OffsetDateTime) = occurredAt(JsonField.of(occurredAt))
 
@@ -134,7 +237,15 @@ private constructor(
             this.occurredAt = occurredAt
         }
 
-        fun type(type: EmailEventType) = type(JsonField.of(type))
+        /**
+         * Bare stored event names returned by message history. In addition to the normal send and
+         * delivery lifecycle, polling can expose suppression, scan, and quarantine lifecycle rows.
+         * Sharp canonical names gw_reject, injection_timeout, and expired distinguish gateway
+         * rejection, ambiguous injection timeout, and MTA expiration. The failed and bounced names
+         * remain valid for system/admin failures and hard bounces respectively. Existing stored
+         * rows retain their original names.
+         */
+        @Deprecated("deprecated") fun type(type: EmailEventType) = type(JsonField.of(type))
 
         /**
          * Sets [Builder.type] to an arbitrary JSON value.
@@ -143,6 +254,7 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
+        @Deprecated("deprecated")
         fun type(type: JsonField<EmailEventType>) = apply { this.type = type }
 
         fun payload(payload: Payload) = payload(JsonField.of(payload))
@@ -181,6 +293,8 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .canonicalEventType()
+         * .eventType()
          * .occurredAt()
          * .type()
          * ```
@@ -189,6 +303,8 @@ private constructor(
          */
         fun build(): MessageEvent =
             MessageEvent(
+                checkRequired("canonicalEventType", canonicalEventType),
+                checkRequired("eventType", eventType),
                 checkRequired("occurredAt", occurredAt),
                 checkRequired("type", type),
                 payload,
@@ -211,6 +327,8 @@ private constructor(
             return@apply
         }
 
+        canonicalEventType()
+        eventType()
         occurredAt()
         type().validate()
         payload().ifPresent { it.validate() }
@@ -232,7 +350,9 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (occurredAt.asKnown().isPresent) 1 else 0) +
+        (if (canonicalEventType.asKnown().isPresent) 1 else 0) +
+            (if (eventType.asKnown().isPresent) 1 else 0) +
+            (if (occurredAt.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (payload.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -350,6 +470,8 @@ private constructor(
         }
 
         return other is MessageEvent &&
+            canonicalEventType == other.canonicalEventType &&
+            eventType == other.eventType &&
             occurredAt == other.occurredAt &&
             type == other.type &&
             payload == other.payload &&
@@ -357,11 +479,11 @@ private constructor(
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(occurredAt, type, payload, additionalProperties)
+        Objects.hash(canonicalEventType, eventType, occurredAt, type, payload, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessageEvent{occurredAt=$occurredAt, type=$type, payload=$payload, additionalProperties=$additionalProperties}"
+        "MessageEvent{canonicalEventType=$canonicalEventType, eventType=$eventType, occurredAt=$occurredAt, type=$type, payload=$payload, additionalProperties=$additionalProperties}"
 }

@@ -28,10 +28,17 @@ internal class MeetingSessionServiceAsyncTest {
                     .assistant(
                         MeetingSessionCreateParams.Assistant.builder()
                             .id("asst_fake-uuid-1234")
-                            .callControlConnectionId("conn-fake-abcdef")
-                            .from("+12025550199")
-                            .loopbackSipUri("sip:loopback@example.invalid")
                             .audioGate(MeetingSessionCreateParams.Assistant.AudioGate.HALF_DUPLEX)
+                            .dynamicVariables(
+                                MeetingSessionCreateParams.Assistant.DynamicVariables.builder()
+                                    .putAdditionalProperty(
+                                        "candidate_name",
+                                        JsonValue.from("Ada Lovelace"),
+                                    )
+                                    .putAdditionalProperty("role", JsonValue.from("Staff Engineer"))
+                                    .build()
+                            )
+                            .leaveOnEnd(true)
                             .build()
                     )
                     .avatar(
@@ -50,6 +57,7 @@ internal class MeetingSessionServiceAsyncTest {
                             )
                             .build()
                     )
+                    .chatOnEnter("x")
                     .idempotencyKey("x")
                     .joinAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .metadata(

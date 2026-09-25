@@ -155,7 +155,8 @@ private constructor(
     fun inlineCss(): Optional<Boolean> = body.inlineCss()
 
     /**
-     * Custom metadata. Write-only; not returned in responses.
+     * Custom metadata key/value pairs. Stored on the message, returned on message responses, and
+     * propagated to Email Detail Records. Usable in `filter[metadata]` when listing messages.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -186,15 +187,38 @@ private constructor(
     fun replyToAll(): Optional<Boolean> = body.replyToAll()
 
     /**
+     * Validates and accepts the message without injecting it into the MTA or outbound Kafka path.
+     * Nothing is delivered: sandbox records are non-billable, consume no daily-send-limit quota,
+     * and feed no delivery-reputation signals.
+     *
+     * The reserved sandbox test-recipient domain is `test.telnyx.com`. In sandbox mode, these
+     * addresses produce deterministic recipient-scoped lifecycle events:
+     * - `delivered@test.telnyx.com`: queued -> sending -> sent -> delivered
+     * - `hard-bounce@test.telnyx.com`: queued -> sending -> sent -> bounced (permanent)
+     * - `soft-bounce@test.telnyx.com`: queued -> sending -> sent -> bounced (transient)
+     * - `complaint@test.telnyx.com`: queued -> sending -> sent -> complained
+     * - `suppressed@test.telnyx.com`: queued -> suppressed
+     * - `invalid@test.telnyx.com`: queued -> sending -> failed (invalid recipient)
+     * - `dkim-fail@test.telnyx.com`: queued -> sending -> failed (DKIM unavailable)
+     * - `rate-limit@test.telnyx.com`: queued -> sending -> failed (rate limit exceeded)
+     *
+     * Matching is case-insensitive for both the local part and the domain and requires the exact
+     * domain `test.telnyx.com` — subdomains and other domains do not match. Mixed sandbox sends
+     * simulate only reserved test recipients; other recipients retain ordinary sandbox behavior
+     * (accepted, no delivery attempted). Hard-bounce and complaint outcomes also use the normal
+     * automatic-suppression pipeline. Non-sandbox sends to these addresses use the normal delivery
+     * path.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun sandboxMode(): Optional<Boolean> = body.sandboxMode()
 
     /**
-     * Future ISO 8601 time to schedule sending. Invalid or past timestamps are silently ignored and
-     * the email is sent immediately. The legacy alias `send_at` is still accepted for backward
-     * compatibility; when both are provided, `scheduled_at` wins.
+     * Future ISO 8601 delivery time. Invalid or non-future timestamps are rejected. Single sends
+     * return HTTP 422; in batch sends the invalid item is reported in the 207 per-item errors while
+     * other items continue. `send_at` remains a deprecated request alias. A non-null `scheduled_at`
+     * takes precedence over `send_at`; when `scheduled_at` is omitted or null, `send_at` is used.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -219,8 +243,8 @@ private constructor(
     fun subject(): Optional<String> = body.subject()
 
     /**
-     * Tags for categorization and reporting. Stored on the message and propagated to Email Detail
-     * Records. Not returned in API responses.
+     * Tags for categorization and filtering. Stored on the message, returned on message responses,
+     * and propagated to Email Detail Records. Usable in `filter[tags]` when listing messages.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -235,7 +259,10 @@ private constructor(
 
     /**
      * Variables for Liquid template rendering. Non-object values may cause a 422 validation error
-     * on message creation, but are silently treated as an empty object for template rendering.
+     * on message creation, but are silently treated as an empty object for template rendering. When
+     * the template enables `strict_variables`, a missing required variable fails the request with
+     * 422 (single send) or a per-item `unprocessable_entity` error (batch) naming the variable; no
+     * message is persisted for the failed item.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -763,7 +790,11 @@ private constructor(
          */
         fun inlineCss(inlineCss: JsonField<Boolean>) = apply { body.inlineCss(inlineCss) }
 
-        /** Custom metadata. Write-only; not returned in responses. */
+        /**
+         * Custom metadata key/value pairs. Stored on the message, returned on message responses,
+         * and propagated to Email Detail Records. Usable in `filter[metadata]` when listing
+         * messages.
+         */
         fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
@@ -826,6 +857,29 @@ private constructor(
          */
         fun replyToAll(replyToAll: JsonField<Boolean>) = apply { body.replyToAll(replyToAll) }
 
+        /**
+         * Validates and accepts the message without injecting it into the MTA or outbound Kafka
+         * path. Nothing is delivered: sandbox records are non-billable, consume no daily-send-limit
+         * quota, and feed no delivery-reputation signals.
+         *
+         * The reserved sandbox test-recipient domain is `test.telnyx.com`. In sandbox mode, these
+         * addresses produce deterministic recipient-scoped lifecycle events:
+         * - `delivered@test.telnyx.com`: queued -> sending -> sent -> delivered
+         * - `hard-bounce@test.telnyx.com`: queued -> sending -> sent -> bounced (permanent)
+         * - `soft-bounce@test.telnyx.com`: queued -> sending -> sent -> bounced (transient)
+         * - `complaint@test.telnyx.com`: queued -> sending -> sent -> complained
+         * - `suppressed@test.telnyx.com`: queued -> suppressed
+         * - `invalid@test.telnyx.com`: queued -> sending -> failed (invalid recipient)
+         * - `dkim-fail@test.telnyx.com`: queued -> sending -> failed (DKIM unavailable)
+         * - `rate-limit@test.telnyx.com`: queued -> sending -> failed (rate limit exceeded)
+         *
+         * Matching is case-insensitive for both the local part and the domain and requires the
+         * exact domain `test.telnyx.com` — subdomains and other domains do not match. Mixed sandbox
+         * sends simulate only reserved test recipients; other recipients retain ordinary sandbox
+         * behavior (accepted, no delivery attempted). Hard-bounce and complaint outcomes also use
+         * the normal automatic-suppression pipeline. Non-sandbox sends to these addresses use the
+         * normal delivery path.
+         */
         fun sandboxMode(sandboxMode: Boolean) = apply { body.sandboxMode(sandboxMode) }
 
         /**
@@ -838,9 +892,11 @@ private constructor(
         fun sandboxMode(sandboxMode: JsonField<Boolean>) = apply { body.sandboxMode(sandboxMode) }
 
         /**
-         * Future ISO 8601 time to schedule sending. Invalid or past timestamps are silently ignored
-         * and the email is sent immediately. The legacy alias `send_at` is still accepted for
-         * backward compatibility; when both are provided, `scheduled_at` wins.
+         * Future ISO 8601 delivery time. Invalid or non-future timestamps are rejected. Single
+         * sends return HTTP 422; in batch sends the invalid item is reported in the 207 per-item
+         * errors while other items continue. `send_at` remains a deprecated request alias. A
+         * non-null `scheduled_at` takes precedence over `send_at`; when `scheduled_at` is omitted
+         * or null, `send_at` is used.
          */
         fun scheduledAt(scheduledAt: OffsetDateTime?) = apply { body.scheduledAt(scheduledAt) }
 
@@ -888,8 +944,9 @@ private constructor(
         fun subject(subject: JsonField<String>) = apply { body.subject(subject) }
 
         /**
-         * Tags for categorization and reporting. Stored on the message and propagated to Email
-         * Detail Records. Not returned in API responses.
+         * Tags for categorization and filtering. Stored on the message, returned on message
+         * responses, and propagated to Email Detail Records. Usable in `filter[tags]` when listing
+         * messages.
          */
         fun tags(tags: List<String>) = apply { body.tags(tags) }
 
@@ -923,7 +980,9 @@ private constructor(
         /**
          * Variables for Liquid template rendering. Non-object values may cause a 422 validation
          * error on message creation, but are silently treated as an empty object for template
-         * rendering.
+         * rendering. When the template enables `strict_variables`, a missing required variable
+         * fails the request with 422 (single send) or a per-item `unprocessable_entity` error
+         * (batch) naming the variable; no message is persisted for the failed item.
          */
         fun templateVariables(templateVariables: TemplateVariables) = apply {
             body.templateVariables(templateVariables)
@@ -1376,7 +1435,9 @@ private constructor(
         fun inlineCss(): Optional<Boolean> = inlineCss.getOptional("inline_css")
 
         /**
-         * Custom metadata. Write-only; not returned in responses.
+         * Custom metadata key/value pairs. Stored on the message, returned on message responses,
+         * and propagated to Email Detail Records. Usable in `filter[metadata]` when listing
+         * messages.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1407,15 +1468,39 @@ private constructor(
         fun replyToAll(): Optional<Boolean> = replyToAll.getOptional("reply_to_all")
 
         /**
+         * Validates and accepts the message without injecting it into the MTA or outbound Kafka
+         * path. Nothing is delivered: sandbox records are non-billable, consume no daily-send-limit
+         * quota, and feed no delivery-reputation signals.
+         *
+         * The reserved sandbox test-recipient domain is `test.telnyx.com`. In sandbox mode, these
+         * addresses produce deterministic recipient-scoped lifecycle events:
+         * - `delivered@test.telnyx.com`: queued -> sending -> sent -> delivered
+         * - `hard-bounce@test.telnyx.com`: queued -> sending -> sent -> bounced (permanent)
+         * - `soft-bounce@test.telnyx.com`: queued -> sending -> sent -> bounced (transient)
+         * - `complaint@test.telnyx.com`: queued -> sending -> sent -> complained
+         * - `suppressed@test.telnyx.com`: queued -> suppressed
+         * - `invalid@test.telnyx.com`: queued -> sending -> failed (invalid recipient)
+         * - `dkim-fail@test.telnyx.com`: queued -> sending -> failed (DKIM unavailable)
+         * - `rate-limit@test.telnyx.com`: queued -> sending -> failed (rate limit exceeded)
+         *
+         * Matching is case-insensitive for both the local part and the domain and requires the
+         * exact domain `test.telnyx.com` — subdomains and other domains do not match. Mixed sandbox
+         * sends simulate only reserved test recipients; other recipients retain ordinary sandbox
+         * behavior (accepted, no delivery attempted). Hard-bounce and complaint outcomes also use
+         * the normal automatic-suppression pipeline. Non-sandbox sends to these addresses use the
+         * normal delivery path.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun sandboxMode(): Optional<Boolean> = sandboxMode.getOptional("sandbox_mode")
 
         /**
-         * Future ISO 8601 time to schedule sending. Invalid or past timestamps are silently ignored
-         * and the email is sent immediately. The legacy alias `send_at` is still accepted for
-         * backward compatibility; when both are provided, `scheduled_at` wins.
+         * Future ISO 8601 delivery time. Invalid or non-future timestamps are rejected. Single
+         * sends return HTTP 422; in batch sends the invalid item is reported in the 207 per-item
+         * errors while other items continue. `send_at` remains a deprecated request alias. A
+         * non-null `scheduled_at` takes precedence over `send_at`; when `scheduled_at` is omitted
+         * or null, `send_at` is used.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1441,8 +1526,9 @@ private constructor(
         fun subject(): Optional<String> = subject.getOptional("subject")
 
         /**
-         * Tags for categorization and reporting. Stored on the message and propagated to Email
-         * Detail Records. Not returned in API responses.
+         * Tags for categorization and filtering. Stored on the message, returned on message
+         * responses, and propagated to Email Detail Records. Usable in `filter[tags]` when listing
+         * messages.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1458,7 +1544,9 @@ private constructor(
         /**
          * Variables for Liquid template rendering. Non-object values may cause a 422 validation
          * error on message creation, but are silently treated as an empty object for template
-         * rendering.
+         * rendering. When the template enables `strict_variables`, a missing required variable
+         * fails the request with 422 (single send) or a per-item `unprocessable_entity` error
+         * (batch) naming the variable; no message is persisted for the failed item.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2068,7 +2156,11 @@ private constructor(
              */
             fun inlineCss(inlineCss: JsonField<Boolean>) = apply { this.inlineCss = inlineCss }
 
-            /** Custom metadata. Write-only; not returned in responses. */
+            /**
+             * Custom metadata key/value pairs. Stored on the message, returned on message
+             * responses, and propagated to Email Detail Records. Usable in `filter[metadata]` when
+             * listing messages.
+             */
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
@@ -2135,6 +2227,29 @@ private constructor(
              */
             fun replyToAll(replyToAll: JsonField<Boolean>) = apply { this.replyToAll = replyToAll }
 
+            /**
+             * Validates and accepts the message without injecting it into the MTA or outbound Kafka
+             * path. Nothing is delivered: sandbox records are non-billable, consume no
+             * daily-send-limit quota, and feed no delivery-reputation signals.
+             *
+             * The reserved sandbox test-recipient domain is `test.telnyx.com`. In sandbox mode,
+             * these addresses produce deterministic recipient-scoped lifecycle events:
+             * - `delivered@test.telnyx.com`: queued -> sending -> sent -> delivered
+             * - `hard-bounce@test.telnyx.com`: queued -> sending -> sent -> bounced (permanent)
+             * - `soft-bounce@test.telnyx.com`: queued -> sending -> sent -> bounced (transient)
+             * - `complaint@test.telnyx.com`: queued -> sending -> sent -> complained
+             * - `suppressed@test.telnyx.com`: queued -> suppressed
+             * - `invalid@test.telnyx.com`: queued -> sending -> failed (invalid recipient)
+             * - `dkim-fail@test.telnyx.com`: queued -> sending -> failed (DKIM unavailable)
+             * - `rate-limit@test.telnyx.com`: queued -> sending -> failed (rate limit exceeded)
+             *
+             * Matching is case-insensitive for both the local part and the domain and requires the
+             * exact domain `test.telnyx.com` — subdomains and other domains do not match. Mixed
+             * sandbox sends simulate only reserved test recipients; other recipients retain
+             * ordinary sandbox behavior (accepted, no delivery attempted). Hard-bounce and
+             * complaint outcomes also use the normal automatic-suppression pipeline. Non-sandbox
+             * sends to these addresses use the normal delivery path.
+             */
             fun sandboxMode(sandboxMode: Boolean) = sandboxMode(JsonField.of(sandboxMode))
 
             /**
@@ -2149,9 +2264,11 @@ private constructor(
             }
 
             /**
-             * Future ISO 8601 time to schedule sending. Invalid or past timestamps are silently
-             * ignored and the email is sent immediately. The legacy alias `send_at` is still
-             * accepted for backward compatibility; when both are provided, `scheduled_at` wins.
+             * Future ISO 8601 delivery time. Invalid or non-future timestamps are rejected. Single
+             * sends return HTTP 422; in batch sends the invalid item is reported in the 207
+             * per-item errors while other items continue. `send_at` remains a deprecated request
+             * alias. A non-null `scheduled_at` takes precedence over `send_at`; when `scheduled_at`
+             * is omitted or null, `send_at` is used.
              */
             fun scheduledAt(scheduledAt: OffsetDateTime?) =
                 scheduledAt(JsonField.ofNullable(scheduledAt))
@@ -2202,8 +2319,9 @@ private constructor(
             fun subject(subject: JsonField<String>) = apply { this.subject = subject }
 
             /**
-             * Tags for categorization and reporting. Stored on the message and propagated to Email
-             * Detail Records. Not returned in API responses.
+             * Tags for categorization and filtering. Stored on the message, returned on message
+             * responses, and propagated to Email Detail Records. Usable in `filter[tags]` when
+             * listing messages.
              */
             fun tags(tags: List<String>) = tags(JsonField.of(tags))
 
@@ -2242,7 +2360,9 @@ private constructor(
             /**
              * Variables for Liquid template rendering. Non-object values may cause a 422 validation
              * error on message creation, but are silently treated as an empty object for template
-             * rendering.
+             * rendering. When the template enables `strict_variables`, a missing required variable
+             * fails the request with 422 (single send) or a per-item `unprocessable_entity` error
+             * (batch) naming the variable; no message is persisted for the failed item.
              */
             fun templateVariables(templateVariables: TemplateVariables) =
                 templateVariables(JsonField.of(templateVariables))
@@ -2620,7 +2740,10 @@ private constructor(
         override fun toString() = "Headers{additionalProperties=$additionalProperties}"
     }
 
-    /** Custom metadata. Write-only; not returned in responses. */
+    /**
+     * Custom metadata key/value pairs. Stored on the message, returned on message responses, and
+     * propagated to Email Detail Records. Usable in `filter[metadata]` when listing messages.
+     */
     class Metadata
     @JsonCreator
     private constructor(
@@ -2731,7 +2854,10 @@ private constructor(
 
     /**
      * Variables for Liquid template rendering. Non-object values may cause a 422 validation error
-     * on message creation, but are silently treated as an empty object for template rendering.
+     * on message creation, but are silently treated as an empty object for template rendering. When
+     * the template enables `strict_variables`, a missing required variable fails the request with
+     * 422 (single send) or a per-item `unprocessable_entity` error (batch) naming the variable; no
+     * message is persisted for the failed item.
      */
     class TemplateVariables
     @JsonCreator

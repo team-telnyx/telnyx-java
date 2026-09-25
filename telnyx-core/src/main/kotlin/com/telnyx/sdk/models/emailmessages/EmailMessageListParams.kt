@@ -9,17 +9,36 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Lists messages sorted newest first by `created_at desc, id desc`. No filters other than cursor
- * pagination are implemented. The legacy `/v2/emails` GET route is a backward-compatible alias for
- * this operation.
+ * Lists messages sorted newest first by `created_at desc, id desc`. Tags and metadata filters
+ * compose with cursor pagination. The legacy `/v2/emails` GET route is a backward-compatible alias
+ * for this operation.
  */
 class EmailMessageListParams
 private constructor(
+    private val filterMetadata: String?,
+    private val filterTags: String?,
     private val pageCursor: String?,
     private val pageSize: Long?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    /**
+     * Metadata containment filter, supplied as a JSON object or comma-separated `key=value` pairs.
+     * All supplied key/value pairs must be contained in the message metadata. An empty value or
+     * empty JSON object omits the filter. Malformed values, valid non-object JSON, pairs without
+     * `=`, empty keys, and non-string/nested query shapes return HTTP 400.
+     */
+    fun filterMetadata(): Optional<String> = Optional.ofNullable(filterMetadata)
+
+    /**
+     * Comma-separated tags. Each segment is trimmed, and messages having at least one supplied tag
+     * are returned; matching is exact and case-sensitive after trimming. Because commas delimit
+     * values and surrounding whitespace is removed, this filter cannot represent stored tags
+     * containing literal commas or leading/trailing whitespace. An empty value omits the filter.
+     * Empty segments and non-string/nested query shapes return HTTP 400.
+     */
+    fun filterTags(): Optional<String> = Optional.ofNullable(filterTags)
 
     /** Opaque URL-safe Base64 cursor returned by a previous list response. */
     fun pageCursor(): Optional<String> = Optional.ofNullable(pageCursor)
@@ -49,6 +68,8 @@ private constructor(
     /** A builder for [EmailMessageListParams]. */
     class Builder internal constructor() {
 
+        private var filterMetadata: String? = null
+        private var filterTags: String? = null
         private var pageCursor: String? = null
         private var pageSize: Long? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
@@ -57,11 +78,37 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(emailMessageListParams: EmailMessageListParams) = apply {
+            filterMetadata = emailMessageListParams.filterMetadata
+            filterTags = emailMessageListParams.filterTags
             pageCursor = emailMessageListParams.pageCursor
             pageSize = emailMessageListParams.pageSize
             additionalHeaders = emailMessageListParams.additionalHeaders.toBuilder()
             additionalQueryParams = emailMessageListParams.additionalQueryParams.toBuilder()
         }
+
+        /**
+         * Metadata containment filter, supplied as a JSON object or comma-separated `key=value`
+         * pairs. All supplied key/value pairs must be contained in the message metadata. An empty
+         * value or empty JSON object omits the filter. Malformed values, valid non-object JSON,
+         * pairs without `=`, empty keys, and non-string/nested query shapes return HTTP 400.
+         */
+        fun filterMetadata(filterMetadata: String?) = apply { this.filterMetadata = filterMetadata }
+
+        /** Alias for calling [Builder.filterMetadata] with `filterMetadata.orElse(null)`. */
+        fun filterMetadata(filterMetadata: Optional<String>) =
+            filterMetadata(filterMetadata.getOrNull())
+
+        /**
+         * Comma-separated tags. Each segment is trimmed, and messages having at least one supplied
+         * tag are returned; matching is exact and case-sensitive after trimming. Because commas
+         * delimit values and surrounding whitespace is removed, this filter cannot represent stored
+         * tags containing literal commas or leading/trailing whitespace. An empty value omits the
+         * filter. Empty segments and non-string/nested query shapes return HTTP 400.
+         */
+        fun filterTags(filterTags: String?) = apply { this.filterTags = filterTags }
+
+        /** Alias for calling [Builder.filterTags] with `filterTags.orElse(null)`. */
+        fun filterTags(filterTags: Optional<String>) = filterTags(filterTags.getOrNull())
 
         /** Opaque URL-safe Base64 cursor returned by a previous list response. */
         fun pageCursor(pageCursor: String?) = apply { this.pageCursor = pageCursor }
@@ -191,6 +238,8 @@ private constructor(
          */
         fun build(): EmailMessageListParams =
             EmailMessageListParams(
+                filterMetadata,
+                filterTags,
                 pageCursor,
                 pageSize,
                 additionalHeaders.build(),
@@ -203,6 +252,8 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
+                filterMetadata?.let { put("filter[metadata]", it) }
+                filterTags?.let { put("filter[tags]", it) }
                 pageCursor?.let { put("page_cursor", it) }
                 pageSize?.let { put("page_size", it.toString()) }
                 putAll(additionalQueryParams)
@@ -215,6 +266,8 @@ private constructor(
         }
 
         return other is EmailMessageListParams &&
+            filterMetadata == other.filterMetadata &&
+            filterTags == other.filterTags &&
             pageCursor == other.pageCursor &&
             pageSize == other.pageSize &&
             additionalHeaders == other.additionalHeaders &&
@@ -222,8 +275,15 @@ private constructor(
     }
 
     override fun hashCode(): Int =
-        Objects.hash(pageCursor, pageSize, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            filterMetadata,
+            filterTags,
+            pageCursor,
+            pageSize,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "EmailMessageListParams{pageCursor=$pageCursor, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EmailMessageListParams{filterMetadata=$filterMetadata, filterTags=$filterTags, pageCursor=$pageCursor, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

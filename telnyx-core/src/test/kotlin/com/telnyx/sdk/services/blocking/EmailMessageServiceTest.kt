@@ -8,6 +8,7 @@ import com.telnyx.sdk.models.emailmessages.AttachmentRequest
 import com.telnyx.sdk.models.emailmessages.EmailMessageBatchParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageCreateParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteAllParams
+import com.telnyx.sdk.models.emailmessages.EmailMessageUpdateScheduleParams
 import com.telnyx.sdk.models.emailmessages.TrackingSettings
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -84,9 +85,10 @@ internal class EmailMessageServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val emailMessageService = client.emailMessages()
 
-        val emailMessage = emailMessageService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val emailMessageDetailResponse =
+            emailMessageService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        emailMessage.validate()
+        emailMessageDetailResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -260,5 +262,22 @@ internal class EmailMessageServiceTest {
         val page = emailMessageService.retrieveEvents("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
         page.response().validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateSchedule() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val emailMessageService = client.emailMessages()
+
+        val emailMessageDetailResponse =
+            emailMessageService.updateSchedule(
+                EmailMessageUpdateScheduleParams.builder()
+                    .emailId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .scheduledAt(OffsetDateTime.parse("2099-08-07T14:30:00Z"))
+                    .build()
+            )
+
+        emailMessageDetailResponse.validate()
     }
 }

@@ -24,8 +24,8 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
 /**
- * Beta API for evaluating shared context with typed questions and structured answers. Telnyx
- * manages model selection.
+ * Beta API for evaluating shared context with typed questions and structured answers using Flash or
+ * Pro.
  */
 class V1ServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     V1ServiceAsync {

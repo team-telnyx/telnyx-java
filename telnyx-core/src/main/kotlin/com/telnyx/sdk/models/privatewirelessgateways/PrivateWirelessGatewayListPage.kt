@@ -18,14 +18,14 @@ private constructor(
     private val service: PrivateWirelessGatewayService,
     private val params: PrivateWirelessGatewayListParams,
     private val response: PrivateWirelessGatewayListPageResponse,
-) : Page<PrivateWirelessGateway> {
+) : Page<WirelessPrivateWirelessGateway> {
 
     /**
      * Delegates to [PrivateWirelessGatewayListPageResponse], but gracefully handles missing data.
      *
      * @see PrivateWirelessGatewayListPageResponse.data
      */
-    fun data(): List<PrivateWirelessGateway> =
+    fun data(): List<WirelessPrivateWirelessGateway> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<PrivateWirelessGateway> = data()
+    override fun items(): List<WirelessPrivateWirelessGateway> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -64,7 +64,7 @@ private constructor(
 
     override fun nextPage(): PrivateWirelessGatewayListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<PrivateWirelessGateway> = AutoPager.from(this)
+    fun autoPager(): AutoPager<WirelessPrivateWirelessGateway> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): PrivateWirelessGatewayListParams = params

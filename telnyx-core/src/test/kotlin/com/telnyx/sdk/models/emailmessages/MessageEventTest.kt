@@ -16,6 +16,8 @@ internal class MessageEventTest {
     fun create() {
         val messageEvent =
             MessageEvent.builder()
+                .canonicalEventType("email.delivered")
+                .eventType("email.delivered")
                 .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .type(EmailEventType.QUEUED)
                 .payload(
@@ -25,6 +27,8 @@ internal class MessageEventTest {
                 )
                 .build()
 
+        assertThat(messageEvent.canonicalEventType()).isEqualTo("email.delivered")
+        assertThat(messageEvent.eventType()).isEqualTo("email.delivered")
         assertThat(messageEvent.occurredAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(messageEvent.type()).isEqualTo(EmailEventType.QUEUED)
@@ -41,6 +45,8 @@ internal class MessageEventTest {
         val jsonMapper = jsonMapper()
         val messageEvent =
             MessageEvent.builder()
+                .canonicalEventType("email.delivered")
+                .eventType("email.delivered")
                 .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .type(EmailEventType.QUEUED)
                 .payload(

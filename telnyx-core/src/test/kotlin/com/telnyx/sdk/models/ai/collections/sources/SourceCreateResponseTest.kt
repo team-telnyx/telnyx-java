@@ -14,7 +14,7 @@ internal class SourceCreateResponseTest {
         val sourceCreateResponse =
             SourceCreateResponse.builder()
                 .data(
-                    Source.builder()
+                    CollectionsSource.builder()
                         .id("source_8vkvtcksnawvbnxq48yv2l06wx")
                         .bucketId("policy-docs")
                         .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")
@@ -27,7 +27,7 @@ internal class SourceCreateResponseTest {
 
         assertThat(sourceCreateResponse.data())
             .contains(
-                Source.builder()
+                CollectionsSource.builder()
                     .id("source_8vkvtcksnawvbnxq48yv2l06wx")
                     .bucketId("policy-docs")
                     .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")
@@ -44,7 +44,7 @@ internal class SourceCreateResponseTest {
         val sourceCreateResponse =
             SourceCreateResponse.builder()
                 .data(
-                    Source.builder()
+                    CollectionsSource.builder()
                         .id("source_8vkvtcksnawvbnxq48yv2l06wx")
                         .bucketId("policy-docs")
                         .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")

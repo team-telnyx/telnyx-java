@@ -14,12 +14,13 @@ import com.telnyx.sdk.models.emailmessages.EmailMessageCreateParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteAllParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteScheduleParams
+import com.telnyx.sdk.models.emailmessages.EmailMessageDetailResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageListPage
 import com.telnyx.sdk.models.emailmessages.EmailMessageListParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPage
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveResponse
+import com.telnyx.sdk.models.emailmessages.EmailMessageUpdateScheduleParams
 import com.telnyx.sdk.services.blocking.emailmessages.RecipientService
 import java.util.function.Consumer
 
@@ -63,7 +64,7 @@ interface EmailMessageService {
     ): EmailMessageResponse
 
     /** The legacy `/v2/emails/{id}` GET route is a backward-compatible alias for this operation. */
-    fun retrieve(id: String): EmailMessageRetrieveResponse =
+    fun retrieve(id: String): EmailMessageDetailResponse =
         retrieve(id, EmailMessageRetrieveParams.none())
 
     /** @see retrieve */
@@ -71,31 +72,31 @@ interface EmailMessageService {
         id: String,
         params: EmailMessageRetrieveParams = EmailMessageRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailMessageRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): EmailMessageDetailResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: EmailMessageRetrieveParams = EmailMessageRetrieveParams.none(),
-    ): EmailMessageRetrieveResponse = retrieve(id, params, RequestOptions.none())
+    ): EmailMessageDetailResponse = retrieve(id, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: EmailMessageRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailMessageRetrieveResponse
+    ): EmailMessageDetailResponse
 
     /** @see retrieve */
-    fun retrieve(params: EmailMessageRetrieveParams): EmailMessageRetrieveResponse =
+    fun retrieve(params: EmailMessageRetrieveParams): EmailMessageDetailResponse =
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(id: String, requestOptions: RequestOptions): EmailMessageRetrieveResponse =
+    fun retrieve(id: String, requestOptions: RequestOptions): EmailMessageDetailResponse =
         retrieve(id, EmailMessageRetrieveParams.none(), requestOptions)
 
     /**
-     * Lists messages sorted newest first by `created_at desc, id desc`. No filters other than
-     * cursor pagination are implemented. The legacy `/v2/emails` GET route is a backward-compatible
+     * Lists messages sorted newest first by `created_at desc, id desc`. Tags and metadata filters
+     * compose with cursor pagination. The legacy `/v2/emails` GET route is a backward-compatible
      * alias for this operation.
      */
     fun list(): EmailMessageListPage = list(EmailMessageListParams.none())
@@ -149,7 +150,10 @@ interface EmailMessageService {
      * Creates up to 1,000 email messages in a single request. Request-wide admission checks run
      * first and can reject the whole batch before message creation. After those checks pass, each
      * message is validated and sent independently; item-level failures do not affect other
-     * messages, and the processed batch returns 207 Multi-Status.
+     * messages, and the processed batch returns 207 Multi-Status. Per-message failures include
+     * validation errors; when a template has `strict_variables` enabled, a missing required
+     * variable produces a per-item `unprocessable_entity` error naming that variable while the
+     * other messages continue.
      */
     fun batch(params: EmailMessageBatchParams): EmailMessageBatchResponse =
         batch(params, RequestOptions.none())
@@ -213,6 +217,14 @@ interface EmailMessageService {
     /**
      * Lists events for a single message sorted oldest first by `occurred_at asc, id asc`. The
      * legacy `/v2/emails/{id}/events` GET route is a backward-compatible alias.
+     *
+     * For compatibility, each event carries the legacy customer-visible `event_type`
+     * (`email.`-prefixed), the additive `canonical_event_type` (`email.`-prefixed), and the
+     * deprecated `type` duplicate — whose value keeps the exact legacy format: the bare stored
+     * event name, never `email.`-prefixed. Gateway rejections render `email.failed` + canonical
+     * `email.gw_reject`; MTA expirations render `email.bounced` + canonical `email.expired`; every
+     * unchanged outcome carries identical `event_type` and `canonical_event_type` values (and
+     * `type` keeps the stored name).
      */
     fun retrieveEvents(emailId: String): EmailMessageRetrieveEventsPage =
         retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none())
@@ -247,6 +259,35 @@ interface EmailMessageService {
         requestOptions: RequestOptions,
     ): EmailMessageRetrieveEventsPage =
         retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none(), requestOptions)
+
+    /**
+     * Moves an existing scheduled email to a new future send time. Only the delivery time
+     * (`scheduled_at`) changes; the message ID, content, recipients, tags, and metadata remain
+     * unchanged. Returns `409 Conflict` if the message is no longer scheduled or its scheduled-send
+     * worker has already started processing it. This route emits no dedicated `rescheduled` event.
+     */
+    fun updateSchedule(
+        emailId: String,
+        params: EmailMessageUpdateScheduleParams,
+    ): EmailMessageDetailResponse = updateSchedule(emailId, params, RequestOptions.none())
+
+    /** @see updateSchedule */
+    fun updateSchedule(
+        emailId: String,
+        params: EmailMessageUpdateScheduleParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EmailMessageDetailResponse =
+        updateSchedule(params.toBuilder().emailId(emailId).build(), requestOptions)
+
+    /** @see updateSchedule */
+    fun updateSchedule(params: EmailMessageUpdateScheduleParams): EmailMessageDetailResponse =
+        updateSchedule(params, RequestOptions.none())
+
+    /** @see updateSchedule */
+    fun updateSchedule(
+        params: EmailMessageUpdateScheduleParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EmailMessageDetailResponse
 
     /**
      * A view of [EmailMessageService] that provides access to raw HTTP responses for each method.
@@ -288,7 +329,7 @@ interface EmailMessageService {
          * [EmailMessageService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(id: String): HttpResponseFor<EmailMessageRetrieveResponse> =
+        fun retrieve(id: String): HttpResponseFor<EmailMessageDetailResponse> =
             retrieve(id, EmailMessageRetrieveParams.none())
 
         /** @see retrieve */
@@ -297,7 +338,7 @@ interface EmailMessageService {
             id: String,
             params: EmailMessageRetrieveParams = EmailMessageRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailMessageRetrieveResponse> =
+        ): HttpResponseFor<EmailMessageDetailResponse> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
@@ -305,28 +346,27 @@ interface EmailMessageService {
         fun retrieve(
             id: String,
             params: EmailMessageRetrieveParams = EmailMessageRetrieveParams.none(),
-        ): HttpResponseFor<EmailMessageRetrieveResponse> =
-            retrieve(id, params, RequestOptions.none())
+        ): HttpResponseFor<EmailMessageDetailResponse> = retrieve(id, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: EmailMessageRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailMessageRetrieveResponse>
+        ): HttpResponseFor<EmailMessageDetailResponse>
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: EmailMessageRetrieveParams
-        ): HttpResponseFor<EmailMessageRetrieveResponse> = retrieve(params, RequestOptions.none())
+        ): HttpResponseFor<EmailMessageDetailResponse> = retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailMessageRetrieveResponse> =
+        ): HttpResponseFor<EmailMessageDetailResponse> =
             retrieve(id, EmailMessageRetrieveParams.none(), requestOptions)
 
         /**
@@ -515,5 +555,39 @@ interface EmailMessageService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<EmailMessageRetrieveEventsPage> =
             retrieveEvents(emailId, EmailMessageRetrieveEventsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `patch /email_messages/{email_id}/schedule`, but is
+         * otherwise the same as [EmailMessageService.updateSchedule].
+         */
+        @MustBeClosed
+        fun updateSchedule(
+            emailId: String,
+            params: EmailMessageUpdateScheduleParams,
+        ): HttpResponseFor<EmailMessageDetailResponse> =
+            updateSchedule(emailId, params, RequestOptions.none())
+
+        /** @see updateSchedule */
+        @MustBeClosed
+        fun updateSchedule(
+            emailId: String,
+            params: EmailMessageUpdateScheduleParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EmailMessageDetailResponse> =
+            updateSchedule(params.toBuilder().emailId(emailId).build(), requestOptions)
+
+        /** @see updateSchedule */
+        @MustBeClosed
+        fun updateSchedule(
+            params: EmailMessageUpdateScheduleParams
+        ): HttpResponseFor<EmailMessageDetailResponse> =
+            updateSchedule(params, RequestOptions.none())
+
+        /** @see updateSchedule */
+        @MustBeClosed
+        fun updateSchedule(
+            params: EmailMessageUpdateScheduleParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EmailMessageDetailResponse>
     }
 }

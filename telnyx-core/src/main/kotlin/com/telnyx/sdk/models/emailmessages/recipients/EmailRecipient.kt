@@ -899,6 +899,10 @@ private constructor(
 
             @JvmField val CANCELLED = of("cancelled")
 
+            @JvmField val INJECTION_TIMEOUT = of("injection_timeout")
+
+            @JvmField val EXPIRED = of("expired")
+
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -913,6 +917,8 @@ private constructor(
             FAILED,
             GW_REJECT,
             CANCELLED,
+            INJECTION_TIMEOUT,
+            EXPIRED,
         }
 
         /**
@@ -934,6 +940,8 @@ private constructor(
             FAILED,
             GW_REJECT,
             CANCELLED,
+            INJECTION_TIMEOUT,
+            EXPIRED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -956,6 +964,8 @@ private constructor(
                 FAILED -> Value.FAILED
                 GW_REJECT -> Value.GW_REJECT
                 CANCELLED -> Value.CANCELLED
+                INJECTION_TIMEOUT -> Value.INJECTION_TIMEOUT
+                EXPIRED -> Value.EXPIRED
                 else -> Value._UNKNOWN
             }
 
@@ -979,6 +989,8 @@ private constructor(
                 FAILED -> Known.FAILED
                 GW_REJECT -> Known.GW_REJECT
                 CANCELLED -> Known.CANCELLED
+                INJECTION_TIMEOUT -> Known.INJECTION_TIMEOUT
+                EXPIRED -> Known.EXPIRED
                 else -> throw TelnyxInvalidDataException("Unknown Status: $value")
             }
 

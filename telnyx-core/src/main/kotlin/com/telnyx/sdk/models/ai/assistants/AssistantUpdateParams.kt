@@ -304,7 +304,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun voiceSettings(): Optional<VoiceSettings> = body.voiceSettings()
+    fun voiceSettings(): Optional<InferenceEmbeddingVoiceSettings> = body.voiceSettings()
 
     /**
      * Configuration settings for the assistant's web widget.
@@ -535,7 +535,7 @@ private constructor(
      *
      * Unlike [voiceSettings], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _voiceSettings(): JsonField<VoiceSettings> = body._voiceSettings()
+    fun _voiceSettings(): JsonField<InferenceEmbeddingVoiceSettings> = body._voiceSettings()
 
     /**
      * Returns the raw JSON value of [widgetSettings].
@@ -1354,18 +1354,18 @@ private constructor(
          */
         fun versionName(versionName: JsonField<String>) = apply { body.versionName(versionName) }
 
-        fun voiceSettings(voiceSettings: VoiceSettings) = apply {
+        fun voiceSettings(voiceSettings: InferenceEmbeddingVoiceSettings) = apply {
             body.voiceSettings(voiceSettings)
         }
 
         /**
          * Sets [Builder.voiceSettings] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.voiceSettings] with a well-typed [VoiceSettings] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.voiceSettings] with a well-typed
+         * [InferenceEmbeddingVoiceSettings] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun voiceSettings(voiceSettings: JsonField<VoiceSettings>) = apply {
+        fun voiceSettings(voiceSettings: JsonField<InferenceEmbeddingVoiceSettings>) = apply {
             body.voiceSettings(voiceSettings)
         }
 
@@ -1576,7 +1576,7 @@ private constructor(
         private val tools: JsonField<List<AssistantTool>>,
         private val transcription: JsonField<TranscriptionSettings>,
         private val versionName: JsonField<String>,
-        private val voiceSettings: JsonField<VoiceSettings>,
+        private val voiceSettings: JsonField<InferenceEmbeddingVoiceSettings>,
         private val widgetSettings: JsonField<WidgetSettings>,
         private val promoteToMain: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1665,7 +1665,7 @@ private constructor(
             versionName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("voice_settings")
             @ExcludeMissing
-            voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
+            voiceSettings: JsonField<InferenceEmbeddingVoiceSettings> = JsonMissing.of(),
             @JsonProperty("widget_settings")
             @ExcludeMissing
             widgetSettings: JsonField<WidgetSettings> = JsonMissing.of(),
@@ -2022,7 +2022,8 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun voiceSettings(): Optional<VoiceSettings> = voiceSettings.getOptional("voice_settings")
+        fun voiceSettings(): Optional<InferenceEmbeddingVoiceSettings> =
+            voiceSettings.getOptional("voice_settings")
 
         /**
          * Configuration settings for the assistant's web widget.
@@ -2308,7 +2309,7 @@ private constructor(
          */
         @JsonProperty("voice_settings")
         @ExcludeMissing
-        fun _voiceSettings(): JsonField<VoiceSettings> = voiceSettings
+        fun _voiceSettings(): JsonField<InferenceEmbeddingVoiceSettings> = voiceSettings
 
         /**
          * Returns the raw JSON value of [widgetSettings].
@@ -2382,7 +2383,7 @@ private constructor(
             private var tools: JsonField<MutableList<AssistantTool>>? = null
             private var transcription: JsonField<TranscriptionSettings> = JsonMissing.of()
             private var versionName: JsonField<String> = JsonMissing.of()
-            private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
+            private var voiceSettings: JsonField<InferenceEmbeddingVoiceSettings> = JsonMissing.of()
             private var widgetSettings: JsonField<WidgetSettings> = JsonMissing.of()
             private var promoteToMain: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -3219,17 +3220,17 @@ private constructor(
                 this.versionName = versionName
             }
 
-            fun voiceSettings(voiceSettings: VoiceSettings) =
+            fun voiceSettings(voiceSettings: InferenceEmbeddingVoiceSettings) =
                 voiceSettings(JsonField.of(voiceSettings))
 
             /**
              * Sets [Builder.voiceSettings] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.voiceSettings] with a well-typed [VoiceSettings]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.voiceSettings] with a well-typed
+             * [InferenceEmbeddingVoiceSettings] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
              */
-            fun voiceSettings(voiceSettings: JsonField<VoiceSettings>) = apply {
+            fun voiceSettings(voiceSettings: JsonField<InferenceEmbeddingVoiceSettings>) = apply {
                 this.voiceSettings = voiceSettings
             }
 

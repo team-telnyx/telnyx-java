@@ -12,6 +12,7 @@ internal class PrivateWirelessGatewayCreateParamsTest {
         PrivateWirelessGatewayCreateParams.builder()
             .name("My private wireless gateway")
             .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+            .addressMode(PrivateWirelessGatewayCreateParams.AddressMode.STATIC)
             .regionCode("dc2")
             .build()
     }
@@ -22,6 +23,7 @@ internal class PrivateWirelessGatewayCreateParamsTest {
             PrivateWirelessGatewayCreateParams.builder()
                 .name("My private wireless gateway")
                 .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .addressMode(PrivateWirelessGatewayCreateParams.AddressMode.STATIC)
                 .regionCode("dc2")
                 .build()
 
@@ -29,6 +31,8 @@ internal class PrivateWirelessGatewayCreateParamsTest {
 
         assertThat(body.name()).isEqualTo("My private wireless gateway")
         assertThat(body.networkId()).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(body.addressMode())
+            .contains(PrivateWirelessGatewayCreateParams.AddressMode.STATIC)
         assertThat(body.regionCode()).contains("dc2")
     }
 

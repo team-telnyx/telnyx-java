@@ -62,7 +62,7 @@ internal class V1SystemoneResponseTest {
                         )
                         .build()
                 )
-                .model("telnyx-managed")
+                .model(V1SystemoneResponse.Model.TELNYX_DECISION_FLASH)
                 .usage(
                     V1SystemoneResponse.Usage.builder().inputTokens(267L).outputTokens(4L).build()
                 )
@@ -117,7 +117,8 @@ internal class V1SystemoneResponseTest {
                     )
                     .build()
             )
-        assertThat(v1SystemoneResponse.model()).isEqualTo("telnyx-managed")
+        assertThat(v1SystemoneResponse.model())
+            .isEqualTo(V1SystemoneResponse.Model.TELNYX_DECISION_FLASH)
         assertThat(v1SystemoneResponse.usage())
             .isEqualTo(
                 V1SystemoneResponse.Usage.builder().inputTokens(267L).outputTokens(4L).build()
@@ -177,7 +178,7 @@ internal class V1SystemoneResponseTest {
                         )
                         .build()
                 )
-                .model("telnyx-managed")
+                .model(V1SystemoneResponse.Model.TELNYX_DECISION_FLASH)
                 .usage(
                     V1SystemoneResponse.Usage.builder().inputTokens(267L).outputTokens(4L).build()
                 )

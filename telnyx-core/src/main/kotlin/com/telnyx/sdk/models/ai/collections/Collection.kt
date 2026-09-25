@@ -14,7 +14,7 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.collections.settings.RetrievalSettingsWrapper
-import com.telnyx.sdk.models.ai.collections.sources.Source
+import com.telnyx.sdk.models.ai.collections.sources.CollectionsSource
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -30,7 +30,7 @@ private constructor(
     private val recordType: JsonField<String>,
     private val settings: JsonField<RetrievalSettingsWrapper>,
     private val slug: JsonField<String>,
-    private val sources: JsonField<List<Source>>,
+    private val sources: JsonField<List<CollectionsSource>>,
     private val status: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val uuid: JsonField<String>,
@@ -55,7 +55,7 @@ private constructor(
         @JsonProperty("slug") @ExcludeMissing slug: JsonField<String> = JsonMissing.of(),
         @JsonProperty("sources")
         @ExcludeMissing
-        sources: JsonField<List<Source>> = JsonMissing.of(),
+        sources: JsonField<List<CollectionsSource>> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<String> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
@@ -117,7 +117,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun sources(): Optional<List<Source>> = sources.getOptional("sources")
+    fun sources(): Optional<List<CollectionsSource>> = sources.getOptional("sources")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -188,7 +188,9 @@ private constructor(
      *
      * Unlike [sources], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("sources") @ExcludeMissing fun _sources(): JsonField<List<Source>> = sources
+    @JsonProperty("sources")
+    @ExcludeMissing
+    fun _sources(): JsonField<List<CollectionsSource>> = sources
 
     /**
      * Returns the raw JSON value of [status].
@@ -240,7 +242,7 @@ private constructor(
         private var recordType: JsonField<String> = JsonMissing.of()
         private var settings: JsonField<RetrievalSettingsWrapper> = JsonMissing.of()
         private var slug: JsonField<String> = JsonMissing.of()
-        private var sources: JsonField<MutableList<Source>>? = null
+        private var sources: JsonField<MutableList<CollectionsSource>>? = null
         private var status: JsonField<String> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var uuid: JsonField<String> = JsonMissing.of()
@@ -328,25 +330,25 @@ private constructor(
          */
         fun slug(slug: JsonField<String>) = apply { this.slug = slug }
 
-        fun sources(sources: List<Source>) = sources(JsonField.of(sources))
+        fun sources(sources: List<CollectionsSource>) = sources(JsonField.of(sources))
 
         /**
          * Sets [Builder.sources] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.sources] with a well-typed `List<Source>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.sources] with a well-typed `List<CollectionsSource>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun sources(sources: JsonField<List<Source>>) = apply {
+        fun sources(sources: JsonField<List<CollectionsSource>>) = apply {
             this.sources = sources.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Source] to [sources].
+         * Adds a single [CollectionsSource] to [sources].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addSource(source: Source) = apply {
+        fun addSource(source: CollectionsSource) = apply {
             sources =
                 (sources ?: JsonField.of(mutableListOf())).also {
                     checkKnown("sources", it).add(source)

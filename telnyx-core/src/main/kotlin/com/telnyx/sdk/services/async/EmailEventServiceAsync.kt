@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.emailevents.EmailEventListPageAsync
 import com.telnyx.sdk.models.emailevents.EmailEventListParams
+import com.telnyx.sdk.models.emailevents.EmailEventListResponse
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsParams
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsResponse
 import java.util.concurrent.CompletableFuture
@@ -27,22 +27,36 @@ interface EmailEventServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmailEventServiceAsync
 
-    /** Lists account-level email events sorted oldest first by `occurred_at asc, id asc`. */
-    fun list(): CompletableFuture<EmailEventListPageAsync> = list(EmailEventListParams.none())
+    /**
+     * Lists account-level email events sorted oldest first by `occurred_at asc, id asc`. Each row
+     * contains a legacy email.-prefixed event_type and an additive canonical_event_type. Gateway
+     * rejection renders email.failed with canonical email.gw_reject; ambiguous injection timeout
+     * renders email.injection_timeout in both; MTA expiration renders email.bounced with canonical
+     * email.expired. Message-scoped queued, sending, sandbox, cancelled, and daily_limit_exceeded
+     * rows fan out per durable recipient with stable derived IDs matching webhook delivery.
+     * Scheduled is the cardinality exception: account polling retains one message-scoped scheduled
+     * row with its stored event ID, while scheduled webhook publication fans out per recipient with
+     * derived IDs; reconcile scheduled events by message ID, event type, and occurrence time rather
+     * than event UUID. Recipient-scoped stored rows retain their stored UUIDs across polling and
+     * webhook delivery. Legacy names are derived from stored rows; an AdminBounce row stored as
+     * failed renders email.failed in polling while its webhook retains email.bounced, both with
+     * canonical email.failed.
+     */
+    fun list(): CompletableFuture<EmailEventListResponse> = list(EmailEventListParams.none())
 
     /** @see list */
     fun list(
         params: EmailEventListParams = EmailEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailEventListPageAsync>
+    ): CompletableFuture<EmailEventListResponse>
 
     /** @see list */
     fun list(
         params: EmailEventListParams = EmailEventListParams.none()
-    ): CompletableFuture<EmailEventListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<EmailEventListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<EmailEventListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<EmailEventListResponse> =
         list(EmailEventListParams.none(), requestOptions)
 
     /**
@@ -89,25 +103,25 @@ interface EmailEventServiceAsync {
          * Returns a raw HTTP response for `get /email_events`, but is otherwise the same as
          * [EmailEventServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<EmailEventListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<EmailEventListResponse>> =
             list(EmailEventListParams.none())
 
         /** @see list */
         fun list(
             params: EmailEventListParams = EmailEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailEventListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<EmailEventListResponse>>
 
         /** @see list */
         fun list(
             params: EmailEventListParams = EmailEventListParams.none()
-        ): CompletableFuture<HttpResponseFor<EmailEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<EmailEventListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<EmailEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<EmailEventListResponse>> =
             list(EmailEventListParams.none(), requestOptions)
 
         /**

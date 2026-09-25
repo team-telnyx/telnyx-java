@@ -16,6 +16,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class ArtifactCompletedWebhookEvent
@@ -322,6 +323,7 @@ private constructor(
         private val artifactId: JsonField<String>,
         private val content: JsonField<Content>,
         private val modelProvenance: JsonField<ModelProvenance>,
+        private val prompt: JsonField<String>,
         private val sessionId: JsonField<String>,
         private val type: JsonField<Type>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -336,11 +338,12 @@ private constructor(
             @JsonProperty("model_provenance")
             @ExcludeMissing
             modelProvenance: JsonField<ModelProvenance> = JsonMissing.of(),
+            @JsonProperty("prompt") @ExcludeMissing prompt: JsonField<String> = JsonMissing.of(),
             @JsonProperty("session_id")
             @ExcludeMissing
             sessionId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-        ) : this(artifactId, content, modelProvenance, sessionId, type, mutableMapOf())
+        ) : this(artifactId, content, modelProvenance, prompt, sessionId, type, mutableMapOf())
 
         /**
          * Id of the completed artifact.
@@ -365,6 +368,15 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun modelProvenance(): ModelProvenance = modelProvenance.getRequired("model_provenance")
+
+        /**
+         * The prompt that produced this artifact, or null for a named type. Non-null only when
+         * `type` is `custom`; the five named types always return `null`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun prompt(): Optional<String> = prompt.getOptional("prompt")
 
         /**
          * The meeting session this event belongs to.
@@ -409,6 +421,13 @@ private constructor(
         fun _modelProvenance(): JsonField<ModelProvenance> = modelProvenance
 
         /**
+         * Returns the raw JSON value of [prompt].
+         *
+         * Unlike [prompt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("prompt") @ExcludeMissing fun _prompt(): JsonField<String> = prompt
+
+        /**
          * Returns the raw JSON value of [sessionId].
          *
          * Unlike [sessionId], this method doesn't throw if the JSON field has an unexpected type.
@@ -444,6 +463,7 @@ private constructor(
              * .artifactId()
              * .content()
              * .modelProvenance()
+             * .prompt()
              * .sessionId()
              * .type()
              * ```
@@ -457,6 +477,7 @@ private constructor(
             private var artifactId: JsonField<String>? = null
             private var content: JsonField<Content>? = null
             private var modelProvenance: JsonField<ModelProvenance>? = null
+            private var prompt: JsonField<String>? = null
             private var sessionId: JsonField<String>? = null
             private var type: JsonField<Type>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -466,6 +487,7 @@ private constructor(
                 artifactId = data.artifactId
                 content = data.content
                 modelProvenance = data.modelProvenance
+                prompt = data.prompt
                 sessionId = data.sessionId
                 type = data.type
                 additionalProperties = data.additionalProperties.toMutableMap()
@@ -509,6 +531,24 @@ private constructor(
             fun modelProvenance(modelProvenance: JsonField<ModelProvenance>) = apply {
                 this.modelProvenance = modelProvenance
             }
+
+            /**
+             * The prompt that produced this artifact, or null for a named type. Non-null only when
+             * `type` is `custom`; the five named types always return `null`.
+             */
+            fun prompt(prompt: String?) = prompt(JsonField.ofNullable(prompt))
+
+            /** Alias for calling [Builder.prompt] with `prompt.orElse(null)`. */
+            fun prompt(prompt: Optional<String>) = prompt(prompt.getOrNull())
+
+            /**
+             * Sets [Builder.prompt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.prompt] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun prompt(prompt: JsonField<String>) = apply { this.prompt = prompt }
 
             /** The meeting session this event belongs to. */
             fun sessionId(sessionId: String) = sessionId(JsonField.of(sessionId))
@@ -563,6 +603,7 @@ private constructor(
              * .artifactId()
              * .content()
              * .modelProvenance()
+             * .prompt()
              * .sessionId()
              * .type()
              * ```
@@ -574,6 +615,7 @@ private constructor(
                     checkRequired("artifactId", artifactId),
                     checkRequired("content", content),
                     checkRequired("modelProvenance", modelProvenance),
+                    checkRequired("prompt", prompt),
                     checkRequired("sessionId", sessionId),
                     checkRequired("type", type),
                     additionalProperties.toMutableMap(),
@@ -599,6 +641,7 @@ private constructor(
             artifactId()
             content().validate()
             modelProvenance().validate()
+            prompt()
             sessionId()
             type().validate()
             validated = true
@@ -623,6 +666,7 @@ private constructor(
             (if (artifactId.asKnown().isPresent) 1 else 0) +
                 (content.asKnown().getOrNull()?.validity() ?: 0) +
                 (modelProvenance.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (prompt.asKnown().isPresent) 1 else 0) +
                 (if (sessionId.asKnown().isPresent) 1 else 0) +
                 (type.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -1029,6 +1073,14 @@ private constructor(
 
                 @JvmField val ACTION_ITEMS = of("action_items")
 
+                @JvmField val DECISIONS = of("decisions")
+
+                @JvmField val TOPICS = of("topics")
+
+                @JvmField val OPEN_QUESTIONS = of("open_questions")
+
+                @JvmField val CUSTOM = of("custom")
+
                 @JvmStatic fun of(value: String) = Type(JsonField.of(value))
             }
 
@@ -1036,6 +1088,10 @@ private constructor(
             enum class Known {
                 SUMMARY,
                 ACTION_ITEMS,
+                DECISIONS,
+                TOPICS,
+                OPEN_QUESTIONS,
+                CUSTOM,
             }
 
             /**
@@ -1050,6 +1106,10 @@ private constructor(
             enum class Value {
                 SUMMARY,
                 ACTION_ITEMS,
+                DECISIONS,
+                TOPICS,
+                OPEN_QUESTIONS,
+                CUSTOM,
                 /** An enum member indicating that [Type] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
@@ -1065,6 +1125,10 @@ private constructor(
                 when (this) {
                     SUMMARY -> Value.SUMMARY
                     ACTION_ITEMS -> Value.ACTION_ITEMS
+                    DECISIONS -> Value.DECISIONS
+                    TOPICS -> Value.TOPICS
+                    OPEN_QUESTIONS -> Value.OPEN_QUESTIONS
+                    CUSTOM -> Value.CUSTOM
                     else -> Value._UNKNOWN
                 }
 
@@ -1081,6 +1145,10 @@ private constructor(
                 when (this) {
                     SUMMARY -> Known.SUMMARY
                     ACTION_ITEMS -> Known.ACTION_ITEMS
+                    DECISIONS -> Known.DECISIONS
+                    TOPICS -> Known.TOPICS
+                    OPEN_QUESTIONS -> Known.OPEN_QUESTIONS
+                    CUSTOM -> Known.CUSTOM
                     else -> throw TelnyxInvalidDataException("Unknown Type: $value")
                 }
 
@@ -1157,6 +1225,7 @@ private constructor(
                 artifactId == other.artifactId &&
                 content == other.content &&
                 modelProvenance == other.modelProvenance &&
+                prompt == other.prompt &&
                 sessionId == other.sessionId &&
                 type == other.type &&
                 additionalProperties == other.additionalProperties
@@ -1167,6 +1236,7 @@ private constructor(
                 artifactId,
                 content,
                 modelProvenance,
+                prompt,
                 sessionId,
                 type,
                 additionalProperties,
@@ -1176,7 +1246,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{artifactId=$artifactId, content=$content, modelProvenance=$modelProvenance, sessionId=$sessionId, type=$type, additionalProperties=$additionalProperties}"
+            "Data{artifactId=$artifactId, content=$content, modelProvenance=$modelProvenance, prompt=$prompt, sessionId=$sessionId, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /** Event type. */

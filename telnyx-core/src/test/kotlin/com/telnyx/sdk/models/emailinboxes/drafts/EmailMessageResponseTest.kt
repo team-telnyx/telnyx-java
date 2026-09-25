@@ -6,7 +6,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.emailevents.EmailEventType
-import com.telnyx.sdk.models.emailmessages.MessageEvent
 import com.telnyx.sdk.models.emailmessages.SuppressedRecipient
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
@@ -37,21 +36,27 @@ internal class EmailMessageResponseTest {
                         .addCc(EmailAddress.builder().email("email").name("name").build())
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .addEvent(
-                            MessageEvent.builder()
+                            EmailMessage.Event.builder()
                                 .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .type(EmailEventType.QUEUED)
                                 .payload(
-                                    MessageEvent.Payload.builder()
+                                    EmailMessage.Event.Payload.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
                                 .build()
                         )
                         .from(EmailAddress.builder().email("email").name("name").build())
+                        .metadata(
+                            EmailMessage.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .recordType(EmailMessage.RecordType.EMAIL_MESSAGE)
                         .replyTo("reply_to")
                         .status(EmailMessage.Status.QUEUED)
                         .subject("subject")
+                        .addTag("string")
                         .templateId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .templateVariables(
                             EmailMessage.TemplateVariables.builder()
@@ -107,21 +112,27 @@ internal class EmailMessageResponseTest {
                     .addCc(EmailAddress.builder().email("email").name("name").build())
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .addEvent(
-                        MessageEvent.builder()
+                        EmailMessage.Event.builder()
                             .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .type(EmailEventType.QUEUED)
                             .payload(
-                                MessageEvent.Payload.builder()
+                                EmailMessage.Event.Payload.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
                             .build()
                     )
                     .from(EmailAddress.builder().email("email").name("name").build())
+                    .metadata(
+                        EmailMessage.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .recordType(EmailMessage.RecordType.EMAIL_MESSAGE)
                     .replyTo("reply_to")
                     .status(EmailMessage.Status.QUEUED)
                     .subject("subject")
+                    .addTag("string")
                     .templateId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .templateVariables(
                         EmailMessage.TemplateVariables.builder()
@@ -182,21 +193,27 @@ internal class EmailMessageResponseTest {
                         .addCc(EmailAddress.builder().email("email").name("name").build())
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .addEvent(
-                            MessageEvent.builder()
+                            EmailMessage.Event.builder()
                                 .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .type(EmailEventType.QUEUED)
                                 .payload(
-                                    MessageEvent.Payload.builder()
+                                    EmailMessage.Event.Payload.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
                                 .build()
                         )
                         .from(EmailAddress.builder().email("email").name("name").build())
+                        .metadata(
+                            EmailMessage.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .recordType(EmailMessage.RecordType.EMAIL_MESSAGE)
                         .replyTo("reply_to")
                         .status(EmailMessage.Status.QUEUED)
                         .subject("subject")
+                        .addTag("string")
                         .templateId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .templateVariables(
                             EmailMessage.TemplateVariables.builder()

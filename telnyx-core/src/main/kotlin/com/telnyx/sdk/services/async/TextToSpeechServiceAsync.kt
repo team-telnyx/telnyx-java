@@ -40,7 +40,7 @@ interface TextToSpeechServiceAsync {
      * explicitly along with provider-specific parameters.
      *
      * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `resemble`, `xai`,
-     * `humain`.
+     * `humain`, `soniox`.
      *
      * The Telnyx `Ultra` model supports 44 languages with emotion control, speed adjustment, and
      * volume control. Use the `telnyx` provider-specific parameters to configure these features.
@@ -99,8 +99,8 @@ interface TextToSpeechServiceAsync {
      * JSON frames with text to synthesize; receive JSON frames containing base64-encoded audio
      * chunks.
      *
-     * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `resemble`, `elevenlabs`,
-     * `xai`, `humain`.
+     * Supported providers: `aws`, `telnyx`, `azure`, `minimax`, `resemble`, `elevenlabs`, `xai`,
+     * `humain`, `soniox`.
      *
      * **Connection flow:**
      * 1. Open WebSocket with query parameters specifying provider, voice, and model.

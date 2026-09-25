@@ -21,8 +21,8 @@ interface TypesafeServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TypesafeServiceAsync
 
     /**
-     * Beta API for evaluating shared context with typed questions and structured answers. Telnyx
-     * manages model selection.
+     * Beta API for evaluating shared context with typed questions and structured answers using
+     * Flash or Pro.
      */
     fun v1(): V1ServiceAsync
 
@@ -41,8 +41,8 @@ interface TypesafeServiceAsync {
         ): TypesafeServiceAsync.WithRawResponse
 
         /**
-         * Beta API for evaluating shared context with typed questions and structured answers.
-         * Telnyx manages model selection.
+         * Beta API for evaluating shared context with typed questions and structured answers using
+         * Flash or Pro.
          */
         fun v1(): V1ServiceAsync.WithRawResponse
     }

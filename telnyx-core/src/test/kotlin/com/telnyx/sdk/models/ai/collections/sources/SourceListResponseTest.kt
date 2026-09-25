@@ -15,7 +15,7 @@ internal class SourceListResponseTest {
         val sourceListResponse =
             SourceListResponse.builder()
                 .addData(
-                    Source.builder()
+                    CollectionsSource.builder()
                         .id("source_8vkvtcksnawvbnxq48yv2l06wx")
                         .bucketId("policy-docs")
                         .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")
@@ -28,7 +28,7 @@ internal class SourceListResponseTest {
 
         assertThat(sourceListResponse.data().getOrNull())
             .containsExactly(
-                Source.builder()
+                CollectionsSource.builder()
                     .id("source_8vkvtcksnawvbnxq48yv2l06wx")
                     .bucketId("policy-docs")
                     .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")
@@ -45,7 +45,7 @@ internal class SourceListResponseTest {
         val sourceListResponse =
             SourceListResponse.builder()
                 .addData(
-                    Source.builder()
+                    CollectionsSource.builder()
                         .id("source_8vkvtcksnawvbnxq48yv2l06wx")
                         .bucketId("policy-docs")
                         .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")

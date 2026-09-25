@@ -12,14 +12,28 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Lists account-level email events sorted oldest first by `occurred_at asc, id asc`. */
+/**
+ * Lists account-level email events sorted oldest first by `occurred_at asc, id asc`. Each row
+ * contains a legacy email.-prefixed event_type and an additive canonical_event_type. Gateway
+ * rejection renders email.failed with canonical email.gw_reject; ambiguous injection timeout
+ * renders email.injection_timeout in both; MTA expiration renders email.bounced with canonical
+ * email.expired. Message-scoped queued, sending, sandbox, cancelled, and daily_limit_exceeded rows
+ * fan out per durable recipient with stable derived IDs matching webhook delivery. Scheduled is the
+ * cardinality exception: account polling retains one message-scoped scheduled row with its stored
+ * event ID, while scheduled webhook publication fans out per recipient with derived IDs; reconcile
+ * scheduled events by message ID, event type, and occurrence time rather than event UUID.
+ * Recipient-scoped stored rows retain their stored UUIDs across polling and webhook delivery.
+ * Legacy names are derived from stored rows; an AdminBounce row stored as failed renders
+ * email.failed in polling while its webhook retains email.bounced, both with canonical
+ * email.failed.
+ */
 class EmailEventListParams
 private constructor(
     private val emailId: String?,
     private val eventType: EventType?,
     private val from: OffsetDateTime?,
-    private val pageCursor: String?,
     private val pageSize: Long?,
+    private val pageCursor: String?,
     private val to: OffsetDateTime?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
@@ -34,20 +48,33 @@ private constructor(
     /**
      * Comma-separated list of event types to include. Also accepts repeated query parameters (e.g.
      * event_type=delivered&event_type=bounced). Unknown values return no matches.
+     *
+     * Dual-name compatibility: values are accepted bare or `email.`-prefixed. A legacy value keeps
+     * matching the rows it matched pre-rename — no widening: `failed` also matches the rows that
+     * now store the canonical names of the outcomes it covered (`gw_reject`, `injection_timeout`,
+     * `expired`); `bounced` matches stored `bounced` rows only (recipient-scoped Expirations stored
+     * `failed` pre-rename and never matched `bounced`, so `expired` is deliberately not a `bounced`
+     * expansion). A canonical value matches its own rows plus legacy rows whose recorded payload
+     * evidence proves that outcome (`expired` also surfaces legacy `bounced` rows with
+     * `bounce_category: transient`). The additive `canonical_event_type` field in each response row
+     * names the canonical outcome.
      */
     fun eventType(): Optional<EventType> = Optional.ofNullable(eventType)
 
     /** Inclusive ISO 8601 start timestamp. Defaults to 30 days ago when omitted. */
     fun from(): Optional<OffsetDateTime> = Optional.ofNullable(from)
 
-    /** Opaque URL-safe Base64 cursor returned by a previous list response. */
-    fun pageCursor(): Optional<String> = Optional.ofNullable(pageCursor)
-
     /**
      * Number of results to return. Defaults to 25; maximum is 100. Invalid values are clamped to
      * the valid range.
      */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
+
+    /**
+     * Opaque URL-safe Base64 cursor returned by a previous event list response. The legacy
+     * `page[after]` and flat `page_cursor` forms are also accepted.
+     */
+    fun pageCursor(): Optional<String> = Optional.ofNullable(pageCursor)
 
     /**
      * Inclusive ISO 8601 end timestamp. When `from` is provided without `to`, defaults to `from +
@@ -77,8 +104,8 @@ private constructor(
         private var emailId: String? = null
         private var eventType: EventType? = null
         private var from: OffsetDateTime? = null
-        private var pageCursor: String? = null
         private var pageSize: Long? = null
+        private var pageCursor: String? = null
         private var to: OffsetDateTime? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
@@ -89,8 +116,8 @@ private constructor(
             emailId = emailEventListParams.emailId
             eventType = emailEventListParams.eventType
             from = emailEventListParams.from
-            pageCursor = emailEventListParams.pageCursor
             pageSize = emailEventListParams.pageSize
+            pageCursor = emailEventListParams.pageCursor
             to = emailEventListParams.to
             additionalHeaders = emailEventListParams.additionalHeaders.toBuilder()
             additionalQueryParams = emailEventListParams.additionalQueryParams.toBuilder()
@@ -108,6 +135,16 @@ private constructor(
         /**
          * Comma-separated list of event types to include. Also accepts repeated query parameters
          * (e.g. event_type=delivered&event_type=bounced). Unknown values return no matches.
+         *
+         * Dual-name compatibility: values are accepted bare or `email.`-prefixed. A legacy value
+         * keeps matching the rows it matched pre-rename — no widening: `failed` also matches the
+         * rows that now store the canonical names of the outcomes it covered (`gw_reject`,
+         * `injection_timeout`, `expired`); `bounced` matches stored `bounced` rows only
+         * (recipient-scoped Expirations stored `failed` pre-rename and never matched `bounced`, so
+         * `expired` is deliberately not a `bounced` expansion). A canonical value matches its own
+         * rows plus legacy rows whose recorded payload evidence proves that outcome (`expired` also
+         * surfaces legacy `bounced` rows with `bounce_category: transient`). The additive
+         * `canonical_event_type` field in each response row names the canonical outcome.
          */
         fun eventType(eventType: EventType?) = apply { this.eventType = eventType }
 
@@ -126,12 +163,6 @@ private constructor(
         /** Alias for calling [Builder.from] with `from.orElse(null)`. */
         fun from(from: Optional<OffsetDateTime>) = from(from.getOrNull())
 
-        /** Opaque URL-safe Base64 cursor returned by a previous list response. */
-        fun pageCursor(pageCursor: String?) = apply { this.pageCursor = pageCursor }
-
-        /** Alias for calling [Builder.pageCursor] with `pageCursor.orElse(null)`. */
-        fun pageCursor(pageCursor: Optional<String>) = pageCursor(pageCursor.getOrNull())
-
         /**
          * Number of results to return. Defaults to 25; maximum is 100. Invalid values are clamped
          * to the valid range.
@@ -147,6 +178,15 @@ private constructor(
 
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
+
+        /**
+         * Opaque URL-safe Base64 cursor returned by a previous event list response. The legacy
+         * `page[after]` and flat `page_cursor` forms are also accepted.
+         */
+        fun pageCursor(pageCursor: String?) = apply { this.pageCursor = pageCursor }
+
+        /** Alias for calling [Builder.pageCursor] with `pageCursor.orElse(null)`. */
+        fun pageCursor(pageCursor: Optional<String>) = pageCursor(pageCursor.getOrNull())
 
         /**
          * Inclusive ISO 8601 end timestamp. When `from` is provided without `to`, defaults to
@@ -266,8 +306,8 @@ private constructor(
                 emailId,
                 eventType,
                 from,
-                pageCursor,
                 pageSize,
+                pageCursor,
                 to,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -292,8 +332,8 @@ private constructor(
                     }
                 )
                 from?.let { put("from", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)) }
-                pageCursor?.let { put("page_cursor", it) }
                 pageSize?.let { put("page_size", it.toString()) }
+                pageCursor?.let { put("page[cursor]", it) }
                 to?.let { put("to", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)) }
                 putAll(additionalQueryParams)
             }
@@ -302,6 +342,16 @@ private constructor(
     /**
      * Comma-separated list of event types to include. Also accepts repeated query parameters (e.g.
      * event_type=delivered&event_type=bounced). Unknown values return no matches.
+     *
+     * Dual-name compatibility: values are accepted bare or `email.`-prefixed. A legacy value keeps
+     * matching the rows it matched pre-rename — no widening: `failed` also matches the rows that
+     * now store the canonical names of the outcomes it covered (`gw_reject`, `injection_timeout`,
+     * `expired`); `bounced` matches stored `bounced` rows only (recipient-scoped Expirations stored
+     * `failed` pre-rename and never matched `bounced`, so `expired` is deliberately not a `bounced`
+     * expansion). A canonical value matches its own rows plus legacy rows whose recorded payload
+     * evidence proves that outcome (`expired` also surfaces legacy `bounced` rows with
+     * `bounce_category: transient`). The additive `canonical_event_type` field in each response row
+     * names the canonical outcome.
      */
     class EventType
     private constructor(
@@ -376,8 +426,8 @@ private constructor(
             emailId == other.emailId &&
             eventType == other.eventType &&
             from == other.from &&
-            pageCursor == other.pageCursor &&
             pageSize == other.pageSize &&
+            pageCursor == other.pageCursor &&
             to == other.to &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -388,13 +438,13 @@ private constructor(
             emailId,
             eventType,
             from,
-            pageCursor,
             pageSize,
+            pageCursor,
             to,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "EmailEventListParams{emailId=$emailId, eventType=$eventType, from=$from, pageCursor=$pageCursor, pageSize=$pageSize, to=$to, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EmailEventListParams{emailId=$emailId, eventType=$eventType, from=$from, pageSize=$pageSize, pageCursor=$pageCursor, to=$to, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

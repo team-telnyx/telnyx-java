@@ -80,6 +80,17 @@ internal class TextToSpeechServiceAsyncTest {
                             .sampleRate("string")
                             .build()
                     )
+                    .soniox(
+                        TextToSpeechGenerateSpeechParams.Soniox.builder()
+                            .voiceId("Emma")
+                            .audioFormat(TextToSpeechGenerateSpeechParams.Soniox.AudioFormat.MP3)
+                            .language("en")
+                            .modelId(TextToSpeechGenerateSpeechParams.Soniox.ModelId.TTS_RT_V2)
+                            .reduceSilence(true)
+                            .sampleRate(TextToSpeechGenerateSpeechParams.Soniox.SampleRate._8000)
+                            .speed(1.0f)
+                            .build()
+                    )
                     .telnyx(
                         TextToSpeechGenerateSpeechParams.Telnyx.builder()
                             .emotion(TextToSpeechGenerateSpeechParams.Telnyx.Emotion.NEUTRAL)

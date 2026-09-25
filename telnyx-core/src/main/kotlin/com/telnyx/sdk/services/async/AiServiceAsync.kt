@@ -21,6 +21,7 @@ import com.telnyx.sdk.services.async.ai.FineTuningServiceAsync
 import com.telnyx.sdk.services.async.ai.IntegrationServiceAsync
 import com.telnyx.sdk.services.async.ai.KnowledgeServiceAsync
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsync
+import com.telnyx.sdk.services.async.ai.MemoryServiceAsync
 import com.telnyx.sdk.services.async.ai.MissionServiceAsync
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
 import com.telnyx.sdk.services.async.ai.ToolServiceAsync
@@ -82,6 +83,8 @@ interface AiServiceAsync {
     fun knowledge(): KnowledgeServiceAsync
 
     fun typesafe(): TypesafeServiceAsync
+
+    fun memory(): MemoryServiceAsync
 
     /**
      * Performs semantic vector search across conversation history records.
@@ -209,6 +212,8 @@ interface AiServiceAsync {
         fun knowledge(): KnowledgeServiceAsync.WithRawResponse
 
         fun typesafe(): TypesafeServiceAsync.WithRawResponse
+
+        fun memory(): MemoryServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the

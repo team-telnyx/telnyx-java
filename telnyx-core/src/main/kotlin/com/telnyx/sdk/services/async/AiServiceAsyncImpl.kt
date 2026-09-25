@@ -47,6 +47,8 @@ import com.telnyx.sdk.services.async.ai.KnowledgeServiceAsync
 import com.telnyx.sdk.services.async.ai.KnowledgeServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsync
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.MemoryServiceAsync
+import com.telnyx.sdk.services.async.ai.MemoryServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.MissionServiceAsync
 import com.telnyx.sdk.services.async.ai.MissionServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
@@ -115,6 +117,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     private val typesafe: TypesafeServiceAsync by lazy { TypesafeServiceAsyncImpl(clientOptions) }
 
+    private val memory: MemoryServiceAsync by lazy { MemoryServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): AiServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync =
@@ -160,6 +164,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun knowledge(): KnowledgeServiceAsync = knowledge
 
     override fun typesafe(): TypesafeServiceAsync = typesafe
+
+    override fun memory(): MemoryServiceAsync = memory
 
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
@@ -247,6 +253,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             TypesafeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val memory: MemoryServiceAsync.WithRawResponse by lazy {
+            MemoryServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiServiceAsync.WithRawResponse =
@@ -294,6 +304,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         override fun knowledge(): KnowledgeServiceAsync.WithRawResponse = knowledge
 
         override fun typesafe(): TypesafeServiceAsync.WithRawResponse = typesafe
+
+        override fun memory(): MemoryServiceAsync.WithRawResponse = memory
 
         private val retrieveConversationHistoriesHandler:
             Handler<AiRetrieveConversationHistoriesPageResponse> =

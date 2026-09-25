@@ -15,7 +15,7 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.emailmessages.MessageEvent
+import com.telnyx.sdk.models.emailevents.EmailEventType
 import com.telnyx.sdk.models.emailmessages.SuppressedRecipient
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -31,12 +31,14 @@ private constructor(
     private val bcc: JsonField<List<EmailAddress>>,
     private val cc: JsonField<List<EmailAddress>>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val events: JsonField<List<MessageEvent>>,
+    private val events: JsonField<List<Event>>,
     private val from: JsonField<EmailAddress>,
+    private val metadata: JsonField<Metadata>,
     private val recordType: JsonField<RecordType>,
     private val replyTo: JsonField<String>,
     private val status: JsonField<Status>,
     private val subject: JsonField<String>,
+    private val tags: JsonField<List<String>>,
     private val templateId: JsonField<String>,
     private val templateVariables: JsonField<TemplateVariables>,
     private val to: JsonField<List<EmailAddress>>,
@@ -59,16 +61,16 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("events")
-        @ExcludeMissing
-        events: JsonField<List<MessageEvent>> = JsonMissing.of(),
+        @JsonProperty("events") @ExcludeMissing events: JsonField<List<Event>> = JsonMissing.of(),
         @JsonProperty("from") @ExcludeMissing from: JsonField<EmailAddress> = JsonMissing.of(),
+        @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("record_type")
         @ExcludeMissing
         recordType: JsonField<RecordType> = JsonMissing.of(),
         @JsonProperty("reply_to") @ExcludeMissing replyTo: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("subject") @ExcludeMissing subject: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("template_id")
         @ExcludeMissing
         templateId: JsonField<String> = JsonMissing.of(),
@@ -97,10 +99,12 @@ private constructor(
         createdAt,
         events,
         from,
+        metadata,
         recordType,
         replyTo,
         status,
         subject,
+        tags,
         templateId,
         templateVariables,
         to,
@@ -146,13 +150,21 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun events(): List<MessageEvent> = events.getRequired("events")
+    fun events(): List<Event> = events.getRequired("events")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun from(): EmailAddress = from.getRequired("from")
+
+    /**
+     * Customer-supplied metadata stored with the message.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun metadata(): Metadata = metadata.getRequired("metadata")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -181,6 +193,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun subject(): String = subject.getRequired("subject")
+
+    /**
+     * Customer-supplied tags stored with the message.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun tags(): List<String> = tags.getRequired("tags")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -292,7 +312,7 @@ private constructor(
      *
      * Unlike [events], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("events") @ExcludeMissing fun _events(): JsonField<List<MessageEvent>> = events
+    @JsonProperty("events") @ExcludeMissing fun _events(): JsonField<List<Event>> = events
 
     /**
      * Returns the raw JSON value of [from].
@@ -300,6 +320,13 @@ private constructor(
      * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<EmailAddress> = from
+
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     /**
      * Returns the raw JSON value of [recordType].
@@ -330,6 +357,13 @@ private constructor(
      * Unlike [subject], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("subject") @ExcludeMissing fun _subject(): JsonField<String> = subject
+
+    /**
+     * Returns the raw JSON value of [tags].
+     *
+     * Unlike [tags], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("tags") @ExcludeMissing fun _tags(): JsonField<List<String>> = tags
 
     /**
      * Returns the raw JSON value of [templateId].
@@ -423,10 +457,12 @@ private constructor(
          * .createdAt()
          * .events()
          * .from()
+         * .metadata()
          * .recordType()
          * .replyTo()
          * .status()
          * .subject()
+         * .tags()
          * .templateId()
          * .templateVariables()
          * .to()
@@ -443,12 +479,14 @@ private constructor(
         private var bcc: JsonField<MutableList<EmailAddress>>? = null
         private var cc: JsonField<MutableList<EmailAddress>>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
-        private var events: JsonField<MutableList<MessageEvent>>? = null
+        private var events: JsonField<MutableList<Event>>? = null
         private var from: JsonField<EmailAddress>? = null
+        private var metadata: JsonField<Metadata>? = null
         private var recordType: JsonField<RecordType>? = null
         private var replyTo: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var subject: JsonField<String>? = null
+        private var tags: JsonField<MutableList<String>>? = null
         private var templateId: JsonField<String>? = null
         private var templateVariables: JsonField<TemplateVariables>? = null
         private var to: JsonField<MutableList<EmailAddress>>? = null
@@ -468,10 +506,12 @@ private constructor(
             createdAt = emailMessage.createdAt
             events = emailMessage.events.map { it.toMutableList() }
             from = emailMessage.from
+            metadata = emailMessage.metadata
             recordType = emailMessage.recordType
             replyTo = emailMessage.replyTo
             status = emailMessage.status
             subject = emailMessage.subject
+            tags = emailMessage.tags.map { it.toMutableList() }
             templateId = emailMessage.templateId
             templateVariables = emailMessage.templateVariables
             to = emailMessage.to.map { it.toMutableList() }
@@ -575,25 +615,25 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun events(events: List<MessageEvent>) = events(JsonField.of(events))
+        fun events(events: List<Event>) = events(JsonField.of(events))
 
         /**
          * Sets [Builder.events] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.events] with a well-typed `List<MessageEvent>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.events] with a well-typed `List<Event>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun events(events: JsonField<List<MessageEvent>>) = apply {
+        fun events(events: JsonField<List<Event>>) = apply {
             this.events = events.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [MessageEvent] to [events].
+         * Adds a single [Event] to [events].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addEvent(event: MessageEvent) = apply {
+        fun addEvent(event: Event) = apply {
             events =
                 (events ?: JsonField.of(mutableListOf())).also {
                     checkKnown("events", it).add(event)
@@ -610,6 +650,18 @@ private constructor(
          * value.
          */
         fun from(from: JsonField<EmailAddress>) = apply { this.from = from }
+
+        /** Customer-supplied metadata stored with the message. */
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+        /**
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         fun recordType(recordType: RecordType) = recordType(JsonField.of(recordType))
 
@@ -659,6 +711,29 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun subject(subject: JsonField<String>) = apply { this.subject = subject }
+
+        /** Customer-supplied tags stored with the message. */
+        fun tags(tags: List<String>) = tags(JsonField.of(tags))
+
+        /**
+         * Sets [Builder.tags] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tags] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun tags(tags: JsonField<List<String>>) = apply {
+            this.tags = tags.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [tags].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addTag(tag: String) = apply {
+            tags = (tags ?: JsonField.of(mutableListOf())).also { checkKnown("tags", it).add(tag) }
+        }
 
         fun templateId(templateId: String?) = templateId(JsonField.ofNullable(templateId))
 
@@ -837,10 +912,12 @@ private constructor(
          * .createdAt()
          * .events()
          * .from()
+         * .metadata()
          * .recordType()
          * .replyTo()
          * .status()
          * .subject()
+         * .tags()
          * .templateId()
          * .templateVariables()
          * .to()
@@ -857,10 +934,12 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("events", events).map { it.toImmutable() },
                 checkRequired("from", from),
+                checkRequired("metadata", metadata),
                 checkRequired("recordType", recordType),
                 checkRequired("replyTo", replyTo),
                 checkRequired("status", status),
                 checkRequired("subject", subject),
+                checkRequired("tags", tags).map { it.toImmutable() },
                 checkRequired("templateId", templateId),
                 checkRequired("templateVariables", templateVariables),
                 checkRequired("to", to).map { it.toImmutable() },
@@ -895,10 +974,12 @@ private constructor(
         createdAt()
         events().forEach { it.validate() }
         from().validate()
+        metadata().validate()
         recordType().validate()
         replyTo()
         status().validate()
         subject()
+        tags()
         templateId()
         templateVariables().validate()
         to().forEach { it.validate() }
@@ -932,10 +1013,12 @@ private constructor(
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (events.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (from.asKnown().getOrNull()?.validity() ?: 0) +
+            (metadata.asKnown().getOrNull()?.validity() ?: 0) +
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (replyTo.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (if (subject.asKnown().isPresent) 1 else 0) +
+            (tags.asKnown().getOrNull()?.size ?: 0) +
             (if (templateId.asKnown().isPresent) 1 else 0) +
             (templateVariables.asKnown().getOrNull()?.validity() ?: 0) +
             (to.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -1391,6 +1474,489 @@ private constructor(
 
         override fun toString() =
             "Attachment{contentId=$contentId, contentType=$contentType, disposition=$disposition, filename=$filename, sha256=$sha256, sizeBytes=$sizeBytes, url=$url, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * An event embedded in a message response. The dedicated per-message events endpoint
+     * additionally returns event_type and canonical_event_type.
+     */
+    class Event
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val occurredAt: JsonField<OffsetDateTime>,
+        private val type: JsonField<EmailEventType>,
+        private val payload: JsonField<Payload>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("occurred_at")
+            @ExcludeMissing
+            occurredAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("type")
+            @ExcludeMissing
+            type: JsonField<EmailEventType> = JsonMissing.of(),
+            @JsonProperty("payload") @ExcludeMissing payload: JsonField<Payload> = JsonMissing.of(),
+        ) : this(occurredAt, type, payload, mutableMapOf())
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun occurredAt(): OffsetDateTime = occurredAt.getRequired("occurred_at")
+
+        /**
+         * Bare stored event names returned by message history. In addition to the normal send and
+         * delivery lifecycle, polling can expose suppression, scan, and quarantine lifecycle rows.
+         * Sharp canonical names gw_reject, injection_timeout, and expired distinguish gateway
+         * rejection, ambiguous injection timeout, and MTA expiration. The failed and bounced names
+         * remain valid for system/admin failures and hard bounces respectively. Existing stored
+         * rows retain their original names.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun type(): EmailEventType = type.getRequired("type")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun payload(): Optional<Payload> = payload.getOptional("payload")
+
+        /**
+         * Returns the raw JSON value of [occurredAt].
+         *
+         * Unlike [occurredAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("occurred_at")
+        @ExcludeMissing
+        fun _occurredAt(): JsonField<OffsetDateTime> = occurredAt
+
+        /**
+         * Returns the raw JSON value of [type].
+         *
+         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<EmailEventType> = type
+
+        /**
+         * Returns the raw JSON value of [payload].
+         *
+         * Unlike [payload], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("payload") @ExcludeMissing fun _payload(): JsonField<Payload> = payload
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Event].
+             *
+             * The following fields are required:
+             * ```java
+             * .occurredAt()
+             * .type()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Event]. */
+        class Builder internal constructor() {
+
+            private var occurredAt: JsonField<OffsetDateTime>? = null
+            private var type: JsonField<EmailEventType>? = null
+            private var payload: JsonField<Payload> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(event: Event) = apply {
+                occurredAt = event.occurredAt
+                type = event.type
+                payload = event.payload
+                additionalProperties = event.additionalProperties.toMutableMap()
+            }
+
+            fun occurredAt(occurredAt: OffsetDateTime) = occurredAt(JsonField.of(occurredAt))
+
+            /**
+             * Sets [Builder.occurredAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.occurredAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun occurredAt(occurredAt: JsonField<OffsetDateTime>) = apply {
+                this.occurredAt = occurredAt
+            }
+
+            /**
+             * Bare stored event names returned by message history. In addition to the normal send
+             * and delivery lifecycle, polling can expose suppression, scan, and quarantine
+             * lifecycle rows. Sharp canonical names gw_reject, injection_timeout, and expired
+             * distinguish gateway rejection, ambiguous injection timeout, and MTA expiration. The
+             * failed and bounced names remain valid for system/admin failures and hard bounces
+             * respectively. Existing stored rows retain their original names.
+             */
+            fun type(type: EmailEventType) = type(JsonField.of(type))
+
+            /**
+             * Sets [Builder.type] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.type] with a well-typed [EmailEventType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun type(type: JsonField<EmailEventType>) = apply { this.type = type }
+
+            fun payload(payload: Payload) = payload(JsonField.of(payload))
+
+            /**
+             * Sets [Builder.payload] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.payload] with a well-typed [Payload] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun payload(payload: JsonField<Payload>) = apply { this.payload = payload }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Event].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .occurredAt()
+             * .type()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Event =
+                Event(
+                    checkRequired("occurredAt", occurredAt),
+                    checkRequired("type", type),
+                    payload,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Event = apply {
+            if (validated) {
+                return@apply
+            }
+
+            occurredAt()
+            type().validate()
+            payload().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (occurredAt.asKnown().isPresent) 1 else 0) +
+                (type.asKnown().getOrNull()?.validity() ?: 0) +
+                (payload.asKnown().getOrNull()?.validity() ?: 0)
+
+        class Payload
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Payload]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Payload]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(payload: Payload) = apply {
+                    additionalProperties = payload.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Payload].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Payload = Payload(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Payload = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Payload && additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "Payload{additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Event &&
+                occurredAt == other.occurredAt &&
+                type == other.type &&
+                payload == other.payload &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(occurredAt, type, payload, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Event{occurredAt=$occurredAt, type=$type, payload=$payload, additionalProperties=$additionalProperties}"
+    }
+
+    /** Customer-supplied metadata stored with the message. */
+    class Metadata
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties = metadata.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
     class RecordType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -1974,10 +2540,12 @@ private constructor(
             createdAt == other.createdAt &&
             events == other.events &&
             from == other.from &&
+            metadata == other.metadata &&
             recordType == other.recordType &&
             replyTo == other.replyTo &&
             status == other.status &&
             subject == other.subject &&
+            tags == other.tags &&
             templateId == other.templateId &&
             templateVariables == other.templateVariables &&
             to == other.to &&
@@ -1998,10 +2566,12 @@ private constructor(
             createdAt,
             events,
             from,
+            metadata,
             recordType,
             replyTo,
             status,
             subject,
+            tags,
             templateId,
             templateVariables,
             to,
@@ -2017,5 +2587,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EmailMessage{id=$id, attachments=$attachments, bcc=$bcc, cc=$cc, createdAt=$createdAt, events=$events, from=$from, recordType=$recordType, replyTo=$replyTo, status=$status, subject=$subject, templateId=$templateId, templateVariables=$templateVariables, to=$to, inlineCss=$inlineCss, recipientStatuses=$recipientStatuses, sandbox=$sandbox, scheduledAt=$scheduledAt, suppressed=$suppressed, additionalProperties=$additionalProperties}"
+        "EmailMessage{id=$id, attachments=$attachments, bcc=$bcc, cc=$cc, createdAt=$createdAt, events=$events, from=$from, metadata=$metadata, recordType=$recordType, replyTo=$replyTo, status=$status, subject=$subject, tags=$tags, templateId=$templateId, templateVariables=$templateVariables, to=$to, inlineCss=$inlineCss, recipientStatuses=$recipientStatuses, sandbox=$sandbox, scheduledAt=$scheduledAt, suppressed=$suppressed, additionalProperties=$additionalProperties}"
 }

@@ -22,6 +22,7 @@ import com.telnyx.sdk.services.blocking.ai.FineTuningService
 import com.telnyx.sdk.services.blocking.ai.IntegrationService
 import com.telnyx.sdk.services.blocking.ai.KnowledgeService
 import com.telnyx.sdk.services.blocking.ai.McpServerService
+import com.telnyx.sdk.services.blocking.ai.MemoryService
 import com.telnyx.sdk.services.blocking.ai.MissionService
 import com.telnyx.sdk.services.blocking.ai.OpenAIService
 import com.telnyx.sdk.services.blocking.ai.ToolService
@@ -82,6 +83,8 @@ interface AiService {
     fun knowledge(): KnowledgeService
 
     fun typesafe(): TypesafeService
+
+    fun memory(): MemoryService
 
     /**
      * Performs semantic vector search across conversation history records.
@@ -209,6 +212,8 @@ interface AiService {
         fun knowledge(): KnowledgeService.WithRawResponse
 
         fun typesafe(): TypesafeService.WithRawResponse
+
+        fun memory(): MemoryService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the

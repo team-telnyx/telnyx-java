@@ -24,6 +24,7 @@ internal class MeetingSessionArtifactTest {
                         .provider("provider")
                         .build()
                 )
+                .prompt(null)
                 .sessionId("mtgsess_550e8400-e29b-41d4-a716-446655440001")
                 .status(MeetingSessionArtifact.Status.PENDING)
                 .type(MeetingSessionArtifact.Type.ACTION_ITEMS)
@@ -44,6 +45,7 @@ internal class MeetingSessionArtifactTest {
                     .provider("provider")
                     .build()
             )
+        assertThat(meetingSessionArtifact.prompt()).isEmpty
         assertThat(meetingSessionArtifact.sessionId())
             .isEqualTo("mtgsess_550e8400-e29b-41d4-a716-446655440001")
         assertThat(meetingSessionArtifact.status()).isEqualTo(MeetingSessionArtifact.Status.PENDING)
@@ -68,6 +70,7 @@ internal class MeetingSessionArtifactTest {
                         .provider("provider")
                         .build()
                 )
+                .prompt(null)
                 .sessionId("mtgsess_550e8400-e29b-41d4-a716-446655440001")
                 .status(MeetingSessionArtifact.Status.PENDING)
                 .type(MeetingSessionArtifact.Type.ACTION_ITEMS)

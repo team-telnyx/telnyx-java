@@ -156,7 +156,9 @@ private constructor(
     fun createdCount(): Optional<Long> = createdCount.getOptional("created_count")
 
     /**
-     * Only when `status == completed`.
+     * Rows that passed CSV parsing but failed suppression creation. This is the creation-failure
+     * subset of `skipped_count`; parser-rejected rows equal `skipped_count - error_count`. Only
+     * when `status == completed`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -495,7 +497,11 @@ private constructor(
          */
         fun createdCount(createdCount: JsonField<Long>) = apply { this.createdCount = createdCount }
 
-        /** Only when `status == completed`. */
+        /**
+         * Rows that passed CSV parsing but failed suppression creation. This is the
+         * creation-failure subset of `skipped_count`; parser-rejected rows equal `skipped_count -
+         * error_count`. Only when `status == completed`.
+         */
         fun errorCount(errorCount: Long) = errorCount(JsonField.of(errorCount))
 
         /**
