@@ -34,6 +34,7 @@ import com.telnyx.sdk.models.ResembleVoiceSettings
 import com.telnyx.sdk.models.XaiVoiceSettings
 import com.telnyx.sdk.models.calls.actions.AwsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
+import com.telnyx.sdk.models.calls.actions.SonioxVoiceSettings
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
 import java.util.Collections
 import java.util.Objects
@@ -100,6 +101,12 @@ private constructor(
      * - **Fish Audio:** Use `FishAudio.<ModelId>.<VoiceId>` (e.g.,
      *   `FishAudio.s2.1-pro.<reference_id>`). Supported models: `s2.1-pro`, `s2-pro`, `s1`.
      *   `VoiceId` is a Fish Voice-Library reference ID.
+     * - **Soniox:** Use `Soniox.<ModelId>.<VoiceId>` (e.g., `Soniox.tts-rt-v2.Emma`). Supported
+     *   model: `tts-rt-v2`. Browse the catalog via the
+     *   [Voices API](https://developers.telnyx.com/api-reference/text-to-speech-commands/list-available-voices).
+     *   Every voice speaks all supported languages; set `language` to the two-letter ISO 639-1 code
+     *   of the text, for example `it`. SSML is not supported. Use `voice_settings` to configure
+     *   `speed` (0.7 to 1.3) and `reduce_silence`.
      * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
      *   `sal`, `leo`.
      * - **Humain:** Use `Humain.<VoiceId>` (e.g., `Humain.sara-ar`). Available voices: `sara-en`,
@@ -334,6 +341,12 @@ private constructor(
          * - **Fish Audio:** Use `FishAudio.<ModelId>.<VoiceId>` (e.g.,
          *   `FishAudio.s2.1-pro.<reference_id>`). Supported models: `s2.1-pro`, `s2-pro`, `s1`.
          *   `VoiceId` is a Fish Voice-Library reference ID.
+         * - **Soniox:** Use `Soniox.<ModelId>.<VoiceId>` (e.g., `Soniox.tts-rt-v2.Emma`). Supported
+         *   model: `tts-rt-v2`. Browse the catalog via the
+         *   [Voices API](https://developers.telnyx.com/api-reference/text-to-speech-commands/list-available-voices).
+         *   Every voice speaks all supported languages; set `language` to the two-letter ISO 639-1
+         *   code of the text, for example `it`. SSML is not supported. Use `voice_settings` to
+         *   configure `speed` (0.7 to 1.3) and `reduce_silence`.
          * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
          *   `sal`, `leo`.
          * - **Humain:** Use `Humain.<VoiceId>` (e.g., `Humain.sara-ar`). Available voices:
@@ -481,6 +494,9 @@ private constructor(
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
         fun voiceSettings(xai: XaiVoiceSettings) = apply { body.voiceSettings(xai) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofSoniox(soniox)`. */
+        fun voiceSettings(soniox: SonioxVoiceSettings) = apply { body.voiceSettings(soniox) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -732,6 +748,12 @@ private constructor(
          * - **Fish Audio:** Use `FishAudio.<ModelId>.<VoiceId>` (e.g.,
          *   `FishAudio.s2.1-pro.<reference_id>`). Supported models: `s2.1-pro`, `s2-pro`, `s1`.
          *   `VoiceId` is a Fish Voice-Library reference ID.
+         * - **Soniox:** Use `Soniox.<ModelId>.<VoiceId>` (e.g., `Soniox.tts-rt-v2.Emma`). Supported
+         *   model: `tts-rt-v2`. Browse the catalog via the
+         *   [Voices API](https://developers.telnyx.com/api-reference/text-to-speech-commands/list-available-voices).
+         *   Every voice speaks all supported languages; set `language` to the two-letter ISO 639-1
+         *   code of the text, for example `it`. SSML is not supported. Use `voice_settings` to
+         *   configure `speed` (0.7 to 1.3) and `reduce_silence`.
          * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`, `rex`,
          *   `sal`, `leo`.
          * - **Humain:** Use `Humain.<VoiceId>` (e.g., `Humain.sara-ar`). Available voices:
@@ -970,6 +992,12 @@ private constructor(
              * - **Fish Audio:** Use `FishAudio.<ModelId>.<VoiceId>` (e.g.,
              *   `FishAudio.s2.1-pro.<reference_id>`). Supported models: `s2.1-pro`, `s2-pro`, `s1`.
              *   `VoiceId` is a Fish Voice-Library reference ID.
+             * - **Soniox:** Use `Soniox.<ModelId>.<VoiceId>` (e.g., `Soniox.tts-rt-v2.Emma`).
+             *   Supported model: `tts-rt-v2`. Browse the catalog via the
+             *   [Voices API](https://developers.telnyx.com/api-reference/text-to-speech-commands/list-available-voices).
+             *   Every voice speaks all supported languages; set `language` to the two-letter ISO
+             *   639-1 code of the text, for example `it`. SSML is not supported. Use
+             *   `voice_settings` to configure `speed` (0.7 to 1.3) and `reduce_silence`.
              * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`, `ara`,
              *   `rex`, `sal`, `leo`.
              * - **Humain:** Use `Humain.<VoiceId>` (e.g., `Humain.sara-ar`). Available voices:
@@ -1125,6 +1153,10 @@ private constructor(
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
             fun voiceSettings(xai: XaiVoiceSettings) = voiceSettings(VoiceSettings.ofXai(xai))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofSoniox(soniox)`. */
+            fun voiceSettings(soniox: SonioxVoiceSettings) =
+                voiceSettings(VoiceSettings.ofSoniox(soniox))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1714,6 +1746,7 @@ private constructor(
         private val resemble: ResembleVoiceSettings? = null,
         private val inworld: InworldVoiceSettings? = null,
         private val xai: XaiVoiceSettings? = null,
+        private val soniox: SonioxVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -1733,6 +1766,8 @@ private constructor(
 
         fun xai(): Optional<XaiVoiceSettings> = Optional.ofNullable(xai)
 
+        fun soniox(): Optional<SonioxVoiceSettings> = Optional.ofNullable(soniox)
+
         fun isElevenlabs(): Boolean = elevenlabs != null
 
         fun isTelnyx(): Boolean = telnyx != null
@@ -1749,6 +1784,8 @@ private constructor(
 
         fun isXai(): Boolean = xai != null
 
+        fun isSoniox(): Boolean = soniox != null
+
         fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
 
         fun asTelnyx(): TelnyxVoiceSettings = telnyx.getOrThrow("telnyx")
@@ -1764,6 +1801,8 @@ private constructor(
         fun asInworld(): InworldVoiceSettings = inworld.getOrThrow("inworld")
 
         fun asXai(): XaiVoiceSettings = xai.getOrThrow("xai")
+
+        fun asSoniox(): SonioxVoiceSettings = soniox.getOrThrow("soniox")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1806,6 +1845,7 @@ private constructor(
                 resemble != null -> visitor.visitResemble(resemble)
                 inworld != null -> visitor.visitInworld(inworld)
                 xai != null -> visitor.visitXai(xai)
+                soniox != null -> visitor.visitSoniox(soniox)
                 else -> visitor.unknown(_json)
             }
 
@@ -1858,6 +1898,10 @@ private constructor(
                     override fun visitXai(xai: XaiVoiceSettings) {
                         xai.validate()
                     }
+
+                    override fun visitSoniox(soniox: SonioxVoiceSettings) {
+                        soniox.validate()
+                    }
                 }
             )
             validated = true
@@ -1899,6 +1943,8 @@ private constructor(
 
                     override fun visitXai(xai: XaiVoiceSettings) = xai.validity()
 
+                    override fun visitSoniox(soniox: SonioxVoiceSettings) = soniox.validity()
+
                     override fun unknown(json: JsonValue?) = 0
                 }
             )
@@ -1916,11 +1962,12 @@ private constructor(
                 azure == other.azure &&
                 resemble == other.resemble &&
                 inworld == other.inworld &&
-                xai == other.xai
+                xai == other.xai &&
+                soniox == other.soniox
         }
 
         override fun hashCode(): Int =
-            Objects.hash(elevenlabs, telnyx, aws, minimax, azure, resemble, inworld, xai)
+            Objects.hash(elevenlabs, telnyx, aws, minimax, azure, resemble, inworld, xai, soniox)
 
         override fun toString(): String =
             when {
@@ -1932,6 +1979,7 @@ private constructor(
                 resemble != null -> "VoiceSettings{resemble=$resemble}"
                 inworld != null -> "VoiceSettings{inworld=$inworld}"
                 xai != null -> "VoiceSettings{xai=$xai}"
+                soniox != null -> "VoiceSettings{soniox=$soniox}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid VoiceSettings")
             }
@@ -1958,6 +2006,8 @@ private constructor(
             fun ofInworld(inworld: InworldVoiceSettings) = VoiceSettings(inworld = inworld)
 
             @JvmStatic fun ofXai(xai: XaiVoiceSettings) = VoiceSettings(xai = xai)
+
+            @JvmStatic fun ofSoniox(soniox: SonioxVoiceSettings) = VoiceSettings(soniox = soniox)
         }
 
         /**
@@ -1981,6 +2031,8 @@ private constructor(
             fun visitInworld(inworld: InworldVoiceSettings): T
 
             fun visitXai(xai: XaiVoiceSettings): T
+
+            fun visitSoniox(soniox: SonioxVoiceSettings): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -2044,6 +2096,11 @@ private constructor(
                             VoiceSettings(xai = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
+                    "soniox" -> {
+                        return tryDeserialize(node, jacksonTypeRef<SonioxVoiceSettings>())?.let {
+                            VoiceSettings(soniox = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
                 }
 
                 return VoiceSettings(_json = json)
@@ -2066,6 +2123,7 @@ private constructor(
                     value.resemble != null -> generator.writeObject(value.resemble)
                     value.inworld != null -> generator.writeObject(value.inworld)
                     value.xai != null -> generator.writeObject(value.xai)
+                    value.soniox != null -> generator.writeObject(value.soniox)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }

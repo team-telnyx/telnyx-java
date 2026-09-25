@@ -37,7 +37,7 @@ private constructor(
     private val toolsMode: JsonField<ToolsMode>,
     private val transcription: JsonField<TranscriptionSettings>,
     private val type: JsonField<Type>,
-    private val voiceSettings: JsonField<VoiceSettings>,
+    private val voiceSettings: JsonField<InferenceEmbeddingVoiceSettings>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -76,7 +76,7 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("voice_settings")
         @ExcludeMissing
-        voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
+        voiceSettings: JsonField<InferenceEmbeddingVoiceSettings> = JsonMissing.of(),
     ) : this(
         id,
         instructions,
@@ -223,7 +223,8 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun voiceSettings(): Optional<VoiceSettings> = voiceSettings.getOptional("voice_settings")
+    fun voiceSettings(): Optional<InferenceEmbeddingVoiceSettings> =
+        voiceSettings.getOptional("voice_settings")
 
     /**
      * Returns the raw JSON value of [id].
@@ -338,7 +339,7 @@ private constructor(
      */
     @JsonProperty("voice_settings")
     @ExcludeMissing
-    fun _voiceSettings(): JsonField<VoiceSettings> = voiceSettings
+    fun _voiceSettings(): JsonField<InferenceEmbeddingVoiceSettings> = voiceSettings
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -382,7 +383,7 @@ private constructor(
         private var toolsMode: JsonField<ToolsMode> = JsonMissing.of()
         private var transcription: JsonField<TranscriptionSettings> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
-        private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
+        private var voiceSettings: JsonField<InferenceEmbeddingVoiceSettings> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -627,16 +628,17 @@ private constructor(
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** Per-node voice override (response form). */
-        fun voiceSettings(voiceSettings: VoiceSettings) = voiceSettings(JsonField.of(voiceSettings))
+        fun voiceSettings(voiceSettings: InferenceEmbeddingVoiceSettings) =
+            voiceSettings(JsonField.of(voiceSettings))
 
         /**
          * Sets [Builder.voiceSettings] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.voiceSettings] with a well-typed [VoiceSettings] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.voiceSettings] with a well-typed
+         * [InferenceEmbeddingVoiceSettings] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun voiceSettings(voiceSettings: JsonField<VoiceSettings>) = apply {
+        fun voiceSettings(voiceSettings: JsonField<InferenceEmbeddingVoiceSettings>) = apply {
             this.voiceSettings = voiceSettings
         }
 
