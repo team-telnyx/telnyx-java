@@ -4191,8 +4191,11 @@ private constructor(
                 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val to: JsonField<String>,
+                    private val extension: JsonField<String>,
                     private val message: JsonField<String>,
                     private val name: JsonField<String>,
+                    private val sipAuthPassword: JsonField<String>,
+                    private val sipAuthUsername: JsonField<String>,
                     private val additionalProperties: MutableMap<String, JsonValue>,
                 ) {
 
@@ -4201,13 +4204,30 @@ private constructor(
                         @JsonProperty("to")
                         @ExcludeMissing
                         to: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("extension")
+                        @ExcludeMissing
+                        extension: JsonField<String> = JsonMissing.of(),
                         @JsonProperty("message")
                         @ExcludeMissing
                         message: JsonField<String> = JsonMissing.of(),
                         @JsonProperty("name")
                         @ExcludeMissing
                         name: JsonField<String> = JsonMissing.of(),
-                    ) : this(to, message, name, mutableMapOf())
+                        @JsonProperty("sip_auth_password")
+                        @ExcludeMissing
+                        sipAuthPassword: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("sip_auth_username")
+                        @ExcludeMissing
+                        sipAuthUsername: JsonField<String> = JsonMissing.of(),
+                    ) : this(
+                        to,
+                        extension,
+                        message,
+                        name,
+                        sipAuthPassword,
+                        sipAuthUsername,
+                        mutableMapOf(),
+                    )
 
                     /**
                      * The destination number or SIP URI of the call.
@@ -4217,6 +4237,18 @@ private constructor(
                      *   unexpected value).
                      */
                     fun to(): String = to.getRequired("to")
+
+                    /**
+                     * DTMF digits to send automatically after the transfer destination answers.
+                     * Useful for reaching an extension behind an IVR (e.g. `"200"` to dial
+                     * extension 200 once the called party picks up). Allowed characters: `0-9`,
+                     * `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`. Maximum 64 characters.
+                     * When omitted, no automatic DTMF is sent.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun extension(): Optional<String> = extension.getOptional("extension")
 
                     /**
                      * The warm transfer message to deliver to this specific target. When set, it
@@ -4237,12 +4269,42 @@ private constructor(
                     fun name(): Optional<String> = name.getOptional("name")
 
                     /**
+                     * SIP Authentication password used for SIP challenges. Applies when `to` is a
+                     * SIP URI.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun sipAuthPassword(): Optional<String> =
+                        sipAuthPassword.getOptional("sip_auth_password")
+
+                    /**
+                     * SIP Authentication username used for SIP challenges. Applies when `to` is a
+                     * SIP URI.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun sipAuthUsername(): Optional<String> =
+                        sipAuthUsername.getOptional("sip_auth_username")
+
+                    /**
                      * Returns the raw JSON value of [to].
                      *
                      * Unlike [to], this method doesn't throw if the JSON field has an unexpected
                      * type.
                      */
                     @JsonProperty("to") @ExcludeMissing fun _to(): JsonField<String> = to
+
+                    /**
+                     * Returns the raw JSON value of [extension].
+                     *
+                     * Unlike [extension], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("extension")
+                    @ExcludeMissing
+                    fun _extension(): JsonField<String> = extension
 
                     /**
                      * Returns the raw JSON value of [message].
@@ -4261,6 +4323,26 @@ private constructor(
                      * type.
                      */
                     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+                    /**
+                     * Returns the raw JSON value of [sipAuthPassword].
+                     *
+                     * Unlike [sipAuthPassword], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("sip_auth_password")
+                    @ExcludeMissing
+                    fun _sipAuthPassword(): JsonField<String> = sipAuthPassword
+
+                    /**
+                     * Returns the raw JSON value of [sipAuthUsername].
+                     *
+                     * Unlike [sipAuthUsername], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("sip_auth_username")
+                    @ExcludeMissing
+                    fun _sipAuthUsername(): JsonField<String> = sipAuthUsername
 
                     @JsonAnySetter
                     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4291,16 +4373,22 @@ private constructor(
                     class Builder internal constructor() {
 
                         private var to: JsonField<String>? = null
+                        private var extension: JsonField<String> = JsonMissing.of()
                         private var message: JsonField<String> = JsonMissing.of()
                         private var name: JsonField<String> = JsonMissing.of()
+                        private var sipAuthPassword: JsonField<String> = JsonMissing.of()
+                        private var sipAuthUsername: JsonField<String> = JsonMissing.of()
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         @JvmSynthetic
                         internal fun from(targetObject: TargetObject) = apply {
                             to = targetObject.to
+                            extension = targetObject.extension
                             message = targetObject.message
                             name = targetObject.name
+                            sipAuthPassword = targetObject.sipAuthPassword
+                            sipAuthUsername = targetObject.sipAuthUsername
                             additionalProperties = targetObject.additionalProperties.toMutableMap()
                         }
 
@@ -4315,6 +4403,26 @@ private constructor(
                          * undocumented or not yet supported value.
                          */
                         fun to(to: JsonField<String>) = apply { this.to = to }
+
+                        /**
+                         * DTMF digits to send automatically after the transfer destination answers.
+                         * Useful for reaching an extension behind an IVR (e.g. `"200"` to dial
+                         * extension 200 once the called party picks up). Allowed characters: `0-9`,
+                         * `A-D`, `w` (0.5s pause), `W` (1s pause), `*`, `#`. Maximum 64 characters.
+                         * When omitted, no automatic DTMF is sent.
+                         */
+                        fun extension(extension: String) = extension(JsonField.of(extension))
+
+                        /**
+                         * Sets [Builder.extension] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.extension] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun extension(extension: JsonField<String>) = apply {
+                            this.extension = extension
+                        }
 
                         /**
                          * The warm transfer message to deliver to this specific target. When set,
@@ -4343,6 +4451,42 @@ private constructor(
                          * undocumented or not yet supported value.
                          */
                         fun name(name: JsonField<String>) = apply { this.name = name }
+
+                        /**
+                         * SIP Authentication password used for SIP challenges. Applies when `to` is
+                         * a SIP URI.
+                         */
+                        fun sipAuthPassword(sipAuthPassword: String) =
+                            sipAuthPassword(JsonField.of(sipAuthPassword))
+
+                        /**
+                         * Sets [Builder.sipAuthPassword] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.sipAuthPassword] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun sipAuthPassword(sipAuthPassword: JsonField<String>) = apply {
+                            this.sipAuthPassword = sipAuthPassword
+                        }
+
+                        /**
+                         * SIP Authentication username used for SIP challenges. Applies when `to` is
+                         * a SIP URI.
+                         */
+                        fun sipAuthUsername(sipAuthUsername: String) =
+                            sipAuthUsername(JsonField.of(sipAuthUsername))
+
+                        /**
+                         * Sets [Builder.sipAuthUsername] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.sipAuthUsername] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun sipAuthUsername(sipAuthUsername: JsonField<String>) = apply {
+                            this.sipAuthUsername = sipAuthUsername
+                        }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -4381,8 +4525,11 @@ private constructor(
                         fun build(): TargetObject =
                             TargetObject(
                                 checkRequired("to", to),
+                                extension,
                                 message,
                                 name,
+                                sipAuthPassword,
+                                sipAuthUsername,
                                 additionalProperties.toMutableMap(),
                             )
                     }
@@ -4405,8 +4552,11 @@ private constructor(
                         }
 
                         to()
+                        extension()
                         message()
                         name()
+                        sipAuthPassword()
+                        sipAuthUsername()
                         validated = true
                     }
 
@@ -4427,8 +4577,11 @@ private constructor(
                     @JvmSynthetic
                     internal fun validity(): Int =
                         (if (to.asKnown().isPresent) 1 else 0) +
+                            (if (extension.asKnown().isPresent) 1 else 0) +
                             (if (message.asKnown().isPresent) 1 else 0) +
-                            (if (name.asKnown().isPresent) 1 else 0)
+                            (if (name.asKnown().isPresent) 1 else 0) +
+                            (if (sipAuthPassword.asKnown().isPresent) 1 else 0) +
+                            (if (sipAuthUsername.asKnown().isPresent) 1 else 0)
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -4437,19 +4590,30 @@ private constructor(
 
                         return other is TargetObject &&
                             to == other.to &&
+                            extension == other.extension &&
                             message == other.message &&
                             name == other.name &&
+                            sipAuthPassword == other.sipAuthPassword &&
+                            sipAuthUsername == other.sipAuthUsername &&
                             additionalProperties == other.additionalProperties
                     }
 
                     private val hashCode: Int by lazy {
-                        Objects.hash(to, message, name, additionalProperties)
+                        Objects.hash(
+                            to,
+                            extension,
+                            message,
+                            name,
+                            sipAuthPassword,
+                            sipAuthUsername,
+                            additionalProperties,
+                        )
                     }
 
                     override fun hashCode(): Int = hashCode
 
                     override fun toString() =
-                        "TargetObject{to=$to, message=$message, name=$name, additionalProperties=$additionalProperties}"
+                        "TargetObject{to=$to, extension=$extension, message=$message, name=$name, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, additionalProperties=$additionalProperties}"
                 }
             }
 

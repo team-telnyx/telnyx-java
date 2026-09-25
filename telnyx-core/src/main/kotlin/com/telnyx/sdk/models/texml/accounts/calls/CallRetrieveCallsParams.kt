@@ -17,15 +17,15 @@ class CallRetrieveCallsParams
 private constructor(
     private val accountSid: String?,
     private val endTime: String?,
-    private val endTimeGt: String?,
     private val endTimeLt: String?,
+    private val endTimeGt: String?,
     private val from: String?,
     private val page: Long?,
     private val pageSize: Long?,
     private val pageToken: String?,
     private val startTime: String?,
-    private val startTimeGt: String?,
     private val startTimeLt: String?,
+    private val startTimeGt: String?,
     private val status: Status?,
     private val to: String?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
@@ -37,11 +37,11 @@ private constructor(
     /** Filters calls by their end date. Expected format is YYYY-MM-DD */
     fun endTime(): Optional<String> = Optional.ofNullable(endTime)
 
-    /** Filters calls by their end date (after). Expected format is YYYY-MM-DD */
-    fun endTimeGt(): Optional<String> = Optional.ofNullable(endTimeGt)
-
     /** Filters calls by their end date (before). Expected format is YYYY-MM-DD */
     fun endTimeLt(): Optional<String> = Optional.ofNullable(endTimeLt)
+
+    /** Filters calls by their end date (after). Expected format is YYYY-MM-DD */
+    fun endTimeGt(): Optional<String> = Optional.ofNullable(endTimeGt)
 
     /** Filters calls by the from number. */
     fun from(): Optional<String> = Optional.ofNullable(from)
@@ -61,11 +61,11 @@ private constructor(
     /** Filters calls by their start date. Expected format is YYYY-MM-DD. */
     fun startTime(): Optional<String> = Optional.ofNullable(startTime)
 
-    /** Filters calls by their start date (after). Expected format is YYYY-MM-DD */
-    fun startTimeGt(): Optional<String> = Optional.ofNullable(startTimeGt)
-
     /** Filters calls by their start date (before). Expected format is YYYY-MM-DD */
     fun startTimeLt(): Optional<String> = Optional.ofNullable(startTimeLt)
+
+    /** Filters calls by their start date (after). Expected format is YYYY-MM-DD */
+    fun startTimeGt(): Optional<String> = Optional.ofNullable(startTimeGt)
 
     /** Filters calls by status. */
     fun status(): Optional<Status> = Optional.ofNullable(status)
@@ -94,15 +94,15 @@ private constructor(
 
         private var accountSid: String? = null
         private var endTime: String? = null
-        private var endTimeGt: String? = null
         private var endTimeLt: String? = null
+        private var endTimeGt: String? = null
         private var from: String? = null
         private var page: Long? = null
         private var pageSize: Long? = null
         private var pageToken: String? = null
         private var startTime: String? = null
-        private var startTimeGt: String? = null
         private var startTimeLt: String? = null
+        private var startTimeGt: String? = null
         private var status: Status? = null
         private var to: String? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
@@ -113,15 +113,15 @@ private constructor(
         internal fun from(callRetrieveCallsParams: CallRetrieveCallsParams) = apply {
             accountSid = callRetrieveCallsParams.accountSid
             endTime = callRetrieveCallsParams.endTime
-            endTimeGt = callRetrieveCallsParams.endTimeGt
             endTimeLt = callRetrieveCallsParams.endTimeLt
+            endTimeGt = callRetrieveCallsParams.endTimeGt
             from = callRetrieveCallsParams.from
             page = callRetrieveCallsParams.page
             pageSize = callRetrieveCallsParams.pageSize
             pageToken = callRetrieveCallsParams.pageToken
             startTime = callRetrieveCallsParams.startTime
-            startTimeGt = callRetrieveCallsParams.startTimeGt
             startTimeLt = callRetrieveCallsParams.startTimeLt
+            startTimeGt = callRetrieveCallsParams.startTimeGt
             status = callRetrieveCallsParams.status
             to = callRetrieveCallsParams.to
             additionalHeaders = callRetrieveCallsParams.additionalHeaders.toBuilder()
@@ -139,17 +139,17 @@ private constructor(
         /** Alias for calling [Builder.endTime] with `endTime.orElse(null)`. */
         fun endTime(endTime: Optional<String>) = endTime(endTime.getOrNull())
 
-        /** Filters calls by their end date (after). Expected format is YYYY-MM-DD */
-        fun endTimeGt(endTimeGt: String?) = apply { this.endTimeGt = endTimeGt }
-
-        /** Alias for calling [Builder.endTimeGt] with `endTimeGt.orElse(null)`. */
-        fun endTimeGt(endTimeGt: Optional<String>) = endTimeGt(endTimeGt.getOrNull())
-
         /** Filters calls by their end date (before). Expected format is YYYY-MM-DD */
         fun endTimeLt(endTimeLt: String?) = apply { this.endTimeLt = endTimeLt }
 
         /** Alias for calling [Builder.endTimeLt] with `endTimeLt.orElse(null)`. */
         fun endTimeLt(endTimeLt: Optional<String>) = endTimeLt(endTimeLt.getOrNull())
+
+        /** Filters calls by their end date (after). Expected format is YYYY-MM-DD */
+        fun endTimeGt(endTimeGt: String?) = apply { this.endTimeGt = endTimeGt }
+
+        /** Alias for calling [Builder.endTimeGt] with `endTimeGt.orElse(null)`. */
+        fun endTimeGt(endTimeGt: Optional<String>) = endTimeGt(endTimeGt.getOrNull())
 
         /** Filters calls by the from number. */
         fun from(from: String?) = apply { this.from = from }
@@ -198,17 +198,17 @@ private constructor(
         /** Alias for calling [Builder.startTime] with `startTime.orElse(null)`. */
         fun startTime(startTime: Optional<String>) = startTime(startTime.getOrNull())
 
-        /** Filters calls by their start date (after). Expected format is YYYY-MM-DD */
-        fun startTimeGt(startTimeGt: String?) = apply { this.startTimeGt = startTimeGt }
-
-        /** Alias for calling [Builder.startTimeGt] with `startTimeGt.orElse(null)`. */
-        fun startTimeGt(startTimeGt: Optional<String>) = startTimeGt(startTimeGt.getOrNull())
-
         /** Filters calls by their start date (before). Expected format is YYYY-MM-DD */
         fun startTimeLt(startTimeLt: String?) = apply { this.startTimeLt = startTimeLt }
 
         /** Alias for calling [Builder.startTimeLt] with `startTimeLt.orElse(null)`. */
         fun startTimeLt(startTimeLt: Optional<String>) = startTimeLt(startTimeLt.getOrNull())
+
+        /** Filters calls by their start date (after). Expected format is YYYY-MM-DD */
+        fun startTimeGt(startTimeGt: String?) = apply { this.startTimeGt = startTimeGt }
+
+        /** Alias for calling [Builder.startTimeGt] with `startTimeGt.orElse(null)`. */
+        fun startTimeGt(startTimeGt: Optional<String>) = startTimeGt(startTimeGt.getOrNull())
 
         /** Filters calls by status. */
         fun status(status: Status?) = apply { this.status = status }
@@ -330,15 +330,15 @@ private constructor(
             CallRetrieveCallsParams(
                 accountSid,
                 endTime,
-                endTimeGt,
                 endTimeLt,
+                endTimeGt,
                 from,
                 page,
                 pageSize,
                 pageToken,
                 startTime,
-                startTimeGt,
                 startTimeLt,
+                startTimeGt,
                 status,
                 to,
                 additionalHeaders.build(),
@@ -358,15 +358,15 @@ private constructor(
         QueryParams.builder()
             .apply {
                 endTime?.let { put("EndTime", it) }
-                endTimeGt?.let { put("EndTime_gt", it) }
-                endTimeLt?.let { put("EndTime_lt", it) }
+                endTimeLt?.let { put("EndTime<", it) }
+                endTimeGt?.let { put("EndTime>", it) }
                 from?.let { put("From", it) }
                 page?.let { put("Page", it.toString()) }
                 pageSize?.let { put("PageSize", it.toString()) }
                 pageToken?.let { put("PageToken", it) }
                 startTime?.let { put("StartTime", it) }
-                startTimeGt?.let { put("StartTime_gt", it) }
-                startTimeLt?.let { put("StartTime_lt", it) }
+                startTimeLt?.let { put("StartTime<", it) }
+                startTimeGt?.let { put("StartTime>", it) }
                 status?.let { put("Status", it.toString()) }
                 to?.let { put("To", it) }
                 putAll(additionalQueryParams)
@@ -534,15 +534,15 @@ private constructor(
         return other is CallRetrieveCallsParams &&
             accountSid == other.accountSid &&
             endTime == other.endTime &&
-            endTimeGt == other.endTimeGt &&
             endTimeLt == other.endTimeLt &&
+            endTimeGt == other.endTimeGt &&
             from == other.from &&
             page == other.page &&
             pageSize == other.pageSize &&
             pageToken == other.pageToken &&
             startTime == other.startTime &&
-            startTimeGt == other.startTimeGt &&
             startTimeLt == other.startTimeLt &&
+            startTimeGt == other.startTimeGt &&
             status == other.status &&
             to == other.to &&
             additionalHeaders == other.additionalHeaders &&
@@ -553,15 +553,15 @@ private constructor(
         Objects.hash(
             accountSid,
             endTime,
-            endTimeGt,
             endTimeLt,
+            endTimeGt,
             from,
             page,
             pageSize,
             pageToken,
             startTime,
-            startTimeGt,
             startTimeLt,
+            startTimeGt,
             status,
             to,
             additionalHeaders,
@@ -569,5 +569,5 @@ private constructor(
         )
 
     override fun toString() =
-        "CallRetrieveCallsParams{accountSid=$accountSid, endTime=$endTime, endTimeGt=$endTimeGt, endTimeLt=$endTimeLt, from=$from, page=$page, pageSize=$pageSize, pageToken=$pageToken, startTime=$startTime, startTimeGt=$startTimeGt, startTimeLt=$startTimeLt, status=$status, to=$to, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CallRetrieveCallsParams{accountSid=$accountSid, endTime=$endTime, endTimeLt=$endTimeLt, endTimeGt=$endTimeGt, from=$from, page=$page, pageSize=$pageSize, pageToken=$pageToken, startTime=$startTime, startTimeLt=$startTimeLt, startTimeGt=$startTimeGt, status=$status, to=$to, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
