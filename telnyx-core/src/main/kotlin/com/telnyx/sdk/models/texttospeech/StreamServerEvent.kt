@@ -313,7 +313,7 @@ private constructor(
 
         /**
          * Base64-encoded audio data. May be `null` for providers that use `drop_concatenated_audio`
-         * mode (Telnyx, Minimax, MurfAI, Resemble) — in that case only streamed chunks carry audio.
+         * mode (Telnyx, Minimax, Resemble) — in that case only streamed chunks carry audio.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -449,8 +449,8 @@ private constructor(
 
             /**
              * Base64-encoded audio data. May be `null` for providers that use
-             * `drop_concatenated_audio` mode (Telnyx, Minimax, MurfAI, Resemble) — in that case
-             * only streamed chunks carry audio.
+             * `drop_concatenated_audio` mode (Telnyx, Minimax, Resemble) — in that case only
+             * streamed chunks carry audio.
              */
             fun audio(audio: String?) = audio(JsonField.ofNullable(audio))
 

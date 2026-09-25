@@ -15,6 +15,8 @@ import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveDnsRecordsResponse
 import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveHealthParams
 import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveHealthResponse
 import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveParams
+import com.telnyx.sdk.models.emaildomains.EmailDomainRotateDkimParams
+import com.telnyx.sdk.models.emaildomains.EmailDomainRotateDkimResponse
 import com.telnyx.sdk.models.emaildomains.EmailDomainUpdateParams
 import com.telnyx.sdk.models.emaildomains.EmailDomainVerifyParams
 import com.telnyx.sdk.services.async.emaildomains.WebhookServiceAsync
@@ -260,6 +262,51 @@ interface EmailDomainServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<EmailDomainRetrieveHealthResponse> =
         retrieveHealth(id, EmailDomainRetrieveHealthParams.none(), requestOptions)
+
+    /**
+     * Generates a new DKIM key for the domain, activates it, and retires the previous key. The
+     * response includes the updated DKIM DNS records the customer must publish. Selectors are
+     * fixed, so rotation replaces the TXT value at the existing `<selector>._domainkey.<domain>`
+     * host rather than adding a second record — `old_selector_retained` is false and the new TXT
+     * value must be published promptly, since signing switches to the new key immediately and the
+     * old TXT value will no longer match. The previous key is retired to a `retiring` state
+     * (retained, not revoked) so it can be revoked after the DNS propagation grace period.
+     */
+    fun rotateDkim(domainId: String): CompletableFuture<EmailDomainRotateDkimResponse> =
+        rotateDkim(domainId, EmailDomainRotateDkimParams.none())
+
+    /** @see rotateDkim */
+    fun rotateDkim(
+        domainId: String,
+        params: EmailDomainRotateDkimParams = EmailDomainRotateDkimParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EmailDomainRotateDkimResponse> =
+        rotateDkim(params.toBuilder().domainId(domainId).build(), requestOptions)
+
+    /** @see rotateDkim */
+    fun rotateDkim(
+        domainId: String,
+        params: EmailDomainRotateDkimParams = EmailDomainRotateDkimParams.none(),
+    ): CompletableFuture<EmailDomainRotateDkimResponse> =
+        rotateDkim(domainId, params, RequestOptions.none())
+
+    /** @see rotateDkim */
+    fun rotateDkim(
+        params: EmailDomainRotateDkimParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EmailDomainRotateDkimResponse>
+
+    /** @see rotateDkim */
+    fun rotateDkim(
+        params: EmailDomainRotateDkimParams
+    ): CompletableFuture<EmailDomainRotateDkimResponse> = rotateDkim(params, RequestOptions.none())
+
+    /** @see rotateDkim */
+    fun rotateDkim(
+        domainId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EmailDomainRotateDkimResponse> =
+        rotateDkim(domainId, EmailDomainRotateDkimParams.none(), requestOptions)
 
     /**
      * Checks the published DNS records against the records required for the email domain and
@@ -566,6 +613,49 @@ interface EmailDomainServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<EmailDomainRetrieveHealthResponse>> =
             retrieveHealth(id, EmailDomainRetrieveHealthParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /email_domains/{domain_id}/rotate_dkim`, but is
+         * otherwise the same as [EmailDomainServiceAsync.rotateDkim].
+         */
+        fun rotateDkim(
+            domainId: String
+        ): CompletableFuture<HttpResponseFor<EmailDomainRotateDkimResponse>> =
+            rotateDkim(domainId, EmailDomainRotateDkimParams.none())
+
+        /** @see rotateDkim */
+        fun rotateDkim(
+            domainId: String,
+            params: EmailDomainRotateDkimParams = EmailDomainRotateDkimParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EmailDomainRotateDkimResponse>> =
+            rotateDkim(params.toBuilder().domainId(domainId).build(), requestOptions)
+
+        /** @see rotateDkim */
+        fun rotateDkim(
+            domainId: String,
+            params: EmailDomainRotateDkimParams = EmailDomainRotateDkimParams.none(),
+        ): CompletableFuture<HttpResponseFor<EmailDomainRotateDkimResponse>> =
+            rotateDkim(domainId, params, RequestOptions.none())
+
+        /** @see rotateDkim */
+        fun rotateDkim(
+            params: EmailDomainRotateDkimParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EmailDomainRotateDkimResponse>>
+
+        /** @see rotateDkim */
+        fun rotateDkim(
+            params: EmailDomainRotateDkimParams
+        ): CompletableFuture<HttpResponseFor<EmailDomainRotateDkimResponse>> =
+            rotateDkim(params, RequestOptions.none())
+
+        /** @see rotateDkim */
+        fun rotateDkim(
+            domainId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EmailDomainRotateDkimResponse>> =
+            rotateDkim(domainId, EmailDomainRotateDkimParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /email_domains/{domain_id}/verify`, but is

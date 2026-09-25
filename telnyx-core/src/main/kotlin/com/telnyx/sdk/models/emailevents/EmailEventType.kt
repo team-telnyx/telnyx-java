@@ -7,6 +7,13 @@ import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 
+/**
+ * Bare stored event names returned by message history. In addition to the normal send and delivery
+ * lifecycle, polling can expose suppression, scan, and quarantine lifecycle rows. Sharp canonical
+ * names gw_reject, injection_timeout, and expired distinguish gateway rejection, ambiguous
+ * injection timeout, and MTA expiration. The failed and bounced names remain valid for system/admin
+ * failures and hard bounces respectively. Existing stored rows retain their original names.
+ */
 class EmailEventType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
     /**
@@ -42,6 +49,8 @@ class EmailEventType @JsonCreator private constructor(private val value: JsonFie
 
         @JvmField val COMPLAINED = of("complained")
 
+        @JvmField val SUPPRESSED = of("suppressed")
+
         @JvmField val REJECTED = of("rejected")
 
         @JvmField val OPENED = of("opened")
@@ -51,6 +60,24 @@ class EmailEventType @JsonCreator private constructor(private val value: JsonFie
         @JvmField val UNSUBSCRIBED = of("unsubscribed")
 
         @JvmField val DAILY_LIMIT_EXCEEDED = of("daily_limit_exceeded")
+
+        @JvmField val SCAN_DEFERRED = of("scan_deferred")
+
+        @JvmField val QUARANTINED = of("quarantined")
+
+        @JvmField val QUARANTINE_RELEASED = of("quarantine_released")
+
+        @JvmField val QUARANTINE_RELEASE_DISPATCHED = of("quarantine_release_dispatched")
+
+        @JvmField val QUARANTINE_REJECTED = of("quarantine_rejected")
+
+        @JvmField val QUARANTINE_EXPIRED = of("quarantine_expired")
+
+        @JvmField val GW_REJECT = of("gw_reject")
+
+        @JvmField val INJECTION_TIMEOUT = of("injection_timeout")
+
+        @JvmField val EXPIRED = of("expired")
 
         @JvmStatic fun of(value: String) = EmailEventType(JsonField.of(value))
     }
@@ -68,11 +95,21 @@ class EmailEventType @JsonCreator private constructor(private val value: JsonFie
         DELIVERED,
         BOUNCED,
         COMPLAINED,
+        SUPPRESSED,
         REJECTED,
         OPENED,
         CLICKED,
         UNSUBSCRIBED,
         DAILY_LIMIT_EXCEEDED,
+        SCAN_DEFERRED,
+        QUARANTINED,
+        QUARANTINE_RELEASED,
+        QUARANTINE_RELEASE_DISPATCHED,
+        QUARANTINE_REJECTED,
+        QUARANTINE_EXPIRED,
+        GW_REJECT,
+        INJECTION_TIMEOUT,
+        EXPIRED,
     }
 
     /**
@@ -96,11 +133,21 @@ class EmailEventType @JsonCreator private constructor(private val value: JsonFie
         DELIVERED,
         BOUNCED,
         COMPLAINED,
+        SUPPRESSED,
         REJECTED,
         OPENED,
         CLICKED,
         UNSUBSCRIBED,
         DAILY_LIMIT_EXCEEDED,
+        SCAN_DEFERRED,
+        QUARANTINED,
+        QUARANTINE_RELEASED,
+        QUARANTINE_RELEASE_DISPATCHED,
+        QUARANTINE_REJECTED,
+        QUARANTINE_EXPIRED,
+        GW_REJECT,
+        INJECTION_TIMEOUT,
+        EXPIRED,
         /**
          * An enum member indicating that [EmailEventType] was instantiated with an unknown value.
          */
@@ -127,11 +174,21 @@ class EmailEventType @JsonCreator private constructor(private val value: JsonFie
             DELIVERED -> Value.DELIVERED
             BOUNCED -> Value.BOUNCED
             COMPLAINED -> Value.COMPLAINED
+            SUPPRESSED -> Value.SUPPRESSED
             REJECTED -> Value.REJECTED
             OPENED -> Value.OPENED
             CLICKED -> Value.CLICKED
             UNSUBSCRIBED -> Value.UNSUBSCRIBED
             DAILY_LIMIT_EXCEEDED -> Value.DAILY_LIMIT_EXCEEDED
+            SCAN_DEFERRED -> Value.SCAN_DEFERRED
+            QUARANTINED -> Value.QUARANTINED
+            QUARANTINE_RELEASED -> Value.QUARANTINE_RELEASED
+            QUARANTINE_RELEASE_DISPATCHED -> Value.QUARANTINE_RELEASE_DISPATCHED
+            QUARANTINE_REJECTED -> Value.QUARANTINE_REJECTED
+            QUARANTINE_EXPIRED -> Value.QUARANTINE_EXPIRED
+            GW_REJECT -> Value.GW_REJECT
+            INJECTION_TIMEOUT -> Value.INJECTION_TIMEOUT
+            EXPIRED -> Value.EXPIRED
             else -> Value._UNKNOWN
         }
 
@@ -156,11 +213,21 @@ class EmailEventType @JsonCreator private constructor(private val value: JsonFie
             DELIVERED -> Known.DELIVERED
             BOUNCED -> Known.BOUNCED
             COMPLAINED -> Known.COMPLAINED
+            SUPPRESSED -> Known.SUPPRESSED
             REJECTED -> Known.REJECTED
             OPENED -> Known.OPENED
             CLICKED -> Known.CLICKED
             UNSUBSCRIBED -> Known.UNSUBSCRIBED
             DAILY_LIMIT_EXCEEDED -> Known.DAILY_LIMIT_EXCEEDED
+            SCAN_DEFERRED -> Known.SCAN_DEFERRED
+            QUARANTINED -> Known.QUARANTINED
+            QUARANTINE_RELEASED -> Known.QUARANTINE_RELEASED
+            QUARANTINE_RELEASE_DISPATCHED -> Known.QUARANTINE_RELEASE_DISPATCHED
+            QUARANTINE_REJECTED -> Known.QUARANTINE_REJECTED
+            QUARANTINE_EXPIRED -> Known.QUARANTINE_EXPIRED
+            GW_REJECT -> Known.GW_REJECT
+            INJECTION_TIMEOUT -> Known.INJECTION_TIMEOUT
+            EXPIRED -> Known.EXPIRED
             else -> throw TelnyxInvalidDataException("Unknown EmailEventType: $value")
         }
 

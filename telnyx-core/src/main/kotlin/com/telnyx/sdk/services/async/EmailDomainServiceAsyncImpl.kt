@@ -30,6 +30,8 @@ import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveDnsRecordsResponse
 import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveHealthParams
 import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveHealthResponse
 import com.telnyx.sdk.models.emaildomains.EmailDomainRetrieveParams
+import com.telnyx.sdk.models.emaildomains.EmailDomainRotateDkimParams
+import com.telnyx.sdk.models.emaildomains.EmailDomainRotateDkimResponse
 import com.telnyx.sdk.models.emaildomains.EmailDomainUpdateParams
 import com.telnyx.sdk.models.emaildomains.EmailDomainVerifyParams
 import com.telnyx.sdk.services.async.emaildomains.WebhookServiceAsync
@@ -103,6 +105,13 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
     ): CompletableFuture<EmailDomainRetrieveHealthResponse> =
         // get /email_domains/{id}/health
         withRawResponse().retrieveHealth(params, requestOptions).mapCancellable { it.parse() }
+
+    override fun rotateDkim(
+        params: EmailDomainRotateDkimParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EmailDomainRotateDkimResponse> =
+        // post /email_domains/{domain_id}/rotate_dkim
+        withRawResponse().rotateDkim(params, requestOptions).mapCancellable { it.parse() }
 
     override fun verify(
         params: EmailDomainVerifyParams,
@@ -372,6 +381,42 @@ class EmailDomainServiceAsyncImpl internal constructor(private val clientOptions
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHealthHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val rotateDkimHandler: Handler<EmailDomainRotateDkimResponse> =
+            jsonHandler<EmailDomainRotateDkimResponse>(clientOptions.jsonMapper)
+
+        override fun rotateDkim(
+            params: EmailDomainRotateDkimParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EmailDomainRotateDkimResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("domainId", params.domainId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("email_domains", params._pathParam(0), "rotate_dkim")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { rotateDkimHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

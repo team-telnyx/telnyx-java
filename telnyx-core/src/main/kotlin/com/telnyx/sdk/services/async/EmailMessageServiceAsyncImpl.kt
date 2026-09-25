@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.emailmessages.EmailMessageCreateParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteAllParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageDeleteScheduleParams
+import com.telnyx.sdk.models.emailmessages.EmailMessageDetailResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageListPageAsync
 import com.telnyx.sdk.models.emailmessages.EmailMessageListPageResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageListParams
@@ -34,7 +35,7 @@ import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPageAsync
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsPageResponse
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveEventsParams
 import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveParams
-import com.telnyx.sdk.models.emailmessages.EmailMessageRetrieveResponse
+import com.telnyx.sdk.models.emailmessages.EmailMessageUpdateScheduleParams
 import com.telnyx.sdk.services.async.emailmessages.RecipientServiceAsync
 import com.telnyx.sdk.services.async.emailmessages.RecipientServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -73,7 +74,7 @@ class EmailMessageServiceAsyncImpl internal constructor(private val clientOption
     override fun retrieve(
         params: EmailMessageRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmailMessageRetrieveResponse> =
+    ): CompletableFuture<EmailMessageDetailResponse> =
         // get /email_messages/{id}
         withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
@@ -118,6 +119,13 @@ class EmailMessageServiceAsyncImpl internal constructor(private val clientOption
     ): CompletableFuture<EmailMessageRetrieveEventsPageAsync> =
         // get /email_messages/{email_id}/events
         withRawResponse().retrieveEvents(params, requestOptions).mapCancellable { it.parse() }
+
+    override fun updateSchedule(
+        params: EmailMessageUpdateScheduleParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EmailMessageDetailResponse> =
+        // patch /email_messages/{email_id}/schedule
+        withRawResponse().updateSchedule(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EmailMessageServiceAsync.WithRawResponse {
@@ -175,13 +183,13 @@ class EmailMessageServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val retrieveHandler: Handler<EmailMessageRetrieveResponse> =
-            jsonHandler<EmailMessageRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<EmailMessageDetailResponse> =
+            jsonHandler<EmailMessageDetailResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: EmailMessageRetrieveParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmailMessageRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -412,6 +420,42 @@ class EmailMessageServiceAsyncImpl internal constructor(private val clientOption
                                     .params(params)
                                     .response(it)
                                     .build()
+                            }
+                    }
+                }
+        }
+
+        private val updateScheduleHandler: Handler<EmailMessageDetailResponse> =
+            jsonHandler<EmailMessageDetailResponse>(clientOptions.jsonMapper)
+
+        override fun updateSchedule(
+            params: EmailMessageUpdateScheduleParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EmailMessageDetailResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("emailId", params.emailId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("email_messages", params._pathParam(0), "schedule")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { updateScheduleHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
                             }
                     }
                 }

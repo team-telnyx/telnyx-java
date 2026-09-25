@@ -114,10 +114,10 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                                 .valuePath("x")
                                 .build()
                         )
-                        .timeoutMs(500L)
                         .build()
                 )
                 .shared(true)
+                .timeoutMs(60000L)
                 .build()
 
         assertThat(inferenceEmbeddingWebhookToolParams.type())
@@ -221,10 +221,10 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                             .valuePath("x")
                             .build()
                     )
-                    .timeoutMs(500L)
                     .build()
             )
         assertThat(inferenceEmbeddingWebhookToolParams.shared()).contains(true)
+        assertThat(inferenceEmbeddingWebhookToolParams.timeoutMs()).contains(60000L)
     }
 
     @Test
@@ -332,10 +332,10 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                                 .valuePath("x")
                                 .build()
                         )
-                        .timeoutMs(500L)
                         .build()
                 )
                 .shared(true)
+                .timeoutMs(60000L)
                 .build()
 
         val roundtrippedInferenceEmbeddingWebhookToolParams =

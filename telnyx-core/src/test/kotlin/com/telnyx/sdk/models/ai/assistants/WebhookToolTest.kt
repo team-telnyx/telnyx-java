@@ -61,6 +61,7 @@ internal class WebhookToolTest {
                         )
                         .build()
                 )
+                .timeoutMs(60000L)
                 .build()
 
         assertThat(webhookTool.type()).isEqualTo(WebhookTool.Type.WEBHOOK)
@@ -111,6 +112,7 @@ internal class WebhookToolTest {
                     )
                     .build()
             )
+        assertThat(webhookTool.timeoutMs()).contains(60000L)
     }
 
     @Test
@@ -165,6 +167,7 @@ internal class WebhookToolTest {
                         )
                         .build()
                 )
+                .timeoutMs(60000L)
                 .build()
 
         val roundtrippedWebhookTool =

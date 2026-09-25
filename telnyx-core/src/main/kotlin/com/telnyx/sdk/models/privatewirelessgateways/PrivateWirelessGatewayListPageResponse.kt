@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class PrivateWirelessGatewayListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<PrivateWirelessGateway>>,
+    private val data: JsonField<List<WirelessPrivateWirelessGateway>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<PrivateWirelessGateway>> = JsonMissing.of(),
+        data: JsonField<List<WirelessPrivateWirelessGateway>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<PrivateWirelessGateway>> = data.getOptional("data")
+    fun data(): Optional<List<WirelessPrivateWirelessGateway>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -54,7 +54,7 @@ private constructor(
      */
     @JsonProperty("data")
     @ExcludeMissing
-    fun _data(): JsonField<List<PrivateWirelessGateway>> = data
+    fun _data(): JsonField<List<WirelessPrivateWirelessGateway>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -87,7 +87,7 @@ private constructor(
     /** A builder for [PrivateWirelessGatewayListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<PrivateWirelessGateway>>? = null
+        private var data: JsonField<MutableList<WirelessPrivateWirelessGateway>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -101,25 +101,25 @@ private constructor(
                 privateWirelessGatewayListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<PrivateWirelessGateway>) = data(JsonField.of(data))
+        fun data(data: List<WirelessPrivateWirelessGateway>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<PrivateWirelessGateway>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.data] with a well-typed
+         * `List<WirelessPrivateWirelessGateway>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun data(data: JsonField<List<PrivateWirelessGateway>>) = apply {
+        fun data(data: JsonField<List<WirelessPrivateWirelessGateway>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [PrivateWirelessGateway] to [Builder.data].
+         * Adds a single [WirelessPrivateWirelessGateway] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: PrivateWirelessGateway) = apply {
+        fun addData(data: WirelessPrivateWirelessGateway) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

@@ -3,9 +3,7 @@
 package com.telnyx.sdk.models.emailevents
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.emailinboxes.drafts.EmailAddress
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -16,47 +14,110 @@ internal class EmailEventListResponseTest {
     fun create() {
         val emailEventListResponse =
             EmailEventListResponse.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .emailId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .recordType(EmailEventListResponse.RecordType.EMAIL_EVENT)
-                .type(EmailEventType.QUEUED)
-                .email(
-                    EmailEventListResponse.Email.builder()
-                        .addCc(EmailAddress.builder().email("email").name("name").build())
-                        .from(EmailAddress.builder().email("email").name("name").build())
-                        .subject("subject")
-                        .addTo(EmailAddress.builder().email("email").name("name").build())
+                .addData(
+                    EmailEventListResponse.Data.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .canonicalEventType("email.delivered")
+                        .eventType("email.delivered")
+                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .payload(
+                            EmailEventListResponse.Data.Payload.builder()
+                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .status(EmailEventListResponse.Data.Payload.Status.QUEUED)
+                                .bcc(EmailEventListResponse.Data.Payload.Bcc.UnionMember1.REDACTED)
+                                .cc(
+                                    EmailWebhookRecipient.builder()
+                                        .email("dev@stainless.com")
+                                        .kind(EmailWebhookRecipient.Kind.TO)
+                                        .name("name")
+                                        .build()
+                                )
+                                .from(
+                                    EmailEventListResponse.Data.Payload.From.builder()
+                                        .email("dev@stainless.com")
+                                        .name("name")
+                                        .build()
+                                )
+                                .recipientId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .subject("subject")
+                                .to(
+                                    EmailWebhookRecipient.builder()
+                                        .email("dev@stainless.com")
+                                        .kind(EmailWebhookRecipient.Kind.TO)
+                                        .name("name")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .recipientId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
                 )
-                .payload(
-                    EmailEventListResponse.Payload.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                .meta(
+                    EmailEventListResponse.Meta.builder()
+                        .pageSize(1L)
+                        .timeRange(
+                            TimeRange.builder()
+                                .from(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .to(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .pageCursor("page_cursor")
                         .build()
                 )
                 .build()
 
-        assertThat(emailEventListResponse.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(emailEventListResponse.emailId())
-            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(emailEventListResponse.occurredAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(emailEventListResponse.recordType())
-            .isEqualTo(EmailEventListResponse.RecordType.EMAIL_EVENT)
-        assertThat(emailEventListResponse.type()).isEqualTo(EmailEventType.QUEUED)
-        assertThat(emailEventListResponse.email())
-            .contains(
-                EmailEventListResponse.Email.builder()
-                    .addCc(EmailAddress.builder().email("email").name("name").build())
-                    .from(EmailAddress.builder().email("email").name("name").build())
-                    .subject("subject")
-                    .addTo(EmailAddress.builder().email("email").name("name").build())
+        assertThat(emailEventListResponse.data())
+            .containsExactly(
+                EmailEventListResponse.Data.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .canonicalEventType("email.delivered")
+                    .eventType("email.delivered")
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .payload(
+                        EmailEventListResponse.Data.Payload.builder()
+                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .status(EmailEventListResponse.Data.Payload.Status.QUEUED)
+                            .bcc(EmailEventListResponse.Data.Payload.Bcc.UnionMember1.REDACTED)
+                            .cc(
+                                EmailWebhookRecipient.builder()
+                                    .email("dev@stainless.com")
+                                    .kind(EmailWebhookRecipient.Kind.TO)
+                                    .name("name")
+                                    .build()
+                            )
+                            .from(
+                                EmailEventListResponse.Data.Payload.From.builder()
+                                    .email("dev@stainless.com")
+                                    .name("name")
+                                    .build()
+                            )
+                            .recipientId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .subject("subject")
+                            .to(
+                                EmailWebhookRecipient.builder()
+                                    .email("dev@stainless.com")
+                                    .kind(EmailWebhookRecipient.Kind.TO)
+                                    .name("name")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .recipientId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
             )
-        assertThat(emailEventListResponse.payload())
-            .contains(
-                EmailEventListResponse.Payload.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+        assertThat(emailEventListResponse.meta())
+            .isEqualTo(
+                EmailEventListResponse.Meta.builder()
+                    .pageSize(1L)
+                    .timeRange(
+                        TimeRange.builder()
+                            .from(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .to(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .pageCursor("page_cursor")
                     .build()
             )
     }
@@ -66,22 +127,55 @@ internal class EmailEventListResponseTest {
         val jsonMapper = jsonMapper()
         val emailEventListResponse =
             EmailEventListResponse.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .emailId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .recordType(EmailEventListResponse.RecordType.EMAIL_EVENT)
-                .type(EmailEventType.QUEUED)
-                .email(
-                    EmailEventListResponse.Email.builder()
-                        .addCc(EmailAddress.builder().email("email").name("name").build())
-                        .from(EmailAddress.builder().email("email").name("name").build())
-                        .subject("subject")
-                        .addTo(EmailAddress.builder().email("email").name("name").build())
+                .addData(
+                    EmailEventListResponse.Data.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .canonicalEventType("email.delivered")
+                        .eventType("email.delivered")
+                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .payload(
+                            EmailEventListResponse.Data.Payload.builder()
+                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .status(EmailEventListResponse.Data.Payload.Status.QUEUED)
+                                .bcc(EmailEventListResponse.Data.Payload.Bcc.UnionMember1.REDACTED)
+                                .cc(
+                                    EmailWebhookRecipient.builder()
+                                        .email("dev@stainless.com")
+                                        .kind(EmailWebhookRecipient.Kind.TO)
+                                        .name("name")
+                                        .build()
+                                )
+                                .from(
+                                    EmailEventListResponse.Data.Payload.From.builder()
+                                        .email("dev@stainless.com")
+                                        .name("name")
+                                        .build()
+                                )
+                                .recipientId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .subject("subject")
+                                .to(
+                                    EmailWebhookRecipient.builder()
+                                        .email("dev@stainless.com")
+                                        .kind(EmailWebhookRecipient.Kind.TO)
+                                        .name("name")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .recipientId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
                 )
-                .payload(
-                    EmailEventListResponse.Payload.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                .meta(
+                    EmailEventListResponse.Meta.builder()
+                        .pageSize(1L)
+                        .timeRange(
+                            TimeRange.builder()
+                                .from(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .to(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .pageCursor("page_cursor")
                         .build()
                 )
                 .build()

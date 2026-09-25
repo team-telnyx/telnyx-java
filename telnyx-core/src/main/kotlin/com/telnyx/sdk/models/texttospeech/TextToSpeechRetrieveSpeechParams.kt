@@ -17,8 +17,8 @@ import kotlin.jvm.optionals.getOrNull
  * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header. Send JSON
  * frames with text to synthesize; receive JSON frames containing base64-encoded audio chunks.
  *
- * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `resemble`, `elevenlabs`,
- * `xai`, `humain`.
+ * Supported providers: `aws`, `telnyx`, `azure`, `minimax`, `resemble`, `elevenlabs`, `xai`,
+ * `humain`, `soniox`.
  *
  * **Connection flow:**
  * 1. Open WebSocket with query parameters specifying provider, voice, and model.
@@ -503,13 +503,13 @@ private constructor(
 
             @JvmField val MINIMAX = of("minimax")
 
-            @JvmField val MURFAI = of("murfai")
-
             @JvmField val RESEMBLE = of("resemble")
 
             @JvmField val XAI = of("xai")
 
             @JvmField val HUMAIN = of("humain")
+
+            @JvmField val SONIOX = of("soniox")
 
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
@@ -521,10 +521,10 @@ private constructor(
             AZURE,
             ELEVENLABS,
             MINIMAX,
-            MURFAI,
             RESEMBLE,
             XAI,
             HUMAIN,
+            SONIOX,
         }
 
         /**
@@ -542,10 +542,10 @@ private constructor(
             AZURE,
             ELEVENLABS,
             MINIMAX,
-            MURFAI,
             RESEMBLE,
             XAI,
             HUMAIN,
+            SONIOX,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -564,10 +564,10 @@ private constructor(
                 AZURE -> Value.AZURE
                 ELEVENLABS -> Value.ELEVENLABS
                 MINIMAX -> Value.MINIMAX
-                MURFAI -> Value.MURFAI
                 RESEMBLE -> Value.RESEMBLE
                 XAI -> Value.XAI
                 HUMAIN -> Value.HUMAIN
+                SONIOX -> Value.SONIOX
                 else -> Value._UNKNOWN
             }
 
@@ -587,10 +587,10 @@ private constructor(
                 AZURE -> Known.AZURE
                 ELEVENLABS -> Known.ELEVENLABS
                 MINIMAX -> Known.MINIMAX
-                MURFAI -> Known.MURFAI
                 RESEMBLE -> Known.RESEMBLE
                 XAI -> Known.XAI
                 HUMAIN -> Known.HUMAIN
+                SONIOX -> Known.SONIOX
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 

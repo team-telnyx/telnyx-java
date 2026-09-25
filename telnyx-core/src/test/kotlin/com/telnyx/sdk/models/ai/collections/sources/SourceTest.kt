@@ -13,20 +13,18 @@ internal class SourceTest {
     fun create() {
         val source =
             Source.builder()
-                .id("source_8vkvtcksnawvbnxq48yv2l06wx")
-                .bucketId("policy-docs")
-                .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")
-                .recordType("ai_collection_source")
-                .sourceType(SourceType.VOICE)
-                .status("ready")
+                .id("id")
+                .memoryCount(0L)
+                .sessionId("session_id")
+                .createdAt("created_at")
+                .updatedAt("updated_at")
                 .build()
 
-        assertThat(source.id()).contains("source_8vkvtcksnawvbnxq48yv2l06wx")
-        assertThat(source.bucketId()).contains("policy-docs")
-        assertThat(source.collectionId()).contains("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")
-        assertThat(source.recordType()).contains("ai_collection_source")
-        assertThat(source.sourceType()).contains(SourceType.VOICE)
-        assertThat(source.status()).contains("ready")
+        assertThat(source.id()).isEqualTo("id")
+        assertThat(source.memoryCount()).isEqualTo(0L)
+        assertThat(source.sessionId()).contains("session_id")
+        assertThat(source.createdAt()).contains("created_at")
+        assertThat(source.updatedAt()).contains("updated_at")
     }
 
     @Test
@@ -34,12 +32,11 @@ internal class SourceTest {
         val jsonMapper = jsonMapper()
         val source =
             Source.builder()
-                .id("source_8vkvtcksnawvbnxq48yv2l06wx")
-                .bucketId("policy-docs")
-                .collectionId("6a09ccbd-8f9b-4c3a-9b0e-2f1d3c4b5a6e")
-                .recordType("ai_collection_source")
-                .sourceType(SourceType.VOICE)
-                .status("ready")
+                .id("id")
+                .memoryCount(0L)
+                .sessionId("session_id")
+                .createdAt("created_at")
+                .updatedAt("updated_at")
                 .build()
 
         val roundtrippedSource =

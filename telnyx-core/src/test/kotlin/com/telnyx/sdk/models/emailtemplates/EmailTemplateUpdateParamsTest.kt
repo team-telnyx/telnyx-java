@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.emailtemplates
 
+import com.telnyx.sdk.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,10 +14,20 @@ internal class EmailTemplateUpdateParamsTest {
             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .updateEmailTemplateRequest(
                 UpdateEmailTemplateRequest.builder()
+                    .autoescape(true)
                     .htmlBody("html_body")
                     .name("name")
+                    .strictVariables(true)
                     .subject("Welcome aboard, {{first_name}}!")
                     .textBody("text_body")
+                    .variableSchema(
+                        UpdateEmailTemplateRequest.VariableSchema.builder()
+                            .putAdditionalProperty(
+                                "foo",
+                                JsonValue.from(mapOf("required" to true, "default" to "default")),
+                            )
+                            .build()
+                    )
                     .addVariable("string")
                     .build()
             )
@@ -43,10 +54,22 @@ internal class EmailTemplateUpdateParamsTest {
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .updateEmailTemplateRequest(
                     UpdateEmailTemplateRequest.builder()
+                        .autoescape(true)
                         .htmlBody("html_body")
                         .name("name")
+                        .strictVariables(true)
                         .subject("Welcome aboard, {{first_name}}!")
                         .textBody("text_body")
+                        .variableSchema(
+                            UpdateEmailTemplateRequest.VariableSchema.builder()
+                                .putAdditionalProperty(
+                                    "foo",
+                                    JsonValue.from(
+                                        mapOf("required" to true, "default" to "default")
+                                    ),
+                                )
+                                .build()
+                        )
                         .addVariable("string")
                         .build()
                 )
@@ -57,10 +80,20 @@ internal class EmailTemplateUpdateParamsTest {
         assertThat(body)
             .isEqualTo(
                 UpdateEmailTemplateRequest.builder()
+                    .autoescape(true)
                     .htmlBody("html_body")
                     .name("name")
+                    .strictVariables(true)
                     .subject("Welcome aboard, {{first_name}}!")
                     .textBody("text_body")
+                    .variableSchema(
+                        UpdateEmailTemplateRequest.VariableSchema.builder()
+                            .putAdditionalProperty(
+                                "foo",
+                                JsonValue.from(mapOf("required" to true, "default" to "default")),
+                            )
+                            .build()
+                    )
                     .addVariable("string")
                     .build()
             )

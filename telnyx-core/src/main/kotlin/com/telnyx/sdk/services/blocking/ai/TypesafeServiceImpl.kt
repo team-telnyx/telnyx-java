@@ -22,8 +22,8 @@ class TypesafeServiceImpl internal constructor(private val clientOptions: Client
         TypesafeServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     /**
-     * Beta API for evaluating shared context with typed questions and structured answers. Telnyx
-     * manages model selection.
+     * Beta API for evaluating shared context with typed questions and structured answers using
+     * Flash or Pro.
      */
     override fun v1(): V1Service = v1
 
@@ -42,8 +42,8 @@ class TypesafeServiceImpl internal constructor(private val clientOptions: Client
             )
 
         /**
-         * Beta API for evaluating shared context with typed questions and structured answers.
-         * Telnyx manages model selection.
+         * Beta API for evaluating shared context with typed questions and structured answers using
+         * Flash or Pro.
          */
         override fun v1(): V1Service.WithRawResponse = v1
     }

@@ -10,18 +10,31 @@ internal class EmailMessageListParamsTest {
 
     @Test
     fun create() {
-        EmailMessageListParams.builder().pageCursor("page_cursor").pageSize(1L).build()
+        EmailMessageListParams.builder()
+            .filterMetadata("filter[metadata]")
+            .filterTags("filter[tags]")
+            .pageCursor("page_cursor")
+            .pageSize(1L)
+            .build()
     }
 
     @Test
     fun queryParams() {
-        val params = EmailMessageListParams.builder().pageCursor("page_cursor").pageSize(1L).build()
+        val params =
+            EmailMessageListParams.builder()
+                .filterMetadata("filter[metadata]")
+                .filterTags("filter[tags]")
+                .pageCursor("page_cursor")
+                .pageSize(1L)
+                .build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
+                    .put("filter[metadata]", "filter[metadata]")
+                    .put("filter[tags]", "filter[tags]")
                     .put("page_cursor", "page_cursor")
                     .put("page_size", "1")
                     .build()

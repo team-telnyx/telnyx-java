@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.emailevents.EmailEventListPage
-import com.telnyx.sdk.models.emailevents.EmailEventListPageResponse
 import com.telnyx.sdk.models.emailevents.EmailEventListParams
+import com.telnyx.sdk.models.emailevents.EmailEventListResponse
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsParams
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsResponse
 import java.util.function.Consumer
@@ -37,7 +36,7 @@ class EmailEventServiceImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: EmailEventListParams,
         requestOptions: RequestOptions,
-    ): EmailEventListPage =
+    ): EmailEventListResponse =
         // get /email_events
         withRawResponse().list(params, requestOptions).parse()
 
@@ -61,13 +60,13 @@ class EmailEventServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<EmailEventListPageResponse> =
-            jsonHandler<EmailEventListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EmailEventListResponse> =
+            jsonHandler<EmailEventListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EmailEventListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailEventListPage> {
+        ): HttpResponseFor<EmailEventListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -84,13 +83,6 @@ class EmailEventServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        EmailEventListPage.builder()
-                            .service(EmailEventServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

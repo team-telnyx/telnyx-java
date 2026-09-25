@@ -19,6 +19,8 @@ internal class EmailMessageRetrieveEventsPageResponseTest {
             EmailMessageRetrieveEventsPageResponse.builder()
                 .addData(
                     MessageEvent.builder()
+                        .canonicalEventType("email.delivered")
+                        .eventType("email.delivered")
                         .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .type(EmailEventType.QUEUED)
                         .payload(
@@ -34,6 +36,8 @@ internal class EmailMessageRetrieveEventsPageResponseTest {
         assertThat(emailMessageRetrieveEventsPageResponse.data())
             .containsExactly(
                 MessageEvent.builder()
+                    .canonicalEventType("email.delivered")
+                    .eventType("email.delivered")
                     .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .type(EmailEventType.QUEUED)
                     .payload(
@@ -54,6 +58,8 @@ internal class EmailMessageRetrieveEventsPageResponseTest {
             EmailMessageRetrieveEventsPageResponse.builder()
                 .addData(
                     MessageEvent.builder()
+                        .canonicalEventType("email.delivered")
+                        .eventType("email.delivered")
                         .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .type(EmailEventType.QUEUED)
                         .payload(

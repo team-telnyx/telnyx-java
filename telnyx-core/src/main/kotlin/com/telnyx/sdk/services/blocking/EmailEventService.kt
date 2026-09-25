@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.emailevents.EmailEventListPage
 import com.telnyx.sdk.models.emailevents.EmailEventListParams
+import com.telnyx.sdk.models.emailevents.EmailEventListResponse
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsParams
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsResponse
 import java.util.function.Consumer
@@ -27,21 +27,35 @@ interface EmailEventService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmailEventService
 
-    /** Lists account-level email events sorted oldest first by `occurred_at asc, id asc`. */
-    fun list(): EmailEventListPage = list(EmailEventListParams.none())
+    /**
+     * Lists account-level email events sorted oldest first by `occurred_at asc, id asc`. Each row
+     * contains a legacy email.-prefixed event_type and an additive canonical_event_type. Gateway
+     * rejection renders email.failed with canonical email.gw_reject; ambiguous injection timeout
+     * renders email.injection_timeout in both; MTA expiration renders email.bounced with canonical
+     * email.expired. Message-scoped queued, sending, sandbox, cancelled, and daily_limit_exceeded
+     * rows fan out per durable recipient with stable derived IDs matching webhook delivery.
+     * Scheduled is the cardinality exception: account polling retains one message-scoped scheduled
+     * row with its stored event ID, while scheduled webhook publication fans out per recipient with
+     * derived IDs; reconcile scheduled events by message ID, event type, and occurrence time rather
+     * than event UUID. Recipient-scoped stored rows retain their stored UUIDs across polling and
+     * webhook delivery. Legacy names are derived from stored rows; an AdminBounce row stored as
+     * failed renders email.failed in polling while its webhook retains email.bounced, both with
+     * canonical email.failed.
+     */
+    fun list(): EmailEventListResponse = list(EmailEventListParams.none())
 
     /** @see list */
     fun list(
         params: EmailEventListParams = EmailEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailEventListPage
+    ): EmailEventListResponse
 
     /** @see list */
-    fun list(params: EmailEventListParams = EmailEventListParams.none()): EmailEventListPage =
+    fun list(params: EmailEventListParams = EmailEventListParams.none()): EmailEventListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EmailEventListPage =
+    fun list(requestOptions: RequestOptions): EmailEventListResponse =
         list(EmailEventListParams.none(), requestOptions)
 
     /**
@@ -83,24 +97,24 @@ interface EmailEventService {
          * [EmailEventService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<EmailEventListPage> = list(EmailEventListParams.none())
+        fun list(): HttpResponseFor<EmailEventListResponse> = list(EmailEventListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailEventListParams = EmailEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailEventListPage>
+        ): HttpResponseFor<EmailEventListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailEventListParams = EmailEventListParams.none()
-        ): HttpResponseFor<EmailEventListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<EmailEventListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailEventListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailEventListResponse> =
             list(EmailEventListParams.none(), requestOptions)
 
         /**

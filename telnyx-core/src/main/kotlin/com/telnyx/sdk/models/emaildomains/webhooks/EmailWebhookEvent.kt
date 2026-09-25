@@ -8,9 +8,10 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 
 /**
- * Event types a webhook may subscribe to. The union of email.* events (published by email-api) and
- * email_domain.* lifecycle events (published by this service). An event not listed here can never
- * be subscribed to and is silently dropped.
+ * Event types accepted by domain webhook subscriptions. Allowlists match the legacy event_type, not
+ * canonical_event_type. Of the 22 accepted types, email.sending is stored but intentionally not
+ * published. Cancellation, daily-limit failures, and system failures publish after commit when a
+ * matching domain webhook is configured.
  */
 class EmailWebhookEvent @JsonCreator private constructor(private val value: JsonField<String>) :
     Enum {
@@ -54,6 +55,10 @@ class EmailWebhookEvent @JsonCreator private constructor(private val value: Json
 
         @JvmField val EMAIL_RECEIVED = of("email.received")
 
+        @JvmField val EMAIL_CANCELLED = of("email.cancelled")
+
+        @JvmField val EMAIL_DAILY_LIMIT_EXCEEDED = of("email.daily_limit_exceeded")
+
         @JvmField val EMAIL_DOMAIN_CREATED = of("email_domain.created")
 
         @JvmField val EMAIL_DOMAIN_VERIFIED = of("email_domain.verified")
@@ -63,6 +68,8 @@ class EmailWebhookEvent @JsonCreator private constructor(private val value: Json
         @JvmField val EMAIL_DOMAIN_SUSPENDED = of("email_domain.suspended")
 
         @JvmField val EMAIL_DOMAIN_DELETED = of("email_domain.deleted")
+
+        @JvmField val EMAIL_DOMAIN_DKIM_ROTATED = of("email_domain.dkim_rotated")
 
         @JvmStatic fun of(value: String) = EmailWebhookEvent(JsonField.of(value))
     }
@@ -83,11 +90,14 @@ class EmailWebhookEvent @JsonCreator private constructor(private val value: Json
         EMAIL_CLICKED,
         EMAIL_UNSUBSCRIBED,
         EMAIL_RECEIVED,
+        EMAIL_CANCELLED,
+        EMAIL_DAILY_LIMIT_EXCEEDED,
         EMAIL_DOMAIN_CREATED,
         EMAIL_DOMAIN_VERIFIED,
         EMAIL_DOMAIN_DEGRADED,
         EMAIL_DOMAIN_SUSPENDED,
         EMAIL_DOMAIN_DELETED,
+        EMAIL_DOMAIN_DKIM_ROTATED,
     }
 
     /**
@@ -114,11 +124,14 @@ class EmailWebhookEvent @JsonCreator private constructor(private val value: Json
         EMAIL_CLICKED,
         EMAIL_UNSUBSCRIBED,
         EMAIL_RECEIVED,
+        EMAIL_CANCELLED,
+        EMAIL_DAILY_LIMIT_EXCEEDED,
         EMAIL_DOMAIN_CREATED,
         EMAIL_DOMAIN_VERIFIED,
         EMAIL_DOMAIN_DEGRADED,
         EMAIL_DOMAIN_SUSPENDED,
         EMAIL_DOMAIN_DELETED,
+        EMAIL_DOMAIN_DKIM_ROTATED,
         /**
          * An enum member indicating that [EmailWebhookEvent] was instantiated with an unknown
          * value.
@@ -149,11 +162,14 @@ class EmailWebhookEvent @JsonCreator private constructor(private val value: Json
             EMAIL_CLICKED -> Value.EMAIL_CLICKED
             EMAIL_UNSUBSCRIBED -> Value.EMAIL_UNSUBSCRIBED
             EMAIL_RECEIVED -> Value.EMAIL_RECEIVED
+            EMAIL_CANCELLED -> Value.EMAIL_CANCELLED
+            EMAIL_DAILY_LIMIT_EXCEEDED -> Value.EMAIL_DAILY_LIMIT_EXCEEDED
             EMAIL_DOMAIN_CREATED -> Value.EMAIL_DOMAIN_CREATED
             EMAIL_DOMAIN_VERIFIED -> Value.EMAIL_DOMAIN_VERIFIED
             EMAIL_DOMAIN_DEGRADED -> Value.EMAIL_DOMAIN_DEGRADED
             EMAIL_DOMAIN_SUSPENDED -> Value.EMAIL_DOMAIN_SUSPENDED
             EMAIL_DOMAIN_DELETED -> Value.EMAIL_DOMAIN_DELETED
+            EMAIL_DOMAIN_DKIM_ROTATED -> Value.EMAIL_DOMAIN_DKIM_ROTATED
             else -> Value._UNKNOWN
         }
 
@@ -181,11 +197,14 @@ class EmailWebhookEvent @JsonCreator private constructor(private val value: Json
             EMAIL_CLICKED -> Known.EMAIL_CLICKED
             EMAIL_UNSUBSCRIBED -> Known.EMAIL_UNSUBSCRIBED
             EMAIL_RECEIVED -> Known.EMAIL_RECEIVED
+            EMAIL_CANCELLED -> Known.EMAIL_CANCELLED
+            EMAIL_DAILY_LIMIT_EXCEEDED -> Known.EMAIL_DAILY_LIMIT_EXCEEDED
             EMAIL_DOMAIN_CREATED -> Known.EMAIL_DOMAIN_CREATED
             EMAIL_DOMAIN_VERIFIED -> Known.EMAIL_DOMAIN_VERIFIED
             EMAIL_DOMAIN_DEGRADED -> Known.EMAIL_DOMAIN_DEGRADED
             EMAIL_DOMAIN_SUSPENDED -> Known.EMAIL_DOMAIN_SUSPENDED
             EMAIL_DOMAIN_DELETED -> Known.EMAIL_DOMAIN_DELETED
+            EMAIL_DOMAIN_DKIM_ROTATED -> Known.EMAIL_DOMAIN_DKIM_ROTATED
             else -> throw TelnyxInvalidDataException("Unknown EmailWebhookEvent: $value")
         }
 

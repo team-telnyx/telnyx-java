@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.emailevents.EmailEventListParams
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -16,9 +17,19 @@ internal class EmailEventServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val emailEventService = client.emailEvents()
 
-        val page = emailEventService.list()
+        val emailEvents =
+            emailEventService.list(
+                EmailEventListParams.builder()
+                    .emailId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .eventType("string")
+                    .from(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .pageSize(1L)
+                    .pageCursor("page[cursor]")
+                    .to(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
 
-        page.response().validate()
+        emailEvents.validate()
     }
 
     @Disabled("Mock server tests are disabled")

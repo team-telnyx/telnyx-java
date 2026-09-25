@@ -151,6 +151,10 @@ private constructor(
     fun domainId(): Optional<String> = domainId.getOptional("domain_id")
 
     /**
+     * Optional expiration time. An active row stops matching send-time suppression checks as soon
+     * as `expires_at <= now()`. A maintenance worker later transitions the row to `status: expired`
+     * and appends an `expired` audit event (normally within 15 minutes).
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -450,6 +454,11 @@ private constructor(
          */
         fun domainId(domainId: JsonField<String>) = apply { this.domainId = domainId }
 
+        /**
+         * Optional expiration time. An active row stops matching send-time suppression checks as
+         * soon as `expires_at <= now()`. A maintenance worker later transitions the row to `status:
+         * expired` and appends an `expired` audit event (normally within 15 minutes).
+         */
         fun expiresAt(expiresAt: OffsetDateTime?) = expiresAt(JsonField.ofNullable(expiresAt))
 
         /** Alias for calling [Builder.expiresAt] with `expiresAt.orElse(null)`. */

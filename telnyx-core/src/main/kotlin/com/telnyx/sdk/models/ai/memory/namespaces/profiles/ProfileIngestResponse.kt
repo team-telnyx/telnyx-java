@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.emailevents
+package com.telnyx.sdk.models.ai.memory.namespaces.profiles
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -10,58 +10,36 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class EmailEventListPageResponse
+class ProfileIngestResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<EmailEventListResponse>>,
-    private val meta: JsonField<Meta>,
+    private val data: JsonField<Data>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data")
-        @ExcludeMissing
-        data: JsonField<List<EmailEventListResponse>> = JsonMissing.of(),
-        @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
-    ) : this(data, meta, mutableMapOf())
+        @JsonProperty("data") @ExcludeMissing data: JsonField<Data> = JsonMissing.of()
+    ) : this(data, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<EmailEventListResponse> = data.getRequired("data")
-
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun meta(): Meta = meta.getRequired("meta")
+    fun data(): Data = data.getRequired("data")
 
     /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data")
-    @ExcludeMissing
-    fun _data(): JsonField<List<EmailEventListResponse>> = data
-
-    /**
-     * Returns the raw JSON value of [meta].
-     *
-     * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<Meta> = meta
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<Data> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -78,65 +56,37 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [EmailEventListPageResponse].
+         * Returns a mutable builder for constructing an instance of [ProfileIngestResponse].
          *
          * The following fields are required:
          * ```java
          * .data()
-         * .meta()
          * ```
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [EmailEventListPageResponse]. */
+    /** A builder for [ProfileIngestResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<EmailEventListResponse>>? = null
-        private var meta: JsonField<Meta>? = null
+        private var data: JsonField<Data>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(emailEventListPageResponse: EmailEventListPageResponse) = apply {
-            data = emailEventListPageResponse.data.map { it.toMutableList() }
-            meta = emailEventListPageResponse.meta
-            additionalProperties = emailEventListPageResponse.additionalProperties.toMutableMap()
+        internal fun from(profileIngestResponse: ProfileIngestResponse) = apply {
+            data = profileIngestResponse.data
+            additionalProperties = profileIngestResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<EmailEventListResponse>) = data(JsonField.of(data))
+        fun data(data: Data) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<EmailEventListResponse>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun data(data: JsonField<List<EmailEventListResponse>>) = apply {
-            this.data = data.map { it.toMutableList() }
-        }
-
-        /**
-         * Adds a single [EmailEventListResponse] to [Builder.data].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addData(data: EmailEventListResponse) = apply {
-            this.data =
-                (this.data ?: JsonField.of(mutableListOf())).also {
-                    checkKnown("data", it).add(data)
-                }
-        }
-
-        fun meta(meta: Meta) = meta(JsonField.of(meta))
-
-        /**
-         * Sets [Builder.meta] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.meta] with a well-typed [Meta] value instead. This
+         * You should usually call [Builder.data] with a well-typed [Data] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun meta(meta: JsonField<Meta>) = apply { this.meta = meta }
+        fun data(data: JsonField<Data>) = apply { this.data = data }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -158,24 +108,19 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [EmailEventListPageResponse].
+         * Returns an immutable instance of [ProfileIngestResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
          * ```java
          * .data()
-         * .meta()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): EmailEventListPageResponse =
-            EmailEventListPageResponse(
-                checkRequired("data", data).map { it.toImmutable() },
-                checkRequired("meta", meta),
-                additionalProperties.toMutableMap(),
-            )
+        fun build(): ProfileIngestResponse =
+            ProfileIngestResponse(checkRequired("data", data), additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
@@ -188,13 +133,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): EmailEventListPageResponse = apply {
+    fun validate(): ProfileIngestResponse = apply {
         if (validated) {
             return@apply
         }
 
-        data().forEach { it.validate() }
-        meta().validate()
+        data().validate()
         validated = true
     }
 
@@ -211,75 +155,91 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    @JvmSynthetic
-    internal fun validity(): Int =
-        (data.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-            (meta.asKnown().getOrNull()?.validity() ?: 0)
+    @JvmSynthetic internal fun validity(): Int = (data.asKnown().getOrNull()?.validity() ?: 0)
 
-    class Meta
+    class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val pageSize: JsonField<Long>,
-        private val timeRange: JsonField<TimeRange>,
-        private val pageCursor: JsonField<String>,
+        private val operationId: JsonField<String>,
+        private val profileId: JsonField<String>,
+        private val sessionId: JsonField<String>,
+        private val sourceId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("time_range")
+            @JsonProperty("operation_id")
             @ExcludeMissing
-            timeRange: JsonField<TimeRange> = JsonMissing.of(),
-            @JsonProperty("page_cursor")
+            operationId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("profile_id")
             @ExcludeMissing
-            pageCursor: JsonField<String> = JsonMissing.of(),
-        ) : this(pageSize, timeRange, pageCursor, mutableMapOf())
+            profileId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("session_id")
+            @ExcludeMissing
+            sessionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("source_id")
+            @ExcludeMissing
+            sourceId: JsonField<String> = JsonMissing.of(),
+        ) : this(operationId, profileId, sessionId, sourceId, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun pageSize(): Long = pageSize.getRequired("page_size")
+        fun operationId(): String = operationId.getRequired("operation_id")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun timeRange(): TimeRange = timeRange.getRequired("time_range")
+        fun profileId(): String = profileId.getRequired("profile_id")
 
         /**
-         * Cursor for the next page, when more results are available.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun pageCursor(): Optional<String> = pageCursor.getOptional("page_cursor")
+        fun sessionId(): String = sessionId.getRequired("session_id")
 
         /**
-         * Returns the raw JSON value of [pageSize].
+         * Identifies one source within its profile: an ingested session, or one remembered fact.
+         * Returned by `ingest` and `remember` when the write is accepted. Re-ingesting a session
+         * keeps its source id.
          *
-         * Unlike [pageSize], this method doesn't throw if the JSON field has an unexpected type.
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        @JsonProperty("page_size") @ExcludeMissing fun _pageSize(): JsonField<Long> = pageSize
+        fun sourceId(): String = sourceId.getRequired("source_id")
 
         /**
-         * Returns the raw JSON value of [timeRange].
+         * Returns the raw JSON value of [operationId].
          *
-         * Unlike [timeRange], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [operationId], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("time_range")
+        @JsonProperty("operation_id")
         @ExcludeMissing
-        fun _timeRange(): JsonField<TimeRange> = timeRange
+        fun _operationId(): JsonField<String> = operationId
 
         /**
-         * Returns the raw JSON value of [pageCursor].
+         * Returns the raw JSON value of [profileId].
          *
-         * Unlike [pageCursor], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [profileId], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("page_cursor")
-        @ExcludeMissing
-        fun _pageCursor(): JsonField<String> = pageCursor
+        @JsonProperty("profile_id") @ExcludeMissing fun _profileId(): JsonField<String> = profileId
+
+        /**
+         * Returns the raw JSON value of [sessionId].
+         *
+         * Unlike [sessionId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("session_id") @ExcludeMissing fun _sessionId(): JsonField<String> = sessionId
+
+        /**
+         * Returns the raw JSON value of [sourceId].
+         *
+         * Unlike [sourceId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("source_id") @ExcludeMissing fun _sourceId(): JsonField<String> = sourceId
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -296,66 +256,87 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [Meta].
+             * Returns a mutable builder for constructing an instance of [Data].
              *
              * The following fields are required:
              * ```java
-             * .pageSize()
-             * .timeRange()
+             * .operationId()
+             * .profileId()
+             * .sessionId()
+             * .sourceId()
              * ```
              */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [Meta]. */
+        /** A builder for [Data]. */
         class Builder internal constructor() {
 
-            private var pageSize: JsonField<Long>? = null
-            private var timeRange: JsonField<TimeRange>? = null
-            private var pageCursor: JsonField<String> = JsonMissing.of()
+            private var operationId: JsonField<String>? = null
+            private var profileId: JsonField<String>? = null
+            private var sessionId: JsonField<String>? = null
+            private var sourceId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(meta: Meta) = apply {
-                pageSize = meta.pageSize
-                timeRange = meta.timeRange
-                pageCursor = meta.pageCursor
-                additionalProperties = meta.additionalProperties.toMutableMap()
+            internal fun from(data: Data) = apply {
+                operationId = data.operationId
+                profileId = data.profileId
+                sessionId = data.sessionId
+                sourceId = data.sourceId
+                additionalProperties = data.additionalProperties.toMutableMap()
             }
 
-            fun pageSize(pageSize: Long) = pageSize(JsonField.of(pageSize))
+            fun operationId(operationId: String) = operationId(JsonField.of(operationId))
 
             /**
-             * Sets [Builder.pageSize] to an arbitrary JSON value.
+             * Sets [Builder.operationId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.pageSize] with a well-typed [Long] value instead.
+             * You should usually call [Builder.operationId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun operationId(operationId: JsonField<String>) = apply {
+                this.operationId = operationId
+            }
+
+            fun profileId(profileId: String) = profileId(JsonField.of(profileId))
+
+            /**
+             * Sets [Builder.profileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.profileId] with a well-typed [String] value instead.
              * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun pageSize(pageSize: JsonField<Long>) = apply { this.pageSize = pageSize }
+            fun profileId(profileId: JsonField<String>) = apply { this.profileId = profileId }
 
-            fun timeRange(timeRange: TimeRange) = timeRange(JsonField.of(timeRange))
-
-            /**
-             * Sets [Builder.timeRange] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.timeRange] with a well-typed [TimeRange] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun timeRange(timeRange: JsonField<TimeRange>) = apply { this.timeRange = timeRange }
-
-            /** Cursor for the next page, when more results are available. */
-            fun pageCursor(pageCursor: String) = pageCursor(JsonField.of(pageCursor))
+            fun sessionId(sessionId: String) = sessionId(JsonField.of(sessionId))
 
             /**
-             * Sets [Builder.pageCursor] to an arbitrary JSON value.
+             * Sets [Builder.sessionId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.pageCursor] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.sessionId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun pageCursor(pageCursor: JsonField<String>) = apply { this.pageCursor = pageCursor }
+            fun sessionId(sessionId: JsonField<String>) = apply { this.sessionId = sessionId }
+
+            /**
+             * Identifies one source within its profile: an ingested session, or one remembered
+             * fact. Returned by `ingest` and `remember` when the write is accepted. Re-ingesting a
+             * session keeps its source id.
+             */
+            fun sourceId(sourceId: String) = sourceId(JsonField.of(sourceId))
+
+            /**
+             * Sets [Builder.sourceId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sourceId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sourceId(sourceId: JsonField<String>) = apply { this.sourceId = sourceId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -377,23 +358,26 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [Meta].
+             * Returns an immutable instance of [Data].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
              * The following fields are required:
              * ```java
-             * .pageSize()
-             * .timeRange()
+             * .operationId()
+             * .profileId()
+             * .sessionId()
+             * .sourceId()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): Meta =
-                Meta(
-                    checkRequired("pageSize", pageSize),
-                    checkRequired("timeRange", timeRange),
-                    pageCursor,
+            fun build(): Data =
+                Data(
+                    checkRequired("operationId", operationId),
+                    checkRequired("profileId", profileId),
+                    checkRequired("sessionId", sessionId),
+                    checkRequired("sourceId", sourceId),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -409,14 +393,15 @@ private constructor(
          * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): Meta = apply {
+        fun validate(): Data = apply {
             if (validated) {
                 return@apply
             }
 
-            pageSize()
-            timeRange().validate()
-            pageCursor()
+            operationId()
+            profileId()
+            sessionId()
+            sourceId()
             validated = true
         }
 
@@ -436,30 +421,32 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (pageSize.asKnown().isPresent) 1 else 0) +
-                (timeRange.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (pageCursor.asKnown().isPresent) 1 else 0)
+            (if (operationId.asKnown().isPresent) 1 else 0) +
+                (if (profileId.asKnown().isPresent) 1 else 0) +
+                (if (sessionId.asKnown().isPresent) 1 else 0) +
+                (if (sourceId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is Meta &&
-                pageSize == other.pageSize &&
-                timeRange == other.timeRange &&
-                pageCursor == other.pageCursor &&
+            return other is Data &&
+                operationId == other.operationId &&
+                profileId == other.profileId &&
+                sessionId == other.sessionId &&
+                sourceId == other.sourceId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(pageSize, timeRange, pageCursor, additionalProperties)
+            Objects.hash(operationId, profileId, sessionId, sourceId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Meta{pageSize=$pageSize, timeRange=$timeRange, pageCursor=$pageCursor, additionalProperties=$additionalProperties}"
+            "Data{operationId=$operationId, profileId=$profileId, sessionId=$sessionId, sourceId=$sourceId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -467,16 +454,15 @@ private constructor(
             return true
         }
 
-        return other is EmailEventListPageResponse &&
+        return other is ProfileIngestResponse &&
             data == other.data &&
-            meta == other.meta &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(data, meta, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(data, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EmailEventListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "ProfileIngestResponse{data=$data, additionalProperties=$additionalProperties}"
 }

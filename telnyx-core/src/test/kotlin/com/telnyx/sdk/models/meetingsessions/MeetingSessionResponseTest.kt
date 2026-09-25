@@ -22,7 +22,13 @@ internal class MeetingSessionResponseTest {
                         .assistant(
                             MeetingSession.Assistant.builder()
                                 .id("id")
-                                .audioGate(MeetingSession.Assistant.AudioGate.NONE)
+                                .audioGate(MeetingSession.Assistant.AudioGate.HALF_DUPLEX)
+                                .dynamicVariables(
+                                    MeetingSession.Assistant.DynamicVariables.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .leaveOnEnd(true)
                                 .build()
                         )
                         .assistantState(MeetingSession.AssistantState.STARTING)
@@ -34,6 +40,7 @@ internal class MeetingSessionResponseTest {
                         .config(
                             MeetingSession.Config.builder()
                                 .bargeIn(true)
+                                .chatOnEnter("chat_on_enter")
                                 .speakOnEnter("speak_on_enter")
                                 .summarizeOnEnd(true)
                                 .voice("voice")
@@ -69,7 +76,13 @@ internal class MeetingSessionResponseTest {
                     .assistant(
                         MeetingSession.Assistant.builder()
                             .id("id")
-                            .audioGate(MeetingSession.Assistant.AudioGate.NONE)
+                            .audioGate(MeetingSession.Assistant.AudioGate.HALF_DUPLEX)
+                            .dynamicVariables(
+                                MeetingSession.Assistant.DynamicVariables.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .leaveOnEnd(true)
                             .build()
                     )
                     .assistantState(MeetingSession.AssistantState.STARTING)
@@ -81,6 +94,7 @@ internal class MeetingSessionResponseTest {
                     .config(
                         MeetingSession.Config.builder()
                             .bargeIn(true)
+                            .chatOnEnter("chat_on_enter")
                             .speakOnEnter("speak_on_enter")
                             .summarizeOnEnd(true)
                             .voice("voice")
@@ -120,7 +134,13 @@ internal class MeetingSessionResponseTest {
                         .assistant(
                             MeetingSession.Assistant.builder()
                                 .id("id")
-                                .audioGate(MeetingSession.Assistant.AudioGate.NONE)
+                                .audioGate(MeetingSession.Assistant.AudioGate.HALF_DUPLEX)
+                                .dynamicVariables(
+                                    MeetingSession.Assistant.DynamicVariables.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .leaveOnEnd(true)
                                 .build()
                         )
                         .assistantState(MeetingSession.AssistantState.STARTING)
@@ -132,6 +152,7 @@ internal class MeetingSessionResponseTest {
                         .config(
                             MeetingSession.Config.builder()
                                 .bargeIn(true)
+                                .chatOnEnter("chat_on_enter")
                                 .speakOnEnter("speak_on_enter")
                                 .summarizeOnEnd(true)
                                 .voice("voice")

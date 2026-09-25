@@ -20,6 +20,7 @@ internal class PrivateWirelessGatewayServiceTest {
                 PrivateWirelessGatewayCreateParams.builder()
                     .name("My private wireless gateway")
                     .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .addressMode(PrivateWirelessGatewayCreateParams.AddressMode.STATIC)
                     .regionCode("dc2")
                     .build()
             )

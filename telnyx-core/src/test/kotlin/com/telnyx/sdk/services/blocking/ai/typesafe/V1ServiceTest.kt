@@ -62,6 +62,7 @@ internal class V1ServiceTest {
                             .build()
                     )
                     .state("Our production calls are failing. Every customer is affected.")
+                    .model(V1SystemoneParams.Model.TELNYX_DECISION_FLASH)
                     .build()
             )
 

@@ -23,6 +23,7 @@ dependencies {
 }
 
 tasks.shadowJar {
+    isZip64 = true
     from(sourceSets.test.get().output)
     configurations = listOf(project.configurations.testRuntimeClasspath.get())
 }

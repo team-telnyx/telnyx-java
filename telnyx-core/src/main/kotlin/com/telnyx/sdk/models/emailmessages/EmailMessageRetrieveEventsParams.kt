@@ -11,6 +11,13 @@ import kotlin.jvm.optionals.getOrNull
 /**
  * Lists events for a single message sorted oldest first by `occurred_at asc, id asc`. The legacy
  * `/v2/emails/{id}/events` GET route is a backward-compatible alias.
+ *
+ * For compatibility, each event carries the legacy customer-visible `event_type`
+ * (`email.`-prefixed), the additive `canonical_event_type` (`email.`-prefixed), and the deprecated
+ * `type` duplicate — whose value keeps the exact legacy format: the bare stored event name, never
+ * `email.`-prefixed. Gateway rejections render `email.failed` + canonical `email.gw_reject`; MTA
+ * expirations render `email.bounced` + canonical `email.expired`; every unchanged outcome carries
+ * identical `event_type` and `canonical_event_type` values (and `type` keeps the stored name).
  */
 class EmailMessageRetrieveEventsParams
 private constructor(

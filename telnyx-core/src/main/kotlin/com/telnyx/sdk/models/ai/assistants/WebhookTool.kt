@@ -25,6 +25,7 @@ class WebhookTool
 private constructor(
     private val type: JsonField<Type>,
     private val webhook: JsonField<Webhook>,
+    private val timeoutMs: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -32,7 +33,8 @@ private constructor(
     private constructor(
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("webhook") @ExcludeMissing webhook: JsonField<Webhook> = JsonMissing.of(),
-    ) : this(type, webhook, mutableMapOf())
+        @JsonProperty("timeout_ms") @ExcludeMissing timeoutMs: JsonField<Long> = JsonMissing.of(),
+    ) : this(type, webhook, timeoutMs, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -47,6 +49,16 @@ private constructor(
     fun webhook(): Webhook = webhook.getRequired("webhook")
 
     /**
+     * The maximum number of milliseconds to wait for the webhook to respond before the tool call is
+     * aborted. Set this at the tool level, as a sibling of `type` — a `timeout_ms` nested inside
+     * the `webhook` object is not applied, and the tool runs at this default instead.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun timeoutMs(): Optional<Long> = timeoutMs.getOptional("timeout_ms")
+
+    /**
      * Returns the raw JSON value of [type].
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
@@ -59,6 +71,13 @@ private constructor(
      * Unlike [webhook], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("webhook") @ExcludeMissing fun _webhook(): JsonField<Webhook> = webhook
+
+    /**
+     * Returns the raw JSON value of [timeoutMs].
+     *
+     * Unlike [timeoutMs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("timeout_ms") @ExcludeMissing fun _timeoutMs(): JsonField<Long> = timeoutMs
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -91,12 +110,14 @@ private constructor(
 
         private var type: JsonField<Type>? = null
         private var webhook: JsonField<Webhook>? = null
+        private var timeoutMs: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(webhookTool: WebhookTool) = apply {
             type = webhookTool.type
             webhook = webhookTool.webhook
+            timeoutMs = webhookTool.timeoutMs
             additionalProperties = webhookTool.additionalProperties.toMutableMap()
         }
 
@@ -119,6 +140,22 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun webhook(webhook: JsonField<Webhook>) = apply { this.webhook = webhook }
+
+        /**
+         * The maximum number of milliseconds to wait for the webhook to respond before the tool
+         * call is aborted. Set this at the tool level, as a sibling of `type` — a `timeout_ms`
+         * nested inside the `webhook` object is not applied, and the tool runs at this default
+         * instead.
+         */
+        fun timeoutMs(timeoutMs: Long) = timeoutMs(JsonField.of(timeoutMs))
+
+        /**
+         * Sets [Builder.timeoutMs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.timeoutMs] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun timeoutMs(timeoutMs: JsonField<Long>) = apply { this.timeoutMs = timeoutMs }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -156,6 +193,7 @@ private constructor(
             WebhookTool(
                 checkRequired("type", type),
                 checkRequired("webhook", webhook),
+                timeoutMs,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -177,6 +215,7 @@ private constructor(
 
         type().validate()
         webhook().validate()
+        timeoutMs()
         validated = true
     }
 
@@ -196,7 +235,8 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (type.asKnown().getOrNull()?.validity() ?: 0) +
-            (webhook.asKnown().getOrNull()?.validity() ?: 0)
+            (webhook.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (timeoutMs.asKnown().isPresent) 1 else 0)
 
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -2741,13 +2781,16 @@ private constructor(
         return other is WebhookTool &&
             type == other.type &&
             webhook == other.webhook &&
+            timeoutMs == other.timeoutMs &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(type, webhook, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(type, webhook, timeoutMs, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WebhookTool{type=$type, webhook=$webhook, additionalProperties=$additionalProperties}"
+        "WebhookTool{type=$type, webhook=$webhook, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
 }
