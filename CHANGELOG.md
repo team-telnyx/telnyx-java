@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.95.0](https://github.com/team-telnyx/telnyx-java/compare/v6.94.0...v6.95.0) (2026-09-26)
+
+
+### Features
+
+* promote from staging a6b8011 ([5d67950](https://github.com/team-telnyx/telnyx-java/commit/5d67950826cee7a33c94df42dbaecaa5439d95e9))
+
 ## [6.94.0](https://github.com/team-telnyx/telnyx-java/compare/v6.93.0...v6.94.0) (2026-09-25)
 
 

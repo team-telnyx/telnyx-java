@@ -32,8 +32,13 @@ import kotlin.jvm.optionals.getOrNull
  * Directed transition from one node to a target, gated by a condition.
  *
  * The target is either another node in the same flow (`NodeTarget`) or a different assistant
- * (`AssistantTarget`). Multiple edges may share a `start_node_id`; the runtime evaluates them in
- * the order they're declared and takes the first whose condition is true.
+ * (`AssistantTarget`). Multiple edges may share a `start_node_id`. On calls, `expression`
+ * conditions are evaluated before the model turn and take precedence over `llm` conditions
+ * regardless of declaration order, while `llm` conditions are offered to the assistant's model as
+ * transition tools and fire when the model selects one. On chat channels, an `expression` condition
+ * that is true when the turn begins routes before the reply is generated; all conditioned edges
+ * that remain are considered together in declaration order after the reply, and the first true one
+ * wins.
  */
 class FlowEdge
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -371,11 +376,16 @@ private constructor(
     ) {
 
         /**
-         * Edge condition evaluated by the LLM from a natural-language prompt.
+         * Edge condition routed by the assistant's LLM from a natural-language prompt.
          *
-         * The model is asked to judge the prompt against conversation context and returns
-         * true/false. Use this for fuzzy intents that aren't expressible as a deterministic
-         * expression (e.g. 'user wants to escalate to a human').
+         * How the edge is decided depends on the channel. On calls, each outgoing `llm` condition
+         * is offered to the assistant's model as a transition tool alongside the assistant's tools,
+         * and the edge fires when the model selects it; the platform does not evaluate the prompt
+         * itself, and instructions that forbid or discourage tool calls can stop these edges from
+         * firing. On chat channels, the edge prompts are evaluated in a separate model call after
+         * the reply, which does not use the assistant's instructions. Use this for fuzzy intents
+         * that aren't expressible as a deterministic expression (e.g. 'user wants to escalate to a
+         * human').
          */
         fun llm(): Optional<Llm> = Optional.ofNullable(llm)
 
@@ -407,11 +417,16 @@ private constructor(
         fun isDefaultCondition(): Boolean = defaultCondition != null
 
         /**
-         * Edge condition evaluated by the LLM from a natural-language prompt.
+         * Edge condition routed by the assistant's LLM from a natural-language prompt.
          *
-         * The model is asked to judge the prompt against conversation context and returns
-         * true/false. Use this for fuzzy intents that aren't expressible as a deterministic
-         * expression (e.g. 'user wants to escalate to a human').
+         * How the edge is decided depends on the channel. On calls, each outgoing `llm` condition
+         * is offered to the assistant's model as a transition tool alongside the assistant's tools,
+         * and the edge fires when the model selects it; the platform does not evaluate the prompt
+         * itself, and instructions that forbid or discourage tool calls can stop these edges from
+         * firing. On chat channels, the edge prompts are evaluated in a separate model call after
+         * the reply, which does not use the assistant's instructions. Use this for fuzzy intents
+         * that aren't expressible as a deterministic expression (e.g. 'user wants to escalate to a
+         * human').
          */
         fun asLlm(): Llm = llm.getOrThrow("llm")
 
@@ -571,10 +586,15 @@ private constructor(
         companion object {
 
             /**
-             * Edge condition evaluated by the LLM from a natural-language prompt.
+             * Edge condition routed by the assistant's LLM from a natural-language prompt.
              *
-             * The model is asked to judge the prompt against conversation context and returns
-             * true/false. Use this for fuzzy intents that aren't expressible as a deterministic
+             * How the edge is decided depends on the channel. On calls, each outgoing `llm`
+             * condition is offered to the assistant's model as a transition tool alongside the
+             * assistant's tools, and the edge fires when the model selects it; the platform does
+             * not evaluate the prompt itself, and instructions that forbid or discourage tool calls
+             * can stop these edges from firing. On chat channels, the edge prompts are evaluated in
+             * a separate model call after the reply, which does not use the assistant's
+             * instructions. Use this for fuzzy intents that aren't expressible as a deterministic
              * expression (e.g. 'user wants to escalate to a human').
              */
             @JvmStatic fun ofLlm(llm: Llm) = Condition(llm = llm)
@@ -610,10 +630,15 @@ private constructor(
         interface Visitor<out T> {
 
             /**
-             * Edge condition evaluated by the LLM from a natural-language prompt.
+             * Edge condition routed by the assistant's LLM from a natural-language prompt.
              *
-             * The model is asked to judge the prompt against conversation context and returns
-             * true/false. Use this for fuzzy intents that aren't expressible as a deterministic
+             * How the edge is decided depends on the channel. On calls, each outgoing `llm`
+             * condition is offered to the assistant's model as a transition tool alongside the
+             * assistant's tools, and the edge fires when the model selects it; the platform does
+             * not evaluate the prompt itself, and instructions that forbid or discourage tool calls
+             * can stop these edges from firing. On chat channels, the edge prompts are evaluated in
+             * a separate model call after the reply, which does not use the assistant's
+             * instructions. Use this for fuzzy intents that aren't expressible as a deterministic
              * expression (e.g. 'user wants to escalate to a human').
              */
             fun visitLlm(llm: Llm): T
@@ -701,11 +726,16 @@ private constructor(
         }
 
         /**
-         * Edge condition evaluated by the LLM from a natural-language prompt.
+         * Edge condition routed by the assistant's LLM from a natural-language prompt.
          *
-         * The model is asked to judge the prompt against conversation context and returns
-         * true/false. Use this for fuzzy intents that aren't expressible as a deterministic
-         * expression (e.g. 'user wants to escalate to a human').
+         * How the edge is decided depends on the channel. On calls, each outgoing `llm` condition
+         * is offered to the assistant's model as a transition tool alongside the assistant's tools,
+         * and the edge fires when the model selects it; the platform does not evaluate the prompt
+         * itself, and instructions that forbid or discourage tool calls can stop these edges from
+         * firing. On chat channels, the edge prompts are evaluated in a separate model call after
+         * the reply, which does not use the assistant's instructions. Use this for fuzzy intents
+         * that aren't expressible as a deterministic expression (e.g. 'user wants to escalate to a
+         * human').
          */
         class Llm
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -724,7 +754,9 @@ private constructor(
             ) : this(prompt, type, mutableMapOf())
 
             /**
-             * Natural-language criterion the LLM judges as true/false.
+             * Natural-language criterion the model routes on. On calls this is offered to the model
+             * as the transition tool's description; on chat channels it is judged as a statement in
+             * the post-reply evaluation call.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -789,7 +821,11 @@ private constructor(
                     additionalProperties = llm.additionalProperties.toMutableMap()
                 }
 
-                /** Natural-language criterion the LLM judges as true/false. */
+                /**
+                 * Natural-language criterion the model routes on. On calls this is offered to the
+                 * model as the transition tool's description; on chat channels it is judged as a
+                 * statement in the post-reply evaluation call.
+                 */
                 fun prompt(prompt: String) = prompt(JsonField.of(prompt))
 
                 /**
