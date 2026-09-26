@@ -11,11 +11,11 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Irreversibly requests deletion of provider-hosted aggregate recording media under the provider
- * contract. The operation retains the Telnyx-local Meeting session, transcript segments, events,
- * artifacts, and usage records. It is separate from `DELETE /meeting_sessions/{id}`, which stops or
- * cancels participation without deleting the persisted session. A missing/foreign session returns
- * 404; provider deletion failures return 502.
+ * Irreversibly requests deletion of the aggregate recording media for the session. The operation
+ * retains the Telnyx-local Meeting session, transcript segments, events, artifacts, and usage
+ * records. It is separate from `DELETE /meeting_sessions/{id}`, which stops or cancels
+ * participation without deleting the persisted session. A missing/foreign session returns 404;
+ * provider deletion failures return 502.
  */
 class MeetingSessionDeleteRecordingMediaParams
 private constructor(

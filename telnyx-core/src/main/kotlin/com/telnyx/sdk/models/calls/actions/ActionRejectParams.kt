@@ -37,7 +37,9 @@ private constructor(
     fun callControlId(): Optional<String> = Optional.ofNullable(callControlId)
 
     /**
-     * Cause for call rejection.
+     * Cause for call rejection. The cause sets the SIP response the caller receives: `USER_BUSY`
+     * sends 486 User Busy, `CALL_REJECTED` sends 603 Decline, `NOT_FOUND` sends 404 Not Found, and
+     * `TEMPORARILY_UNAVAILABLE` sends 480 Temporarily Unavailable.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -140,7 +142,11 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** Cause for call rejection. */
+        /**
+         * Cause for call rejection. The cause sets the SIP response the caller receives:
+         * `USER_BUSY` sends 486 User Busy, `CALL_REJECTED` sends 603 Decline, `NOT_FOUND` sends 404
+         * Not Found, and `TEMPORARILY_UNAVAILABLE` sends 480 Temporarily Unavailable.
+         */
         fun cause(cause: Cause) = apply { body.cause(cause) }
 
         /**
@@ -353,7 +359,9 @@ private constructor(
         ) : this(cause, clientState, commandId, mutableMapOf())
 
         /**
-         * Cause for call rejection.
+         * Cause for call rejection. The cause sets the SIP response the caller receives:
+         * `USER_BUSY` sends 486 User Busy, `CALL_REJECTED` sends 603 Decline, `NOT_FOUND` sends 404
+         * Not Found, and `TEMPORARILY_UNAVAILABLE` sends 480 Temporarily Unavailable.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -442,7 +450,11 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** Cause for call rejection. */
+            /**
+             * Cause for call rejection. The cause sets the SIP response the caller receives:
+             * `USER_BUSY` sends 486 User Busy, `CALL_REJECTED` sends 603 Decline, `NOT_FOUND` sends
+             * 404 Not Found, and `TEMPORARILY_UNAVAILABLE` sends 480 Temporarily Unavailable.
+             */
             fun cause(cause: Cause) = cause(JsonField.of(cause))
 
             /**
@@ -590,7 +602,11 @@ private constructor(
             "Body{cause=$cause, clientState=$clientState, commandId=$commandId, additionalProperties=$additionalProperties}"
     }
 
-    /** Cause for call rejection. */
+    /**
+     * Cause for call rejection. The cause sets the SIP response the caller receives: `USER_BUSY`
+     * sends 486 User Busy, `CALL_REJECTED` sends 603 Decline, `NOT_FOUND` sends 404 Not Found, and
+     * `TEMPORARILY_UNAVAILABLE` sends 480 Temporarily Unavailable.
+     */
     class Cause @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -607,6 +623,10 @@ private constructor(
 
             @JvmField val CALL_REJECTED = of("CALL_REJECTED")
 
+            @JvmField val NOT_FOUND = of("NOT_FOUND")
+
+            @JvmField val TEMPORARILY_UNAVAILABLE = of("TEMPORARILY_UNAVAILABLE")
+
             @JvmField val USER_BUSY = of("USER_BUSY")
 
             @JvmStatic fun of(value: String) = Cause(JsonField.of(value))
@@ -615,6 +635,8 @@ private constructor(
         /** An enum containing [Cause]'s known values. */
         enum class Known {
             CALL_REJECTED,
+            NOT_FOUND,
+            TEMPORARILY_UNAVAILABLE,
             USER_BUSY,
         }
 
@@ -629,6 +651,8 @@ private constructor(
          */
         enum class Value {
             CALL_REJECTED,
+            NOT_FOUND,
+            TEMPORARILY_UNAVAILABLE,
             USER_BUSY,
             /** An enum member indicating that [Cause] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -644,6 +668,8 @@ private constructor(
         fun value(): Value =
             when (this) {
                 CALL_REJECTED -> Value.CALL_REJECTED
+                NOT_FOUND -> Value.NOT_FOUND
+                TEMPORARILY_UNAVAILABLE -> Value.TEMPORARILY_UNAVAILABLE
                 USER_BUSY -> Value.USER_BUSY
                 else -> Value._UNKNOWN
             }
@@ -660,6 +686,8 @@ private constructor(
         fun known(): Known =
             when (this) {
                 CALL_REJECTED -> Known.CALL_REJECTED
+                NOT_FOUND -> Known.NOT_FOUND
+                TEMPORARILY_UNAVAILABLE -> Known.TEMPORARILY_UNAVAILABLE
                 USER_BUSY -> Known.USER_BUSY
                 else -> throw TelnyxInvalidDataException("Unknown Cause: $value")
             }
