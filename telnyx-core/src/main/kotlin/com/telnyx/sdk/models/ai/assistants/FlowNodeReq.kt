@@ -202,7 +202,7 @@ private constructor(
 
     /**
      * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a standalone
-     * tool execution (see `ToolNodeReq`).
+     * tool execution and `speak` a scripted message (see `ToolNodeReq` / `SpeakNodeReq`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -575,7 +575,7 @@ private constructor(
 
         /**
          * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a standalone
-         * tool execution (see `ToolNodeReq`).
+         * tool execution and `speak` a scripted message (see `ToolNodeReq` / `SpeakNodeReq`).
          */
         fun type(type: Type) = type(JsonField.of(type))
 
@@ -1002,7 +1002,7 @@ private constructor(
 
     /**
      * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a standalone
-     * tool execution (see `ToolNodeReq`).
+     * tool execution and `speak` a scripted message (see `ToolNodeReq` / `SpeakNodeReq`).
      */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
