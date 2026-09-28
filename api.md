@@ -3228,3 +3228,12 @@ Methods:
 Methods:
 
 - <code title="post /machine-payments/account-credit">client.machinePayments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MachinePaymentService.kt">accountCredit</a>(params)</code>
+
+# SpendLimits
+
+Methods:
+
+- <code title="post /spend_limits">client.spendLimits().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SpendLimitService.kt">create</a>(params)</code>
+- <code title="patch /spend_limits/{product}">client.spendLimits().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SpendLimitService.kt">update</a>(params)</code>
+- <code title="get /spend_limits">client.spendLimits().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SpendLimitService.kt">list</a>()</code>
+- <code title="delete /spend_limits/{product}">client.spendLimits().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SpendLimitService.kt">delete</a>(params)</code>
