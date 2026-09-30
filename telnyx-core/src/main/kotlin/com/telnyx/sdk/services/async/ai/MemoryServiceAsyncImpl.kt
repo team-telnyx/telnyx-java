@@ -23,7 +23,6 @@ class MemoryServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MemoryServiceAsync =
         MemoryServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    /** Whether a write has finished. */
     override fun namespaces(): NamespaceServiceAsync = namespaces
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -40,7 +39,6 @@ class MemoryServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        /** Whether a write has finished. */
         override fun namespaces(): NamespaceServiceAsync.WithRawResponse = namespaces
     }
 }

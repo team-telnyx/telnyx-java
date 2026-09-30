@@ -544,7 +544,10 @@ Methods:
 
 Methods:
 
+- <code title="post /ai/memory/namespaces">client.ai().memory().namespaces().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/NamespaceService.kt">create</a>(params)</code>
 - <code title="get /ai/memory/namespaces/{namespace}/operations/{operation_id}">client.ai().memory().namespaces().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/NamespaceService.kt">retrieve</a>(params)</code>
+- <code title="get /ai/memory/namespaces">client.ai().memory().namespaces().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/NamespaceService.kt">list</a>()</code>
+- <code title="delete /ai/memory/namespaces/{namespace}">client.ai().memory().namespaces().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/NamespaceService.kt">delete</a>(params)</code>
 
 #### Profiles
 

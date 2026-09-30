@@ -14,7 +14,7 @@ internal class EmbeddingCreateParamsTest {
             .bucketName("Bucket Name")
             .documentChunkOverlapSize(512L)
             .documentChunkSize(1024L)
-            .embeddingModel(EmbeddingCreateParams.EmbeddingModel.THENLPER_GTE_LARGE)
+            .embeddingModel(EmbeddingCreateParams.EmbeddingModel.INTFLOAT_MULTILINGUAL_E5_LARGE)
             .loader(EmbeddingCreateParams.Loader.DEFAULT)
             .build()
     }
@@ -27,7 +27,7 @@ internal class EmbeddingCreateParamsTest {
                 .bucketName("Bucket Name")
                 .documentChunkOverlapSize(512L)
                 .documentChunkSize(1024L)
-                .embeddingModel(EmbeddingCreateParams.EmbeddingModel.THENLPER_GTE_LARGE)
+                .embeddingModel(EmbeddingCreateParams.EmbeddingModel.INTFLOAT_MULTILINGUAL_E5_LARGE)
                 .loader(EmbeddingCreateParams.Loader.DEFAULT)
                 .build()
 
@@ -58,7 +58,7 @@ internal class EmbeddingCreateParamsTest {
                 .bucketName("Bucket Name")
                 .documentChunkOverlapSize(512L)
                 .documentChunkSize(1024L)
-                .embeddingModel(EmbeddingCreateParams.EmbeddingModel.THENLPER_GTE_LARGE)
+                .embeddingModel(EmbeddingCreateParams.EmbeddingModel.INTFLOAT_MULTILINGUAL_E5_LARGE)
                 .loader(EmbeddingCreateParams.Loader.DEFAULT)
                 .build()
 
@@ -68,7 +68,7 @@ internal class EmbeddingCreateParamsTest {
         assertThat(body.documentChunkOverlapSize()).contains(512L)
         assertThat(body.documentChunkSize()).contains(1024L)
         assertThat(body.embeddingModel())
-            .contains(EmbeddingCreateParams.EmbeddingModel.THENLPER_GTE_LARGE)
+            .contains(EmbeddingCreateParams.EmbeddingModel.INTFLOAT_MULTILINGUAL_E5_LARGE)
         assertThat(body.loader()).contains(EmbeddingCreateParams.Loader.DEFAULT)
     }
 

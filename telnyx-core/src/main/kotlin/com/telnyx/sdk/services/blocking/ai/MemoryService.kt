@@ -20,7 +20,6 @@ interface MemoryService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MemoryService
 
-    /** Whether a write has finished. */
     fun namespaces(): NamespaceService
 
     /** A view of [MemoryService] that provides access to raw HTTP responses for each method. */
@@ -33,7 +32,6 @@ interface MemoryService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): MemoryService.WithRawResponse
 
-        /** Whether a write has finished. */
         fun namespaces(): NamespaceService.WithRawResponse
     }
 }
