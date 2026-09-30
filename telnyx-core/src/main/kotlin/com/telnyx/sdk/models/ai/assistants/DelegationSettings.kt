@@ -120,8 +120,9 @@ private constructor(
     fun mode(): Optional<Mode> = mode.getOptional("mode")
 
     /**
-     * The backend model that answers delegations. Must be a model available for AI Assistants.
-     * Leave unset to use the platform default backend model. Only applies when `mode` is `telnyx`.
+     * The backend model that answers delegations. Must be a model available for AI Assistants. When
+     * enabling `telnyx` delegation, explicitly set this field or `external_llm.model`; a
+     * configuration without either backend model is rejected. Only applies when `mode` is `telnyx`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -326,7 +327,8 @@ private constructor(
 
         /**
          * The backend model that answers delegations. Must be a model available for AI Assistants.
-         * Leave unset to use the platform default backend model. Only applies when `mode` is
+         * When enabling `telnyx` delegation, explicitly set this field or `external_llm.model`; a
+         * configuration without either backend model is rejected. Only applies when `mode` is
          * `telnyx`.
          */
         fun model(model: String) = model(JsonField.of(model))
