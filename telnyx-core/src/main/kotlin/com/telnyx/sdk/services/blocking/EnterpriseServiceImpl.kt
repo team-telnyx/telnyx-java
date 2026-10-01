@@ -30,6 +30,8 @@ import com.telnyx.sdk.services.blocking.enterprises.DirService
 import com.telnyx.sdk.services.blocking.enterprises.DirServiceImpl
 import com.telnyx.sdk.services.blocking.enterprises.ReputationService
 import com.telnyx.sdk.services.blocking.enterprises.ReputationServiceImpl
+import com.telnyx.sdk.services.blocking.enterprises.VerifyEmailService
+import com.telnyx.sdk.services.blocking.enterprises.VerifyEmailServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -45,6 +47,8 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
 
     private val dir: DirService by lazy { DirServiceImpl(clientOptions) }
 
+    private val verifyEmail: VerifyEmailService by lazy { VerifyEmailServiceImpl(clientOptions) }
+
     override fun withRawResponse(): EnterpriseService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnterpriseService =
@@ -58,6 +62,12 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
      * reasons) shown to recipients on outbound calls.
      */
     override fun dir(): DirService = dir
+
+    /**
+     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+     * email must be verified before references can be submitted.
+     */
+    override fun verifyEmail(): VerifyEmailService = verifyEmail
 
     override fun create(
         params: EnterpriseCreateParams,
@@ -113,6 +123,10 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
             DirServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val verifyEmail: VerifyEmailService.WithRawResponse by lazy {
+            VerifyEmailServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): EnterpriseService.WithRawResponse =
@@ -128,6 +142,12 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
          * call reasons) shown to recipients on outbound calls.
          */
         override fun dir(): DirService.WithRawResponse = dir
+
+        /**
+         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+         * email must be verified before references can be submitted.
+         */
+        override fun verifyEmail(): VerifyEmailService.WithRawResponse = verifyEmail
 
         private val createHandler: Handler<EnterprisePublicWrapped> =
             jsonHandler<EnterprisePublicWrapped>(clientOptions.jsonMapper)

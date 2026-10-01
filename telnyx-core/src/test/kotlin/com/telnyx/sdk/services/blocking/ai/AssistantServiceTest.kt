@@ -15,10 +15,13 @@ import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantTool
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
+import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappParams
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.AuthenticationMethod
 import com.telnyx.sdk.models.ai.assistants.ConversationFlowReq
+import com.telnyx.sdk.models.ai.assistants.DelegationSettings
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
+import com.telnyx.sdk.models.ai.assistants.ExternalLlm
 import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
 import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
 import com.telnyx.sdk.models.ai.assistants.FlowEdge
@@ -38,6 +41,7 @@ import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionEndpointingPlan
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
+import com.telnyx.sdk.models.ai.assistants.WebsocketSettings
 import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
 import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
@@ -290,6 +294,27 @@ internal class AssistantServiceTest {
                             )
                             .build()
                     )
+                    .delegationSettings(
+                        DelegationSettings.builder()
+                            .enabled(true)
+                            .externalLlm(
+                                ExternalLlm.builder()
+                                    .baseUrl("base_url")
+                                    .model("model")
+                                    .authenticationMethod(AuthenticationMethod.TOKEN)
+                                    .certificateRef("certificate_ref")
+                                    .forwardMetadata(true)
+                                    .llmApiKeyRef("llm_api_key_ref")
+                                    .tokenRetrievalUrl("token_retrieval_url")
+                                    .build()
+                            )
+                            .instructions("instructions")
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .mode(DelegationSettings.Mode.TELNYX)
+                            .model("model")
+                            .speakResults(true)
+                            .build()
+                    )
                     .description("description")
                     .dynamicVariables(
                         AssistantCreateParams.DynamicVariables.builder()
@@ -522,6 +547,13 @@ internal class AssistantServiceTest {
                             .temperature(0.0)
                             .useSpeakerBoost(true)
                             .voiceSpeed(0.0)
+                            .build()
+                    )
+                    .websocketSettings(
+                        WebsocketSettings.builder()
+                            .authRef("auth_ref")
+                            .enabled(true)
+                            .url("url")
                             .build()
                     )
                     .widgetSettings(
@@ -812,6 +844,27 @@ internal class AssistantServiceTest {
                             )
                             .build()
                     )
+                    .delegationSettings(
+                        DelegationSettings.builder()
+                            .enabled(true)
+                            .externalLlm(
+                                ExternalLlm.builder()
+                                    .baseUrl("base_url")
+                                    .model("model")
+                                    .authenticationMethod(AuthenticationMethod.TOKEN)
+                                    .certificateRef("certificate_ref")
+                                    .forwardMetadata(true)
+                                    .llmApiKeyRef("llm_api_key_ref")
+                                    .tokenRetrievalUrl("token_retrieval_url")
+                                    .build()
+                            )
+                            .instructions("instructions")
+                            .llmApiKeyRef("llm_api_key_ref")
+                            .mode(DelegationSettings.Mode.TELNYX)
+                            .model("model")
+                            .speakResults(true)
+                            .build()
+                    )
                     .description("description")
                     .dynamicVariables(
                         UpdateAssistant.DynamicVariables.builder()
@@ -1049,6 +1102,13 @@ internal class AssistantServiceTest {
                             .voiceSpeed(0.0)
                             .build()
                     )
+                    .websocketSettings(
+                        WebsocketSettings.builder()
+                            .authRef("auth_ref")
+                            .enabled(true)
+                            .url("url")
+                            .build()
+                    )
                     .widgetSettings(
                         WidgetSettings.builder()
                             .agentThinkingText("agent_thinking_text")
@@ -1183,6 +1243,31 @@ internal class AssistantServiceTest {
                     )
                     .shouldCreateConversation(false)
                     .text("Text")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun whatsapp() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val assistantService = client.ai().assistants()
+
+        val response =
+            assistantService.whatsapp(
+                AssistantWhatsappParams.builder()
+                    .assistantId("assistant_id")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .content("Send the login verification code 482913 to the customer.")
+                    .from("+13125550001")
+                    .to("+13125550002")
+                    .conversationMetadata(
+                        AssistantWhatsappParams.ConversationMetadata.builder()
+                            .putAdditionalProperty("order_id", JsonValue.from("A1"))
+                            .build()
+                    )
                     .build()
             )
 

@@ -20,7 +20,6 @@ interface MemoryServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MemoryServiceAsync
 
-    /** Whether a write has finished. */
     fun namespaces(): NamespaceServiceAsync
 
     /**
@@ -37,7 +36,6 @@ interface MemoryServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): MemoryServiceAsync.WithRawResponse
 
-        /** Whether a write has finished. */
         fun namespaces(): NamespaceServiceAsync.WithRawResponse
     }
 }

@@ -254,6 +254,8 @@ private constructor(
         fun productType(): TosProductType = productType.getRequired("product_type")
 
         /**
+         * When you accepted the terms, or null if you have not.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -432,6 +434,7 @@ private constructor(
                 this.productType = productType
             }
 
+            /** When you accepted the terms, or null if you have not. */
             fun agreedAt(agreedAt: OffsetDateTime?) = agreedAt(JsonField.ofNullable(agreedAt))
 
             /** Alias for calling [Builder.agreedAt] with `agreedAt.orElse(null)`. */

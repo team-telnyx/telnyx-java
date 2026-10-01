@@ -12,7 +12,7 @@ internal class LoaRenderParamsTest {
         LoaRenderParams.builder()
             .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
             .agent(
-                AgentInput.builder()
+                LoaRenderParams.Agent.builder()
                     .administrativeArea("administrative_area")
                     .city("city")
                     .contactEmail("dev@stainless.com")
@@ -52,7 +52,7 @@ internal class LoaRenderParamsTest {
             LoaRenderParams.builder()
                 .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                 .agent(
-                    AgentInput.builder()
+                    LoaRenderParams.Agent.builder()
                         .administrativeArea("administrative_area")
                         .city("city")
                         .contactEmail("dev@stainless.com")
@@ -79,7 +79,7 @@ internal class LoaRenderParamsTest {
 
         assertThat(body.agent())
             .contains(
-                AgentInput.builder()
+                LoaRenderParams.Agent.builder()
                     .administrativeArea("administrative_area")
                     .city("city")
                     .contactEmail("dev@stainless.com")
