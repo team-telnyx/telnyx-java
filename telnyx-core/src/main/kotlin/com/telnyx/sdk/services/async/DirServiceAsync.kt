@@ -6,7 +6,9 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.dir.DirBpoLoaParams
 import com.telnyx.sdk.models.dir.DirDeleteParams
+import com.telnyx.sdk.models.dir.DirDeleteResponse
 import com.telnyx.sdk.models.dir.DirListDocumentTypesParams
 import com.telnyx.sdk.models.dir.DirListDocumentTypesResponse
 import com.telnyx.sdk.models.dir.DirListInfringementClaimsPageAsync
@@ -14,6 +16,8 @@ import com.telnyx.sdk.models.dir.DirListInfringementClaimsParams
 import com.telnyx.sdk.models.dir.DirListPageAsync
 import com.telnyx.sdk.models.dir.DirListParams
 import com.telnyx.sdk.models.dir.DirNewLoaParams
+import com.telnyx.sdk.models.dir.DirRetrieveBpoAuthorizationsParams
+import com.telnyx.sdk.models.dir.DirRetrieveBpoAuthorizationsResponse
 import com.telnyx.sdk.models.dir.DirRetrieveParams
 import com.telnyx.sdk.models.dir.DirSubmitParams
 import com.telnyx.sdk.models.dir.DirUpdateInfringementParams
@@ -107,11 +111,13 @@ interface DirServiceAsync {
      * Edit a DIR. DIRs in `draft`, `rejected`, `unsuccessful`, or `suspended` can be edited freely:
      * PATCH is a pure edit, `status` is never changed, and you re-vet by calling `POST
      * /v2/dir/{dir_id}/submit` explicitly. A `verified` DIR can also be edited in place: a PATCH
-     * that changes any value returns the DIR to `draft` and branded delivery stops until you
-     * re-submit and the DIR is approved again, while a PATCH that changes nothing (an empty body or
-     * values identical to the current ones) leaves the DIR `verified`, so idempotent retries are
-     * safe. DIRs in any other status (`submitted`, `in_review`, `expired`, `infringement_claimed`,
-     * `permanently_rejected`) cannot be edited.
+     * that changes any value returns the DIR to `draft`; the currently approved identity keeps
+     * displaying, and the edited content goes live only after you re-submit and the DIR is approved
+     * again. A PATCH that changes nothing (an empty body or values identical to the current ones)
+     * leaves the DIR `verified`, so idempotent retries are safe. Changing only `bpo_authorizations`
+     * or `webhook_url` is the exception: the DIR stays `verified`. Each BPO authorization is
+     * reviewed on its own instead. DIRs in any other status (`submitted`, `in_review`, `expired`,
+     * `infringement_claimed`, `permanently_rejected`) cannot be edited.
      */
     fun update(dirId: String): CompletableFuture<DirWrapped> = update(dirId, DirUpdateParams.none())
 
@@ -168,37 +174,78 @@ interface DirServiceAsync {
         list(DirListParams.none(), requestOptions)
 
     /**
-     * Delete a DIR. Failure modes: `400` if a child phone number is in a non-deletable status,
-     * `409` if the DIR has an unresolved infringement claim, `404` if the DIR is not yours.
+     * Request deletion of a DIR. This does not remove the DIR on this call: it records the request,
+     * moves the DIR to `delete_requested`, and Telnyx completes the removal (de-registration and
+     * cleanup) shortly after. A verified DIR keeps serving its branded identity, and keeps billing,
+     * until the removal is executed. Failure modes: `400` if a child phone number is still attached
+     * or the DIR is `in_review` (wait for the review to finish), `409` if the DIR has an unresolved
+     * infringement claim, `404` if the DIR is not yours.
      */
-    fun delete(dirId: String): CompletableFuture<Void?> = delete(dirId, DirDeleteParams.none())
+    fun delete(dirId: String): CompletableFuture<DirDeleteResponse> =
+        delete(dirId, DirDeleteParams.none())
 
     /** @see delete */
     fun delete(
         dirId: String,
         params: DirDeleteParams = DirDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> = delete(params.toBuilder().dirId(dirId).build(), requestOptions)
+    ): CompletableFuture<DirDeleteResponse> =
+        delete(params.toBuilder().dirId(dirId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         dirId: String,
         params: DirDeleteParams = DirDeleteParams.none(),
-    ): CompletableFuture<Void?> = delete(dirId, params, RequestOptions.none())
+    ): CompletableFuture<DirDeleteResponse> = delete(dirId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: DirDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
+    ): CompletableFuture<DirDeleteResponse>
 
     /** @see delete */
-    fun delete(params: DirDeleteParams): CompletableFuture<Void?> =
+    fun delete(params: DirDeleteParams): CompletableFuture<DirDeleteResponse> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(dirId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
-        delete(dirId, DirDeleteParams.none(), requestOptions)
+    fun delete(
+        dirId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<DirDeleteResponse> = delete(dirId, DirDeleteParams.none(), requestOptions)
+
+    /**
+     * The Letter of Authorization in which a Brand Owner authorizes an approved BPO (Business
+     * Process Outsourcer) to place branded calls that display this DIR on the owner's behalf. Both
+     * parties are read from the caller's account: the Brand Owner is the enterprise that owns the
+     * DIR, and the BPO is `bpo_enterprise_id`. No business identity is accepted in the body.
+     *
+     * When `signature` is omitted the PDF is returned unsigned so the Brand Owner can sign it
+     * externally and the BPO can upload it via the Documents API. When `signature` is present the
+     * PDF embeds the supplied image, printed name, and signed-at date.
+     *
+     * Returns `application/pdf`.
+     */
+    fun bpoLoa(dirId: String, params: DirBpoLoaParams): CompletableFuture<HttpResponse> =
+        bpoLoa(dirId, params, RequestOptions.none())
+
+    /** @see bpoLoa */
+    fun bpoLoa(
+        dirId: String,
+        params: DirBpoLoaParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse> =
+        bpoLoa(params.toBuilder().dirId(dirId).build(), requestOptions)
+
+    /** @see bpoLoa */
+    fun bpoLoa(params: DirBpoLoaParams): CompletableFuture<HttpResponse> =
+        bpoLoa(params, RequestOptions.none())
+
+    /** @see bpoLoa */
+    fun bpoLoa(
+        params: DirBpoLoaParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
 
     /**
      * Reference list of `document_type` values accepted by
@@ -304,6 +351,58 @@ interface DirServiceAsync {
         params: DirNewLoaParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
+
+    /**
+     * List the BPO (Business Process Outsourcer) accounts a Brand Owner has authorized on this DIR,
+     * together with the review state of each authorization.
+     *
+     * Authorizations are supplied as the `bpo_authorizations` array when creating or updating a
+     * DIR, and each one is reviewed on its own. Only an `approved` authorization adds that BPO to
+     * this DIR's authorized callers in the branded calling registry; `pending` and `rejected`
+     * authorizations do not. Each entry includes the `loa_document_id` you submitted: because
+     * `bpo_authorizations` replaces the whole list on every DIR update, send each entry you want to
+     * keep back with its `loa_document_id` unchanged, and it keeps its review state. A rejected
+     * entry carries a `rejection_reason`. Returns an empty list when the DIR has authorized no
+     * BPOs.
+     */
+    fun retrieveBpoAuthorizations(
+        dirId: String
+    ): CompletableFuture<DirRetrieveBpoAuthorizationsResponse> =
+        retrieveBpoAuthorizations(dirId, DirRetrieveBpoAuthorizationsParams.none())
+
+    /** @see retrieveBpoAuthorizations */
+    fun retrieveBpoAuthorizations(
+        dirId: String,
+        params: DirRetrieveBpoAuthorizationsParams = DirRetrieveBpoAuthorizationsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<DirRetrieveBpoAuthorizationsResponse> =
+        retrieveBpoAuthorizations(params.toBuilder().dirId(dirId).build(), requestOptions)
+
+    /** @see retrieveBpoAuthorizations */
+    fun retrieveBpoAuthorizations(
+        dirId: String,
+        params: DirRetrieveBpoAuthorizationsParams = DirRetrieveBpoAuthorizationsParams.none(),
+    ): CompletableFuture<DirRetrieveBpoAuthorizationsResponse> =
+        retrieveBpoAuthorizations(dirId, params, RequestOptions.none())
+
+    /** @see retrieveBpoAuthorizations */
+    fun retrieveBpoAuthorizations(
+        params: DirRetrieveBpoAuthorizationsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<DirRetrieveBpoAuthorizationsResponse>
+
+    /** @see retrieveBpoAuthorizations */
+    fun retrieveBpoAuthorizations(
+        params: DirRetrieveBpoAuthorizationsParams
+    ): CompletableFuture<DirRetrieveBpoAuthorizationsResponse> =
+        retrieveBpoAuthorizations(params, RequestOptions.none())
+
+    /** @see retrieveBpoAuthorizations */
+    fun retrieveBpoAuthorizations(
+        dirId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<DirRetrieveBpoAuthorizationsResponse> =
+        retrieveBpoAuthorizations(dirId, DirRetrieveBpoAuthorizationsParams.none(), requestOptions)
 
     /**
      * Submit a DIR for vetting. Sends the DIR back through the vetting cycle from any non-terminal
@@ -521,7 +620,7 @@ interface DirServiceAsync {
          * Returns a raw HTTP response for `delete /dir/{dir_id}`, but is otherwise the same as
          * [DirServiceAsync.delete].
          */
-        fun delete(dirId: String): CompletableFuture<HttpResponse> =
+        fun delete(dirId: String): CompletableFuture<HttpResponseFor<DirDeleteResponse>> =
             delete(dirId, DirDeleteParams.none())
 
         /** @see delete */
@@ -529,28 +628,57 @@ interface DirServiceAsync {
             dirId: String,
             params: DirDeleteParams = DirDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
+        ): CompletableFuture<HttpResponseFor<DirDeleteResponse>> =
             delete(params.toBuilder().dirId(dirId).build(), requestOptions)
 
         /** @see delete */
         fun delete(
             dirId: String,
             params: DirDeleteParams = DirDeleteParams.none(),
-        ): CompletableFuture<HttpResponse> = delete(dirId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<DirDeleteResponse>> =
+            delete(dirId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: DirDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<DirDeleteResponse>>
 
         /** @see delete */
-        fun delete(params: DirDeleteParams): CompletableFuture<HttpResponse> =
+        fun delete(params: DirDeleteParams): CompletableFuture<HttpResponseFor<DirDeleteResponse>> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
-        fun delete(dirId: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        fun delete(
+            dirId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<DirDeleteResponse>> =
             delete(dirId, DirDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /dir/{dir_id}/bpo_loa`, but is otherwise the same
+         * as [DirServiceAsync.bpoLoa].
+         */
+        fun bpoLoa(dirId: String, params: DirBpoLoaParams): CompletableFuture<HttpResponse> =
+            bpoLoa(dirId, params, RequestOptions.none())
+
+        /** @see bpoLoa */
+        fun bpoLoa(
+            dirId: String,
+            params: DirBpoLoaParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            bpoLoa(params.toBuilder().dirId(dirId).build(), requestOptions)
+
+        /** @see bpoLoa */
+        fun bpoLoa(params: DirBpoLoaParams): CompletableFuture<HttpResponse> =
+            bpoLoa(params, RequestOptions.none())
+
+        /** @see bpoLoa */
+        fun bpoLoa(
+            params: DirBpoLoaParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `get /dir/document_types`, but is otherwise the same as
@@ -644,6 +772,53 @@ interface DirServiceAsync {
             params: DirNewLoaParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
+
+        /**
+         * Returns a raw HTTP response for `get /dir/{dir_id}/bpo_authorizations`, but is otherwise
+         * the same as [DirServiceAsync.retrieveBpoAuthorizations].
+         */
+        fun retrieveBpoAuthorizations(
+            dirId: String
+        ): CompletableFuture<HttpResponseFor<DirRetrieveBpoAuthorizationsResponse>> =
+            retrieveBpoAuthorizations(dirId, DirRetrieveBpoAuthorizationsParams.none())
+
+        /** @see retrieveBpoAuthorizations */
+        fun retrieveBpoAuthorizations(
+            dirId: String,
+            params: DirRetrieveBpoAuthorizationsParams = DirRetrieveBpoAuthorizationsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<DirRetrieveBpoAuthorizationsResponse>> =
+            retrieveBpoAuthorizations(params.toBuilder().dirId(dirId).build(), requestOptions)
+
+        /** @see retrieveBpoAuthorizations */
+        fun retrieveBpoAuthorizations(
+            dirId: String,
+            params: DirRetrieveBpoAuthorizationsParams = DirRetrieveBpoAuthorizationsParams.none(),
+        ): CompletableFuture<HttpResponseFor<DirRetrieveBpoAuthorizationsResponse>> =
+            retrieveBpoAuthorizations(dirId, params, RequestOptions.none())
+
+        /** @see retrieveBpoAuthorizations */
+        fun retrieveBpoAuthorizations(
+            params: DirRetrieveBpoAuthorizationsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<DirRetrieveBpoAuthorizationsResponse>>
+
+        /** @see retrieveBpoAuthorizations */
+        fun retrieveBpoAuthorizations(
+            params: DirRetrieveBpoAuthorizationsParams
+        ): CompletableFuture<HttpResponseFor<DirRetrieveBpoAuthorizationsResponse>> =
+            retrieveBpoAuthorizations(params, RequestOptions.none())
+
+        /** @see retrieveBpoAuthorizations */
+        fun retrieveBpoAuthorizations(
+            dirId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<DirRetrieveBpoAuthorizationsResponse>> =
+            retrieveBpoAuthorizations(
+                dirId,
+                DirRetrieveBpoAuthorizationsParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /dir/{dir_id}/submit`, but is otherwise the same as

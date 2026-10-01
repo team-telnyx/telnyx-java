@@ -36,6 +36,10 @@ internal class EnterpriseListPageResponseTest {
                                 .phoneNumber("+13125550001")
                                 .build()
                         )
+                        .bpoVerificationRejectionReason(
+                            "Business registration document could not be verified."
+                        )
+                        .bpoVerificationStatus(EnterprisePublic.BpoVerificationStatus.APPROVED)
                         .brandedCallingEnabled(true)
                         .corporateRegistrationNumber(null)
                         .countryCode("US")
@@ -72,7 +76,7 @@ internal class EnterpriseListPageResponseTest {
                         .organizationType("commercial")
                         .primaryBusinessDomainSicCode(null)
                         .professionalLicenseNumber(null)
-                        .roleType("enterprise")
+                        .roleType(EnterprisePublic.RoleType.ENTERPRISE)
                         .updatedAt(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
                         .website("https://acmeplumbing.example.com")
                         .build()
@@ -109,6 +113,10 @@ internal class EnterpriseListPageResponseTest {
                             .phoneNumber("+13125550001")
                             .build()
                     )
+                    .bpoVerificationRejectionReason(
+                        "Business registration document could not be verified."
+                    )
+                    .bpoVerificationStatus(EnterprisePublic.BpoVerificationStatus.APPROVED)
                     .brandedCallingEnabled(true)
                     .corporateRegistrationNumber(null)
                     .countryCode("US")
@@ -145,7 +153,7 @@ internal class EnterpriseListPageResponseTest {
                     .organizationType("commercial")
                     .primaryBusinessDomainSicCode(null)
                     .professionalLicenseNumber(null)
-                    .roleType("enterprise")
+                    .roleType(EnterprisePublic.RoleType.ENTERPRISE)
                     .updatedAt(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
                     .website("https://acmeplumbing.example.com")
                     .build()
@@ -187,6 +195,10 @@ internal class EnterpriseListPageResponseTest {
                                 .phoneNumber("+13125550001")
                                 .build()
                         )
+                        .bpoVerificationRejectionReason(
+                            "Business registration document could not be verified."
+                        )
+                        .bpoVerificationStatus(EnterprisePublic.BpoVerificationStatus.APPROVED)
                         .brandedCallingEnabled(true)
                         .corporateRegistrationNumber(null)
                         .countryCode("US")
@@ -223,7 +235,7 @@ internal class EnterpriseListPageResponseTest {
                         .organizationType("commercial")
                         .primaryBusinessDomainSicCode(null)
                         .professionalLicenseNumber(null)
-                        .roleType("enterprise")
+                        .roleType(EnterprisePublic.RoleType.ENTERPRISE)
                         .updatedAt(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
                         .website("https://acmeplumbing.example.com")
                         .build()

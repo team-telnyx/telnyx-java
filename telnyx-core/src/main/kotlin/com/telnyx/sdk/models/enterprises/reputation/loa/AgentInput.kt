@@ -86,72 +86,99 @@ private constructor(
     )
 
     /**
+     * The state or province of the partner's address, as its code, for example IL or ON.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun administrativeArea(): String = administrativeArea.getRequired("administrative_area")
 
     /**
+     * The city of the partner's address.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun city(): String = city.getRequired("city")
 
     /**
+     * The email address of the contact person at the partner.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun contactEmail(): String = contactEmail.getRequired("contact_email")
 
     /**
+     * The name of a contact person at the partner.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun contactName(): String = contactName.getRequired("contact_name")
 
     /**
+     * The phone number of the contact person at the partner, in E.164 format, for example
+     * +13125550000.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun contactPhone(): String = contactPhone.getRequired("contact_phone")
 
     /**
+     * The job title of the contact person at the partner.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun contactTitle(): String = contactTitle.getRequired("contact_title")
 
     /**
+     * The two-letter country code of the partner's address, for example US.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun country(): String = country.getRequired("country")
 
     /**
+     * The legal name of the third-party partner or reseller managing these numbers on your behalf.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun legalName(): String = legalName.getRequired("legal_name")
 
     /**
+     * The postal or ZIP code of the partner's address.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun postalCode(): String = postalCode.getRequired("postal_code")
 
     /**
+     * The street address of the partner, including the building number and street name.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun streetAddress(): String = streetAddress.getRequired("street_address")
 
     /**
+     * The trade name (Doing Business As) the partner operates under, if different from its legal
+     * name. Leave blank if it does not apply.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun dba(): Optional<String> = dba.getOptional("dba")
 
     /**
+     * An optional second address line for the partner, such as a suite, unit, or floor. Leave blank
+     * if it does not apply.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -324,6 +351,7 @@ private constructor(
             additionalProperties = agentInput.additionalProperties.toMutableMap()
         }
 
+        /** The state or province of the partner's address, as its code, for example IL or ON. */
         fun administrativeArea(administrativeArea: String) =
             administrativeArea(JsonField.of(administrativeArea))
 
@@ -338,6 +366,7 @@ private constructor(
             this.administrativeArea = administrativeArea
         }
 
+        /** The city of the partner's address. */
         fun city(city: String) = city(JsonField.of(city))
 
         /**
@@ -348,6 +377,7 @@ private constructor(
          */
         fun city(city: JsonField<String>) = apply { this.city = city }
 
+        /** The email address of the contact person at the partner. */
         fun contactEmail(contactEmail: String) = contactEmail(JsonField.of(contactEmail))
 
         /**
@@ -361,6 +391,7 @@ private constructor(
             this.contactEmail = contactEmail
         }
 
+        /** The name of a contact person at the partner. */
         fun contactName(contactName: String) = contactName(JsonField.of(contactName))
 
         /**
@@ -372,6 +403,10 @@ private constructor(
          */
         fun contactName(contactName: JsonField<String>) = apply { this.contactName = contactName }
 
+        /**
+         * The phone number of the contact person at the partner, in E.164 format, for example
+         * +13125550000.
+         */
         fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
 
         /**
@@ -385,6 +420,7 @@ private constructor(
             this.contactPhone = contactPhone
         }
 
+        /** The job title of the contact person at the partner. */
         fun contactTitle(contactTitle: String) = contactTitle(JsonField.of(contactTitle))
 
         /**
@@ -398,6 +434,7 @@ private constructor(
             this.contactTitle = contactTitle
         }
 
+        /** The two-letter country code of the partner's address, for example US. */
         fun country(country: String) = country(JsonField.of(country))
 
         /**
@@ -408,6 +445,10 @@ private constructor(
          */
         fun country(country: JsonField<String>) = apply { this.country = country }
 
+        /**
+         * The legal name of the third-party partner or reseller managing these numbers on your
+         * behalf.
+         */
         fun legalName(legalName: String) = legalName(JsonField.of(legalName))
 
         /**
@@ -419,6 +460,7 @@ private constructor(
          */
         fun legalName(legalName: JsonField<String>) = apply { this.legalName = legalName }
 
+        /** The postal or ZIP code of the partner's address. */
         fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
         /**
@@ -430,6 +472,7 @@ private constructor(
          */
         fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
+        /** The street address of the partner, including the building number and street name. */
         fun streetAddress(streetAddress: String) = streetAddress(JsonField.of(streetAddress))
 
         /**
@@ -443,6 +486,10 @@ private constructor(
             this.streetAddress = streetAddress
         }
 
+        /**
+         * The trade name (Doing Business As) the partner operates under, if different from its
+         * legal name. Leave blank if it does not apply.
+         */
         fun dba(dba: String?) = dba(JsonField.ofNullable(dba))
 
         /** Alias for calling [Builder.dba] with `dba.orElse(null)`. */
@@ -456,6 +503,10 @@ private constructor(
          */
         fun dba(dba: JsonField<String>) = apply { this.dba = dba }
 
+        /**
+         * An optional second address line for the partner, such as a suite, unit, or floor. Leave
+         * blank if it does not apply.
+         */
         fun extendedAddress(extendedAddress: String?) =
             extendedAddress(JsonField.ofNullable(extendedAddress))
 

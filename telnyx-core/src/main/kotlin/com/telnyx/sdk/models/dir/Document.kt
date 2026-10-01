@@ -60,6 +60,8 @@ private constructor(
     fun documentType(): DocumentType = documentType.getRequired("document_type")
 
     /**
+     * An optional note describing this document, for example what it proves.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -163,6 +165,7 @@ private constructor(
             this.documentType = documentType
         }
 
+        /** An optional note describing this document, for example what it proves. */
         fun description(description: String) = description(JsonField.of(description))
 
         /**
