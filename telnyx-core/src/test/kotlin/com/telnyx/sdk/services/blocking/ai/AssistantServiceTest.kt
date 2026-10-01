@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantTool
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
+import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappParams
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.AuthenticationMethod
 import com.telnyx.sdk.models.ai.assistants.ConversationFlowReq
@@ -1242,6 +1243,31 @@ internal class AssistantServiceTest {
                     )
                     .shouldCreateConversation(false)
                     .text("Text")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun whatsapp() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val assistantService = client.ai().assistants()
+
+        val response =
+            assistantService.whatsapp(
+                AssistantWhatsappParams.builder()
+                    .assistantId("assistant_id")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .content("Send the login verification code 482913 to the customer.")
+                    .from("+13125550001")
+                    .to("+13125550002")
+                    .conversationMetadata(
+                        AssistantWhatsappParams.ConversationMetadata.builder()
+                            .putAdditionalProperty("order_id", JsonValue.from("A1"))
+                            .build()
+                    )
                     .build()
             )
 

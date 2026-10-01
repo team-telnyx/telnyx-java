@@ -30,6 +30,8 @@ import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
+import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappParams
+import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.blocking.ai.assistants.CanaryDeployService
@@ -164,6 +166,13 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
     ): AssistantSendSmsResponse =
         // post /ai/assistants/{assistant_id}/chat/sms
         withRawResponse().sendSms(params, requestOptions).parse()
+
+    override fun whatsapp(
+        params: AssistantWhatsappParams,
+        requestOptions: RequestOptions,
+    ): AssistantWhatsappResponse =
+        // post /ai/assistants/{assistant_id}/chat/whatsapp
+        withRawResponse().whatsapp(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AssistantService.WithRawResponse {
@@ -510,6 +519,37 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
             return errorHandler.handle(response).parseable {
                 response
                     .use { sendSmsHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val whatsappHandler: Handler<AssistantWhatsappResponse> =
+            jsonHandler<AssistantWhatsappResponse>(clientOptions.jsonMapper)
+
+        override fun whatsapp(
+            params: AssistantWhatsappParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AssistantWhatsappResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "chat", "whatsapp")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { whatsappHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

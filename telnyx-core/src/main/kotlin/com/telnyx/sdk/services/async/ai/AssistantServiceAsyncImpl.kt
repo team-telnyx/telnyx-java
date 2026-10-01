@@ -33,6 +33,8 @@ import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
+import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappParams
+import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsync
@@ -176,6 +178,13 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
     ): CompletableFuture<AssistantSendSmsResponse> =
         // post /ai/assistants/{assistant_id}/chat/sms
         withRawResponse().sendSms(params, requestOptions).mapCancellable { it.parse() }
+
+    override fun whatsapp(
+        params: AssistantWhatsappParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AssistantWhatsappResponse> =
+        // post /ai/assistants/{assistant_id}/chat/whatsapp
+        withRawResponse().whatsapp(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AssistantServiceAsync.WithRawResponse {
@@ -571,6 +580,42 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendSmsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val whatsappHandler: Handler<AssistantWhatsappResponse> =
+            jsonHandler<AssistantWhatsappResponse>(clientOptions.jsonMapper)
+
+        override fun whatsapp(
+            params: AssistantWhatsappParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AssistantWhatsappResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "chat", "whatsapp")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { whatsappHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
