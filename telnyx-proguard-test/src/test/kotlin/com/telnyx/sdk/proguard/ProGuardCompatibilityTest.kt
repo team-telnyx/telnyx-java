@@ -243,6 +243,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.botSessions()).isNotNull()
         assertThat(client.botSignup()).isNotNull()
         assertThat(client.machinePayments()).isNotNull()
+        assertThat(client.spendLimits()).isNotNull()
     }
 
     @Test

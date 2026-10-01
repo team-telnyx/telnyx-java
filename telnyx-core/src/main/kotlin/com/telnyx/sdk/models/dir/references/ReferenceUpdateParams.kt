@@ -46,7 +46,8 @@ private constructor(
     fun slot(): Optional<Long> = Optional.ofNullable(slot)
 
     /**
-     * Reference contact email address.
+     * The reference's email address. We email them scheduling and dial-in instructions before we
+     * call, so use an address they check.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -54,7 +55,7 @@ private constructor(
     fun email(): Optional<String> = body.email()
 
     /**
-     * Full name of the reference contact.
+     * The full name of the person we should contact as your reference.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -62,7 +63,7 @@ private constructor(
     fun fullName(): Optional<String> = body.fullName()
 
     /**
-     * Job title of the reference contact.
+     * The reference contact's job title, for example CFO or Owner.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -70,7 +71,7 @@ private constructor(
     fun jobTitle(): Optional<String> = body.jobTitle()
 
     /**
-     * Organization the reference contact belongs to.
+     * The name of the organization the reference contact works for.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -78,7 +79,8 @@ private constructor(
     fun organization(): Optional<String> = body.organization()
 
     /**
-     * Reference phone number in E.164 format.
+     * The reference's phone number in E.164 format, for example +14155550123. We call this number
+     * during their local business hours.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -94,7 +96,8 @@ private constructor(
     fun relationshipToRegistrant(): Optional<String> = body.relationshipToRegistrant()
 
     /**
-     * IANA timezone id for the reference.
+     * The reference's IANA time zone, for example America/New_York. We only call during their local
+     * 8am to 9pm hours, which is why we need it.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -226,7 +229,10 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** Reference contact email address. */
+        /**
+         * The reference's email address. We email them scheduling and dial-in instructions before
+         * we call, so use an address they check.
+         */
         fun email(email: String) = apply { body.email(email) }
 
         /**
@@ -237,7 +243,7 @@ private constructor(
          */
         fun email(email: JsonField<String>) = apply { body.email(email) }
 
-        /** Full name of the reference contact. */
+        /** The full name of the person we should contact as your reference. */
         fun fullName(fullName: String) = apply { body.fullName(fullName) }
 
         /**
@@ -248,7 +254,7 @@ private constructor(
          */
         fun fullName(fullName: JsonField<String>) = apply { body.fullName(fullName) }
 
-        /** Job title of the reference contact. */
+        /** The reference contact's job title, for example CFO or Owner. */
         fun jobTitle(jobTitle: String?) = apply { body.jobTitle(jobTitle) }
 
         /** Alias for calling [Builder.jobTitle] with `jobTitle.orElse(null)`. */
@@ -262,7 +268,7 @@ private constructor(
          */
         fun jobTitle(jobTitle: JsonField<String>) = apply { body.jobTitle(jobTitle) }
 
-        /** Organization the reference contact belongs to. */
+        /** The name of the organization the reference contact works for. */
         fun organization(organization: String?) = apply { body.organization(organization) }
 
         /** Alias for calling [Builder.organization] with `organization.orElse(null)`. */
@@ -279,7 +285,10 @@ private constructor(
             body.organization(organization)
         }
 
-        /** Reference phone number in E.164 format. */
+        /**
+         * The reference's phone number in E.164 format, for example +14155550123. We call this
+         * number during their local business hours.
+         */
         fun phoneE164(phoneE164: String) = apply { body.phoneE164(phoneE164) }
 
         /**
@@ -314,7 +323,10 @@ private constructor(
             body.relationshipToRegistrant(relationshipToRegistrant)
         }
 
-        /** IANA timezone id for the reference. */
+        /**
+         * The reference's IANA time zone, for example America/New_York. We only call during their
+         * local 8am to 9pm hours, which is why we need it.
+         */
         fun timezone(timezone: String) = apply { body.timezone(timezone) }
 
         /**
@@ -530,7 +542,8 @@ private constructor(
         )
 
         /**
-         * Reference contact email address.
+         * The reference's email address. We email them scheduling and dial-in instructions before
+         * we call, so use an address they check.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -538,7 +551,7 @@ private constructor(
         fun email(): Optional<String> = email.getOptional("email")
 
         /**
-         * Full name of the reference contact.
+         * The full name of the person we should contact as your reference.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -546,7 +559,7 @@ private constructor(
         fun fullName(): Optional<String> = fullName.getOptional("full_name")
 
         /**
-         * Job title of the reference contact.
+         * The reference contact's job title, for example CFO or Owner.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -554,7 +567,7 @@ private constructor(
         fun jobTitle(): Optional<String> = jobTitle.getOptional("job_title")
 
         /**
-         * Organization the reference contact belongs to.
+         * The name of the organization the reference contact works for.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -562,7 +575,8 @@ private constructor(
         fun organization(): Optional<String> = organization.getOptional("organization")
 
         /**
-         * Reference phone number in E.164 format.
+         * The reference's phone number in E.164 format, for example +14155550123. We call this
+         * number during their local business hours.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -579,7 +593,8 @@ private constructor(
             relationshipToRegistrant.getOptional("relationship_to_registrant")
 
         /**
-         * IANA timezone id for the reference.
+         * The reference's IANA time zone, for example America/New_York. We only call during their
+         * local 8am to 9pm hours, which is why we need it.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -683,7 +698,10 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** Reference contact email address. */
+            /**
+             * The reference's email address. We email them scheduling and dial-in instructions
+             * before we call, so use an address they check.
+             */
             fun email(email: String) = email(JsonField.of(email))
 
             /**
@@ -695,7 +713,7 @@ private constructor(
              */
             fun email(email: JsonField<String>) = apply { this.email = email }
 
-            /** Full name of the reference contact. */
+            /** The full name of the person we should contact as your reference. */
             fun fullName(fullName: String) = fullName(JsonField.of(fullName))
 
             /**
@@ -707,7 +725,7 @@ private constructor(
              */
             fun fullName(fullName: JsonField<String>) = apply { this.fullName = fullName }
 
-            /** Job title of the reference contact. */
+            /** The reference contact's job title, for example CFO or Owner. */
             fun jobTitle(jobTitle: String?) = jobTitle(JsonField.ofNullable(jobTitle))
 
             /** Alias for calling [Builder.jobTitle] with `jobTitle.orElse(null)`. */
@@ -722,7 +740,7 @@ private constructor(
              */
             fun jobTitle(jobTitle: JsonField<String>) = apply { this.jobTitle = jobTitle }
 
-            /** Organization the reference contact belongs to. */
+            /** The name of the organization the reference contact works for. */
             fun organization(organization: String?) =
                 organization(JsonField.ofNullable(organization))
 
@@ -741,7 +759,10 @@ private constructor(
                 this.organization = organization
             }
 
-            /** Reference phone number in E.164 format. */
+            /**
+             * The reference's phone number in E.164 format, for example +14155550123. We call this
+             * number during their local business hours.
+             */
             fun phoneE164(phoneE164: String) = phoneE164(JsonField.of(phoneE164))
 
             /**
@@ -775,7 +796,10 @@ private constructor(
                 this.relationshipToRegistrant = relationshipToRegistrant
             }
 
-            /** IANA timezone id for the reference. */
+            /**
+             * The reference's IANA time zone, for example America/New_York. We only call during
+             * their local 8am to 9pm hours, which is why we need it.
+             */
             fun timezone(timezone: String) = timezone(JsonField.of(timezone))
 
             /**

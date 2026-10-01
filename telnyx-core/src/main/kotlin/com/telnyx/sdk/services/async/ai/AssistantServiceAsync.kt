@@ -18,6 +18,8 @@ import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
+import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappParams
+import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsync
@@ -353,6 +355,44 @@ interface AssistantServiceAsync {
         params: AssistantSendSmsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AssistantSendSmsResponse>
+
+    /**
+     * Start a WhatsApp conversation with a customer from the business side. This endpoint:
+     * 1. Validates that `from` is a WhatsApp number on your account whose messaging profile has
+     *    this assistant configured
+     * 2. Creates a new `whatsapp_chat` conversation with the provided metadata
+     * 3. Asks the assistant to pick one of its approved WhatsApp templates and fill its variables
+     *    from `content`
+     * 4. Sends the template from `from` to `to`
+     * 5. Returns the conversation ID and the message ID
+     *
+     * When the customer replies, the reply is routed to the same conversation and the assistant
+     * answers within the 24-hour customer service window. The assistant needs a `whatsapp_template`
+     * tool with at least one approved template, data retention enabled and PII redaction disabled.
+     */
+    fun whatsapp(
+        assistantId: String,
+        params: AssistantWhatsappParams,
+    ): CompletableFuture<AssistantWhatsappResponse> =
+        whatsapp(assistantId, params, RequestOptions.none())
+
+    /** @see whatsapp */
+    fun whatsapp(
+        assistantId: String,
+        params: AssistantWhatsappParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AssistantWhatsappResponse> =
+        whatsapp(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+    /** @see whatsapp */
+    fun whatsapp(params: AssistantWhatsappParams): CompletableFuture<AssistantWhatsappResponse> =
+        whatsapp(params, RequestOptions.none())
+
+    /** @see whatsapp */
+    fun whatsapp(
+        params: AssistantWhatsappParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AssistantWhatsappResponse>
 
     /**
      * A view of [AssistantServiceAsync] that provides access to raw HTTP responses for each method.
@@ -707,5 +747,35 @@ interface AssistantServiceAsync {
             params: AssistantSendSmsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AssistantSendSmsResponse>>
+
+        /**
+         * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/chat/whatsapp`, but
+         * is otherwise the same as [AssistantServiceAsync.whatsapp].
+         */
+        fun whatsapp(
+            assistantId: String,
+            params: AssistantWhatsappParams,
+        ): CompletableFuture<HttpResponseFor<AssistantWhatsappResponse>> =
+            whatsapp(assistantId, params, RequestOptions.none())
+
+        /** @see whatsapp */
+        fun whatsapp(
+            assistantId: String,
+            params: AssistantWhatsappParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AssistantWhatsappResponse>> =
+            whatsapp(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+        /** @see whatsapp */
+        fun whatsapp(
+            params: AssistantWhatsappParams
+        ): CompletableFuture<HttpResponseFor<AssistantWhatsappResponse>> =
+            whatsapp(params, RequestOptions.none())
+
+        /** @see whatsapp */
+        fun whatsapp(
+            params: AssistantWhatsappParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AssistantWhatsappResponse>>
     }
 }

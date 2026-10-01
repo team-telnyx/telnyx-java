@@ -12,6 +12,7 @@ internal class EnterpriseListParamsTest {
     fun create() {
         EnterpriseListParams.builder()
             .filterLegalNameContains("Acme")
+            .filterRoleType(EnterpriseListParams.FilterRoleType.BPO)
             .legalName("Acme")
             .pageNumber(1L)
             .pageSize(10L)
@@ -23,6 +24,7 @@ internal class EnterpriseListParamsTest {
         val params =
             EnterpriseListParams.builder()
                 .filterLegalNameContains("Acme")
+                .filterRoleType(EnterpriseListParams.FilterRoleType.BPO)
                 .legalName("Acme")
                 .pageNumber(1L)
                 .pageSize(10L)
@@ -34,6 +36,7 @@ internal class EnterpriseListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[legal_name][contains]", "Acme")
+                    .put("filter[role_type]", "bpo")
                     .put("legal_name", "Acme")
                     .put("page[number]", "1")
                     .put("page[size]", "10")

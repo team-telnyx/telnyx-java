@@ -30,10 +30,7 @@ internal class DirNewLoaParamsTest {
                     .build()
             )
             .signature(
-                DirNewLoaParams.Signature.builder()
-                    .imageBase64("x")
-                    .signerName("signer_name")
-                    .build()
+                SignaturePayload.builder().imageBase64("x").signerName("signer_name").build()
             )
             .build()
     }
@@ -74,10 +71,7 @@ internal class DirNewLoaParamsTest {
                         .build()
                 )
                 .signature(
-                    DirNewLoaParams.Signature.builder()
-                        .imageBase64("x")
-                        .signerName("signer_name")
-                        .build()
+                    SignaturePayload.builder().imageBase64("x").signerName("signer_name").build()
                 )
                 .build()
 
@@ -102,12 +96,7 @@ internal class DirNewLoaParamsTest {
                     .build()
             )
         assertThat(body.signature())
-            .contains(
-                DirNewLoaParams.Signature.builder()
-                    .imageBase64("x")
-                    .signerName("signer_name")
-                    .build()
-            )
+            .contains(SignaturePayload.builder().imageBase64("x").signerName("signer_name").build())
     }
 
     @Test

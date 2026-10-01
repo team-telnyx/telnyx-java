@@ -11,7 +11,9 @@ import com.telnyx.sdk.models.ai.assistants.AssistantTool
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.AuthenticationMethod
 import com.telnyx.sdk.models.ai.assistants.ConversationFlowReq
+import com.telnyx.sdk.models.ai.assistants.DelegationSettings
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
+import com.telnyx.sdk.models.ai.assistants.ExternalLlm
 import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
 import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
 import com.telnyx.sdk.models.ai.assistants.FlowEdge
@@ -31,6 +33,7 @@ import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionEndpointingPlan
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
+import com.telnyx.sdk.models.ai.assistants.WebsocketSettings
 import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
 import com.telnyx.sdk.models.ai.assistants.versions.VersionDeleteParams
@@ -335,6 +338,27 @@ internal class VersionServiceAsyncTest {
                                     )
                                     .build()
                             )
+                            .delegationSettings(
+                                DelegationSettings.builder()
+                                    .enabled(true)
+                                    .externalLlm(
+                                        ExternalLlm.builder()
+                                            .baseUrl("base_url")
+                                            .model("model")
+                                            .authenticationMethod(AuthenticationMethod.TOKEN)
+                                            .certificateRef("certificate_ref")
+                                            .forwardMetadata(true)
+                                            .llmApiKeyRef("llm_api_key_ref")
+                                            .tokenRetrievalUrl("token_retrieval_url")
+                                            .build()
+                                    )
+                                    .instructions("instructions")
+                                    .llmApiKeyRef("llm_api_key_ref")
+                                    .mode(DelegationSettings.Mode.TELNYX)
+                                    .model("model")
+                                    .speakResults(true)
+                                    .build()
+                            )
                             .description("description")
                             .dynamicVariables(
                                 UpdateAssistant.DynamicVariables.builder()
@@ -589,6 +613,13 @@ internal class VersionServiceAsyncTest {
                                     .temperature(0.0)
                                     .useSpeakerBoost(true)
                                     .voiceSpeed(0.0)
+                                    .build()
+                            )
+                            .websocketSettings(
+                                WebsocketSettings.builder()
+                                    .authRef("auth_ref")
+                                    .enabled(true)
+                                    .url("url")
                                     .build()
                             )
                             .widgetSettings(

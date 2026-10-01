@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.enterprises.dir
 
+import com.telnyx.sdk.models.dir.BpoAuthorizationInput
 import com.telnyx.sdk.models.dir.Document
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -21,6 +22,12 @@ internal class DirCreateParamsTest {
             .certifyIpOwnership(DirCreateParams.CertifyIpOwnership.TRUE)
             .certifyNoShaftContent(DirCreateParams.CertifyNoShaftContent.TRUE)
             .displayName("Acme Plumbing")
+            .addBpoAuthorization(
+                BpoAuthorizationInput.builder()
+                    .bpoEnterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
+                    .build()
+            )
             .addDocument(
                 Document.builder()
                     .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
@@ -30,6 +37,7 @@ internal class DirCreateParamsTest {
             )
             .logoUrl("https://acmeplumbing.example.com/logo-256.bmp")
             .reselling(false)
+            .webhookUrl("https://mapleridge.example.com/webhooks/branded-calling")
             .build()
     }
 
@@ -66,6 +74,12 @@ internal class DirCreateParamsTest {
                 .certifyIpOwnership(DirCreateParams.CertifyIpOwnership.TRUE)
                 .certifyNoShaftContent(DirCreateParams.CertifyNoShaftContent.TRUE)
                 .displayName("Acme Plumbing")
+                .addBpoAuthorization(
+                    BpoAuthorizationInput.builder()
+                        .bpoEnterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                        .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
+                        .build()
+                )
                 .addDocument(
                     Document.builder()
                         .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
@@ -75,6 +89,7 @@ internal class DirCreateParamsTest {
                 )
                 .logoUrl("https://acmeplumbing.example.com/logo-256.bmp")
                 .reselling(false)
+                .webhookUrl("https://mapleridge.example.com/webhooks/branded-calling")
                 .build()
 
         val body = params._body()
@@ -88,6 +103,13 @@ internal class DirCreateParamsTest {
         assertThat(body.certifyNoShaftContent())
             .isEqualTo(DirCreateParams.CertifyNoShaftContent.TRUE)
         assertThat(body.displayName()).isEqualTo("Acme Plumbing")
+        assertThat(body.bpoAuthorizations().getOrNull())
+            .containsExactly(
+                BpoAuthorizationInput.builder()
+                    .bpoEnterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
+                    .build()
+            )
         assertThat(body.documents().getOrNull())
             .containsExactly(
                 Document.builder()
@@ -98,6 +120,8 @@ internal class DirCreateParamsTest {
             )
         assertThat(body.logoUrl()).contains("https://acmeplumbing.example.com/logo-256.bmp")
         assertThat(body.reselling()).contains(false)
+        assertThat(body.webhookUrl())
+            .contains("https://mapleridge.example.com/webhooks/branded-calling")
     }
 
     @Test

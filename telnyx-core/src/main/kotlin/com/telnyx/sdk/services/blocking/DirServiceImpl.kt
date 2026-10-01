@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -17,7 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.dir.DirBpoLoaParams
 import com.telnyx.sdk.models.dir.DirDeleteParams
+import com.telnyx.sdk.models.dir.DirDeleteResponse
 import com.telnyx.sdk.models.dir.DirList
 import com.telnyx.sdk.models.dir.DirListDocumentTypesParams
 import com.telnyx.sdk.models.dir.DirListDocumentTypesResponse
@@ -27,6 +28,8 @@ import com.telnyx.sdk.models.dir.DirListInfringementClaimsParams
 import com.telnyx.sdk.models.dir.DirListPage
 import com.telnyx.sdk.models.dir.DirListParams
 import com.telnyx.sdk.models.dir.DirNewLoaParams
+import com.telnyx.sdk.models.dir.DirRetrieveBpoAuthorizationsParams
+import com.telnyx.sdk.models.dir.DirRetrieveBpoAuthorizationsResponse
 import com.telnyx.sdk.models.dir.DirRetrieveParams
 import com.telnyx.sdk.models.dir.DirSubmitParams
 import com.telnyx.sdk.models.dir.DirUpdateInfringementParams
@@ -107,10 +110,16 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
         // get /dir
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun delete(params: DirDeleteParams, requestOptions: RequestOptions) {
+    override fun delete(
+        params: DirDeleteParams,
+        requestOptions: RequestOptions,
+    ): DirDeleteResponse =
         // delete /dir/{dir_id}
-        withRawResponse().delete(params, requestOptions)
-    }
+        withRawResponse().delete(params, requestOptions).parse()
+
+    override fun bpoLoa(params: DirBpoLoaParams, requestOptions: RequestOptions): HttpResponse =
+        // post /dir/{dir_id}/bpo_loa
+        withRawResponse().bpoLoa(params, requestOptions)
 
     override fun listDocumentTypes(
         params: DirListDocumentTypesParams,
@@ -129,6 +138,13 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun newLoa(params: DirNewLoaParams, requestOptions: RequestOptions): HttpResponse =
         // post /dir/{dir_id}/loa
         withRawResponse().newLoa(params, requestOptions)
+
+    override fun retrieveBpoAuthorizations(
+        params: DirRetrieveBpoAuthorizationsParams,
+        requestOptions: RequestOptions,
+    ): DirRetrieveBpoAuthorizationsResponse =
+        // get /dir/{dir_id}/bpo_authorizations
+        withRawResponse().retrieveBpoAuthorizations(params, requestOptions).parse()
 
     override fun submit(params: DirSubmitParams, requestOptions: RequestOptions): DirWrapped =
         // post /dir/{dir_id}/submit
@@ -296,9 +312,13 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val deleteHandler: Handler<Void?> = emptyHandler()
+        private val deleteHandler: Handler<DirDeleteResponse> =
+            jsonHandler<DirDeleteResponse>(clientOptions.jsonMapper)
 
-        override fun delete(params: DirDeleteParams, requestOptions: RequestOptions): HttpResponse {
+        override fun delete(
+            params: DirDeleteParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DirDeleteResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("dirId", params.dirId().getOrNull())
@@ -313,8 +333,32 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { deleteHandler.handle(it) }
+                response
+                    .use { deleteHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
+
+        override fun bpoLoa(params: DirBpoLoaParams, requestOptions: RequestOptions): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("dirId", params.dirId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("dir", params._pathParam(0), "bpo_loa")
+                    .putHeader("Accept", "application/pdf")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
         }
 
         private val listDocumentTypesHandler: Handler<DirListDocumentTypesResponse> =
@@ -397,6 +441,37 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response)
+        }
+
+        private val retrieveBpoAuthorizationsHandler:
+            Handler<DirRetrieveBpoAuthorizationsResponse> =
+            jsonHandler<DirRetrieveBpoAuthorizationsResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveBpoAuthorizations(
+            params: DirRetrieveBpoAuthorizationsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DirRetrieveBpoAuthorizationsResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("dirId", params.dirId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("dir", params._pathParam(0), "bpo_authorizations")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveBpoAuthorizationsHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
         private val submitHandler: Handler<DirWrapped> =

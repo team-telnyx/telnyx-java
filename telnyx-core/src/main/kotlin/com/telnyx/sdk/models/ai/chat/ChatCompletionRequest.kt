@@ -226,7 +226,11 @@ private constructor(
     fun logprobs(): Optional<Boolean> = logprobs.getOptional("logprobs")
 
     /**
-     * Maximum number of completion tokens the model should generate.
+     * Maximum number of completion (output) tokens the model may generate per request. Defaults to
+     * 8192 when omitted or `null`. Set a higher value to allow longer completions. The model's
+     * `max_completion_tokens` metadata (see `GET /ai/models`), when set, caps both the default and
+     * any larger explicit value. Reasoning models consume this budget across reasoning and answer
+     * tokens combined.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -836,8 +840,24 @@ private constructor(
          */
         fun logprobs(logprobs: JsonField<Boolean>) = apply { this.logprobs = logprobs }
 
-        /** Maximum number of completion tokens the model should generate. */
-        fun maxTokens(maxTokens: Long) = maxTokens(JsonField.of(maxTokens))
+        /**
+         * Maximum number of completion (output) tokens the model may generate per request. Defaults
+         * to 8192 when omitted or `null`. Set a higher value to allow longer completions. The
+         * model's `max_completion_tokens` metadata (see `GET /ai/models`), when set, caps both the
+         * default and any larger explicit value. Reasoning models consume this budget across
+         * reasoning and answer tokens combined.
+         */
+        fun maxTokens(maxTokens: Long?) = maxTokens(JsonField.ofNullable(maxTokens))
+
+        /**
+         * Alias for [Builder.maxTokens].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun maxTokens(maxTokens: Long) = maxTokens(maxTokens as Long?)
+
+        /** Alias for calling [Builder.maxTokens] with `maxTokens.orElse(null)`. */
+        fun maxTokens(maxTokens: Optional<Long>) = maxTokens(maxTokens.getOrNull())
 
         /**
          * Sets [Builder.maxTokens] to an arbitrary JSON value.

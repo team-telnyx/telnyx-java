@@ -9,10 +9,14 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.dir.BpoAuthorizationInput
+import com.telnyx.sdk.models.dir.DirBpoLoaParams
 import com.telnyx.sdk.models.dir.DirNewLoaParams
+import com.telnyx.sdk.models.dir.DirRetrieveBpoAuthorizationsParams
 import com.telnyx.sdk.models.dir.DirUpdateInfringementParams
 import com.telnyx.sdk.models.dir.DirUpdateParams
 import com.telnyx.sdk.models.dir.Document
+import com.telnyx.sdk.models.dir.SignaturePayload
 import com.telnyx.sdk.models.enterprises.reputation.loa.AgentInput
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
@@ -46,6 +50,12 @@ internal class DirServiceTest {
                     .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                     .authorizerEmail("dev@stainless.com")
                     .authorizerName("authorizer_name")
+                    .addBpoAuthorization(
+                        BpoAuthorizationInput.builder()
+                            .bpoEnterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                            .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
+                            .build()
+                    )
                     .callReasons(
                         listOf("Appointment reminders", "Billing inquiries", "Lab results")
                     )
@@ -62,6 +72,7 @@ internal class DirServiceTest {
                     )
                     .logoUrl("https://acmeplumbing.example.com/logo-v2-256.bmp")
                     .reselling(true)
+                    .webhookUrl("https://mapleridge.example.com/webhooks/branded-calling")
                     .build()
             )
 
@@ -85,7 +96,36 @@ internal class DirServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val dirService = client.dir()
 
-        dirService.delete("16635d38-75a6-4481-82e8-69af60e05011")
+        val dir = dirService.delete("16635d38-75a6-4481-82e8-69af60e05011")
+
+        dir.validate()
+    }
+
+    @Test
+    fun bpoLoa(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .apiKey("My API Key")
+                .build()
+        val dirService = client.dir()
+        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val response =
+            dirService.bpoLoa(
+                DirBpoLoaParams.builder()
+                    .dirId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .bpoEnterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .signature(
+                        SignaturePayload.builder()
+                            .imageBase64("x")
+                            .signerName("signer_name")
+                            .build()
+                    )
+                    .build()
+            )
+
+        assertThat(response.body()).hasContent("abc")
     }
 
     @Disabled("Mock server tests are disabled")
@@ -142,7 +182,7 @@ internal class DirServiceTest {
                             .build()
                     )
                     .signature(
-                        DirNewLoaParams.Signature.builder()
+                        SignaturePayload.builder()
                             .imageBase64("x")
                             .signerName("signer_name")
                             .build()
@@ -151,6 +191,24 @@ internal class DirServiceTest {
             )
 
         assertThat(response.body()).hasContent("abc")
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveBpoAuthorizations() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val dirService = client.dir()
+
+        val response =
+            dirService.retrieveBpoAuthorizations(
+                DirRetrieveBpoAuthorizationsParams.builder()
+                    .dirId("16635d38-75a6-4481-82e8-69af60e05011")
+                    .pageNumber(1L)
+                    .pageSize(20L)
+                    .build()
+            )
+
+        response.validate()
     }
 
     @Disabled("Mock server tests are disabled")

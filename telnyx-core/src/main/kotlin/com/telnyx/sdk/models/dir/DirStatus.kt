@@ -19,6 +19,9 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
  * - `expired` - verification expired; customer must resubmit.
  * - `infringement_claimed` - a trademark/impersonation claim is open against this DIR.
  * - `permanently_rejected` - terminal; cannot be resubmitted.
+ * - `delete_requested` - you have requested deletion; the DIR still exists and Telnyx is completing
+ *   the removal (de-registration and cleanup). A verified DIR keeps serving its branded identity,
+ *   and keeps billing, until the removal finishes.
  */
 class DirStatus @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -53,6 +56,8 @@ class DirStatus @JsonCreator private constructor(private val value: JsonField<St
 
         @JvmField val PERMANENTLY_REJECTED = of("permanently_rejected")
 
+        @JvmField val DELETE_REQUESTED = of("delete_requested")
+
         @JvmStatic fun of(value: String) = DirStatus(JsonField.of(value))
     }
 
@@ -68,6 +73,7 @@ class DirStatus @JsonCreator private constructor(private val value: JsonField<St
         EXPIRED,
         INFRINGEMENT_CLAIMED,
         PERMANENTLY_REJECTED,
+        DELETE_REQUESTED,
     }
 
     /**
@@ -90,6 +96,7 @@ class DirStatus @JsonCreator private constructor(private val value: JsonField<St
         EXPIRED,
         INFRINGEMENT_CLAIMED,
         PERMANENTLY_REJECTED,
+        DELETE_REQUESTED,
         /** An enum member indicating that [DirStatus] was instantiated with an unknown value. */
         _UNKNOWN,
     }
@@ -113,6 +120,7 @@ class DirStatus @JsonCreator private constructor(private val value: JsonField<St
             EXPIRED -> Value.EXPIRED
             INFRINGEMENT_CLAIMED -> Value.INFRINGEMENT_CLAIMED
             PERMANENTLY_REJECTED -> Value.PERMANENTLY_REJECTED
+            DELETE_REQUESTED -> Value.DELETE_REQUESTED
             else -> Value._UNKNOWN
         }
 
@@ -136,6 +144,7 @@ class DirStatus @JsonCreator private constructor(private val value: JsonField<St
             EXPIRED -> Known.EXPIRED
             INFRINGEMENT_CLAIMED -> Known.INFRINGEMENT_CLAIMED
             PERMANENTLY_REJECTED -> Known.PERMANENTLY_REJECTED
+            DELETE_REQUESTED -> Known.DELETE_REQUESTED
             else -> throw TelnyxInvalidDataException("Unknown DirStatus: $value")
         }
 
