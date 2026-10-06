@@ -5210,8 +5210,9 @@ private constructor(
         fun samplingRate(): Optional<Long> = samplingRate.getOptional("sampling_rate")
 
         /**
-         * Voice speed multiplier. Applies to all models except `Bayan` and `Sukhan`, which don't
-         * support it. Range: 0.5 to 2.0.
+         * Voice speed multiplier. Telnyx `Ultra` voices accept values from 0.6 to 1.5 — requests
+         * outside that range are rejected by the synthesis engine. `KokoroTTS` and `Qwen3TTS`
+         * accept the field but do not apply it. `Bayan` and `Sukhan` don't support it.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -5354,8 +5355,10 @@ private constructor(
             }
 
             /**
-             * Voice speed multiplier. Applies to all models except `Bayan` and `Sukhan`, which
-             * don't support it. Range: 0.5 to 2.0.
+             * Voice speed multiplier. Telnyx `Ultra` voices accept values from 0.6 to 1.5 —
+             * requests outside that range are rejected by the synthesis engine. `KokoroTTS` and
+             * `Qwen3TTS` accept the field but do not apply it. `Bayan` and `Sukhan` don't support
+             * it.
              */
             fun voiceSpeed(voiceSpeed: Float) = voiceSpeed(JsonField.of(voiceSpeed))
 

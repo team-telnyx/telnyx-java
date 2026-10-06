@@ -158,6 +158,8 @@ import com.telnyx.sdk.services.blocking.LegacyService
 import com.telnyx.sdk.services.blocking.LegacyServiceImpl
 import com.telnyx.sdk.services.blocking.ListService
 import com.telnyx.sdk.services.blocking.ListServiceImpl
+import com.telnyx.sdk.services.blocking.LlmTokenGatewayService
+import com.telnyx.sdk.services.blocking.LlmTokenGatewayServiceImpl
 import com.telnyx.sdk.services.blocking.MachinePaymentService
 import com.telnyx.sdk.services.blocking.MachinePaymentServiceImpl
 import com.telnyx.sdk.services.blocking.ManagedAccountService
@@ -1090,6 +1092,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         SpendLimitServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val llmTokenGateway: LlmTokenGatewayService by lazy {
+        LlmTokenGatewayServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1709,6 +1715,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
      *   with `origin: operator` and you can update or delete it like your own.
      */
     override fun spendLimits(): SpendLimitService = spendLimits
+
+    override fun llmTokenGateway(): LlmTokenGatewayService = llmTokenGateway
 
     override fun close() = clientOptions.close()
 
@@ -2486,6 +2494,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             SpendLimitServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val llmTokenGateway: LlmTokenGatewayService.WithRawResponse by lazy {
+            LlmTokenGatewayServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -3165,5 +3177,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
          *   listed with `origin: operator` and you can update or delete it like your own.
          */
         override fun spendLimits(): SpendLimitService.WithRawResponse = spendLimits
+
+        override fun llmTokenGateway(): LlmTokenGatewayService.WithRawResponse = llmTokenGateway
     }
 }

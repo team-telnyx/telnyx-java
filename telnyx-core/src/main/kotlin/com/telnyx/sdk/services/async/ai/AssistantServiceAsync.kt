@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
+import com.telnyx.sdk.models.ai.assistants.AssistantRestoreParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
@@ -23,6 +24,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsync
+import com.telnyx.sdk.services.async.ai.assistants.DeletedServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.InstructionServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.ScheduledEventServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.TagServiceAsync
@@ -67,6 +69,9 @@ interface AssistantServiceAsync {
 
     /** Configure AI assistant specifications */
     fun instructions(): InstructionServiceAsync
+
+    /** Configure AI assistant specifications */
+    fun deleted(): DeletedServiceAsync
 
     /**
      * Creates a new AI assistant from the provided configuration, including its model,
@@ -172,7 +177,22 @@ interface AssistantServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<AssistantsList> =
         list(AssistantListParams.none(), requestOptions)
 
-    /** Delete an AI Assistant by `assistant_id`. */
+    /**
+     * Delete an AI Assistant by `assistant_id`.
+     *
+     * By default this performs a soft delete: the assistant moves to the Recently Deleted list and
+     * stays restorable for 30 days, after which it is permanently deleted automatically. The
+     * assistant's versions and TeXML application are preserved during the retention window.
+     *
+     * Pass `hard_delete=true` to skip the retention window and permanently delete the assistant
+     * immediately. A hard delete erases the assistant and all of its versions, and deletes its
+     * TeXML application unless phone numbers are still assigned to it. It does not delete
+     * conversations, recordings, shared tools the assistant referenced, or knowledge-base
+     * embeddings.
+     *
+     * Deletion fails with `400` if other assistants reference this one through a handoff tool or a
+     * conversation-flow edge — remove those references first.
+     */
     fun delete(assistantId: String): CompletableFuture<AssistantDeleteResponse> =
         delete(assistantId, AssistantDeleteParams.none())
 
@@ -323,6 +343,47 @@ interface AssistantServiceAsync {
     ): CompletableFuture<AssistantsList>
 
     /**
+     * Restore a soft-deleted assistant from the Recently Deleted list.
+     *
+     * The assistant becomes fully active again with its versions and TeXML application as they were
+     * at deletion time. Restoring does not re-enable numbers or connections that were released
+     * separately after the deletion.
+     */
+    fun restore(assistantId: String): CompletableFuture<InferenceEmbedding> =
+        restore(assistantId, AssistantRestoreParams.none())
+
+    /** @see restore */
+    fun restore(
+        assistantId: String,
+        params: AssistantRestoreParams = AssistantRestoreParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InferenceEmbedding> =
+        restore(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+    /** @see restore */
+    fun restore(
+        assistantId: String,
+        params: AssistantRestoreParams = AssistantRestoreParams.none(),
+    ): CompletableFuture<InferenceEmbedding> = restore(assistantId, params, RequestOptions.none())
+
+    /** @see restore */
+    fun restore(
+        params: AssistantRestoreParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InferenceEmbedding>
+
+    /** @see restore */
+    fun restore(params: AssistantRestoreParams): CompletableFuture<InferenceEmbedding> =
+        restore(params, RequestOptions.none())
+
+    /** @see restore */
+    fun restore(
+        assistantId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InferenceEmbedding> =
+        restore(assistantId, AssistantRestoreParams.none(), requestOptions)
+
+    /**
      * Send an SMS message for an assistant. This endpoint:
      * 1. Validates the assistant exists and has messaging profile configured
      * 2. If should_create_conversation is true, creates a new conversation with metadata
@@ -428,6 +489,9 @@ interface AssistantServiceAsync {
 
         /** Configure AI assistant specifications */
         fun instructions(): InstructionServiceAsync.WithRawResponse
+
+        /** Configure AI assistant specifications */
+        fun deleted(): DeletedServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /ai/assistants`, but is otherwise the same as
@@ -717,6 +781,47 @@ interface AssistantServiceAsync {
             params: AssistantImportsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AssistantsList>>
+
+        /**
+         * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/restore`, but is
+         * otherwise the same as [AssistantServiceAsync.restore].
+         */
+        fun restore(assistantId: String): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
+            restore(assistantId, AssistantRestoreParams.none())
+
+        /** @see restore */
+        fun restore(
+            assistantId: String,
+            params: AssistantRestoreParams = AssistantRestoreParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
+            restore(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+        /** @see restore */
+        fun restore(
+            assistantId: String,
+            params: AssistantRestoreParams = AssistantRestoreParams.none(),
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
+            restore(assistantId, params, RequestOptions.none())
+
+        /** @see restore */
+        fun restore(
+            params: AssistantRestoreParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>>
+
+        /** @see restore */
+        fun restore(
+            params: AssistantRestoreParams
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
+            restore(params, RequestOptions.none())
+
+        /** @see restore */
+        fun restore(
+            assistantId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> =
+            restore(assistantId, AssistantRestoreParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/chat/sms`, but is

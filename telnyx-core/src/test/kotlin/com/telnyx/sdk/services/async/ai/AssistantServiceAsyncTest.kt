@@ -8,6 +8,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantA2AAgent
 import com.telnyx.sdk.models.ai.assistants.AssistantChatParams
 import com.telnyx.sdk.models.ai.assistants.AssistantCloneParams
 import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
+import com.telnyx.sdk.models.ai.assistants.AssistantDeleteParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
 import com.telnyx.sdk.models.ai.assistants.AssistantMcpServer
@@ -1157,7 +1158,10 @@ internal class AssistantServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
-        val assistantFuture = assistantServiceAsync.delete("assistant_id")
+        val assistantFuture =
+            assistantServiceAsync.delete(
+                AssistantDeleteParams.builder().assistantId("assistant_id").hardDelete(true).build()
+            )
 
         val assistant = assistantFuture.get()
         assistant.validate()
@@ -1231,6 +1235,18 @@ internal class AssistantServiceAsyncTest {
 
         val assistantsList = assistantsListFuture.get()
         assistantsList.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun restore() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val assistantServiceAsync = client.ai().assistants()
+
+        val inferenceEmbeddingFuture = assistantServiceAsync.restore("assistant_id")
+
+        val inferenceEmbedding = inferenceEmbeddingFuture.get()
+        inferenceEmbedding.validate()
     }
 
     @Disabled("Mock server tests are disabled")

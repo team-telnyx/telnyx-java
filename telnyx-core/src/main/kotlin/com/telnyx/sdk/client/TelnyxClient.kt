@@ -80,6 +80,7 @@ import com.telnyx.sdk.services.blocking.IpService
 import com.telnyx.sdk.services.blocking.LedgerBillingGroupReportService
 import com.telnyx.sdk.services.blocking.LegacyService
 import com.telnyx.sdk.services.blocking.ListService
+import com.telnyx.sdk.services.blocking.LlmTokenGatewayService
 import com.telnyx.sdk.services.blocking.MachinePaymentService
 import com.telnyx.sdk.services.blocking.ManagedAccountService
 import com.telnyx.sdk.services.blocking.MediaService
@@ -828,6 +829,8 @@ interface TelnyxClient {
      */
     fun spendLimits(): SpendLimitService
 
+    fun llmTokenGateway(): LlmTokenGatewayService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1452,5 +1455,7 @@ interface TelnyxClient {
          *   listed with `origin: operator` and you can update or delete it like your own.
          */
         fun spendLimits(): SpendLimitService.WithRawResponse
+
+        fun llmTokenGateway(): LlmTokenGatewayService.WithRawResponse
     }
 }

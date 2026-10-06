@@ -158,6 +158,8 @@ import com.telnyx.sdk.services.async.LegacyServiceAsync
 import com.telnyx.sdk.services.async.LegacyServiceAsyncImpl
 import com.telnyx.sdk.services.async.ListServiceAsync
 import com.telnyx.sdk.services.async.ListServiceAsyncImpl
+import com.telnyx.sdk.services.async.LlmTokenGatewayServiceAsync
+import com.telnyx.sdk.services.async.LlmTokenGatewayServiceAsyncImpl
 import com.telnyx.sdk.services.async.MachinePaymentServiceAsync
 import com.telnyx.sdk.services.async.MachinePaymentServiceAsyncImpl
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
@@ -1136,6 +1138,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         SpendLimitServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val llmTokenGateway: LlmTokenGatewayServiceAsync by lazy {
+        LlmTokenGatewayServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1771,6 +1777,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
      *   with `origin: operator` and you can update or delete it like your own.
      */
     override fun spendLimits(): SpendLimitServiceAsync = spendLimits
+
+    override fun llmTokenGateway(): LlmTokenGatewayServiceAsync = llmTokenGateway
 
     override fun close() = clientOptions.close()
 
@@ -2572,6 +2580,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             SpendLimitServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val llmTokenGateway: LlmTokenGatewayServiceAsync.WithRawResponse by lazy {
+            LlmTokenGatewayServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3265,5 +3277,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
          *   listed with `origin: operator` and you can update or delete it like your own.
          */
         override fun spendLimits(): SpendLimitServiceAsync.WithRawResponse = spendLimits
+
+        override fun llmTokenGateway(): LlmTokenGatewayServiceAsync.WithRawResponse =
+            llmTokenGateway
     }
 }

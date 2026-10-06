@@ -6,6 +6,7 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.composeCancellableAsync
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -22,7 +23,6 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.tools.SharedToolResponse
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
 import com.telnyx.sdk.models.ai.tools.ToolDeleteParams
-import com.telnyx.sdk.models.ai.tools.ToolDeleteResponse
 import com.telnyx.sdk.models.ai.tools.ToolListPageAsync
 import com.telnyx.sdk.models.ai.tools.ToolListPageResponse
 import com.telnyx.sdk.models.ai.tools.ToolListParams
@@ -76,9 +76,9 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun delete(
         params: ToolDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ToolDeleteResponse> =
+    ): CompletableFuture<Void?> =
         // delete /ai/tools/{tool_id}
-        withRawResponse().delete(params, requestOptions).mapCancellable { it.parse() }
+        withRawResponse().delete(params, requestOptions).mapCancellable { null }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ToolServiceAsync.WithRawResponse {
@@ -237,13 +237,12 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val deleteHandler: Handler<ToolDeleteResponse> =
-            jsonHandler<ToolDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: ToolDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ToolDeleteResponse>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toolId", params.toolId().getOrNull())
@@ -262,13 +261,7 @@ class ToolServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
                 .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { deleteHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }

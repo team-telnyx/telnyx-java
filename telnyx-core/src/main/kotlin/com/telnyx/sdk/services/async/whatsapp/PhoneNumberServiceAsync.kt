@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversati
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrievePhoneNumberParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrievePhoneNumberResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberVerifyParams
+import com.telnyx.sdk.services.async.whatsapp.phonenumbers.CallingRoutingServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.CallingSettingServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.ConversationalComponentServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.ProfileServiceAsync
@@ -46,6 +47,9 @@ interface PhoneNumberServiceAsync {
 
     /** Manage Whatsapp phone numbers */
     fun conversationalComponents(): ConversationalComponentServiceAsync
+
+    /** Manage Whatsapp phone numbers */
+    fun callingRouting(): CallingRoutingServiceAsync
 
     /** Returns WhatsApp phone numbers linked to the authenticated Telnyx account. */
     fun list(): CompletableFuture<PhoneNumberListPageAsync> = list(PhoneNumberListParams.none())
@@ -275,6 +279,9 @@ interface PhoneNumberServiceAsync {
 
         /** Manage Whatsapp phone numbers */
         fun conversationalComponents(): ConversationalComponentServiceAsync.WithRawResponse
+
+        /** Manage Whatsapp phone numbers */
+        fun callingRouting(): CallingRoutingServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /v2/whatsapp/phone_numbers`, but is otherwise the

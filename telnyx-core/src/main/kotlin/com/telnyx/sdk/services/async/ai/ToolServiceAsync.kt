@@ -4,11 +4,11 @@ package com.telnyx.sdk.services.async.ai
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.tools.SharedToolResponse
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
 import com.telnyx.sdk.models.ai.tools.ToolDeleteParams
-import com.telnyx.sdk.models.ai.tools.ToolDeleteResponse
 import com.telnyx.sdk.models.ai.tools.ToolListPageAsync
 import com.telnyx.sdk.models.ai.tools.ToolListParams
 import com.telnyx.sdk.models.ai.tools.ToolRetrieveParams
@@ -129,38 +129,33 @@ interface ToolServiceAsync {
         list(ToolListParams.none(), requestOptions)
 
     /** Permanently deletes the specified custom AI tool from your account. */
-    fun delete(toolId: String): CompletableFuture<ToolDeleteResponse> =
-        delete(toolId, ToolDeleteParams.none())
+    fun delete(toolId: String): CompletableFuture<Void?> = delete(toolId, ToolDeleteParams.none())
 
     /** @see delete */
     fun delete(
         toolId: String,
         params: ToolDeleteParams = ToolDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ToolDeleteResponse> =
-        delete(params.toBuilder().toolId(toolId).build(), requestOptions)
+    ): CompletableFuture<Void?> = delete(params.toBuilder().toolId(toolId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
         toolId: String,
         params: ToolDeleteParams = ToolDeleteParams.none(),
-    ): CompletableFuture<ToolDeleteResponse> = delete(toolId, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = delete(toolId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: ToolDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ToolDeleteResponse>
+    ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(params: ToolDeleteParams): CompletableFuture<ToolDeleteResponse> =
+    fun delete(params: ToolDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        toolId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ToolDeleteResponse> =
+    fun delete(toolId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(toolId, ToolDeleteParams.none(), requestOptions)
 
     /** A view of [ToolServiceAsync] that provides access to raw HTTP responses for each method. */
@@ -299,7 +294,7 @@ interface ToolServiceAsync {
          * Returns a raw HTTP response for `delete /ai/tools/{tool_id}`, but is otherwise the same
          * as [ToolServiceAsync.delete].
          */
-        fun delete(toolId: String): CompletableFuture<HttpResponseFor<ToolDeleteResponse>> =
+        fun delete(toolId: String): CompletableFuture<HttpResponse> =
             delete(toolId, ToolDeleteParams.none())
 
         /** @see delete */
@@ -307,33 +302,29 @@ interface ToolServiceAsync {
             toolId: String,
             params: ToolDeleteParams = ToolDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ToolDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(params.toBuilder().toolId(toolId).build(), requestOptions)
 
         /** @see delete */
         fun delete(
             toolId: String,
             params: ToolDeleteParams = ToolDeleteParams.none(),
-        ): CompletableFuture<HttpResponseFor<ToolDeleteResponse>> =
-            delete(toolId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = delete(toolId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: ToolDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ToolDeleteResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            params: ToolDeleteParams
-        ): CompletableFuture<HttpResponseFor<ToolDeleteResponse>> =
+        fun delete(params: ToolDeleteParams): CompletableFuture<HttpResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             toolId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ToolDeleteResponse>> =
-            delete(toolId, ToolDeleteParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponse> = delete(toolId, ToolDeleteParams.none(), requestOptions)
     }
 }

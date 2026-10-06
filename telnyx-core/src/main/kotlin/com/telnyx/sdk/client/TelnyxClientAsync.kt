@@ -80,6 +80,7 @@ import com.telnyx.sdk.services.async.IpServiceAsync
 import com.telnyx.sdk.services.async.LedgerBillingGroupReportServiceAsync
 import com.telnyx.sdk.services.async.LegacyServiceAsync
 import com.telnyx.sdk.services.async.ListServiceAsync
+import com.telnyx.sdk.services.async.LlmTokenGatewayServiceAsync
 import com.telnyx.sdk.services.async.MachinePaymentServiceAsync
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
 import com.telnyx.sdk.services.async.MediaServiceAsync
@@ -828,6 +829,8 @@ interface TelnyxClientAsync {
      */
     fun spendLimits(): SpendLimitServiceAsync
 
+    fun llmTokenGateway(): LlmTokenGatewayServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1455,5 +1458,7 @@ interface TelnyxClientAsync {
          *   listed with `origin: operator` and you can update or delete it like your own.
          */
         fun spendLimits(): SpendLimitServiceAsync.WithRawResponse
+
+        fun llmTokenGateway(): LlmTokenGatewayServiceAsync.WithRawResponse
     }
 }

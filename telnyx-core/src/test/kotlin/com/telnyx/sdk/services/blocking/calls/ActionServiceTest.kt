@@ -185,9 +185,15 @@ internal class ActionServiceTest {
                             .addHangupTool(
                                 HangupToolParams.builder().description("description").build()
                             )
+                            .transcription(
+                                TranscriptionConfig.builder()
+                                    .language("en")
+                                    .model(TranscriptionConfig.Model.DEEPGRAM_FLUX)
+                                    .build()
+                            )
                             .voiceSettings(
                                 VoiceSettings.builder()
-                                    .voice("voice")
+                                    .voice("Telnyx.KokoroTTS.af_heart")
                                     .apiKeyRef("api_key_ref")
                                     .backgroundAudio(
                                         VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
@@ -1005,6 +1011,12 @@ internal class ActionServiceTest {
                                     .attendeeTimezone("attendee_timezone")
                                     .build()
                             )
+                            .transcription(
+                                TranscriptionConfig.builder()
+                                    .language("language")
+                                    .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
+                                    .build()
+                            )
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -1696,6 +1708,7 @@ internal class ActionServiceTest {
                             .initialSilenceMillis(1000)
                             .maximumNumberOfWords(1000)
                             .maximumWordLengthMillis(2000)
+                            .promptEndTimeoutMillis(5000)
                             .silenceThreshold(512)
                             .totalAnalysisTimeMillis(5000)
                             .build()

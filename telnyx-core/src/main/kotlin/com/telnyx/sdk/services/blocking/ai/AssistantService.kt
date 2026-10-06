@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
+import com.telnyx.sdk.models.ai.assistants.AssistantRestoreParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
@@ -24,6 +25,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.blocking.ai.assistants.CanaryDeployService
+import com.telnyx.sdk.services.blocking.ai.assistants.DeletedService
 import com.telnyx.sdk.services.blocking.ai.assistants.InstructionService
 import com.telnyx.sdk.services.blocking.ai.assistants.ScheduledEventService
 import com.telnyx.sdk.services.blocking.ai.assistants.TagService
@@ -67,6 +69,9 @@ interface AssistantService {
 
     /** Configure AI assistant specifications */
     fun instructions(): InstructionService
+
+    /** Configure AI assistant specifications */
+    fun deleted(): DeletedService
 
     /**
      * Creates a new AI assistant from the provided configuration, including its model,
@@ -165,7 +170,22 @@ interface AssistantService {
     fun list(requestOptions: RequestOptions): AssistantsList =
         list(AssistantListParams.none(), requestOptions)
 
-    /** Delete an AI Assistant by `assistant_id`. */
+    /**
+     * Delete an AI Assistant by `assistant_id`.
+     *
+     * By default this performs a soft delete: the assistant moves to the Recently Deleted list and
+     * stays restorable for 30 days, after which it is permanently deleted automatically. The
+     * assistant's versions and TeXML application are preserved during the retention window.
+     *
+     * Pass `hard_delete=true` to skip the retention window and permanently delete the assistant
+     * immediately. A hard delete erases the assistant and all of its versions, and deletes its
+     * TeXML application unless phone numbers are still assigned to it. It does not delete
+     * conversations, recordings, shared tools the assistant referenced, or knowledge-base
+     * embeddings.
+     *
+     * Deletion fails with `400` if other assistants reference this one through a handoff tool or a
+     * conversation-flow edge — remove those references first.
+     */
     fun delete(assistantId: String): AssistantDeleteResponse =
         delete(assistantId, AssistantDeleteParams.none())
 
@@ -305,6 +325,44 @@ interface AssistantService {
     ): AssistantsList
 
     /**
+     * Restore a soft-deleted assistant from the Recently Deleted list.
+     *
+     * The assistant becomes fully active again with its versions and TeXML application as they were
+     * at deletion time. Restoring does not re-enable numbers or connections that were released
+     * separately after the deletion.
+     */
+    fun restore(assistantId: String): InferenceEmbedding =
+        restore(assistantId, AssistantRestoreParams.none())
+
+    /** @see restore */
+    fun restore(
+        assistantId: String,
+        params: AssistantRestoreParams = AssistantRestoreParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InferenceEmbedding =
+        restore(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+    /** @see restore */
+    fun restore(
+        assistantId: String,
+        params: AssistantRestoreParams = AssistantRestoreParams.none(),
+    ): InferenceEmbedding = restore(assistantId, params, RequestOptions.none())
+
+    /** @see restore */
+    fun restore(
+        params: AssistantRestoreParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InferenceEmbedding
+
+    /** @see restore */
+    fun restore(params: AssistantRestoreParams): InferenceEmbedding =
+        restore(params, RequestOptions.none())
+
+    /** @see restore */
+    fun restore(assistantId: String, requestOptions: RequestOptions): InferenceEmbedding =
+        restore(assistantId, AssistantRestoreParams.none(), requestOptions)
+
+    /**
      * Send an SMS message for an assistant. This endpoint:
      * 1. Validates the assistant exists and has messaging profile configured
      * 2. If should_create_conversation is true, creates a new conversation with metadata
@@ -400,6 +458,9 @@ interface AssistantService {
 
         /** Configure AI assistant specifications */
         fun instructions(): InstructionService.WithRawResponse
+
+        /** Configure AI assistant specifications */
+        fun deleted(): DeletedService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /ai/assistants`, but is otherwise the same as
@@ -704,6 +765,50 @@ interface AssistantService {
             params: AssistantImportsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AssistantsList>
+
+        /**
+         * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/restore`, but is
+         * otherwise the same as [AssistantService.restore].
+         */
+        @MustBeClosed
+        fun restore(assistantId: String): HttpResponseFor<InferenceEmbedding> =
+            restore(assistantId, AssistantRestoreParams.none())
+
+        /** @see restore */
+        @MustBeClosed
+        fun restore(
+            assistantId: String,
+            params: AssistantRestoreParams = AssistantRestoreParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InferenceEmbedding> =
+            restore(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+        /** @see restore */
+        @MustBeClosed
+        fun restore(
+            assistantId: String,
+            params: AssistantRestoreParams = AssistantRestoreParams.none(),
+        ): HttpResponseFor<InferenceEmbedding> = restore(assistantId, params, RequestOptions.none())
+
+        /** @see restore */
+        @MustBeClosed
+        fun restore(
+            params: AssistantRestoreParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InferenceEmbedding>
+
+        /** @see restore */
+        @MustBeClosed
+        fun restore(params: AssistantRestoreParams): HttpResponseFor<InferenceEmbedding> =
+            restore(params, RequestOptions.none())
+
+        /** @see restore */
+        @MustBeClosed
+        fun restore(
+            assistantId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InferenceEmbedding> =
+            restore(assistantId, AssistantRestoreParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/chat/sms`, but is

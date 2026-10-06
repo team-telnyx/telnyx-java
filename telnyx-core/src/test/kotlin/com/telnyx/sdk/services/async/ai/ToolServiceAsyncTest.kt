@@ -185,9 +185,8 @@ internal class ToolServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val toolServiceAsync = client.ai().tools()
 
-        val toolFuture = toolServiceAsync.delete("tool_id")
+        val future = toolServiceAsync.delete("tool_id")
 
-        val tool = toolFuture.get()
-        tool.validate()
+        val response = future.get()
     }
 }
