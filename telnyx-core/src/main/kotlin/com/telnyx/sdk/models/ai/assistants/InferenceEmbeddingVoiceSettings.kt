@@ -198,9 +198,10 @@ private constructor(
     fun useSpeakerBoost(): Optional<Boolean> = useSpeakerBoost.getOptional("use_speaker_boost")
 
     /**
-     * The speed of the voice in the range [0.25, 2.0]. 1.0 is deafult speed. Larger numbers make
-     * the voice faster, smaller numbers make it slower. This is only applicable for Telnyx Natural
-     * voices and Soniox voices (0.7 to 1.3 for Soniox).
+     * The speed of the voice in the range [0.6, 1.5]. 1.0 is the default speed. Larger numbers make
+     * the voice faster, smaller numbers make it slower. Applies to Telnyx `Ultra` voices; values
+     * outside this range are rejected by the synthesis engine. Soniox voices support a speed range
+     * of 0.7 to 1.3.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -555,9 +556,10 @@ private constructor(
         }
 
         /**
-         * The speed of the voice in the range [0.25, 2.0]. 1.0 is deafult speed. Larger numbers
-         * make the voice faster, smaller numbers make it slower. This is only applicable for Telnyx
-         * Natural voices and Soniox voices (0.7 to 1.3 for Soniox).
+         * The speed of the voice in the range [0.6, 1.5]. 1.0 is the default speed. Larger numbers
+         * make the voice faster, smaller numbers make it slower. Applies to Telnyx `Ultra` voices;
+         * values outside this range are rejected by the synthesis engine. Soniox voices support a
+         * speed range of 0.7 to 1.3.
          */
         fun voiceSpeed(voiceSpeed: Double) = voiceSpeed(JsonField.of(voiceSpeed))
 

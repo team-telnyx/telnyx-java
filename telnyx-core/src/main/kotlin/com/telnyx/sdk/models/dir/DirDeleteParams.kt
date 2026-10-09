@@ -11,8 +11,12 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Delete a DIR. Failure modes: `400` if a child phone number is in a non-deletable status, `409` if
- * the DIR has an unresolved infringement claim, `404` if the DIR is not yours.
+ * Request deletion of a DIR. This does not remove the DIR on this call: it records the request,
+ * moves the DIR to `delete_requested`, and Telnyx completes the removal (de-registration and
+ * cleanup) shortly after. A verified DIR keeps serving its branded identity, and keeps billing,
+ * until the removal is executed. Failure modes: `400` if a child phone number is still attached or
+ * the DIR is `in_review` (wait for the review to finish), `409` if the DIR has an unresolved
+ * infringement claim, `404` if the DIR is not yours.
  */
 class DirDeleteParams
 private constructor(

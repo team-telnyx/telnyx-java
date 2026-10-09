@@ -36,25 +36,31 @@ private constructor(
     ) : this(email, firstName, lastName, phoneNumber, mutableMapOf())
 
     /**
+     * The email address of the person Telnyx should contact about billing for this account.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun email(): String = email.getRequired("email")
 
     /**
+     * The first name of the person Telnyx should contact about billing for this account.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun firstName(): String = firstName.getRequired("first_name")
 
     /**
+     * The last name of the person Telnyx should contact about billing for this account.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun lastName(): String = lastName.getRequired("last_name")
 
     /**
-     * E.164 format with leading `+`.
+     * The phone number of the billing contact, in E.164 format, for example +12125551234.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -137,6 +143,7 @@ private constructor(
             additionalProperties = billingContact.additionalProperties.toMutableMap()
         }
 
+        /** The email address of the person Telnyx should contact about billing for this account. */
         fun email(email: String) = email(JsonField.of(email))
 
         /**
@@ -147,6 +154,7 @@ private constructor(
          */
         fun email(email: JsonField<String>) = apply { this.email = email }
 
+        /** The first name of the person Telnyx should contact about billing for this account. */
         fun firstName(firstName: String) = firstName(JsonField.of(firstName))
 
         /**
@@ -158,6 +166,7 @@ private constructor(
          */
         fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
 
+        /** The last name of the person Telnyx should contact about billing for this account. */
         fun lastName(lastName: String) = lastName(JsonField.of(lastName))
 
         /**
@@ -168,7 +177,7 @@ private constructor(
          */
         fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
 
-        /** E.164 format with leading `+`. */
+        /** The phone number of the billing contact, in E.164 format, for example +12125551234. */
         fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
         /**

@@ -8,6 +8,7 @@ import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.BookAppointmentTool
 import com.telnyx.sdk.models.BookAppointmentToolParams
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
+import com.telnyx.sdk.models.calls.actions.TranscriptionConfig
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -81,6 +82,12 @@ internal class CallAssistantRequestTest {
                         .eventTypeId(0L)
                         .attendeeName("attendee_name")
                         .attendeeTimezone("attendee_timezone")
+                        .build()
+                )
+                .transcription(
+                    TranscriptionConfig.builder()
+                        .language("language")
+                        .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                         .build()
                 )
                 .voiceSettings(
@@ -187,6 +194,13 @@ internal class CallAssistantRequestTest {
                         .build()
                 )
             )
+        assertThat(callAssistantRequest.transcription())
+            .contains(
+                TranscriptionConfig.builder()
+                    .language("language")
+                    .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
+                    .build()
+            )
         assertThat(callAssistantRequest.voiceSettings())
             .contains(
                 VoiceSettings.builder()
@@ -281,6 +295,12 @@ internal class CallAssistantRequestTest {
                         .eventTypeId(0L)
                         .attendeeName("attendee_name")
                         .attendeeTimezone("attendee_timezone")
+                        .build()
+                )
+                .transcription(
+                    TranscriptionConfig.builder()
+                        .language("language")
+                        .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                         .build()
                 )
                 .voiceSettings(

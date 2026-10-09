@@ -11,7 +11,9 @@ import com.telnyx.sdk.models.ai.assistants.AssistantTool
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.AuthenticationMethod
 import com.telnyx.sdk.models.ai.assistants.ConversationFlowReq
+import com.telnyx.sdk.models.ai.assistants.DelegationSettings
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
+import com.telnyx.sdk.models.ai.assistants.ExternalLlm
 import com.telnyx.sdk.models.ai.assistants.ExternalLlmReq
 import com.telnyx.sdk.models.ai.assistants.FallbackConfigReq
 import com.telnyx.sdk.models.ai.assistants.FlowEdge
@@ -31,6 +33,7 @@ import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionEndpointingPlan
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
+import com.telnyx.sdk.models.ai.assistants.WebsocketSettings
 import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
 import com.telnyx.sdk.models.ai.assistants.versions.VersionDeleteParams
@@ -131,6 +134,106 @@ internal class VersionServiceTest {
                                             .transcription(
                                                 TranscriptionSettings.builder()
                                                     .apiKeyRef("api_key_ref")
+                                                    .challenger(
+                                                        TranscriptionSettings.Challenger.builder()
+                                                            .model(
+                                                                TranscriptionSettings.Challenger
+                                                                    .Model
+                                                                    .DEEPGRAM_NOVA_3
+                                                            )
+                                                            .language("en")
+                                                            .rule(
+                                                                TranscriptionSettings.Challenger
+                                                                    .Rule
+                                                                    .BEST_TURN
+                                                            )
+                                                            .settings(
+                                                                TranscriptionSettingsConfig
+                                                                    .builder()
+                                                                    .context("context")
+                                                                    .eagerEotThreshold(0.3)
+                                                                    .enableEndpointDetection(true)
+                                                                    .endOfTurnConfidenceThreshold(
+                                                                        0.0
+                                                                    )
+                                                                    .eotThreshold(0.5)
+                                                                    .eotTimeoutMs(500L)
+                                                                    .interimResults(true)
+                                                                    .keyterm("keyterm")
+                                                                    .addLanguageHint("string")
+                                                                    .maxEndpointDelayMs(500L)
+                                                                    .maxTurnSilence(100L)
+                                                                    .minTurnSilence(100L)
+                                                                    .numerals(true)
+                                                                    .smartFormat(true)
+                                                                    .build()
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .addFallbackModel(
+                                                        TranscriptionSettings.FallbackModel
+                                                            .builder()
+                                                            .model(
+                                                                TranscriptionSettings.FallbackModel
+                                                                    .Model
+                                                                    .DEEPGRAM_NOVA_3
+                                                            )
+                                                            .language("en")
+                                                            .settings(
+                                                                TranscriptionSettingsConfig
+                                                                    .builder()
+                                                                    .context("context")
+                                                                    .eagerEotThreshold(0.3)
+                                                                    .enableEndpointDetection(true)
+                                                                    .endOfTurnConfidenceThreshold(
+                                                                        0.0
+                                                                    )
+                                                                    .eotThreshold(0.5)
+                                                                    .eotTimeoutMs(500L)
+                                                                    .interimResults(true)
+                                                                    .keyterm("Telnyx,VoIP,SIP")
+                                                                    .addLanguageHint("string")
+                                                                    .maxEndpointDelayMs(500L)
+                                                                    .maxTurnSilence(100L)
+                                                                    .minTurnSilence(100L)
+                                                                    .numerals(true)
+                                                                    .smartFormat(true)
+                                                                    .build()
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .addFallbackModel(
+                                                        TranscriptionSettings.FallbackModel
+                                                            .builder()
+                                                            .model(
+                                                                TranscriptionSettings.FallbackModel
+                                                                    .Model
+                                                                    .SONIOX_STT_RT_V5
+                                                            )
+                                                            .language("en")
+                                                            .settings(
+                                                                TranscriptionSettingsConfig
+                                                                    .builder()
+                                                                    .context("Telnyx,VoIP,SIP")
+                                                                    .eagerEotThreshold(0.3)
+                                                                    .enableEndpointDetection(true)
+                                                                    .endOfTurnConfidenceThreshold(
+                                                                        0.0
+                                                                    )
+                                                                    .eotThreshold(0.5)
+                                                                    .eotTimeoutMs(500L)
+                                                                    .interimResults(true)
+                                                                    .keyterm("keyterm")
+                                                                    .addLanguageHint("string")
+                                                                    .maxEndpointDelayMs(500L)
+                                                                    .maxTurnSilence(100L)
+                                                                    .minTurnSilence(100L)
+                                                                    .numerals(true)
+                                                                    .smartFormat(true)
+                                                                    .build()
+                                                            )
+                                                            .build()
+                                                    )
                                                     .language("language")
                                                     .model(
                                                         TranscriptionSettings.Model.DEEPGRAM_FLUX
@@ -230,6 +333,106 @@ internal class VersionServiceTest {
                                             .transcription(
                                                 TranscriptionSettings.builder()
                                                     .apiKeyRef("api_key_ref")
+                                                    .challenger(
+                                                        TranscriptionSettings.Challenger.builder()
+                                                            .model(
+                                                                TranscriptionSettings.Challenger
+                                                                    .Model
+                                                                    .DEEPGRAM_NOVA_3
+                                                            )
+                                                            .language("en")
+                                                            .rule(
+                                                                TranscriptionSettings.Challenger
+                                                                    .Rule
+                                                                    .BEST_TURN
+                                                            )
+                                                            .settings(
+                                                                TranscriptionSettingsConfig
+                                                                    .builder()
+                                                                    .context("context")
+                                                                    .eagerEotThreshold(0.3)
+                                                                    .enableEndpointDetection(true)
+                                                                    .endOfTurnConfidenceThreshold(
+                                                                        0.0
+                                                                    )
+                                                                    .eotThreshold(0.5)
+                                                                    .eotTimeoutMs(500L)
+                                                                    .interimResults(true)
+                                                                    .keyterm("keyterm")
+                                                                    .addLanguageHint("string")
+                                                                    .maxEndpointDelayMs(500L)
+                                                                    .maxTurnSilence(100L)
+                                                                    .minTurnSilence(100L)
+                                                                    .numerals(true)
+                                                                    .smartFormat(true)
+                                                                    .build()
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .addFallbackModel(
+                                                        TranscriptionSettings.FallbackModel
+                                                            .builder()
+                                                            .model(
+                                                                TranscriptionSettings.FallbackModel
+                                                                    .Model
+                                                                    .DEEPGRAM_NOVA_3
+                                                            )
+                                                            .language("en")
+                                                            .settings(
+                                                                TranscriptionSettingsConfig
+                                                                    .builder()
+                                                                    .context("context")
+                                                                    .eagerEotThreshold(0.3)
+                                                                    .enableEndpointDetection(true)
+                                                                    .endOfTurnConfidenceThreshold(
+                                                                        0.0
+                                                                    )
+                                                                    .eotThreshold(0.5)
+                                                                    .eotTimeoutMs(500L)
+                                                                    .interimResults(true)
+                                                                    .keyterm("Telnyx,VoIP,SIP")
+                                                                    .addLanguageHint("string")
+                                                                    .maxEndpointDelayMs(500L)
+                                                                    .maxTurnSilence(100L)
+                                                                    .minTurnSilence(100L)
+                                                                    .numerals(true)
+                                                                    .smartFormat(true)
+                                                                    .build()
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .addFallbackModel(
+                                                        TranscriptionSettings.FallbackModel
+                                                            .builder()
+                                                            .model(
+                                                                TranscriptionSettings.FallbackModel
+                                                                    .Model
+                                                                    .SONIOX_STT_RT_V5
+                                                            )
+                                                            .language("en")
+                                                            .settings(
+                                                                TranscriptionSettingsConfig
+                                                                    .builder()
+                                                                    .context("Telnyx,VoIP,SIP")
+                                                                    .eagerEotThreshold(0.3)
+                                                                    .enableEndpointDetection(true)
+                                                                    .endOfTurnConfidenceThreshold(
+                                                                        0.0
+                                                                    )
+                                                                    .eotThreshold(0.5)
+                                                                    .eotTimeoutMs(500L)
+                                                                    .interimResults(true)
+                                                                    .keyterm("keyterm")
+                                                                    .addLanguageHint("string")
+                                                                    .maxEndpointDelayMs(500L)
+                                                                    .maxTurnSilence(100L)
+                                                                    .minTurnSilence(100L)
+                                                                    .numerals(true)
+                                                                    .smartFormat(true)
+                                                                    .build()
+                                                            )
+                                                            .build()
+                                                    )
                                                     .language("language")
                                                     .model(
                                                         TranscriptionSettings.Model.DEEPGRAM_FLUX
@@ -332,6 +535,27 @@ internal class VersionServiceTest {
                                             )
                                             .build()
                                     )
+                                    .build()
+                            )
+                            .delegationSettings(
+                                DelegationSettings.builder()
+                                    .enabled(true)
+                                    .externalLlm(
+                                        ExternalLlm.builder()
+                                            .baseUrl("base_url")
+                                            .model("model")
+                                            .authenticationMethod(AuthenticationMethod.TOKEN)
+                                            .certificateRef("certificate_ref")
+                                            .forwardMetadata(true)
+                                            .llmApiKeyRef("llm_api_key_ref")
+                                            .tokenRetrievalUrl("token_retrieval_url")
+                                            .build()
+                                    )
+                                    .instructions("instructions")
+                                    .llmApiKeyRef("llm_api_key_ref")
+                                    .mode(DelegationSettings.Mode.TELNYX)
+                                    .model("model")
+                                    .speakResults(true)
                                     .build()
                             )
                             .description("description")
@@ -532,6 +756,88 @@ internal class VersionServiceTest {
                             .transcription(
                                 TranscriptionSettings.builder()
                                     .apiKeyRef("api_key_ref")
+                                    .challenger(
+                                        TranscriptionSettings.Challenger.builder()
+                                            .model(
+                                                TranscriptionSettings.Challenger.Model
+                                                    .DEEPGRAM_NOVA_3
+                                            )
+                                            .language("en")
+                                            .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                            .settings(
+                                                TranscriptionSettingsConfig.builder()
+                                                    .context("context")
+                                                    .eagerEotThreshold(0.3)
+                                                    .enableEndpointDetection(true)
+                                                    .endOfTurnConfidenceThreshold(0.0)
+                                                    .eotThreshold(0.5)
+                                                    .eotTimeoutMs(500L)
+                                                    .interimResults(true)
+                                                    .keyterm("keyterm")
+                                                    .addLanguageHint("string")
+                                                    .maxEndpointDelayMs(500L)
+                                                    .maxTurnSilence(100L)
+                                                    .minTurnSilence(100L)
+                                                    .numerals(true)
+                                                    .smartFormat(true)
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
+                                    .addFallbackModel(
+                                        TranscriptionSettings.FallbackModel.builder()
+                                            .model(
+                                                TranscriptionSettings.FallbackModel.Model
+                                                    .DEEPGRAM_NOVA_3
+                                            )
+                                            .language("en")
+                                            .settings(
+                                                TranscriptionSettingsConfig.builder()
+                                                    .context("context")
+                                                    .eagerEotThreshold(0.3)
+                                                    .enableEndpointDetection(true)
+                                                    .endOfTurnConfidenceThreshold(0.0)
+                                                    .eotThreshold(0.5)
+                                                    .eotTimeoutMs(500L)
+                                                    .interimResults(true)
+                                                    .keyterm("Telnyx,VoIP,SIP")
+                                                    .addLanguageHint("string")
+                                                    .maxEndpointDelayMs(500L)
+                                                    .maxTurnSilence(100L)
+                                                    .minTurnSilence(100L)
+                                                    .numerals(true)
+                                                    .smartFormat(true)
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
+                                    .addFallbackModel(
+                                        TranscriptionSettings.FallbackModel.builder()
+                                            .model(
+                                                TranscriptionSettings.FallbackModel.Model
+                                                    .SONIOX_STT_RT_V5
+                                            )
+                                            .language("en")
+                                            .settings(
+                                                TranscriptionSettingsConfig.builder()
+                                                    .context("Telnyx,VoIP,SIP")
+                                                    .eagerEotThreshold(0.3)
+                                                    .enableEndpointDetection(true)
+                                                    .endOfTurnConfidenceThreshold(0.0)
+                                                    .eotThreshold(0.5)
+                                                    .eotTimeoutMs(500L)
+                                                    .interimResults(true)
+                                                    .keyterm("keyterm")
+                                                    .addLanguageHint("string")
+                                                    .maxEndpointDelayMs(500L)
+                                                    .maxTurnSilence(100L)
+                                                    .minTurnSilence(100L)
+                                                    .numerals(true)
+                                                    .smartFormat(true)
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
                                     .language("language")
                                     .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
                                     .region("region")
@@ -588,6 +894,13 @@ internal class VersionServiceTest {
                                     .temperature(0.0)
                                     .useSpeakerBoost(true)
                                     .voiceSpeed(0.0)
+                                    .build()
+                            )
+                            .websocketSettings(
+                                WebsocketSettings.builder()
+                                    .authRef("auth_ref")
+                                    .enabled(true)
+                                    .url("url")
                                     .build()
                             )
                             .widgetSettings(

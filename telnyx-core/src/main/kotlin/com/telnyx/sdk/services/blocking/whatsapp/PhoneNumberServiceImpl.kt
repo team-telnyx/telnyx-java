@@ -29,6 +29,8 @@ import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrieveConversati
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrievePhoneNumberParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberRetrievePhoneNumberResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.PhoneNumberVerifyParams
+import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.CallingRoutingService
+import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.CallingRoutingServiceImpl
 import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.CallingSettingService
 import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.CallingSettingServiceImpl
 import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.ConversationalComponentService
@@ -56,6 +58,10 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
         ConversationalComponentServiceImpl(clientOptions)
     }
 
+    private val callingRouting: CallingRoutingService by lazy {
+        CallingRoutingServiceImpl(clientOptions)
+    }
+
     override fun withRawResponse(): PhoneNumberService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberService =
@@ -70,6 +76,9 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
     /** Manage Whatsapp phone numbers */
     override fun conversationalComponents(): ConversationalComponentService =
         conversationalComponents
+
+    /** Manage Whatsapp phone numbers */
+    override fun callingRouting(): CallingRoutingService = callingRouting
 
     override fun list(
         params: PhoneNumberListParams,
@@ -136,6 +145,10 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
             ConversationalComponentServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val callingRouting: CallingRoutingService.WithRawResponse by lazy {
+            CallingRoutingServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): PhoneNumberService.WithRawResponse =
@@ -152,6 +165,9 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
         /** Manage Whatsapp phone numbers */
         override fun conversationalComponents(): ConversationalComponentService.WithRawResponse =
             conversationalComponents
+
+        /** Manage Whatsapp phone numbers */
+        override fun callingRouting(): CallingRoutingService.WithRawResponse = callingRouting
 
         private val listHandler: Handler<PhoneNumberListPageResponse> =
             jsonHandler<PhoneNumberListPageResponse>(clientOptions.jsonMapper)

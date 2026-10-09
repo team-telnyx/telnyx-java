@@ -36,14 +36,18 @@ import com.telnyx.sdk.models.ai.assistants.HangupToolParams
 import com.telnyx.sdk.models.ai.assistants.TransferTool
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
 import com.telnyx.sdk.models.ai.assistants.WebhookTool
+import com.telnyx.sdk.models.calls.actions.TranscriptionConfig
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
- * configuration will be used as fallback for any omitted fields.
+ * AI Assistant configuration and per-call overrides. All fields except `id` are optional. Omitted
+ * assistant fields use the stored configuration. Supplied `voice_settings` and `transcription`
+ * objects replace their stored objects rather than merging individual settings; include every
+ * setting you want to retain. `dynamic_variables` are merged, with request values taking
+ * precedence.
  */
 class CallAssistantRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -61,6 +65,7 @@ private constructor(
     private val observabilitySettings: JsonField<ObservabilitySettings>,
     private val openaiApiKeyRef: JsonField<String>,
     private val tools: JsonField<List<Tool>>,
+    private val transcription: JsonField<TranscriptionConfig>,
     private val voiceSettings: JsonField<VoiceSettings>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -96,6 +101,9 @@ private constructor(
         @ExcludeMissing
         openaiApiKeyRef: JsonField<String> = JsonMissing.of(),
         @JsonProperty("tools") @ExcludeMissing tools: JsonField<List<Tool>> = JsonMissing.of(),
+        @JsonProperty("transcription")
+        @ExcludeMissing
+        transcription: JsonField<TranscriptionConfig> = JsonMissing.of(),
         @JsonProperty("voice_settings")
         @ExcludeMissing
         voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
@@ -113,6 +121,7 @@ private constructor(
         observabilitySettings,
         openaiApiKeyRef,
         tools,
+        transcription,
         voiceSettings,
         mutableMapOf(),
     )
@@ -239,6 +248,20 @@ private constructor(
     fun tools(): Optional<List<Tool>> = tools.getOptional("tools")
 
     /**
+     * Per-call speech-to-text configuration for the assistant. If omitted, the stored assistant
+     * transcription configuration is used. If supplied, this object replaces the stored
+     * transcription settings. This is separate from the top-level `transcription` boolean on answer
+     * and dial commands.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun transcription(): Optional<TranscriptionConfig> = transcription.getOptional("transcription")
+
+    /**
+     * Per-call voice configuration. Set the voice identifier in `voice_settings.voice`, not in
+     * `assistant.voice`. If supplied, this object replaces the stored voice settings.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -355,6 +378,15 @@ private constructor(
     @JsonProperty("tools") @ExcludeMissing fun _tools(): JsonField<List<Tool>> = tools
 
     /**
+     * Returns the raw JSON value of [transcription].
+     *
+     * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("transcription")
+    @ExcludeMissing
+    fun _transcription(): JsonField<TranscriptionConfig> = transcription
+
+    /**
      * Returns the raw JSON value of [voiceSettings].
      *
      * Unlike [voiceSettings], this method doesn't throw if the JSON field has an unexpected type.
@@ -404,6 +436,7 @@ private constructor(
         private var observabilitySettings: JsonField<ObservabilitySettings> = JsonMissing.of()
         private var openaiApiKeyRef: JsonField<String> = JsonMissing.of()
         private var tools: JsonField<MutableList<Tool>>? = null
+        private var transcription: JsonField<TranscriptionConfig> = JsonMissing.of()
         private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -422,6 +455,7 @@ private constructor(
             observabilitySettings = callAssistantRequest.observabilitySettings
             openaiApiKeyRef = callAssistantRequest.openaiApiKeyRef
             tools = callAssistantRequest.tools.map { it.toMutableList() }
+            transcription = callAssistantRequest.transcription
             voiceSettings = callAssistantRequest.voiceSettings
             additionalProperties = callAssistantRequest.additionalProperties.toMutableMap()
         }
@@ -767,6 +801,30 @@ private constructor(
                     .build()
             )
 
+        /**
+         * Per-call speech-to-text configuration for the assistant. If omitted, the stored assistant
+         * transcription configuration is used. If supplied, this object replaces the stored
+         * transcription settings. This is separate from the top-level `transcription` boolean on
+         * answer and dial commands.
+         */
+        fun transcription(transcription: TranscriptionConfig) =
+            transcription(JsonField.of(transcription))
+
+        /**
+         * Sets [Builder.transcription] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transcription] with a well-typed [TranscriptionConfig]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun transcription(transcription: JsonField<TranscriptionConfig>) = apply {
+            this.transcription = transcription
+        }
+
+        /**
+         * Per-call voice configuration. Set the voice identifier in `voice_settings.voice`, not in
+         * `assistant.voice`. If supplied, this object replaces the stored voice settings.
+         */
         fun voiceSettings(voiceSettings: VoiceSettings) = voiceSettings(JsonField.of(voiceSettings))
 
         /**
@@ -826,6 +884,7 @@ private constructor(
                 observabilitySettings,
                 openaiApiKeyRef,
                 (tools ?: JsonMissing.of()).map { it.toImmutable() },
+                transcription,
                 voiceSettings,
                 additionalProperties.toMutableMap(),
             )
@@ -859,6 +918,7 @@ private constructor(
         observabilitySettings().ifPresent { it.validate() }
         openaiApiKeyRef()
         tools().ifPresent { it.forEach { it.validate() } }
+        transcription().ifPresent { it.validate() }
         voiceSettings().ifPresent { it.validate() }
         validated = true
     }
@@ -891,6 +951,7 @@ private constructor(
             (observabilitySettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (openaiApiKeyRef.asKnown().isPresent) 1 else 0) +
             (tools.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (transcription.asKnown().getOrNull()?.validity() ?: 0) +
             (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
 
     /**
@@ -2994,6 +3055,7 @@ private constructor(
             observabilitySettings == other.observabilitySettings &&
             openaiApiKeyRef == other.openaiApiKeyRef &&
             tools == other.tools &&
+            transcription == other.transcription &&
             voiceSettings == other.voiceSettings &&
             additionalProperties == other.additionalProperties
     }
@@ -3013,6 +3075,7 @@ private constructor(
             observabilitySettings,
             openaiApiKeyRef,
             tools,
+            transcription,
             voiceSettings,
             additionalProperties,
         )
@@ -3021,5 +3084,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CallAssistantRequest{id=$id, dynamicVariables=$dynamicVariables, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, model=$model, name=$name, observabilitySettings=$observabilitySettings, openaiApiKeyRef=$openaiApiKeyRef, tools=$tools, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+        "CallAssistantRequest{id=$id, dynamicVariables=$dynamicVariables, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, model=$model, name=$name, observabilitySettings=$observabilitySettings, openaiApiKeyRef=$openaiApiKeyRef, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
 }

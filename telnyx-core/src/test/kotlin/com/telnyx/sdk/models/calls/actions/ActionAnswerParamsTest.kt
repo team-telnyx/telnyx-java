@@ -86,9 +86,15 @@ internal class ActionAnswerParamsTest {
                     )
                     .openaiApiKeyRef("my_openai_api_key")
                     .addHangupTool(HangupToolParams.builder().description("description").build())
+                    .transcription(
+                        TranscriptionConfig.builder()
+                            .language("en")
+                            .model(TranscriptionConfig.Model.DEEPGRAM_FLUX)
+                            .build()
+                    )
                     .voiceSettings(
                         VoiceSettings.builder()
-                            .voice("voice")
+                            .voice("Telnyx.KokoroTTS.af_heart")
                             .apiKeyRef("api_key_ref")
                             .backgroundAudio(
                                 VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
@@ -356,9 +362,15 @@ internal class ActionAnswerParamsTest {
                         .addHangupTool(
                             HangupToolParams.builder().description("description").build()
                         )
+                        .transcription(
+                            TranscriptionConfig.builder()
+                                .language("en")
+                                .model(TranscriptionConfig.Model.DEEPGRAM_FLUX)
+                                .build()
+                        )
                         .voiceSettings(
                             VoiceSettings.builder()
-                                .voice("voice")
+                                .voice("Telnyx.KokoroTTS.af_heart")
                                 .apiKeyRef("api_key_ref")
                                 .backgroundAudio(
                                     VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
@@ -616,9 +628,15 @@ internal class ActionAnswerParamsTest {
                     )
                     .openaiApiKeyRef("my_openai_api_key")
                     .addHangupTool(HangupToolParams.builder().description("description").build())
+                    .transcription(
+                        TranscriptionConfig.builder()
+                            .language("en")
+                            .model(TranscriptionConfig.Model.DEEPGRAM_FLUX)
+                            .build()
+                    )
                     .voiceSettings(
                         VoiceSettings.builder()
-                            .voice("voice")
+                            .voice("Telnyx.KokoroTTS.af_heart")
                             .apiKeyRef("api_key_ref")
                             .backgroundAudio(
                                 VoiceSettings.BackgroundAudio.PredefinedMedia.builder()

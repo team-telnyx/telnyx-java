@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.enterprises.EnterpriseRetrieveParams
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
 import com.telnyx.sdk.services.blocking.enterprises.DirService
 import com.telnyx.sdk.services.blocking.enterprises.ReputationService
+import com.telnyx.sdk.services.blocking.enterprises.VerifyEmailService
 import java.util.function.Consumer
 
 /** Manage the legal-entity record that owns your DIRs and phone numbers. */
@@ -42,6 +43,12 @@ interface EnterpriseService {
      * reasons) shown to recipients on outbound calls.
      */
     fun dir(): DirService
+
+    /**
+     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+     * email must be verified before references can be submitted.
+     */
+    fun verifyEmail(): VerifyEmailService
 
     /**
      * Create the legal entity (enterprise) that represents your business on the Telnyx platform.
@@ -103,6 +110,19 @@ interface EnterpriseService {
      * immutable fields (`id`, `record_type`, `created_at`, `updated_at`, status fields,
      * `organization_type`, `country_code`, `role_type`) cannot be changed: including any of them in
      * the body is rejected with `400 Bad Request` (`Field 'X' is not allowed in this request`).
+     *
+     * For an approved BPO enterprise (`role_type` `bpo`), changing any identity field (legal name,
+     * DBA, website, FEIN, industry, number of employees, physical address, organization contact,
+     * D-U-N-S number, legal type, SIC code, corporate registration number, professional license
+     * number, or jurisdiction of incorporation) resets `bpo_verification_status` to `pending` for
+     * re-approval and sets every DIR authorization for that BPO to `rejected`. After re-approval,
+     * link it again with a newly signed LOA (a new `loa_document_id`); resending the old one keeps
+     * the authorization `rejected`. Re-sending an unchanged value does not reset anything.
+     *
+     * If Number Reputation is enabled on the enterprise, `legal_name`, `doing_business_as`,
+     * `website`, `fein`, `industry`, `number_of_employees`, `organization_physical_address`,
+     * `organization_contact`, and `dun_bradstreet_number` cannot be changed: the request is
+     * rejected with `400`.
      */
     fun update(enterpriseId: String): EnterprisePublicWrapped =
         update(enterpriseId, EnterpriseUpdateParams.none())
@@ -193,8 +213,7 @@ interface EnterpriseService {
         delete(enterpriseId, EnterpriseDeleteParams.none(), requestOptions)
 
     /**
-     * Branded Calling is a paid product that must be activated on each enterprise. Activation is
-     * idempotent:
+     * Branded Calling must be activated on each enterprise. Activation is idempotent:
      * - First call: marks the enterprise as activated and begins onboarding it with the Branded
      *   Calling platform asynchronously. Returns `200` with `branded_calling_enabled: true`.
      * - Re-call after success: no-op, returns the same enterprise body.
@@ -205,11 +224,15 @@ interface EnterpriseService {
      * terms_of_service_not_accepted`.
      *
      * Failure modes:
+     * - `400` - the account has no available credit. Add funds and retry.
+     * - `400` - the enterprise is not in the United States. Branded Calling is currently available
+     *   only to US enterprises.
      * - `403` - Branded Calling Terms of Service not accepted.
      * - `404` - enterprise does not exist or does not belong to your account.
      *
-     * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
-     * pricing.
+     * **Pricing:** Activation itself is free, but the account must have available credit. Branded
+     * Calling fees are charged per DIR and per branded call. See
+     * https://telnyx.com/pricing/branded-calling for current pricing.
      */
     fun brandedCalling(enterpriseId: String): EnterprisePublicWrapped =
         brandedCalling(enterpriseId, EnterpriseBrandedCallingParams.none())
@@ -265,6 +288,12 @@ interface EnterpriseService {
          * call reasons) shown to recipients on outbound calls.
          */
         fun dir(): DirService.WithRawResponse
+
+        /**
+         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+         * email must be verified before references can be submitted.
+         */
+        fun verifyEmail(): VerifyEmailService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /enterprises`, but is otherwise the same as

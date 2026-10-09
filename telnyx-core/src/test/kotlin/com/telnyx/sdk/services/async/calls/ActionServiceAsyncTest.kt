@@ -186,9 +186,15 @@ internal class ActionServiceAsyncTest {
                             .addHangupTool(
                                 HangupToolParams.builder().description("description").build()
                             )
+                            .transcription(
+                                TranscriptionConfig.builder()
+                                    .language("en")
+                                    .model(TranscriptionConfig.Model.DEEPGRAM_FLUX)
+                                    .build()
+                            )
                             .voiceSettings(
                                 VoiceSettings.builder()
-                                    .voice("voice")
+                                    .voice("Telnyx.KokoroTTS.af_heart")
                                     .apiKeyRef("api_key_ref")
                                     .backgroundAudio(
                                         VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
@@ -1022,6 +1028,12 @@ internal class ActionServiceAsyncTest {
                                     .eventTypeId(0L)
                                     .attendeeName("attendee_name")
                                     .attendeeTimezone("attendee_timezone")
+                                    .build()
+                            )
+                            .transcription(
+                                TranscriptionConfig.builder()
+                                    .language("language")
+                                    .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                                     .build()
                             )
                             .voiceSettings(

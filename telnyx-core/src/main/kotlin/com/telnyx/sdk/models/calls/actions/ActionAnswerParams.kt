@@ -35,6 +35,19 @@ import kotlin.jvm.optionals.getOrNull
  * Answer an incoming call. You must issue this command before executing subsequent commands on an
  * incoming call.
  *
+ * To answer with an AI assistant, include `assistant.id` and any per-call overrides in the
+ * `assistant` object. Telnyx attempts to warm up the assistant before answering the call, then
+ * starts the assistant automatically when the call is answered. Do not also send
+ * `ai_assistant_start` for this flow. The HTTP success response can arrive before the call is
+ * answered; use the `call.answered` webhook to track the answer. If warm-up fails, Telnyx falls
+ * back to starting the assistant after answering.
+ *
+ * Set the assistant voice with `assistant.voice_settings.voice` and speech-to-text settings with
+ * `assistant.transcription`. You can reuse one stored assistant with different per-call settings.
+ * Warm-up prepares assistant configuration and dependencies; it does not wait for the greeting
+ * audio to be ready or guarantee zero silence after answer. A plain `answer` followed by
+ * `ai_assistant_start` performs assistant startup after the call has already been answered.
+ *
  * **Expected Webhooks:**
  * - `call.answered`
  * - `call.hold` and `call.unhold` if the call is held/unheld
@@ -56,8 +69,11 @@ private constructor(
     fun callControlId(): Optional<String> = Optional.ofNullable(callControlId)
 
     /**
-     * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
-     * configuration will be used as fallback for any omitted fields.
+     * AI Assistant configuration and per-call overrides. All fields except `id` are optional.
+     * Omitted assistant fields use the stored configuration. Supplied `voice_settings` and
+     * `transcription` objects replace their stored objects rather than merging individual settings;
+     * include every setting you want to retain. `dynamic_variables` are merged, with request values
+     * taking precedence.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -282,7 +298,9 @@ private constructor(
     fun streamUrl(): Optional<String> = body.streamUrl()
 
     /**
-     * Enable transcription upon call answer. The default value is false.
+     * Enable standalone call transcription upon call answer. The default value is false. Configure
+     * this feature with `transcription_config`. To configure speech recognition for an AI
+     * assistant, use `assistant.transcription` instead.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -638,8 +656,11 @@ private constructor(
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
         /**
-         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
-         * configuration will be used as fallback for any omitted fields.
+         * AI Assistant configuration and per-call overrides. All fields except `id` are optional.
+         * Omitted assistant fields use the stored configuration. Supplied `voice_settings` and
+         * `transcription` objects replace their stored objects rather than merging individual
+         * settings; include every setting you want to retain. `dynamic_variables` are merged, with
+         * request values taking precedence.
          */
         fun assistant(assistant: CallAssistantRequest) = apply { body.assistant(assistant) }
 
@@ -1073,7 +1094,11 @@ private constructor(
          */
         fun streamUrl(streamUrl: JsonField<String>) = apply { body.streamUrl(streamUrl) }
 
-        /** Enable transcription upon call answer. The default value is false. */
+        /**
+         * Enable standalone call transcription upon call answer. The default value is false.
+         * Configure this feature with `transcription_config`. To configure speech recognition for
+         * an AI assistant, use `assistant.transcription` instead.
+         */
         fun transcription(transcription: Boolean) = apply { body.transcription(transcription) }
 
         /**
@@ -1504,8 +1529,11 @@ private constructor(
         )
 
         /**
-         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
-         * configuration will be used as fallback for any omitted fields.
+         * AI Assistant configuration and per-call overrides. All fields except `id` are optional.
+         * Omitted assistant fields use the stored configuration. Supplied `voice_settings` and
+         * `transcription` objects replace their stored objects rather than merging individual
+         * settings; include every setting you want to retain. `dynamic_variables` are merged, with
+         * request values taking precedence.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1739,7 +1767,9 @@ private constructor(
         fun streamUrl(): Optional<String> = streamUrl.getOptional("stream_url")
 
         /**
-         * Enable transcription upon call answer. The default value is false.
+         * Enable standalone call transcription upon call answer. The default value is false.
+         * Configure this feature with `transcription_config`. To configure speech recognition for
+         * an AI assistant, use `assistant.transcription` instead.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2203,8 +2233,11 @@ private constructor(
             }
 
             /**
-             * AI Assistant configuration. All fields except `id` are optional — the assistant's
-             * stored configuration will be used as fallback for any omitted fields.
+             * AI Assistant configuration and per-call overrides. All fields except `id` are
+             * optional. Omitted assistant fields use the stored configuration. Supplied
+             * `voice_settings` and `transcription` objects replace their stored objects rather than
+             * merging individual settings; include every setting you want to retain.
+             * `dynamic_variables` are merged, with request values taking precedence.
              */
             fun assistant(assistant: CallAssistantRequest) = assistant(JsonField.of(assistant))
 
@@ -2643,7 +2676,11 @@ private constructor(
              */
             fun streamUrl(streamUrl: JsonField<String>) = apply { this.streamUrl = streamUrl }
 
-            /** Enable transcription upon call answer. The default value is false. */
+            /**
+             * Enable standalone call transcription upon call answer. The default value is false.
+             * Configure this feature with `transcription_config`. To configure speech recognition
+             * for an AI assistant, use `assistant.transcription` instead.
+             */
             fun transcription(transcription: Boolean) = transcription(JsonField.of(transcription))
 
             /**

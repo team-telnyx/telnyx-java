@@ -9,10 +9,14 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.dir.BpoAuthorizationInput
+import com.telnyx.sdk.models.dir.DirBpoLoaParams
 import com.telnyx.sdk.models.dir.DirNewLoaParams
+import com.telnyx.sdk.models.dir.DirRetrieveBpoAuthorizationsParams
 import com.telnyx.sdk.models.dir.DirUpdateInfringementParams
 import com.telnyx.sdk.models.dir.DirUpdateParams
 import com.telnyx.sdk.models.dir.Document
+import com.telnyx.sdk.models.dir.SignaturePayload
 import com.telnyx.sdk.models.enterprises.reputation.loa.AgentInput
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
@@ -47,6 +51,12 @@ internal class DirServiceAsyncTest {
                     .dirId("16635d38-75a6-4481-82e8-69af60e05011")
                     .authorizerEmail("dev@stainless.com")
                     .authorizerName("authorizer_name")
+                    .addBpoAuthorization(
+                        BpoAuthorizationInput.builder()
+                            .bpoEnterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                            .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
+                            .build()
+                    )
                     .callReasons(
                         listOf("Appointment reminders", "Billing inquiries", "Lab results")
                     )
@@ -63,6 +73,7 @@ internal class DirServiceAsyncTest {
                     )
                     .logoUrl("https://acmeplumbing.example.com/logo-v2-256.bmp")
                     .reselling(true)
+                    .webhookUrl("https://mapleridge.example.com/webhooks/branded-calling")
                     .build()
             )
 
@@ -88,9 +99,38 @@ internal class DirServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val dirServiceAsync = client.dir()
 
-        val future = dirServiceAsync.delete("16635d38-75a6-4481-82e8-69af60e05011")
+        val dirFuture = dirServiceAsync.delete("16635d38-75a6-4481-82e8-69af60e05011")
 
-        val response = future.get()
+        val dir = dirFuture.get()
+        dir.validate()
+    }
+
+    @Test
+    fun bpoLoa(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .apiKey("My API Key")
+                .build()
+        val dirServiceAsync = client.dir()
+        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            dirServiceAsync.bpoLoa(
+                DirBpoLoaParams.builder()
+                    .dirId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .bpoEnterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .signature(
+                        SignaturePayload.builder()
+                            .imageBase64("x")
+                            .signerName("signer_name")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
     }
 
     @Disabled("Mock server tests are disabled")
@@ -150,7 +190,7 @@ internal class DirServiceAsyncTest {
                             .build()
                     )
                     .signature(
-                        DirNewLoaParams.Signature.builder()
+                        SignaturePayload.builder()
                             .imageBase64("x")
                             .signerName("signer_name")
                             .build()
@@ -160,6 +200,25 @@ internal class DirServiceAsyncTest {
 
         val response = responseFuture.get()
         assertThat(response.body()).hasContent("abc")
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveBpoAuthorizations() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val dirServiceAsync = client.dir()
+
+        val responseFuture =
+            dirServiceAsync.retrieveBpoAuthorizations(
+                DirRetrieveBpoAuthorizationsParams.builder()
+                    .dirId("16635d38-75a6-4481-82e8-69af60e05011")
+                    .pageNumber(1L)
+                    .pageSize(20L)
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
     }
 
     @Disabled("Mock server tests are disabled")

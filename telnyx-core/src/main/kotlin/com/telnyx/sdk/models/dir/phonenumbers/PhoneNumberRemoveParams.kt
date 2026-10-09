@@ -36,6 +36,9 @@ private constructor(
     fun dirId(): Optional<String> = Optional.ofNullable(dirId)
 
     /**
+     * The phone numbers to remove from this brand, in E.164 format, up to 100 per request. They
+     * must currently be attached to this brand.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -102,6 +105,10 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
+        /**
+         * The phone numbers to remove from this brand, in E.164 format, up to 100 per request. They
+         * must currently be attached to this brand.
+         */
         fun phoneNumbers(phoneNumbers: List<String>) = apply { body.phoneNumbers(phoneNumbers) }
 
         /**
@@ -288,6 +295,9 @@ private constructor(
         ) : this(phoneNumbers, mutableMapOf())
 
         /**
+         * The phone numbers to remove from this brand, in E.164 format, up to 100 per request. They
+         * must currently be attached to this brand.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
@@ -340,6 +350,10 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
+            /**
+             * The phone numbers to remove from this brand, in E.164 format, up to 100 per request.
+             * They must currently be attached to this brand.
+             */
             fun phoneNumbers(phoneNumbers: List<String>) = phoneNumbers(JsonField.of(phoneNumbers))
 
             /**
