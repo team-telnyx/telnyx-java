@@ -10,16 +10,37 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an AI Assistant by `assistant_id`. */
+/**
+ * Delete an AI Assistant by `assistant_id`.
+ *
+ * By default this performs a soft delete: the assistant moves to the Recently Deleted list and
+ * stays restorable for 30 days, after which it is permanently deleted automatically. The
+ * assistant's versions and TeXML application are preserved during the retention window.
+ *
+ * Pass `hard_delete=true` to skip the retention window and permanently delete the assistant
+ * immediately. A hard delete erases the assistant and all of its versions, and deletes its TeXML
+ * application unless phone numbers are still assigned to it. It does not delete conversations,
+ * recordings, shared tools the assistant referenced, or knowledge-base embeddings.
+ *
+ * Deletion fails with `400` if other assistants reference this one through a handoff tool or a
+ * conversation-flow edge — remove those references first.
+ */
 class AssistantDeleteParams
 private constructor(
     private val assistantId: String?,
+    private val hardDelete: Boolean?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     fun assistantId(): Optional<String> = Optional.ofNullable(assistantId)
+
+    /**
+     * Permanently delete the assistant immediately instead of soft-deleting it to the Recently
+     * Deleted list, where it stays restorable for 30 days.
+     */
+    fun hardDelete(): Optional<Boolean> = Optional.ofNullable(hardDelete)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -44,6 +65,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var assistantId: String? = null
+        private var hardDelete: Boolean? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -52,6 +74,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(assistantDeleteParams: AssistantDeleteParams) = apply {
             assistantId = assistantDeleteParams.assistantId
+            hardDelete = assistantDeleteParams.hardDelete
             additionalHeaders = assistantDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = assistantDeleteParams.additionalQueryParams.toBuilder()
             additionalBodyProperties = assistantDeleteParams.additionalBodyProperties.toMutableMap()
@@ -61,6 +84,22 @@ private constructor(
 
         /** Alias for calling [Builder.assistantId] with `assistantId.orElse(null)`. */
         fun assistantId(assistantId: Optional<String>) = assistantId(assistantId.getOrNull())
+
+        /**
+         * Permanently delete the assistant immediately instead of soft-deleting it to the Recently
+         * Deleted list, where it stays restorable for 30 days.
+         */
+        fun hardDelete(hardDelete: Boolean?) = apply { this.hardDelete = hardDelete }
+
+        /**
+         * Alias for [Builder.hardDelete].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun hardDelete(hardDelete: Boolean) = hardDelete(hardDelete as Boolean?)
+
+        /** Alias for calling [Builder.hardDelete] with `hardDelete.orElse(null)`. */
+        fun hardDelete(hardDelete: Optional<Boolean>) = hardDelete(hardDelete.getOrNull())
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
@@ -191,6 +230,7 @@ private constructor(
         fun build(): AssistantDeleteParams =
             AssistantDeleteParams(
                 assistantId,
+                hardDelete,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -208,7 +248,13 @@ private constructor(
 
     override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                hardDelete?.let { put("hard_delete", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -217,6 +263,7 @@ private constructor(
 
         return other is AssistantDeleteParams &&
             assistantId == other.assistantId &&
+            hardDelete == other.hardDelete &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
@@ -225,11 +272,12 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             assistantId,
+            hardDelete,
             additionalHeaders,
             additionalQueryParams,
             additionalBodyProperties,
         )
 
     override fun toString() =
-        "AssistantDeleteParams{assistantId=$assistantId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AssistantDeleteParams{assistantId=$assistantId, hardDelete=$hardDelete, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

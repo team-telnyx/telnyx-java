@@ -56,7 +56,7 @@ private constructor(
 
     /**
      * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node (`type:
-     * prompt`) or a tool node (`type: tool`).
+     * prompt`), a tool node (`type: tool`), or a speak node (`type: speak`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -146,7 +146,7 @@ private constructor(
 
         /**
          * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node (`type:
-         * prompt`) or a tool node (`type: tool`).
+         * prompt`), a tool node (`type: tool`), or a speak node (`type: speak`).
          */
         fun nodes(nodes: List<Node>) = nodes(JsonField.of(nodes))
 
@@ -326,7 +326,9 @@ private constructor(
          *
          * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM turn.
          * Reaching it deterministically runs one shared tool (arguments filled from matching
-         * dynamic variables by name), then routes on the result via outgoing `tool_result` edges.
+         * dynamic variables by name), then routes via outgoing `llm` / `expression` edges, with
+         * exactly one `default` fallback edge required when the node has any outgoing edges (the
+         * tool's outcome is readable as `telnyx_last_tool_status_code` in `expression` conditions).
          */
         fun tool(): Optional<ToolNodeReq> = Optional.ofNullable(tool)
 
@@ -358,7 +360,9 @@ private constructor(
          *
          * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM turn.
          * Reaching it deterministically runs one shared tool (arguments filled from matching
-         * dynamic variables by name), then routes on the result via outgoing `tool_result` edges.
+         * dynamic variables by name), then routes via outgoing `llm` / `expression` edges, with
+         * exactly one `default` fallback edge required when the node has any outgoing edges (the
+         * tool's outcome is readable as `telnyx_last_tool_status_code` in `expression` conditions).
          */
         fun asTool(): ToolNodeReq = tool.getOrThrow("tool")
 
@@ -509,8 +513,10 @@ private constructor(
              *
              * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
              * turn. Reaching it deterministically runs one shared tool (arguments filled from
-             * matching dynamic variables by name), then routes on the result via outgoing
-             * `tool_result` edges.
+             * matching dynamic variables by name), then routes via outgoing `llm` / `expression`
+             * edges, with exactly one `default` fallback edge required when the node has any
+             * outgoing edges (the tool's outcome is readable as `telnyx_last_tool_status_code` in
+             * `expression` conditions).
              */
             @JvmStatic fun ofTool(tool: ToolNodeReq) = Node(tool = tool)
 
@@ -540,8 +546,10 @@ private constructor(
              *
              * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
              * turn. Reaching it deterministically runs one shared tool (arguments filled from
-             * matching dynamic variables by name), then routes on the result via outgoing
-             * `tool_result` edges.
+             * matching dynamic variables by name), then routes via outgoing `llm` / `expression`
+             * edges, with exactly one `default` fallback edge required when the node has any
+             * outgoing edges (the tool's outcome is readable as `telnyx_last_tool_status_code` in
+             * `expression` conditions).
              */
             fun visitTool(tool: ToolNodeReq): T
 

@@ -208,18 +208,24 @@ private constructor(
         ) : this(currentVersion, description, effectiveDate, productType, termsUrl, mutableMapOf())
 
         /**
+         * The latest published version of these terms.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun currentVersion(): Optional<String> = currentVersion.getOptional("current_version")
 
         /**
+         * A short summary of the product these terms cover.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun description(): Optional<String> = description.getOptional("description")
 
         /**
+         * The date this version took effect.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -234,6 +240,8 @@ private constructor(
         fun productType(): Optional<TosProductType> = productType.getOptional("product_type")
 
         /**
+         * A link to the full terms text.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -322,6 +330,7 @@ private constructor(
                 additionalProperties = agreement.additionalProperties.toMutableMap()
             }
 
+            /** The latest published version of these terms. */
             fun currentVersion(currentVersion: String) =
                 currentVersion(JsonField.of(currentVersion))
 
@@ -336,6 +345,7 @@ private constructor(
                 this.currentVersion = currentVersion
             }
 
+            /** A short summary of the product these terms cover. */
             fun description(description: String) = description(JsonField.of(description))
 
             /**
@@ -349,6 +359,7 @@ private constructor(
                 this.description = description
             }
 
+            /** The date this version took effect. */
             fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
 
             /**
@@ -376,6 +387,7 @@ private constructor(
                 this.productType = productType
             }
 
+            /** A link to the full terms text. */
             fun termsUrl(termsUrl: String) = termsUrl(JsonField.of(termsUrl))
 
             /**

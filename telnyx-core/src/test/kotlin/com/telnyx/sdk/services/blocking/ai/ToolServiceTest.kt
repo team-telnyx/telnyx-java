@@ -181,8 +181,6 @@ internal class ToolServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val toolService = client.ai().tools()
 
-        val tool = toolService.delete("tool_id")
-
-        tool.validate()
+        toolService.delete("tool_id")
     }
 }

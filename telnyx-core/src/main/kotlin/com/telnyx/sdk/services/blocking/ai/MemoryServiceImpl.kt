@@ -21,7 +21,6 @@ class MemoryServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MemoryService =
         MemoryServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    /** Whether a write has finished. */
     override fun namespaces(): NamespaceService = namespaces
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -38,7 +37,6 @@ class MemoryServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        /** Whether a write has finished. */
         override fun namespaces(): NamespaceService.WithRawResponse = namespaces
     }
 }

@@ -158,6 +158,8 @@ import com.telnyx.sdk.services.blocking.LegacyService
 import com.telnyx.sdk.services.blocking.LegacyServiceImpl
 import com.telnyx.sdk.services.blocking.ListService
 import com.telnyx.sdk.services.blocking.ListServiceImpl
+import com.telnyx.sdk.services.blocking.LlmTokenGatewayService
+import com.telnyx.sdk.services.blocking.LlmTokenGatewayServiceImpl
 import com.telnyx.sdk.services.blocking.MachinePaymentService
 import com.telnyx.sdk.services.blocking.MachinePaymentServiceImpl
 import com.telnyx.sdk.services.blocking.ManagedAccountService
@@ -314,6 +316,8 @@ import com.telnyx.sdk.services.blocking.SiprecConnectorService
 import com.telnyx.sdk.services.blocking.SiprecConnectorServiceImpl
 import com.telnyx.sdk.services.blocking.SpeechToTextService
 import com.telnyx.sdk.services.blocking.SpeechToTextServiceImpl
+import com.telnyx.sdk.services.blocking.SpendLimitService
+import com.telnyx.sdk.services.blocking.SpendLimitServiceImpl
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.StorageServiceImpl
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
@@ -1084,6 +1088,14 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         MachinePaymentServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val spendLimits: SpendLimitService by lazy {
+        SpendLimitServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val llmTokenGateway: LlmTokenGatewayService by lazy {
+        LlmTokenGatewayServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1679,6 +1691,32 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
      * Stripe or Tempo.
      */
     override fun machinePayments(): MachinePaymentService = machinePayments
+
+    /**
+     * Daily and monthly spend limits per product. A limit applies to the organization of the
+     * authenticated user, or to the user's own account when they belong to no organization; every
+     * user of the organization sees and changes the same limits.
+     * - **Periods.** `daily` covers the current UTC day and `monthly` the current UTC calendar
+     *   month. The two limits are independent: you can set either, both or neither.
+     * - **Blocking.** When spend in a period goes above the limit (strictly greater), the product
+     *   is blocked until the period ends: 00:00 UTC the next day for `daily`, 00:00 UTC on the 1st
+     *   of the next month for `monthly`. A block appears within about 2 minutes (daily) or 10
+     *   minutes (monthly) of the spend being recorded.
+     * - **Changes apply immediately.** Creating, updating or deleting a limit checks the period's
+     *   spend in the same request: raising the limit above the spend, or removing it, lifts that
+     *   period's block, and lowering it below the spend blocks the product at once. The
+     *   `evaluation` object in the response says what happened.
+     * - **Supported products.** Today only `inference` supports spend limits. A blocked account
+     *   gets HTTP 403 with the error title `Inference spend limit reached` (code `10039`) on new
+     *   billable chat completions, Responses, Anthropic Messages and classification requests;
+     *   requests already running finish normally. Take the list of products from the list
+     *   operation.
+     * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is listed
+     *   with `origin: operator` and you can update or delete it like your own.
+     */
+    override fun spendLimits(): SpendLimitService = spendLimits
+
+    override fun llmTokenGateway(): LlmTokenGatewayService = llmTokenGateway
 
     override fun close() = clientOptions.close()
 
@@ -2452,6 +2490,14 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             MachinePaymentServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val spendLimits: SpendLimitService.WithRawResponse by lazy {
+            SpendLimitServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val llmTokenGateway: LlmTokenGatewayService.WithRawResponse by lazy {
+            LlmTokenGatewayServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -3107,5 +3153,31 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
          * flow settled via Stripe or Tempo.
          */
         override fun machinePayments(): MachinePaymentService.WithRawResponse = machinePayments
+
+        /**
+         * Daily and monthly spend limits per product. A limit applies to the organization of the
+         * authenticated user, or to the user's own account when they belong to no organization;
+         * every user of the organization sees and changes the same limits.
+         * - **Periods.** `daily` covers the current UTC day and `monthly` the current UTC calendar
+         *   month. The two limits are independent: you can set either, both or neither.
+         * - **Blocking.** When spend in a period goes above the limit (strictly greater), the
+         *   product is blocked until the period ends: 00:00 UTC the next day for `daily`, 00:00 UTC
+         *   on the 1st of the next month for `monthly`. A block appears within about 2 minutes
+         *   (daily) or 10 minutes (monthly) of the spend being recorded.
+         * - **Changes apply immediately.** Creating, updating or deleting a limit checks the
+         *   period's spend in the same request: raising the limit above the spend, or removing it,
+         *   lifts that period's block, and lowering it below the spend blocks the product at once.
+         *   The `evaluation` object in the response says what happened.
+         * - **Supported products.** Today only `inference` supports spend limits. A blocked account
+         *   gets HTTP 403 with the error title `Inference spend limit reached` (code `10039`) on
+         *   new billable chat completions, Responses, Anthropic Messages and classification
+         *   requests; requests already running finish normally. Take the list of products from the
+         *   list operation.
+         * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is
+         *   listed with `origin: operator` and you can update or delete it like your own.
+         */
+        override fun spendLimits(): SpendLimitService.WithRawResponse = spendLimits
+
+        override fun llmTokenGateway(): LlmTokenGatewayService.WithRawResponse = llmTokenGateway
     }
 }

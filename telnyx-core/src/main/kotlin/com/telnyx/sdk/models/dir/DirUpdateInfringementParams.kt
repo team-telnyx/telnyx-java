@@ -56,7 +56,8 @@ private constructor(
     fun certifyIpOwnership(): CertifyIpOwnership = body.certifyIpOwnership()
 
     /**
-     * Must be `true`.
+     * Check to certify that the brand no longer infringes anyone else's trademark or intellectual
+     * property.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -86,6 +87,8 @@ private constructor(
     fun callReasons(): Optional<List<String>> = body.callReasons()
 
     /**
+     * The business name shown to call recipients, 1 to 35 characters, no emoji, not blank.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -273,7 +276,10 @@ private constructor(
             body.certifyIpOwnership(certifyIpOwnership)
         }
 
-        /** Must be `true`. */
+        /**
+         * Check to certify that the brand no longer infringes anyone else's trademark or
+         * intellectual property.
+         */
         fun certifyNoInfringement(certifyNoInfringement: CertifyNoInfringement) = apply {
             body.certifyNoInfringement(certifyNoInfringement)
         }
@@ -344,6 +350,7 @@ private constructor(
          */
         fun addCallReason(callReason: String) = apply { body.addCallReason(callReason) }
 
+        /** The business name shown to call recipients, 1 to 35 characters, no emoji, not blank. */
         fun displayName(displayName: String?) = apply { body.displayName(displayName) }
 
         /** Alias for calling [Builder.displayName] with `displayName.orElse(null)`. */
@@ -626,7 +633,8 @@ private constructor(
             certifyIpOwnership.getRequired("certify_ip_ownership")
 
         /**
-         * Must be `true`.
+         * Check to certify that the brand no longer infringes anyone else's trademark or
+         * intellectual property.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -659,6 +667,8 @@ private constructor(
         fun callReasons(): Optional<List<String>> = callReasons.getOptional("call_reasons")
 
         /**
+         * The business name shown to call recipients, 1 to 35 characters, no emoji, not blank.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -853,7 +863,10 @@ private constructor(
                 this.certifyIpOwnership = certifyIpOwnership
             }
 
-            /** Must be `true`. */
+            /**
+             * Check to certify that the brand no longer infringes anyone else's trademark or
+             * intellectual property.
+             */
             fun certifyNoInfringement(certifyNoInfringement: CertifyNoInfringement) =
                 certifyNoInfringement(JsonField.of(certifyNoInfringement))
 
@@ -931,6 +944,9 @@ private constructor(
                     }
             }
 
+            /**
+             * The business name shown to call recipients, 1 to 35 characters, no emoji, not blank.
+             */
             fun displayName(displayName: String?) = displayName(JsonField.ofNullable(displayName))
 
             /** Alias for calling [Builder.displayName] with `displayName.orElse(null)`. */
@@ -1405,7 +1421,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Must be `true`. */
+    /**
+     * Check to certify that the brand no longer infringes anyone else's trademark or intellectual
+     * property.
+     */
     class CertifyNoInfringement
     @JsonCreator
     private constructor(private val value: JsonField<Boolean>) : Enum {

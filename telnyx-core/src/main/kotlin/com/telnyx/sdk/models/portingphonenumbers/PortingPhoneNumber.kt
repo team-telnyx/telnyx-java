@@ -520,7 +520,11 @@ private constructor(
 
             @JvmField val MOBILE = of("mobile")
 
+            @JvmField val MULTIPURPOSE = of("multipurpose")
+
             @JvmField val NATIONAL = of("national")
+
+            @JvmField val OTHER = of("other")
 
             @JvmField val SHARED_COST = of("shared_cost")
 
@@ -534,7 +538,9 @@ private constructor(
             LANDLINE,
             LOCAL,
             MOBILE,
+            MULTIPURPOSE,
             NATIONAL,
+            OTHER,
             SHARED_COST,
             TOLL_FREE,
         }
@@ -552,7 +558,9 @@ private constructor(
             LANDLINE,
             LOCAL,
             MOBILE,
+            MULTIPURPOSE,
             NATIONAL,
+            OTHER,
             SHARED_COST,
             TOLL_FREE,
             /**
@@ -574,7 +582,9 @@ private constructor(
                 LANDLINE -> Value.LANDLINE
                 LOCAL -> Value.LOCAL
                 MOBILE -> Value.MOBILE
+                MULTIPURPOSE -> Value.MULTIPURPOSE
                 NATIONAL -> Value.NATIONAL
+                OTHER -> Value.OTHER
                 SHARED_COST -> Value.SHARED_COST
                 TOLL_FREE -> Value.TOLL_FREE
                 else -> Value._UNKNOWN
@@ -594,7 +604,9 @@ private constructor(
                 LANDLINE -> Known.LANDLINE
                 LOCAL -> Known.LOCAL
                 MOBILE -> Known.MOBILE
+                MULTIPURPOSE -> Known.MULTIPURPOSE
                 NATIONAL -> Known.NATIONAL
+                OTHER -> Known.OTHER
                 SHARED_COST -> Known.SHARED_COST
                 TOLL_FREE -> Known.TOLL_FREE
                 else -> throw TelnyxInvalidDataException("Unknown PhoneNumberType: $value")

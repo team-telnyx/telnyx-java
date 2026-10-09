@@ -41,8 +41,10 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * The voice speed to be used for the voice. The voice speed must be between 0.1 and 2.0.
-     * Default value is 1.0. Not supported for `Telnyx.Bayan.*` or `Telnyx.Sukhan.*` voices.
+     * The voice speed to be used for the voice. Telnyx `Ultra` voices accept values from 0.6 to
+     * 1.5; values outside that range are rejected by the synthesis engine. `Qwen3TTS` and
+     * `KokoroTTS` accept the field but do not apply it. Default value is 1.0. Not supported for
+     * `Telnyx.Bayan.*` or `Telnyx.Sukhan.*` voices.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -114,8 +116,10 @@ private constructor(
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /**
-         * The voice speed to be used for the voice. The voice speed must be between 0.1 and 2.0.
-         * Default value is 1.0. Not supported for `Telnyx.Bayan.*` or `Telnyx.Sukhan.*` voices.
+         * The voice speed to be used for the voice. Telnyx `Ultra` voices accept values from 0.6 to
+         * 1.5; values outside that range are rejected by the synthesis engine. `Qwen3TTS` and
+         * `KokoroTTS` accept the field but do not apply it. Default value is 1.0. Not supported for
+         * `Telnyx.Bayan.*` or `Telnyx.Sukhan.*` voices.
          */
         fun voiceSpeed(voiceSpeed: Float) = voiceSpeed(JsonField.of(voiceSpeed))
 

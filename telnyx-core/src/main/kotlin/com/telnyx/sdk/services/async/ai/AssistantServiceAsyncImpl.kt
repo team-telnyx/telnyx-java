@@ -29,14 +29,19 @@ import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
 import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
+import com.telnyx.sdk.models.ai.assistants.AssistantRestoreParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
+import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappParams
+import com.telnyx.sdk.models.ai.assistants.AssistantWhatsappResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.assistants.DeletedServiceAsync
+import com.telnyx.sdk.services.async.ai.assistants.DeletedServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.assistants.InstructionServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.InstructionServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.assistants.ScheduledEventServiceAsync
@@ -81,6 +86,8 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
         InstructionServiceAsyncImpl(clientOptions)
     }
 
+    private val deleted: DeletedServiceAsync by lazy { DeletedServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): AssistantServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssistantServiceAsync =
@@ -106,6 +113,9 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
 
     /** Configure AI assistant specifications */
     override fun instructions(): InstructionServiceAsync = instructions
+
+    /** Configure AI assistant specifications */
+    override fun deleted(): DeletedServiceAsync = deleted
 
     override fun create(
         params: AssistantCreateParams,
@@ -170,12 +180,26 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
         // post /ai/assistants/import
         withRawResponse().imports(params, requestOptions).mapCancellable { it.parse() }
 
+    override fun restore(
+        params: AssistantRestoreParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InferenceEmbedding> =
+        // post /ai/assistants/{assistant_id}/restore
+        withRawResponse().restore(params, requestOptions).mapCancellable { it.parse() }
+
     override fun sendSms(
         params: AssistantSendSmsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AssistantSendSmsResponse> =
         // post /ai/assistants/{assistant_id}/chat/sms
         withRawResponse().sendSms(params, requestOptions).mapCancellable { it.parse() }
+
+    override fun whatsapp(
+        params: AssistantWhatsappParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AssistantWhatsappResponse> =
+        // post /ai/assistants/{assistant_id}/chat/whatsapp
+        withRawResponse().whatsapp(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AssistantServiceAsync.WithRawResponse {
@@ -211,6 +235,10 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
             InstructionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val deleted: DeletedServiceAsync.WithRawResponse by lazy {
+            DeletedServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AssistantServiceAsync.WithRawResponse =
@@ -238,6 +266,9 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
 
         /** Configure AI assistant specifications */
         override fun instructions(): InstructionServiceAsync.WithRawResponse = instructions
+
+        /** Configure AI assistant specifications */
+        override fun deleted(): DeletedServiceAsync.WithRawResponse = deleted
 
         private val createHandler: Handler<InferenceEmbedding> =
             jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
@@ -544,6 +575,42 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
+        private val restoreHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
+
+        override fun restore(
+            params: AssistantRestoreParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "restore")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { restoreHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
         private val sendSmsHandler: Handler<AssistantSendSmsResponse> =
             jsonHandler<AssistantSendSmsResponse>(clientOptions.jsonMapper)
 
@@ -571,6 +638,42 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendSmsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val whatsappHandler: Handler<AssistantWhatsappResponse> =
+            jsonHandler<AssistantWhatsappResponse>(clientOptions.jsonMapper)
+
+        override fun whatsapp(
+            params: AssistantWhatsappParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AssistantWhatsappResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "chat", "whatsapp")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { whatsappHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

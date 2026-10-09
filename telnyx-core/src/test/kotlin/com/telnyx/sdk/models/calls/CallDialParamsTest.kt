@@ -9,6 +9,7 @@ import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
+import com.telnyx.sdk.models.calls.actions.TranscriptionConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionEngineGoogleConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
 import kotlin.jvm.optionals.getOrNull
@@ -114,6 +115,12 @@ internal class CallDialParamsTest {
                             .eventTypeId(0L)
                             .attendeeName("attendee_name")
                             .attendeeTimezone("attendee_timezone")
+                            .build()
+                    )
+                    .transcription(
+                        TranscriptionConfig.builder()
+                            .language("language")
+                            .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                             .build()
                     )
                     .voiceSettings(
@@ -463,6 +470,12 @@ internal class CallDialParamsTest {
                                 .eventTypeId(0L)
                                 .attendeeName("attendee_name")
                                 .attendeeTimezone("attendee_timezone")
+                                .build()
+                        )
+                        .transcription(
+                            TranscriptionConfig.builder()
+                                .language("language")
+                                .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                                 .build()
                         )
                         .voiceSettings(
@@ -819,6 +832,12 @@ internal class CallDialParamsTest {
                             .eventTypeId(0L)
                             .attendeeName("attendee_name")
                             .attendeeTimezone("attendee_timezone")
+                            .build()
+                    )
+                    .transcription(
+                        TranscriptionConfig.builder()
+                            .language("language")
+                            .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                             .build()
                     )
                     .voiceSettings(

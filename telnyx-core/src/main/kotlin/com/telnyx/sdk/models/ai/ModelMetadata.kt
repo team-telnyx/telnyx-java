@@ -238,7 +238,8 @@ private constructor(
         isVisionSupported.getOptional("is_vision_supported")
 
     /**
-     * Maximum number of completion (output) tokens the model will generate per request. `null` if
+     * Maximum completion (output) tokens the model may generate per request. This value caps the
+     * Chat Completions `max_tokens` default and any larger explicit value on that model. `null` if
      * unconstrained beyond `context_length`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -765,8 +766,9 @@ private constructor(
         }
 
         /**
-         * Maximum number of completion (output) tokens the model will generate per request. `null`
-         * if unconstrained beyond `context_length`.
+         * Maximum completion (output) tokens the model may generate per request. This value caps
+         * the Chat Completions `max_tokens` default and any larger explicit value on that model.
+         * `null` if unconstrained beyond `context_length`.
          */
         fun maxCompletionTokens(maxCompletionTokens: Long?) =
             maxCompletionTokens(JsonField.ofNullable(maxCompletionTokens))

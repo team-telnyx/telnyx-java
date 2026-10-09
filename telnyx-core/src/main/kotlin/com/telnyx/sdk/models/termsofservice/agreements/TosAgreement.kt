@@ -52,18 +52,24 @@ private constructor(
     ) : this(id, agreedAt, createdAt, productType, termsVersion, version, mutableMapOf())
 
     /**
+     * The unique identifier of this recorded agreement.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun id(): Optional<String> = id.getOptional("id")
 
     /**
+     * When you accepted this version of the terms.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun agreedAt(): Optional<OffsetDateTime> = agreedAt.getOptional("agreed_at")
 
     /**
+     * When this agreement record was created.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -78,6 +84,8 @@ private constructor(
     fun productType(): Optional<TosProductType> = productType.getOptional("product_type")
 
     /**
+     * The version of the terms you accepted.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -179,6 +187,7 @@ private constructor(
             additionalProperties = tosAgreement.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier of this recorded agreement. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -189,6 +198,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /** When you accepted this version of the terms. */
         fun agreedAt(agreedAt: OffsetDateTime) = agreedAt(JsonField.of(agreedAt))
 
         /**
@@ -200,6 +210,7 @@ private constructor(
          */
         fun agreedAt(agreedAt: JsonField<OffsetDateTime>) = apply { this.agreedAt = agreedAt }
 
+        /** When this agreement record was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -225,6 +236,7 @@ private constructor(
             this.productType = productType
         }
 
+        /** The version of the terms you accepted. */
         fun termsVersion(termsVersion: String) = termsVersion(JsonField.of(termsVersion))
 
         /**

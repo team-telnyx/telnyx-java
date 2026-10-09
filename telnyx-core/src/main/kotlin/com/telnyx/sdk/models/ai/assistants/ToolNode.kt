@@ -30,6 +30,7 @@ class ToolNode
 private constructor(
     private val id: JsonField<String>,
     private val sharedToolId: JsonField<String>,
+    private val message: JsonField<String>,
     private val name: JsonField<String>,
     private val position: JsonField<NodePosition>,
     private val tool: JsonField<List<AssistantTool>>,
@@ -43,6 +44,7 @@ private constructor(
         @JsonProperty("shared_tool_id")
         @ExcludeMissing
         sharedToolId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("message") @ExcludeMissing message: JsonField<String> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("position")
         @ExcludeMissing
@@ -51,7 +53,7 @@ private constructor(
         @ExcludeMissing
         tool: JsonField<List<AssistantTool>> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(id, sharedToolId, name, position, tool, type, mutableMapOf())
+    ) : this(id, sharedToolId, message, name, position, tool, type, mutableMapOf())
 
     /**
      * Caller-supplied unique identifier for this node within the flow.
@@ -63,15 +65,28 @@ private constructor(
 
     /**
      * ID of the single shared (org-level) tool this node executes. When the flow reaches this node
-     * the tool runs as a deliberate step (no LLM turn); its outgoing `tool_result` edges then route
-     * on the outcome. Arguments are filled from the conversation's dynamic variables by name — a
-     * dynamic variable whose name matches one of the tool's parameters supplies that argument.
-     * Cross-validated against the org's shared tools on write.
+     * the tool runs as a deliberate step (no LLM turn); its outgoing `llm` / `expression` edges
+     * route the flow on the tool's outcome. Arguments are filled from the conversation's dynamic
+     * variables by name — a dynamic variable whose name matches one of the tool's parameters
+     * supplies that argument. Cross-validated against the org's shared tools on write.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sharedToolId(): String = sharedToolId.getRequired("shared_tool_id")
+
+    /**
+     * Optional message delivered to the user verbatim immediately before the tool executes — an
+     * announcement such as 'One moment while I look that up.' No LLM turn and no customer turn: the
+     * message is spoken/sent, then the tool runs, in the same deterministic step. `{{variable}}`
+     * placeholders are interpolated from the conversation's dynamic variables (unresolved → empty
+     * string); the tool's own result is not yet available when the message is rendered. Omit for a
+     * silent tool step.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun message(): Optional<String> = message.getOptional("message")
 
     /**
      * Optional human-readable label, displayed in authoring UIs.
@@ -123,6 +138,13 @@ private constructor(
     @JsonProperty("shared_tool_id")
     @ExcludeMissing
     fun _sharedToolId(): JsonField<String> = sharedToolId
+
+    /**
+     * Returns the raw JSON value of [message].
+     *
+     * Unlike [message], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("message") @ExcludeMissing fun _message(): JsonField<String> = message
 
     /**
      * Returns the raw JSON value of [name].
@@ -183,6 +205,7 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var sharedToolId: JsonField<String>? = null
+        private var message: JsonField<String> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var position: JsonField<NodePosition> = JsonMissing.of()
         private var tool: JsonField<MutableList<AssistantTool>>? = null
@@ -193,6 +216,7 @@ private constructor(
         internal fun from(toolNode: ToolNode) = apply {
             id = toolNode.id
             sharedToolId = toolNode.sharedToolId
+            message = toolNode.message
             name = toolNode.name
             position = toolNode.position
             tool = toolNode.tool.map { it.toMutableList() }
@@ -213,10 +237,11 @@ private constructor(
 
         /**
          * ID of the single shared (org-level) tool this node executes. When the flow reaches this
-         * node the tool runs as a deliberate step (no LLM turn); its outgoing `tool_result` edges
-         * then route on the outcome. Arguments are filled from the conversation's dynamic variables
-         * by name — a dynamic variable whose name matches one of the tool's parameters supplies
-         * that argument. Cross-validated against the org's shared tools on write.
+         * node the tool runs as a deliberate step (no LLM turn); its outgoing `llm` / `expression`
+         * edges route the flow on the tool's outcome. Arguments are filled from the conversation's
+         * dynamic variables by name — a dynamic variable whose name matches one of the tool's
+         * parameters supplies that argument. Cross-validated against the org's shared tools on
+         * write.
          */
         fun sharedToolId(sharedToolId: String) = sharedToolId(JsonField.of(sharedToolId))
 
@@ -230,6 +255,24 @@ private constructor(
         fun sharedToolId(sharedToolId: JsonField<String>) = apply {
             this.sharedToolId = sharedToolId
         }
+
+        /**
+         * Optional message delivered to the user verbatim immediately before the tool executes — an
+         * announcement such as 'One moment while I look that up.' No LLM turn and no customer turn:
+         * the message is spoken/sent, then the tool runs, in the same deterministic step.
+         * `{{variable}}` placeholders are interpolated from the conversation's dynamic variables
+         * (unresolved → empty string); the tool's own result is not yet available when the message
+         * is rendered. Omit for a silent tool step.
+         */
+        fun message(message: String) = message(JsonField.of(message))
+
+        /**
+         * Sets [Builder.message] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.message] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun message(message: JsonField<String>) = apply { this.message = message }
 
         /** Optional human-readable label, displayed in authoring UIs. */
         fun name(name: String) = name(JsonField.of(name))
@@ -554,6 +597,7 @@ private constructor(
             ToolNode(
                 checkRequired("id", id),
                 checkRequired("sharedToolId", sharedToolId),
+                message,
                 name,
                 position,
                 (tool ?: JsonMissing.of()).map { it.toImmutable() },
@@ -579,6 +623,7 @@ private constructor(
 
         id()
         sharedToolId()
+        message()
         name()
         position().ifPresent { it.validate() }
         tool().ifPresent { it.forEach { it.validate() } }
@@ -603,6 +648,7 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (sharedToolId.asKnown().isPresent) 1 else 0) +
+            (if (message.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (position.asKnown().getOrNull()?.validity() ?: 0) +
             (tool.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -745,6 +791,7 @@ private constructor(
         return other is ToolNode &&
             id == other.id &&
             sharedToolId == other.sharedToolId &&
+            message == other.message &&
             name == other.name &&
             position == other.position &&
             tool == other.tool &&
@@ -753,11 +800,11 @@ private constructor(
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(id, sharedToolId, name, position, tool, type, additionalProperties)
+        Objects.hash(id, sharedToolId, message, name, position, tool, type, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ToolNode{id=$id, sharedToolId=$sharedToolId, name=$name, position=$position, tool=$tool, type=$type, additionalProperties=$additionalProperties}"
+        "ToolNode{id=$id, sharedToolId=$sharedToolId, message=$message, name=$name, position=$position, tool=$tool, type=$type, additionalProperties=$additionalProperties}"
 }
