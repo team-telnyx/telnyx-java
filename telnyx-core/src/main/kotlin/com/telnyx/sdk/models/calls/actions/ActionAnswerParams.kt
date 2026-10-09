@@ -42,12 +42,6 @@ import kotlin.jvm.optionals.getOrNull
  * answered; use the `call.answered` webhook to track the answer. If warm-up fails, Telnyx falls
  * back to starting the assistant after answering.
  *
- * When `assistant.id` is supplied, obtain the conversation ID from `data.payload.conversation_id`
- * in the [call.conversation.created](/api-reference/callbacks/call-conversation-created) webhook
- * and correlate it using `data.payload.call_control_id`. The `answer` HTTP response does not
- * include `conversation_id`. The created event is emitted during assistant startup and does not
- * indicate that the assistant is ready to speak.
- *
  * Set the assistant voice with `assistant.voice_settings.voice` and speech-to-text settings with
  * `assistant.transcription`. You can reuse one stored assistant with different per-call settings.
  * Warm-up prepares assistant configuration and dependencies; it does not wait for the greeting
@@ -56,7 +50,6 @@ import kotlin.jvm.optionals.getOrNull
  *
  * **Expected Webhooks:**
  * - `call.answered`
- * - `call.conversation.created` when the requested assistant conversation is created
  * - `call.hold` and `call.unhold` if the call is held/unheld
  * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
  * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an error occurred

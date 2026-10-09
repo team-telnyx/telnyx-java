@@ -30,7 +30,6 @@ private constructor(
     private val artifactFailed: ArtifactFailedWebhookEvent? = null,
     private val callAnswered: CallAnsweredWebhookEvent? = null,
     private val callBridged: CallBridgedWebhookEvent? = null,
-    private val callConversationCreated: CallConversationCreatedWebhookEvent? = null,
     private val callConversationEnded: CallConversationEndedWebhookEvent? = null,
     private val callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent? =
         null,
@@ -48,13 +47,7 @@ private constructor(
     private val callLeftQueue: CallLeftQueueWebhookEvent? = null,
     private val callMachineDetectionEnded: CallMachineDetectionEndedWebhookEvent? = null,
     private val callMachineGreetingEnded: CallMachineGreetingEndedWebhookEvent? = null,
-    private val callMachinePremiumCallScreeningDetected:
-        CallMachinePremiumCallScreeningDetectedWebhookEvent? =
-        null,
     private val callMachinePremiumDetectionEnded: CallMachinePremiumDetectionEndedWebhookEvent? =
-        null,
-    private val callMachinePremiumDetectionStarted:
-        CallMachinePremiumDetectionStartedWebhookEvent? =
         null,
     private val callMachinePremiumGreetingEnded: CallMachinePremiumGreetingEndedWebhookEvent? =
         null,
@@ -137,9 +130,6 @@ private constructor(
 
     fun callBridged(): Optional<CallBridgedWebhookEvent> = Optional.ofNullable(callBridged)
 
-    fun callConversationCreated(): Optional<CallConversationCreatedWebhookEvent> =
-        Optional.ofNullable(callConversationCreated)
-
     fun callConversationEnded(): Optional<CallConversationEndedWebhookEvent> =
         Optional.ofNullable(callConversationEnded)
 
@@ -183,16 +173,8 @@ private constructor(
     fun callMachineGreetingEnded(): Optional<CallMachineGreetingEndedWebhookEvent> =
         Optional.ofNullable(callMachineGreetingEnded)
 
-    fun callMachinePremiumCallScreeningDetected():
-        Optional<CallMachinePremiumCallScreeningDetectedWebhookEvent> =
-        Optional.ofNullable(callMachinePremiumCallScreeningDetected)
-
     fun callMachinePremiumDetectionEnded(): Optional<CallMachinePremiumDetectionEndedWebhookEvent> =
         Optional.ofNullable(callMachinePremiumDetectionEnded)
-
-    fun callMachinePremiumDetectionStarted():
-        Optional<CallMachinePremiumDetectionStartedWebhookEvent> =
-        Optional.ofNullable(callMachinePremiumDetectionStarted)
 
     fun callMachinePremiumGreetingEnded(): Optional<CallMachinePremiumGreetingEndedWebhookEvent> =
         Optional.ofNullable(callMachinePremiumGreetingEnded)
@@ -354,8 +336,6 @@ private constructor(
 
     fun isCallBridged(): Boolean = callBridged != null
 
-    fun isCallConversationCreated(): Boolean = callConversationCreated != null
-
     fun isCallConversationEnded(): Boolean = callConversationEnded != null
 
     fun isCallConversationInsightsGenerated(): Boolean = callConversationInsightsGenerated != null
@@ -388,12 +368,7 @@ private constructor(
 
     fun isCallMachineGreetingEnded(): Boolean = callMachineGreetingEnded != null
 
-    fun isCallMachinePremiumCallScreeningDetected(): Boolean =
-        callMachinePremiumCallScreeningDetected != null
-
     fun isCallMachinePremiumDetectionEnded(): Boolean = callMachinePremiumDetectionEnded != null
-
-    fun isCallMachinePremiumDetectionStarted(): Boolean = callMachinePremiumDetectionStarted != null
 
     fun isCallMachinePremiumGreetingEnded(): Boolean = callMachinePremiumGreetingEnded != null
 
@@ -516,9 +491,6 @@ private constructor(
 
     fun asCallBridged(): CallBridgedWebhookEvent = callBridged.getOrThrow("callBridged")
 
-    fun asCallConversationCreated(): CallConversationCreatedWebhookEvent =
-        callConversationCreated.getOrThrow("callConversationCreated")
-
     fun asCallConversationEnded(): CallConversationEndedWebhookEvent =
         callConversationEnded.getOrThrow("callConversationEnded")
 
@@ -561,17 +533,8 @@ private constructor(
     fun asCallMachineGreetingEnded(): CallMachineGreetingEndedWebhookEvent =
         callMachineGreetingEnded.getOrThrow("callMachineGreetingEnded")
 
-    fun asCallMachinePremiumCallScreeningDetected():
-        CallMachinePremiumCallScreeningDetectedWebhookEvent =
-        callMachinePremiumCallScreeningDetected.getOrThrow(
-            "callMachinePremiumCallScreeningDetected"
-        )
-
     fun asCallMachinePremiumDetectionEnded(): CallMachinePremiumDetectionEndedWebhookEvent =
         callMachinePremiumDetectionEnded.getOrThrow("callMachinePremiumDetectionEnded")
-
-    fun asCallMachinePremiumDetectionStarted(): CallMachinePremiumDetectionStartedWebhookEvent =
-        callMachinePremiumDetectionStarted.getOrThrow("callMachinePremiumDetectionStarted")
 
     fun asCallMachinePremiumGreetingEnded(): CallMachinePremiumGreetingEndedWebhookEvent =
         callMachinePremiumGreetingEnded.getOrThrow("callMachinePremiumGreetingEnded")
@@ -758,8 +721,6 @@ private constructor(
             artifactFailed != null -> visitor.visitArtifactFailed(artifactFailed)
             callAnswered != null -> visitor.visitCallAnswered(callAnswered)
             callBridged != null -> visitor.visitCallBridged(callBridged)
-            callConversationCreated != null ->
-                visitor.visitCallConversationCreated(callConversationCreated)
             callConversationEnded != null ->
                 visitor.visitCallConversationEnded(callConversationEnded)
             callConversationInsightsGenerated != null ->
@@ -782,14 +743,8 @@ private constructor(
                 visitor.visitCallMachineDetectionEnded(callMachineDetectionEnded)
             callMachineGreetingEnded != null ->
                 visitor.visitCallMachineGreetingEnded(callMachineGreetingEnded)
-            callMachinePremiumCallScreeningDetected != null ->
-                visitor.visitCallMachinePremiumCallScreeningDetected(
-                    callMachinePremiumCallScreeningDetected
-                )
             callMachinePremiumDetectionEnded != null ->
                 visitor.visitCallMachinePremiumDetectionEnded(callMachinePremiumDetectionEnded)
-            callMachinePremiumDetectionStarted != null ->
-                visitor.visitCallMachinePremiumDetectionStarted(callMachinePremiumDetectionStarted)
             callMachinePremiumGreetingEnded != null ->
                 visitor.visitCallMachinePremiumGreetingEnded(callMachinePremiumGreetingEnded)
             callPaymentCompleted != null -> visitor.visitCallPaymentCompleted(callPaymentCompleted)
@@ -915,12 +870,6 @@ private constructor(
                     callBridged.validate()
                 }
 
-                override fun visitCallConversationCreated(
-                    callConversationCreated: CallConversationCreatedWebhookEvent
-                ) {
-                    callConversationCreated.validate()
-                }
-
                 override fun visitCallConversationEnded(
                     callConversationEnded: CallConversationEndedWebhookEvent
                 ) {
@@ -997,24 +946,10 @@ private constructor(
                     callMachineGreetingEnded.validate()
                 }
 
-                override fun visitCallMachinePremiumCallScreeningDetected(
-                    callMachinePremiumCallScreeningDetected:
-                        CallMachinePremiumCallScreeningDetectedWebhookEvent
-                ) {
-                    callMachinePremiumCallScreeningDetected.validate()
-                }
-
                 override fun visitCallMachinePremiumDetectionEnded(
                     callMachinePremiumDetectionEnded: CallMachinePremiumDetectionEndedWebhookEvent
                 ) {
                     callMachinePremiumDetectionEnded.validate()
-                }
-
-                override fun visitCallMachinePremiumDetectionStarted(
-                    callMachinePremiumDetectionStarted:
-                        CallMachinePremiumDetectionStartedWebhookEvent
-                ) {
-                    callMachinePremiumDetectionStarted.validate()
                 }
 
                 override fun visitCallMachinePremiumGreetingEnded(
@@ -1337,10 +1272,6 @@ private constructor(
                 override fun visitCallBridged(callBridged: CallBridgedWebhookEvent) =
                     callBridged.validity()
 
-                override fun visitCallConversationCreated(
-                    callConversationCreated: CallConversationCreatedWebhookEvent
-                ) = callConversationCreated.validity()
-
                 override fun visitCallConversationEnded(
                     callConversationEnded: CallConversationEndedWebhookEvent
                 ) = callConversationEnded.validity()
@@ -1393,19 +1324,9 @@ private constructor(
                     callMachineGreetingEnded: CallMachineGreetingEndedWebhookEvent
                 ) = callMachineGreetingEnded.validity()
 
-                override fun visitCallMachinePremiumCallScreeningDetected(
-                    callMachinePremiumCallScreeningDetected:
-                        CallMachinePremiumCallScreeningDetectedWebhookEvent
-                ) = callMachinePremiumCallScreeningDetected.validity()
-
                 override fun visitCallMachinePremiumDetectionEnded(
                     callMachinePremiumDetectionEnded: CallMachinePremiumDetectionEndedWebhookEvent
                 ) = callMachinePremiumDetectionEnded.validity()
-
-                override fun visitCallMachinePremiumDetectionStarted(
-                    callMachinePremiumDetectionStarted:
-                        CallMachinePremiumDetectionStartedWebhookEvent
-                ) = callMachinePremiumDetectionStarted.validity()
 
                 override fun visitCallMachinePremiumGreetingEnded(
                     callMachinePremiumGreetingEnded: CallMachinePremiumGreetingEndedWebhookEvent
@@ -1610,7 +1531,6 @@ private constructor(
             artifactFailed == other.artifactFailed &&
             callAnswered == other.callAnswered &&
             callBridged == other.callBridged &&
-            callConversationCreated == other.callConversationCreated &&
             callConversationEnded == other.callConversationEnded &&
             callConversationInsightsGenerated == other.callConversationInsightsGenerated &&
             callCost == other.callCost &&
@@ -1627,10 +1547,7 @@ private constructor(
             callLeftQueue == other.callLeftQueue &&
             callMachineDetectionEnded == other.callMachineDetectionEnded &&
             callMachineGreetingEnded == other.callMachineGreetingEnded &&
-            callMachinePremiumCallScreeningDetected ==
-                other.callMachinePremiumCallScreeningDetected &&
             callMachinePremiumDetectionEnded == other.callMachinePremiumDetectionEnded &&
-            callMachinePremiumDetectionStarted == other.callMachinePremiumDetectionStarted &&
             callMachinePremiumGreetingEnded == other.callMachinePremiumGreetingEnded &&
             callPaymentCompleted == other.callPaymentCompleted &&
             callPaymentProgress == other.callPaymentProgress &&
@@ -1693,7 +1610,6 @@ private constructor(
             artifactFailed,
             callAnswered,
             callBridged,
-            callConversationCreated,
             callConversationEnded,
             callConversationInsightsGenerated,
             callCost,
@@ -1710,9 +1626,7 @@ private constructor(
             callLeftQueue,
             callMachineDetectionEnded,
             callMachineGreetingEnded,
-            callMachinePremiumCallScreeningDetected,
             callMachinePremiumDetectionEnded,
-            callMachinePremiumDetectionStarted,
             callMachinePremiumGreetingEnded,
             callPaymentCompleted,
             callPaymentProgress,
@@ -1777,8 +1691,6 @@ private constructor(
             artifactFailed != null -> "UnwrapWebhookEvent{artifactFailed=$artifactFailed}"
             callAnswered != null -> "UnwrapWebhookEvent{callAnswered=$callAnswered}"
             callBridged != null -> "UnwrapWebhookEvent{callBridged=$callBridged}"
-            callConversationCreated != null ->
-                "UnwrapWebhookEvent{callConversationCreated=$callConversationCreated}"
             callConversationEnded != null ->
                 "UnwrapWebhookEvent{callConversationEnded=$callConversationEnded}"
             callConversationInsightsGenerated != null ->
@@ -1801,12 +1713,8 @@ private constructor(
                 "UnwrapWebhookEvent{callMachineDetectionEnded=$callMachineDetectionEnded}"
             callMachineGreetingEnded != null ->
                 "UnwrapWebhookEvent{callMachineGreetingEnded=$callMachineGreetingEnded}"
-            callMachinePremiumCallScreeningDetected != null ->
-                "UnwrapWebhookEvent{callMachinePremiumCallScreeningDetected=$callMachinePremiumCallScreeningDetected}"
             callMachinePremiumDetectionEnded != null ->
                 "UnwrapWebhookEvent{callMachinePremiumDetectionEnded=$callMachinePremiumDetectionEnded}"
-            callMachinePremiumDetectionStarted != null ->
-                "UnwrapWebhookEvent{callMachinePremiumDetectionStarted=$callMachinePremiumDetectionStarted}"
             callMachinePremiumGreetingEnded != null ->
                 "UnwrapWebhookEvent{callMachinePremiumGreetingEnded=$callMachinePremiumGreetingEnded}"
             callPaymentCompleted != null ->
@@ -1929,11 +1837,6 @@ private constructor(
             UnwrapWebhookEvent(callBridged = callBridged)
 
         @JvmStatic
-        fun ofCallConversationCreated(
-            callConversationCreated: CallConversationCreatedWebhookEvent
-        ) = UnwrapWebhookEvent(callConversationCreated = callConversationCreated)
-
-        @JvmStatic
         fun ofCallConversationEnded(callConversationEnded: CallConversationEndedWebhookEvent) =
             UnwrapWebhookEvent(callConversationEnded = callConversationEnded)
 
@@ -2004,26 +1907,9 @@ private constructor(
         ) = UnwrapWebhookEvent(callMachineGreetingEnded = callMachineGreetingEnded)
 
         @JvmStatic
-        fun ofCallMachinePremiumCallScreeningDetected(
-            callMachinePremiumCallScreeningDetected:
-                CallMachinePremiumCallScreeningDetectedWebhookEvent
-        ) =
-            UnwrapWebhookEvent(
-                callMachinePremiumCallScreeningDetected = callMachinePremiumCallScreeningDetected
-            )
-
-        @JvmStatic
         fun ofCallMachinePremiumDetectionEnded(
             callMachinePremiumDetectionEnded: CallMachinePremiumDetectionEndedWebhookEvent
         ) = UnwrapWebhookEvent(callMachinePremiumDetectionEnded = callMachinePremiumDetectionEnded)
-
-        @JvmStatic
-        fun ofCallMachinePremiumDetectionStarted(
-            callMachinePremiumDetectionStarted: CallMachinePremiumDetectionStartedWebhookEvent
-        ) =
-            UnwrapWebhookEvent(
-                callMachinePremiumDetectionStarted = callMachinePremiumDetectionStarted
-            )
 
         @JvmStatic
         fun ofCallMachinePremiumGreetingEnded(
@@ -2271,10 +2157,6 @@ private constructor(
 
         fun visitCallBridged(callBridged: CallBridgedWebhookEvent): T
 
-        fun visitCallConversationCreated(
-            callConversationCreated: CallConversationCreatedWebhookEvent
-        ): T
-
         fun visitCallConversationEnded(callConversationEnded: CallConversationEndedWebhookEvent): T
 
         fun visitCallConversationInsightsGenerated(
@@ -2317,17 +2199,8 @@ private constructor(
             callMachineGreetingEnded: CallMachineGreetingEndedWebhookEvent
         ): T
 
-        fun visitCallMachinePremiumCallScreeningDetected(
-            callMachinePremiumCallScreeningDetected:
-                CallMachinePremiumCallScreeningDetectedWebhookEvent
-        ): T
-
         fun visitCallMachinePremiumDetectionEnded(
             callMachinePremiumDetectionEnded: CallMachinePremiumDetectionEndedWebhookEvent
-        ): T
-
-        fun visitCallMachinePremiumDetectionStarted(
-            callMachinePremiumDetectionStarted: CallMachinePremiumDetectionStartedWebhookEvent
         ): T
 
         fun visitCallMachinePremiumGreetingEnded(
@@ -2514,10 +2387,6 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<CallBridgedWebhookEvent>())?.let {
                             UnwrapWebhookEvent(callBridged = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<CallConversationCreatedWebhookEvent>())
-                            ?.let {
-                                UnwrapWebhookEvent(callConversationCreated = it, _json = json)
-                            },
                         tryDeserialize(node, jacksonTypeRef<CallConversationEndedWebhookEvent>())
                             ?.let { UnwrapWebhookEvent(callConversationEnded = it, _json = json) },
                         tryDeserialize(
@@ -2587,33 +2456,11 @@ private constructor(
                             },
                         tryDeserialize(
                                 node,
-                                jacksonTypeRef<
-                                    CallMachinePremiumCallScreeningDetectedWebhookEvent
-                                >(),
-                            )
-                            ?.let {
-                                UnwrapWebhookEvent(
-                                    callMachinePremiumCallScreeningDetected = it,
-                                    _json = json,
-                                )
-                            },
-                        tryDeserialize(
-                                node,
                                 jacksonTypeRef<CallMachinePremiumDetectionEndedWebhookEvent>(),
                             )
                             ?.let {
                                 UnwrapWebhookEvent(
                                     callMachinePremiumDetectionEnded = it,
-                                    _json = json,
-                                )
-                            },
-                        tryDeserialize(
-                                node,
-                                jacksonTypeRef<CallMachinePremiumDetectionStartedWebhookEvent>(),
-                            )
-                            ?.let {
-                                UnwrapWebhookEvent(
-                                    callMachinePremiumDetectionStarted = it,
                                     _json = json,
                                 )
                             },
@@ -2845,8 +2692,6 @@ private constructor(
                 value.artifactFailed != null -> generator.writeObject(value.artifactFailed)
                 value.callAnswered != null -> generator.writeObject(value.callAnswered)
                 value.callBridged != null -> generator.writeObject(value.callBridged)
-                value.callConversationCreated != null ->
-                    generator.writeObject(value.callConversationCreated)
                 value.callConversationEnded != null ->
                     generator.writeObject(value.callConversationEnded)
                 value.callConversationInsightsGenerated != null ->
@@ -2869,12 +2714,8 @@ private constructor(
                     generator.writeObject(value.callMachineDetectionEnded)
                 value.callMachineGreetingEnded != null ->
                     generator.writeObject(value.callMachineGreetingEnded)
-                value.callMachinePremiumCallScreeningDetected != null ->
-                    generator.writeObject(value.callMachinePremiumCallScreeningDetected)
                 value.callMachinePremiumDetectionEnded != null ->
                     generator.writeObject(value.callMachinePremiumDetectionEnded)
-                value.callMachinePremiumDetectionStarted != null ->
-                    generator.writeObject(value.callMachinePremiumDetectionStarted)
                 value.callMachinePremiumGreetingEnded != null ->
                     generator.writeObject(value.callMachinePremiumGreetingEnded)
                 value.callPaymentCompleted != null ->

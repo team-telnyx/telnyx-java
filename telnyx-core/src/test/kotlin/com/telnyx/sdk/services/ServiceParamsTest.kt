@@ -132,7 +132,6 @@ internal class ServiceParamsTest {
                         .initialSilenceMillis(1000)
                         .maximumNumberOfWords(1000)
                         .maximumWordLengthMillis(2000)
-                        .promptEndTimeoutMillis(5000)
                         .silenceThreshold(512)
                         .totalAnalysisTimeMillis(5000)
                         .build()

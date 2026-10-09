@@ -531,9 +531,7 @@ private constructor(
         fun from(): Optional<String> = from.getOptional("from")
 
         /**
-         * Premium Answering Machine Greeting Ended result. `prompt_ended` is only sent when
-         * `answering_machine_detection` is `premium_ios_call_screening_detection` and the iOS
-         * call-screening prompt ends without a beep.
+         * Premium Answering Machine Greeting Ended result.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -743,11 +741,7 @@ private constructor(
              */
             fun from(from: JsonField<String>) = apply { this.from = from }
 
-            /**
-             * Premium Answering Machine Greeting Ended result. `prompt_ended` is only sent when
-             * `answering_machine_detection` is `premium_ios_call_screening_detection` and the iOS
-             * call-screening prompt ends without a beep.
-             */
+            /** Premium Answering Machine Greeting Ended result. */
             fun result(result: Result) = result(JsonField.of(result))
 
             /**
@@ -861,11 +855,7 @@ private constructor(
                 (result.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (to.asKnown().isPresent) 1 else 0)
 
-        /**
-         * Premium Answering Machine Greeting Ended result. `prompt_ended` is only sent when
-         * `answering_machine_detection` is `premium_ios_call_screening_detection` and the iOS
-         * call-screening prompt ends without a beep.
-         */
+        /** Premium Answering Machine Greeting Ended result. */
         class Result @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
@@ -884,8 +874,6 @@ private constructor(
 
                 @JvmField val NO_BEEP_DETECTED = of("no_beep_detected")
 
-                @JvmField val PROMPT_ENDED = of("prompt_ended")
-
                 @JvmStatic fun of(value: String) = Result(JsonField.of(value))
             }
 
@@ -893,7 +881,6 @@ private constructor(
             enum class Known {
                 BEEP_DETECTED,
                 NO_BEEP_DETECTED,
-                PROMPT_ENDED,
             }
 
             /**
@@ -908,7 +895,6 @@ private constructor(
             enum class Value {
                 BEEP_DETECTED,
                 NO_BEEP_DETECTED,
-                PROMPT_ENDED,
                 /**
                  * An enum member indicating that [Result] was instantiated with an unknown value.
                  */
@@ -926,7 +912,6 @@ private constructor(
                 when (this) {
                     BEEP_DETECTED -> Value.BEEP_DETECTED
                     NO_BEEP_DETECTED -> Value.NO_BEEP_DETECTED
-                    PROMPT_ENDED -> Value.PROMPT_ENDED
                     else -> Value._UNKNOWN
                 }
 
@@ -943,7 +928,6 @@ private constructor(
                 when (this) {
                     BEEP_DETECTED -> Known.BEEP_DETECTED
                     NO_BEEP_DETECTED -> Known.NO_BEEP_DETECTED
-                    PROMPT_ENDED -> Known.PROMPT_ENDED
                     else -> throw TelnyxInvalidDataException("Unknown Result: $value")
                 }
 

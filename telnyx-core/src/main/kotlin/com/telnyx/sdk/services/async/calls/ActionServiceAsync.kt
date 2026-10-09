@@ -163,13 +163,6 @@ interface ActionServiceAsync {
      * answered; use the `call.answered` webhook to track the answer. If warm-up fails, Telnyx falls
      * back to starting the assistant after answering.
      *
-     * When `assistant.id` is supplied, obtain the conversation ID from
-     * `data.payload.conversation_id` in the
-     * [call.conversation.created](/api-reference/callbacks/call-conversation-created) webhook and
-     * correlate it using `data.payload.call_control_id`. The `answer` HTTP response does not
-     * include `conversation_id`. The created event is emitted during assistant startup and does not
-     * indicate that the assistant is ready to speak.
-     *
      * Set the assistant voice with `assistant.voice_settings.voice` and speech-to-text settings
      * with `assistant.transcription`. You can reuse one stored assistant with different per-call
      * settings. Warm-up prepares assistant configuration and dependencies; it does not wait for the
@@ -178,7 +171,6 @@ interface ActionServiceAsync {
      *
      * **Expected Webhooks:**
      * - `call.answered`
-     * - `call.conversation.created` when the requested assistant conversation is created
      * - `call.hold` and `call.unhold` if the call is held/unheld
      * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
      * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an error occurred
@@ -336,8 +328,6 @@ interface ActionServiceAsync {
      * attempt to gather these informations.
      *
      * **Expected Webhooks:**
-     * - [`call.conversation.created`](/api-reference/callbacks/call-conversation-created) includes
-     *   `conversation_id` during startup
      * - `call.ai_gather.ended`
      * - `call.conversation.ended`
      * - `call.ai_gather.partial_results` (if `send_partial_results` is set to `true`)
@@ -868,8 +858,6 @@ interface ActionServiceAsync {
      * Start an AI assistant on the call.
      *
      * **Expected Webhooks:**
-     * - [`call.conversation.created`](/api-reference/callbacks/call-conversation-created) includes
-     *   `conversation_id` during startup
      * - `call.conversation.ended`
      * - `call.conversation_insights.generated`
      */
@@ -1732,9 +1720,6 @@ interface ActionServiceAsync {
      *   requested
      * - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was
      *   requested and a beep was detected
-     * - `call.machine.premium.call_screening.detected` if
-     *   `answering_machine_detection=premium_ios_call_screening_detection` was requested and an
-     *   Apple Call Screening tone was detected
      */
     fun transfer(
         callControlId: String,
