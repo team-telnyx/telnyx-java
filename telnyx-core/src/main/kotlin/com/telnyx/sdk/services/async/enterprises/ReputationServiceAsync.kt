@@ -11,6 +11,8 @@ import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateWebhookParams
+import com.telnyx.sdk.services.async.enterprises.reputation.ExternalVerificationServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.RemediationServiceAsync
@@ -40,6 +42,9 @@ interface ReputationServiceAsync {
 
     /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     fun remediation(): RemediationServiceAsync
+
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+    fun externalVerification(): ExternalVerificationServiceAsync
 
     /**
      * Phone Number Reputation tracks how your outbound caller-IDs are perceived (spam risk,
@@ -199,6 +204,38 @@ interface ReputationServiceAsync {
     ): CompletableFuture<EnterpriseReputationPublicWrapped>
 
     /**
+     * Set the HTTPS URL that receives number-ownership events for this enterprise:
+     * `number_reputation.number.flagged`, `number_reputation.number.removed` and
+     * `number_reputation.external_verification.status_changed`. Send `webhook_url: null` to stop
+     * receiving them.
+     */
+    fun updateWebhook(
+        enterpriseId: String,
+        params: ReputationUpdateWebhookParams,
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
+        updateWebhook(enterpriseId, params, RequestOptions.none())
+
+    /** @see updateWebhook */
+    fun updateWebhook(
+        enterpriseId: String,
+        params: ReputationUpdateWebhookParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
+        updateWebhook(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see updateWebhook */
+    fun updateWebhook(
+        params: ReputationUpdateWebhookParams
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
+        updateWebhook(params, RequestOptions.none())
+
+    /** @see updateWebhook */
+    fun updateWebhook(
+        params: ReputationUpdateWebhookParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EnterpriseReputationPublicWrapped>
+
+    /**
      * A view of [ReputationServiceAsync] that provides access to raw HTTP responses for each
      * method.
      */
@@ -221,6 +258,9 @@ interface ReputationServiceAsync {
 
         /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         fun remediation(): RemediationServiceAsync.WithRawResponse
+
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+        fun externalVerification(): ExternalVerificationServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /enterprises/{enterprise_id}/reputation`, but is
@@ -361,6 +401,36 @@ interface ReputationServiceAsync {
         /** @see updateFrequency */
         fun updateFrequency(
             params: ReputationUpdateFrequencyParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>>
+
+        /**
+         * Returns a raw HTTP response for `patch /enterprises/{enterprise_id}/reputation/webhook`,
+         * but is otherwise the same as [ReputationServiceAsync.updateWebhook].
+         */
+        fun updateWebhook(
+            enterpriseId: String,
+            params: ReputationUpdateWebhookParams,
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
+            updateWebhook(enterpriseId, params, RequestOptions.none())
+
+        /** @see updateWebhook */
+        fun updateWebhook(
+            enterpriseId: String,
+            params: ReputationUpdateWebhookParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
+            updateWebhook(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+        /** @see updateWebhook */
+        fun updateWebhook(
+            params: ReputationUpdateWebhookParams
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> =
+            updateWebhook(params, RequestOptions.none())
+
+        /** @see updateWebhook */
+        fun updateWebhook(
+            params: ReputationUpdateWebhookParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>>
     }

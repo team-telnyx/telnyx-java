@@ -2781,6 +2781,7 @@ Methods:
 - <code title="delete /enterprises/{enterprise_id}/reputation">client.enterprises().reputation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/ReputationService.kt">disable</a>(params)</code>
 - <code title="post /enterprises/{enterprise_id}/reputation">client.enterprises().reputation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/ReputationService.kt">enable</a>(params)</code>
 - <code title="patch /enterprises/{enterprise_id}/reputation/frequency">client.enterprises().reputation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/ReputationService.kt">updateFrequency</a>(params)</code>
+- <code title="patch /enterprises/{enterprise_id}/reputation/webhook">client.enterprises().reputation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/ReputationService.kt">updateWebhook</a>(params)</code>
 
 ### Numbers
 
@@ -2790,7 +2791,9 @@ Methods:
 - <code title="get /enterprises/{enterprise_id}/reputation/numbers">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">list</a>(params)</code>
 - <code title="post /enterprises/{enterprise_id}/reputation/numbers">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">associate</a>(params)</code>
 - <code title="delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">disassociate</a>(params)</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership_confirm">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">ownershipConfirm</a>(params)</code>
 - <code title="post /enterprises/{enterprise_id}/reputation/numbers/refresh">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">refresh</a>(params)</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">retrieveOwnership</a>(params)</code>
 
 ### Loa
 
@@ -2806,6 +2809,13 @@ Methods:
 - <code title="post /enterprises/{enterprise_id}/reputation/remediation">client.enterprises().reputation().remediation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/RemediationService.kt">create</a>(params)</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/remediation/{remediation_id}">client.enterprises().reputation().remediation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/RemediationService.kt">retrieve</a>(params)</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/remediation">client.enterprises().reputation().remediation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/RemediationService.kt">list</a>(params)</code>
+
+### ExternalVerification
+
+Methods:
+
+- <code title="post /enterprises/{enterprise_id}/reputation/external_verification">client.enterprises().reputation().externalVerification().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/ExternalVerificationService.kt">create</a>(params)</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/external_verification">client.enterprises().reputation().externalVerification().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/ExternalVerificationService.kt">list</a>(params)</code>
 
 ## Dir
 

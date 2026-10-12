@@ -12,6 +12,8 @@ import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateWebhookParams
+import com.telnyx.sdk.services.blocking.enterprises.reputation.ExternalVerificationService
 import com.telnyx.sdk.services.blocking.enterprises.reputation.LoaService
 import com.telnyx.sdk.services.blocking.enterprises.reputation.NumberService
 import com.telnyx.sdk.services.blocking.enterprises.reputation.RemediationService
@@ -40,6 +42,9 @@ interface ReputationService {
 
     /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     fun remediation(): RemediationService
+
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+    fun externalVerification(): ExternalVerificationService
 
     /**
      * Phone Number Reputation tracks how your outbound caller-IDs are perceived (spam risk,
@@ -189,6 +194,36 @@ interface ReputationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EnterpriseReputationPublicWrapped
 
+    /**
+     * Set the HTTPS URL that receives number-ownership events for this enterprise:
+     * `number_reputation.number.flagged`, `number_reputation.number.removed` and
+     * `number_reputation.external_verification.status_changed`. Send `webhook_url: null` to stop
+     * receiving them.
+     */
+    fun updateWebhook(
+        enterpriseId: String,
+        params: ReputationUpdateWebhookParams,
+    ): EnterpriseReputationPublicWrapped =
+        updateWebhook(enterpriseId, params, RequestOptions.none())
+
+    /** @see updateWebhook */
+    fun updateWebhook(
+        enterpriseId: String,
+        params: ReputationUpdateWebhookParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EnterpriseReputationPublicWrapped =
+        updateWebhook(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see updateWebhook */
+    fun updateWebhook(params: ReputationUpdateWebhookParams): EnterpriseReputationPublicWrapped =
+        updateWebhook(params, RequestOptions.none())
+
+    /** @see updateWebhook */
+    fun updateWebhook(
+        params: ReputationUpdateWebhookParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EnterpriseReputationPublicWrapped
+
     /** A view of [ReputationService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -209,6 +244,9 @@ interface ReputationService {
 
         /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         fun remediation(): RemediationService.WithRawResponse
+
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+        fun externalVerification(): ExternalVerificationService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /enterprises/{enterprise_id}/reputation`, but is
@@ -364,6 +402,40 @@ interface ReputationService {
         @MustBeClosed
         fun updateFrequency(
             params: ReputationUpdateFrequencyParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped>
+
+        /**
+         * Returns a raw HTTP response for `patch /enterprises/{enterprise_id}/reputation/webhook`,
+         * but is otherwise the same as [ReputationService.updateWebhook].
+         */
+        @MustBeClosed
+        fun updateWebhook(
+            enterpriseId: String,
+            params: ReputationUpdateWebhookParams,
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
+            updateWebhook(enterpriseId, params, RequestOptions.none())
+
+        /** @see updateWebhook */
+        @MustBeClosed
+        fun updateWebhook(
+            enterpriseId: String,
+            params: ReputationUpdateWebhookParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
+            updateWebhook(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+        /** @see updateWebhook */
+        @MustBeClosed
+        fun updateWebhook(
+            params: ReputationUpdateWebhookParams
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> =
+            updateWebhook(params, RequestOptions.none())
+
+        /** @see updateWebhook */
+        @MustBeClosed
+        fun updateWebhook(
+            params: ReputationUpdateWebhookParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EnterpriseReputationPublicWrapped>
     }

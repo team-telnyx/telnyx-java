@@ -101,6 +101,11 @@ private constructor(
     private val hostedNumberOrderEvent: HostedNumberOrderEventWebhookEvent? = null,
     private val inboundMessage: InboundMessageWebhookEvent? = null,
     private val numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent? = null,
+    private val numberReputationExternalVerificationStatusChanged:
+        NumberReputationExternalVerificationStatusChangedWebhookEvent? =
+        null,
+    private val numberReputationNumberFlagged: NumberReputationNumberFlaggedWebhookEvent? = null,
+    private val numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent? = null,
     private val recordingAvailable: RecordingAvailableWebhookEvent? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
     private val sessionStatusChanged: SessionStatusChangedWebhookEvent? = null,
@@ -302,6 +307,16 @@ private constructor(
     fun numberOrderStatusUpdate(): Optional<NumberOrderStatusUpdateWebhookEvent> =
         Optional.ofNullable(numberOrderStatusUpdate)
 
+    fun numberReputationExternalVerificationStatusChanged():
+        Optional<NumberReputationExternalVerificationStatusChangedWebhookEvent> =
+        Optional.ofNullable(numberReputationExternalVerificationStatusChanged)
+
+    fun numberReputationNumberFlagged(): Optional<NumberReputationNumberFlaggedWebhookEvent> =
+        Optional.ofNullable(numberReputationNumberFlagged)
+
+    fun numberReputationNumberRemoved(): Optional<NumberReputationNumberRemovedWebhookEvent> =
+        Optional.ofNullable(numberReputationNumberRemoved)
+
     fun recordingAvailable(): Optional<RecordingAvailableWebhookEvent> =
         Optional.ofNullable(recordingAvailable)
 
@@ -458,6 +473,13 @@ private constructor(
     fun isInboundMessage(): Boolean = inboundMessage != null
 
     fun isNumberOrderStatusUpdate(): Boolean = numberOrderStatusUpdate != null
+
+    fun isNumberReputationExternalVerificationStatusChanged(): Boolean =
+        numberReputationExternalVerificationStatusChanged != null
+
+    fun isNumberReputationNumberFlagged(): Boolean = numberReputationNumberFlagged != null
+
+    fun isNumberReputationNumberRemoved(): Boolean = numberReputationNumberRemoved != null
 
     fun isRecordingAvailable(): Boolean = recordingAvailable != null
 
@@ -659,6 +681,18 @@ private constructor(
     fun asNumberOrderStatusUpdate(): NumberOrderStatusUpdateWebhookEvent =
         numberOrderStatusUpdate.getOrThrow("numberOrderStatusUpdate")
 
+    fun asNumberReputationExternalVerificationStatusChanged():
+        NumberReputationExternalVerificationStatusChangedWebhookEvent =
+        numberReputationExternalVerificationStatusChanged.getOrThrow(
+            "numberReputationExternalVerificationStatusChanged"
+        )
+
+    fun asNumberReputationNumberFlagged(): NumberReputationNumberFlaggedWebhookEvent =
+        numberReputationNumberFlagged.getOrThrow("numberReputationNumberFlagged")
+
+    fun asNumberReputationNumberRemoved(): NumberReputationNumberRemovedWebhookEvent =
+        numberReputationNumberRemoved.getOrThrow("numberReputationNumberRemoved")
+
     fun asRecordingAvailable(): RecordingAvailableWebhookEvent =
         recordingAvailable.getOrThrow("recordingAvailable")
 
@@ -806,6 +840,14 @@ private constructor(
             inboundMessage != null -> visitor.visitInboundMessage(inboundMessage)
             numberOrderStatusUpdate != null ->
                 visitor.visitNumberOrderStatusUpdate(numberOrderStatusUpdate)
+            numberReputationExternalVerificationStatusChanged != null ->
+                visitor.visitNumberReputationExternalVerificationStatusChanged(
+                    numberReputationExternalVerificationStatusChanged
+                )
+            numberReputationNumberFlagged != null ->
+                visitor.visitNumberReputationNumberFlagged(numberReputationNumberFlagged)
+            numberReputationNumberRemoved != null ->
+                visitor.visitNumberReputationNumberRemoved(numberReputationNumberRemoved)
             recordingAvailable != null -> visitor.visitRecordingAvailable(recordingAvailable)
             replacedLinkClick != null -> visitor.visitReplacedLinkClick(replacedLinkClick)
             sessionStatusChanged != null -> visitor.visitSessionStatusChanged(sessionStatusChanged)
@@ -1188,6 +1230,25 @@ private constructor(
                     numberOrderStatusUpdate.validate()
                 }
 
+                override fun visitNumberReputationExternalVerificationStatusChanged(
+                    numberReputationExternalVerificationStatusChanged:
+                        NumberReputationExternalVerificationStatusChangedWebhookEvent
+                ) {
+                    numberReputationExternalVerificationStatusChanged.validate()
+                }
+
+                override fun visitNumberReputationNumberFlagged(
+                    numberReputationNumberFlagged: NumberReputationNumberFlaggedWebhookEvent
+                ) {
+                    numberReputationNumberFlagged.validate()
+                }
+
+                override fun visitNumberReputationNumberRemoved(
+                    numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent
+                ) {
+                    numberReputationNumberRemoved.validate()
+                }
+
                 override fun visitRecordingAvailable(
                     recordingAvailable: RecordingAvailableWebhookEvent
                 ) {
@@ -1488,6 +1549,19 @@ private constructor(
                     numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
                 ) = numberOrderStatusUpdate.validity()
 
+                override fun visitNumberReputationExternalVerificationStatusChanged(
+                    numberReputationExternalVerificationStatusChanged:
+                        NumberReputationExternalVerificationStatusChangedWebhookEvent
+                ) = numberReputationExternalVerificationStatusChanged.validity()
+
+                override fun visitNumberReputationNumberFlagged(
+                    numberReputationNumberFlagged: NumberReputationNumberFlaggedWebhookEvent
+                ) = numberReputationNumberFlagged.validity()
+
+                override fun visitNumberReputationNumberRemoved(
+                    numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent
+                ) = numberReputationNumberRemoved.validity()
+
                 override fun visitRecordingAvailable(
                     recordingAvailable: RecordingAvailableWebhookEvent
                 ) = recordingAvailable.validity()
@@ -1592,6 +1666,10 @@ private constructor(
             hostedNumberOrderEvent == other.hostedNumberOrderEvent &&
             inboundMessage == other.inboundMessage &&
             numberOrderStatusUpdate == other.numberOrderStatusUpdate &&
+            numberReputationExternalVerificationStatusChanged ==
+                other.numberReputationExternalVerificationStatusChanged &&
+            numberReputationNumberFlagged == other.numberReputationNumberFlagged &&
+            numberReputationNumberRemoved == other.numberReputationNumberRemoved &&
             recordingAvailable == other.recordingAvailable &&
             replacedLinkClick == other.replacedLinkClick &&
             sessionStatusChanged == other.sessionStatusChanged &&
@@ -1671,6 +1749,9 @@ private constructor(
             hostedNumberOrderEvent,
             inboundMessage,
             numberOrderStatusUpdate,
+            numberReputationExternalVerificationStatusChanged,
+            numberReputationNumberFlagged,
+            numberReputationNumberRemoved,
             recordingAvailable,
             replacedLinkClick,
             sessionStatusChanged,
@@ -1797,6 +1878,12 @@ private constructor(
             inboundMessage != null -> "UnsafeUnwrapWebhookEvent{inboundMessage=$inboundMessage}"
             numberOrderStatusUpdate != null ->
                 "UnsafeUnwrapWebhookEvent{numberOrderStatusUpdate=$numberOrderStatusUpdate}"
+            numberReputationExternalVerificationStatusChanged != null ->
+                "UnsafeUnwrapWebhookEvent{numberReputationExternalVerificationStatusChanged=$numberReputationExternalVerificationStatusChanged}"
+            numberReputationNumberFlagged != null ->
+                "UnsafeUnwrapWebhookEvent{numberReputationNumberFlagged=$numberReputationNumberFlagged}"
+            numberReputationNumberRemoved != null ->
+                "UnsafeUnwrapWebhookEvent{numberReputationNumberRemoved=$numberReputationNumberRemoved}"
             recordingAvailable != null ->
                 "UnsafeUnwrapWebhookEvent{recordingAvailable=$recordingAvailable}"
             replacedLinkClick != null ->
@@ -2134,6 +2221,26 @@ private constructor(
         ) = UnsafeUnwrapWebhookEvent(numberOrderStatusUpdate = numberOrderStatusUpdate)
 
         @JvmStatic
+        fun ofNumberReputationExternalVerificationStatusChanged(
+            numberReputationExternalVerificationStatusChanged:
+                NumberReputationExternalVerificationStatusChangedWebhookEvent
+        ) =
+            UnsafeUnwrapWebhookEvent(
+                numberReputationExternalVerificationStatusChanged =
+                    numberReputationExternalVerificationStatusChanged
+            )
+
+        @JvmStatic
+        fun ofNumberReputationNumberFlagged(
+            numberReputationNumberFlagged: NumberReputationNumberFlaggedWebhookEvent
+        ) = UnsafeUnwrapWebhookEvent(numberReputationNumberFlagged = numberReputationNumberFlagged)
+
+        @JvmStatic
+        fun ofNumberReputationNumberRemoved(
+            numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent
+        ) = UnsafeUnwrapWebhookEvent(numberReputationNumberRemoved = numberReputationNumberRemoved)
+
+        @JvmStatic
         fun ofRecordingAvailable(recordingAvailable: RecordingAvailableWebhookEvent) =
             UnsafeUnwrapWebhookEvent(recordingAvailable = recordingAvailable)
 
@@ -2346,6 +2453,19 @@ private constructor(
 
         fun visitNumberOrderStatusUpdate(
             numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
+        ): T
+
+        fun visitNumberReputationExternalVerificationStatusChanged(
+            numberReputationExternalVerificationStatusChanged:
+                NumberReputationExternalVerificationStatusChangedWebhookEvent
+        ): T
+
+        fun visitNumberReputationNumberFlagged(
+            numberReputationNumberFlagged: NumberReputationNumberFlaggedWebhookEvent
+        ): T
+
+        fun visitNumberReputationNumberRemoved(
+            numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent
         ): T
 
         fun visitRecordingAvailable(recordingAvailable: RecordingAvailableWebhookEvent): T
@@ -2724,6 +2844,38 @@ private constructor(
                             ?.let {
                                 UnsafeUnwrapWebhookEvent(numberOrderStatusUpdate = it, _json = json)
                             },
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<
+                                    NumberReputationExternalVerificationStatusChangedWebhookEvent
+                                >(),
+                            )
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(
+                                    numberReputationExternalVerificationStatusChanged = it,
+                                    _json = json,
+                                )
+                            },
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<NumberReputationNumberFlaggedWebhookEvent>(),
+                            )
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(
+                                    numberReputationNumberFlagged = it,
+                                    _json = json,
+                                )
+                            },
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<NumberReputationNumberRemovedWebhookEvent>(),
+                            )
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(
+                                    numberReputationNumberRemoved = it,
+                                    _json = json,
+                                )
+                            },
                         tryDeserialize(node, jacksonTypeRef<RecordingAvailableWebhookEvent>())
                             ?.let {
                                 UnsafeUnwrapWebhookEvent(recordingAvailable = it, _json = json)
@@ -2873,6 +3025,12 @@ private constructor(
                 value.inboundMessage != null -> generator.writeObject(value.inboundMessage)
                 value.numberOrderStatusUpdate != null ->
                     generator.writeObject(value.numberOrderStatusUpdate)
+                value.numberReputationExternalVerificationStatusChanged != null ->
+                    generator.writeObject(value.numberReputationExternalVerificationStatusChanged)
+                value.numberReputationNumberFlagged != null ->
+                    generator.writeObject(value.numberReputationNumberFlagged)
+                value.numberReputationNumberRemoved != null ->
+                    generator.writeObject(value.numberReputationNumberRemoved)
                 value.recordingAvailable != null -> generator.writeObject(value.recordingAvailable)
                 value.replacedLinkClick != null -> generator.writeObject(value.replacedLinkClick)
                 value.sessionStatusChanged != null ->

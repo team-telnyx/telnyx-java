@@ -1,0 +1,43 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.models.enterprises.reputation
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class ReputationUpdateWebhookParamsTest {
+
+    @Test
+    fun create() {
+        ReputationUpdateWebhookParams.builder()
+            .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+            .webhookUrl("https://example.com/webhooks/telnyx")
+            .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            ReputationUpdateWebhookParams.builder()
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .webhookUrl("https://example.com/webhooks/telnyx")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("4a6192a4-573d-446d-b3ce-aff9117272a6")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
+    fun body() {
+        val params =
+            ReputationUpdateWebhookParams.builder()
+                .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                .webhookUrl("https://example.com/webhooks/telnyx")
+                .build()
+
+        val body = params._body()
+
+        assertThat(body.webhookUrl()).contains("https://example.com/webhooks/telnyx")
+    }
+}
