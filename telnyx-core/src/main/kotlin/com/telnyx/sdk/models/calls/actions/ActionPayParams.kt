@@ -6,13 +6,24 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.BaseDeserializer
+import com.telnyx.sdk.core.BaseSerializer
 import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
@@ -132,6 +143,18 @@ private constructor(
     fun metadata(): Optional<Metadata> = body.metadata()
 
     /**
+     * Minimum number of digits the caller must enter when collecting a credit-card billing postal
+     * code. Applies only when `postal_code` is `true` or `"true"` and no `payment_token` is
+     * supplied. The default is 1. The maximum number of digits collected is the greater of 10 and
+     * this value. This does not validate the length of a postal code supplied directly in
+     * `postal_code`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun minPostalCodeLength(): Optional<Long> = body.minPostalCodeLength()
+
+    /**
      * Additional parameters forwarded to the Pay connector.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -154,6 +177,19 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun paymentToken(): Optional<String> = body.paymentToken()
+
+    /**
+     * Controls billing postal code collection for credit-card payments when no `payment_token` is
+     * supplied. Set to `true` or the string `"true"` (the default) to prompt the caller for a
+     * postal code. Set to `false` or the string `"false"` to skip the postal code prompt without
+     * supplying a postal code to the payment connector. Supply any other non-empty string, such as
+     * `"90210"`, to use that postal code without prompting. Empty or whitespace-only strings are
+     * rejected. This option does not affect ACH debit payments or payments using an existing token.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun postalCode(): Optional<PostalCode> = body.postalCode()
 
     /**
      * Custom text-to-speech prompts keyed by payment collection step.
@@ -280,6 +316,14 @@ private constructor(
     fun _metadata(): JsonField<Metadata> = body._metadata()
 
     /**
+     * Returns the raw JSON value of [minPostalCodeLength].
+     *
+     * Unlike [minPostalCodeLength], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _minPostalCodeLength(): JsonField<Long> = body._minPostalCodeLength()
+
+    /**
      * Returns the raw JSON value of [parameters].
      *
      * Unlike [parameters], this method doesn't throw if the JSON field has an unexpected type.
@@ -299,6 +343,13 @@ private constructor(
      * Unlike [paymentToken], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _paymentToken(): JsonField<String> = body._paymentToken()
+
+    /**
+     * Returns the raw JSON value of [postalCode].
+     *
+     * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _postalCode(): JsonField<PostalCode> = body._postalCode()
 
     /**
      * Returns the raw JSON value of [prompts].
@@ -523,6 +574,28 @@ private constructor(
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
+        /**
+         * Minimum number of digits the caller must enter when collecting a credit-card billing
+         * postal code. Applies only when `postal_code` is `true` or `"true"` and no `payment_token`
+         * is supplied. The default is 1. The maximum number of digits collected is the greater of
+         * 10 and this value. This does not validate the length of a postal code supplied directly
+         * in `postal_code`.
+         */
+        fun minPostalCodeLength(minPostalCodeLength: Long) = apply {
+            body.minPostalCodeLength(minPostalCodeLength)
+        }
+
+        /**
+         * Sets [Builder.minPostalCodeLength] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.minPostalCodeLength] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun minPostalCodeLength(minPostalCodeLength: JsonField<Long>) = apply {
+            body.minPostalCodeLength(minPostalCodeLength)
+        }
+
         /** Additional parameters forwarded to the Pay connector. */
         fun parameters(parameters: Parameters) = apply { body.parameters(parameters) }
 
@@ -564,6 +637,32 @@ private constructor(
         fun paymentToken(paymentToken: JsonField<String>) = apply {
             body.paymentToken(paymentToken)
         }
+
+        /**
+         * Controls billing postal code collection for credit-card payments when no `payment_token`
+         * is supplied. Set to `true` or the string `"true"` (the default) to prompt the caller for
+         * a postal code. Set to `false` or the string `"false"` to skip the postal code prompt
+         * without supplying a postal code to the payment connector. Supply any other non-empty
+         * string, such as `"90210"`, to use that postal code without prompting. Empty or
+         * whitespace-only strings are rejected. This option does not affect ACH debit payments or
+         * payments using an existing token.
+         */
+        fun postalCode(postalCode: PostalCode) = apply { body.postalCode(postalCode) }
+
+        /**
+         * Sets [Builder.postalCode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.postalCode] with a well-typed [PostalCode] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun postalCode(postalCode: JsonField<PostalCode>) = apply { body.postalCode(postalCode) }
+
+        /** Alias for calling [postalCode] with `PostalCode.ofString(string)`. */
+        fun postalCode(string: String) = apply { body.postalCode(string) }
+
+        /** Alias for calling [postalCode] with `PostalCode.ofBool(bool)`. */
+        fun postalCode(bool: Boolean) = apply { body.postalCode(bool) }
 
         /** Custom text-to-speech prompts keyed by payment collection step. */
         fun prompts(prompts: Prompts) = apply { body.prompts(prompts) }
@@ -824,9 +923,11 @@ private constructor(
         private val language: JsonField<String>,
         private val maxAttempts: JsonField<Int>,
         private val metadata: JsonField<Metadata>,
+        private val minPostalCodeLength: JsonField<Long>,
         private val parameters: JsonField<Parameters>,
         private val paymentMethod: JsonField<PaymentMethod>,
         private val paymentToken: JsonField<String>,
+        private val postalCode: JsonField<PostalCode>,
         private val prompts: JsonField<Prompts>,
         private val serviceLevel: JsonField<String>,
         private val timeoutMillis: JsonField<Int>,
@@ -866,6 +967,9 @@ private constructor(
             @JsonProperty("metadata")
             @ExcludeMissing
             metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("min_postal_code_length")
+            @ExcludeMissing
+            minPostalCodeLength: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("parameters")
             @ExcludeMissing
             parameters: JsonField<Parameters> = JsonMissing.of(),
@@ -875,6 +979,9 @@ private constructor(
             @JsonProperty("payment_token")
             @ExcludeMissing
             paymentToken: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<PostalCode> = JsonMissing.of(),
             @JsonProperty("prompts") @ExcludeMissing prompts: JsonField<Prompts> = JsonMissing.of(),
             @JsonProperty("service_level")
             @ExcludeMissing
@@ -900,9 +1007,11 @@ private constructor(
             language,
             maxAttempts,
             metadata,
+            minPostalCodeLength,
             parameters,
             paymentMethod,
             paymentToken,
+            postalCode,
             prompts,
             serviceLevel,
             timeoutMillis,
@@ -995,6 +1104,19 @@ private constructor(
         fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
 
         /**
+         * Minimum number of digits the caller must enter when collecting a credit-card billing
+         * postal code. Applies only when `postal_code` is `true` or `"true"` and no `payment_token`
+         * is supplied. The default is 1. The maximum number of digits collected is the greater of
+         * 10 and this value. This does not validate the length of a postal code supplied directly
+         * in `postal_code`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun minPostalCodeLength(): Optional<Long> =
+            minPostalCodeLength.getOptional("min_postal_code_length")
+
+        /**
          * Additional parameters forwarded to the Pay connector.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1017,6 +1139,20 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun paymentToken(): Optional<String> = paymentToken.getOptional("payment_token")
+
+        /**
+         * Controls billing postal code collection for credit-card payments when no `payment_token`
+         * is supplied. Set to `true` or the string `"true"` (the default) to prompt the caller for
+         * a postal code. Set to `false` or the string `"false"` to skip the postal code prompt
+         * without supplying a postal code to the payment connector. Supply any other non-empty
+         * string, such as `"90210"`, to use that postal code without prompting. Empty or
+         * whitespace-only strings are rejected. This option does not affect ACH debit payments or
+         * payments using an existing token.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun postalCode(): Optional<PostalCode> = postalCode.getOptional("postal_code")
 
         /**
          * Custom text-to-speech prompts keyed by payment collection step.
@@ -1156,6 +1292,16 @@ private constructor(
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         /**
+         * Returns the raw JSON value of [minPostalCodeLength].
+         *
+         * Unlike [minPostalCodeLength], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("min_postal_code_length")
+        @ExcludeMissing
+        fun _minPostalCodeLength(): JsonField<Long> = minPostalCodeLength
+
+        /**
          * Returns the raw JSON value of [parameters].
          *
          * Unlike [parameters], this method doesn't throw if the JSON field has an unexpected type.
@@ -1183,6 +1329,15 @@ private constructor(
         @JsonProperty("payment_token")
         @ExcludeMissing
         fun _paymentToken(): JsonField<String> = paymentToken
+
+        /**
+         * Returns the raw JSON value of [postalCode].
+         *
+         * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<PostalCode> = postalCode
 
         /**
          * Returns the raw JSON value of [prompts].
@@ -1269,9 +1424,11 @@ private constructor(
             private var language: JsonField<String> = JsonMissing.of()
             private var maxAttempts: JsonField<Int> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var minPostalCodeLength: JsonField<Long> = JsonMissing.of()
             private var parameters: JsonField<Parameters> = JsonMissing.of()
             private var paymentMethod: JsonField<PaymentMethod> = JsonMissing.of()
             private var paymentToken: JsonField<String> = JsonMissing.of()
+            private var postalCode: JsonField<PostalCode> = JsonMissing.of()
             private var prompts: JsonField<Prompts> = JsonMissing.of()
             private var serviceLevel: JsonField<String> = JsonMissing.of()
             private var timeoutMillis: JsonField<Int> = JsonMissing.of()
@@ -1292,9 +1449,11 @@ private constructor(
                 language = body.language
                 maxAttempts = body.maxAttempts
                 metadata = body.metadata
+                minPostalCodeLength = body.minPostalCodeLength
                 parameters = body.parameters
                 paymentMethod = body.paymentMethod
                 paymentToken = body.paymentToken
+                postalCode = body.postalCode
                 prompts = body.prompts
                 serviceLevel = body.serviceLevel
                 timeoutMillis = body.timeoutMillis
@@ -1436,6 +1595,27 @@ private constructor(
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
+            /**
+             * Minimum number of digits the caller must enter when collecting a credit-card billing
+             * postal code. Applies only when `postal_code` is `true` or `"true"` and no
+             * `payment_token` is supplied. The default is 1. The maximum number of digits collected
+             * is the greater of 10 and this value. This does not validate the length of a postal
+             * code supplied directly in `postal_code`.
+             */
+            fun minPostalCodeLength(minPostalCodeLength: Long) =
+                minPostalCodeLength(JsonField.of(minPostalCodeLength))
+
+            /**
+             * Sets [Builder.minPostalCodeLength] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.minPostalCodeLength] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun minPostalCodeLength(minPostalCodeLength: JsonField<Long>) = apply {
+                this.minPostalCodeLength = minPostalCodeLength
+            }
+
             /** Additional parameters forwarded to the Pay connector. */
             fun parameters(parameters: Parameters) = parameters(JsonField.of(parameters))
 
@@ -1478,6 +1658,34 @@ private constructor(
             fun paymentToken(paymentToken: JsonField<String>) = apply {
                 this.paymentToken = paymentToken
             }
+
+            /**
+             * Controls billing postal code collection for credit-card payments when no
+             * `payment_token` is supplied. Set to `true` or the string `"true"` (the default) to
+             * prompt the caller for a postal code. Set to `false` or the string `"false"` to skip
+             * the postal code prompt without supplying a postal code to the payment connector.
+             * Supply any other non-empty string, such as `"90210"`, to use that postal code without
+             * prompting. Empty or whitespace-only strings are rejected. This option does not affect
+             * ACH debit payments or payments using an existing token.
+             */
+            fun postalCode(postalCode: PostalCode) = postalCode(JsonField.of(postalCode))
+
+            /**
+             * Sets [Builder.postalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postalCode] with a well-typed [PostalCode] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun postalCode(postalCode: JsonField<PostalCode>) = apply {
+                this.postalCode = postalCode
+            }
+
+            /** Alias for calling [postalCode] with `PostalCode.ofString(string)`. */
+            fun postalCode(string: String) = postalCode(PostalCode.ofString(string))
+
+            /** Alias for calling [postalCode] with `PostalCode.ofBool(bool)`. */
+            fun postalCode(bool: Boolean) = postalCode(PostalCode.ofBool(bool))
 
             /** Custom text-to-speech prompts keyed by payment collection step. */
             fun prompts(prompts: Prompts) = prompts(JsonField.of(prompts))
@@ -1623,9 +1831,11 @@ private constructor(
                     language,
                     maxAttempts,
                     metadata,
+                    minPostalCodeLength,
                     parameters,
                     paymentMethod,
                     paymentToken,
+                    postalCode,
                     prompts,
                     serviceLevel,
                     timeoutMillis,
@@ -1662,9 +1872,11 @@ private constructor(
             language()
             maxAttempts()
             metadata().ifPresent { it.validate() }
+            minPostalCodeLength()
             parameters().ifPresent { it.validate() }
             paymentMethod().ifPresent { it.validate() }
             paymentToken()
+            postalCode().ifPresent { it.validate() }
             prompts().ifPresent { it.validate() }
             serviceLevel()
             timeoutMillis()
@@ -1700,9 +1912,11 @@ private constructor(
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (if (maxAttempts.asKnown().isPresent) 1 else 0) +
                 (metadata.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (minPostalCodeLength.asKnown().isPresent) 1 else 0) +
                 (parameters.asKnown().getOrNull()?.validity() ?: 0) +
                 (paymentMethod.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (paymentToken.asKnown().isPresent) 1 else 0) +
+                (postalCode.asKnown().getOrNull()?.validity() ?: 0) +
                 (prompts.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (serviceLevel.asKnown().isPresent) 1 else 0) +
                 (if (timeoutMillis.asKnown().isPresent) 1 else 0) +
@@ -1726,9 +1940,11 @@ private constructor(
                 language == other.language &&
                 maxAttempts == other.maxAttempts &&
                 metadata == other.metadata &&
+                minPostalCodeLength == other.minPostalCodeLength &&
                 parameters == other.parameters &&
                 paymentMethod == other.paymentMethod &&
                 paymentToken == other.paymentToken &&
+                postalCode == other.postalCode &&
                 prompts == other.prompts &&
                 serviceLevel == other.serviceLevel &&
                 timeoutMillis == other.timeoutMillis &&
@@ -1750,9 +1966,11 @@ private constructor(
                 language,
                 maxAttempts,
                 metadata,
+                minPostalCodeLength,
                 parameters,
                 paymentMethod,
                 paymentToken,
+                postalCode,
                 prompts,
                 serviceLevel,
                 timeoutMillis,
@@ -1766,7 +1984,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amount=$amount, clientState=$clientState, commandId=$commandId, connectorName=$connectorName, currency=$currency, description=$description, interDigitTimeoutMillis=$interDigitTimeoutMillis, language=$language, maxAttempts=$maxAttempts, metadata=$metadata, parameters=$parameters, paymentMethod=$paymentMethod, paymentToken=$paymentToken, prompts=$prompts, serviceLevel=$serviceLevel, timeoutMillis=$timeoutMillis, transactionType=$transactionType, validCardTypes=$validCardTypes, voice=$voice, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, clientState=$clientState, commandId=$commandId, connectorName=$connectorName, currency=$currency, description=$description, interDigitTimeoutMillis=$interDigitTimeoutMillis, language=$language, maxAttempts=$maxAttempts, metadata=$metadata, minPostalCodeLength=$minPostalCodeLength, parameters=$parameters, paymentMethod=$paymentMethod, paymentToken=$paymentToken, postalCode=$postalCode, prompts=$prompts, serviceLevel=$serviceLevel, timeoutMillis=$timeoutMillis, transactionType=$transactionType, validCardTypes=$validCardTypes, voice=$voice, additionalProperties=$additionalProperties}"
     }
 
     /** Currency used for the transaction. Pay currently supports USD only. */
@@ -2259,6 +2477,221 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /**
+     * Controls billing postal code collection for credit-card payments when no `payment_token` is
+     * supplied. Set to `true` or the string `"true"` (the default) to prompt the caller for a
+     * postal code. Set to `false` or the string `"false"` to skip the postal code prompt without
+     * supplying a postal code to the payment connector. Supply any other non-empty string, such as
+     * `"90210"`, to use that postal code without prompting. Empty or whitespace-only strings are
+     * rejected. This option does not affect ACH debit payments or payments using an existing token.
+     */
+    @JsonDeserialize(using = PostalCode.Deserializer::class)
+    @JsonSerialize(using = PostalCode.Serializer::class)
+    class PostalCode
+    private constructor(
+        private val string: String? = null,
+        private val bool: Boolean? = null,
+        private val _json: JsonValue? = null,
+    ) {
+
+        fun string(): Optional<String> = Optional.ofNullable(string)
+
+        fun bool(): Optional<Boolean> = Optional.ofNullable(bool)
+
+        fun isString(): Boolean = string != null
+
+        fun isBool(): Boolean = bool != null
+
+        fun asString(): String = string.getOrThrow("string")
+
+        fun asBool(): Boolean = bool.getOrThrow("bool")
+
+        fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+        /**
+         * Maps this instance's current variant to a value of type [T] using the given [visitor].
+         *
+         * Note that this method is _not_ forwards compatible with new variants from the API, unless
+         * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of
+         * the SDK gracefully, consider overriding [Visitor.unknown]:
+         * ```java
+         * import com.telnyx.sdk.core.JsonValue;
+         * import java.util.Optional;
+         *
+         * Optional<String> result = postalCode.accept(new PostalCode.Visitor<Optional<String>>() {
+         *     @Override
+         *     public Optional<String> visitString(String string) {
+         *         return Optional.of(string.toString());
+         *     }
+         *
+         *     // ...
+         *
+         *     @Override
+         *     public Optional<String> unknown(JsonValue json) {
+         *         // Or inspect the `json`.
+         *         return Optional.empty();
+         *     }
+         * });
+         * ```
+         *
+         * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in [visitor]
+         *   and the current variant is unknown.
+         */
+        fun <T> accept(visitor: Visitor<T>): T =
+            when {
+                string != null -> visitor.visitString(string)
+                bool != null -> visitor.visitBool(bool)
+                else -> visitor.unknown(_json)
+            }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): PostalCode = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accept(
+                object : Visitor<Unit> {
+                    override fun visitString(string: String) {}
+
+                    override fun visitBool(bool: Boolean) {}
+                }
+            )
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            accept(
+                object : Visitor<Int> {
+                    override fun visitString(string: String) = 1
+
+                    override fun visitBool(bool: Boolean) = 1
+
+                    override fun unknown(json: JsonValue?) = 0
+                }
+            )
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PostalCode && string == other.string && bool == other.bool
+        }
+
+        override fun hashCode(): Int = Objects.hash(string, bool)
+
+        override fun toString(): String =
+            when {
+                string != null -> "PostalCode{string=$string}"
+                bool != null -> "PostalCode{bool=$bool}"
+                _json != null -> "PostalCode{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid PostalCode")
+            }
+
+        companion object {
+
+            @JvmStatic fun ofString(string: String) = PostalCode(string = string)
+
+            @JvmStatic fun ofBool(bool: Boolean) = PostalCode(bool = bool)
+        }
+
+        /**
+         * An interface that defines how to map each variant of [PostalCode] to a value of type [T].
+         */
+        interface Visitor<out T> {
+
+            fun visitString(string: String): T
+
+            fun visitBool(bool: Boolean): T
+
+            /**
+             * Maps an unknown variant of [PostalCode] to a value of type [T].
+             *
+             * An instance of [PostalCode] can contain an unknown variant if it was deserialized
+             * from data that doesn't match any known variant. For example, if the SDK is on an
+             * older version than the API, then the API may respond with new variants that the SDK
+             * is unaware of.
+             *
+             * @throws TelnyxInvalidDataException in the default implementation.
+             */
+            fun unknown(json: JsonValue?): T {
+                throw TelnyxInvalidDataException("Unknown PostalCode: $json")
+            }
+        }
+
+        internal class Deserializer : BaseDeserializer<PostalCode>(PostalCode::class) {
+
+            override fun ObjectCodec.deserialize(node: JsonNode): PostalCode {
+                val json = JsonValue.fromJsonNode(node)
+
+                val bestMatches =
+                    sequenceOf(
+                            tryDeserialize(node, jacksonTypeRef<String>())?.let {
+                                PostalCode(string = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<Boolean>())?.let {
+                                PostalCode(bool = it, _json = json)
+                            },
+                        )
+                        .filterNotNull()
+                        .allMaxBy { it.validity() }
+                        .toList()
+                return when (bestMatches.size) {
+                    // This can happen if what we're deserializing is completely incompatible with
+                    // all the possible variants (e.g. deserializing from integer).
+                    0 -> PostalCode(_json = json)
+                    1 -> bestMatches.single()
+                    // If there's more than one match with the highest validity, then use the first
+                    // completely valid match, or simply the first match if none are completely
+                    // valid.
+                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                }
+            }
+        }
+
+        internal class Serializer : BaseSerializer<PostalCode>(PostalCode::class) {
+
+            override fun serialize(
+                value: PostalCode,
+                generator: JsonGenerator,
+                provider: SerializerProvider,
+            ) {
+                when {
+                    value.string != null -> generator.writeObject(value.string)
+                    value.bool != null -> generator.writeObject(value.bool)
+                    value._json != null -> generator.writeObject(value._json)
+                    else -> throw IllegalStateException("Invalid PostalCode")
+                }
+            }
+        }
     }
 
     /** Custom text-to-speech prompts keyed by payment collection step. */

@@ -69,6 +69,15 @@ private constructor(
     fun a2aAgents(): Optional<List<AssistantA2AAgent>> = body.a2aAgents()
 
     /**
+     * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
+     * supports six avatars and office, studio, or reception backgrounds.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun avatarSettings(): Optional<AvatarSettingsRequest> = body.avatarSettings()
+
+    /**
      * Conversation flow as supplied by API clients (create / update).
      *
      * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
@@ -343,6 +352,13 @@ private constructor(
     fun _a2aAgents(): JsonField<List<AssistantA2AAgent>> = body._a2aAgents()
 
     /**
+     * Returns the raw JSON value of [avatarSettings].
+     *
+     * Unlike [avatarSettings], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _avatarSettings(): JsonField<AvatarSettingsRequest> = body._avatarSettings()
+
+    /**
      * Returns the raw JSON value of [conversationFlow].
      *
      * Unlike [conversationFlow], this method doesn't throw if the JSON field has an unexpected
@@ -607,8 +623,8 @@ private constructor(
          * - [instructions]
          * - [name]
          * - [a2aAgents]
+         * - [avatarSettings]
          * - [conversationFlow]
-         * - [delegationSettings]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -668,6 +684,29 @@ private constructor(
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addA2aAgent(a2aAgent: AssistantA2AAgent) = apply { body.addA2aAgent(a2aAgent) }
+
+        /**
+         * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
+         * supports six avatars and office, studio, or reception backgrounds.
+         */
+        fun avatarSettings(avatarSettings: AvatarSettingsRequest?) = apply {
+            body.avatarSettings(avatarSettings)
+        }
+
+        /** Alias for calling [Builder.avatarSettings] with `avatarSettings.orElse(null)`. */
+        fun avatarSettings(avatarSettings: Optional<AvatarSettingsRequest>) =
+            avatarSettings(avatarSettings.getOrNull())
+
+        /**
+         * Sets [Builder.avatarSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.avatarSettings] with a well-typed
+         * [AvatarSettingsRequest] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun avatarSettings(avatarSettings: JsonField<AvatarSettingsRequest>) = apply {
+            body.avatarSettings(avatarSettings)
+        }
 
         /**
          * Conversation flow as supplied by API clients (create / update).
@@ -1572,6 +1611,7 @@ private constructor(
         private val instructions: JsonField<String>,
         private val name: JsonField<String>,
         private val a2aAgents: JsonField<List<AssistantA2AAgent>>,
+        private val avatarSettings: JsonField<AvatarSettingsRequest>,
         private val conversationFlow: JsonField<ConversationFlowReq>,
         private val delegationSettings: JsonField<DelegationSettings>,
         private val description: JsonField<String>,
@@ -1612,6 +1652,9 @@ private constructor(
             @JsonProperty("a2a_agents")
             @ExcludeMissing
             a2aAgents: JsonField<List<AssistantA2AAgent>> = JsonMissing.of(),
+            @JsonProperty("avatar_settings")
+            @ExcludeMissing
+            avatarSettings: JsonField<AvatarSettingsRequest> = JsonMissing.of(),
             @JsonProperty("conversation_flow")
             @ExcludeMissing
             conversationFlow: JsonField<ConversationFlowReq> = JsonMissing.of(),
@@ -1697,6 +1740,7 @@ private constructor(
             instructions,
             name,
             a2aAgents,
+            avatarSettings,
             conversationFlow,
             delegationSettings,
             description,
@@ -1756,6 +1800,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun a2aAgents(): Optional<List<AssistantA2AAgent>> = a2aAgents.getOptional("a2a_agents")
+
+        /**
+         * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
+         * supports six avatars and office, studio, or reception backgrounds.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun avatarSettings(): Optional<AvatarSettingsRequest> =
+            avatarSettings.getOptional("avatar_settings")
 
         /**
          * Conversation flow as supplied by API clients (create / update).
@@ -2056,6 +2110,16 @@ private constructor(
         fun _a2aAgents(): JsonField<List<AssistantA2AAgent>> = a2aAgents
 
         /**
+         * Returns the raw JSON value of [avatarSettings].
+         *
+         * Unlike [avatarSettings], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("avatar_settings")
+        @ExcludeMissing
+        fun _avatarSettings(): JsonField<AvatarSettingsRequest> = avatarSettings
+
+        /**
          * Returns the raw JSON value of [conversationFlow].
          *
          * Unlike [conversationFlow], this method doesn't throw if the JSON field has an unexpected
@@ -2351,6 +2415,7 @@ private constructor(
             private var instructions: JsonField<String>? = null
             private var name: JsonField<String>? = null
             private var a2aAgents: JsonField<MutableList<AssistantA2AAgent>>? = null
+            private var avatarSettings: JsonField<AvatarSettingsRequest> = JsonMissing.of()
             private var conversationFlow: JsonField<ConversationFlowReq> = JsonMissing.of()
             private var delegationSettings: JsonField<DelegationSettings> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
@@ -2388,6 +2453,7 @@ private constructor(
                 instructions = body.instructions
                 name = body.name
                 a2aAgents = body.a2aAgents.map { it.toMutableList() }
+                avatarSettings = body.avatarSettings
                 conversationFlow = body.conversationFlow
                 delegationSettings = body.delegationSettings
                 description = body.description
@@ -2480,6 +2546,28 @@ private constructor(
                     (a2aAgents ?: JsonField.of(mutableListOf())).also {
                         checkKnown("a2aAgents", it).add(a2aAgent)
                     }
+            }
+
+            /**
+             * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
+             * catalog supports six avatars and office, studio, or reception backgrounds.
+             */
+            fun avatarSettings(avatarSettings: AvatarSettingsRequest?) =
+                avatarSettings(JsonField.ofNullable(avatarSettings))
+
+            /** Alias for calling [Builder.avatarSettings] with `avatarSettings.orElse(null)`. */
+            fun avatarSettings(avatarSettings: Optional<AvatarSettingsRequest>) =
+                avatarSettings(avatarSettings.getOrNull())
+
+            /**
+             * Sets [Builder.avatarSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.avatarSettings] with a well-typed
+             * [AvatarSettingsRequest] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun avatarSettings(avatarSettings: JsonField<AvatarSettingsRequest>) = apply {
+                this.avatarSettings = avatarSettings
             }
 
             /**
@@ -3298,6 +3386,7 @@ private constructor(
                     checkRequired("instructions", instructions),
                     checkRequired("name", name),
                     (a2aAgents ?: JsonMissing.of()).map { it.toImmutable() },
+                    avatarSettings,
                     conversationFlow,
                     delegationSettings,
                     description,
@@ -3349,6 +3438,7 @@ private constructor(
             instructions()
             name()
             a2aAgents().ifPresent { it.forEach { it.validate() } }
+            avatarSettings().ifPresent { it.validate() }
             conversationFlow().ifPresent { it.validate() }
             delegationSettings().ifPresent { it.validate() }
             description()
@@ -3399,6 +3489,7 @@ private constructor(
             (if (instructions.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (a2aAgents.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (avatarSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (conversationFlow.asKnown().getOrNull()?.validity() ?: 0) +
                 (delegationSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (description.asKnown().isPresent) 1 else 0) +
@@ -3437,6 +3528,7 @@ private constructor(
                 instructions == other.instructions &&
                 name == other.name &&
                 a2aAgents == other.a2aAgents &&
+                avatarSettings == other.avatarSettings &&
                 conversationFlow == other.conversationFlow &&
                 delegationSettings == other.delegationSettings &&
                 description == other.description &&
@@ -3473,6 +3565,7 @@ private constructor(
                 instructions,
                 name,
                 a2aAgents,
+                avatarSettings,
                 conversationFlow,
                 delegationSettings,
                 description,
@@ -3508,7 +3601,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{instructions=$instructions, name=$name, a2aAgents=$a2aAgents, conversationFlow=$conversationFlow, delegationSettings=$delegationSettings, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, websocketSettings=$websocketSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+            "Body{instructions=$instructions, name=$name, a2aAgents=$a2aAgents, avatarSettings=$avatarSettings, conversationFlow=$conversationFlow, delegationSettings=$delegationSettings, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, websocketSettings=$websocketSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
     }
 
     /** Map of dynamic variables and their default values */

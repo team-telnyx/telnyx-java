@@ -1,0 +1,85 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.services.blocking
+
+import com.google.errorprone.annotations.MustBeClosed
+import com.telnyx.sdk.core.ClientOptions
+import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.sipregistrationstatus.SipRegistrationStatusListParams
+import com.telnyx.sdk.models.sipregistrationstatus.SipRegistrationStatusListResponse
+import java.util.function.Consumer
+
+/** UAC connection operations */
+interface SipRegistrationStatusService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): SipRegistrationStatusService
+
+    /**
+     * Returns the live SIP registration status for a Telnyx endpoint: whether it is currently
+     * registered, when the current registration expires, and the last response Telnyx received from
+     * the registrar.
+     *
+     * The endpoint supports three credential types, selected with the `credential_type` query
+     * parameter. Each type is keyed by a different identifier:
+     *
+     * |`credential_type`          |Keyed by       |Use case                                                                  |
+     * |---------------------------|---------------|--------------------------------------------------------------------------|
+     * |`uac_external_credential`  |`connection_id`|A UAC (SIP attach) connection that registers to an external PBX.          |
+     * |`telephony_credential`     |`username`     |An ephemeral, one-time-use telephony credential.                          |
+     * |`sip_credential_connection`|`username`     |A traditional SIP credential connection that registers directly to Telnyx.|
+     *
+     * The authenticated account is taken from your API key; you can only read the registration
+     * status of connections and credentials your account owns.
+     */
+    fun list(params: SipRegistrationStatusListParams): SipRegistrationStatusListResponse =
+        list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(
+        params: SipRegistrationStatusListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SipRegistrationStatusListResponse
+
+    /**
+     * A view of [SipRegistrationStatusService] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SipRegistrationStatusService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /sip_registration_status`, but is otherwise the same
+         * as [SipRegistrationStatusService.list].
+         */
+        @MustBeClosed
+        fun list(
+            params: SipRegistrationStatusListParams
+        ): HttpResponseFor<SipRegistrationStatusListResponse> = list(params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: SipRegistrationStatusListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SipRegistrationStatusListResponse>
+    }
+}

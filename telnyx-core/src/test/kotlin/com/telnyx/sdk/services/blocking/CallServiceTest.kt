@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.calls.StreamBidirectionalSamplingRate
 import com.telnyx.sdk.models.calls.StreamBidirectionalTargetLegs
 import com.telnyx.sdk.models.calls.StreamCodec
 import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
+import com.telnyx.sdk.models.calls.actions.ConversationRelayTranscriptionEngineConfig
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
@@ -66,6 +67,7 @@ internal class CallServiceTest {
                             .initialSilenceMillis(1000)
                             .maximumNumberOfWords(1000)
                             .maximumWordLengthMillis(2000)
+                            .promptEndTimeoutMillis(5000)
                             .silenceThreshold(512)
                             .totalAnalysisTimeMillis(5000)
                             .build()
@@ -232,12 +234,10 @@ internal class CallServiceTest {
                                         ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                                     )
                                     .transcriptionEngineConfig(
-                                        ConversationRelayLanguage.TranscriptionEngineConfig
-                                            .builder()
-                                            .putAdditionalProperty(
-                                                "transcription_model",
-                                                JsonValue.from("bar"),
-                                            )
+                                        ConversationRelayTranscriptionEngineConfig.builder()
+                                            .eagerEotThreshold(0.5)
+                                            .eotThreshold(0.5)
+                                            .interimResults(true)
                                             .build()
                                     )
                                     .transcriptionProvider("Deepgram")
@@ -262,16 +262,10 @@ internal class CallServiceTest {
                                 ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE
                             )
                             .transcriptionEngineConfig(
-                                ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
-                                    .putAdditionalProperty(
-                                        "transcription_model",
-                                        JsonValue.from("bar"),
-                                    )
-                                    .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                                    .putAdditionalProperty(
-                                        "keywords_boosting",
-                                        JsonValue.from("bar"),
-                                    )
+                                ConversationRelayTranscriptionEngineConfig.builder()
+                                    .eagerEotThreshold(0.5)
+                                    .eotThreshold(0.5)
+                                    .interimResults(true)
                                     .build()
                             )
                             .ttsProvider("telnyx")

@@ -46,6 +46,13 @@ internal class AssistantsListTest {
                                 .timeoutMs(30000L)
                                 .build()
                         )
+                        .avatarSettings(
+                            TelnyxAvatarSettings.builder()
+                                .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                                .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
+                                .model(TelnyxAvatarSettings.Model.FOXTROT_1)
+                                .build()
+                        )
                         .conversationFlow(
                             ConversationFlow.builder()
                                 .addNode(
@@ -244,6 +251,27 @@ internal class AssistantsListTest {
                                                 .speed(0.0)
                                                 .style(0.0)
                                                 .temperature(0.0)
+                                                .toolCallAudio(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .builder()
+                                                        .type(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Type
+                                                                .PREDEFINED_MEDIA
+                                                        )
+                                                        .value(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Value_
+                                                                .TYPING
+                                                        )
+                                                        .volume(0.5)
+                                                        .build()
+                                                )
                                                 .useSpeakerBoost(true)
                                                 .voiceSpeed(0.0)
                                                 .build()
@@ -446,6 +474,27 @@ internal class AssistantsListTest {
                                                 .speed(0.0)
                                                 .style(0.0)
                                                 .temperature(0.0)
+                                                .toolCallAudio(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .builder()
+                                                        .type(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Type
+                                                                .PREDEFINED_MEDIA
+                                                        )
+                                                        .value(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Value_
+                                                                .TYPING
+                                                        )
+                                                        .volume(0.5)
+                                                        .build()
+                                                )
                                                 .useSpeakerBoost(true)
                                                 .voiceSpeed(0.0)
                                                 .build()
@@ -833,6 +882,24 @@ internal class AssistantsListTest {
                                 .speed(0.0)
                                 .style(0.0)
                                 .temperature(0.0)
+                                .toolCallAudio(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .builder()
+                                        .type(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Type
+                                                .PREDEFINED_MEDIA
+                                        )
+                                        .value(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Value_
+                                                .TYPING
+                                        )
+                                        .volume(0.5)
+                                        .build()
+                                )
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
                                 .build()
@@ -897,6 +964,13 @@ internal class AssistantsListTest {
                             )
                             .pollIntervalMs(500L)
                             .timeoutMs(30000L)
+                            .build()
+                    )
+                    .avatarSettings(
+                        TelnyxAvatarSettings.builder()
+                            .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                            .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
+                            .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                             .build()
                     )
                     .conversationFlow(
@@ -1094,6 +1168,27 @@ internal class AssistantsListTest {
                                             .speed(0.0)
                                             .style(0.0)
                                             .temperature(0.0)
+                                            .toolCallAudio(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .builder()
+                                                    .type(
+                                                        InferenceEmbeddingVoiceSettings
+                                                            .ToolCallAudio
+                                                            .UnionMember0
+                                                            .Type
+                                                            .PREDEFINED_MEDIA
+                                                    )
+                                                    .value(
+                                                        InferenceEmbeddingVoiceSettings
+                                                            .ToolCallAudio
+                                                            .UnionMember0
+                                                            .Value_
+                                                            .TYPING
+                                                    )
+                                                    .volume(0.5)
+                                                    .build()
+                                            )
                                             .useSpeakerBoost(true)
                                             .voiceSpeed(0.0)
                                             .build()
@@ -1293,6 +1388,27 @@ internal class AssistantsListTest {
                                             .speed(0.0)
                                             .style(0.0)
                                             .temperature(0.0)
+                                            .toolCallAudio(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .builder()
+                                                    .type(
+                                                        InferenceEmbeddingVoiceSettings
+                                                            .ToolCallAudio
+                                                            .UnionMember0
+                                                            .Type
+                                                            .PREDEFINED_MEDIA
+                                                    )
+                                                    .value(
+                                                        InferenceEmbeddingVoiceSettings
+                                                            .ToolCallAudio
+                                                            .UnionMember0
+                                                            .Value_
+                                                            .TYPING
+                                                    )
+                                                    .volume(0.5)
+                                                    .build()
+                                            )
                                             .useSpeakerBoost(true)
                                             .voiceSpeed(0.0)
                                             .build()
@@ -1662,6 +1778,21 @@ internal class AssistantsListTest {
                             .speed(0.0)
                             .style(0.0)
                             .temperature(0.0)
+                            .toolCallAudio(
+                                InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.builder()
+                                    .type(
+                                        InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                            .Type
+                                            .PREDEFINED_MEDIA
+                                    )
+                                    .value(
+                                        InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                            .Value_
+                                            .TYPING
+                                    )
+                                    .volume(0.5)
+                                    .build()
+                            )
                             .useSpeakerBoost(true)
                             .voiceSpeed(0.0)
                             .build()
@@ -1730,6 +1861,13 @@ internal class AssistantsListTest {
                                 )
                                 .pollIntervalMs(500L)
                                 .timeoutMs(30000L)
+                                .build()
+                        )
+                        .avatarSettings(
+                            TelnyxAvatarSettings.builder()
+                                .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                                .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
+                                .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                                 .build()
                         )
                         .conversationFlow(
@@ -1930,6 +2068,27 @@ internal class AssistantsListTest {
                                                 .speed(0.0)
                                                 .style(0.0)
                                                 .temperature(0.0)
+                                                .toolCallAudio(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .builder()
+                                                        .type(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Type
+                                                                .PREDEFINED_MEDIA
+                                                        )
+                                                        .value(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Value_
+                                                                .TYPING
+                                                        )
+                                                        .volume(0.5)
+                                                        .build()
+                                                )
                                                 .useSpeakerBoost(true)
                                                 .voiceSpeed(0.0)
                                                 .build()
@@ -2132,6 +2291,27 @@ internal class AssistantsListTest {
                                                 .speed(0.0)
                                                 .style(0.0)
                                                 .temperature(0.0)
+                                                .toolCallAudio(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .builder()
+                                                        .type(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Type
+                                                                .PREDEFINED_MEDIA
+                                                        )
+                                                        .value(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Value_
+                                                                .TYPING
+                                                        )
+                                                        .volume(0.5)
+                                                        .build()
+                                                )
                                                 .useSpeakerBoost(true)
                                                 .voiceSpeed(0.0)
                                                 .build()
@@ -2519,6 +2699,24 @@ internal class AssistantsListTest {
                                 .speed(0.0)
                                 .style(0.0)
                                 .temperature(0.0)
+                                .toolCallAudio(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .builder()
+                                        .type(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Type
+                                                .PREDEFINED_MEDIA
+                                        )
+                                        .value(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Value_
+                                                .TYPING
+                                        )
+                                        .volume(0.5)
+                                        .build()
+                                )
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
                                 .build()

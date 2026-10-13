@@ -36,6 +36,7 @@ import com.telnyx.sdk.models.ai.assistants.PostConversationSettings
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
 import com.telnyx.sdk.models.ai.assistants.RetrievalTool
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
+import com.telnyx.sdk.models.ai.assistants.TelnyxAvatarSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.WebsocketSettings
 import com.telnyx.sdk.models.ai.assistants.WidgetSettings
@@ -62,6 +63,7 @@ private constructor(
     private val model: JsonField<String>,
     private val name: JsonField<String>,
     private val a2aAgents: JsonField<List<AssistantA2AAgent>>,
+    private val avatarSettings: JsonField<TelnyxAvatarSettings>,
     private val conversationFlow: JsonField<ConversationFlow>,
     private val delegationSettings: JsonField<DelegationSettings>,
     private val description: JsonField<String>,
@@ -112,6 +114,9 @@ private constructor(
         @JsonProperty("a2a_agents")
         @ExcludeMissing
         a2aAgents: JsonField<List<AssistantA2AAgent>> = JsonMissing.of(),
+        @JsonProperty("avatar_settings")
+        @ExcludeMissing
+        avatarSettings: JsonField<TelnyxAvatarSettings> = JsonMissing.of(),
         @JsonProperty("conversation_flow")
         @ExcludeMissing
         conversationFlow: JsonField<ConversationFlow> = JsonMissing.of(),
@@ -212,6 +217,7 @@ private constructor(
         model,
         name,
         a2aAgents,
+        avatarSettings,
         conversationFlow,
         delegationSettings,
         description,
@@ -256,6 +262,7 @@ private constructor(
             .model(model)
             .name(name)
             .a2aAgents(a2aAgents)
+            .avatarSettings(avatarSettings)
             .conversationFlow(conversationFlow)
             .delegationSettings(delegationSettings)
             .description(description)
@@ -341,6 +348,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun a2aAgents(): Optional<List<AssistantA2AAgent>> = a2aAgents.getOptional("a2a_agents")
+
+    /**
+     * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
+     * supports six avatars and office, studio, or reception backgrounds.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun avatarSettings(): Optional<TelnyxAvatarSettings> =
+        avatarSettings.getOptional("avatar_settings")
 
     /**
      * Conversation flow as returned by the API.
@@ -695,6 +712,15 @@ private constructor(
     fun _a2aAgents(): JsonField<List<AssistantA2AAgent>> = a2aAgents
 
     /**
+     * Returns the raw JSON value of [avatarSettings].
+     *
+     * Unlike [avatarSettings], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("avatar_settings")
+    @ExcludeMissing
+    fun _avatarSettings(): JsonField<TelnyxAvatarSettings> = avatarSettings
+
+    /**
      * Returns the raw JSON value of [conversationFlow].
      *
      * Unlike [conversationFlow], this method doesn't throw if the JSON field has an unexpected
@@ -1036,6 +1062,7 @@ private constructor(
         private var model: JsonField<String>? = null
         private var name: JsonField<String>? = null
         private var a2aAgents: JsonField<MutableList<AssistantA2AAgent>>? = null
+        private var avatarSettings: JsonField<TelnyxAvatarSettings> = JsonMissing.of()
         private var conversationFlow: JsonField<ConversationFlow> = JsonMissing.of()
         private var delegationSettings: JsonField<DelegationSettings> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
@@ -1081,6 +1108,7 @@ private constructor(
             model = deletedAssistant.model
             name = deletedAssistant.name
             a2aAgents = deletedAssistant.a2aAgents.map { it.toMutableList() }
+            avatarSettings = deletedAssistant.avatarSettings
             conversationFlow = deletedAssistant.conversationFlow
             delegationSettings = deletedAssistant.delegationSettings
             description = deletedAssistant.description
@@ -1214,6 +1242,28 @@ private constructor(
                 (a2aAgents ?: JsonField.of(mutableListOf())).also {
                     checkKnown("a2aAgents", it).add(a2aAgent)
                 }
+        }
+
+        /**
+         * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
+         * supports six avatars and office, studio, or reception backgrounds.
+         */
+        fun avatarSettings(avatarSettings: TelnyxAvatarSettings?) =
+            avatarSettings(JsonField.ofNullable(avatarSettings))
+
+        /** Alias for calling [Builder.avatarSettings] with `avatarSettings.orElse(null)`. */
+        fun avatarSettings(avatarSettings: Optional<TelnyxAvatarSettings>) =
+            avatarSettings(avatarSettings.getOrNull())
+
+        /**
+         * Sets [Builder.avatarSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.avatarSettings] with a well-typed [TelnyxAvatarSettings]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun avatarSettings(avatarSettings: JsonField<TelnyxAvatarSettings>) = apply {
+            this.avatarSettings = avatarSettings
         }
 
         /** Conversation flow as returned by the API. */
@@ -2085,6 +2135,7 @@ private constructor(
                 checkRequired("model", model),
                 checkRequired("name", name),
                 (a2aAgents ?: JsonMissing.of()).map { it.toImmutable() },
+                avatarSettings,
                 conversationFlow,
                 delegationSettings,
                 description,
@@ -2143,6 +2194,7 @@ private constructor(
         model()
         name()
         a2aAgents().ifPresent { it.forEach { it.validate() } }
+        avatarSettings().ifPresent { it.validate() }
         conversationFlow().ifPresent { it.validate() }
         delegationSettings().ifPresent { it.validate() }
         description()
@@ -2200,6 +2252,7 @@ private constructor(
             (if (model.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (a2aAgents.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (avatarSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (conversationFlow.asKnown().getOrNull()?.validity() ?: 0) +
             (delegationSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
@@ -2246,6 +2299,7 @@ private constructor(
             model == other.model &&
             name == other.name &&
             a2aAgents == other.a2aAgents &&
+            avatarSettings == other.avatarSettings &&
             conversationFlow == other.conversationFlow &&
             delegationSettings == other.delegationSettings &&
             description == other.description &&
@@ -2290,6 +2344,7 @@ private constructor(
             model,
             name,
             a2aAgents,
+            avatarSettings,
             conversationFlow,
             delegationSettings,
             description,
@@ -2330,5 +2385,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DeletedAssistant{id=$id, createdAt=$createdAt, instructions=$instructions, model=$model, name=$name, a2aAgents=$a2aAgents, conversationFlow=$conversationFlow, delegationSettings=$delegationSettings, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, importMetadata=$importMetadata, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, relatedMissionIds=$relatedMissionIds, tags=$tags, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, versionCreatedAt=$versionCreatedAt, versionId=$versionId, versionName=$versionName, voiceSettings=$voiceSettings, websocketSettings=$websocketSettings, widgetSettings=$widgetSettings, deletedAt=$deletedAt, permanentlyDeletedAt=$permanentlyDeletedAt, additionalProperties=$additionalProperties}"
+        "DeletedAssistant{id=$id, createdAt=$createdAt, instructions=$instructions, model=$model, name=$name, a2aAgents=$a2aAgents, avatarSettings=$avatarSettings, conversationFlow=$conversationFlow, delegationSettings=$delegationSettings, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, importMetadata=$importMetadata, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, relatedMissionIds=$relatedMissionIds, tags=$tags, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, versionCreatedAt=$versionCreatedAt, versionId=$versionId, versionName=$versionName, voiceSettings=$voiceSettings, websocketSettings=$websocketSettings, widgetSettings=$widgetSettings, deletedAt=$deletedAt, permanentlyDeletedAt=$permanentlyDeletedAt, additionalProperties=$additionalProperties}"
 }

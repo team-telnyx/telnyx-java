@@ -7,37 +7,45 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
 import java.time.LocalDate
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
- * Return complete usage totals, UTC daily and model breakdowns, and guardrail event counts for one
- * token group owned by the authenticated account. Requires the llm_token_gateway.usage.read
- * permission; spend and guardrail read permissions do not grant this combined report. All sections
- * share one database snapshot and include the latest usage corrections. Dates use an inclusive
- * start and exclusive end spanning 1 to 31 days. Only token_group_id, start_date and end_date are
- * accepted; pagination, group_by and other filters are rejected. Spend is reference/enforcement
- * USD, not invoice truth or BYOK provider charges. Unknown cost is excluded from spend and reported
- * through unknown_requests and reserved_spend. Daily rows include zero-activity days. Model rows
- * are ordered by request count descending, then model name, and are limited to 1,000. Guardrail
- * counts count events, not distinct requests; recent_events contains at most 20 newest events. A
- * report that exceeds model or query limits returns 503 rather than a truncated success.
+ * Gateway reference/enforcement usage, not invoice truth or BYOK provider charges. Requires the
+ * dedicated llm_token_gateway.usage.read V2 action for combined spend and guardrail reporting;
+ * existing spend.read and guardrail_events.read grants do not grant this endpoint. All totals, UTC
+ * daily buckets, models and latest 20 guardrail events share one database snapshot. UTC half-open
+ * dates, at most 31 days. Zero-filled days; at most 1000 models (503 rather than truncation on
+ * overflow/timeout). Known tokens sum independently known categories across latest attempt
+ * evidence, including corrections; unknown spend is excluded and unknown_requests/reserved_spend
+ * remain explicit. Guardrail counts count events, not distinct requests. No raw spend events,
+ * prompts or secrets. This read-only report creates no pagination snapshot and accepts no
+ * pagination parameters.
  */
 class UsageRetrieveSummaryParams
 private constructor(
     private val endDate: LocalDate,
     private val startDate: LocalDate,
     private val tokenGroupId: String,
+    private val metadata: Metadata?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Exclusive UTC date in YYYY-MM-DD format. Must follow start_date by 1 to 31 days. */
     fun endDate(): LocalDate = endDate
 
-    /** Inclusive UTC date in YYYY-MM-DD format. Must precede end_date by 1 to 31 days. */
     fun startDate(): LocalDate = startDate
 
-    /** ID of a token group owned by the authenticated account. */
     fun tokenGroupId(): String = tokenGroupId
+
+    /**
+     * Request tag filters as metadata[<key>]=<value>, at most 5, combined with AND. A value matches
+     * the tag's text form exactly (booleans as true/false, integers in decimal), so
+     * metadata[flag]=true matches both boolean true and the string "true". Keys are case-sensitive;
+     * reserved-prefix keys are rejected. Unindexed: bounded by the account, the date range and the
+     * report timeout.
+     */
+    fun metadata(): Optional<Metadata> = Optional.ofNullable(metadata)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
@@ -68,6 +76,7 @@ private constructor(
         private var endDate: LocalDate? = null
         private var startDate: LocalDate? = null
         private var tokenGroupId: String? = null
+        private var metadata: Metadata? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -77,18 +86,28 @@ private constructor(
             endDate = usageRetrieveSummaryParams.endDate
             startDate = usageRetrieveSummaryParams.startDate
             tokenGroupId = usageRetrieveSummaryParams.tokenGroupId
+            metadata = usageRetrieveSummaryParams.metadata
             additionalHeaders = usageRetrieveSummaryParams.additionalHeaders.toBuilder()
             additionalQueryParams = usageRetrieveSummaryParams.additionalQueryParams.toBuilder()
         }
 
-        /** Exclusive UTC date in YYYY-MM-DD format. Must follow start_date by 1 to 31 days. */
         fun endDate(endDate: LocalDate) = apply { this.endDate = endDate }
 
-        /** Inclusive UTC date in YYYY-MM-DD format. Must precede end_date by 1 to 31 days. */
         fun startDate(startDate: LocalDate) = apply { this.startDate = startDate }
 
-        /** ID of a token group owned by the authenticated account. */
         fun tokenGroupId(tokenGroupId: String) = apply { this.tokenGroupId = tokenGroupId }
+
+        /**
+         * Request tag filters as metadata[<key>]=<value>, at most 5, combined with AND. A value
+         * matches the tag's text form exactly (booleans as true/false, integers in decimal), so
+         * metadata[flag]=true matches both boolean true and the string "true". Keys are
+         * case-sensitive; reserved-prefix keys are rejected. Unindexed: bounded by the account, the
+         * date range and the report timeout.
+         */
+        fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
+
+        /** Alias for calling [Builder.metadata] with `metadata.orElse(null)`. */
+        fun metadata(metadata: Optional<Metadata>) = metadata(metadata.getOrNull())
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
@@ -208,6 +227,7 @@ private constructor(
                 checkRequired("endDate", endDate),
                 checkRequired("startDate", startDate),
                 checkRequired("tokenGroupId", tokenGroupId),
+                metadata,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -221,9 +241,118 @@ private constructor(
                 put("end_date", endDate.toString())
                 put("start_date", startDate.toString())
                 put("token_group_id", tokenGroupId)
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
                 putAll(additionalQueryParams)
             }
             .build()
+
+    /**
+     * Request tag filters as metadata[<key>]=<value>, at most 5, combined with AND. A value matches
+     * the tag's text form exactly (booleans as true/false, integers in decimal), so
+     * metadata[flag]=true matches both boolean true and the string "true". Keys are case-sensitive;
+     * reserved-prefix keys are rejected. Unindexed: bounded by the account, the date range and the
+     * report timeout.
+     */
+    class Metadata private constructor(private val additionalProperties: QueryParams) {
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties = metadata.additionalProperties.toBuilder()
+            }
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Metadata = Metadata(additionalProperties.build())
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -234,13 +363,21 @@ private constructor(
             endDate == other.endDate &&
             startDate == other.startDate &&
             tokenGroupId == other.tokenGroupId &&
+            metadata == other.metadata &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(endDate, startDate, tokenGroupId, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            endDate,
+            startDate,
+            tokenGroupId,
+            metadata,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "UsageRetrieveSummaryParams{endDate=$endDate, startDate=$startDate, tokenGroupId=$tokenGroupId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "UsageRetrieveSummaryParams{endDate=$endDate, startDate=$startDate, tokenGroupId=$tokenGroupId, metadata=$metadata, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

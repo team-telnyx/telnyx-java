@@ -85,6 +85,7 @@ internal class ConversationServiceAsyncTest {
                     .lastMessageAt("last_message_at")
                     .limit(1L)
                     .metadataAssistantId("metadata->assistant_id")
+                    .metadataAssistantVersionId("metadata->assistant_version_id")
                     .metadataCallControlId("metadata->call_control_id")
                     .metadataTelnyxAgentTarget("metadata->telnyx_agent_target")
                     .metadataTelnyxConversationChannel("metadata->telnyx_conversation_channel")

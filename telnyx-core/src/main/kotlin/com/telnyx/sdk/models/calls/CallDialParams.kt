@@ -38,9 +38,15 @@ import kotlin.jvm.optionals.getOrNull
  * Dial a number or SIP URI from a given connection. A successful response will include a
  * `call_leg_id` which can be used to correlate the command with subsequent webhooks.
  *
+ * To place the call with an AI assistant from the start, include `assistant.id` and any per-call
+ * overrides in the `assistant` object; Telnyx attempts to warm up the assistant before placing the
+ * call and starts it automatically when the called party answers.
+ *
  * **Expected Webhooks:**
  * - `call.initiated`
  * - `call.answered` or `call.hangup`
+ * - `call.conversation.created` when the requested assistant conversation is created, or
+ *   `call.conversation.start_failed` when it could not be started after the called party answered
  * - `call.hold` and `call.unhold` if the call is held/unheld
  * - `call.machine.detection.ended` if `answering_machine_detection` was requested
  * - `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end
@@ -48,6 +54,9 @@ import kotlin.jvm.optionals.getOrNull
  * - `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested
  * - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested
  *   and a beep was detected
+ * - `call.machine.premium.call_screening.detected` if
+ *   `answering_machine_detection=premium_ios_call_screening_detection` was requested and an Apple
+ *   Call Screening tone was detected
  * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
  * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an error occurred
  * - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
@@ -110,7 +119,14 @@ private constructor(
      * result. If `greeting_end` or `detect_words` is used and a `machine` is detected, you will
      * receive another `call.machine.greeting.ended` webhook when the answering machine greeting
      * ends with a beep or silence. If `detect_beep` is used, you will only receive
-     * `call.machine.greeting.ended` if a beep is detected.
+     * `call.machine.greeting.ended` if a beep is detected. If `answering_machine_detection` is set
+     * to `premium_ios_call_screening_detection`, Premium AMD runs with iOS Call Screening support:
+     * after an initial `machine` result, Telnyx listens for the iOS call-screening prompt to end or
+     * for an Apple Call Screening tone, sends `call.machine.premium.greeting.ended` with
+     * `result=prompt_ended` or `call.machine.premium.call_screening.detected` with
+     * `result=screening` respectively. When the Apple Call Screening tone is detected, Premium AMD
+     * is restarted on the screened call and a `call.machine.premium.detection.ended` webhook with
+     * the post-screening classification follows.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -121,7 +137,8 @@ private constructor(
     /**
      * Optional configuration parameters to modify 'answering_machine_detection' performance. Only
      * `total_analysis_time_millis` and `greeting_duration_millis` parameters are applicable when
-     * `premium` is selected as answering_machine_detection.
+     * `premium` is selected as answering_machine_detection. `prompt_end_timeout_millis` is
+     * additionally applicable when `premium_ios_call_screening_detection` is selected.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1303,7 +1320,15 @@ private constructor(
          * analysis result. If `greeting_end` or `detect_words` is used and a `machine` is detected,
          * you will receive another `call.machine.greeting.ended` webhook when the answering machine
          * greeting ends with a beep or silence. If `detect_beep` is used, you will only receive
-         * `call.machine.greeting.ended` if a beep is detected.
+         * `call.machine.greeting.ended` if a beep is detected. If `answering_machine_detection` is
+         * set to `premium_ios_call_screening_detection`, Premium AMD runs with iOS Call Screening
+         * support: after an initial `machine` result, Telnyx listens for the iOS call-screening
+         * prompt to end or for an Apple Call Screening tone, sends
+         * `call.machine.premium.greeting.ended` with `result=prompt_ended` or
+         * `call.machine.premium.call_screening.detected` with `result=screening` respectively. When
+         * the Apple Call Screening tone is detected, Premium AMD is restarted on the screened call
+         * and a `call.machine.premium.detection.ended` webhook with the post-screening
+         * classification follows.
          */
         fun answeringMachineDetection(answeringMachineDetection: AnsweringMachineDetection) =
             apply {
@@ -1325,6 +1350,8 @@ private constructor(
          * Optional configuration parameters to modify 'answering_machine_detection' performance.
          * Only `total_analysis_time_millis` and `greeting_duration_millis` parameters are
          * applicable when `premium` is selected as answering_machine_detection.
+         * `prompt_end_timeout_millis` is additionally applicable when
+         * `premium_ios_call_screening_detection` is selected.
          */
         fun answeringMachineDetectionConfig(
             answeringMachineDetectionConfig: AnsweringMachineDetectionConfig
@@ -2906,7 +2933,15 @@ private constructor(
          * analysis result. If `greeting_end` or `detect_words` is used and a `machine` is detected,
          * you will receive another `call.machine.greeting.ended` webhook when the answering machine
          * greeting ends with a beep or silence. If `detect_beep` is used, you will only receive
-         * `call.machine.greeting.ended` if a beep is detected.
+         * `call.machine.greeting.ended` if a beep is detected. If `answering_machine_detection` is
+         * set to `premium_ios_call_screening_detection`, Premium AMD runs with iOS Call Screening
+         * support: after an initial `machine` result, Telnyx listens for the iOS call-screening
+         * prompt to end or for an Apple Call Screening tone, sends
+         * `call.machine.premium.greeting.ended` with `result=prompt_ended` or
+         * `call.machine.premium.call_screening.detected` with `result=screening` respectively. When
+         * the Apple Call Screening tone is detected, Premium AMD is restarted on the screened call
+         * and a `call.machine.premium.detection.ended` webhook with the post-screening
+         * classification follows.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2918,6 +2953,8 @@ private constructor(
          * Optional configuration parameters to modify 'answering_machine_detection' performance.
          * Only `total_analysis_time_millis` and `greeting_duration_millis` parameters are
          * applicable when `premium` is selected as answering_machine_detection.
+         * `prompt_end_timeout_millis` is additionally applicable when
+         * `premium_ios_call_screening_detection` is selected.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -4375,7 +4412,16 @@ private constructor(
              * webhook with the analysis result. If `greeting_end` or `detect_words` is used and a
              * `machine` is detected, you will receive another `call.machine.greeting.ended` webhook
              * when the answering machine greeting ends with a beep or silence. If `detect_beep` is
-             * used, you will only receive `call.machine.greeting.ended` if a beep is detected.
+             * used, you will only receive `call.machine.greeting.ended` if a beep is detected. If
+             * `answering_machine_detection` is set to `premium_ios_call_screening_detection`,
+             * Premium AMD runs with iOS Call Screening support: after an initial `machine` result,
+             * Telnyx listens for the iOS call-screening prompt to end or for an Apple Call
+             * Screening tone, sends `call.machine.premium.greeting.ended` with
+             * `result=prompt_ended` or `call.machine.premium.call_screening.detected` with
+             * `result=screening` respectively. When the Apple Call Screening tone is detected,
+             * Premium AMD is restarted on the screened call and a
+             * `call.machine.premium.detection.ended` webhook with the post-screening classification
+             * follows.
              */
             fun answeringMachineDetection(answeringMachineDetection: AnsweringMachineDetection) =
                 answeringMachineDetection(JsonField.of(answeringMachineDetection))
@@ -4395,6 +4441,8 @@ private constructor(
              * Optional configuration parameters to modify 'answering_machine_detection'
              * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
              * parameters are applicable when `premium` is selected as answering_machine_detection.
+             * `prompt_end_timeout_millis` is additionally applicable when
+             * `premium_ios_call_screening_detection` is selected.
              */
             fun answeringMachineDetectionConfig(
                 answeringMachineDetectionConfig: AnsweringMachineDetectionConfig
@@ -6103,7 +6151,14 @@ private constructor(
      * result. If `greeting_end` or `detect_words` is used and a `machine` is detected, you will
      * receive another `call.machine.greeting.ended` webhook when the answering machine greeting
      * ends with a beep or silence. If `detect_beep` is used, you will only receive
-     * `call.machine.greeting.ended` if a beep is detected.
+     * `call.machine.greeting.ended` if a beep is detected. If `answering_machine_detection` is set
+     * to `premium_ios_call_screening_detection`, Premium AMD runs with iOS Call Screening support:
+     * after an initial `machine` result, Telnyx listens for the iOS call-screening prompt to end or
+     * for an Apple Call Screening tone, sends `call.machine.premium.greeting.ended` with
+     * `result=prompt_ended` or `call.machine.premium.call_screening.detected` with
+     * `result=screening` respectively. When the Apple Call Screening tone is detected, Premium AMD
+     * is restarted on the screened call and a `call.machine.premium.detection.ended` webhook with
+     * the post-screening classification follows.
      */
     class AnsweringMachineDetection
     @JsonCreator
@@ -6123,6 +6178,9 @@ private constructor(
 
             @JvmField val PREMIUM = of("premium")
 
+            @JvmField
+            val PREMIUM_IOS_CALL_SCREENING_DETECTION = of("premium_ios_call_screening_detection")
+
             @JvmField val DETECT = of("detect")
 
             @JvmField val DETECT_BEEP = of("detect_beep")
@@ -6139,6 +6197,7 @@ private constructor(
         /** An enum containing [AnsweringMachineDetection]'s known values. */
         enum class Known {
             PREMIUM,
+            PREMIUM_IOS_CALL_SCREENING_DETECTION,
             DETECT,
             DETECT_BEEP,
             DETECT_WORDS,
@@ -6159,6 +6218,7 @@ private constructor(
          */
         enum class Value {
             PREMIUM,
+            PREMIUM_IOS_CALL_SCREENING_DETECTION,
             DETECT,
             DETECT_BEEP,
             DETECT_WORDS,
@@ -6181,6 +6241,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 PREMIUM -> Value.PREMIUM
+                PREMIUM_IOS_CALL_SCREENING_DETECTION -> Value.PREMIUM_IOS_CALL_SCREENING_DETECTION
                 DETECT -> Value.DETECT
                 DETECT_BEEP -> Value.DETECT_BEEP
                 DETECT_WORDS -> Value.DETECT_WORDS
@@ -6201,6 +6262,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 PREMIUM -> Known.PREMIUM
+                PREMIUM_IOS_CALL_SCREENING_DETECTION -> Known.PREMIUM_IOS_CALL_SCREENING_DETECTION
                 DETECT -> Known.DETECT
                 DETECT_BEEP -> Known.DETECT_BEEP
                 DETECT_WORDS -> Known.DETECT_WORDS
@@ -6274,7 +6336,8 @@ private constructor(
     /**
      * Optional configuration parameters to modify 'answering_machine_detection' performance. Only
      * `total_analysis_time_millis` and `greeting_duration_millis` parameters are applicable when
-     * `premium` is selected as answering_machine_detection.
+     * `premium` is selected as answering_machine_detection. `prompt_end_timeout_millis` is
+     * additionally applicable when `premium_ios_call_screening_detection` is selected.
      */
     class AnsweringMachineDetectionConfig
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -6295,6 +6358,7 @@ private constructor(
         private val initialSilenceMillis: JsonField<Int>,
         private val maximumNumberOfWords: JsonField<Int>,
         private val maximumWordLengthMillis: JsonField<Int>,
+        private val promptEndTimeoutMillis: JsonField<Int>,
         private val silenceThreshold: JsonField<Int>,
         private val totalAnalysisTimeMillis: JsonField<Int>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -6350,6 +6414,9 @@ private constructor(
             @JsonProperty("maximum_word_length_millis")
             @ExcludeMissing
             maximumWordLengthMillis: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("prompt_end_timeout_millis")
+            @ExcludeMissing
+            promptEndTimeoutMillis: JsonField<Int> = JsonMissing.of(),
             @JsonProperty("silence_threshold")
             @ExcludeMissing
             silenceThreshold: JsonField<Int> = JsonMissing.of(),
@@ -6373,6 +6440,7 @@ private constructor(
             initialSilenceMillis,
             maximumNumberOfWords,
             maximumWordLengthMillis,
+            promptEndTimeoutMillis,
             silenceThreshold,
             totalAnalysisTimeMillis,
             mutableMapOf(),
@@ -6535,6 +6603,17 @@ private constructor(
          */
         fun maximumWordLengthMillis(): Optional<Int> =
             maximumWordLengthMillis.getOptional("maximum_word_length_millis")
+
+        /**
+         * Maximum time Telnyx waits, in milliseconds, for the iOS call-screening prompt to end
+         * after Premium AMD initially detects a `machine`. Used when `answering_machine_detection`
+         * is `premium_ios_call_screening_detection`. Defaults to 5000 milliseconds.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun promptEndTimeoutMillis(): Optional<Int> =
+            promptEndTimeoutMillis.getOptional("prompt_end_timeout_millis")
 
         /**
          * Minimum noise threshold for any analysis.
@@ -6714,6 +6793,16 @@ private constructor(
         fun _maximumWordLengthMillis(): JsonField<Int> = maximumWordLengthMillis
 
         /**
+         * Returns the raw JSON value of [promptEndTimeoutMillis].
+         *
+         * Unlike [promptEndTimeoutMillis], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("prompt_end_timeout_millis")
+        @ExcludeMissing
+        fun _promptEndTimeoutMillis(): JsonField<Int> = promptEndTimeoutMillis
+
+        /**
          * Returns the raw JSON value of [silenceThreshold].
          *
          * Unlike [silenceThreshold], this method doesn't throw if the JSON field has an unexpected
@@ -6773,6 +6862,7 @@ private constructor(
             private var initialSilenceMillis: JsonField<Int> = JsonMissing.of()
             private var maximumNumberOfWords: JsonField<Int> = JsonMissing.of()
             private var maximumWordLengthMillis: JsonField<Int> = JsonMissing.of()
+            private var promptEndTimeoutMillis: JsonField<Int> = JsonMissing.of()
             private var silenceThreshold: JsonField<Int> = JsonMissing.of()
             private var totalAnalysisTimeMillis: JsonField<Int> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -6805,6 +6895,7 @@ private constructor(
                     maximumNumberOfWords = answeringMachineDetectionConfig.maximumNumberOfWords
                     maximumWordLengthMillis =
                         answeringMachineDetectionConfig.maximumWordLengthMillis
+                    promptEndTimeoutMillis = answeringMachineDetectionConfig.promptEndTimeoutMillis
                     silenceThreshold = answeringMachineDetectionConfig.silenceThreshold
                     totalAnalysisTimeMillis =
                         answeringMachineDetectionConfig.totalAnalysisTimeMillis
@@ -7095,6 +7186,26 @@ private constructor(
                 this.maximumWordLengthMillis = maximumWordLengthMillis
             }
 
+            /**
+             * Maximum time Telnyx waits, in milliseconds, for the iOS call-screening prompt to end
+             * after Premium AMD initially detects a `machine`. Used when
+             * `answering_machine_detection` is `premium_ios_call_screening_detection`. Defaults to
+             * 5000 milliseconds.
+             */
+            fun promptEndTimeoutMillis(promptEndTimeoutMillis: Int) =
+                promptEndTimeoutMillis(JsonField.of(promptEndTimeoutMillis))
+
+            /**
+             * Sets [Builder.promptEndTimeoutMillis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.promptEndTimeoutMillis] with a well-typed [Int]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun promptEndTimeoutMillis(promptEndTimeoutMillis: JsonField<Int>) = apply {
+                this.promptEndTimeoutMillis = promptEndTimeoutMillis
+            }
+
             /** Minimum noise threshold for any analysis. */
             fun silenceThreshold(silenceThreshold: Int) =
                 silenceThreshold(JsonField.of(silenceThreshold))
@@ -7167,6 +7278,7 @@ private constructor(
                     initialSilenceMillis,
                     maximumNumberOfWords,
                     maximumWordLengthMillis,
+                    promptEndTimeoutMillis,
                     silenceThreshold,
                     totalAnalysisTimeMillis,
                     additionalProperties.toMutableMap(),
@@ -7205,6 +7317,7 @@ private constructor(
             initialSilenceMillis()
             maximumNumberOfWords()
             maximumWordLengthMillis()
+            promptEndTimeoutMillis()
             silenceThreshold()
             totalAnalysisTimeMillis()
             validated = true
@@ -7242,6 +7355,7 @@ private constructor(
                 (if (initialSilenceMillis.asKnown().isPresent) 1 else 0) +
                 (if (maximumNumberOfWords.asKnown().isPresent) 1 else 0) +
                 (if (maximumWordLengthMillis.asKnown().isPresent) 1 else 0) +
+                (if (promptEndTimeoutMillis.asKnown().isPresent) 1 else 0) +
                 (if (silenceThreshold.asKnown().isPresent) 1 else 0) +
                 (if (totalAnalysisTimeMillis.asKnown().isPresent) 1 else 0)
 
@@ -7416,6 +7530,7 @@ private constructor(
                 initialSilenceMillis == other.initialSilenceMillis &&
                 maximumNumberOfWords == other.maximumNumberOfWords &&
                 maximumWordLengthMillis == other.maximumWordLengthMillis &&
+                promptEndTimeoutMillis == other.promptEndTimeoutMillis &&
                 silenceThreshold == other.silenceThreshold &&
                 totalAnalysisTimeMillis == other.totalAnalysisTimeMillis &&
                 additionalProperties == other.additionalProperties
@@ -7439,6 +7554,7 @@ private constructor(
                 initialSilenceMillis,
                 maximumNumberOfWords,
                 maximumWordLengthMillis,
+                promptEndTimeoutMillis,
                 silenceThreshold,
                 totalAnalysisTimeMillis,
                 additionalProperties,
@@ -7448,7 +7564,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AnsweringMachineDetectionConfig{afterGreetingSilenceMillis=$afterGreetingSilenceMillis, beepDetectionProfile=$beepDetectionProfile, beepMaxFrequencyHz=$beepMaxFrequencyHz, beepMinFrequencyHz=$beepMinFrequencyHz, beepMinToneDurationMillis=$beepMinToneDurationMillis, beepSpectralConfirmation=$beepSpectralConfirmation, beepSpectralMinPurity=$beepSpectralMinPurity, beepSpectralRejectFaxCng=$beepSpectralRejectFaxCng, beepSpectralWindowMillis=$beepSpectralWindowMillis, betweenWordsSilenceMillis=$betweenWordsSilenceMillis, greetingDurationMillis=$greetingDurationMillis, greetingSilenceDurationMillis=$greetingSilenceDurationMillis, greetingTotalAnalysisTimeMillis=$greetingTotalAnalysisTimeMillis, initialSilenceMillis=$initialSilenceMillis, maximumNumberOfWords=$maximumNumberOfWords, maximumWordLengthMillis=$maximumWordLengthMillis, silenceThreshold=$silenceThreshold, totalAnalysisTimeMillis=$totalAnalysisTimeMillis, additionalProperties=$additionalProperties}"
+            "AnsweringMachineDetectionConfig{afterGreetingSilenceMillis=$afterGreetingSilenceMillis, beepDetectionProfile=$beepDetectionProfile, beepMaxFrequencyHz=$beepMaxFrequencyHz, beepMinFrequencyHz=$beepMinFrequencyHz, beepMinToneDurationMillis=$beepMinToneDurationMillis, beepSpectralConfirmation=$beepSpectralConfirmation, beepSpectralMinPurity=$beepSpectralMinPurity, beepSpectralRejectFaxCng=$beepSpectralRejectFaxCng, beepSpectralWindowMillis=$beepSpectralWindowMillis, betweenWordsSilenceMillis=$betweenWordsSilenceMillis, greetingDurationMillis=$greetingDurationMillis, greetingSilenceDurationMillis=$greetingSilenceDurationMillis, greetingTotalAnalysisTimeMillis=$greetingTotalAnalysisTimeMillis, initialSilenceMillis=$initialSilenceMillis, maximumNumberOfWords=$maximumNumberOfWords, maximumWordLengthMillis=$maximumWordLengthMillis, promptEndTimeoutMillis=$promptEndTimeoutMillis, silenceThreshold=$silenceThreshold, totalAnalysisTimeMillis=$totalAnalysisTimeMillis, additionalProperties=$additionalProperties}"
     }
 
     /** Optional configuration parameters to dial new participant into a conference. */

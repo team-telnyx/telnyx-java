@@ -31,8 +31,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Set or clear the connection that inbound WhatsApp calls to a BYON (Bring Your Own Number) phone
- * number are delivered to.
+ * Set or clear the connection ID for a WhatsApp Calling BYON (Bring Your Own Number) phone number:
+ * the connection that inbound WhatsApp calls to the number are delivered to.
  *
  * The update is processed asynchronously. A `202` response means the request was accepted, not that
  * the routing changed. Check the result with `GET /whatsapp/phone_numbers/{id}/calling_routing`,

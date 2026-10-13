@@ -3,7 +3,7 @@
 package com.telnyx.sdk.models.calls.actions
 
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.ai.assistants.HangupToolParams
+import com.telnyx.sdk.models.BookAppointmentToolParams
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
 import com.telnyx.sdk.models.calls.CallAssistantRequest
 import com.telnyx.sdk.models.calls.ConversationRelayEmbeddedConfig
@@ -69,7 +69,7 @@ internal class ActionAnswerParamsTest {
                             .model("model")
                             .build()
                     )
-                    .greeting("Hi, I'm your assistant. How can I help?")
+                    .greeting("greeting")
                     .instructions("You are a friendly voice assistant.")
                     .llmApiKeyRef("my_llm_api_key")
                     .addMcpServer(
@@ -85,16 +85,23 @@ internal class ActionAnswerParamsTest {
                             .build()
                     )
                     .openaiApiKeyRef("my_openai_api_key")
-                    .addHangupTool(HangupToolParams.builder().description("description").build())
+                    .addBookAppointmentTool(
+                        BookAppointmentToolParams.builder()
+                            .apiKeyRef("my_calcom_api_key")
+                            .eventTypeId(0L)
+                            .attendeeName("attendee_name")
+                            .attendeeTimezone("attendee_timezone")
+                            .build()
+                    )
                     .transcription(
                         TranscriptionConfig.builder()
-                            .language("en")
-                            .model(TranscriptionConfig.Model.DEEPGRAM_FLUX)
+                            .language("language")
+                            .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                             .build()
                     )
                     .voiceSettings(
                         VoiceSettings.builder()
-                            .voice("Telnyx.KokoroTTS.af_heart")
+                            .voice("voice")
                             .apiKeyRef("api_key_ref")
                             .backgroundAudio(
                                 VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
@@ -150,11 +157,10 @@ internal class ActionAnswerParamsTest {
                                 ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
-                                    .putAdditionalProperty(
-                                        "transcription_model",
-                                        JsonValue.from("bar"),
-                                    )
+                                ConversationRelayTranscriptionEngineConfig.builder()
+                                    .eagerEotThreshold(0.5)
+                                    .eotThreshold(0.5)
+                                    .interimResults(true)
                                     .build()
                             )
                             .transcriptionProvider("Deepgram")
@@ -177,10 +183,10 @@ internal class ActionAnswerParamsTest {
                     )
                     .transcriptionEngine(ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
-                            .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
-                            .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                            .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                        ConversationRelayTranscriptionEngineConfig.builder()
+                            .eagerEotThreshold(0.5)
+                            .eotThreshold(0.5)
+                            .interimResults(true)
                             .build()
                     )
                     .ttsProvider("telnyx")
@@ -343,7 +349,7 @@ internal class ActionAnswerParamsTest {
                                 .model("model")
                                 .build()
                         )
-                        .greeting("Hi, I'm your assistant. How can I help?")
+                        .greeting("greeting")
                         .instructions("You are a friendly voice assistant.")
                         .llmApiKeyRef("my_llm_api_key")
                         .addMcpServer(
@@ -359,18 +365,23 @@ internal class ActionAnswerParamsTest {
                                 .build()
                         )
                         .openaiApiKeyRef("my_openai_api_key")
-                        .addHangupTool(
-                            HangupToolParams.builder().description("description").build()
+                        .addBookAppointmentTool(
+                            BookAppointmentToolParams.builder()
+                                .apiKeyRef("my_calcom_api_key")
+                                .eventTypeId(0L)
+                                .attendeeName("attendee_name")
+                                .attendeeTimezone("attendee_timezone")
+                                .build()
                         )
                         .transcription(
                             TranscriptionConfig.builder()
-                                .language("en")
-                                .model(TranscriptionConfig.Model.DEEPGRAM_FLUX)
+                                .language("language")
+                                .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                                 .build()
                         )
                         .voiceSettings(
                             VoiceSettings.builder()
-                                .voice("Telnyx.KokoroTTS.af_heart")
+                                .voice("voice")
                                 .apiKeyRef("api_key_ref")
                                 .backgroundAudio(
                                     VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
@@ -426,11 +437,10 @@ internal class ActionAnswerParamsTest {
                                     ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                                 )
                                 .transcriptionEngineConfig(
-                                    ConversationRelayLanguage.TranscriptionEngineConfig.builder()
-                                        .putAdditionalProperty(
-                                            "transcription_model",
-                                            JsonValue.from("bar"),
-                                        )
+                                    ConversationRelayTranscriptionEngineConfig.builder()
+                                        .eagerEotThreshold(0.5)
+                                        .eotThreshold(0.5)
+                                        .interimResults(true)
                                         .build()
                                 )
                                 .transcriptionProvider("Deepgram")
@@ -455,10 +465,10 @@ internal class ActionAnswerParamsTest {
                             ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE
                         )
                         .transcriptionEngineConfig(
-                            ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
-                                .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
-                                .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                                .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                            ConversationRelayTranscriptionEngineConfig.builder()
+                                .eagerEotThreshold(0.5)
+                                .eotThreshold(0.5)
+                                .interimResults(true)
                                 .build()
                         )
                         .ttsProvider("telnyx")
@@ -611,7 +621,7 @@ internal class ActionAnswerParamsTest {
                             .model("model")
                             .build()
                     )
-                    .greeting("Hi, I'm your assistant. How can I help?")
+                    .greeting("greeting")
                     .instructions("You are a friendly voice assistant.")
                     .llmApiKeyRef("my_llm_api_key")
                     .addMcpServer(
@@ -627,16 +637,23 @@ internal class ActionAnswerParamsTest {
                             .build()
                     )
                     .openaiApiKeyRef("my_openai_api_key")
-                    .addHangupTool(HangupToolParams.builder().description("description").build())
+                    .addBookAppointmentTool(
+                        BookAppointmentToolParams.builder()
+                            .apiKeyRef("my_calcom_api_key")
+                            .eventTypeId(0L)
+                            .attendeeName("attendee_name")
+                            .attendeeTimezone("attendee_timezone")
+                            .build()
+                    )
                     .transcription(
                         TranscriptionConfig.builder()
-                            .language("en")
-                            .model(TranscriptionConfig.Model.DEEPGRAM_FLUX)
+                            .language("language")
+                            .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                             .build()
                     )
                     .voiceSettings(
                         VoiceSettings.builder()
-                            .voice("Telnyx.KokoroTTS.af_heart")
+                            .voice("voice")
                             .apiKeyRef("api_key_ref")
                             .backgroundAudio(
                                 VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
@@ -693,11 +710,10 @@ internal class ActionAnswerParamsTest {
                                 ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
-                                    .putAdditionalProperty(
-                                        "transcription_model",
-                                        JsonValue.from("bar"),
-                                    )
+                                ConversationRelayTranscriptionEngineConfig.builder()
+                                    .eagerEotThreshold(0.5)
+                                    .eotThreshold(0.5)
+                                    .interimResults(true)
                                     .build()
                             )
                             .transcriptionProvider("Deepgram")
@@ -720,10 +736,10 @@ internal class ActionAnswerParamsTest {
                     )
                     .transcriptionEngine(ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
-                            .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
-                            .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                            .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                        ConversationRelayTranscriptionEngineConfig.builder()
+                            .eagerEotThreshold(0.5)
+                            .eotThreshold(0.5)
+                            .interimResults(true)
                             .build()
                     )
                     .ttsProvider("telnyx")

@@ -157,6 +157,7 @@ import com.telnyx.sdk.services.async.SimCardGroupServiceAsync
 import com.telnyx.sdk.services.async.SimCardOrderPreviewServiceAsync
 import com.telnyx.sdk.services.async.SimCardOrderServiceAsync
 import com.telnyx.sdk.services.async.SimCardServiceAsync
+import com.telnyx.sdk.services.async.SipRegistrationStatusServiceAsync
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsync
 import com.telnyx.sdk.services.async.SpeechToTextServiceAsync
 import com.telnyx.sdk.services.async.SpendLimitServiceAsync
@@ -831,6 +832,9 @@ interface TelnyxClientAsync {
 
     fun llmTokenGateway(): LlmTokenGatewayServiceAsync
 
+    /** UAC connection operations */
+    fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1460,5 +1464,8 @@ interface TelnyxClientAsync {
         fun spendLimits(): SpendLimitServiceAsync.WithRawResponse
 
         fun llmTokenGateway(): LlmTokenGatewayServiceAsync.WithRawResponse
+
+        /** UAC connection operations */
+        fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse
     }
 }

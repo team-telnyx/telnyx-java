@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
+import com.telnyx.sdk.models.calls.actions.ConversationRelayTranscriptionEngineConfig
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
 import kotlin.jvm.optionals.getOrNull
@@ -43,8 +44,10 @@ internal class ConversationRelayEmbeddedConfigTest {
                         .speechModel("nova-3")
                         .transcriptionEngine(ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM)
                         .transcriptionEngineConfig(
-                            ConversationRelayLanguage.TranscriptionEngineConfig.builder()
-                                .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
+                            ConversationRelayTranscriptionEngineConfig.builder()
+                                .eagerEotThreshold(0.5)
+                                .eotThreshold(0.5)
+                                .interimResults(true)
                                 .build()
                         )
                         .transcriptionProvider("Deepgram")
@@ -67,10 +70,10 @@ internal class ConversationRelayEmbeddedConfigTest {
                 )
                 .transcriptionEngine(ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE)
                 .transcriptionEngineConfig(
-                    ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
-                        .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
-                        .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                        .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                    ConversationRelayTranscriptionEngineConfig.builder()
+                        .eagerEotThreshold(0.5)
+                        .eotThreshold(0.5)
+                        .interimResults(true)
                         .build()
                 )
                 .ttsProvider("telnyx")
@@ -114,8 +117,10 @@ internal class ConversationRelayEmbeddedConfigTest {
                     .speechModel("nova-3")
                     .transcriptionEngine(ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM)
                     .transcriptionEngineConfig(
-                        ConversationRelayLanguage.TranscriptionEngineConfig.builder()
-                            .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
+                        ConversationRelayTranscriptionEngineConfig.builder()
+                            .eagerEotThreshold(0.5)
+                            .eotThreshold(0.5)
+                            .interimResults(true)
                             .build()
                     )
                     .transcriptionProvider("Deepgram")
@@ -141,10 +146,10 @@ internal class ConversationRelayEmbeddedConfigTest {
             .contains(ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE)
         assertThat(conversationRelayEmbeddedConfig.transcriptionEngineConfig())
             .contains(
-                ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
-                    .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
-                    .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                    .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                ConversationRelayTranscriptionEngineConfig.builder()
+                    .eagerEotThreshold(0.5)
+                    .eotThreshold(0.5)
+                    .interimResults(true)
                     .build()
             )
         assertThat(conversationRelayEmbeddedConfig.ttsProvider()).contains("telnyx")
@@ -190,8 +195,10 @@ internal class ConversationRelayEmbeddedConfigTest {
                         .speechModel("nova-3")
                         .transcriptionEngine(ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM)
                         .transcriptionEngineConfig(
-                            ConversationRelayLanguage.TranscriptionEngineConfig.builder()
-                                .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
+                            ConversationRelayTranscriptionEngineConfig.builder()
+                                .eagerEotThreshold(0.5)
+                                .eotThreshold(0.5)
+                                .interimResults(true)
                                 .build()
                         )
                         .transcriptionProvider("Deepgram")
@@ -214,10 +221,10 @@ internal class ConversationRelayEmbeddedConfigTest {
                 )
                 .transcriptionEngine(ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE)
                 .transcriptionEngineConfig(
-                    ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
-                        .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
-                        .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                        .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                    ConversationRelayTranscriptionEngineConfig.builder()
+                        .eagerEotThreshold(0.5)
+                        .eotThreshold(0.5)
+                        .interimResults(true)
                         .build()
                 )
                 .ttsProvider("telnyx")

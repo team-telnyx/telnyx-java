@@ -15,11 +15,43 @@ internal class UsageRetrieveSummaryParamsTest {
             .endDate(LocalDate.parse("2019-12-27"))
             .startDate(LocalDate.parse("2019-12-27"))
             .tokenGroupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .metadata(
+                UsageRetrieveSummaryParams.Metadata.builder()
+                    .putAdditionalProperty("foo", "J!Q0Ok0bzJb7")
+                    .build()
+            )
             .build()
     }
 
     @Test
     fun queryParams() {
+        val params =
+            UsageRetrieveSummaryParams.builder()
+                .endDate(LocalDate.parse("2019-12-27"))
+                .startDate(LocalDate.parse("2019-12-27"))
+                .tokenGroupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .metadata(
+                    UsageRetrieveSummaryParams.Metadata.builder()
+                        .putAdditionalProperty("foo", "J!Q0Ok0bzJb7")
+                        .build()
+                )
+                .build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("end_date", LocalDate.parse("2019-12-27").toString())
+                    .put("start_date", LocalDate.parse("2019-12-27").toString())
+                    .put("token_group_id", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .put("metadata[foo]", "J!Q0Ok0bzJb7")
+                    .build()
+            )
+    }
+
+    @Test
+    fun queryParamsWithoutOptionalFields() {
         val params =
             UsageRetrieveSummaryParams.builder()
                 .endDate(LocalDate.parse("2019-12-27"))

@@ -101,7 +101,12 @@ interface EmailTemplateService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EmailTemplateResponse
 
-    /** Lists templates sorted newest first by `created_at desc, id desc`. */
+    /**
+     * Lists templates sorted newest first by `created_at desc, id desc`. Optional filters match a
+     * case-insensitive literal name/subject query, stored body presence, and the `strict_variables`
+     * and `autoescape` settings. Filters intersect, remain scoped to the authenticated account, and
+     * apply before cursor pagination. Invalid filter names or values return 400.
+     */
     fun list(): EmailTemplateListPage = list(EmailTemplateListParams.none())
 
     /** @see list */

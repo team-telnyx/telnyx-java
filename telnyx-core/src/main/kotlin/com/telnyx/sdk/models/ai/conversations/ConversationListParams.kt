@@ -22,6 +22,7 @@ private constructor(
     private val lastMessageAt: String?,
     private val limit: Long?,
     private val metadataAssistantId: String?,
+    private val metadataAssistantVersionId: String?,
     private val metadataCallControlId: String?,
     private val metadataTelnyxAgentTarget: String?,
     private val metadataTelnyxConversationChannel: String?,
@@ -47,6 +48,16 @@ private constructor(
 
     /** Filter by assistant ID (e.g., `metadata->assistant_id=eq.assistant-123`) */
     fun metadataAssistantId(): Optional<String> = Optional.ofNullable(metadataAssistantId)
+
+    /**
+     * Filter by assistant version ID (e.g.,
+     * `metadata->assistant_version_id=eq.20250812T114318034399`). The version that handled the
+     * conversation is stored in metadata when the conversation starts; conversations created before
+     * this field was tracked, or that never resolved a version, have no `assistant_version_id` and
+     * do not match this filter.
+     */
+    fun metadataAssistantVersionId(): Optional<String> =
+        Optional.ofNullable(metadataAssistantVersionId)
 
     /** Filter by call control ID (e.g., `metadata->call_control_id=eq.v3:123`) */
     fun metadataCallControlId(): Optional<String> = Optional.ofNullable(metadataCallControlId)
@@ -110,6 +121,7 @@ private constructor(
         private var lastMessageAt: String? = null
         private var limit: Long? = null
         private var metadataAssistantId: String? = null
+        private var metadataAssistantVersionId: String? = null
         private var metadataCallControlId: String? = null
         private var metadataTelnyxAgentTarget: String? = null
         private var metadataTelnyxConversationChannel: String? = null
@@ -128,6 +140,7 @@ private constructor(
             lastMessageAt = conversationListParams.lastMessageAt
             limit = conversationListParams.limit
             metadataAssistantId = conversationListParams.metadataAssistantId
+            metadataAssistantVersionId = conversationListParams.metadataAssistantVersionId
             metadataCallControlId = conversationListParams.metadataCallControlId
             metadataTelnyxAgentTarget = conversationListParams.metadataTelnyxAgentTarget
             metadataTelnyxConversationChannel =
@@ -182,6 +195,24 @@ private constructor(
          */
         fun metadataAssistantId(metadataAssistantId: Optional<String>) =
             metadataAssistantId(metadataAssistantId.getOrNull())
+
+        /**
+         * Filter by assistant version ID (e.g.,
+         * `metadata->assistant_version_id=eq.20250812T114318034399`). The version that handled the
+         * conversation is stored in metadata when the conversation starts; conversations created
+         * before this field was tracked, or that never resolved a version, have no
+         * `assistant_version_id` and do not match this filter.
+         */
+        fun metadataAssistantVersionId(metadataAssistantVersionId: String?) = apply {
+            this.metadataAssistantVersionId = metadataAssistantVersionId
+        }
+
+        /**
+         * Alias for calling [Builder.metadataAssistantVersionId] with
+         * `metadataAssistantVersionId.orElse(null)`.
+         */
+        fun metadataAssistantVersionId(metadataAssistantVersionId: Optional<String>) =
+            metadataAssistantVersionId(metadataAssistantVersionId.getOrNull())
 
         /** Filter by call control ID (e.g., `metadata->call_control_id=eq.v3:123`) */
         fun metadataCallControlId(metadataCallControlId: String?) = apply {
@@ -375,6 +406,7 @@ private constructor(
                 lastMessageAt,
                 limit,
                 metadataAssistantId,
+                metadataAssistantVersionId,
                 metadataCallControlId,
                 metadataTelnyxAgentTarget,
                 metadataTelnyxConversationChannel,
@@ -397,6 +429,7 @@ private constructor(
                 lastMessageAt?.let { put("last_message_at", it) }
                 limit?.let { put("limit", it.toString()) }
                 metadataAssistantId?.let { put("metadata->assistant_id", it) }
+                metadataAssistantVersionId?.let { put("metadata->assistant_version_id", it) }
                 metadataCallControlId?.let { put("metadata->call_control_id", it) }
                 metadataTelnyxAgentTarget?.let { put("metadata->telnyx_agent_target", it) }
                 metadataTelnyxConversationChannel?.let {
@@ -421,6 +454,7 @@ private constructor(
             lastMessageAt == other.lastMessageAt &&
             limit == other.limit &&
             metadataAssistantId == other.metadataAssistantId &&
+            metadataAssistantVersionId == other.metadataAssistantVersionId &&
             metadataCallControlId == other.metadataCallControlId &&
             metadataTelnyxAgentTarget == other.metadataTelnyxAgentTarget &&
             metadataTelnyxConversationChannel == other.metadataTelnyxConversationChannel &&
@@ -439,6 +473,7 @@ private constructor(
             lastMessageAt,
             limit,
             metadataAssistantId,
+            metadataAssistantVersionId,
             metadataCallControlId,
             metadataTelnyxAgentTarget,
             metadataTelnyxConversationChannel,
@@ -451,5 +486,5 @@ private constructor(
         )
 
     override fun toString() =
-        "ConversationListParams{id=$id, createdAt=$createdAt, lastMessageAt=$lastMessageAt, limit=$limit, metadataAssistantId=$metadataAssistantId, metadataCallControlId=$metadataCallControlId, metadataTelnyxAgentTarget=$metadataTelnyxAgentTarget, metadataTelnyxConversationChannel=$metadataTelnyxConversationChannel, metadataTelnyxEndUserTarget=$metadataTelnyxEndUserTarget, name=$name, or=$or, order=$order, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ConversationListParams{id=$id, createdAt=$createdAt, lastMessageAt=$lastMessageAt, limit=$limit, metadataAssistantId=$metadataAssistantId, metadataAssistantVersionId=$metadataAssistantVersionId, metadataCallControlId=$metadataCallControlId, metadataTelnyxAgentTarget=$metadataTelnyxAgentTarget, metadataTelnyxConversationChannel=$metadataTelnyxConversationChannel, metadataTelnyxEndUserTarget=$metadataTelnyxEndUserTarget, name=$name, or=$or, order=$order, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

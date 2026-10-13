@@ -295,10 +295,12 @@ private constructor(
         fun recordType(): RecordType = recordType.getRequired("record_type")
 
         /**
-         * Review state of this authorization. `pending` on create or when the Letter of
-         * Authorization is re-uploaded; an admin moves it to `approved` or `rejected`. Only an
-         * `approved` authorization adds the BPO to this DIR's authorized callers in the branded
-         * calling registry.
+         * Review state of this authorization. `pending` when the authorization is first added, or
+         * when you send a different `loa_document_id` for this BPO in `bpo_authorizations`
+         * (uploading a document alone changes nothing). Approving the DIR approves its pending
+         * authorizations; an admin can also approve or reject one on its own. Only an `approved`
+         * authorization adds the BPO to this DIR's authorized callers in the branded calling
+         * registry.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -455,8 +457,10 @@ private constructor(
             }
 
             /**
-             * Review state of this authorization. `pending` on create or when the Letter of
-             * Authorization is re-uploaded; an admin moves it to `approved` or `rejected`. Only an
+             * Review state of this authorization. `pending` when the authorization is first added,
+             * or when you send a different `loa_document_id` for this BPO in `bpo_authorizations`
+             * (uploading a document alone changes nothing). Approving the DIR approves its pending
+             * authorizations; an admin can also approve or reject one on its own. Only an
              * `approved` authorization adds the BPO to this DIR's authorized callers in the branded
              * calling registry.
              */
@@ -718,10 +722,12 @@ private constructor(
         }
 
         /**
-         * Review state of this authorization. `pending` on create or when the Letter of
-         * Authorization is re-uploaded; an admin moves it to `approved` or `rejected`. Only an
-         * `approved` authorization adds the BPO to this DIR's authorized callers in the branded
-         * calling registry.
+         * Review state of this authorization. `pending` when the authorization is first added, or
+         * when you send a different `loa_document_id` for this BPO in `bpo_authorizations`
+         * (uploading a document alone changes nothing). Approving the DIR approves its pending
+         * authorizations; an admin can also approve or reject one on its own. Only an `approved`
+         * authorization adds the BPO to this DIR's authorized callers in the branded calling
+         * registry.
          */
         class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 

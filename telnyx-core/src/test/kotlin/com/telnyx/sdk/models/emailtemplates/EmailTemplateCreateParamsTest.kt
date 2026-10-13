@@ -28,6 +28,7 @@ internal class EmailTemplateCreateParamsTest {
                     .build()
             )
             .addVariable("string")
+            .variablesMode(EmailTemplateCreateParams.VariablesMode.AUTOMATIC)
             .build()
     }
 
@@ -51,6 +52,7 @@ internal class EmailTemplateCreateParamsTest {
                         .build()
                 )
                 .addVariable("string")
+                .variablesMode(EmailTemplateCreateParams.VariablesMode.AUTOMATIC)
                 .build()
 
         val headers = params._headers()
@@ -92,6 +94,7 @@ internal class EmailTemplateCreateParamsTest {
                         .build()
                 )
                 .addVariable("string")
+                .variablesMode(EmailTemplateCreateParams.VariablesMode.AUTOMATIC)
                 .build()
 
         val body = params._body()
@@ -112,6 +115,7 @@ internal class EmailTemplateCreateParamsTest {
                     .build()
             )
         assertThat(body.variables().getOrNull()).containsExactly("string")
+        assertThat(body.variablesMode()).contains(EmailTemplateCreateParams.VariablesMode.AUTOMATIC)
     }
 
     @Test

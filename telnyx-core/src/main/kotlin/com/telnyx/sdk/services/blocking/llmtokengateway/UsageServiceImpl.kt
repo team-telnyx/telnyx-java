@@ -14,11 +14,13 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.llmtokengateway.usage.UsageRetrieveExportParams
+import com.telnyx.sdk.models.llmtokengateway.usage.UsageRetrieveExportResponse
 import com.telnyx.sdk.models.llmtokengateway.usage.UsageRetrieveSummaryParams
 import com.telnyx.sdk.models.llmtokengateway.usage.UsageRetrieveSummaryResponse
 import java.util.function.Consumer
 
-/** Manage and report AI Gateway traffic. */
+/** Manage and report AI Gateway usage. */
 class UsageServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     UsageService {
 
@@ -30,6 +32,13 @@ class UsageServiceImpl internal constructor(private val clientOptions: ClientOpt
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsageService =
         UsageServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun retrieveExport(
+        params: UsageRetrieveExportParams,
+        requestOptions: RequestOptions,
+    ): UsageRetrieveExportResponse =
+        // get /llm_token_gateway/usage/export
+        withRawResponse().retrieveExport(params, requestOptions).parse()
 
     override fun retrieveSummary(
         params: UsageRetrieveSummaryParams,
@@ -50,6 +59,33 @@ class UsageServiceImpl internal constructor(private val clientOptions: ClientOpt
             UsageServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        private val retrieveExportHandler: Handler<UsageRetrieveExportResponse> =
+            jsonHandler<UsageRetrieveExportResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveExport(
+            params: UsageRetrieveExportParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<UsageRetrieveExportResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("llm_token_gateway", "usage", "export")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveExportHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
 
         private val retrieveSummaryHandler: Handler<UsageRetrieveSummaryResponse> =
             jsonHandler<UsageRetrieveSummaryResponse>(clientOptions.jsonMapper)

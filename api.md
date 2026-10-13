@@ -2704,6 +2704,13 @@ Methods:
 - <code title="get /v2/whatsapp/user_data">client.whatsapp().userData().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/UserDataService.kt">retrieve</a>()</code>
 - <code title="patch /v2/whatsapp/user_data">client.whatsapp().userData().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/UserDataService.kt">update</a>(params)</code>
 
+## Signup
+
+Methods:
+
+- <code title="get /whatsapp/signup">client.whatsapp().signup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/SignupService.kt">list</a>(params)</code>
+- <code title="get /whatsapp/signup/{id}/status">client.whatsapp().signup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/SignupService.kt">retrieveStatus</a>(params)</code>
+
 # WhatsappMessageTemplates
 
 Methods:
@@ -3282,4 +3289,38 @@ Methods:
 
 Methods:
 
+- <code title="get /llm_token_gateway/usage/export">client.llmTokenGateway().usage().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/UsageService.kt">retrieveExport</a>(params)</code>
 - <code title="get /llm_token_gateway/usage/summary">client.llmTokenGateway().usage().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/UsageService.kt">retrieveSummary</a>(params)</code>
+
+## Spend
+
+Methods:
+
+- <code title="get /llm_token_gateway/spend/events">client.llmTokenGateway().spend().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/SpendService.kt">retrieveEvents</a>(params)</code>
+- <code title="get /llm_token_gateway/spend/summary">client.llmTokenGateway().spend().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/SpendService.kt">retrieveSummary</a>(params)</code>
+
+## TokenGroups
+
+Methods:
+
+- <code title="post /llm_token_gateway/token_groups">client.llmTokenGateway().tokenGroups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenGroupService.kt">create</a>(params)</code>
+- <code title="get /llm_token_gateway/token_groups/{id}">client.llmTokenGateway().tokenGroups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenGroupService.kt">retrieve</a>(params)</code>
+- <code title="patch /llm_token_gateway/token_groups/{id}">client.llmTokenGateway().tokenGroups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenGroupService.kt">update</a>(params)</code>
+- <code title="get /llm_token_gateway/token_groups">client.llmTokenGateway().tokenGroups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenGroupService.kt">list</a>(params)</code>
+- <code title="delete /llm_token_gateway/token_groups/{id}">client.llmTokenGateway().tokenGroups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenGroupService.kt">delete</a>(params)</code>
+
+## TokenKeys
+
+Methods:
+
+- <code title="post /llm_token_gateway/token_keys">client.llmTokenGateway().tokenKeys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenKeyService.kt">create</a>(params)</code>
+- <code title="get /llm_token_gateway/token_keys/{id}">client.llmTokenGateway().tokenKeys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenKeyService.kt">retrieve</a>(params)</code>
+- <code title="patch /llm_token_gateway/token_keys/{id}">client.llmTokenGateway().tokenKeys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenKeyService.kt">update</a>(params)</code>
+- <code title="get /llm_token_gateway/token_keys">client.llmTokenGateway().tokenKeys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenKeyService.kt">list</a>(params)</code>
+- <code title="delete /llm_token_gateway/token_keys/{id}">client.llmTokenGateway().tokenKeys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenKeyService.kt">delete</a>(params)</code>
+
+# SipRegistrationStatus
+
+Methods:
+
+- <code title="get /sip_registration_status">client.sipRegistrationStatus().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SipRegistrationStatusService.kt">list</a>(params)</code>

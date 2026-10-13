@@ -245,6 +245,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.machinePayments()).isNotNull()
         assertThat(client.spendLimits()).isNotNull()
         assertThat(client.llmTokenGateway()).isNotNull()
+        assertThat(client.sipRegistrationStatus()).isNotNull()
     }
 
     @Test

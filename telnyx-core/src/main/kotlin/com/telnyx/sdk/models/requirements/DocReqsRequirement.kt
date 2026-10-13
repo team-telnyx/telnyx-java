@@ -779,7 +779,13 @@ private constructor(
 
             @JvmField val LOCAL = of("local")
 
+            @JvmField val MOBILE = of("mobile")
+
+            @JvmField val MULTIPURPOSE = of("multipurpose")
+
             @JvmField val NATIONAL = of("national")
+
+            @JvmField val SHARED_COST = of("shared_cost")
 
             @JvmField val TOLL_FREE = of("toll_free")
 
@@ -789,7 +795,10 @@ private constructor(
         /** An enum containing [PhoneNumberType]'s known values. */
         enum class Known {
             LOCAL,
+            MOBILE,
+            MULTIPURPOSE,
             NATIONAL,
+            SHARED_COST,
             TOLL_FREE,
         }
 
@@ -804,7 +813,10 @@ private constructor(
          */
         enum class Value {
             LOCAL,
+            MOBILE,
+            MULTIPURPOSE,
             NATIONAL,
+            SHARED_COST,
             TOLL_FREE,
             /**
              * An enum member indicating that [PhoneNumberType] was instantiated with an unknown
@@ -823,7 +835,10 @@ private constructor(
         fun value(): Value =
             when (this) {
                 LOCAL -> Value.LOCAL
+                MOBILE -> Value.MOBILE
+                MULTIPURPOSE -> Value.MULTIPURPOSE
                 NATIONAL -> Value.NATIONAL
+                SHARED_COST -> Value.SHARED_COST
                 TOLL_FREE -> Value.TOLL_FREE
                 else -> Value._UNKNOWN
             }
@@ -840,7 +855,10 @@ private constructor(
         fun known(): Known =
             when (this) {
                 LOCAL -> Known.LOCAL
+                MOBILE -> Known.MOBILE
+                MULTIPURPOSE -> Known.MULTIPURPOSE
                 NATIONAL -> Known.NATIONAL
+                SHARED_COST -> Known.SHARED_COST
                 TOLL_FREE -> Known.TOLL_FREE
                 else -> throw TelnyxInvalidDataException("Unknown PhoneNumberType: $value")
             }

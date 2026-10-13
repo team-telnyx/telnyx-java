@@ -7,6 +7,8 @@ import com.telnyx.sdk.services.blocking.whatsapp.BusinessAccountService
 import com.telnyx.sdk.services.blocking.whatsapp.BusinessAccountServiceImpl
 import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberService
 import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberServiceImpl
+import com.telnyx.sdk.services.blocking.whatsapp.SignupService
+import com.telnyx.sdk.services.blocking.whatsapp.SignupServiceImpl
 import com.telnyx.sdk.services.blocking.whatsapp.TemplateService
 import com.telnyx.sdk.services.blocking.whatsapp.TemplateServiceImpl
 import com.telnyx.sdk.services.blocking.whatsapp.UserDataService
@@ -30,6 +32,8 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
 
     private val userData: UserDataService by lazy { UserDataServiceImpl(clientOptions) }
 
+    private val signup: SignupService by lazy { SignupServiceImpl(clientOptions) }
+
     override fun withRawResponse(): WhatsappService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WhatsappService =
@@ -46,6 +50,8 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
 
     /** Manage Whatsapp business accounts */
     override fun userData(): UserDataService = userData
+
+    override fun signup(): SignupService = signup
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WhatsappService.WithRawResponse {
@@ -66,6 +72,10 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
             UserDataServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val signup: SignupService.WithRawResponse by lazy {
+            SignupServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): WhatsappService.WithRawResponse =
@@ -84,5 +94,7 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
 
         /** Manage Whatsapp business accounts */
         override fun userData(): UserDataService.WithRawResponse = userData
+
+        override fun signup(): SignupService.WithRawResponse = signup
     }
 }

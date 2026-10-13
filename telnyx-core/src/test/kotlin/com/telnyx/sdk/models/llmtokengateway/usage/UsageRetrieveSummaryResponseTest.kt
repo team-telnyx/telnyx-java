@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.llmtokengateway.usage
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -60,24 +61,20 @@ internal class UsageRetrieveSummaryResponseTest {
                                         .evaluationInputTokens(0L)
                                         .evaluationOutputTokens(0L)
                                         .addFinding(
-                                            UsageRetrieveSummaryResponse.Data.Guardrails.RecentEvent
-                                                .Finding
-                                                .builder()
-                                                .action(
-                                                    UsageRetrieveSummaryResponse.Data.Guardrails
-                                                        .RecentEvent
-                                                        .Finding
-                                                        .Action
-                                                        .FLAG
-                                                )
+                                            GuardrailFinding.builder()
+                                                .action(GuardrailFinding.Action.FLAG)
                                                 .code("code")
                                                 .count(0L)
-                                                .detector(
-                                                    UsageRetrieveSummaryResponse.Data.Guardrails
-                                                        .RecentEvent
-                                                        .Finding
-                                                        .Detector
-                                                        .SECRETS
+                                                .detector(GuardrailFinding.Detector.SECRETS)
+                                                .build()
+                                        )
+                                        .metadata(
+                                            UsageRetrieveSummaryResponse.Data.Guardrails.RecentEvent
+                                                .Metadata
+                                                .builder()
+                                                .putAdditionalProperty(
+                                                    "foo",
+                                                    JsonValue.from("J!Q0Ok0bzJb7"),
                                                 )
                                                 .build()
                                         )
@@ -119,6 +116,11 @@ internal class UsageRetrieveSummaryResponseTest {
                 .meta(
                     UsageRetrieveSummaryResponse.Meta.builder()
                         .endDate(LocalDate.parse("2019-12-27"))
+                        .metadata(
+                            UsageRetrieveSummaryResponse.Meta.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("J!Q0Ok0bzJb7"))
+                                .build()
+                        )
                         .startDate(LocalDate.parse("2019-12-27"))
                         .tokenGroupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
@@ -170,24 +172,20 @@ internal class UsageRetrieveSummaryResponseTest {
                                     .evaluationInputTokens(0L)
                                     .evaluationOutputTokens(0L)
                                     .addFinding(
-                                        UsageRetrieveSummaryResponse.Data.Guardrails.RecentEvent
-                                            .Finding
-                                            .builder()
-                                            .action(
-                                                UsageRetrieveSummaryResponse.Data.Guardrails
-                                                    .RecentEvent
-                                                    .Finding
-                                                    .Action
-                                                    .FLAG
-                                            )
+                                        GuardrailFinding.builder()
+                                            .action(GuardrailFinding.Action.FLAG)
                                             .code("code")
                                             .count(0L)
-                                            .detector(
-                                                UsageRetrieveSummaryResponse.Data.Guardrails
-                                                    .RecentEvent
-                                                    .Finding
-                                                    .Detector
-                                                    .SECRETS
+                                            .detector(GuardrailFinding.Detector.SECRETS)
+                                            .build()
+                                    )
+                                    .metadata(
+                                        UsageRetrieveSummaryResponse.Data.Guardrails.RecentEvent
+                                            .Metadata
+                                            .builder()
+                                            .putAdditionalProperty(
+                                                "foo",
+                                                JsonValue.from("J!Q0Ok0bzJb7"),
                                             )
                                             .build()
                                     )
@@ -230,6 +228,11 @@ internal class UsageRetrieveSummaryResponseTest {
             .isEqualTo(
                 UsageRetrieveSummaryResponse.Meta.builder()
                     .endDate(LocalDate.parse("2019-12-27"))
+                    .metadata(
+                        UsageRetrieveSummaryResponse.Meta.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("J!Q0Ok0bzJb7"))
+                            .build()
+                    )
                     .startDate(LocalDate.parse("2019-12-27"))
                     .tokenGroupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
@@ -286,24 +289,20 @@ internal class UsageRetrieveSummaryResponseTest {
                                         .evaluationInputTokens(0L)
                                         .evaluationOutputTokens(0L)
                                         .addFinding(
-                                            UsageRetrieveSummaryResponse.Data.Guardrails.RecentEvent
-                                                .Finding
-                                                .builder()
-                                                .action(
-                                                    UsageRetrieveSummaryResponse.Data.Guardrails
-                                                        .RecentEvent
-                                                        .Finding
-                                                        .Action
-                                                        .FLAG
-                                                )
+                                            GuardrailFinding.builder()
+                                                .action(GuardrailFinding.Action.FLAG)
                                                 .code("code")
                                                 .count(0L)
-                                                .detector(
-                                                    UsageRetrieveSummaryResponse.Data.Guardrails
-                                                        .RecentEvent
-                                                        .Finding
-                                                        .Detector
-                                                        .SECRETS
+                                                .detector(GuardrailFinding.Detector.SECRETS)
+                                                .build()
+                                        )
+                                        .metadata(
+                                            UsageRetrieveSummaryResponse.Data.Guardrails.RecentEvent
+                                                .Metadata
+                                                .builder()
+                                                .putAdditionalProperty(
+                                                    "foo",
+                                                    JsonValue.from("J!Q0Ok0bzJb7"),
                                                 )
                                                 .build()
                                         )
@@ -345,6 +344,11 @@ internal class UsageRetrieveSummaryResponseTest {
                 .meta(
                     UsageRetrieveSummaryResponse.Meta.builder()
                         .endDate(LocalDate.parse("2019-12-27"))
+                        .metadata(
+                            UsageRetrieveSummaryResponse.Meta.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("J!Q0Ok0bzJb7"))
+                                .build()
+                        )
                         .startDate(LocalDate.parse("2019-12-27"))
                         .tokenGroupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()

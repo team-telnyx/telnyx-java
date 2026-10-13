@@ -48,9 +48,17 @@ internal class ToolServiceTest {
                     .pay(
                         PayToolParams.builder()
                             .connectorName("connector_name")
+                            .connectorParameters(
+                                PayToolParams.ConnectorParameters.builder()
+                                    .putAdditionalProperty("campaignid", JsonValue.from("bar"))
+                                    .putAdditionalProperty("customer_ref", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .currency("currency")
                             .description("description")
                             .paymentMethod("payment_method")
+                            .addValidCardType(PayToolParams.ValidCardType.VISA)
+                            .addValidCardType(PayToolParams.ValidCardType.MASTERCARD)
                             .build()
                     )
                     .retrieval(
@@ -128,9 +136,17 @@ internal class ToolServiceTest {
                     .pay(
                         PayToolParams.builder()
                             .connectorName("connector_name")
+                            .connectorParameters(
+                                PayToolParams.ConnectorParameters.builder()
+                                    .putAdditionalProperty("campaignid", JsonValue.from("bar"))
+                                    .putAdditionalProperty("customer_ref", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .currency("currency")
                             .description("description")
                             .paymentMethod("payment_method")
+                            .addValidCardType(PayToolParams.ValidCardType.VISA)
+                            .addValidCardType(PayToolParams.ValidCardType.MASTERCARD)
                             .build()
                     )
                     .retrieval(

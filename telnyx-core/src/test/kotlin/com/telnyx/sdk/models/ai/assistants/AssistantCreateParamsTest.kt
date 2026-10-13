@@ -37,6 +37,13 @@ internal class AssistantCreateParamsTest {
                     .timeoutMs(30000L)
                     .build()
             )
+            .avatarSettings(
+                AvatarSettingsRequest.builder()
+                    .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                    .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
+                    .model(AvatarSettingsRequest.Model.FOXTROT_1)
+                    .build()
+            )
             .conversationFlow(
                 ConversationFlowReq.builder()
                     .addNode(
@@ -200,6 +207,24 @@ internal class AssistantCreateParamsTest {
                                     .speed(0.0)
                                     .style(0.0)
                                     .temperature(0.0)
+                                    .toolCallAudio(
+                                        InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                            .builder()
+                                            .type(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .Type
+                                                    .PREDEFINED_MEDIA
+                                            )
+                                            .value(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .Value_
+                                                    .TYPING
+                                            )
+                                            .volume(0.5)
+                                            .build()
+                                    )
                                     .useSpeakerBoost(true)
                                     .voiceSpeed(0.0)
                                     .build()
@@ -369,6 +394,24 @@ internal class AssistantCreateParamsTest {
                                     .speed(0.0)
                                     .style(0.0)
                                     .temperature(0.0)
+                                    .toolCallAudio(
+                                        InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                            .builder()
+                                            .type(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .Type
+                                                    .PREDEFINED_MEDIA
+                                            )
+                                            .value(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .Value_
+                                                    .TYPING
+                                            )
+                                            .volume(0.5)
+                                            .build()
+                                    )
                                     .useSpeakerBoost(true)
                                     .voiceSpeed(0.0)
                                     .build()
@@ -709,6 +752,19 @@ internal class AssistantCreateParamsTest {
                     .speed(0.0)
                     .style(0.0)
                     .temperature(0.0)
+                    .toolCallAudio(
+                        InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.builder()
+                            .type(
+                                InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Type
+                                    .PREDEFINED_MEDIA
+                            )
+                            .value(
+                                InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Value_
+                                    .TYPING
+                            )
+                            .volume(0.5)
+                            .build()
+                    )
                     .useSpeakerBoost(true)
                     .voiceSpeed(0.0)
                     .build()
@@ -767,6 +823,13 @@ internal class AssistantCreateParamsTest {
                         )
                         .pollIntervalMs(500L)
                         .timeoutMs(30000L)
+                        .build()
+                )
+                .avatarSettings(
+                    AvatarSettingsRequest.builder()
+                        .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                        .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
+                        .model(AvatarSettingsRequest.Model.FOXTROT_1)
                         .build()
                 )
                 .conversationFlow(
@@ -937,6 +1000,25 @@ internal class AssistantCreateParamsTest {
                                         .speed(0.0)
                                         .style(0.0)
                                         .temperature(0.0)
+                                        .toolCallAudio(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .builder()
+                                                .type(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .Type
+                                                        .PREDEFINED_MEDIA
+                                                )
+                                                .value(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .Value_
+                                                        .TYPING
+                                                )
+                                                .volume(0.5)
+                                                .build()
+                                        )
                                         .useSpeakerBoost(true)
                                         .voiceSpeed(0.0)
                                         .build()
@@ -1109,6 +1191,25 @@ internal class AssistantCreateParamsTest {
                                         .speed(0.0)
                                         .style(0.0)
                                         .temperature(0.0)
+                                        .toolCallAudio(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .builder()
+                                                .type(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .Type
+                                                        .PREDEFINED_MEDIA
+                                                )
+                                                .value(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .Value_
+                                                        .TYPING
+                                                )
+                                                .volume(0.5)
+                                                .build()
+                                        )
                                         .useSpeakerBoost(true)
                                         .voiceSpeed(0.0)
                                         .build()
@@ -1461,6 +1562,20 @@ internal class AssistantCreateParamsTest {
                         .speed(0.0)
                         .style(0.0)
                         .temperature(0.0)
+                        .toolCallAudio(
+                            InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.builder()
+                                .type(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Type
+                                        .PREDEFINED_MEDIA
+                                )
+                                .value(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .Value_
+                                        .TYPING
+                                )
+                                .volume(0.5)
+                                .build()
+                        )
                         .useSpeakerBoost(true)
                         .voiceSpeed(0.0)
                         .build()
@@ -1540,6 +1655,13 @@ internal class AssistantCreateParamsTest {
                         .timeoutMs(30000L)
                         .build()
                 )
+                .avatarSettings(
+                    AvatarSettingsRequest.builder()
+                        .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                        .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
+                        .model(AvatarSettingsRequest.Model.FOXTROT_1)
+                        .build()
+                )
                 .conversationFlow(
                     ConversationFlowReq.builder()
                         .addNode(
@@ -1708,6 +1830,25 @@ internal class AssistantCreateParamsTest {
                                         .speed(0.0)
                                         .style(0.0)
                                         .temperature(0.0)
+                                        .toolCallAudio(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .builder()
+                                                .type(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .Type
+                                                        .PREDEFINED_MEDIA
+                                                )
+                                                .value(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .Value_
+                                                        .TYPING
+                                                )
+                                                .volume(0.5)
+                                                .build()
+                                        )
                                         .useSpeakerBoost(true)
                                         .voiceSpeed(0.0)
                                         .build()
@@ -1880,6 +2021,25 @@ internal class AssistantCreateParamsTest {
                                         .speed(0.0)
                                         .style(0.0)
                                         .temperature(0.0)
+                                        .toolCallAudio(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .builder()
+                                                .type(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .Type
+                                                        .PREDEFINED_MEDIA
+                                                )
+                                                .value(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .Value_
+                                                        .TYPING
+                                                )
+                                                .volume(0.5)
+                                                .build()
+                                        )
                                         .useSpeakerBoost(true)
                                         .voiceSpeed(0.0)
                                         .build()
@@ -2232,6 +2392,20 @@ internal class AssistantCreateParamsTest {
                         .speed(0.0)
                         .style(0.0)
                         .temperature(0.0)
+                        .toolCallAudio(
+                            InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.builder()
+                                .type(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Type
+                                        .PREDEFINED_MEDIA
+                                )
+                                .value(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .Value_
+                                        .TYPING
+                                )
+                                .volume(0.5)
+                                .build()
+                        )
                         .useSpeakerBoost(true)
                         .voiceSpeed(0.0)
                         .build()
@@ -2285,6 +2459,14 @@ internal class AssistantCreateParamsTest {
                     )
                     .pollIntervalMs(500L)
                     .timeoutMs(30000L)
+                    .build()
+            )
+        assertThat(body.avatarSettings())
+            .contains(
+                AvatarSettingsRequest.builder()
+                    .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                    .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
+                    .model(AvatarSettingsRequest.Model.FOXTROT_1)
                     .build()
             )
         assertThat(body.conversationFlow())
@@ -2451,6 +2633,24 @@ internal class AssistantCreateParamsTest {
                                     .speed(0.0)
                                     .style(0.0)
                                     .temperature(0.0)
+                                    .toolCallAudio(
+                                        InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                            .builder()
+                                            .type(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .Type
+                                                    .PREDEFINED_MEDIA
+                                            )
+                                            .value(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .Value_
+                                                    .TYPING
+                                            )
+                                            .volume(0.5)
+                                            .build()
+                                    )
                                     .useSpeakerBoost(true)
                                     .voiceSpeed(0.0)
                                     .build()
@@ -2620,6 +2820,24 @@ internal class AssistantCreateParamsTest {
                                     .speed(0.0)
                                     .style(0.0)
                                     .temperature(0.0)
+                                    .toolCallAudio(
+                                        InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                            .builder()
+                                            .type(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .Type
+                                                    .PREDEFINED_MEDIA
+                                            )
+                                            .value(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .Value_
+                                                    .TYPING
+                                            )
+                                            .volume(0.5)
+                                            .build()
+                                    )
                                     .useSpeakerBoost(true)
                                     .voiceSpeed(0.0)
                                     .build()
@@ -2978,6 +3196,19 @@ internal class AssistantCreateParamsTest {
                     .speed(0.0)
                     .style(0.0)
                     .temperature(0.0)
+                    .toolCallAudio(
+                        InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.builder()
+                            .type(
+                                InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Type
+                                    .PREDEFINED_MEDIA
+                            )
+                            .value(
+                                InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Value_
+                                    .TYPING
+                            )
+                            .volume(0.5)
+                            .build()
+                    )
                     .useSpeakerBoost(true)
                     .voiceSpeed(0.0)
                     .build()

@@ -197,6 +197,24 @@ internal class ConversationFlowTest {
                                 .speed(0.0)
                                 .style(0.0)
                                 .temperature(0.0)
+                                .toolCallAudio(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .builder()
+                                        .type(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Type
+                                                .PREDEFINED_MEDIA
+                                        )
+                                        .value(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Value_
+                                                .TYPING
+                                        )
+                                        .volume(0.5)
+                                        .build()
+                                )
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
                                 .build()
@@ -386,6 +404,24 @@ internal class ConversationFlowTest {
                                 .speed(0.0)
                                 .style(0.0)
                                 .temperature(0.0)
+                                .toolCallAudio(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .builder()
+                                        .type(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Type
+                                                .PREDEFINED_MEDIA
+                                        )
+                                        .value(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Value_
+                                                .TYPING
+                                        )
+                                        .volume(0.5)
+                                        .build()
+                                )
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
                                 .build()
@@ -600,6 +636,24 @@ internal class ConversationFlowTest {
                                 .speed(0.0)
                                 .style(0.0)
                                 .temperature(0.0)
+                                .toolCallAudio(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .builder()
+                                        .type(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Type
+                                                .PREDEFINED_MEDIA
+                                        )
+                                        .value(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Value_
+                                                .TYPING
+                                        )
+                                        .volume(0.5)
+                                        .build()
+                                )
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
                                 .build()
@@ -789,6 +843,24 @@ internal class ConversationFlowTest {
                                 .speed(0.0)
                                 .style(0.0)
                                 .temperature(0.0)
+                                .toolCallAudio(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .builder()
+                                        .type(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Type
+                                                .PREDEFINED_MEDIA
+                                        )
+                                        .value(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Value_
+                                                .TYPING
+                                        )
+                                        .volume(0.5)
+                                        .build()
+                                )
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
                                 .build()
@@ -1006,6 +1078,24 @@ internal class ConversationFlowTest {
                                 .speed(0.0)
                                 .style(0.0)
                                 .temperature(0.0)
+                                .toolCallAudio(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .builder()
+                                        .type(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Type
+                                                .PREDEFINED_MEDIA
+                                        )
+                                        .value(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Value_
+                                                .TYPING
+                                        )
+                                        .volume(0.5)
+                                        .build()
+                                )
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
                                 .build()
@@ -1195,6 +1285,24 @@ internal class ConversationFlowTest {
                                 .speed(0.0)
                                 .style(0.0)
                                 .temperature(0.0)
+                                .toolCallAudio(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .builder()
+                                        .type(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Type
+                                                .PREDEFINED_MEDIA
+                                        )
+                                        .value(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Value_
+                                                .TYPING
+                                        )
+                                        .volume(0.5)
+                                        .build()
+                                )
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
                                 .build()

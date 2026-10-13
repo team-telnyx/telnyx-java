@@ -54,8 +54,8 @@ private constructor(
     fun phoneNumbers(): List<String> = body.phoneNumbers()
 
     /**
-     * Third-party reseller / partner managing the enterprise's phone numbers. Omit when the
-     * enterprise works directly with Telnyx.
+     * Third-party reseller / partner managing the enterprise's phone numbers on its behalf, such as
+     * a call center (BPO) acting for a client. Omit when the enterprise manages its own numbers.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -174,8 +174,9 @@ private constructor(
         fun addPhoneNumber(phoneNumber: String) = apply { body.addPhoneNumber(phoneNumber) }
 
         /**
-         * Third-party reseller / partner managing the enterprise's phone numbers. Omit when the
-         * enterprise works directly with Telnyx.
+         * Third-party reseller / partner managing the enterprise's phone numbers on its behalf,
+         * such as a call center (BPO) acting for a client. Omit when the enterprise manages its own
+         * numbers.
          */
         fun agent(agent: AgentInput) = apply { body.agent(agent) }
 
@@ -385,8 +386,9 @@ private constructor(
         fun phoneNumbers(): List<String> = phoneNumbers.getRequired("phone_numbers")
 
         /**
-         * Third-party reseller / partner managing the enterprise's phone numbers. Omit when the
-         * enterprise works directly with Telnyx.
+         * Third-party reseller / partner managing the enterprise's phone numbers on its behalf,
+         * such as a call center (BPO) acting for a client. Omit when the enterprise manages its own
+         * numbers.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -500,8 +502,9 @@ private constructor(
             }
 
             /**
-             * Third-party reseller / partner managing the enterprise's phone numbers. Omit when the
-             * enterprise works directly with Telnyx.
+             * Third-party reseller / partner managing the enterprise's phone numbers on its behalf,
+             * such as a call center (BPO) acting for a client. Omit when the enterprise manages its
+             * own numbers.
              */
             fun agent(agent: AgentInput) = agent(JsonField.of(agent))
 

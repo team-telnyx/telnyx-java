@@ -17,12 +17,14 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.mapCancellable
 import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.llmtokengateway.usage.UsageRetrieveExportParams
+import com.telnyx.sdk.models.llmtokengateway.usage.UsageRetrieveExportResponse
 import com.telnyx.sdk.models.llmtokengateway.usage.UsageRetrieveSummaryParams
 import com.telnyx.sdk.models.llmtokengateway.usage.UsageRetrieveSummaryResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/** Manage and report AI Gateway traffic. */
+/** Manage and report AI Gateway usage. */
 class UsageServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     UsageServiceAsync {
 
@@ -34,6 +36,13 @@ class UsageServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsageServiceAsync =
         UsageServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun retrieveExport(
+        params: UsageRetrieveExportParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<UsageRetrieveExportResponse> =
+        // get /llm_token_gateway/usage/export
+        withRawResponse().retrieveExport(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveSummary(
         params: UsageRetrieveSummaryParams,
@@ -54,6 +63,38 @@ class UsageServiceAsyncImpl internal constructor(private val clientOptions: Clie
             UsageServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        private val retrieveExportHandler: Handler<UsageRetrieveExportResponse> =
+            jsonHandler<UsageRetrieveExportResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveExport(
+            params: UsageRetrieveExportParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<UsageRetrieveExportResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("llm_token_gateway", "usage", "export")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveExportHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
 
         private val retrieveSummaryHandler: Handler<UsageRetrieveSummaryResponse> =
             jsonHandler<UsageRetrieveSummaryResponse>(clientOptions.jsonMapper)

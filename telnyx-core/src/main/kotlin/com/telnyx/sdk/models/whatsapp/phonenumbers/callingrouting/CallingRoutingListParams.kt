@@ -9,8 +9,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve the routing connection currently stored for a BYON (Bring Your Own Number) phone number:
- * the connection that inbound WhatsApp calls to the number are delivered to.
+ * Retrieve the connection ID currently stored for a WhatsApp Calling BYON (Bring Your Own Number)
+ * phone number: the connection that inbound WhatsApp calls to the number are delivered to.
  *
  * Use it to check the result of `PATCH /whatsapp/phone_numbers/{id}/calling_routing`. A read made
  * immediately after an update can still return the previous value.

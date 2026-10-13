@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.services.async.whatsapp.BusinessAccountServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.PhoneNumberServiceAsync
+import com.telnyx.sdk.services.async.whatsapp.SignupServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.TemplateServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.UserDataServiceAsync
 import java.util.function.Consumer
@@ -35,6 +36,8 @@ interface WhatsappServiceAsync {
     /** Manage Whatsapp business accounts */
     fun userData(): UserDataServiceAsync
 
+    fun signup(): SignupServiceAsync
+
     /**
      * A view of [WhatsappServiceAsync] that provides access to raw HTTP responses for each method.
      */
@@ -60,5 +63,7 @@ interface WhatsappServiceAsync {
 
         /** Manage Whatsapp business accounts */
         fun userData(): UserDataServiceAsync.WithRawResponse
+
+        fun signup(): SignupServiceAsync.WithRawResponse
     }
 }

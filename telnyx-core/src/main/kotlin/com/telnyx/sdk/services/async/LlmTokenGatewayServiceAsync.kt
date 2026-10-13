@@ -3,6 +3,9 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
+import com.telnyx.sdk.services.async.llmtokengateway.SpendServiceAsync
+import com.telnyx.sdk.services.async.llmtokengateway.TokenGroupServiceAsync
+import com.telnyx.sdk.services.async.llmtokengateway.TokenKeyServiceAsync
 import com.telnyx.sdk.services.async.llmtokengateway.UsageServiceAsync
 import java.util.function.Consumer
 
@@ -20,8 +23,17 @@ interface LlmTokenGatewayServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LlmTokenGatewayServiceAsync
 
-    /** Manage and report AI Gateway traffic. */
+    /** Manage and report AI Gateway usage. */
     fun usage(): UsageServiceAsync
+
+    /** Manage and report AI Gateway usage. */
+    fun spend(): SpendServiceAsync
+
+    /** Manage and report AI Gateway usage. */
+    fun tokenGroups(): TokenGroupServiceAsync
+
+    /** Manage and report AI Gateway usage. */
+    fun tokenKeys(): TokenKeyServiceAsync
 
     /**
      * A view of [LlmTokenGatewayServiceAsync] that provides access to raw HTTP responses for each
@@ -38,7 +50,16 @@ interface LlmTokenGatewayServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): LlmTokenGatewayServiceAsync.WithRawResponse
 
-        /** Manage and report AI Gateway traffic. */
+        /** Manage and report AI Gateway usage. */
         fun usage(): UsageServiceAsync.WithRawResponse
+
+        /** Manage and report AI Gateway usage. */
+        fun spend(): SpendServiceAsync.WithRawResponse
+
+        /** Manage and report AI Gateway usage. */
+        fun tokenGroups(): TokenGroupServiceAsync.WithRawResponse
+
+        /** Manage and report AI Gateway usage. */
+        fun tokenKeys(): TokenKeyServiceAsync.WithRawResponse
     }
 }

@@ -32,6 +32,7 @@ import com.telnyx.sdk.models.ai.assistants.PrivacySettings
 import com.telnyx.sdk.models.ai.assistants.PromptSyncStatus
 import com.telnyx.sdk.models.ai.assistants.StartSpeakingPlan
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
+import com.telnyx.sdk.models.ai.assistants.TelnyxAvatarSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionEndpointingPlan
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
@@ -77,6 +78,13 @@ internal class DeletedListPageResponseTest {
                                 )
                                 .pollIntervalMs(500L)
                                 .timeoutMs(30000L)
+                                .build()
+                        )
+                        .avatarSettings(
+                            TelnyxAvatarSettings.builder()
+                                .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                                .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
+                                .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                                 .build()
                         )
                         .conversationFlow(
@@ -277,6 +285,27 @@ internal class DeletedListPageResponseTest {
                                                 .speed(0.0)
                                                 .style(0.0)
                                                 .temperature(0.0)
+                                                .toolCallAudio(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .builder()
+                                                        .type(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Type
+                                                                .PREDEFINED_MEDIA
+                                                        )
+                                                        .value(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Value_
+                                                                .TYPING
+                                                        )
+                                                        .volume(0.5)
+                                                        .build()
+                                                )
                                                 .useSpeakerBoost(true)
                                                 .voiceSpeed(0.0)
                                                 .build()
@@ -479,6 +508,27 @@ internal class DeletedListPageResponseTest {
                                                 .speed(0.0)
                                                 .style(0.0)
                                                 .temperature(0.0)
+                                                .toolCallAudio(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .builder()
+                                                        .type(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Type
+                                                                .PREDEFINED_MEDIA
+                                                        )
+                                                        .value(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Value_
+                                                                .TYPING
+                                                        )
+                                                        .volume(0.5)
+                                                        .build()
+                                                )
                                                 .useSpeakerBoost(true)
                                                 .voiceSpeed(0.0)
                                                 .build()
@@ -866,6 +916,24 @@ internal class DeletedListPageResponseTest {
                                 .speed(0.0)
                                 .style(0.0)
                                 .temperature(0.0)
+                                .toolCallAudio(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .builder()
+                                        .type(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Type
+                                                .PREDEFINED_MEDIA
+                                        )
+                                        .value(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Value_
+                                                .TYPING
+                                        )
+                                        .volume(0.5)
+                                        .build()
+                                )
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
                                 .build()
@@ -940,6 +1008,13 @@ internal class DeletedListPageResponseTest {
                             )
                             .pollIntervalMs(500L)
                             .timeoutMs(30000L)
+                            .build()
+                    )
+                    .avatarSettings(
+                        TelnyxAvatarSettings.builder()
+                            .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                            .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
+                            .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                             .build()
                     )
                     .conversationFlow(
@@ -1137,6 +1212,27 @@ internal class DeletedListPageResponseTest {
                                             .speed(0.0)
                                             .style(0.0)
                                             .temperature(0.0)
+                                            .toolCallAudio(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .builder()
+                                                    .type(
+                                                        InferenceEmbeddingVoiceSettings
+                                                            .ToolCallAudio
+                                                            .UnionMember0
+                                                            .Type
+                                                            .PREDEFINED_MEDIA
+                                                    )
+                                                    .value(
+                                                        InferenceEmbeddingVoiceSettings
+                                                            .ToolCallAudio
+                                                            .UnionMember0
+                                                            .Value_
+                                                            .TYPING
+                                                    )
+                                                    .volume(0.5)
+                                                    .build()
+                                            )
                                             .useSpeakerBoost(true)
                                             .voiceSpeed(0.0)
                                             .build()
@@ -1336,6 +1432,27 @@ internal class DeletedListPageResponseTest {
                                             .speed(0.0)
                                             .style(0.0)
                                             .temperature(0.0)
+                                            .toolCallAudio(
+                                                InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                    .UnionMember0
+                                                    .builder()
+                                                    .type(
+                                                        InferenceEmbeddingVoiceSettings
+                                                            .ToolCallAudio
+                                                            .UnionMember0
+                                                            .Type
+                                                            .PREDEFINED_MEDIA
+                                                    )
+                                                    .value(
+                                                        InferenceEmbeddingVoiceSettings
+                                                            .ToolCallAudio
+                                                            .UnionMember0
+                                                            .Value_
+                                                            .TYPING
+                                                    )
+                                                    .volume(0.5)
+                                                    .build()
+                                            )
                                             .useSpeakerBoost(true)
                                             .voiceSpeed(0.0)
                                             .build()
@@ -1705,6 +1822,21 @@ internal class DeletedListPageResponseTest {
                             .speed(0.0)
                             .style(0.0)
                             .temperature(0.0)
+                            .toolCallAudio(
+                                InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.builder()
+                                    .type(
+                                        InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                            .Type
+                                            .PREDEFINED_MEDIA
+                                    )
+                                    .value(
+                                        InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                            .Value_
+                                            .TYPING
+                                    )
+                                    .volume(0.5)
+                                    .build()
+                            )
                             .useSpeakerBoost(true)
                             .voiceSpeed(0.0)
                             .build()
@@ -1779,6 +1911,13 @@ internal class DeletedListPageResponseTest {
                                 )
                                 .pollIntervalMs(500L)
                                 .timeoutMs(30000L)
+                                .build()
+                        )
+                        .avatarSettings(
+                            TelnyxAvatarSettings.builder()
+                                .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                                .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
+                                .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                                 .build()
                         )
                         .conversationFlow(
@@ -1979,6 +2118,27 @@ internal class DeletedListPageResponseTest {
                                                 .speed(0.0)
                                                 .style(0.0)
                                                 .temperature(0.0)
+                                                .toolCallAudio(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .builder()
+                                                        .type(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Type
+                                                                .PREDEFINED_MEDIA
+                                                        )
+                                                        .value(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Value_
+                                                                .TYPING
+                                                        )
+                                                        .volume(0.5)
+                                                        .build()
+                                                )
                                                 .useSpeakerBoost(true)
                                                 .voiceSpeed(0.0)
                                                 .build()
@@ -2181,6 +2341,27 @@ internal class DeletedListPageResponseTest {
                                                 .speed(0.0)
                                                 .style(0.0)
                                                 .temperature(0.0)
+                                                .toolCallAudio(
+                                                    InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                        .UnionMember0
+                                                        .builder()
+                                                        .type(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Type
+                                                                .PREDEFINED_MEDIA
+                                                        )
+                                                        .value(
+                                                            InferenceEmbeddingVoiceSettings
+                                                                .ToolCallAudio
+                                                                .UnionMember0
+                                                                .Value_
+                                                                .TYPING
+                                                        )
+                                                        .volume(0.5)
+                                                        .build()
+                                                )
                                                 .useSpeakerBoost(true)
                                                 .voiceSpeed(0.0)
                                                 .build()
@@ -2568,6 +2749,24 @@ internal class DeletedListPageResponseTest {
                                 .speed(0.0)
                                 .style(0.0)
                                 .temperature(0.0)
+                                .toolCallAudio(
+                                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0
+                                        .builder()
+                                        .type(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Type
+                                                .PREDEFINED_MEDIA
+                                        )
+                                        .value(
+                                            InferenceEmbeddingVoiceSettings.ToolCallAudio
+                                                .UnionMember0
+                                                .Value_
+                                                .TYPING
+                                        )
+                                        .volume(0.5)
+                                        .build()
+                                )
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
                                 .build()

@@ -312,6 +312,8 @@ import com.telnyx.sdk.services.async.SimCardOrderServiceAsync
 import com.telnyx.sdk.services.async.SimCardOrderServiceAsyncImpl
 import com.telnyx.sdk.services.async.SimCardServiceAsync
 import com.telnyx.sdk.services.async.SimCardServiceAsyncImpl
+import com.telnyx.sdk.services.async.SipRegistrationStatusServiceAsync
+import com.telnyx.sdk.services.async.SipRegistrationStatusServiceAsyncImpl
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsync
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsyncImpl
 import com.telnyx.sdk.services.async.SpeechToTextServiceAsync
@@ -1142,6 +1144,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         LlmTokenGatewayServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val sipRegistrationStatus: SipRegistrationStatusServiceAsync by lazy {
+        SipRegistrationStatusServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1779,6 +1785,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun spendLimits(): SpendLimitServiceAsync = spendLimits
 
     override fun llmTokenGateway(): LlmTokenGatewayServiceAsync = llmTokenGateway
+
+    /** UAC connection operations */
+    override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync = sipRegistrationStatus
 
     override fun close() = clientOptions.close()
 
@@ -2584,6 +2593,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             LlmTokenGatewayServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val sipRegistrationStatus:
+            SipRegistrationStatusServiceAsync.WithRawResponse by lazy {
+            SipRegistrationStatusServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3280,5 +3294,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun llmTokenGateway(): LlmTokenGatewayServiceAsync.WithRawResponse =
             llmTokenGateway
+
+        /** UAC connection operations */
+        override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse =
+            sipRegistrationStatus
     }
 }

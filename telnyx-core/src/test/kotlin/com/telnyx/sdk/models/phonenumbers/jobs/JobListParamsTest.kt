@@ -13,6 +13,7 @@ internal class JobListParamsTest {
         JobListParams.builder()
             .filter(
                 JobListParams.Filter.builder()
+                    .customerReference("yourcustomerrefhere")
                     .phoneNumber("+15551234567,1234567890123456789")
                     .addStatus(JobListParams.Filter.Status.PENDING)
                     .addStatus(JobListParams.Filter.Status.IN_PROGRESS)
@@ -31,6 +32,7 @@ internal class JobListParamsTest {
             JobListParams.builder()
                 .filter(
                     JobListParams.Filter.builder()
+                        .customerReference("yourcustomerrefhere")
                         .phoneNumber("+15551234567,1234567890123456789")
                         .addStatus(JobListParams.Filter.Status.PENDING)
                         .addStatus(JobListParams.Filter.Status.IN_PROGRESS)
@@ -47,6 +49,7 @@ internal class JobListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
+                    .put("filter[customer_reference]", "yourcustomerrefhere")
                     .put("filter[phone_number]", "+15551234567,1234567890123456789")
                     .put("filter[status]", listOf("pending", "in_progress").joinToString(","))
                     .put("filter[type]", "update_emergency_settings")

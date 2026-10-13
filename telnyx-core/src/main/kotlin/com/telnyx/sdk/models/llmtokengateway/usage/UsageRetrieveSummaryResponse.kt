@@ -225,32 +225,24 @@ private constructor(
         ) : this(byDay, byModel, guardrails, totals, mutableMapOf())
 
         /**
-         * One row per UTC day, including zero-activity days.
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun byDay(): List<ByDay> = byDay.getRequired("by_day")
 
         /**
-         * One row per model, ordered by request count descending then model name.
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun byModel(): List<ByModel> = byModel.getRequired("by_model")
 
         /**
-         * Complete guardrail event counts and bounded recent findings for the same group and range.
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun guardrails(): Guardrails = guardrails.getRequired("guardrails")
 
         /**
-         * Metrics for all matching requests.
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
@@ -332,7 +324,6 @@ private constructor(
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
-            /** One row per UTC day, including zero-activity days. */
             fun byDay(byDay: List<ByDay>) = byDay(JsonField.of(byDay))
 
             /**
@@ -358,7 +349,6 @@ private constructor(
                     }
             }
 
-            /** One row per model, ordered by request count descending then model name. */
             fun byModel(byModel: List<ByModel>) = byModel(JsonField.of(byModel))
 
             /**
@@ -384,10 +374,6 @@ private constructor(
                     }
             }
 
-            /**
-             * Complete guardrail event counts and bounded recent findings for the same group and
-             * range.
-             */
             fun guardrails(guardrails: Guardrails) = guardrails(JsonField.of(guardrails))
 
             /**
@@ -401,7 +387,6 @@ private constructor(
                 this.guardrails = guardrails
             }
 
-            /** Metrics for all matching requests. */
             fun totals(totals: Totals) = totals(JsonField.of(totals))
 
             /**
@@ -565,8 +550,6 @@ private constructor(
             )
 
             /**
-             * Requests served from the gateway cache.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -574,8 +557,6 @@ private constructor(
             fun cacheHits(): Long = cacheHits.getRequired("cache_hits")
 
             /**
-             * UTC day.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -583,8 +564,6 @@ private constructor(
             fun date(): LocalDate = date.getRequired("date")
 
             /**
-             * Requests classified as failed.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -592,8 +571,6 @@ private constructor(
             fun failedRequests(): Long = failedRequests.getRequired("failed_requests")
 
             /**
-             * Independently known input tokens across attempts, including corrected usage.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -601,8 +578,6 @@ private constructor(
             fun inputTokens(): Long = inputTokens.getRequired("input_tokens")
 
             /**
-             * Independently known output tokens across attempts, including corrected usage.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -610,8 +585,6 @@ private constructor(
             fun outputTokens(): Long = outputTokens.getRequired("output_tokens")
 
             /**
-             * Requests classified as partial after streaming began.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -619,8 +592,6 @@ private constructor(
             fun partialRequests(): Long = partialRequests.getRequired("partial_requests")
 
             /**
-             * Number of matching requests.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -628,7 +599,8 @@ private constructor(
             fun requests(): Long = requests.getRequired("requests")
 
             /**
-             * Unresolved budget reservations in USD.
+             * USD, decimal precision at most 6 places; parse exactly to integer micro-USD, never
+             * binary float accounting.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -637,7 +609,8 @@ private constructor(
             fun reservedSpend(): Double = reservedSpend.getRequired("reserved_spend")
 
             /**
-             * Sum of known reference/enforcement cost in USD.
+             * USD, decimal precision at most 6 places; parse exactly to integer micro-USD, never
+             * binary float accounting.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -646,8 +619,6 @@ private constructor(
             fun spend(): Double = spend.getRequired("spend")
 
             /**
-             * Requests classified as succeeded.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -655,8 +626,6 @@ private constructor(
             fun succeededRequests(): Long = succeededRequests.getRequired("succeeded_requests")
 
             /**
-             * Requests whose cost remains unresolved; unknown cost is excluded from spend.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -832,7 +801,6 @@ private constructor(
                     additionalProperties = byDay.additionalProperties.toMutableMap()
                 }
 
-                /** Requests served from the gateway cache. */
                 fun cacheHits(cacheHits: Long) = cacheHits(JsonField.of(cacheHits))
 
                 /**
@@ -844,7 +812,6 @@ private constructor(
                  */
                 fun cacheHits(cacheHits: JsonField<Long>) = apply { this.cacheHits = cacheHits }
 
-                /** UTC day. */
                 fun date(date: LocalDate) = date(JsonField.of(date))
 
                 /**
@@ -856,7 +823,6 @@ private constructor(
                  */
                 fun date(date: JsonField<LocalDate>) = apply { this.date = date }
 
-                /** Requests classified as failed. */
                 fun failedRequests(failedRequests: Long) =
                     failedRequests(JsonField.of(failedRequests))
 
@@ -871,7 +837,6 @@ private constructor(
                     this.failedRequests = failedRequests
                 }
 
-                /** Independently known input tokens across attempts, including corrected usage. */
                 fun inputTokens(inputTokens: Long) = inputTokens(JsonField.of(inputTokens))
 
                 /**
@@ -885,7 +850,6 @@ private constructor(
                     this.inputTokens = inputTokens
                 }
 
-                /** Independently known output tokens across attempts, including corrected usage. */
                 fun outputTokens(outputTokens: Long) = outputTokens(JsonField.of(outputTokens))
 
                 /**
@@ -899,7 +863,6 @@ private constructor(
                     this.outputTokens = outputTokens
                 }
 
-                /** Requests classified as partial after streaming began. */
                 fun partialRequests(partialRequests: Long) =
                     partialRequests(JsonField.of(partialRequests))
 
@@ -914,7 +877,6 @@ private constructor(
                     this.partialRequests = partialRequests
                 }
 
-                /** Number of matching requests. */
                 fun requests(requests: Long) = requests(JsonField.of(requests))
 
                 /**
@@ -926,7 +888,10 @@ private constructor(
                  */
                 fun requests(requests: JsonField<Long>) = apply { this.requests = requests }
 
-                /** Unresolved budget reservations in USD. */
+                /**
+                 * USD, decimal precision at most 6 places; parse exactly to integer micro-USD,
+                 * never binary float accounting.
+                 */
                 fun reservedSpend(reservedSpend: Double) =
                     reservedSpend(JsonField.of(reservedSpend))
 
@@ -941,7 +906,10 @@ private constructor(
                     this.reservedSpend = reservedSpend
                 }
 
-                /** Sum of known reference/enforcement cost in USD. */
+                /**
+                 * USD, decimal precision at most 6 places; parse exactly to integer micro-USD,
+                 * never binary float accounting.
+                 */
                 fun spend(spend: Double) = spend(JsonField.of(spend))
 
                 /**
@@ -953,7 +921,6 @@ private constructor(
                  */
                 fun spend(spend: JsonField<Double>) = apply { this.spend = spend }
 
-                /** Requests classified as succeeded. */
                 fun succeededRequests(succeededRequests: Long) =
                     succeededRequests(JsonField.of(succeededRequests))
 
@@ -968,7 +935,6 @@ private constructor(
                     this.succeededRequests = succeededRequests
                 }
 
-                /** Requests whose cost remains unresolved; unknown cost is excluded from spend. */
                 fun unknownRequests(unknownRequests: Long) =
                     unknownRequests(JsonField.of(unknownRequests))
 
@@ -1210,8 +1176,6 @@ private constructor(
             )
 
             /**
-             * Requests served from the gateway cache.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1219,8 +1183,6 @@ private constructor(
             fun cacheHits(): Long = cacheHits.getRequired("cache_hits")
 
             /**
-             * Requests classified as failed.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1228,8 +1190,6 @@ private constructor(
             fun failedRequests(): Long = failedRequests.getRequired("failed_requests")
 
             /**
-             * Independently known input tokens across attempts, including corrected usage.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1237,8 +1197,6 @@ private constructor(
             fun inputTokens(): Long = inputTokens.getRequired("input_tokens")
 
             /**
-             * Model identifier.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1246,8 +1204,6 @@ private constructor(
             fun model(): String = model.getRequired("model")
 
             /**
-             * Independently known output tokens across attempts, including corrected usage.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1255,8 +1211,6 @@ private constructor(
             fun outputTokens(): Long = outputTokens.getRequired("output_tokens")
 
             /**
-             * Requests classified as partial after streaming began.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1264,8 +1218,6 @@ private constructor(
             fun partialRequests(): Long = partialRequests.getRequired("partial_requests")
 
             /**
-             * Number of matching requests.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1273,7 +1225,8 @@ private constructor(
             fun requests(): Long = requests.getRequired("requests")
 
             /**
-             * Unresolved budget reservations in USD.
+             * USD, decimal precision at most 6 places; parse exactly to integer micro-USD, never
+             * binary float accounting.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -1282,7 +1235,8 @@ private constructor(
             fun reservedSpend(): Double = reservedSpend.getRequired("reserved_spend")
 
             /**
-             * Sum of known reference/enforcement cost in USD.
+             * USD, decimal precision at most 6 places; parse exactly to integer micro-USD, never
+             * binary float accounting.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -1291,8 +1245,6 @@ private constructor(
             fun spend(): Double = spend.getRequired("spend")
 
             /**
-             * Requests classified as succeeded.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1300,8 +1252,6 @@ private constructor(
             fun succeededRequests(): Long = succeededRequests.getRequired("succeeded_requests")
 
             /**
-             * Requests whose cost remains unresolved; unknown cost is excluded from spend.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1477,7 +1427,6 @@ private constructor(
                     additionalProperties = byModel.additionalProperties.toMutableMap()
                 }
 
-                /** Requests served from the gateway cache. */
                 fun cacheHits(cacheHits: Long) = cacheHits(JsonField.of(cacheHits))
 
                 /**
@@ -1489,7 +1438,6 @@ private constructor(
                  */
                 fun cacheHits(cacheHits: JsonField<Long>) = apply { this.cacheHits = cacheHits }
 
-                /** Requests classified as failed. */
                 fun failedRequests(failedRequests: Long) =
                     failedRequests(JsonField.of(failedRequests))
 
@@ -1504,7 +1452,6 @@ private constructor(
                     this.failedRequests = failedRequests
                 }
 
-                /** Independently known input tokens across attempts, including corrected usage. */
                 fun inputTokens(inputTokens: Long) = inputTokens(JsonField.of(inputTokens))
 
                 /**
@@ -1518,7 +1465,6 @@ private constructor(
                     this.inputTokens = inputTokens
                 }
 
-                /** Model identifier. */
                 fun model(model: String) = model(JsonField.of(model))
 
                 /**
@@ -1530,7 +1476,6 @@ private constructor(
                  */
                 fun model(model: JsonField<String>) = apply { this.model = model }
 
-                /** Independently known output tokens across attempts, including corrected usage. */
                 fun outputTokens(outputTokens: Long) = outputTokens(JsonField.of(outputTokens))
 
                 /**
@@ -1544,7 +1489,6 @@ private constructor(
                     this.outputTokens = outputTokens
                 }
 
-                /** Requests classified as partial after streaming began. */
                 fun partialRequests(partialRequests: Long) =
                     partialRequests(JsonField.of(partialRequests))
 
@@ -1559,7 +1503,6 @@ private constructor(
                     this.partialRequests = partialRequests
                 }
 
-                /** Number of matching requests. */
                 fun requests(requests: Long) = requests(JsonField.of(requests))
 
                 /**
@@ -1571,7 +1514,10 @@ private constructor(
                  */
                 fun requests(requests: JsonField<Long>) = apply { this.requests = requests }
 
-                /** Unresolved budget reservations in USD. */
+                /**
+                 * USD, decimal precision at most 6 places; parse exactly to integer micro-USD,
+                 * never binary float accounting.
+                 */
                 fun reservedSpend(reservedSpend: Double) =
                     reservedSpend(JsonField.of(reservedSpend))
 
@@ -1586,7 +1532,10 @@ private constructor(
                     this.reservedSpend = reservedSpend
                 }
 
-                /** Sum of known reference/enforcement cost in USD. */
+                /**
+                 * USD, decimal precision at most 6 places; parse exactly to integer micro-USD,
+                 * never binary float accounting.
+                 */
                 fun spend(spend: Double) = spend(JsonField.of(spend))
 
                 /**
@@ -1598,7 +1547,6 @@ private constructor(
                  */
                 fun spend(spend: JsonField<Double>) = apply { this.spend = spend }
 
-                /** Requests classified as succeeded. */
                 fun succeededRequests(succeededRequests: Long) =
                     succeededRequests(JsonField.of(succeededRequests))
 
@@ -1613,7 +1561,6 @@ private constructor(
                     this.succeededRequests = succeededRequests
                 }
 
-                /** Requests whose cost remains unresolved; unknown cost is excluded from spend. */
                 fun unknownRequests(unknownRequests: Long) =
                     unknownRequests(JsonField.of(unknownRequests))
 
@@ -1791,9 +1738,6 @@ private constructor(
                 "ByModel{cacheHits=$cacheHits, failedRequests=$failedRequests, inputTokens=$inputTokens, model=$model, outputTokens=$outputTokens, partialRequests=$partialRequests, requests=$requests, reservedSpend=$reservedSpend, spend=$spend, succeededRequests=$succeededRequests, unknownRequests=$unknownRequests, additionalProperties=$additionalProperties}"
         }
 
-        /**
-         * Complete guardrail event counts and bounded recent findings for the same group and range.
-         */
         class Guardrails
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
@@ -1817,8 +1761,6 @@ private constructor(
             ) : this(blockedEvents, flaggedEvents, recentEvents, mutableMapOf())
 
             /**
-             * Total blocked guardrail events, not distinct requests.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1826,8 +1768,6 @@ private constructor(
             fun blockedEvents(): Long = blockedEvents.getRequired("blocked_events")
 
             /**
-             * Total flagged guardrail events, not distinct requests.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1835,9 +1775,6 @@ private constructor(
             fun flaggedEvents(): Long = flaggedEvents.getRequired("flagged_events")
 
             /**
-             * Up to 20 newest privacy-safe guardrail events, ordered by creation time descending
-             * and event ID.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -1917,7 +1854,6 @@ private constructor(
                     additionalProperties = guardrails.additionalProperties.toMutableMap()
                 }
 
-                /** Total blocked guardrail events, not distinct requests. */
                 fun blockedEvents(blockedEvents: Long) = blockedEvents(JsonField.of(blockedEvents))
 
                 /**
@@ -1931,7 +1867,6 @@ private constructor(
                     this.blockedEvents = blockedEvents
                 }
 
-                /** Total flagged guardrail events, not distinct requests. */
                 fun flaggedEvents(flaggedEvents: Long) = flaggedEvents(JsonField.of(flaggedEvents))
 
                 /**
@@ -1945,10 +1880,6 @@ private constructor(
                     this.flaggedEvents = flaggedEvents
                 }
 
-                /**
-                 * Up to 20 newest privacy-safe guardrail events, ordered by creation time
-                 * descending and event ID.
-                 */
                 fun recentEvents(recentEvents: List<RecentEvent>) =
                     recentEvents(JsonField.of(recentEvents))
 
@@ -2071,7 +2002,8 @@ private constructor(
                 private val endUserId: JsonField<String>,
                 private val evaluationInputTokens: JsonField<Long>,
                 private val evaluationOutputTokens: JsonField<Long>,
-                private val findings: JsonField<List<Finding>>,
+                private val findings: JsonField<List<GuardrailFinding>>,
+                private val metadata: JsonField<Metadata>,
                 private val model: JsonField<String>,
                 private val outcome: JsonField<Outcome>,
                 private val recordType: JsonValue,
@@ -2100,7 +2032,10 @@ private constructor(
                     evaluationOutputTokens: JsonField<Long> = JsonMissing.of(),
                     @JsonProperty("findings")
                     @ExcludeMissing
-                    findings: JsonField<List<Finding>> = JsonMissing.of(),
+                    findings: JsonField<List<GuardrailFinding>> = JsonMissing.of(),
+                    @JsonProperty("metadata")
+                    @ExcludeMissing
+                    metadata: JsonField<Metadata> = JsonMissing.of(),
                     @JsonProperty("model")
                     @ExcludeMissing
                     model: JsonField<String> = JsonMissing.of(),
@@ -2132,6 +2067,7 @@ private constructor(
                     evaluationInputTokens,
                     evaluationOutputTokens,
                     findings,
+                    metadata,
                     model,
                     outcome,
                     recordType,
@@ -2182,11 +2118,24 @@ private constructor(
                  *   unexpectedly missing or null (e.g. if the server responded with an unexpected
                  *   value).
                  */
-                fun findings(): List<Finding> = findings.getRequired("findings")
+                fun findings(): List<GuardrailFinding> = findings.getRequired("findings")
 
                 /**
-                 * Model identifier.
+                 * Customer request tags from the x-ltg-metadata header: up to 5 entries. Keys are
+                 * case-sensitive; keys starting with ltg_, telnyx_, litellm_ or cf_ (any case) are
+                 * reserved. Values are strings (1-256 characters, no control or format characters),
+                 * integers within +/-9007199254740991, or booleans; floats, null, objects and
+                 * arrays are rejected. Values that look like credentials are rejected. Tags are
+                 * attribution only: never forwarded upstream, never part of the response cache key,
+                 * never used for budgets or routing. An untagged request reports {}.
                  *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun metadata(): Metadata = metadata.getRequired("metadata")
+
+                /**
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
                  *   unexpectedly missing or null (e.g. if the server responded with an unexpected
                  *   value).
@@ -2302,7 +2251,17 @@ private constructor(
                  */
                 @JsonProperty("findings")
                 @ExcludeMissing
-                fun _findings(): JsonField<List<Finding>> = findings
+                fun _findings(): JsonField<List<GuardrailFinding>> = findings
+
+                /**
+                 * Returns the raw JSON value of [metadata].
+                 *
+                 * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("metadata")
+                @ExcludeMissing
+                fun _metadata(): JsonField<Metadata> = metadata
 
                 /**
                  * Returns the raw JSON value of [model].
@@ -2395,6 +2354,7 @@ private constructor(
                      * .evaluationInputTokens()
                      * .evaluationOutputTokens()
                      * .findings()
+                     * .metadata()
                      * .model()
                      * .outcome()
                      * .requestId()
@@ -2415,7 +2375,8 @@ private constructor(
                     private var endUserId: JsonField<String>? = null
                     private var evaluationInputTokens: JsonField<Long>? = null
                     private var evaluationOutputTokens: JsonField<Long>? = null
-                    private var findings: JsonField<MutableList<Finding>>? = null
+                    private var findings: JsonField<MutableList<GuardrailFinding>>? = null
+                    private var metadata: JsonField<Metadata>? = null
                     private var model: JsonField<String>? = null
                     private var outcome: JsonField<Outcome>? = null
                     private var recordType: JsonValue = JsonValue.from("guardrail_event")
@@ -2434,6 +2395,7 @@ private constructor(
                         evaluationInputTokens = recentEvent.evaluationInputTokens
                         evaluationOutputTokens = recentEvent.evaluationOutputTokens
                         findings = recentEvent.findings.map { it.toMutableList() }
+                        metadata = recentEvent.metadata
                         model = recentEvent.model
                         outcome = recentEvent.outcome
                         recordType = recentEvent.recordType
@@ -2543,32 +2505,53 @@ private constructor(
                         this.evaluationOutputTokens = evaluationOutputTokens
                     }
 
-                    fun findings(findings: List<Finding>) = findings(JsonField.of(findings))
+                    fun findings(findings: List<GuardrailFinding>) =
+                        findings(JsonField.of(findings))
 
                     /**
                      * Sets [Builder.findings] to an arbitrary JSON value.
                      *
-                     * You should usually call [Builder.findings] with a well-typed `List<Finding>`
-                     * value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
+                     * You should usually call [Builder.findings] with a well-typed
+                     * `List<GuardrailFinding>` value instead. This method is primarily for setting
+                     * the field to an undocumented or not yet supported value.
                      */
-                    fun findings(findings: JsonField<List<Finding>>) = apply {
+                    fun findings(findings: JsonField<List<GuardrailFinding>>) = apply {
                         this.findings = findings.map { it.toMutableList() }
                     }
 
                     /**
-                     * Adds a single [Finding] to [findings].
+                     * Adds a single [GuardrailFinding] to [findings].
                      *
                      * @throws IllegalStateException if the field was previously set to a non-list.
                      */
-                    fun addFinding(finding: Finding) = apply {
+                    fun addFinding(finding: GuardrailFinding) = apply {
                         findings =
                             (findings ?: JsonField.of(mutableListOf())).also {
                                 checkKnown("findings", it).add(finding)
                             }
                     }
 
-                    /** Model identifier. */
+                    /**
+                     * Customer request tags from the x-ltg-metadata header: up to 5 entries. Keys
+                     * are case-sensitive; keys starting with ltg_, telnyx_, litellm_ or cf_ (any
+                     * case) are reserved. Values are strings (1-256 characters, no control or
+                     * format characters), integers within +/-9007199254740991, or booleans; floats,
+                     * null, objects and arrays are rejected. Values that look like credentials are
+                     * rejected. Tags are attribution only: never forwarded upstream, never part of
+                     * the response cache key, never used for budgets or routing. An untagged
+                     * request reports {}.
+                     */
+                    fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+                    /**
+                     * Sets [Builder.metadata] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
                     fun model(model: String) = model(JsonField.of(model))
 
                     /**
@@ -2709,6 +2692,7 @@ private constructor(
                      * .evaluationInputTokens()
                      * .evaluationOutputTokens()
                      * .findings()
+                     * .metadata()
                      * .model()
                      * .outcome()
                      * .requestId()
@@ -2728,6 +2712,7 @@ private constructor(
                             checkRequired("evaluationInputTokens", evaluationInputTokens),
                             checkRequired("evaluationOutputTokens", evaluationOutputTokens),
                             checkRequired("findings", findings).map { it.toImmutable() },
+                            checkRequired("metadata", metadata),
                             checkRequired("model", model),
                             checkRequired("outcome", outcome),
                             recordType,
@@ -2763,6 +2748,7 @@ private constructor(
                     evaluationInputTokens()
                     evaluationOutputTokens()
                     findings().forEach { it.validate() }
+                    metadata().validate()
                     model()
                     outcome().validate()
                     _recordType().let {
@@ -2802,6 +2788,7 @@ private constructor(
                         (if (evaluationInputTokens.asKnown().isPresent) 1 else 0) +
                         (if (evaluationOutputTokens.asKnown().isPresent) 1 else 0) +
                         (findings.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                        (metadata.asKnown().getOrNull()?.validity() ?: 0) +
                         (if (model.asKnown().isPresent) 1 else 0) +
                         (outcome.asKnown().getOrNull()?.validity() ?: 0) +
                         recordType.let { if (it == JsonValue.from("guardrail_event")) 1 else 0 } +
@@ -2811,187 +2798,43 @@ private constructor(
                         (if (tokenKeyId.asKnown().isPresent) 1 else 0) +
                         (if (tokenUserId.asKnown().isPresent) 1 else 0)
 
-                class Finding
-                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                /**
+                 * Customer request tags from the x-ltg-metadata header: up to 5 entries. Keys are
+                 * case-sensitive; keys starting with ltg_, telnyx_, litellm_ or cf_ (any case) are
+                 * reserved. Values are strings (1-256 characters, no control or format characters),
+                 * integers within +/-9007199254740991, or booleans; floats, null, objects and
+                 * arrays are rejected. Values that look like credentials are rejected. Tags are
+                 * attribution only: never forwarded upstream, never part of the response cache key,
+                 * never used for budgets or routing. An untagged request reports {}.
+                 */
+                class Metadata
+                @JsonCreator
                 private constructor(
-                    private val action: JsonField<Action>,
-                    private val code: JsonField<String>,
-                    private val count: JsonField<Long>,
-                    private val detector: JsonField<Detector>,
-                    private val additionalProperties: MutableMap<String, JsonValue>,
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    private val additionalProperties: Map<String, JsonValue>
                 ) {
-
-                    @JsonCreator
-                    private constructor(
-                        @JsonProperty("action")
-                        @ExcludeMissing
-                        action: JsonField<Action> = JsonMissing.of(),
-                        @JsonProperty("code")
-                        @ExcludeMissing
-                        code: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("count")
-                        @ExcludeMissing
-                        count: JsonField<Long> = JsonMissing.of(),
-                        @JsonProperty("detector")
-                        @ExcludeMissing
-                        detector: JsonField<Detector> = JsonMissing.of(),
-                    ) : this(action, code, count, detector, mutableMapOf())
-
-                    /**
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   or is unexpectedly missing or null (e.g. if the server responded with an
-                     *   unexpected value).
-                     */
-                    fun action(): Action = action.getRequired("action")
-
-                    /**
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   or is unexpectedly missing or null (e.g. if the server responded with an
-                     *   unexpected value).
-                     */
-                    fun code(): String = code.getRequired("code")
-
-                    /**
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   or is unexpectedly missing or null (e.g. if the server responded with an
-                     *   unexpected value).
-                     */
-                    fun count(): Long = count.getRequired("count")
-
-                    /**
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   or is unexpectedly missing or null (e.g. if the server responded with an
-                     *   unexpected value).
-                     */
-                    fun detector(): Detector = detector.getRequired("detector")
-
-                    /**
-                     * Returns the raw JSON value of [action].
-                     *
-                     * Unlike [action], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("action")
-                    @ExcludeMissing
-                    fun _action(): JsonField<Action> = action
-
-                    /**
-                     * Returns the raw JSON value of [code].
-                     *
-                     * Unlike [code], this method doesn't throw if the JSON field has an unexpected
-                     * type.
-                     */
-                    @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
-
-                    /**
-                     * Returns the raw JSON value of [count].
-                     *
-                     * Unlike [count], this method doesn't throw if the JSON field has an unexpected
-                     * type.
-                     */
-                    @JsonProperty("count") @ExcludeMissing fun _count(): JsonField<Long> = count
-
-                    /**
-                     * Returns the raw JSON value of [detector].
-                     *
-                     * Unlike [detector], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("detector")
-                    @ExcludeMissing
-                    fun _detector(): JsonField<Detector> = detector
-
-                    @JsonAnySetter
-                    private fun putAdditionalProperty(key: String, value: JsonValue) {
-                        additionalProperties.put(key, value)
-                    }
 
                     @JsonAnyGetter
                     @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> =
-                        Collections.unmodifiableMap(additionalProperties)
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
                     fun toBuilder() = Builder().from(this)
 
                     companion object {
 
-                        /**
-                         * Returns a mutable builder for constructing an instance of [Finding].
-                         *
-                         * The following fields are required:
-                         * ```java
-                         * .action()
-                         * .code()
-                         * .count()
-                         * .detector()
-                         * ```
-                         */
+                        /** Returns a mutable builder for constructing an instance of [Metadata]. */
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    /** A builder for [Finding]. */
+                    /** A builder for [Metadata]. */
                     class Builder internal constructor() {
 
-                        private var action: JsonField<Action>? = null
-                        private var code: JsonField<String>? = null
-                        private var count: JsonField<Long>? = null
-                        private var detector: JsonField<Detector>? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         @JvmSynthetic
-                        internal fun from(finding: Finding) = apply {
-                            action = finding.action
-                            code = finding.code
-                            count = finding.count
-                            detector = finding.detector
-                            additionalProperties = finding.additionalProperties.toMutableMap()
-                        }
-
-                        fun action(action: Action) = action(JsonField.of(action))
-
-                        /**
-                         * Sets [Builder.action] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.action] with a well-typed [Action] value
-                         * instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun action(action: JsonField<Action>) = apply { this.action = action }
-
-                        fun code(code: String) = code(JsonField.of(code))
-
-                        /**
-                         * Sets [Builder.code] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.code] with a well-typed [String] value
-                         * instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun code(code: JsonField<String>) = apply { this.code = code }
-
-                        fun count(count: Long) = count(JsonField.of(count))
-
-                        /**
-                         * Sets [Builder.count] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.count] with a well-typed [Long] value
-                         * instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun count(count: JsonField<Long>) = apply { this.count = count }
-
-                        fun detector(detector: Detector) = detector(JsonField.of(detector))
-
-                        /**
-                         * Sets [Builder.detector] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.detector] with a well-typed [Detector]
-                         * value instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun detector(detector: JsonField<Detector>) = apply {
-                            this.detector = detector
+                        internal fun from(metadata: Metadata) = apply {
+                            additionalProperties = metadata.additionalProperties.toMutableMap()
                         }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -3017,28 +2860,11 @@ private constructor(
                         }
 
                         /**
-                         * Returns an immutable instance of [Finding].
+                         * Returns an immutable instance of [Metadata].
                          *
                          * Further updates to this [Builder] will not mutate the returned instance.
-                         *
-                         * The following fields are required:
-                         * ```java
-                         * .action()
-                         * .code()
-                         * .count()
-                         * .detector()
-                         * ```
-                         *
-                         * @throws IllegalStateException if any required field is unset.
                          */
-                        fun build(): Finding =
-                            Finding(
-                                checkRequired("action", action),
-                                checkRequired("code", code),
-                                checkRequired("count", count),
-                                checkRequired("detector", detector),
-                                additionalProperties.toMutableMap(),
-                            )
+                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
                     }
 
                     private var validated: Boolean = false
@@ -3053,15 +2879,11 @@ private constructor(
                      * @throws TelnyxInvalidDataException if any value type in this object doesn't
                      *   match its expected type.
                      */
-                    fun validate(): Finding = apply {
+                    fun validate(): Metadata = apply {
                         if (validated) {
                             return@apply
                         }
 
-                        action().validate()
-                        code()
-                        count()
-                        detector().validate()
                         validated = true
                     }
 
@@ -3081,330 +2903,24 @@ private constructor(
                      */
                     @JvmSynthetic
                     internal fun validity(): Int =
-                        (action.asKnown().getOrNull()?.validity() ?: 0) +
-                            (if (code.asKnown().isPresent) 1 else 0) +
-                            (if (count.asKnown().isPresent) 1 else 0) +
-                            (detector.asKnown().getOrNull()?.validity() ?: 0)
-
-                    class Action
-                    @JsonCreator
-                    private constructor(private val value: JsonField<String>) : Enum {
-
-                        /**
-                         * Returns this class instance's raw value.
-                         *
-                         * This is usually only useful if this instance was deserialized from data
-                         * that doesn't match any known member, and you want to know that value. For
-                         * example, if the SDK is on an older version than the API, then the API may
-                         * respond with new members that the SDK is unaware of.
-                         */
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        companion object {
-
-                            @JvmField val FLAG = of("flag")
-
-                            @JvmField val BLOCK = of("block")
-
-                            @JvmStatic fun of(value: String) = Action(JsonField.of(value))
+                        additionalProperties.count { (_, value) ->
+                            !value.isNull() && !value.isMissing()
                         }
-
-                        /** An enum containing [Action]'s known values. */
-                        enum class Known {
-                            FLAG,
-                            BLOCK,
-                        }
-
-                        /**
-                         * An enum containing [Action]'s known values, as well as an [_UNKNOWN]
-                         * member.
-                         *
-                         * An instance of [Action] can contain an unknown value in a couple of
-                         * cases:
-                         * - It was deserialized from data that doesn't match any known member. For
-                         *   example, if the SDK is on an older version than the API, then the API
-                         *   may respond with new members that the SDK is unaware of.
-                         * - It was constructed with an arbitrary value using the [of] method.
-                         */
-                        enum class Value {
-                            FLAG,
-                            BLOCK,
-                            /**
-                             * An enum member indicating that [Action] was instantiated with an
-                             * unknown value.
-                             */
-                            _UNKNOWN,
-                        }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value, or
-                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                         *
-                         * Use the [known] method instead if you're certain the value is always
-                         * known or if you want to throw for the unknown case.
-                         */
-                        fun value(): Value =
-                            when (this) {
-                                FLAG -> Value.FLAG
-                                BLOCK -> Value.BLOCK
-                                else -> Value._UNKNOWN
-                            }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value.
-                         *
-                         * Use the [value] method instead if you're uncertain the value is always
-                         * known and don't want to throw for the unknown case.
-                         *
-                         * @throws TelnyxInvalidDataException if this class instance's value is a
-                         *   not a known member.
-                         */
-                        fun known(): Known =
-                            when (this) {
-                                FLAG -> Known.FLAG
-                                BLOCK -> Known.BLOCK
-                                else -> throw TelnyxInvalidDataException("Unknown Action: $value")
-                            }
-
-                        /**
-                         * Returns this class instance's primitive wire representation.
-                         *
-                         * This differs from the [toString] method because that method is primarily
-                         * for debugging and generally doesn't throw.
-                         *
-                         * @throws TelnyxInvalidDataException if this class instance's value does
-                         *   not have the expected primitive type.
-                         */
-                        fun asString(): String =
-                            _value().asString().orElseThrow {
-                                TelnyxInvalidDataException("Value is not a String")
-                            }
-
-                        private var validated: Boolean = false
-
-                        /**
-                         * Validates that the types of all values in this object match their
-                         * expected types recursively.
-                         *
-                         * This method is _not_ forwards compatible with new types from the API for
-                         * existing fields.
-                         *
-                         * @throws TelnyxInvalidDataException if any value type in this object
-                         *   doesn't match its expected type.
-                         */
-                        fun validate(): Action = apply {
-                            if (validated) {
-                                return@apply
-                            }
-
-                            known()
-                            validated = true
-                        }
-
-                        fun isValid(): Boolean =
-                            try {
-                                validate()
-                                true
-                            } catch (e: TelnyxInvalidDataException) {
-                                false
-                            }
-
-                        /**
-                         * Returns a score indicating how many valid values are contained in this
-                         * object recursively.
-                         *
-                         * Used for best match union deserialization.
-                         */
-                        @JvmSynthetic
-                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is Action && value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-                    }
-
-                    class Detector
-                    @JsonCreator
-                    private constructor(private val value: JsonField<String>) : Enum {
-
-                        /**
-                         * Returns this class instance's raw value.
-                         *
-                         * This is usually only useful if this instance was deserialized from data
-                         * that doesn't match any known member, and you want to know that value. For
-                         * example, if the SDK is on an older version than the API, then the API may
-                         * respond with new members that the SDK is unaware of.
-                         */
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        companion object {
-
-                            @JvmField val SECRETS = of("secrets")
-
-                            @JvmField val DLP = of("dlp")
-
-                            @JvmField val SAFETY = of("safety")
-
-                            @JvmStatic fun of(value: String) = Detector(JsonField.of(value))
-                        }
-
-                        /** An enum containing [Detector]'s known values. */
-                        enum class Known {
-                            SECRETS,
-                            DLP,
-                            SAFETY,
-                        }
-
-                        /**
-                         * An enum containing [Detector]'s known values, as well as an [_UNKNOWN]
-                         * member.
-                         *
-                         * An instance of [Detector] can contain an unknown value in a couple of
-                         * cases:
-                         * - It was deserialized from data that doesn't match any known member. For
-                         *   example, if the SDK is on an older version than the API, then the API
-                         *   may respond with new members that the SDK is unaware of.
-                         * - It was constructed with an arbitrary value using the [of] method.
-                         */
-                        enum class Value {
-                            SECRETS,
-                            DLP,
-                            SAFETY,
-                            /**
-                             * An enum member indicating that [Detector] was instantiated with an
-                             * unknown value.
-                             */
-                            _UNKNOWN,
-                        }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value, or
-                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                         *
-                         * Use the [known] method instead if you're certain the value is always
-                         * known or if you want to throw for the unknown case.
-                         */
-                        fun value(): Value =
-                            when (this) {
-                                SECRETS -> Value.SECRETS
-                                DLP -> Value.DLP
-                                SAFETY -> Value.SAFETY
-                                else -> Value._UNKNOWN
-                            }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value.
-                         *
-                         * Use the [value] method instead if you're uncertain the value is always
-                         * known and don't want to throw for the unknown case.
-                         *
-                         * @throws TelnyxInvalidDataException if this class instance's value is a
-                         *   not a known member.
-                         */
-                        fun known(): Known =
-                            when (this) {
-                                SECRETS -> Known.SECRETS
-                                DLP -> Known.DLP
-                                SAFETY -> Known.SAFETY
-                                else -> throw TelnyxInvalidDataException("Unknown Detector: $value")
-                            }
-
-                        /**
-                         * Returns this class instance's primitive wire representation.
-                         *
-                         * This differs from the [toString] method because that method is primarily
-                         * for debugging and generally doesn't throw.
-                         *
-                         * @throws TelnyxInvalidDataException if this class instance's value does
-                         *   not have the expected primitive type.
-                         */
-                        fun asString(): String =
-                            _value().asString().orElseThrow {
-                                TelnyxInvalidDataException("Value is not a String")
-                            }
-
-                        private var validated: Boolean = false
-
-                        /**
-                         * Validates that the types of all values in this object match their
-                         * expected types recursively.
-                         *
-                         * This method is _not_ forwards compatible with new types from the API for
-                         * existing fields.
-                         *
-                         * @throws TelnyxInvalidDataException if any value type in this object
-                         *   doesn't match its expected type.
-                         */
-                        fun validate(): Detector = apply {
-                            if (validated) {
-                                return@apply
-                            }
-
-                            known()
-                            validated = true
-                        }
-
-                        fun isValid(): Boolean =
-                            try {
-                                validate()
-                                true
-                            } catch (e: TelnyxInvalidDataException) {
-                                false
-                            }
-
-                        /**
-                         * Returns a score indicating how many valid values are contained in this
-                         * object recursively.
-                         *
-                         * Used for best match union deserialization.
-                         */
-                        @JvmSynthetic
-                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is Detector && value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-                    }
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
                             return true
                         }
 
-                        return other is Finding &&
-                            action == other.action &&
-                            code == other.code &&
-                            count == other.count &&
-                            detector == other.detector &&
+                        return other is Metadata &&
                             additionalProperties == other.additionalProperties
                     }
 
-                    private val hashCode: Int by lazy {
-                        Objects.hash(action, code, count, detector, additionalProperties)
-                    }
+                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
                     override fun hashCode(): Int = hashCode
 
-                    override fun toString() =
-                        "Finding{action=$action, code=$code, count=$count, detector=$detector, additionalProperties=$additionalProperties}"
+                    override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
                 }
 
                 class Outcome
@@ -3718,6 +3234,7 @@ private constructor(
                         evaluationInputTokens == other.evaluationInputTokens &&
                         evaluationOutputTokens == other.evaluationOutputTokens &&
                         findings == other.findings &&
+                        metadata == other.metadata &&
                         model == other.model &&
                         outcome == other.outcome &&
                         recordType == other.recordType &&
@@ -3737,6 +3254,7 @@ private constructor(
                         evaluationInputTokens,
                         evaluationOutputTokens,
                         findings,
+                        metadata,
                         model,
                         outcome,
                         recordType,
@@ -3752,7 +3270,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "RecentEvent{id=$id, createdAt=$createdAt, endUserId=$endUserId, evaluationInputTokens=$evaluationInputTokens, evaluationOutputTokens=$evaluationOutputTokens, findings=$findings, model=$model, outcome=$outcome, recordType=$recordType, requestId=$requestId, stage=$stage, tokenGroupId=$tokenGroupId, tokenKeyId=$tokenKeyId, tokenUserId=$tokenUserId, additionalProperties=$additionalProperties}"
+                    "RecentEvent{id=$id, createdAt=$createdAt, endUserId=$endUserId, evaluationInputTokens=$evaluationInputTokens, evaluationOutputTokens=$evaluationOutputTokens, findings=$findings, metadata=$metadata, model=$model, outcome=$outcome, recordType=$recordType, requestId=$requestId, stage=$stage, tokenGroupId=$tokenGroupId, tokenKeyId=$tokenKeyId, tokenUserId=$tokenUserId, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -3777,7 +3295,6 @@ private constructor(
                 "Guardrails{blockedEvents=$blockedEvents, flaggedEvents=$flaggedEvents, recentEvents=$recentEvents, additionalProperties=$additionalProperties}"
         }
 
-        /** Metrics for all matching requests. */
         class Totals
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
@@ -3839,8 +3356,6 @@ private constructor(
             )
 
             /**
-             * Requests served from the gateway cache.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -3848,8 +3363,6 @@ private constructor(
             fun cacheHits(): Long = cacheHits.getRequired("cache_hits")
 
             /**
-             * Requests classified as failed.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -3857,8 +3370,6 @@ private constructor(
             fun failedRequests(): Long = failedRequests.getRequired("failed_requests")
 
             /**
-             * Independently known input tokens across attempts, including corrected usage.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -3866,8 +3377,6 @@ private constructor(
             fun inputTokens(): Long = inputTokens.getRequired("input_tokens")
 
             /**
-             * Independently known output tokens across attempts, including corrected usage.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -3875,8 +3384,6 @@ private constructor(
             fun outputTokens(): Long = outputTokens.getRequired("output_tokens")
 
             /**
-             * Requests classified as partial after streaming began.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -3884,8 +3391,6 @@ private constructor(
             fun partialRequests(): Long = partialRequests.getRequired("partial_requests")
 
             /**
-             * Number of matching requests.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -3893,7 +3398,8 @@ private constructor(
             fun requests(): Long = requests.getRequired("requests")
 
             /**
-             * Unresolved budget reservations in USD.
+             * USD, decimal precision at most 6 places; parse exactly to integer micro-USD, never
+             * binary float accounting.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -3902,7 +3408,8 @@ private constructor(
             fun reservedSpend(): Double = reservedSpend.getRequired("reserved_spend")
 
             /**
-             * Sum of known reference/enforcement cost in USD.
+             * USD, decimal precision at most 6 places; parse exactly to integer micro-USD, never
+             * binary float accounting.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -3911,8 +3418,6 @@ private constructor(
             fun spend(): Double = spend.getRequired("spend")
 
             /**
-             * Requests classified as succeeded.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -3920,8 +3425,6 @@ private constructor(
             fun succeededRequests(): Long = succeededRequests.getRequired("succeeded_requests")
 
             /**
-             * Requests whose cost remains unresolved; unknown cost is excluded from spend.
-             *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -4087,7 +3590,6 @@ private constructor(
                     additionalProperties = totals.additionalProperties.toMutableMap()
                 }
 
-                /** Requests served from the gateway cache. */
                 fun cacheHits(cacheHits: Long) = cacheHits(JsonField.of(cacheHits))
 
                 /**
@@ -4099,7 +3601,6 @@ private constructor(
                  */
                 fun cacheHits(cacheHits: JsonField<Long>) = apply { this.cacheHits = cacheHits }
 
-                /** Requests classified as failed. */
                 fun failedRequests(failedRequests: Long) =
                     failedRequests(JsonField.of(failedRequests))
 
@@ -4114,7 +3615,6 @@ private constructor(
                     this.failedRequests = failedRequests
                 }
 
-                /** Independently known input tokens across attempts, including corrected usage. */
                 fun inputTokens(inputTokens: Long) = inputTokens(JsonField.of(inputTokens))
 
                 /**
@@ -4128,7 +3628,6 @@ private constructor(
                     this.inputTokens = inputTokens
                 }
 
-                /** Independently known output tokens across attempts, including corrected usage. */
                 fun outputTokens(outputTokens: Long) = outputTokens(JsonField.of(outputTokens))
 
                 /**
@@ -4142,7 +3641,6 @@ private constructor(
                     this.outputTokens = outputTokens
                 }
 
-                /** Requests classified as partial after streaming began. */
                 fun partialRequests(partialRequests: Long) =
                     partialRequests(JsonField.of(partialRequests))
 
@@ -4157,7 +3655,6 @@ private constructor(
                     this.partialRequests = partialRequests
                 }
 
-                /** Number of matching requests. */
                 fun requests(requests: Long) = requests(JsonField.of(requests))
 
                 /**
@@ -4169,7 +3666,10 @@ private constructor(
                  */
                 fun requests(requests: JsonField<Long>) = apply { this.requests = requests }
 
-                /** Unresolved budget reservations in USD. */
+                /**
+                 * USD, decimal precision at most 6 places; parse exactly to integer micro-USD,
+                 * never binary float accounting.
+                 */
                 fun reservedSpend(reservedSpend: Double) =
                     reservedSpend(JsonField.of(reservedSpend))
 
@@ -4184,7 +3684,10 @@ private constructor(
                     this.reservedSpend = reservedSpend
                 }
 
-                /** Sum of known reference/enforcement cost in USD. */
+                /**
+                 * USD, decimal precision at most 6 places; parse exactly to integer micro-USD,
+                 * never binary float accounting.
+                 */
                 fun spend(spend: Double) = spend(JsonField.of(spend))
 
                 /**
@@ -4196,7 +3699,6 @@ private constructor(
                  */
                 fun spend(spend: JsonField<Double>) = apply { this.spend = spend }
 
-                /** Requests classified as succeeded. */
                 fun succeededRequests(succeededRequests: Long) =
                     succeededRequests(JsonField.of(succeededRequests))
 
@@ -4211,7 +3713,6 @@ private constructor(
                     this.succeededRequests = succeededRequests
                 }
 
-                /** Requests whose cost remains unresolved; unknown cost is excluded from spend. */
                 fun unknownRequests(unknownRequests: Long) =
                     unknownRequests(JsonField.of(unknownRequests))
 
@@ -4410,6 +3911,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val endDate: JsonField<LocalDate>,
+        private val metadata: JsonField<Metadata>,
         private val startDate: JsonField<LocalDate>,
         private val tokenGroupId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -4420,19 +3922,30 @@ private constructor(
             @JsonProperty("end_date")
             @ExcludeMissing
             endDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
             @JsonProperty("start_date")
             @ExcludeMissing
             startDate: JsonField<LocalDate> = JsonMissing.of(),
             @JsonProperty("token_group_id")
             @ExcludeMissing
             tokenGroupId: JsonField<String> = JsonMissing.of(),
-        ) : this(endDate, startDate, tokenGroupId, mutableMapOf())
+        ) : this(endDate, metadata, startDate, tokenGroupId, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun endDate(): LocalDate = endDate.getRequired("end_date")
+
+        /**
+         * The metadata[<key>] filters applied to every section; {} when unfiltered.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun metadata(): Metadata = metadata.getRequired("metadata")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -4452,6 +3965,13 @@ private constructor(
          * Unlike [endDate], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("end_date") @ExcludeMissing fun _endDate(): JsonField<LocalDate> = endDate
+
+        /**
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         /**
          * Returns the raw JSON value of [startDate].
@@ -4492,6 +4012,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .endDate()
+             * .metadata()
              * .startDate()
              * .tokenGroupId()
              * ```
@@ -4503,6 +4024,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var endDate: JsonField<LocalDate>? = null
+            private var metadata: JsonField<Metadata>? = null
             private var startDate: JsonField<LocalDate>? = null
             private var tokenGroupId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -4510,6 +4032,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(meta: Meta) = apply {
                 endDate = meta.endDate
+                metadata = meta.metadata
                 startDate = meta.startDate
                 tokenGroupId = meta.tokenGroupId
                 additionalProperties = meta.additionalProperties.toMutableMap()
@@ -4525,6 +4048,18 @@ private constructor(
              * supported value.
              */
             fun endDate(endDate: JsonField<LocalDate>) = apply { this.endDate = endDate }
+
+            /** The metadata[<key>] filters applied to every section; {} when unfiltered. */
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             fun startDate(startDate: LocalDate) = startDate(JsonField.of(startDate))
 
@@ -4577,6 +4112,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .endDate()
+             * .metadata()
              * .startDate()
              * .tokenGroupId()
              * ```
@@ -4586,6 +4122,7 @@ private constructor(
             fun build(): Meta =
                 Meta(
                     checkRequired("endDate", endDate),
+                    checkRequired("metadata", metadata),
                     checkRequired("startDate", startDate),
                     checkRequired("tokenGroupId", tokenGroupId),
                     additionalProperties.toMutableMap(),
@@ -4609,6 +4146,7 @@ private constructor(
             }
 
             endDate()
+            metadata().validate()
             startDate()
             tokenGroupId()
             validated = true
@@ -4631,8 +4169,122 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (endDate.asKnown().isPresent) 1 else 0) +
+                (metadata.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (startDate.asKnown().isPresent) 1 else 0) +
                 (if (tokenGroupId.asKnown().isPresent) 1 else 0)
+
+        /** The metadata[<key>] filters applied to every section; {} when unfiltered. */
+        class Metadata
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Metadata]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(metadata: Metadata) = apply {
+                    additionalProperties = metadata.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Metadata].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Metadata = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Metadata && additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -4641,19 +4293,20 @@ private constructor(
 
             return other is Meta &&
                 endDate == other.endDate &&
+                metadata == other.metadata &&
                 startDate == other.startDate &&
                 tokenGroupId == other.tokenGroupId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(endDate, startDate, tokenGroupId, additionalProperties)
+            Objects.hash(endDate, metadata, startDate, tokenGroupId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Meta{endDate=$endDate, startDate=$startDate, tokenGroupId=$tokenGroupId, additionalProperties=$additionalProperties}"
+            "Meta{endDate=$endDate, metadata=$metadata, startDate=$startDate, tokenGroupId=$tokenGroupId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

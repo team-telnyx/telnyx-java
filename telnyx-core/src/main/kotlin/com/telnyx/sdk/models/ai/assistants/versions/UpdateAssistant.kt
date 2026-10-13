@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantA2AAgent
 import com.telnyx.sdk.models.ai.assistants.AssistantIntegration
 import com.telnyx.sdk.models.ai.assistants.AssistantMcpServer
 import com.telnyx.sdk.models.ai.assistants.AssistantTool
+import com.telnyx.sdk.models.ai.assistants.AvatarSettingsRequest
 import com.telnyx.sdk.models.ai.assistants.ConversationFlowReq
 import com.telnyx.sdk.models.ai.assistants.DelegationSettings
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
@@ -49,6 +50,7 @@ class UpdateAssistant
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val a2aAgents: JsonField<List<AssistantA2AAgent>>,
+    private val avatarSettings: JsonField<AvatarSettingsRequest>,
     private val conversationFlow: JsonField<ConversationFlowReq>,
     private val delegationSettings: JsonField<DelegationSettings>,
     private val description: JsonField<String>,
@@ -88,6 +90,9 @@ private constructor(
         @JsonProperty("a2a_agents")
         @ExcludeMissing
         a2aAgents: JsonField<List<AssistantA2AAgent>> = JsonMissing.of(),
+        @JsonProperty("avatar_settings")
+        @ExcludeMissing
+        avatarSettings: JsonField<AvatarSettingsRequest> = JsonMissing.of(),
         @JsonProperty("conversation_flow")
         @ExcludeMissing
         conversationFlow: JsonField<ConversationFlowReq> = JsonMissing.of(),
@@ -175,6 +180,7 @@ private constructor(
         widgetSettings: JsonField<WidgetSettings> = JsonMissing.of(),
     ) : this(
         a2aAgents,
+        avatarSettings,
         conversationFlow,
         delegationSettings,
         description,
@@ -223,6 +229,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun a2aAgents(): Optional<List<AssistantA2AAgent>> = a2aAgents.getOptional("a2a_agents")
+
+    /**
+     * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
+     * supports six avatars and office, studio, or reception backgrounds.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun avatarSettings(): Optional<AvatarSettingsRequest> =
+        avatarSettings.getOptional("avatar_settings")
 
     /**
      * Conversation flow as supplied by API clients (create / update).
@@ -535,6 +551,15 @@ private constructor(
     fun _a2aAgents(): JsonField<List<AssistantA2AAgent>> = a2aAgents
 
     /**
+     * Returns the raw JSON value of [avatarSettings].
+     *
+     * Unlike [avatarSettings], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("avatar_settings")
+    @ExcludeMissing
+    fun _avatarSettings(): JsonField<AvatarSettingsRequest> = avatarSettings
+
+    /**
      * Returns the raw JSON value of [conversationFlow].
      *
      * Unlike [conversationFlow], this method doesn't throw if the JSON field has an unexpected
@@ -834,6 +859,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var a2aAgents: JsonField<MutableList<AssistantA2AAgent>>? = null
+        private var avatarSettings: JsonField<AvatarSettingsRequest> = JsonMissing.of()
         private var conversationFlow: JsonField<ConversationFlowReq> = JsonMissing.of()
         private var delegationSettings: JsonField<DelegationSettings> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
@@ -872,6 +898,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(updateAssistant: UpdateAssistant) = apply {
             a2aAgents = updateAssistant.a2aAgents.map { it.toMutableList() }
+            avatarSettings = updateAssistant.avatarSettings
             conversationFlow = updateAssistant.conversationFlow
             delegationSettings = updateAssistant.delegationSettings
             description = updateAssistant.description
@@ -940,6 +967,28 @@ private constructor(
                 (a2aAgents ?: JsonField.of(mutableListOf())).also {
                     checkKnown("a2aAgents", it).add(a2aAgent)
                 }
+        }
+
+        /**
+         * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
+         * supports six avatars and office, studio, or reception backgrounds.
+         */
+        fun avatarSettings(avatarSettings: AvatarSettingsRequest?) =
+            avatarSettings(JsonField.ofNullable(avatarSettings))
+
+        /** Alias for calling [Builder.avatarSettings] with `avatarSettings.orElse(null)`. */
+        fun avatarSettings(avatarSettings: Optional<AvatarSettingsRequest>) =
+            avatarSettings(avatarSettings.getOrNull())
+
+        /**
+         * Sets [Builder.avatarSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.avatarSettings] with a well-typed
+         * [AvatarSettingsRequest] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun avatarSettings(avatarSettings: JsonField<AvatarSettingsRequest>) = apply {
+            this.avatarSettings = avatarSettings
         }
 
         /**
@@ -1779,6 +1828,7 @@ private constructor(
         fun build(): UpdateAssistant =
             UpdateAssistant(
                 (a2aAgents ?: JsonMissing.of()).map { it.toImmutable() },
+                avatarSettings,
                 conversationFlow,
                 delegationSettings,
                 description,
@@ -1830,6 +1880,7 @@ private constructor(
         }
 
         a2aAgents().ifPresent { it.forEach { it.validate() } }
+        avatarSettings().ifPresent { it.validate() }
         conversationFlow().ifPresent { it.validate() }
         delegationSettings().ifPresent { it.validate() }
         description()
@@ -1880,6 +1931,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (a2aAgents.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (avatarSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (conversationFlow.asKnown().getOrNull()?.validity() ?: 0) +
             (delegationSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
@@ -2028,6 +2080,7 @@ private constructor(
 
         return other is UpdateAssistant &&
             a2aAgents == other.a2aAgents &&
+            avatarSettings == other.avatarSettings &&
             conversationFlow == other.conversationFlow &&
             delegationSettings == other.delegationSettings &&
             description == other.description &&
@@ -2065,6 +2118,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             a2aAgents,
+            avatarSettings,
             conversationFlow,
             delegationSettings,
             description,
@@ -2103,5 +2157,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UpdateAssistant{a2aAgents=$a2aAgents, conversationFlow=$conversationFlow, delegationSettings=$delegationSettings, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, versionName=$versionName, voiceSettings=$voiceSettings, websocketSettings=$websocketSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+        "UpdateAssistant{a2aAgents=$a2aAgents, avatarSettings=$avatarSettings, conversationFlow=$conversationFlow, delegationSettings=$delegationSettings, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, name=$name, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, versionName=$versionName, voiceSettings=$voiceSettings, websocketSettings=$websocketSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
 }

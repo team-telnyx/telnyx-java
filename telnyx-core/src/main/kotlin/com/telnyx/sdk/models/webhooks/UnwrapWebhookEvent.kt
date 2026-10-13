@@ -30,9 +30,11 @@ private constructor(
     private val artifactFailed: ArtifactFailedWebhookEvent? = null,
     private val callAnswered: CallAnsweredWebhookEvent? = null,
     private val callBridged: CallBridgedWebhookEvent? = null,
+    private val callConversationCreated: CallConversationCreatedWebhookEvent? = null,
     private val callConversationEnded: CallConversationEndedWebhookEvent? = null,
     private val callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent? =
         null,
+    private val callConversationStartFailed: CallConversationStartFailedWebhookEvent? = null,
     private val callCost: CallCostWebhookEvent? = null,
     private val callDeepfakeDetectionError: CallDeepfakeDetectionErrorWebhookEvent? = null,
     private val callDeepfakeDetectionResult: CallDeepfakeDetectionResultWebhookEvent? = null,
@@ -47,7 +49,13 @@ private constructor(
     private val callLeftQueue: CallLeftQueueWebhookEvent? = null,
     private val callMachineDetectionEnded: CallMachineDetectionEndedWebhookEvent? = null,
     private val callMachineGreetingEnded: CallMachineGreetingEndedWebhookEvent? = null,
+    private val callMachinePremiumCallScreeningDetected:
+        CallMachinePremiumCallScreeningDetectedWebhookEvent? =
+        null,
     private val callMachinePremiumDetectionEnded: CallMachinePremiumDetectionEndedWebhookEvent? =
+        null,
+    private val callMachinePremiumDetectionStarted:
+        CallMachinePremiumDetectionStartedWebhookEvent? =
         null,
     private val callMachinePremiumGreetingEnded: CallMachinePremiumGreetingEndedWebhookEvent? =
         null,
@@ -113,6 +121,7 @@ private constructor(
     private val transcription: TranscriptionWebhookEvent? = null,
     private val whatsappAccountUpdate: WhatsappAccountUpdate? = null,
     private val whatsappMessageEcho: WhatsappMessageEcho? = null,
+    private val whatsappWabaAdded: WhatsappWabaAddedWebhookEvent? = null,
     private val _json: JsonValue? = null,
 ) {
 
@@ -135,12 +144,18 @@ private constructor(
 
     fun callBridged(): Optional<CallBridgedWebhookEvent> = Optional.ofNullable(callBridged)
 
+    fun callConversationCreated(): Optional<CallConversationCreatedWebhookEvent> =
+        Optional.ofNullable(callConversationCreated)
+
     fun callConversationEnded(): Optional<CallConversationEndedWebhookEvent> =
         Optional.ofNullable(callConversationEnded)
 
     fun callConversationInsightsGenerated():
         Optional<CallConversationInsightsGeneratedWebhookEvent> =
         Optional.ofNullable(callConversationInsightsGenerated)
+
+    fun callConversationStartFailed(): Optional<CallConversationStartFailedWebhookEvent> =
+        Optional.ofNullable(callConversationStartFailed)
 
     fun callCost(): Optional<CallCostWebhookEvent> = Optional.ofNullable(callCost)
 
@@ -178,8 +193,16 @@ private constructor(
     fun callMachineGreetingEnded(): Optional<CallMachineGreetingEndedWebhookEvent> =
         Optional.ofNullable(callMachineGreetingEnded)
 
+    fun callMachinePremiumCallScreeningDetected():
+        Optional<CallMachinePremiumCallScreeningDetectedWebhookEvent> =
+        Optional.ofNullable(callMachinePremiumCallScreeningDetected)
+
     fun callMachinePremiumDetectionEnded(): Optional<CallMachinePremiumDetectionEndedWebhookEvent> =
         Optional.ofNullable(callMachinePremiumDetectionEnded)
+
+    fun callMachinePremiumDetectionStarted():
+        Optional<CallMachinePremiumDetectionStartedWebhookEvent> =
+        Optional.ofNullable(callMachinePremiumDetectionStarted)
 
     fun callMachinePremiumGreetingEnded(): Optional<CallMachinePremiumGreetingEndedWebhookEvent> =
         Optional.ofNullable(callMachinePremiumGreetingEnded)
@@ -337,6 +360,9 @@ private constructor(
     fun whatsappMessageEcho(): Optional<WhatsappMessageEcho> =
         Optional.ofNullable(whatsappMessageEcho)
 
+    fun whatsappWabaAdded(): Optional<WhatsappWabaAddedWebhookEvent> =
+        Optional.ofNullable(whatsappWabaAdded)
+
     fun isCallAiGatherEnded(): Boolean = callAiGatherEnded != null
 
     fun isCallAiGatherMessageHistoryUpdated(): Boolean = callAiGatherMessageHistoryUpdated != null
@@ -351,9 +377,13 @@ private constructor(
 
     fun isCallBridged(): Boolean = callBridged != null
 
+    fun isCallConversationCreated(): Boolean = callConversationCreated != null
+
     fun isCallConversationEnded(): Boolean = callConversationEnded != null
 
     fun isCallConversationInsightsGenerated(): Boolean = callConversationInsightsGenerated != null
+
+    fun isCallConversationStartFailed(): Boolean = callConversationStartFailed != null
 
     fun isCallCost(): Boolean = callCost != null
 
@@ -383,7 +413,12 @@ private constructor(
 
     fun isCallMachineGreetingEnded(): Boolean = callMachineGreetingEnded != null
 
+    fun isCallMachinePremiumCallScreeningDetected(): Boolean =
+        callMachinePremiumCallScreeningDetected != null
+
     fun isCallMachinePremiumDetectionEnded(): Boolean = callMachinePremiumDetectionEnded != null
+
+    fun isCallMachinePremiumDetectionStarted(): Boolean = callMachinePremiumDetectionStarted != null
 
     fun isCallMachinePremiumGreetingEnded(): Boolean = callMachinePremiumGreetingEnded != null
 
@@ -495,6 +530,8 @@ private constructor(
 
     fun isWhatsappMessageEcho(): Boolean = whatsappMessageEcho != null
 
+    fun isWhatsappWabaAdded(): Boolean = whatsappWabaAdded != null
+
     fun asCallAiGatherEnded(): CallAiGatherEndedWebhookEvent =
         callAiGatherEnded.getOrThrow("callAiGatherEnded")
 
@@ -513,11 +550,17 @@ private constructor(
 
     fun asCallBridged(): CallBridgedWebhookEvent = callBridged.getOrThrow("callBridged")
 
+    fun asCallConversationCreated(): CallConversationCreatedWebhookEvent =
+        callConversationCreated.getOrThrow("callConversationCreated")
+
     fun asCallConversationEnded(): CallConversationEndedWebhookEvent =
         callConversationEnded.getOrThrow("callConversationEnded")
 
     fun asCallConversationInsightsGenerated(): CallConversationInsightsGeneratedWebhookEvent =
         callConversationInsightsGenerated.getOrThrow("callConversationInsightsGenerated")
+
+    fun asCallConversationStartFailed(): CallConversationStartFailedWebhookEvent =
+        callConversationStartFailed.getOrThrow("callConversationStartFailed")
 
     fun asCallCost(): CallCostWebhookEvent = callCost.getOrThrow("callCost")
 
@@ -555,8 +598,17 @@ private constructor(
     fun asCallMachineGreetingEnded(): CallMachineGreetingEndedWebhookEvent =
         callMachineGreetingEnded.getOrThrow("callMachineGreetingEnded")
 
+    fun asCallMachinePremiumCallScreeningDetected():
+        CallMachinePremiumCallScreeningDetectedWebhookEvent =
+        callMachinePremiumCallScreeningDetected.getOrThrow(
+            "callMachinePremiumCallScreeningDetected"
+        )
+
     fun asCallMachinePremiumDetectionEnded(): CallMachinePremiumDetectionEndedWebhookEvent =
         callMachinePremiumDetectionEnded.getOrThrow("callMachinePremiumDetectionEnded")
+
+    fun asCallMachinePremiumDetectionStarted(): CallMachinePremiumDetectionStartedWebhookEvent =
+        callMachinePremiumDetectionStarted.getOrThrow("callMachinePremiumDetectionStarted")
 
     fun asCallMachinePremiumGreetingEnded(): CallMachinePremiumGreetingEndedWebhookEvent =
         callMachinePremiumGreetingEnded.getOrThrow("callMachinePremiumGreetingEnded")
@@ -713,6 +765,9 @@ private constructor(
     fun asWhatsappMessageEcho(): WhatsappMessageEcho =
         whatsappMessageEcho.getOrThrow("whatsappMessageEcho")
 
+    fun asWhatsappWabaAdded(): WhatsappWabaAddedWebhookEvent =
+        whatsappWabaAdded.getOrThrow("whatsappWabaAdded")
+
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
     /**
@@ -755,10 +810,14 @@ private constructor(
             artifactFailed != null -> visitor.visitArtifactFailed(artifactFailed)
             callAnswered != null -> visitor.visitCallAnswered(callAnswered)
             callBridged != null -> visitor.visitCallBridged(callBridged)
+            callConversationCreated != null ->
+                visitor.visitCallConversationCreated(callConversationCreated)
             callConversationEnded != null ->
                 visitor.visitCallConversationEnded(callConversationEnded)
             callConversationInsightsGenerated != null ->
                 visitor.visitCallConversationInsightsGenerated(callConversationInsightsGenerated)
+            callConversationStartFailed != null ->
+                visitor.visitCallConversationStartFailed(callConversationStartFailed)
             callCost != null -> visitor.visitCallCost(callCost)
             callDeepfakeDetectionError != null ->
                 visitor.visitCallDeepfakeDetectionError(callDeepfakeDetectionError)
@@ -777,8 +836,14 @@ private constructor(
                 visitor.visitCallMachineDetectionEnded(callMachineDetectionEnded)
             callMachineGreetingEnded != null ->
                 visitor.visitCallMachineGreetingEnded(callMachineGreetingEnded)
+            callMachinePremiumCallScreeningDetected != null ->
+                visitor.visitCallMachinePremiumCallScreeningDetected(
+                    callMachinePremiumCallScreeningDetected
+                )
             callMachinePremiumDetectionEnded != null ->
                 visitor.visitCallMachinePremiumDetectionEnded(callMachinePremiumDetectionEnded)
+            callMachinePremiumDetectionStarted != null ->
+                visitor.visitCallMachinePremiumDetectionStarted(callMachinePremiumDetectionStarted)
             callMachinePremiumGreetingEnded != null ->
                 visitor.visitCallMachinePremiumGreetingEnded(callMachinePremiumGreetingEnded)
             callPaymentCompleted != null -> visitor.visitCallPaymentCompleted(callPaymentCompleted)
@@ -856,6 +921,7 @@ private constructor(
             whatsappAccountUpdate != null ->
                 visitor.visitWhatsappAccountUpdate(whatsappAccountUpdate)
             whatsappMessageEcho != null -> visitor.visitWhatsappMessageEcho(whatsappMessageEcho)
+            whatsappWabaAdded != null -> visitor.visitWhatsappWabaAdded(whatsappWabaAdded)
             else -> visitor.unknown(_json)
         }
 
@@ -912,6 +978,12 @@ private constructor(
                     callBridged.validate()
                 }
 
+                override fun visitCallConversationCreated(
+                    callConversationCreated: CallConversationCreatedWebhookEvent
+                ) {
+                    callConversationCreated.validate()
+                }
+
                 override fun visitCallConversationEnded(
                     callConversationEnded: CallConversationEndedWebhookEvent
                 ) {
@@ -922,6 +994,12 @@ private constructor(
                     callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent
                 ) {
                     callConversationInsightsGenerated.validate()
+                }
+
+                override fun visitCallConversationStartFailed(
+                    callConversationStartFailed: CallConversationStartFailedWebhookEvent
+                ) {
+                    callConversationStartFailed.validate()
                 }
 
                 override fun visitCallCost(callCost: CallCostWebhookEvent) {
@@ -988,10 +1066,24 @@ private constructor(
                     callMachineGreetingEnded.validate()
                 }
 
+                override fun visitCallMachinePremiumCallScreeningDetected(
+                    callMachinePremiumCallScreeningDetected:
+                        CallMachinePremiumCallScreeningDetectedWebhookEvent
+                ) {
+                    callMachinePremiumCallScreeningDetected.validate()
+                }
+
                 override fun visitCallMachinePremiumDetectionEnded(
                     callMachinePremiumDetectionEnded: CallMachinePremiumDetectionEndedWebhookEvent
                 ) {
                     callMachinePremiumDetectionEnded.validate()
+                }
+
+                override fun visitCallMachinePremiumDetectionStarted(
+                    callMachinePremiumDetectionStarted:
+                        CallMachinePremiumDetectionStartedWebhookEvent
+                ) {
+                    callMachinePremiumDetectionStarted.validate()
                 }
 
                 override fun visitCallMachinePremiumGreetingEnded(
@@ -1286,6 +1378,12 @@ private constructor(
                 override fun visitWhatsappMessageEcho(whatsappMessageEcho: WhatsappMessageEcho) {
                     whatsappMessageEcho.validate()
                 }
+
+                override fun visitWhatsappWabaAdded(
+                    whatsappWabaAdded: WhatsappWabaAddedWebhookEvent
+                ) {
+                    whatsappWabaAdded.validate()
+                }
             }
         )
         validated = true
@@ -1333,6 +1431,10 @@ private constructor(
                 override fun visitCallBridged(callBridged: CallBridgedWebhookEvent) =
                     callBridged.validity()
 
+                override fun visitCallConversationCreated(
+                    callConversationCreated: CallConversationCreatedWebhookEvent
+                ) = callConversationCreated.validity()
+
                 override fun visitCallConversationEnded(
                     callConversationEnded: CallConversationEndedWebhookEvent
                 ) = callConversationEnded.validity()
@@ -1340,6 +1442,10 @@ private constructor(
                 override fun visitCallConversationInsightsGenerated(
                     callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent
                 ) = callConversationInsightsGenerated.validity()
+
+                override fun visitCallConversationStartFailed(
+                    callConversationStartFailed: CallConversationStartFailedWebhookEvent
+                ) = callConversationStartFailed.validity()
 
                 override fun visitCallCost(callCost: CallCostWebhookEvent) = callCost.validity()
 
@@ -1385,9 +1491,19 @@ private constructor(
                     callMachineGreetingEnded: CallMachineGreetingEndedWebhookEvent
                 ) = callMachineGreetingEnded.validity()
 
+                override fun visitCallMachinePremiumCallScreeningDetected(
+                    callMachinePremiumCallScreeningDetected:
+                        CallMachinePremiumCallScreeningDetectedWebhookEvent
+                ) = callMachinePremiumCallScreeningDetected.validity()
+
                 override fun visitCallMachinePremiumDetectionEnded(
                     callMachinePremiumDetectionEnded: CallMachinePremiumDetectionEndedWebhookEvent
                 ) = callMachinePremiumDetectionEnded.validity()
+
+                override fun visitCallMachinePremiumDetectionStarted(
+                    callMachinePremiumDetectionStarted:
+                        CallMachinePremiumDetectionStartedWebhookEvent
+                ) = callMachinePremiumDetectionStarted.validity()
 
                 override fun visitCallMachinePremiumGreetingEnded(
                     callMachinePremiumGreetingEnded: CallMachinePremiumGreetingEndedWebhookEvent
@@ -1588,6 +1704,10 @@ private constructor(
                 override fun visitWhatsappMessageEcho(whatsappMessageEcho: WhatsappMessageEcho) =
                     whatsappMessageEcho.validity()
 
+                override fun visitWhatsappWabaAdded(
+                    whatsappWabaAdded: WhatsappWabaAddedWebhookEvent
+                ) = whatsappWabaAdded.validity()
+
                 override fun unknown(json: JsonValue?) = 0
             }
         )
@@ -1605,8 +1725,10 @@ private constructor(
             artifactFailed == other.artifactFailed &&
             callAnswered == other.callAnswered &&
             callBridged == other.callBridged &&
+            callConversationCreated == other.callConversationCreated &&
             callConversationEnded == other.callConversationEnded &&
             callConversationInsightsGenerated == other.callConversationInsightsGenerated &&
+            callConversationStartFailed == other.callConversationStartFailed &&
             callCost == other.callCost &&
             callDeepfakeDetectionError == other.callDeepfakeDetectionError &&
             callDeepfakeDetectionResult == other.callDeepfakeDetectionResult &&
@@ -1621,7 +1743,10 @@ private constructor(
             callLeftQueue == other.callLeftQueue &&
             callMachineDetectionEnded == other.callMachineDetectionEnded &&
             callMachineGreetingEnded == other.callMachineGreetingEnded &&
+            callMachinePremiumCallScreeningDetected ==
+                other.callMachinePremiumCallScreeningDetected &&
             callMachinePremiumDetectionEnded == other.callMachinePremiumDetectionEnded &&
+            callMachinePremiumDetectionStarted == other.callMachinePremiumDetectionStarted &&
             callMachinePremiumGreetingEnded == other.callMachinePremiumGreetingEnded &&
             callPaymentCompleted == other.callPaymentCompleted &&
             callPaymentProgress == other.callPaymentProgress &&
@@ -1676,7 +1801,8 @@ private constructor(
             transcriptCompleted == other.transcriptCompleted &&
             transcription == other.transcription &&
             whatsappAccountUpdate == other.whatsappAccountUpdate &&
-            whatsappMessageEcho == other.whatsappMessageEcho
+            whatsappMessageEcho == other.whatsappMessageEcho &&
+            whatsappWabaAdded == other.whatsappWabaAdded
     }
 
     override fun hashCode(): Int =
@@ -1688,8 +1814,10 @@ private constructor(
             artifactFailed,
             callAnswered,
             callBridged,
+            callConversationCreated,
             callConversationEnded,
             callConversationInsightsGenerated,
+            callConversationStartFailed,
             callCost,
             callDeepfakeDetectionError,
             callDeepfakeDetectionResult,
@@ -1704,7 +1832,9 @@ private constructor(
             callLeftQueue,
             callMachineDetectionEnded,
             callMachineGreetingEnded,
+            callMachinePremiumCallScreeningDetected,
             callMachinePremiumDetectionEnded,
+            callMachinePremiumDetectionStarted,
             callMachinePremiumGreetingEnded,
             callPaymentCompleted,
             callPaymentProgress,
@@ -1759,6 +1889,7 @@ private constructor(
             transcription,
             whatsappAccountUpdate,
             whatsappMessageEcho,
+            whatsappWabaAdded,
         )
 
     override fun toString(): String =
@@ -1772,10 +1903,14 @@ private constructor(
             artifactFailed != null -> "UnwrapWebhookEvent{artifactFailed=$artifactFailed}"
             callAnswered != null -> "UnwrapWebhookEvent{callAnswered=$callAnswered}"
             callBridged != null -> "UnwrapWebhookEvent{callBridged=$callBridged}"
+            callConversationCreated != null ->
+                "UnwrapWebhookEvent{callConversationCreated=$callConversationCreated}"
             callConversationEnded != null ->
                 "UnwrapWebhookEvent{callConversationEnded=$callConversationEnded}"
             callConversationInsightsGenerated != null ->
                 "UnwrapWebhookEvent{callConversationInsightsGenerated=$callConversationInsightsGenerated}"
+            callConversationStartFailed != null ->
+                "UnwrapWebhookEvent{callConversationStartFailed=$callConversationStartFailed}"
             callCost != null -> "UnwrapWebhookEvent{callCost=$callCost}"
             callDeepfakeDetectionError != null ->
                 "UnwrapWebhookEvent{callDeepfakeDetectionError=$callDeepfakeDetectionError}"
@@ -1794,8 +1929,12 @@ private constructor(
                 "UnwrapWebhookEvent{callMachineDetectionEnded=$callMachineDetectionEnded}"
             callMachineGreetingEnded != null ->
                 "UnwrapWebhookEvent{callMachineGreetingEnded=$callMachineGreetingEnded}"
+            callMachinePremiumCallScreeningDetected != null ->
+                "UnwrapWebhookEvent{callMachinePremiumCallScreeningDetected=$callMachinePremiumCallScreeningDetected}"
             callMachinePremiumDetectionEnded != null ->
                 "UnwrapWebhookEvent{callMachinePremiumDetectionEnded=$callMachinePremiumDetectionEnded}"
+            callMachinePremiumDetectionStarted != null ->
+                "UnwrapWebhookEvent{callMachinePremiumDetectionStarted=$callMachinePremiumDetectionStarted}"
             callMachinePremiumGreetingEnded != null ->
                 "UnwrapWebhookEvent{callMachinePremiumGreetingEnded=$callMachinePremiumGreetingEnded}"
             callPaymentCompleted != null ->
@@ -1884,6 +2023,7 @@ private constructor(
                 "UnwrapWebhookEvent{whatsappAccountUpdate=$whatsappAccountUpdate}"
             whatsappMessageEcho != null ->
                 "UnwrapWebhookEvent{whatsappMessageEcho=$whatsappMessageEcho}"
+            whatsappWabaAdded != null -> "UnwrapWebhookEvent{whatsappWabaAdded=$whatsappWabaAdded}"
             _json != null -> "UnwrapWebhookEvent{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid UnwrapWebhookEvent")
         }
@@ -1924,6 +2064,11 @@ private constructor(
             UnwrapWebhookEvent(callBridged = callBridged)
 
         @JvmStatic
+        fun ofCallConversationCreated(
+            callConversationCreated: CallConversationCreatedWebhookEvent
+        ) = UnwrapWebhookEvent(callConversationCreated = callConversationCreated)
+
+        @JvmStatic
         fun ofCallConversationEnded(callConversationEnded: CallConversationEndedWebhookEvent) =
             UnwrapWebhookEvent(callConversationEnded = callConversationEnded)
 
@@ -1934,6 +2079,11 @@ private constructor(
             UnwrapWebhookEvent(
                 callConversationInsightsGenerated = callConversationInsightsGenerated
             )
+
+        @JvmStatic
+        fun ofCallConversationStartFailed(
+            callConversationStartFailed: CallConversationStartFailedWebhookEvent
+        ) = UnwrapWebhookEvent(callConversationStartFailed = callConversationStartFailed)
 
         @JvmStatic
         fun ofCallCost(callCost: CallCostWebhookEvent) = UnwrapWebhookEvent(callCost = callCost)
@@ -1994,9 +2144,26 @@ private constructor(
         ) = UnwrapWebhookEvent(callMachineGreetingEnded = callMachineGreetingEnded)
 
         @JvmStatic
+        fun ofCallMachinePremiumCallScreeningDetected(
+            callMachinePremiumCallScreeningDetected:
+                CallMachinePremiumCallScreeningDetectedWebhookEvent
+        ) =
+            UnwrapWebhookEvent(
+                callMachinePremiumCallScreeningDetected = callMachinePremiumCallScreeningDetected
+            )
+
+        @JvmStatic
         fun ofCallMachinePremiumDetectionEnded(
             callMachinePremiumDetectionEnded: CallMachinePremiumDetectionEndedWebhookEvent
         ) = UnwrapWebhookEvent(callMachinePremiumDetectionEnded = callMachinePremiumDetectionEnded)
+
+        @JvmStatic
+        fun ofCallMachinePremiumDetectionStarted(
+            callMachinePremiumDetectionStarted: CallMachinePremiumDetectionStartedWebhookEvent
+        ) =
+            UnwrapWebhookEvent(
+                callMachinePremiumDetectionStarted = callMachinePremiumDetectionStarted
+            )
 
         @JvmStatic
         fun ofCallMachinePremiumGreetingEnded(
@@ -2238,6 +2405,10 @@ private constructor(
         @JvmStatic
         fun ofWhatsappMessageEcho(whatsappMessageEcho: WhatsappMessageEcho) =
             UnwrapWebhookEvent(whatsappMessageEcho = whatsappMessageEcho)
+
+        @JvmStatic
+        fun ofWhatsappWabaAdded(whatsappWabaAdded: WhatsappWabaAddedWebhookEvent) =
+            UnwrapWebhookEvent(whatsappWabaAdded = whatsappWabaAdded)
     }
 
     /**
@@ -2264,10 +2435,18 @@ private constructor(
 
         fun visitCallBridged(callBridged: CallBridgedWebhookEvent): T
 
+        fun visitCallConversationCreated(
+            callConversationCreated: CallConversationCreatedWebhookEvent
+        ): T
+
         fun visitCallConversationEnded(callConversationEnded: CallConversationEndedWebhookEvent): T
 
         fun visitCallConversationInsightsGenerated(
             callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent
+        ): T
+
+        fun visitCallConversationStartFailed(
+            callConversationStartFailed: CallConversationStartFailedWebhookEvent
         ): T
 
         fun visitCallCost(callCost: CallCostWebhookEvent): T
@@ -2306,8 +2485,17 @@ private constructor(
             callMachineGreetingEnded: CallMachineGreetingEndedWebhookEvent
         ): T
 
+        fun visitCallMachinePremiumCallScreeningDetected(
+            callMachinePremiumCallScreeningDetected:
+                CallMachinePremiumCallScreeningDetectedWebhookEvent
+        ): T
+
         fun visitCallMachinePremiumDetectionEnded(
             callMachinePremiumDetectionEnded: CallMachinePremiumDetectionEndedWebhookEvent
+        ): T
+
+        fun visitCallMachinePremiumDetectionStarted(
+            callMachinePremiumDetectionStarted: CallMachinePremiumDetectionStartedWebhookEvent
         ): T
 
         fun visitCallMachinePremiumGreetingEnded(
@@ -2453,6 +2641,8 @@ private constructor(
 
         fun visitWhatsappMessageEcho(whatsappMessageEcho: WhatsappMessageEcho): T
 
+        fun visitWhatsappWabaAdded(whatsappWabaAdded: WhatsappWabaAddedWebhookEvent): T
+
         /**
          * Maps an unknown variant of [UnwrapWebhookEvent] to a value of type [T].
          *
@@ -2507,6 +2697,10 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<CallBridgedWebhookEvent>())?.let {
                             UnwrapWebhookEvent(callBridged = it, _json = json)
                         },
+                        tryDeserialize(node, jacksonTypeRef<CallConversationCreatedWebhookEvent>())
+                            ?.let {
+                                UnwrapWebhookEvent(callConversationCreated = it, _json = json)
+                            },
                         tryDeserialize(node, jacksonTypeRef<CallConversationEndedWebhookEvent>())
                             ?.let { UnwrapWebhookEvent(callConversationEnded = it, _json = json) },
                         tryDeserialize(
@@ -2518,6 +2712,13 @@ private constructor(
                                     callConversationInsightsGenerated = it,
                                     _json = json,
                                 )
+                            },
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<CallConversationStartFailedWebhookEvent>(),
+                            )
+                            ?.let {
+                                UnwrapWebhookEvent(callConversationStartFailed = it, _json = json)
                             },
                         tryDeserialize(node, jacksonTypeRef<CallCostWebhookEvent>())?.let {
                             UnwrapWebhookEvent(callCost = it, _json = json)
@@ -2576,11 +2777,33 @@ private constructor(
                             },
                         tryDeserialize(
                                 node,
+                                jacksonTypeRef<
+                                    CallMachinePremiumCallScreeningDetectedWebhookEvent
+                                >(),
+                            )
+                            ?.let {
+                                UnwrapWebhookEvent(
+                                    callMachinePremiumCallScreeningDetected = it,
+                                    _json = json,
+                                )
+                            },
+                        tryDeserialize(
+                                node,
                                 jacksonTypeRef<CallMachinePremiumDetectionEndedWebhookEvent>(),
                             )
                             ?.let {
                                 UnwrapWebhookEvent(
                                     callMachinePremiumDetectionEnded = it,
+                                    _json = json,
+                                )
+                            },
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<CallMachinePremiumDetectionStartedWebhookEvent>(),
+                            )
+                            ?.let {
+                                UnwrapWebhookEvent(
+                                    callMachinePremiumDetectionStarted = it,
                                     _json = json,
                                 )
                             },
@@ -2805,6 +3028,9 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<WhatsappMessageEcho>())?.let {
                             UnwrapWebhookEvent(whatsappMessageEcho = it, _json = json)
                         },
+                        tryDeserialize(node, jacksonTypeRef<WhatsappWabaAddedWebhookEvent>())?.let {
+                            UnwrapWebhookEvent(whatsappWabaAdded = it, _json = json)
+                        },
                     )
                     .filterNotNull()
                     .allMaxBy { it.validity() }
@@ -2838,10 +3064,14 @@ private constructor(
                 value.artifactFailed != null -> generator.writeObject(value.artifactFailed)
                 value.callAnswered != null -> generator.writeObject(value.callAnswered)
                 value.callBridged != null -> generator.writeObject(value.callBridged)
+                value.callConversationCreated != null ->
+                    generator.writeObject(value.callConversationCreated)
                 value.callConversationEnded != null ->
                     generator.writeObject(value.callConversationEnded)
                 value.callConversationInsightsGenerated != null ->
                     generator.writeObject(value.callConversationInsightsGenerated)
+                value.callConversationStartFailed != null ->
+                    generator.writeObject(value.callConversationStartFailed)
                 value.callCost != null -> generator.writeObject(value.callCost)
                 value.callDeepfakeDetectionError != null ->
                     generator.writeObject(value.callDeepfakeDetectionError)
@@ -2860,8 +3090,12 @@ private constructor(
                     generator.writeObject(value.callMachineDetectionEnded)
                 value.callMachineGreetingEnded != null ->
                     generator.writeObject(value.callMachineGreetingEnded)
+                value.callMachinePremiumCallScreeningDetected != null ->
+                    generator.writeObject(value.callMachinePremiumCallScreeningDetected)
                 value.callMachinePremiumDetectionEnded != null ->
                     generator.writeObject(value.callMachinePremiumDetectionEnded)
+                value.callMachinePremiumDetectionStarted != null ->
+                    generator.writeObject(value.callMachinePremiumDetectionStarted)
                 value.callMachinePremiumGreetingEnded != null ->
                     generator.writeObject(value.callMachinePremiumGreetingEnded)
                 value.callPaymentCompleted != null ->
@@ -2946,6 +3180,7 @@ private constructor(
                     generator.writeObject(value.whatsappAccountUpdate)
                 value.whatsappMessageEcho != null ->
                     generator.writeObject(value.whatsappMessageEcho)
+                value.whatsappWabaAdded != null -> generator.writeObject(value.whatsappWabaAdded)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid UnwrapWebhookEvent")
             }
