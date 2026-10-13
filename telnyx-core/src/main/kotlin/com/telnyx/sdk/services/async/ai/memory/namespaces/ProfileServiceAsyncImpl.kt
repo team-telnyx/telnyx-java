@@ -26,6 +26,8 @@ import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileIngestResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileListPageAsync
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileListPageResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileListParams
+import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfilePreviewParams
+import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfilePreviewResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRecallParams
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRecallResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRememberParams
@@ -82,6 +84,13 @@ class ProfileServiceAsyncImpl internal constructor(private val clientOptions: Cl
     ): CompletableFuture<ProfileIngestResponse> =
         // post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/ingest
         withRawResponse().ingest(params, requestOptions).mapCancellable { it.parse() }
+
+    override fun preview(
+        params: ProfilePreviewParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ProfilePreviewResponse> =
+        // post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary/preview
+        withRawResponse().preview(params, requestOptions).mapCancellable { it.parse() }
 
     override fun recall(
         params: ProfileRecallParams,
@@ -252,6 +261,51 @@ class ProfileServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     errorHandler.handle(response).parseable {
                         response
                             .use { ingestHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val previewHandler: Handler<ProfilePreviewResponse> =
+            jsonHandler<ProfilePreviewResponse>(clientOptions.jsonMapper)
+
+        override fun preview(
+            params: ProfilePreviewParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ProfilePreviewResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("profileId", params.profileId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "ai",
+                        "memory",
+                        "namespaces",
+                        params._pathParam(0),
+                        "profiles",
+                        params._pathParam(1),
+                        "summary",
+                        "preview",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { previewHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

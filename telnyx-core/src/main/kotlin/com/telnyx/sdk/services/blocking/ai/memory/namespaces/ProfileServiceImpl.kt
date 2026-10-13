@@ -23,6 +23,8 @@ import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileIngestResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileListPage
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileListPageResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileListParams
+import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfilePreviewParams
+import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfilePreviewResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRecallParams
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRecallResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRememberParams
@@ -75,6 +77,13 @@ class ProfileServiceImpl internal constructor(private val clientOptions: ClientO
     ): ProfileIngestResponse =
         // post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/ingest
         withRawResponse().ingest(params, requestOptions).parse()
+
+    override fun preview(
+        params: ProfilePreviewParams,
+        requestOptions: RequestOptions,
+    ): ProfilePreviewResponse =
+        // post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary/preview
+        withRawResponse().preview(params, requestOptions).parse()
 
     override fun recall(
         params: ProfileRecallParams,
@@ -230,6 +239,46 @@ class ProfileServiceImpl internal constructor(private val clientOptions: ClientO
             return errorHandler.handle(response).parseable {
                 response
                     .use { ingestHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val previewHandler: Handler<ProfilePreviewResponse> =
+            jsonHandler<ProfilePreviewResponse>(clientOptions.jsonMapper)
+
+        override fun preview(
+            params: ProfilePreviewParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ProfilePreviewResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("profileId", params.profileId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "ai",
+                        "memory",
+                        "namespaces",
+                        params._pathParam(0),
+                        "profiles",
+                        params._pathParam(1),
+                        "summary",
+                        "preview",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { previewHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
