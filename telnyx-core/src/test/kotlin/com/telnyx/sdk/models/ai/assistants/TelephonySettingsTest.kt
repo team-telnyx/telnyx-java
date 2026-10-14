@@ -13,6 +13,7 @@ internal class TelephonySettingsTest {
     fun create() {
         val telephonySettings =
             TelephonySettings.builder()
+                .conversationEndedFullHistory(true)
                 .defaultTexmlAppId("default_texml_app_id")
                 .disableDtmf(true)
                 .fallbackDestination("fallback_destination")
@@ -67,6 +68,7 @@ internal class TelephonySettingsTest {
                 )
                 .build()
 
+        assertThat(telephonySettings.conversationEndedFullHistory()).contains(true)
         assertThat(telephonySettings.defaultTexmlAppId()).contains("default_texml_app_id")
         assertThat(telephonySettings.disableDtmf()).contains(true)
         assertThat(telephonySettings.fallbackDestination()).contains("fallback_destination")
@@ -130,6 +132,7 @@ internal class TelephonySettingsTest {
         val jsonMapper = jsonMapper()
         val telephonySettings =
             TelephonySettings.builder()
+                .conversationEndedFullHistory(true)
                 .defaultTexmlAppId("default_texml_app_id")
                 .disableDtmf(true)
                 .fallbackDestination("fallback_destination")

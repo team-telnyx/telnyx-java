@@ -557,6 +557,7 @@ internal class AssistantCreateParamsTest {
             .addTag("string")
             .telephonySettings(
                 TelephonySettings.builder()
+                    .conversationEndedFullHistory(true)
                     .defaultTexmlAppId("default_texml_app_id")
                     .disableDtmf(true)
                     .fallbackDestination("fallback_destination")
@@ -1364,6 +1365,7 @@ internal class AssistantCreateParamsTest {
                 .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
+                        .conversationEndedFullHistory(true)
                         .defaultTexmlAppId("default_texml_app_id")
                         .disableDtmf(true)
                         .fallbackDestination("fallback_destination")
@@ -2194,6 +2196,7 @@ internal class AssistantCreateParamsTest {
                 .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
+                        .conversationEndedFullHistory(true)
                         .defaultTexmlAppId("default_texml_app_id")
                         .disableDtmf(true)
                         .fallbackDestination("fallback_destination")
@@ -2996,6 +2999,7 @@ internal class AssistantCreateParamsTest {
         assertThat(body.telephonySettings())
             .contains(
                 TelephonySettings.builder()
+                    .conversationEndedFullHistory(true)
                     .defaultTexmlAppId("default_texml_app_id")
                     .disableDtmf(true)
                     .fallbackDestination("fallback_destination")

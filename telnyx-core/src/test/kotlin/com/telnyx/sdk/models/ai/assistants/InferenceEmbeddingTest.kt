@@ -634,6 +634,7 @@ internal class InferenceEmbeddingTest {
                 .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
+                        .conversationEndedFullHistory(true)
                         .defaultTexmlAppId("default_texml_app_id")
                         .disableDtmf(true)
                         .fallbackDestination("fallback_destination")
@@ -1495,6 +1496,7 @@ internal class InferenceEmbeddingTest {
         assertThat(inferenceEmbedding.telephonySettings())
             .contains(
                 TelephonySettings.builder()
+                    .conversationEndedFullHistory(true)
                     .defaultTexmlAppId("default_texml_app_id")
                     .disableDtmf(true)
                     .fallbackDestination("fallback_destination")
@@ -2364,6 +2366,7 @@ internal class InferenceEmbeddingTest {
                 .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
+                        .conversationEndedFullHistory(true)
                         .defaultTexmlAppId("default_texml_app_id")
                         .disableDtmf(true)
                         .fallbackDestination("fallback_destination")

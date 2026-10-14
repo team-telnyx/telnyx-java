@@ -612,6 +612,7 @@ internal class UpdateAssistantTest {
                 .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
+                        .conversationEndedFullHistory(true)
                         .defaultTexmlAppId("default_texml_app_id")
                         .disableDtmf(true)
                         .fallbackDestination("fallback_destination")
@@ -1415,6 +1416,7 @@ internal class UpdateAssistantTest {
         assertThat(updateAssistant.telephonySettings())
             .contains(
                 TelephonySettings.builder()
+                    .conversationEndedFullHistory(true)
                     .defaultTexmlAppId("default_texml_app_id")
                     .disableDtmf(true)
                     .fallbackDestination("fallback_destination")
@@ -2229,6 +2231,7 @@ internal class UpdateAssistantTest {
                 .addTag("string")
                 .telephonySettings(
                     TelephonySettings.builder()
+                        .conversationEndedFullHistory(true)
                         .defaultTexmlAppId("default_texml_app_id")
                         .disableDtmf(true)
                         .fallbackDestination("fallback_destination")

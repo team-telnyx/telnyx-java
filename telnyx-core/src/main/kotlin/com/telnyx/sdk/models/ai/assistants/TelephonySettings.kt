@@ -20,6 +20,7 @@ import kotlin.jvm.optionals.getOrNull
 class TelephonySettings
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val conversationEndedFullHistory: JsonField<Boolean>,
     private val defaultTexmlAppId: JsonField<String>,
     private val disableDtmf: JsonField<Boolean>,
     private val fallbackDestination: JsonField<String>,
@@ -37,6 +38,9 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("conversation_ended_full_history")
+        @ExcludeMissing
+        conversationEndedFullHistory: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("default_texml_app_id")
         @ExcludeMissing
         defaultTexmlAppId: JsonField<String> = JsonMissing.of(),
@@ -74,6 +78,7 @@ private constructor(
         @ExcludeMissing
         voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of(),
     ) : this(
+        conversationEndedFullHistory,
         defaultTexmlAppId,
         disableDtmf,
         fallbackDestination,
@@ -88,6 +93,19 @@ private constructor(
         voicemailDetection,
         mutableMapOf(),
     )
+
+    /**
+     * When enabled, the `messages` array of the `call.conversation.ended` webhook contains the full
+     * conversation history in order: user and assistant turns, assistant tool calls (`tool_calls`),
+     * tool results (`role: tool` with `tool_call_id`), and informational `system` and `developer`
+     * entries. The assistant's instructions are never included. When disabled, `messages` contains
+     * only user and assistant text turns.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conversationEndedFullHistory(): Optional<Boolean> =
+        conversationEndedFullHistory.getOptional("conversation_ended_full_history")
 
     /**
      * Default Texml App used for voice calls with your assistant. This will be created
@@ -223,6 +241,16 @@ private constructor(
      */
     fun voicemailDetection(): Optional<VoicemailDetection> =
         voicemailDetection.getOptional("voicemail_detection")
+
+    /**
+     * Returns the raw JSON value of [conversationEndedFullHistory].
+     *
+     * Unlike [conversationEndedFullHistory], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("conversation_ended_full_history")
+    @ExcludeMissing
+    fun _conversationEndedFullHistory(): JsonField<Boolean> = conversationEndedFullHistory
 
     /**
      * Returns the raw JSON value of [defaultTexmlAppId].
@@ -363,6 +391,7 @@ private constructor(
     /** A builder for [TelephonySettings]. */
     class Builder internal constructor() {
 
+        private var conversationEndedFullHistory: JsonField<Boolean> = JsonMissing.of()
         private var defaultTexmlAppId: JsonField<String> = JsonMissing.of()
         private var disableDtmf: JsonField<Boolean> = JsonMissing.of()
         private var fallbackDestination: JsonField<String> = JsonMissing.of()
@@ -379,6 +408,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(telephonySettings: TelephonySettings) = apply {
+            conversationEndedFullHistory = telephonySettings.conversationEndedFullHistory
             defaultTexmlAppId = telephonySettings.defaultTexmlAppId
             disableDtmf = telephonySettings.disableDtmf
             fallbackDestination = telephonySettings.fallbackDestination
@@ -392,6 +422,27 @@ private constructor(
             userIdleTimeoutSecs = telephonySettings.userIdleTimeoutSecs
             voicemailDetection = telephonySettings.voicemailDetection
             additionalProperties = telephonySettings.additionalProperties.toMutableMap()
+        }
+
+        /**
+         * When enabled, the `messages` array of the `call.conversation.ended` webhook contains the
+         * full conversation history in order: user and assistant turns, assistant tool calls
+         * (`tool_calls`), tool results (`role: tool` with `tool_call_id`), and informational
+         * `system` and `developer` entries. The assistant's instructions are never included. When
+         * disabled, `messages` contains only user and assistant text turns.
+         */
+        fun conversationEndedFullHistory(conversationEndedFullHistory: Boolean) =
+            conversationEndedFullHistory(JsonField.of(conversationEndedFullHistory))
+
+        /**
+         * Sets [Builder.conversationEndedFullHistory] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conversationEndedFullHistory] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun conversationEndedFullHistory(conversationEndedFullHistory: JsonField<Boolean>) = apply {
+            this.conversationEndedFullHistory = conversationEndedFullHistory
         }
 
         /**
@@ -651,6 +702,7 @@ private constructor(
          */
         fun build(): TelephonySettings =
             TelephonySettings(
+                conversationEndedFullHistory,
                 defaultTexmlAppId,
                 disableDtmf,
                 fallbackDestination,
@@ -682,6 +734,7 @@ private constructor(
             return@apply
         }
 
+        conversationEndedFullHistory()
         defaultTexmlAppId()
         disableDtmf()
         fallbackDestination()
@@ -712,7 +765,8 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (defaultTexmlAppId.asKnown().isPresent) 1 else 0) +
+        (if (conversationEndedFullHistory.asKnown().isPresent) 1 else 0) +
+            (if (defaultTexmlAppId.asKnown().isPresent) 1 else 0) +
             (if (disableDtmf.asKnown().isPresent) 1 else 0) +
             (if (fallbackDestination.asKnown().isPresent) 1 else 0) +
             (noiseSuppression.asKnown().getOrNull()?.validity() ?: 0) +
@@ -3149,6 +3203,7 @@ private constructor(
         }
 
         return other is TelephonySettings &&
+            conversationEndedFullHistory == other.conversationEndedFullHistory &&
             defaultTexmlAppId == other.defaultTexmlAppId &&
             disableDtmf == other.disableDtmf &&
             fallbackDestination == other.fallbackDestination &&
@@ -3166,6 +3221,7 @@ private constructor(
 
     private val hashCode: Int by lazy {
         Objects.hash(
+            conversationEndedFullHistory,
             defaultTexmlAppId,
             disableDtmf,
             fallbackDestination,
@@ -3185,5 +3241,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TelephonySettings{defaultTexmlAppId=$defaultTexmlAppId, disableDtmf=$disableDtmf, fallbackDestination=$fallbackDestination, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleReplySecs=$userIdleReplySecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
+        "TelephonySettings{conversationEndedFullHistory=$conversationEndedFullHistory, defaultTexmlAppId=$defaultTexmlAppId, disableDtmf=$disableDtmf, fallbackDestination=$fallbackDestination, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleReplySecs=$userIdleReplySecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
 }
