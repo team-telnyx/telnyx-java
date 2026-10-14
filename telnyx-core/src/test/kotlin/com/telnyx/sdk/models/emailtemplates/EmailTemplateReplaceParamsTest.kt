@@ -29,6 +29,7 @@ internal class EmailTemplateReplaceParamsTest {
                             .build()
                     )
                     .addVariable("string")
+                    .variablesMode(UpdateEmailTemplateRequest.VariablesMode.AUTOMATIC)
                     .build()
             )
             .build()
@@ -71,6 +72,7 @@ internal class EmailTemplateReplaceParamsTest {
                                 .build()
                         )
                         .addVariable("string")
+                        .variablesMode(UpdateEmailTemplateRequest.VariablesMode.AUTOMATIC)
                         .build()
                 )
                 .build()
@@ -95,6 +97,7 @@ internal class EmailTemplateReplaceParamsTest {
                             .build()
                     )
                     .addVariable("string")
+                    .variablesMode(UpdateEmailTemplateRequest.VariablesMode.AUTOMATIC)
                     .build()
             )
     }

@@ -14,6 +14,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.enterprises.reputation.externalverification.ExternalVerificationStatus
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -26,11 +27,13 @@ private constructor(
     private val checkFrequency: JsonField<ReputationCheckFrequency>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val enterpriseId: JsonField<String>,
+    private val externalVerificationStatus: JsonField<ExternalVerificationStatus>,
     private val loaDocumentId: JsonField<String>,
     private val loaStatus: JsonField<LoaStatus>,
     private val rejectionReasons: JsonField<List<String>>,
     private val status: JsonField<Status>,
     private val updatedAt: JsonField<OffsetDateTime>,
+    private val webhookUrl: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -45,6 +48,9 @@ private constructor(
         @JsonProperty("enterprise_id")
         @ExcludeMissing
         enterpriseId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("external_verification_status")
+        @ExcludeMissing
+        externalVerificationStatus: JsonField<ExternalVerificationStatus> = JsonMissing.of(),
         @JsonProperty("loa_document_id")
         @ExcludeMissing
         loaDocumentId: JsonField<String> = JsonMissing.of(),
@@ -58,15 +64,20 @@ private constructor(
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("webhook_url")
+        @ExcludeMissing
+        webhookUrl: JsonField<String> = JsonMissing.of(),
     ) : this(
         checkFrequency,
         createdAt,
         enterpriseId,
+        externalVerificationStatus,
         loaDocumentId,
         loaStatus,
         rejectionReasons,
         status,
         updatedAt,
+        webhookUrl,
         mutableMapOf(),
     )
 
@@ -91,6 +102,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun enterpriseId(): Optional<String> = enterpriseId.getOptional("enterprise_id")
+
+    /**
+     * Review state of the ownership proof that allows adding phone numbers hosted with another
+     * provider.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun externalVerificationStatus(): Optional<ExternalVerificationStatus> =
+        externalVerificationStatus.getOptional("external_verification_status")
 
     /**
      * Id of the signed LOA document.
@@ -133,6 +154,14 @@ private constructor(
     fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updated_at")
 
     /**
+     * HTTPS URL that receives number-ownership webhook events for this enterprise.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookUrl(): Optional<String> = webhookUrl.getOptional("webhook_url")
+
+    /**
      * Returns the raw JSON value of [checkFrequency].
      *
      * Unlike [checkFrequency], this method doesn't throw if the JSON field has an unexpected type.
@@ -158,6 +187,17 @@ private constructor(
     @JsonProperty("enterprise_id")
     @ExcludeMissing
     fun _enterpriseId(): JsonField<String> = enterpriseId
+
+    /**
+     * Returns the raw JSON value of [externalVerificationStatus].
+     *
+     * Unlike [externalVerificationStatus], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("external_verification_status")
+    @ExcludeMissing
+    fun _externalVerificationStatus(): JsonField<ExternalVerificationStatus> =
+        externalVerificationStatus
 
     /**
      * Returns the raw JSON value of [loaDocumentId].
@@ -201,6 +241,13 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    /**
+     * Returns the raw JSON value of [webhookUrl].
+     *
+     * Unlike [webhookUrl], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("webhook_url") @ExcludeMissing fun _webhookUrl(): JsonField<String> = webhookUrl
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -227,11 +274,14 @@ private constructor(
         private var checkFrequency: JsonField<ReputationCheckFrequency> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var enterpriseId: JsonField<String> = JsonMissing.of()
+        private var externalVerificationStatus: JsonField<ExternalVerificationStatus> =
+            JsonMissing.of()
         private var loaDocumentId: JsonField<String> = JsonMissing.of()
         private var loaStatus: JsonField<LoaStatus> = JsonMissing.of()
         private var rejectionReasons: JsonField<MutableList<String>>? = null
         private var status: JsonField<Status> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var webhookUrl: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -239,12 +289,14 @@ private constructor(
             checkFrequency = enterpriseReputationPublic.checkFrequency
             createdAt = enterpriseReputationPublic.createdAt
             enterpriseId = enterpriseReputationPublic.enterpriseId
+            externalVerificationStatus = enterpriseReputationPublic.externalVerificationStatus
             loaDocumentId = enterpriseReputationPublic.loaDocumentId
             loaStatus = enterpriseReputationPublic.loaStatus
             rejectionReasons =
                 enterpriseReputationPublic.rejectionReasons.map { it.toMutableList() }
             status = enterpriseReputationPublic.status
             updatedAt = enterpriseReputationPublic.updatedAt
+            webhookUrl = enterpriseReputationPublic.webhookUrl
             additionalProperties = enterpriseReputationPublic.additionalProperties.toMutableMap()
         }
 
@@ -289,6 +341,32 @@ private constructor(
         fun enterpriseId(enterpriseId: JsonField<String>) = apply {
             this.enterpriseId = enterpriseId
         }
+
+        /**
+         * Review state of the ownership proof that allows adding phone numbers hosted with another
+         * provider.
+         */
+        fun externalVerificationStatus(externalVerificationStatus: ExternalVerificationStatus?) =
+            externalVerificationStatus(JsonField.ofNullable(externalVerificationStatus))
+
+        /**
+         * Alias for calling [Builder.externalVerificationStatus] with
+         * `externalVerificationStatus.orElse(null)`.
+         */
+        fun externalVerificationStatus(
+            externalVerificationStatus: Optional<ExternalVerificationStatus>
+        ) = externalVerificationStatus(externalVerificationStatus.getOrNull())
+
+        /**
+         * Sets [Builder.externalVerificationStatus] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalVerificationStatus] with a well-typed
+         * [ExternalVerificationStatus] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun externalVerificationStatus(
+            externalVerificationStatus: JsonField<ExternalVerificationStatus>
+        ) = apply { this.externalVerificationStatus = externalVerificationStatus }
 
         /** Id of the signed LOA document. */
         fun loaDocumentId(loaDocumentId: String?) =
@@ -377,6 +455,21 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
+        /** HTTPS URL that receives number-ownership webhook events for this enterprise. */
+        fun webhookUrl(webhookUrl: String?) = webhookUrl(JsonField.ofNullable(webhookUrl))
+
+        /** Alias for calling [Builder.webhookUrl] with `webhookUrl.orElse(null)`. */
+        fun webhookUrl(webhookUrl: Optional<String>) = webhookUrl(webhookUrl.getOrNull())
+
+        /**
+         * Sets [Builder.webhookUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookUrl] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun webhookUrl(webhookUrl: JsonField<String>) = apply { this.webhookUrl = webhookUrl }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -406,11 +499,13 @@ private constructor(
                 checkFrequency,
                 createdAt,
                 enterpriseId,
+                externalVerificationStatus,
                 loaDocumentId,
                 loaStatus,
                 (rejectionReasons ?: JsonMissing.of()).map { it.toImmutable() },
                 status,
                 updatedAt,
+                webhookUrl,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -433,11 +528,13 @@ private constructor(
         checkFrequency().ifPresent { it.validate() }
         createdAt()
         enterpriseId()
+        externalVerificationStatus().ifPresent { it.validate() }
         loaDocumentId()
         loaStatus().ifPresent { it.validate() }
         rejectionReasons()
         status().ifPresent { it.validate() }
         updatedAt()
+        webhookUrl()
         validated = true
     }
 
@@ -459,11 +556,13 @@ private constructor(
         (checkFrequency.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (enterpriseId.asKnown().isPresent) 1 else 0) +
+            (externalVerificationStatus.asKnown().getOrNull()?.validity() ?: 0) +
             (if (loaDocumentId.asKnown().isPresent) 1 else 0) +
             (loaStatus.asKnown().getOrNull()?.validity() ?: 0) +
             (rejectionReasons.asKnown().getOrNull()?.size ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0)
+            (if (updatedAt.asKnown().isPresent) 1 else 0) +
+            (if (webhookUrl.asKnown().isPresent) 1 else 0)
 
     /**
      * Customer-facing Letter-of-Authorization verification state. `approved` is required (alongside
@@ -767,11 +866,13 @@ private constructor(
             checkFrequency == other.checkFrequency &&
             createdAt == other.createdAt &&
             enterpriseId == other.enterpriseId &&
+            externalVerificationStatus == other.externalVerificationStatus &&
             loaDocumentId == other.loaDocumentId &&
             loaStatus == other.loaStatus &&
             rejectionReasons == other.rejectionReasons &&
             status == other.status &&
             updatedAt == other.updatedAt &&
+            webhookUrl == other.webhookUrl &&
             additionalProperties == other.additionalProperties
     }
 
@@ -780,11 +881,13 @@ private constructor(
             checkFrequency,
             createdAt,
             enterpriseId,
+            externalVerificationStatus,
             loaDocumentId,
             loaStatus,
             rejectionReasons,
             status,
             updatedAt,
+            webhookUrl,
             additionalProperties,
         )
     }
@@ -792,5 +895,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EnterpriseReputationPublic{checkFrequency=$checkFrequency, createdAt=$createdAt, enterpriseId=$enterpriseId, loaDocumentId=$loaDocumentId, loaStatus=$loaStatus, rejectionReasons=$rejectionReasons, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "EnterpriseReputationPublic{checkFrequency=$checkFrequency, createdAt=$createdAt, enterpriseId=$enterpriseId, externalVerificationStatus=$externalVerificationStatus, loaDocumentId=$loaDocumentId, loaStatus=$loaStatus, rejectionReasons=$rejectionReasons, status=$status, updatedAt=$updatedAt, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

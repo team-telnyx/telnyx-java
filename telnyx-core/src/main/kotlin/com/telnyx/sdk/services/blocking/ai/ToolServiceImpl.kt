@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.ai
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -19,7 +20,6 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.tools.SharedToolResponse
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
 import com.telnyx.sdk.models.ai.tools.ToolDeleteParams
-import com.telnyx.sdk.models.ai.tools.ToolDeleteResponse
 import com.telnyx.sdk.models.ai.tools.ToolListPage
 import com.telnyx.sdk.models.ai.tools.ToolListPageResponse
 import com.telnyx.sdk.models.ai.tools.ToolListParams
@@ -65,12 +65,10 @@ class ToolServiceImpl internal constructor(private val clientOptions: ClientOpti
         // get /ai/tools
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun delete(
-        params: ToolDeleteParams,
-        requestOptions: RequestOptions,
-    ): ToolDeleteResponse =
+    override fun delete(params: ToolDeleteParams, requestOptions: RequestOptions) {
         // delete /ai/tools/{tool_id}
-        withRawResponse().delete(params, requestOptions).parse()
+        withRawResponse().delete(params, requestOptions)
+    }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ToolService.WithRawResponse {
@@ -208,13 +206,12 @@ class ToolServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val deleteHandler: Handler<ToolDeleteResponse> =
-            jsonHandler<ToolDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: ToolDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ToolDeleteResponse> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toolId", params.toolId().getOrNull())
@@ -229,13 +226,7 @@ class ToolServiceImpl internal constructor(private val clientOptions: ClientOpti
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteHandler.handle(it) }
             }
         }
     }

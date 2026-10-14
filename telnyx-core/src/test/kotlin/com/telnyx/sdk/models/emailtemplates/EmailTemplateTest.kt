@@ -20,13 +20,12 @@ internal class EmailTemplateTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .htmlBody("html_body")
                 .name("name")
-                .recordType(EmailTemplate.RecordType.EMAIL_TEMPLATE)
+                .recordType(EmailTemplateCommon.RecordType.EMAIL_TEMPLATE)
                 .strictVariables(true)
-                .subject("subject")
                 .textBody("text_body")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .variableSchema(
-                    EmailTemplate.VariableSchema.builder()
+                    EmailTemplateCommon.VariableSchema.builder()
                         .putAdditionalProperty(
                             "foo",
                             JsonValue.from(mapOf("required" to true, "default" to "default")),
@@ -34,6 +33,8 @@ internal class EmailTemplateTest {
                         .build()
                 )
                 .addVariable("string")
+                .variablesMode(EmailTemplateCommon.VariablesMode.AUTOMATIC)
+                .subject("subject")
                 .build()
 
         assertThat(emailTemplate.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -42,15 +43,15 @@ internal class EmailTemplateTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(emailTemplate.htmlBody()).contains("html_body")
         assertThat(emailTemplate.name()).isEqualTo("name")
-        assertThat(emailTemplate.recordType()).isEqualTo(EmailTemplate.RecordType.EMAIL_TEMPLATE)
+        assertThat(emailTemplate.recordType())
+            .isEqualTo(EmailTemplateCommon.RecordType.EMAIL_TEMPLATE)
         assertThat(emailTemplate.strictVariables()).isEqualTo(true)
-        assertThat(emailTemplate.subject()).contains("subject")
         assertThat(emailTemplate.textBody()).contains("text_body")
         assertThat(emailTemplate.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(emailTemplate.variableSchema())
             .contains(
-                EmailTemplate.VariableSchema.builder()
+                EmailTemplateCommon.VariableSchema.builder()
                     .putAdditionalProperty(
                         "foo",
                         JsonValue.from(mapOf("required" to true, "default" to "default")),
@@ -58,6 +59,9 @@ internal class EmailTemplateTest {
                     .build()
             )
         assertThat(emailTemplate.variables()).containsExactly("string")
+        assertThat(emailTemplate.variablesMode())
+            .isEqualTo(EmailTemplateCommon.VariablesMode.AUTOMATIC)
+        assertThat(emailTemplate.subject()).contains("subject")
     }
 
     @Test
@@ -70,13 +74,12 @@ internal class EmailTemplateTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .htmlBody("html_body")
                 .name("name")
-                .recordType(EmailTemplate.RecordType.EMAIL_TEMPLATE)
+                .recordType(EmailTemplateCommon.RecordType.EMAIL_TEMPLATE)
                 .strictVariables(true)
-                .subject("subject")
                 .textBody("text_body")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .variableSchema(
-                    EmailTemplate.VariableSchema.builder()
+                    EmailTemplateCommon.VariableSchema.builder()
                         .putAdditionalProperty(
                             "foo",
                             JsonValue.from(mapOf("required" to true, "default" to "default")),
@@ -84,6 +87,8 @@ internal class EmailTemplateTest {
                         .build()
                 )
                 .addVariable("string")
+                .variablesMode(EmailTemplateCommon.VariablesMode.AUTOMATIC)
+                .subject("subject")
                 .build()
 
         val roundtrippedEmailTemplate =

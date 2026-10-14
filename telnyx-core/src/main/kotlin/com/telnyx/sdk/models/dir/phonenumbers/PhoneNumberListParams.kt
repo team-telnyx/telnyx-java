@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.dir.phonenumbers
 
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
-import com.telnyx.sdk.models.dir.phonenumberbatches.DirPhoneNumberStatus
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -18,7 +17,6 @@ private constructor(
     private val dirId: String?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
-    private val status: DirPhoneNumberStatus?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -30,9 +28,6 @@ private constructor(
 
     /** Items per page. Maximum 250; values above are clamped to 250. */
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
-
-    /** Filter by phone-number status. */
-    fun status(): Optional<DirPhoneNumberStatus> = Optional.ofNullable(status)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
@@ -56,7 +51,6 @@ private constructor(
         private var dirId: String? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
-        private var status: DirPhoneNumberStatus? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -66,7 +60,6 @@ private constructor(
             dirId = phoneNumberListParams.dirId
             pageNumber = phoneNumberListParams.pageNumber
             pageSize = phoneNumberListParams.pageSize
-            status = phoneNumberListParams.status
             additionalHeaders = phoneNumberListParams.additionalHeaders.toBuilder()
             additionalQueryParams = phoneNumberListParams.additionalQueryParams.toBuilder()
         }
@@ -101,12 +94,6 @@ private constructor(
 
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
-
-        /** Filter by phone-number status. */
-        fun status(status: DirPhoneNumberStatus?) = apply { this.status = status }
-
-        /** Alias for calling [Builder.status] with `status.orElse(null)`. */
-        fun status(status: Optional<DirPhoneNumberStatus>) = status(status.getOrNull())
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
@@ -217,7 +204,6 @@ private constructor(
                 dirId,
                 pageNumber,
                 pageSize,
-                status,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -236,7 +222,6 @@ private constructor(
             .apply {
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
-                status?.let { put("status", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -250,14 +235,13 @@ private constructor(
             dirId == other.dirId &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
-            status == other.status &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(dirId, pageNumber, pageSize, status, additionalHeaders, additionalQueryParams)
+        Objects.hash(dirId, pageNumber, pageSize, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "PhoneNumberListParams{dirId=$dirId, pageNumber=$pageNumber, pageSize=$pageSize, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PhoneNumberListParams{dirId=$dirId, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

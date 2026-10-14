@@ -11,6 +11,8 @@ import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileIngestParams
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileIngestResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileListPageAsync
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileListParams
+import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfilePreviewParams
+import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfilePreviewResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRecallParams
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRecallResponse
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRememberParams
@@ -139,6 +141,38 @@ interface ProfileServiceAsync {
         params: ProfileIngestParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ProfileIngestResponse>
+
+    /**
+     * Try a candidate note on one profile and see how that profile's summary would read under it,
+     * without saving the note and without touching the stored summary. Composes the same source
+     * query the apply path (`PATCH /ai/memory/namespaces/{namespace}/settings`) would use, so a
+     * preview cannot drift from what saving the note would produce. Reads the candidate alone --
+     * the namespace's current instructions and the profile's stored summary are neither read nor
+     * replaced. Bounded at 120 seconds: the summary is generated on the spot rather than read from
+     * a stored one. Nothing about the request is stored.
+     */
+    fun preview(
+        profileId: String,
+        params: ProfilePreviewParams,
+    ): CompletableFuture<ProfilePreviewResponse> = preview(profileId, params, RequestOptions.none())
+
+    /** @see preview */
+    fun preview(
+        profileId: String,
+        params: ProfilePreviewParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ProfilePreviewResponse> =
+        preview(params.toBuilder().profileId(profileId).build(), requestOptions)
+
+    /** @see preview */
+    fun preview(params: ProfilePreviewParams): CompletableFuture<ProfilePreviewResponse> =
+        preview(params, RequestOptions.none())
+
+    /** @see preview */
+    fun preview(
+        params: ProfilePreviewParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ProfilePreviewResponse>
 
     /**
      * Ranked memories for a question. Matching runs over the profile's memories and returns them in
@@ -354,6 +388,37 @@ interface ProfileServiceAsync {
             params: ProfileIngestParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ProfileIngestResponse>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary/preview`, but is
+         * otherwise the same as [ProfileServiceAsync.preview].
+         */
+        fun preview(
+            profileId: String,
+            params: ProfilePreviewParams,
+        ): CompletableFuture<HttpResponseFor<ProfilePreviewResponse>> =
+            preview(profileId, params, RequestOptions.none())
+
+        /** @see preview */
+        fun preview(
+            profileId: String,
+            params: ProfilePreviewParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ProfilePreviewResponse>> =
+            preview(params.toBuilder().profileId(profileId).build(), requestOptions)
+
+        /** @see preview */
+        fun preview(
+            params: ProfilePreviewParams
+        ): CompletableFuture<HttpResponseFor<ProfilePreviewResponse>> =
+            preview(params, RequestOptions.none())
+
+        /** @see preview */
+        fun preview(
+            params: ProfilePreviewParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ProfilePreviewResponse>>
 
         /**
          * Returns a raw HTTP response for `post

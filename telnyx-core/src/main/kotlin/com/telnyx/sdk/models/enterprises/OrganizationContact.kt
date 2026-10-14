@@ -38,31 +38,41 @@ private constructor(
     ) : this(email, firstName, jobTitle, lastName, phoneNumber, mutableMapOf())
 
     /**
+     * The email address of the main person Telnyx should contact about this account. For a call
+     * center (BPO) account this is the email you will verify later, so use a mailbox you can
+     * access.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun email(): String = email.getRequired("email")
 
     /**
+     * The first name of the main person Telnyx should contact about this account.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun firstName(): String = firstName.getRequired("first_name")
 
     /**
+     * The job title of the main person Telnyx should contact about this account.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun jobTitle(): String = jobTitle.getRequired("job_title")
 
     /**
+     * The last name of the main person Telnyx should contact about this account.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun lastName(): String = lastName.getRequired("last_name")
 
     /**
-     * E.164 format with leading `+`.
+     * The phone number of the main contact, in E.164 format, for example +12125551234.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -155,6 +165,11 @@ private constructor(
             additionalProperties = organizationContact.additionalProperties.toMutableMap()
         }
 
+        /**
+         * The email address of the main person Telnyx should contact about this account. For a call
+         * center (BPO) account this is the email you will verify later, so use a mailbox you can
+         * access.
+         */
         fun email(email: String) = email(JsonField.of(email))
 
         /**
@@ -165,6 +180,7 @@ private constructor(
          */
         fun email(email: JsonField<String>) = apply { this.email = email }
 
+        /** The first name of the main person Telnyx should contact about this account. */
         fun firstName(firstName: String) = firstName(JsonField.of(firstName))
 
         /**
@@ -176,6 +192,7 @@ private constructor(
          */
         fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
 
+        /** The job title of the main person Telnyx should contact about this account. */
         fun jobTitle(jobTitle: String) = jobTitle(JsonField.of(jobTitle))
 
         /**
@@ -186,6 +203,7 @@ private constructor(
          */
         fun jobTitle(jobTitle: JsonField<String>) = apply { this.jobTitle = jobTitle }
 
+        /** The last name of the main person Telnyx should contact about this account. */
         fun lastName(lastName: String) = lastName(JsonField.of(lastName))
 
         /**
@@ -196,7 +214,7 @@ private constructor(
          */
         fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
 
-        /** E.164 format with leading `+`. */
+        /** The phone number of the main contact, in E.164 format, for example +12125551234. */
         fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
         /**

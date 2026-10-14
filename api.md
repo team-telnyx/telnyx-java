@@ -171,7 +171,9 @@ Methods:
 - <code title="post /ai/assistants/{assistant_id}/clone">client.ai().assistants().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AssistantService.kt">clone</a>(params)</code>
 - <code title="get /ai/assistants/{assistant_id}/texml">client.ai().assistants().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AssistantService.kt">getTexml</a>(params)</code>
 - <code title="post /ai/assistants/import">client.ai().assistants().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AssistantService.kt">imports</a>(params)</code>
+- <code title="post /ai/assistants/{assistant_id}/restore">client.ai().assistants().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AssistantService.kt">restore</a>(params)</code>
 - <code title="post /ai/assistants/{assistant_id}/chat/sms">client.ai().assistants().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AssistantService.kt">sendSms</a>(params)</code>
+- <code title="post /ai/assistants/{assistant_id}/chat/whatsapp">client.ai().assistants().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AssistantService.kt">whatsapp</a>(params)</code>
 
 ### Tests
 
@@ -253,6 +255,13 @@ Methods:
 Methods:
 
 - <code title="post /ai/assistants/{assistant_id}/instructions/enhance">client.ai().assistants().instructions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/assistants/InstructionService.kt">enhance</a>(params)</code>
+
+### Deleted
+
+Methods:
+
+- <code title="get /ai/assistants/deleted">client.ai().assistants().deleted().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/assistants/DeletedService.kt">list</a>(params)</code>
+- <code title="get /ai/assistants/{assistant_id}/deleted">client.ai().assistants().deleted().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/assistants/DeletedService.kt">get</a>(params)</code>
 
 ## Audio
 
@@ -544,7 +553,10 @@ Methods:
 
 Methods:
 
+- <code title="post /ai/memory/namespaces">client.ai().memory().namespaces().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/NamespaceService.kt">create</a>(params)</code>
 - <code title="get /ai/memory/namespaces/{namespace}/operations/{operation_id}">client.ai().memory().namespaces().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/NamespaceService.kt">retrieve</a>(params)</code>
+- <code title="get /ai/memory/namespaces">client.ai().memory().namespaces().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/NamespaceService.kt">list</a>()</code>
+- <code title="delete /ai/memory/namespaces/{namespace}">client.ai().memory().namespaces().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/NamespaceService.kt">delete</a>(params)</code>
 
 #### Profiles
 
@@ -553,6 +565,7 @@ Methods:
 - <code title="get /ai/memory/namespaces/{namespace}/profiles">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">list</a>(params)</code>
 - <code title="delete /ai/memory/namespaces/{namespace}/profiles/{profile_id}">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">delete</a>(params)</code>
 - <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/ingest">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">ingest</a>(params)</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary/preview">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">preview</a>(params)</code>
 - <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/recall">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">recall</a>(params)</code>
 - <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/remember">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">remember</a>(params)</code>
 - <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary">client.ai().memory().namespaces().profiles().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/ProfileService.kt">retrieveSummary</a>(params)</code>
@@ -2678,12 +2691,26 @@ Methods:
 - <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversational_components">client.whatsapp().phoneNumbers().conversationalComponents().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/phonenumbers/ConversationalComponentService.kt">list</a>(params)</code>
 - <code title="patch /v2/whatsapp/phone_numbers/{phone_number}/conversational_components">client.whatsapp().phoneNumbers().conversationalComponents().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/phonenumbers/ConversationalComponentService.kt">patchAll</a>(params)</code>
 
+### CallingRouting
+
+Methods:
+
+- <code title="get /whatsapp/phone_numbers/{id}/calling_routing">client.whatsapp().phoneNumbers().callingRouting().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/phonenumbers/CallingRoutingService.kt">list</a>(params)</code>
+- <code title="patch /whatsapp/phone_numbers/{id}/calling_routing">client.whatsapp().phoneNumbers().callingRouting().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/phonenumbers/CallingRoutingService.kt">patchAll</a>(params)</code>
+
 ## UserData
 
 Methods:
 
 - <code title="get /v2/whatsapp/user_data">client.whatsapp().userData().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/UserDataService.kt">retrieve</a>()</code>
 - <code title="patch /v2/whatsapp/user_data">client.whatsapp().userData().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/UserDataService.kt">update</a>(params)</code>
+
+## Signup
+
+Methods:
+
+- <code title="get /whatsapp/signup">client.whatsapp().signup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/SignupService.kt">list</a>(params)</code>
+- <code title="get /whatsapp/signup/{id}/status">client.whatsapp().signup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/SignupService.kt">retrieveStatus</a>(params)</code>
 
 # WhatsappMessageTemplates
 
@@ -2762,6 +2789,7 @@ Methods:
 - <code title="delete /enterprises/{enterprise_id}/reputation">client.enterprises().reputation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/ReputationService.kt">disable</a>(params)</code>
 - <code title="post /enterprises/{enterprise_id}/reputation">client.enterprises().reputation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/ReputationService.kt">enable</a>(params)</code>
 - <code title="patch /enterprises/{enterprise_id}/reputation/frequency">client.enterprises().reputation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/ReputationService.kt">updateFrequency</a>(params)</code>
+- <code title="patch /enterprises/{enterprise_id}/reputation/webhook">client.enterprises().reputation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/ReputationService.kt">updateWebhook</a>(params)</code>
 
 ### Numbers
 
@@ -2771,7 +2799,9 @@ Methods:
 - <code title="get /enterprises/{enterprise_id}/reputation/numbers">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">list</a>(params)</code>
 - <code title="post /enterprises/{enterprise_id}/reputation/numbers">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">associate</a>(params)</code>
 - <code title="delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">disassociate</a>(params)</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership_confirm">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">ownershipConfirm</a>(params)</code>
 - <code title="post /enterprises/{enterprise_id}/reputation/numbers/refresh">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">refresh</a>(params)</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership">client.enterprises().reputation().numbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/NumberService.kt">retrieveOwnership</a>(params)</code>
 
 ### Loa
 
@@ -2788,12 +2818,26 @@ Methods:
 - <code title="get /enterprises/{enterprise_id}/reputation/remediation/{remediation_id}">client.enterprises().reputation().remediation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/RemediationService.kt">retrieve</a>(params)</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/remediation">client.enterprises().reputation().remediation().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/RemediationService.kt">list</a>(params)</code>
 
+### ExternalVerification
+
+Methods:
+
+- <code title="post /enterprises/{enterprise_id}/reputation/external_verification">client.enterprises().reputation().externalVerification().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/ExternalVerificationService.kt">create</a>(params)</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/external_verification">client.enterprises().reputation().externalVerification().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/reputation/ExternalVerificationService.kt">list</a>(params)</code>
+
 ## Dir
 
 Methods:
 
 - <code title="post /enterprises/{enterprise_id}/dir">client.enterprises().dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/DirService.kt">create</a>(params)</code>
 - <code title="get /enterprises/{enterprise_id}/dir">client.enterprises().dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/DirService.kt">list</a>(params)</code>
+
+## VerifyEmail
+
+Methods:
+
+- <code title="post /enterprises/{enterprise_id}/verify_email">client.enterprises().verifyEmail().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/VerifyEmailService.kt">create</a>(params)</code>
+- <code title="post /enterprises/{enterprise_id}/verify_email/confirm">client.enterprises().verifyEmail().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/enterprises/VerifyEmailService.kt">confirm</a>(params)</code>
 
 # Reputation
 
@@ -2879,9 +2923,11 @@ Methods:
 - <code title="patch /dir/{dir_id}">client.dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DirService.kt">update</a>(params)</code>
 - <code title="get /dir">client.dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DirService.kt">list</a>(params)</code>
 - <code title="delete /dir/{dir_id}">client.dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DirService.kt">delete</a>(params)</code>
+- <code title="post /dir/{dir_id}/bpo_loa">client.dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DirService.kt">bpoLoa</a>(params)</code>
 - <code title="get /dir/document_types">client.dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DirService.kt">listDocumentTypes</a>()</code>
 - <code title="get /dir/{dir_id}/infringement_claims">client.dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DirService.kt">listInfringementClaims</a>(params)</code>
 - <code title="post /dir/{dir_id}/loa">client.dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DirService.kt">newLoa</a>(params)</code>
+- <code title="get /dir/{dir_id}/bpo_authorizations">client.dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DirService.kt">retrieveBpoAuthorizations</a>(params)</code>
 - <code title="post /dir/{dir_id}/submit">client.dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DirService.kt">submit</a>(params)</code>
 - <code title="put /dir/{dir_id}/infringement_update">client.dir().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DirService.kt">updateInfringement</a>(params)</code>
 
@@ -3228,3 +3274,54 @@ Methods:
 Methods:
 
 - <code title="post /machine-payments/account-credit">client.machinePayments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MachinePaymentService.kt">accountCredit</a>(params)</code>
+
+# SpendLimits
+
+Methods:
+
+- <code title="post /spend_limits">client.spendLimits().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SpendLimitService.kt">create</a>(params)</code>
+- <code title="patch /spend_limits/{product}">client.spendLimits().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SpendLimitService.kt">update</a>(params)</code>
+- <code title="get /spend_limits">client.spendLimits().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SpendLimitService.kt">list</a>()</code>
+- <code title="delete /spend_limits/{product}">client.spendLimits().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SpendLimitService.kt">delete</a>(params)</code>
+
+# LlmTokenGateway
+
+## Usage
+
+Methods:
+
+- <code title="get /llm_token_gateway/usage/export">client.llmTokenGateway().usage().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/UsageService.kt">retrieveExport</a>(params)</code>
+- <code title="get /llm_token_gateway/usage/summary">client.llmTokenGateway().usage().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/UsageService.kt">retrieveSummary</a>(params)</code>
+
+## Spend
+
+Methods:
+
+- <code title="get /llm_token_gateway/spend/events">client.llmTokenGateway().spend().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/SpendService.kt">retrieveEvents</a>(params)</code>
+- <code title="get /llm_token_gateway/spend/summary">client.llmTokenGateway().spend().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/SpendService.kt">retrieveSummary</a>(params)</code>
+
+## TokenGroups
+
+Methods:
+
+- <code title="post /llm_token_gateway/token_groups">client.llmTokenGateway().tokenGroups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenGroupService.kt">create</a>(params)</code>
+- <code title="get /llm_token_gateway/token_groups/{id}">client.llmTokenGateway().tokenGroups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenGroupService.kt">retrieve</a>(params)</code>
+- <code title="patch /llm_token_gateway/token_groups/{id}">client.llmTokenGateway().tokenGroups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenGroupService.kt">update</a>(params)</code>
+- <code title="get /llm_token_gateway/token_groups">client.llmTokenGateway().tokenGroups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenGroupService.kt">list</a>(params)</code>
+- <code title="delete /llm_token_gateway/token_groups/{id}">client.llmTokenGateway().tokenGroups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenGroupService.kt">delete</a>(params)</code>
+
+## TokenKeys
+
+Methods:
+
+- <code title="post /llm_token_gateway/token_keys">client.llmTokenGateway().tokenKeys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenKeyService.kt">create</a>(params)</code>
+- <code title="get /llm_token_gateway/token_keys/{id}">client.llmTokenGateway().tokenKeys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenKeyService.kt">retrieve</a>(params)</code>
+- <code title="patch /llm_token_gateway/token_keys/{id}">client.llmTokenGateway().tokenKeys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenKeyService.kt">update</a>(params)</code>
+- <code title="get /llm_token_gateway/token_keys">client.llmTokenGateway().tokenKeys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenKeyService.kt">list</a>(params)</code>
+- <code title="delete /llm_token_gateway/token_keys/{id}">client.llmTokenGateway().tokenKeys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/llmtokengateway/TokenKeyService.kt">delete</a>(params)</code>
+
+# SipRegistrationStatus
+
+Methods:
+
+- <code title="get /sip_registration_status">client.sipRegistrationStatus().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SipRegistrationStatusService.kt">list</a>(params)</code>

@@ -1,0 +1,31 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.services.blocking
+
+import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.sipregistrationstatus.SipRegistrationStatusListParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+
+internal class SipRegistrationStatusServiceTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun list() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val sipRegistrationStatusService = client.sipRegistrationStatus()
+
+        val sipRegistrationStatuses =
+            sipRegistrationStatusService.list(
+                SipRegistrationStatusListParams.builder()
+                    .credentialType(
+                        SipRegistrationStatusListParams.CredentialType.UAC_EXTERNAL_CREDENTIAL
+                    )
+                    .connectionId("connection_id")
+                    .username("username")
+                    .build()
+            )
+
+        sipRegistrationStatuses.validate()
+    }
+}

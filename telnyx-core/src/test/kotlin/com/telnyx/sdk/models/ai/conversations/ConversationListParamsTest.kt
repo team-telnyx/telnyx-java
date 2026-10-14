@@ -16,6 +16,7 @@ internal class ConversationListParamsTest {
             .lastMessageAt("last_message_at")
             .limit(1L)
             .metadataAssistantId("metadata->assistant_id")
+            .metadataAssistantVersionId("metadata->assistant_version_id")
             .metadataCallControlId("metadata->call_control_id")
             .metadataTelnyxAgentTarget("metadata->telnyx_agent_target")
             .metadataTelnyxConversationChannel("metadata->telnyx_conversation_channel")
@@ -35,6 +36,7 @@ internal class ConversationListParamsTest {
                 .lastMessageAt("last_message_at")
                 .limit(1L)
                 .metadataAssistantId("metadata->assistant_id")
+                .metadataAssistantVersionId("metadata->assistant_version_id")
                 .metadataCallControlId("metadata->call_control_id")
                 .metadataTelnyxAgentTarget("metadata->telnyx_agent_target")
                 .metadataTelnyxConversationChannel("metadata->telnyx_conversation_channel")
@@ -54,6 +56,7 @@ internal class ConversationListParamsTest {
                     .put("last_message_at", "last_message_at")
                     .put("limit", "1")
                     .put("metadata->assistant_id", "metadata->assistant_id")
+                    .put("metadata->assistant_version_id", "metadata->assistant_version_id")
                     .put("metadata->call_control_id", "metadata->call_control_id")
                     .put("metadata->telnyx_agent_target", "metadata->telnyx_agent_target")
                     .put(

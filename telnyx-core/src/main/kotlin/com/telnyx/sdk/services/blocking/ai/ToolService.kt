@@ -5,11 +5,11 @@ package com.telnyx.sdk.services.blocking.ai
 import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.tools.SharedToolResponse
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
 import com.telnyx.sdk.models.ai.tools.ToolDeleteParams
-import com.telnyx.sdk.models.ai.tools.ToolDeleteResponse
 import com.telnyx.sdk.models.ai.tools.ToolListPage
 import com.telnyx.sdk.models.ai.tools.ToolListParams
 import com.telnyx.sdk.models.ai.tools.ToolRetrieveParams
@@ -117,32 +117,27 @@ interface ToolService {
         list(ToolListParams.none(), requestOptions)
 
     /** Permanently deletes the specified custom AI tool from your account. */
-    fun delete(toolId: String): ToolDeleteResponse = delete(toolId, ToolDeleteParams.none())
+    fun delete(toolId: String) = delete(toolId, ToolDeleteParams.none())
 
     /** @see delete */
     fun delete(
         toolId: String,
         params: ToolDeleteParams = ToolDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ToolDeleteResponse = delete(params.toBuilder().toolId(toolId).build(), requestOptions)
+    ) = delete(params.toBuilder().toolId(toolId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(
-        toolId: String,
-        params: ToolDeleteParams = ToolDeleteParams.none(),
-    ): ToolDeleteResponse = delete(toolId, params, RequestOptions.none())
+    fun delete(toolId: String, params: ToolDeleteParams = ToolDeleteParams.none()) =
+        delete(toolId, params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        params: ToolDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ToolDeleteResponse
+    fun delete(params: ToolDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(params: ToolDeleteParams): ToolDeleteResponse = delete(params, RequestOptions.none())
+    fun delete(params: ToolDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(toolId: String, requestOptions: RequestOptions): ToolDeleteResponse =
+    fun delete(toolId: String, requestOptions: RequestOptions) =
         delete(toolId, ToolDeleteParams.none(), requestOptions)
 
     /** A view of [ToolService] that provides access to raw HTTP responses for each method. */
@@ -286,8 +281,7 @@ interface ToolService {
          * as [ToolService.delete].
          */
         @MustBeClosed
-        fun delete(toolId: String): HttpResponseFor<ToolDeleteResponse> =
-            delete(toolId, ToolDeleteParams.none())
+        fun delete(toolId: String): HttpResponse = delete(toolId, ToolDeleteParams.none())
 
         /** @see delete */
         @MustBeClosed
@@ -295,34 +289,29 @@ interface ToolService {
             toolId: String,
             params: ToolDeleteParams = ToolDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ToolDeleteResponse> =
-            delete(params.toBuilder().toolId(toolId).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().toolId(toolId).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             toolId: String,
             params: ToolDeleteParams = ToolDeleteParams.none(),
-        ): HttpResponseFor<ToolDeleteResponse> = delete(toolId, params, RequestOptions.none())
+        ): HttpResponse = delete(toolId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: ToolDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ToolDeleteResponse>
+        ): HttpResponse
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: ToolDeleteParams): HttpResponseFor<ToolDeleteResponse> =
-            delete(params, RequestOptions.none())
+        fun delete(params: ToolDeleteParams): HttpResponse = delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            toolId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ToolDeleteResponse> =
+        fun delete(toolId: String, requestOptions: RequestOptions): HttpResponse =
             delete(toolId, ToolDeleteParams.none(), requestOptions)
     }
 }

@@ -192,7 +192,10 @@ private constructor(
 
     /**
      * Per-node transcription override (model/language/region). Unset fields cascade from the
-     * assistant-level transcription.
+     * assistant-level transcription. A node that sets `model`, `fallback_models`, or `challenger`
+     * doesn't inherit the assistant's `fallback_models` or `challenger`; it uses only the ones it
+     * sets. Otherwise it inherits them, and they must fit the model and language the node runs; a
+     * change they no longer fit is rejected.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -202,7 +205,7 @@ private constructor(
 
     /**
      * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a standalone
-     * tool execution (see `ToolNodeReq`).
+     * tool execution and `speak` a scripted message (see `ToolNodeReq` / `SpeakNodeReq`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -557,7 +560,10 @@ private constructor(
 
         /**
          * Per-node transcription override (model/language/region). Unset fields cascade from the
-         * assistant-level transcription.
+         * assistant-level transcription. A node that sets `model`, `fallback_models`, or
+         * `challenger` doesn't inherit the assistant's `fallback_models` or `challenger`; it uses
+         * only the ones it sets. Otherwise it inherits them, and they must fit the model and
+         * language the node runs; a change they no longer fit is rejected.
          */
         fun transcription(transcription: TranscriptionSettings) =
             transcription(JsonField.of(transcription))
@@ -575,7 +581,7 @@ private constructor(
 
         /**
          * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a standalone
-         * tool execution (see `ToolNodeReq`).
+         * tool execution and `speak` a scripted message (see `ToolNodeReq` / `SpeakNodeReq`).
          */
         fun type(type: Type) = type(JsonField.of(type))
 
@@ -1002,7 +1008,7 @@ private constructor(
 
     /**
      * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a standalone
-     * tool execution (see `ToolNodeReq`).
+     * tool execution and `speak` a scripted message (see `ToolNodeReq` / `SpeakNodeReq`).
      */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 

@@ -70,9 +70,9 @@ interface JobServiceAsync {
 
     /**
      * Returns background jobs that operate on phone numbers. Filter by job type, target phone
-     * numbers, or job status, and sort by creation time. Multiple phone-number or status values use
-     * OR semantics within that filter; different filter categories use AND semantics. Results
-     * include pagination metadata.
+     * numbers, job status, or creation-time customer reference, and sort by creation time. Multiple
+     * phone-number or status values use OR semantics within that filter; different filter
+     * categories use AND semantics. Results include pagination metadata.
      */
     fun list(): CompletableFuture<JobListPageAsync> = list(JobListParams.none())
 

@@ -48,9 +48,17 @@ internal class ToolServiceAsyncTest {
                     .pay(
                         PayToolParams.builder()
                             .connectorName("connector_name")
+                            .connectorParameters(
+                                PayToolParams.ConnectorParameters.builder()
+                                    .putAdditionalProperty("campaignid", JsonValue.from("bar"))
+                                    .putAdditionalProperty("customer_ref", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .currency("currency")
                             .description("description")
                             .paymentMethod("payment_method")
+                            .addValidCardType(PayToolParams.ValidCardType.VISA)
+                            .addValidCardType(PayToolParams.ValidCardType.MASTERCARD)
                             .build()
                     )
                     .retrieval(
@@ -130,9 +138,17 @@ internal class ToolServiceAsyncTest {
                     .pay(
                         PayToolParams.builder()
                             .connectorName("connector_name")
+                            .connectorParameters(
+                                PayToolParams.ConnectorParameters.builder()
+                                    .putAdditionalProperty("campaignid", JsonValue.from("bar"))
+                                    .putAdditionalProperty("customer_ref", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .currency("currency")
                             .description("description")
                             .paymentMethod("payment_method")
+                            .addValidCardType(PayToolParams.ValidCardType.VISA)
+                            .addValidCardType(PayToolParams.ValidCardType.MASTERCARD)
                             .build()
                     )
                     .retrieval(
@@ -185,9 +201,8 @@ internal class ToolServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val toolServiceAsync = client.ai().tools()
 
-        val toolFuture = toolServiceAsync.delete("tool_id")
+        val future = toolServiceAsync.delete("tool_id")
 
-        val tool = toolFuture.get()
-        tool.validate()
+        val response = future.get()
     }
 }

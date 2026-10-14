@@ -22,6 +22,9 @@ import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateWebhookParams
+import com.telnyx.sdk.services.blocking.enterprises.reputation.ExternalVerificationService
+import com.telnyx.sdk.services.blocking.enterprises.reputation.ExternalVerificationServiceImpl
 import com.telnyx.sdk.services.blocking.enterprises.reputation.LoaService
 import com.telnyx.sdk.services.blocking.enterprises.reputation.LoaServiceImpl
 import com.telnyx.sdk.services.blocking.enterprises.reputation.NumberService
@@ -45,6 +48,10 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
 
     private val remediation: RemediationService by lazy { RemediationServiceImpl(clientOptions) }
 
+    private val externalVerification: ExternalVerificationService by lazy {
+        ExternalVerificationServiceImpl(clientOptions)
+    }
+
     override fun withRawResponse(): ReputationService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReputationService =
@@ -58,6 +65,9 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
 
     /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     override fun remediation(): RemediationService = remediation
+
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+    override fun externalVerification(): ExternalVerificationService = externalVerification
 
     override fun retrieve(
         params: ReputationRetrieveParams,
@@ -85,6 +95,13 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
         // patch /enterprises/{enterprise_id}/reputation/frequency
         withRawResponse().updateFrequency(params, requestOptions).parse()
 
+    override fun updateWebhook(
+        params: ReputationUpdateWebhookParams,
+        requestOptions: RequestOptions,
+    ): EnterpriseReputationPublicWrapped =
+        // patch /enterprises/{enterprise_id}/reputation/webhook
+        withRawResponse().updateWebhook(params, requestOptions).parse()
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ReputationService.WithRawResponse {
 
@@ -103,6 +120,10 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
             RemediationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val externalVerification: ExternalVerificationService.WithRawResponse by lazy {
+            ExternalVerificationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ReputationService.WithRawResponse =
@@ -118,6 +139,10 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
 
         /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         override fun remediation(): RemediationService.WithRawResponse = remediation
+
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+        override fun externalVerification(): ExternalVerificationService.WithRawResponse =
+            externalVerification
 
         private val retrieveHandler: Handler<EnterpriseReputationPublicWrapped> =
             jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
@@ -227,6 +252,37 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
             return errorHandler.handle(response).parseable {
                 response
                     .use { updateFrequencyHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateWebhookHandler: Handler<EnterpriseReputationPublicWrapped> =
+            jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
+
+        override fun updateWebhook(
+            params: ReputationUpdateWebhookParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EnterpriseReputationPublicWrapped> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("enterprises", params._pathParam(0), "reputation", "webhook")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateWebhookHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

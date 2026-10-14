@@ -30,6 +30,7 @@ internal class UpdateEmailTemplateRequestTest {
                         .build()
                 )
                 .addVariable("string")
+                .variablesMode(UpdateEmailTemplateRequest.VariablesMode.AUTOMATIC)
                 .build()
 
         assertThat(updateEmailTemplateRequest.autoescape()).contains(true)
@@ -48,6 +49,8 @@ internal class UpdateEmailTemplateRequestTest {
                     .build()
             )
         assertThat(updateEmailTemplateRequest.variables().getOrNull()).containsExactly("string")
+        assertThat(updateEmailTemplateRequest.variablesMode())
+            .contains(UpdateEmailTemplateRequest.VariablesMode.AUTOMATIC)
     }
 
     @Test
@@ -70,6 +73,7 @@ internal class UpdateEmailTemplateRequestTest {
                         .build()
                 )
                 .addVariable("string")
+                .variablesMode(UpdateEmailTemplateRequest.VariablesMode.AUTOMATIC)
                 .build()
 
         val roundtrippedUpdateEmailTemplateRequest =

@@ -64,6 +64,8 @@ private constructor(
     fun administrativeArea(): String = administrativeArea.getRequired("administrative_area")
 
     /**
+     * The city of your registered business address.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -78,18 +80,26 @@ private constructor(
     fun country(): String = country.getRequired("country")
 
     /**
+     * The postal or ZIP code of your registered business address.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun postalCode(): String = postalCode.getRequired("postal_code")
 
     /**
+     * The street address of your registered business, including the building number and street
+     * name.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun streetAddress(): String = streetAddress.getRequired("street_address")
 
     /**
+     * An optional second address line, such as a suite, unit, or floor. Leave blank if it does not
+     * apply.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -210,6 +220,7 @@ private constructor(
             this.administrativeArea = administrativeArea
         }
 
+        /** The city of your registered business address. */
         fun city(city: String) = city(JsonField.of(city))
 
         /**
@@ -231,6 +242,7 @@ private constructor(
          */
         fun country(country: JsonField<String>) = apply { this.country = country }
 
+        /** The postal or ZIP code of your registered business address. */
         fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
         /**
@@ -242,6 +254,10 @@ private constructor(
          */
         fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
+        /**
+         * The street address of your registered business, including the building number and street
+         * name.
+         */
         fun streetAddress(streetAddress: String) = streetAddress(JsonField.of(streetAddress))
 
         /**
@@ -255,6 +271,10 @@ private constructor(
             this.streetAddress = streetAddress
         }
 
+        /**
+         * An optional second address line, such as a suite, unit, or floor. Leave blank if it does
+         * not apply.
+         */
         fun extendedAddress(extendedAddress: String?) =
             extendedAddress(JsonField.ofNullable(extendedAddress))
 

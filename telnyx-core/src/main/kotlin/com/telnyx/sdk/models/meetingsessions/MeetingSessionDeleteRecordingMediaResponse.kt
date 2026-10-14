@@ -204,7 +204,7 @@ private constructor(
         /**
          * Expected to always return the following:
          * ```java
-         * JsonValue.from("recall")
+         * JsonValue.from("telnyx")
          * ```
          *
          * However, this method can be useful for debugging and logging (e.g. if the server
@@ -274,7 +274,7 @@ private constructor(
 
             private var deletionStatus: JsonField<DeletionStatus>? = null
             private var meetingSessionId: JsonField<String>? = null
-            private var provider: JsonValue = JsonValue.from("recall")
+            private var provider: JsonValue = JsonValue.from("telnyx")
             private var scope: JsonValue = JsonValue.from("provider_recording_media")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -322,7 +322,7 @@ private constructor(
              * It is usually unnecessary to call this method because the field defaults to the
              * following:
              * ```java
-             * JsonValue.from("recall")
+             * JsonValue.from("telnyx")
              * ```
              *
              * This method is primarily for setting the field to an undocumented or not yet
@@ -405,7 +405,7 @@ private constructor(
             deletionStatus().validate()
             meetingSessionId()
             _provider().let {
-                if (it != JsonValue.from("recall")) {
+                if (it != JsonValue.from("telnyx")) {
                     throw TelnyxInvalidDataException("'provider' is invalid, received $it")
                 }
             }
@@ -435,7 +435,7 @@ private constructor(
         internal fun validity(): Int =
             (deletionStatus.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (meetingSessionId.asKnown().isPresent) 1 else 0) +
-                provider.let { if (it == JsonValue.from("recall")) 1 else 0 } +
+                provider.let { if (it == JsonValue.from("telnyx")) 1 else 0 } +
                 scope.let { if (it == JsonValue.from("provider_recording_media")) 1 else 0 }
 
         class DeletionStatus

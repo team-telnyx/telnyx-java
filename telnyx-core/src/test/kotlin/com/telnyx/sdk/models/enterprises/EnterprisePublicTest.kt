@@ -33,6 +33,10 @@ internal class EnterprisePublicTest {
                         .phoneNumber("+13125550001")
                         .build()
                 )
+                .bpoVerificationRejectionReason(
+                    "Business registration document could not be verified."
+                )
+                .bpoVerificationStatus(EnterprisePublic.BpoVerificationStatus.APPROVED)
                 .brandedCallingEnabled(true)
                 .corporateRegistrationNumber(null)
                 .countryCode("US")
@@ -69,7 +73,7 @@ internal class EnterprisePublicTest {
                 .organizationType("commercial")
                 .primaryBusinessDomainSicCode(null)
                 .professionalLicenseNumber(null)
-                .roleType("enterprise")
+                .roleType(EnterprisePublic.RoleType.ENTERPRISE)
                 .updatedAt(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
                 .website("https://acmeplumbing.example.com")
                 .build()
@@ -95,6 +99,10 @@ internal class EnterprisePublicTest {
                     .phoneNumber("+13125550001")
                     .build()
             )
+        assertThat(enterprisePublic.bpoVerificationRejectionReason())
+            .contains("Business registration document could not be verified.")
+        assertThat(enterprisePublic.bpoVerificationStatus())
+            .contains(EnterprisePublic.BpoVerificationStatus.APPROVED)
         assertThat(enterprisePublic.brandedCallingEnabled()).contains(true)
         assertThat(enterprisePublic.corporateRegistrationNumber()).isEmpty
         assertThat(enterprisePublic.countryCode()).contains("US")
@@ -134,7 +142,7 @@ internal class EnterprisePublicTest {
         assertThat(enterprisePublic.organizationType()).contains("commercial")
         assertThat(enterprisePublic.primaryBusinessDomainSicCode()).isEmpty
         assertThat(enterprisePublic.professionalLicenseNumber()).isEmpty
-        assertThat(enterprisePublic.roleType()).contains("enterprise")
+        assertThat(enterprisePublic.roleType()).contains(EnterprisePublic.RoleType.ENTERPRISE)
         assertThat(enterprisePublic.updatedAt())
             .contains(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
         assertThat(enterprisePublic.website()).contains("https://acmeplumbing.example.com")
@@ -164,6 +172,10 @@ internal class EnterprisePublicTest {
                         .phoneNumber("+13125550001")
                         .build()
                 )
+                .bpoVerificationRejectionReason(
+                    "Business registration document could not be verified."
+                )
+                .bpoVerificationStatus(EnterprisePublic.BpoVerificationStatus.APPROVED)
                 .brandedCallingEnabled(true)
                 .corporateRegistrationNumber(null)
                 .countryCode("US")
@@ -200,7 +212,7 @@ internal class EnterprisePublicTest {
                 .organizationType("commercial")
                 .primaryBusinessDomainSicCode(null)
                 .professionalLicenseNumber(null)
-                .roleType("enterprise")
+                .roleType(EnterprisePublic.RoleType.ENTERPRISE)
                 .updatedAt(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
                 .website("https://acmeplumbing.example.com")
                 .build()

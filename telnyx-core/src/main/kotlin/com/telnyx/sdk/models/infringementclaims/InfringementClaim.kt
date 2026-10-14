@@ -1235,6 +1235,9 @@ private constructor(
          * - `expired` - verification expired; customer must resubmit.
          * - `infringement_claimed` - a trademark/impersonation claim is open against this DIR.
          * - `permanently_rejected` - terminal; cannot be resubmitted.
+         * - `delete_requested` - you have requested deletion; the DIR still exists and Telnyx is
+         *   completing the removal (de-registration and cleanup). A verified DIR keeps serving its
+         *   branded identity, and keeps billing, until the removal finishes.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1360,6 +1363,9 @@ private constructor(
              * - `expired` - verification expired; customer must resubmit.
              * - `infringement_claimed` - a trademark/impersonation claim is open against this DIR.
              * - `permanently_rejected` - terminal; cannot be resubmitted.
+             * - `delete_requested` - you have requested deletion; the DIR still exists and Telnyx
+             *   is completing the removal (de-registration and cleanup). A verified DIR keeps
+             *   serving its branded identity, and keeps billing, until the removal finishes.
              */
             fun status(status: DirStatus) = status(JsonField.of(status))
 

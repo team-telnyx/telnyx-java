@@ -18,7 +18,7 @@ import kotlin.jvm.optionals.getOrNull
  * cycle.
  *
  * Returns `400` from `submitted`/`in_review`/`permanently_rejected`. Returns `400` if the DIR's
- * business and financial references have not been submitted. Returns `409` if the DIR has an
+ * business and financial references have not been submitted. Returns `400` if the DIR has an
  * unresolved infringement claim.
  */
 class DirSubmitParams

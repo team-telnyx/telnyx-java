@@ -21,8 +21,11 @@ import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParam
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPage
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberOwnershipConfirmParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshResponse
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveOwnershipParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveOwnershipResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberList
 import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberWithReputation
@@ -65,12 +68,26 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
         withRawResponse().disassociate(params, requestOptions)
     }
 
+    override fun ownershipConfirm(
+        params: NumberOwnershipConfirmParams,
+        requestOptions: RequestOptions,
+    ): ReputationPhoneNumberWithReputation =
+        // post /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership_confirm
+        withRawResponse().ownershipConfirm(params, requestOptions).parse()
+
     override fun refresh(
         params: NumberRefreshParams,
         requestOptions: RequestOptions,
     ): NumberRefreshResponse =
         // post /enterprises/{enterprise_id}/reputation/numbers/refresh
         withRawResponse().refresh(params, requestOptions).parse()
+
+    override fun retrieveOwnership(
+        params: NumberRetrieveOwnershipParams,
+        requestOptions: RequestOptions,
+    ): NumberRetrieveOwnershipResponse =
+        // get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership
+        withRawResponse().retrieveOwnership(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         NumberService.WithRawResponse {
@@ -219,6 +236,44 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
+        private val ownershipConfirmHandler: Handler<ReputationPhoneNumberWithReputation> =
+            jsonHandler<ReputationPhoneNumberWithReputation>(clientOptions.jsonMapper)
+
+        override fun ownershipConfirm(
+            params: NumberOwnershipConfirmParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("phoneNumber", params.phoneNumber().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "enterprises",
+                        params._pathParam(0),
+                        "reputation",
+                        "numbers",
+                        params._pathParam(1),
+                        "ownership_confirm",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { ownershipConfirmHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
         private val refreshHandler: Handler<NumberRefreshResponse> =
             jsonHandler<NumberRefreshResponse>(clientOptions.jsonMapper)
 
@@ -248,6 +303,43 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
             return errorHandler.handle(response).parseable {
                 response
                     .use { refreshHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val retrieveOwnershipHandler: Handler<NumberRetrieveOwnershipResponse> =
+            jsonHandler<NumberRetrieveOwnershipResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveOwnership(
+            params: NumberRetrieveOwnershipParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<NumberRetrieveOwnershipResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("phoneNumber", params.phoneNumber().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "enterprises",
+                        params._pathParam(0),
+                        "reputation",
+                        "numbers",
+                        params._pathParam(1),
+                        "ownership",
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveOwnershipHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

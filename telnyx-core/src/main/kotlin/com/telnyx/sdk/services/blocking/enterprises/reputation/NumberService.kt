@@ -11,8 +11,11 @@ import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParam
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPage
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberOwnershipConfirmParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshResponse
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveOwnershipParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveOwnershipResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberList
 import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberWithReputation
@@ -94,13 +97,22 @@ interface NumberService {
 
     /**
      * Add up to 100 phone numbers to reputation monitoring on this enterprise. Each must be in
-     * E.164 format (`+1NPANXXXXXX` for US/CA) and belong to your Telnyx phone-number inventory.
+     * E.164 format (`+1NPANXXXXXX` for US/CA). A number in your Telnyx phone-number inventory is
+     * accepted as `source: telnyx`; a number that is not is treated as hosted with another provider
+     * and must meet the requirements below.
      *
      * **Prerequisite**: reputation must already be enabled on this enterprise (see `POST
      * .../reputation`).
      *
      * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers for current
      * pricing.
+     *
+     * A phone number that is not in your Telnyx inventory is treated as a number hosted with
+     * another provider (`source: external`). It must be a US local number, and the enterprise's
+     * ownership proof must be approved first (`POST
+     * /enterprises/{enterprise_id}/reputation/external_verification`); otherwise the request fails
+     * with a 400 whose `detail` contains `external_verification_required`. Ownership of such
+     * numbers is checked every day.
      */
     fun associate(enterpriseId: String, params: NumberAssociateParams): ReputationPhoneNumberList =
         associate(enterpriseId, params, RequestOptions.none())
@@ -147,6 +159,42 @@ interface NumberService {
     )
 
     /**
+     * Answer an ownership question about a phone number hosted with another provider.
+     *
+     * Send `still_own: true` to confirm you still own a number whose `ownership_status` is
+     * `pending_confirmation` or `flagged`; its status returns to `verified` and, after a carrier
+     * change, the new carrier becomes the one on record.
+     *
+     * Send `still_own: false` to report that you no longer own the number. It is removed from
+     * Number Reputation immediately, whatever its current status, and the response shows it with
+     * `ownership_status: removed`.
+     */
+    fun ownershipConfirm(
+        phoneNumber: String,
+        params: NumberOwnershipConfirmParams,
+    ): ReputationPhoneNumberWithReputation =
+        ownershipConfirm(phoneNumber, params, RequestOptions.none())
+
+    /** @see ownershipConfirm */
+    fun ownershipConfirm(
+        phoneNumber: String,
+        params: NumberOwnershipConfirmParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ReputationPhoneNumberWithReputation =
+        ownershipConfirm(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+    /** @see ownershipConfirm */
+    fun ownershipConfirm(
+        params: NumberOwnershipConfirmParams
+    ): ReputationPhoneNumberWithReputation = ownershipConfirm(params, RequestOptions.none())
+
+    /** @see ownershipConfirm */
+    fun ownershipConfirm(
+        params: NumberOwnershipConfirmParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ReputationPhoneNumberWithReputation
+
+    /**
      * Immediately refresh the stored reputation data for the listed numbers. This is in addition to
      * the periodic refresh determined by `check_frequency`. Up to 100 numbers per call. The
      * response carries the kicked-off jobs; the actual refresh runs asynchronously.
@@ -174,6 +222,34 @@ interface NumberService {
         params: NumberRefreshParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): NumberRefreshResponse
+
+    /**
+     * Get the ownership status of a phone number, when it was last checked, the carrier recorded as
+     * its baseline, and the history of ownership events.
+     */
+    fun retrieveOwnership(
+        phoneNumber: String,
+        params: NumberRetrieveOwnershipParams,
+    ): NumberRetrieveOwnershipResponse =
+        retrieveOwnership(phoneNumber, params, RequestOptions.none())
+
+    /** @see retrieveOwnership */
+    fun retrieveOwnership(
+        phoneNumber: String,
+        params: NumberRetrieveOwnershipParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): NumberRetrieveOwnershipResponse =
+        retrieveOwnership(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+    /** @see retrieveOwnership */
+    fun retrieveOwnership(params: NumberRetrieveOwnershipParams): NumberRetrieveOwnershipResponse =
+        retrieveOwnership(params, RequestOptions.none())
+
+    /** @see retrieveOwnership */
+    fun retrieveOwnership(
+        params: NumberRetrieveOwnershipParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): NumberRetrieveOwnershipResponse
 
     /** A view of [NumberService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -328,6 +404,41 @@ interface NumberService {
 
         /**
          * Returns a raw HTTP response for `post
+         * /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership_confirm`, but is
+         * otherwise the same as [NumberService.ownershipConfirm].
+         */
+        @MustBeClosed
+        fun ownershipConfirm(
+            phoneNumber: String,
+            params: NumberOwnershipConfirmParams,
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> =
+            ownershipConfirm(phoneNumber, params, RequestOptions.none())
+
+        /** @see ownershipConfirm */
+        @MustBeClosed
+        fun ownershipConfirm(
+            phoneNumber: String,
+            params: NumberOwnershipConfirmParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> =
+            ownershipConfirm(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+        /** @see ownershipConfirm */
+        @MustBeClosed
+        fun ownershipConfirm(
+            params: NumberOwnershipConfirmParams
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation> =
+            ownershipConfirm(params, RequestOptions.none())
+
+        /** @see ownershipConfirm */
+        @MustBeClosed
+        fun ownershipConfirm(
+            params: NumberOwnershipConfirmParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ReputationPhoneNumberWithReputation>
+
+        /**
+         * Returns a raw HTTP response for `post
          * /enterprises/{enterprise_id}/reputation/numbers/refresh`, but is otherwise the same as
          * [NumberService.refresh].
          */
@@ -358,5 +469,40 @@ interface NumberService {
             params: NumberRefreshParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<NumberRefreshResponse>
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership`, but is
+         * otherwise the same as [NumberService.retrieveOwnership].
+         */
+        @MustBeClosed
+        fun retrieveOwnership(
+            phoneNumber: String,
+            params: NumberRetrieveOwnershipParams,
+        ): HttpResponseFor<NumberRetrieveOwnershipResponse> =
+            retrieveOwnership(phoneNumber, params, RequestOptions.none())
+
+        /** @see retrieveOwnership */
+        @MustBeClosed
+        fun retrieveOwnership(
+            phoneNumber: String,
+            params: NumberRetrieveOwnershipParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<NumberRetrieveOwnershipResponse> =
+            retrieveOwnership(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+
+        /** @see retrieveOwnership */
+        @MustBeClosed
+        fun retrieveOwnership(
+            params: NumberRetrieveOwnershipParams
+        ): HttpResponseFor<NumberRetrieveOwnershipResponse> =
+            retrieveOwnership(params, RequestOptions.none())
+
+        /** @see retrieveOwnership */
+        @MustBeClosed
+        fun retrieveOwnership(
+            params: NumberRetrieveOwnershipParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<NumberRetrieveOwnershipResponse>
     }
 }

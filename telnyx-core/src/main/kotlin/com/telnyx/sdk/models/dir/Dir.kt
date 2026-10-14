@@ -31,6 +31,7 @@ private constructor(
     private val certifyIpOwnership: JsonField<Boolean>,
     private val certifyNoShaftContent: JsonField<Boolean>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val deleteRequestedAt: JsonField<OffsetDateTime>,
     private val displayName: JsonField<String>,
     private val documents: JsonField<List<Document>>,
     private val enterpriseId: JsonField<String>,
@@ -43,6 +44,7 @@ private constructor(
     private val submittedAt: JsonField<OffsetDateTime>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val verifiedAt: JsonField<OffsetDateTime>,
+    private val webhookUrl: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -70,6 +72,9 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("delete_requested_at")
+        @ExcludeMissing
+        deleteRequestedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("display_name")
         @ExcludeMissing
         displayName: JsonField<String> = JsonMissing.of(),
@@ -100,6 +105,9 @@ private constructor(
         @JsonProperty("verified_at")
         @ExcludeMissing
         verifiedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("webhook_url")
+        @ExcludeMissing
+        webhookUrl: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         authorizerEmail,
@@ -109,6 +117,7 @@ private constructor(
         certifyIpOwnership,
         certifyNoShaftContent,
         createdAt,
+        deleteRequestedAt,
         displayName,
         documents,
         enterpriseId,
@@ -121,6 +130,7 @@ private constructor(
         submittedAt,
         updatedAt,
         verifiedAt,
+        webhookUrl,
         mutableMapOf(),
     )
 
@@ -174,6 +184,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("created_at")
+
+    /**
+     * When deletion was requested. Set once the DIR enters `delete_requested`; `null` otherwise.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun deleteRequestedAt(): Optional<OffsetDateTime> =
+        deleteRequestedAt.getOptional("delete_requested_at")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -238,6 +257,9 @@ private constructor(
      * - `expired` - verification expired; customer must resubmit.
      * - `infringement_claimed` - a trademark/impersonation claim is open against this DIR.
      * - `permanently_rejected` - terminal; cannot be resubmitted.
+     * - `delete_requested` - you have requested deletion; the DIR still exists and Telnyx is
+     *   completing the removal (de-registration and cleanup). A verified DIR keeps serving its
+     *   branded identity, and keeps billing, until the removal finishes.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -261,6 +283,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun verifiedAt(): Optional<OffsetDateTime> = verifiedAt.getOptional("verified_at")
+
+    /**
+     * `https://` URL that receives webhook notifications for this DIR's compliance-review outcomes.
+     * `null` when not subscribed.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookUrl(): Optional<String> = webhookUrl.getOptional("webhook_url")
 
     /**
      * Returns the raw JSON value of [id].
@@ -334,6 +365,16 @@ private constructor(
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+    /**
+     * Returns the raw JSON value of [deleteRequestedAt].
+     *
+     * Unlike [deleteRequestedAt], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("delete_requested_at")
+    @ExcludeMissing
+    fun _deleteRequestedAt(): JsonField<OffsetDateTime> = deleteRequestedAt
 
     /**
      * Returns the raw JSON value of [displayName].
@@ -438,6 +479,13 @@ private constructor(
     @ExcludeMissing
     fun _verifiedAt(): JsonField<OffsetDateTime> = verifiedAt
 
+    /**
+     * Returns the raw JSON value of [webhookUrl].
+     *
+     * Unlike [webhookUrl], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("webhook_url") @ExcludeMissing fun _webhookUrl(): JsonField<String> = webhookUrl
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -467,6 +515,7 @@ private constructor(
         private var certifyIpOwnership: JsonField<Boolean> = JsonMissing.of()
         private var certifyNoShaftContent: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var deleteRequestedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var displayName: JsonField<String> = JsonMissing.of()
         private var documents: JsonField<MutableList<Document>>? = null
         private var enterpriseId: JsonField<String> = JsonMissing.of()
@@ -479,6 +528,7 @@ private constructor(
         private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var verifiedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var webhookUrl: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -491,6 +541,7 @@ private constructor(
             certifyIpOwnership = dir.certifyIpOwnership
             certifyNoShaftContent = dir.certifyNoShaftContent
             createdAt = dir.createdAt
+            deleteRequestedAt = dir.deleteRequestedAt
             displayName = dir.displayName
             documents = dir.documents.map { it.toMutableList() }
             enterpriseId = dir.enterpriseId
@@ -503,6 +554,7 @@ private constructor(
             submittedAt = dir.submittedAt
             updatedAt = dir.updatedAt
             verifiedAt = dir.verifiedAt
+            webhookUrl = dir.webhookUrl
             additionalProperties = dir.additionalProperties.toMutableMap()
         }
 
@@ -629,6 +681,28 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * When deletion was requested. Set once the DIR enters `delete_requested`; `null`
+         * otherwise.
+         */
+        fun deleteRequestedAt(deleteRequestedAt: OffsetDateTime?) =
+            deleteRequestedAt(JsonField.ofNullable(deleteRequestedAt))
+
+        /** Alias for calling [Builder.deleteRequestedAt] with `deleteRequestedAt.orElse(null)`. */
+        fun deleteRequestedAt(deleteRequestedAt: Optional<OffsetDateTime>) =
+            deleteRequestedAt(deleteRequestedAt.getOrNull())
+
+        /**
+         * Sets [Builder.deleteRequestedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.deleteRequestedAt] with a well-typed [OffsetDateTime]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun deleteRequestedAt(deleteRequestedAt: JsonField<OffsetDateTime>) = apply {
+            this.deleteRequestedAt = deleteRequestedAt
+        }
 
         fun displayName(displayName: String) = displayName(JsonField.of(displayName))
 
@@ -781,6 +855,9 @@ private constructor(
          * - `expired` - verification expired; customer must resubmit.
          * - `infringement_claimed` - a trademark/impersonation claim is open against this DIR.
          * - `permanently_rejected` - terminal; cannot be resubmitted.
+         * - `delete_requested` - you have requested deletion; the DIR still exists and Telnyx is
+         *   completing the removal (de-registration and cleanup). A verified DIR keeps serving its
+         *   branded identity, and keeps billing, until the removal finishes.
          */
         fun status(status: DirStatus) = status(JsonField.of(status))
 
@@ -838,6 +915,24 @@ private constructor(
             this.verifiedAt = verifiedAt
         }
 
+        /**
+         * `https://` URL that receives webhook notifications for this DIR's compliance-review
+         * outcomes. `null` when not subscribed.
+         */
+        fun webhookUrl(webhookUrl: String?) = webhookUrl(JsonField.ofNullable(webhookUrl))
+
+        /** Alias for calling [Builder.webhookUrl] with `webhookUrl.orElse(null)`. */
+        fun webhookUrl(webhookUrl: Optional<String>) = webhookUrl(webhookUrl.getOrNull())
+
+        /**
+         * Sets [Builder.webhookUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookUrl] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun webhookUrl(webhookUrl: JsonField<String>) = apply { this.webhookUrl = webhookUrl }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -872,6 +967,7 @@ private constructor(
                 certifyIpOwnership,
                 certifyNoShaftContent,
                 createdAt,
+                deleteRequestedAt,
                 displayName,
                 (documents ?: JsonMissing.of()).map { it.toImmutable() },
                 enterpriseId,
@@ -884,6 +980,7 @@ private constructor(
                 submittedAt,
                 updatedAt,
                 verifiedAt,
+                webhookUrl,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -911,6 +1008,7 @@ private constructor(
         certifyIpOwnership()
         certifyNoShaftContent()
         createdAt()
+        deleteRequestedAt()
         displayName()
         documents().ifPresent { it.forEach { it.validate() } }
         enterpriseId()
@@ -923,6 +1021,7 @@ private constructor(
         submittedAt()
         updatedAt()
         verifiedAt()
+        webhookUrl()
         validated = true
     }
 
@@ -949,6 +1048,7 @@ private constructor(
             (if (certifyIpOwnership.asKnown().isPresent) 1 else 0) +
             (if (certifyNoShaftContent.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (deleteRequestedAt.asKnown().isPresent) 1 else 0) +
             (if (displayName.asKnown().isPresent) 1 else 0) +
             (documents.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (enterpriseId.asKnown().isPresent) 1 else 0) +
@@ -960,7 +1060,8 @@ private constructor(
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (if (submittedAt.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
-            (if (verifiedAt.asKnown().isPresent) 1 else 0)
+            (if (verifiedAt.asKnown().isPresent) 1 else 0) +
+            (if (webhookUrl.asKnown().isPresent) 1 else 0)
 
     class CallReason
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -1163,6 +1264,7 @@ private constructor(
             certifyIpOwnership == other.certifyIpOwnership &&
             certifyNoShaftContent == other.certifyNoShaftContent &&
             createdAt == other.createdAt &&
+            deleteRequestedAt == other.deleteRequestedAt &&
             displayName == other.displayName &&
             documents == other.documents &&
             enterpriseId == other.enterpriseId &&
@@ -1175,6 +1277,7 @@ private constructor(
             submittedAt == other.submittedAt &&
             updatedAt == other.updatedAt &&
             verifiedAt == other.verifiedAt &&
+            webhookUrl == other.webhookUrl &&
             additionalProperties == other.additionalProperties
     }
 
@@ -1188,6 +1291,7 @@ private constructor(
             certifyIpOwnership,
             certifyNoShaftContent,
             createdAt,
+            deleteRequestedAt,
             displayName,
             documents,
             enterpriseId,
@@ -1200,6 +1304,7 @@ private constructor(
             submittedAt,
             updatedAt,
             verifiedAt,
+            webhookUrl,
             additionalProperties,
         )
     }
@@ -1207,5 +1312,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Dir{id=$id, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, callReasons=$callReasons, certifyBrandIsAccurate=$certifyBrandIsAccurate, certifyIpOwnership=$certifyIpOwnership, certifyNoShaftContent=$certifyNoShaftContent, createdAt=$createdAt, displayName=$displayName, documents=$documents, enterpriseId=$enterpriseId, expiringAt=$expiringAt, logoUrl=$logoUrl, rejectedAt=$rejectedAt, rejectionReasons=$rejectionReasons, reselling=$reselling, status=$status, submittedAt=$submittedAt, updatedAt=$updatedAt, verifiedAt=$verifiedAt, additionalProperties=$additionalProperties}"
+        "Dir{id=$id, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, callReasons=$callReasons, certifyBrandIsAccurate=$certifyBrandIsAccurate, certifyIpOwnership=$certifyIpOwnership, certifyNoShaftContent=$certifyNoShaftContent, createdAt=$createdAt, deleteRequestedAt=$deleteRequestedAt, displayName=$displayName, documents=$documents, enterpriseId=$enterpriseId, expiringAt=$expiringAt, logoUrl=$logoUrl, rejectedAt=$rejectedAt, rejectionReasons=$rejectionReasons, reselling=$reselling, status=$status, submittedAt=$submittedAt, updatedAt=$updatedAt, verifiedAt=$verifiedAt, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

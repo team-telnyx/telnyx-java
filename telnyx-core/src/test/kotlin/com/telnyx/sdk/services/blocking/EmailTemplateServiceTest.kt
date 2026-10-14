@@ -39,6 +39,7 @@ internal class EmailTemplateServiceTest {
                             .build()
                     )
                     .addVariable("string")
+                    .variablesMode(EmailTemplateCreateParams.VariablesMode.AUTOMATIC)
                     .build()
             )
 
@@ -86,6 +87,7 @@ internal class EmailTemplateServiceTest {
                                     .build()
                             )
                             .addVariable("string")
+                            .variablesMode(UpdateEmailTemplateRequest.VariablesMode.AUTOMATIC)
                             .build()
                     )
                     .build()
@@ -164,6 +166,7 @@ internal class EmailTemplateServiceTest {
                                     .build()
                             )
                             .addVariable("string")
+                            .variablesMode(UpdateEmailTemplateRequest.VariablesMode.AUTOMATIC)
                             .build()
                     )
                     .build()

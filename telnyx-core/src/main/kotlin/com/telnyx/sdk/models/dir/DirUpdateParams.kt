@@ -24,11 +24,13 @@ import kotlin.jvm.optionals.getOrNull
  * Edit a DIR. DIRs in `draft`, `rejected`, `unsuccessful`, or `suspended` can be edited freely:
  * PATCH is a pure edit, `status` is never changed, and you re-vet by calling `POST
  * /v2/dir/{dir_id}/submit` explicitly. A `verified` DIR can also be edited in place: a PATCH that
- * changes any value returns the DIR to `draft` and branded delivery stops until you re-submit and
- * the DIR is approved again, while a PATCH that changes nothing (an empty body or values identical
- * to the current ones) leaves the DIR `verified`, so idempotent retries are safe. DIRs in any other
- * status (`submitted`, `in_review`, `expired`, `infringement_claimed`, `permanently_rejected`)
- * cannot be edited.
+ * changes any value returns the DIR to `draft`; the currently approved identity keeps displaying,
+ * and the edited content goes live only after you re-submit and the DIR is approved again. A PATCH
+ * that changes nothing (an empty body or values identical to the current ones) leaves the DIR
+ * `verified`, so idempotent retries are safe. Changing only `bpo_authorizations` or `webhook_url`
+ * is the exception: the DIR stays `verified`. Each BPO authorization is reviewed on its own
+ * instead. DIRs in any other status (`submitted`, `in_review`, `expired`, `infringement_claimed`,
+ * `permanently_rejected`) cannot be edited.
  */
 class DirUpdateParams
 private constructor(
@@ -55,6 +57,19 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun authorizerName(): Optional<String> = body.authorizerName()
+
+    /**
+     * Optional. Replace this DIR's authorized BPO (Business Process Outsourcer) accounts with
+     * these, each with its signed Letter of Authorization. The supplied list replaces the current
+     * one: a BPO left out has its authorization removed, and a new BPO (or a changed Letter of
+     * Authorization) is created `pending` admin review. Send an empty list to clear all
+     * authorizations; omit the field to leave them unchanged. Editing this list does not re-vet the
+     * DIR. Maximum 10.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun bpoAuthorizations(): Optional<List<BpoAuthorizationInput>> = body.bpoAuthorizations()
 
     /**
      * 1–10 reasons your business calls customers. Validate phrasing against `POST
@@ -128,6 +143,16 @@ private constructor(
     fun reselling(): Optional<Boolean> = body.reselling()
 
     /**
+     * Optional `https://` URL that receives webhook notifications when this DIR's compliance review
+     * completes. Send `null` to clear. Changing only this field on a `verified` DIR does not re-vet
+     * it. Maximum 2048 characters.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookUrl(): Optional<String> = body.webhookUrl()
+
+    /**
      * Returns the raw JSON value of [authorizerEmail].
      *
      * Unlike [authorizerEmail], this method doesn't throw if the JSON field has an unexpected type.
@@ -140,6 +165,14 @@ private constructor(
      * Unlike [authorizerName], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _authorizerName(): JsonField<String> = body._authorizerName()
+
+    /**
+     * Returns the raw JSON value of [bpoAuthorizations].
+     *
+     * Unlike [bpoAuthorizations], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _bpoAuthorizations(): JsonField<List<BpoAuthorizationInput>> = body._bpoAuthorizations()
 
     /**
      * Returns the raw JSON value of [callReasons].
@@ -200,6 +233,13 @@ private constructor(
      */
     fun _reselling(): JsonField<Boolean> = body._reselling()
 
+    /**
+     * Returns the raw JSON value of [webhookUrl].
+     *
+     * Unlike [webhookUrl], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _webhookUrl(): JsonField<String> = body._webhookUrl()
+
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     /** Additional headers to send with the request. */
@@ -247,9 +287,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [authorizerEmail]
          * - [authorizerName]
+         * - [bpoAuthorizations]
          * - [callReasons]
          * - [certifyBrandIsAccurate]
-         * - [certifyIpOwnership]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -287,6 +327,38 @@ private constructor(
          */
         fun authorizerName(authorizerName: JsonField<String>) = apply {
             body.authorizerName(authorizerName)
+        }
+
+        /**
+         * Optional. Replace this DIR's authorized BPO (Business Process Outsourcer) accounts with
+         * these, each with its signed Letter of Authorization. The supplied list replaces the
+         * current one: a BPO left out has its authorization removed, and a new BPO (or a changed
+         * Letter of Authorization) is created `pending` admin review. Send an empty list to clear
+         * all authorizations; omit the field to leave them unchanged. Editing this list does not
+         * re-vet the DIR. Maximum 10.
+         */
+        fun bpoAuthorizations(bpoAuthorizations: List<BpoAuthorizationInput>) = apply {
+            body.bpoAuthorizations(bpoAuthorizations)
+        }
+
+        /**
+         * Sets [Builder.bpoAuthorizations] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bpoAuthorizations] with a well-typed
+         * `List<BpoAuthorizationInput>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun bpoAuthorizations(bpoAuthorizations: JsonField<List<BpoAuthorizationInput>>) = apply {
+            body.bpoAuthorizations(bpoAuthorizations)
+        }
+
+        /**
+         * Adds a single [BpoAuthorizationInput] to [bpoAuthorizations].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addBpoAuthorization(bpoAuthorization: BpoAuthorizationInput) = apply {
+            body.addBpoAuthorization(bpoAuthorization)
         }
 
         /**
@@ -430,6 +502,25 @@ private constructor(
          * value.
          */
         fun reselling(reselling: JsonField<Boolean>) = apply { body.reselling(reselling) }
+
+        /**
+         * Optional `https://` URL that receives webhook notifications when this DIR's compliance
+         * review completes. Send `null` to clear. Changing only this field on a `verified` DIR does
+         * not re-vet it. Maximum 2048 characters.
+         */
+        fun webhookUrl(webhookUrl: String?) = apply { body.webhookUrl(webhookUrl) }
+
+        /** Alias for calling [Builder.webhookUrl] with `webhookUrl.orElse(null)`. */
+        fun webhookUrl(webhookUrl: Optional<String>) = webhookUrl(webhookUrl.getOrNull())
+
+        /**
+         * Sets [Builder.webhookUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookUrl] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun webhookUrl(webhookUrl: JsonField<String>) = apply { body.webhookUrl(webhookUrl) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -584,6 +675,7 @@ private constructor(
     private constructor(
         private val authorizerEmail: JsonField<String>,
         private val authorizerName: JsonField<String>,
+        private val bpoAuthorizations: JsonField<List<BpoAuthorizationInput>>,
         private val callReasons: JsonField<List<String>>,
         private val certifyBrandIsAccurate: JsonField<Boolean>,
         private val certifyIpOwnership: JsonField<Boolean>,
@@ -592,6 +684,7 @@ private constructor(
         private val documents: JsonField<List<Document>>,
         private val logoUrl: JsonField<String>,
         private val reselling: JsonField<Boolean>,
+        private val webhookUrl: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -603,6 +696,9 @@ private constructor(
             @JsonProperty("authorizer_name")
             @ExcludeMissing
             authorizerName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("bpo_authorizations")
+            @ExcludeMissing
+            bpoAuthorizations: JsonField<List<BpoAuthorizationInput>> = JsonMissing.of(),
             @JsonProperty("call_reasons")
             @ExcludeMissing
             callReasons: JsonField<List<String>> = JsonMissing.of(),
@@ -625,9 +721,13 @@ private constructor(
             @JsonProperty("reselling")
             @ExcludeMissing
             reselling: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("webhook_url")
+            @ExcludeMissing
+            webhookUrl: JsonField<String> = JsonMissing.of(),
         ) : this(
             authorizerEmail,
             authorizerName,
+            bpoAuthorizations,
             callReasons,
             certifyBrandIsAccurate,
             certifyIpOwnership,
@@ -636,6 +736,7 @@ private constructor(
             documents,
             logoUrl,
             reselling,
+            webhookUrl,
             mutableMapOf(),
         )
 
@@ -655,6 +756,20 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun authorizerName(): Optional<String> = authorizerName.getOptional("authorizer_name")
+
+        /**
+         * Optional. Replace this DIR's authorized BPO (Business Process Outsourcer) accounts with
+         * these, each with its signed Letter of Authorization. The supplied list replaces the
+         * current one: a BPO left out has its authorization removed, and a new BPO (or a changed
+         * Letter of Authorization) is created `pending` admin review. Send an empty list to clear
+         * all authorizations; omit the field to leave them unchanged. Editing this list does not
+         * re-vet the DIR. Maximum 10.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun bpoAuthorizations(): Optional<List<BpoAuthorizationInput>> =
+            bpoAuthorizations.getOptional("bpo_authorizations")
 
         /**
          * 1–10 reasons your business calls customers. Validate phrasing against `POST
@@ -731,6 +846,16 @@ private constructor(
         fun reselling(): Optional<Boolean> = reselling.getOptional("reselling")
 
         /**
+         * Optional `https://` URL that receives webhook notifications when this DIR's compliance
+         * review completes. Send `null` to clear. Changing only this field on a `verified` DIR does
+         * not re-vet it. Maximum 2048 characters.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun webhookUrl(): Optional<String> = webhookUrl.getOptional("webhook_url")
+
+        /**
          * Returns the raw JSON value of [authorizerEmail].
          *
          * Unlike [authorizerEmail], this method doesn't throw if the JSON field has an unexpected
@@ -749,6 +874,16 @@ private constructor(
         @JsonProperty("authorizer_name")
         @ExcludeMissing
         fun _authorizerName(): JsonField<String> = authorizerName
+
+        /**
+         * Returns the raw JSON value of [bpoAuthorizations].
+         *
+         * Unlike [bpoAuthorizations], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("bpo_authorizations")
+        @ExcludeMissing
+        fun _bpoAuthorizations(): JsonField<List<BpoAuthorizationInput>> = bpoAuthorizations
 
         /**
          * Returns the raw JSON value of [callReasons].
@@ -821,6 +956,15 @@ private constructor(
          */
         @JsonProperty("reselling") @ExcludeMissing fun _reselling(): JsonField<Boolean> = reselling
 
+        /**
+         * Returns the raw JSON value of [webhookUrl].
+         *
+         * Unlike [webhookUrl], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("webhook_url")
+        @ExcludeMissing
+        fun _webhookUrl(): JsonField<String> = webhookUrl
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -844,6 +988,7 @@ private constructor(
 
             private var authorizerEmail: JsonField<String> = JsonMissing.of()
             private var authorizerName: JsonField<String> = JsonMissing.of()
+            private var bpoAuthorizations: JsonField<MutableList<BpoAuthorizationInput>>? = null
             private var callReasons: JsonField<MutableList<String>>? = null
             private var certifyBrandIsAccurate: JsonField<Boolean> = JsonMissing.of()
             private var certifyIpOwnership: JsonField<Boolean> = JsonMissing.of()
@@ -852,12 +997,14 @@ private constructor(
             private var documents: JsonField<MutableList<Document>>? = null
             private var logoUrl: JsonField<String> = JsonMissing.of()
             private var reselling: JsonField<Boolean> = JsonMissing.of()
+            private var webhookUrl: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 authorizerEmail = body.authorizerEmail
                 authorizerName = body.authorizerName
+                bpoAuthorizations = body.bpoAuthorizations.map { it.toMutableList() }
                 callReasons = body.callReasons.map { it.toMutableList() }
                 certifyBrandIsAccurate = body.certifyBrandIsAccurate
                 certifyIpOwnership = body.certifyIpOwnership
@@ -866,6 +1013,7 @@ private constructor(
                 documents = body.documents.map { it.toMutableList() }
                 logoUrl = body.logoUrl
                 reselling = body.reselling
+                webhookUrl = body.webhookUrl
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -903,6 +1051,41 @@ private constructor(
              */
             fun authorizerName(authorizerName: JsonField<String>) = apply {
                 this.authorizerName = authorizerName
+            }
+
+            /**
+             * Optional. Replace this DIR's authorized BPO (Business Process Outsourcer) accounts
+             * with these, each with its signed Letter of Authorization. The supplied list replaces
+             * the current one: a BPO left out has its authorization removed, and a new BPO (or a
+             * changed Letter of Authorization) is created `pending` admin review. Send an empty
+             * list to clear all authorizations; omit the field to leave them unchanged. Editing
+             * this list does not re-vet the DIR. Maximum 10.
+             */
+            fun bpoAuthorizations(bpoAuthorizations: List<BpoAuthorizationInput>) =
+                bpoAuthorizations(JsonField.of(bpoAuthorizations))
+
+            /**
+             * Sets [Builder.bpoAuthorizations] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bpoAuthorizations] with a well-typed
+             * `List<BpoAuthorizationInput>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun bpoAuthorizations(bpoAuthorizations: JsonField<List<BpoAuthorizationInput>>) =
+                apply {
+                    this.bpoAuthorizations = bpoAuthorizations.map { it.toMutableList() }
+                }
+
+            /**
+             * Adds a single [BpoAuthorizationInput] to [bpoAuthorizations].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addBpoAuthorization(bpoAuthorization: BpoAuthorizationInput) = apply {
+                bpoAuthorizations =
+                    (bpoAuthorizations ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("bpoAuthorizations", it).add(bpoAuthorization)
+                    }
             }
 
             /**
@@ -1060,6 +1243,25 @@ private constructor(
              */
             fun reselling(reselling: JsonField<Boolean>) = apply { this.reselling = reselling }
 
+            /**
+             * Optional `https://` URL that receives webhook notifications when this DIR's
+             * compliance review completes. Send `null` to clear. Changing only this field on a
+             * `verified` DIR does not re-vet it. Maximum 2048 characters.
+             */
+            fun webhookUrl(webhookUrl: String?) = webhookUrl(JsonField.ofNullable(webhookUrl))
+
+            /** Alias for calling [Builder.webhookUrl] with `webhookUrl.orElse(null)`. */
+            fun webhookUrl(webhookUrl: Optional<String>) = webhookUrl(webhookUrl.getOrNull())
+
+            /**
+             * Sets [Builder.webhookUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.webhookUrl] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun webhookUrl(webhookUrl: JsonField<String>) = apply { this.webhookUrl = webhookUrl }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1088,6 +1290,7 @@ private constructor(
                 Body(
                     authorizerEmail,
                     authorizerName,
+                    (bpoAuthorizations ?: JsonMissing.of()).map { it.toImmutable() },
                     (callReasons ?: JsonMissing.of()).map { it.toImmutable() },
                     certifyBrandIsAccurate,
                     certifyIpOwnership,
@@ -1096,6 +1299,7 @@ private constructor(
                     (documents ?: JsonMissing.of()).map { it.toImmutable() },
                     logoUrl,
                     reselling,
+                    webhookUrl,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1118,6 +1322,7 @@ private constructor(
 
             authorizerEmail()
             authorizerName()
+            bpoAuthorizations().ifPresent { it.forEach { it.validate() } }
             callReasons()
             certifyBrandIsAccurate()
             certifyIpOwnership()
@@ -1126,6 +1331,7 @@ private constructor(
             documents().ifPresent { it.forEach { it.validate() } }
             logoUrl()
             reselling()
+            webhookUrl()
             validated = true
         }
 
@@ -1147,6 +1353,7 @@ private constructor(
         internal fun validity(): Int =
             (if (authorizerEmail.asKnown().isPresent) 1 else 0) +
                 (if (authorizerName.asKnown().isPresent) 1 else 0) +
+                (bpoAuthorizations.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (callReasons.asKnown().getOrNull()?.size ?: 0) +
                 (if (certifyBrandIsAccurate.asKnown().isPresent) 1 else 0) +
                 (if (certifyIpOwnership.asKnown().isPresent) 1 else 0) +
@@ -1154,7 +1361,8 @@ private constructor(
                 (if (displayName.asKnown().isPresent) 1 else 0) +
                 (documents.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (logoUrl.asKnown().isPresent) 1 else 0) +
-                (if (reselling.asKnown().isPresent) 1 else 0)
+                (if (reselling.asKnown().isPresent) 1 else 0) +
+                (if (webhookUrl.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1164,6 +1372,7 @@ private constructor(
             return other is Body &&
                 authorizerEmail == other.authorizerEmail &&
                 authorizerName == other.authorizerName &&
+                bpoAuthorizations == other.bpoAuthorizations &&
                 callReasons == other.callReasons &&
                 certifyBrandIsAccurate == other.certifyBrandIsAccurate &&
                 certifyIpOwnership == other.certifyIpOwnership &&
@@ -1172,6 +1381,7 @@ private constructor(
                 documents == other.documents &&
                 logoUrl == other.logoUrl &&
                 reselling == other.reselling &&
+                webhookUrl == other.webhookUrl &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1179,6 +1389,7 @@ private constructor(
             Objects.hash(
                 authorizerEmail,
                 authorizerName,
+                bpoAuthorizations,
                 callReasons,
                 certifyBrandIsAccurate,
                 certifyIpOwnership,
@@ -1187,6 +1398,7 @@ private constructor(
                 documents,
                 logoUrl,
                 reselling,
+                webhookUrl,
                 additionalProperties,
             )
         }
@@ -1194,7 +1406,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, callReasons=$callReasons, certifyBrandIsAccurate=$certifyBrandIsAccurate, certifyIpOwnership=$certifyIpOwnership, certifyNoShaftContent=$certifyNoShaftContent, displayName=$displayName, documents=$documents, logoUrl=$logoUrl, reselling=$reselling, additionalProperties=$additionalProperties}"
+            "Body{authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, bpoAuthorizations=$bpoAuthorizations, callReasons=$callReasons, certifyBrandIsAccurate=$certifyBrandIsAccurate, certifyIpOwnership=$certifyIpOwnership, certifyNoShaftContent=$certifyNoShaftContent, displayName=$displayName, documents=$documents, logoUrl=$logoUrl, reselling=$reselling, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
