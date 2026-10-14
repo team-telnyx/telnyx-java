@@ -34,6 +34,7 @@ private constructor(
     private val maxTurnSilence: JsonField<Long>,
     private val minTurnSilence: JsonField<Long>,
     private val numerals: JsonField<Boolean>,
+    private val prompt: JsonField<String>,
     private val smartFormat: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -73,6 +74,7 @@ private constructor(
         @ExcludeMissing
         minTurnSilence: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("numerals") @ExcludeMissing numerals: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("prompt") @ExcludeMissing prompt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("smart_format")
         @ExcludeMissing
         smartFormat: JsonField<Boolean> = JsonMissing.of(),
@@ -90,6 +92,7 @@ private constructor(
         maxTurnSilence,
         minTurnSilence,
         numerals,
+        prompt,
         smartFormat,
         mutableMapOf(),
     )
@@ -128,13 +131,13 @@ private constructor(
         enableEndpointDetection.getOptional("enable_endpoint_detection")
 
     /**
-     * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-     * assemblyai/universal-streaming). Confidence level required to trigger an end of turn. Higher
-     * values require more certainty before ending a turn.
+     * Deprecated and ignored. Accepted for backwards compatibility. AssemblyAI turn detection is
+     * configured with min_turn_silence and max_turn_silence.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    @Deprecated("deprecated")
     fun endOfTurnConfidenceThreshold(): Optional<Double> =
         endOfTurnConfidenceThreshold.getOptional("end_of_turn_confidence_threshold")
 
@@ -166,9 +169,12 @@ private constructor(
     fun interimResults(): Optional<Boolean> = interimResults.getOptional("interim_results")
 
     /**
-     * Available only for deepgram/nova-3 and deepgram/flux. A comma-separated list of key terms to
-     * boost for recognition during transcription. Helps improve accuracy for domain-specific
-     * terminology, proper nouns, or uncommon words. This field may be templated with
+     * A comma-separated list of key terms to boost for recognition during transcription, used by
+     * Deepgram, Reson8, Speechmatics Linden 1 and AssemblyAI models. Helps improve accuracy for
+     * domain-specific terminology, proper nouns, or uncommon words. At most 1000 characters in
+     * total. For assemblyai/universal-3-5-pro (and its legacy alias
+     * assemblyai/universal-streaming), also at most 100 terms of up to 50 characters each. This
+     * field may be templated with
      * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
      * using mustache syntax (e.g. `Telnyx,{{customer_name}},VoIP`). Variables are resolved at call
      * time before the value is sent to the speech-to-text engine.
@@ -226,6 +232,17 @@ private constructor(
     fun numerals(): Optional<Boolean> = numerals.getOptional("numerals")
 
     /**
+     * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+     * assemblyai/universal-streaming). Context about the conversation (domain, names, terms) to
+     * improve transcription; describe the content, do not give instructions. Leave empty unless
+     * needed. At most 1750 characters.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun prompt(): Optional<String> = prompt.getOptional("prompt")
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -264,6 +281,7 @@ private constructor(
      * Unlike [endOfTurnConfidenceThreshold], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
+    @Deprecated("deprecated")
     @JsonProperty("end_of_turn_confidence_threshold")
     @ExcludeMissing
     fun _endOfTurnConfidenceThreshold(): JsonField<Double> = endOfTurnConfidenceThreshold
@@ -347,6 +365,13 @@ private constructor(
     @JsonProperty("numerals") @ExcludeMissing fun _numerals(): JsonField<Boolean> = numerals
 
     /**
+     * Returns the raw JSON value of [prompt].
+     *
+     * Unlike [prompt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("prompt") @ExcludeMissing fun _prompt(): JsonField<String> = prompt
+
+    /**
      * Returns the raw JSON value of [smartFormat].
      *
      * Unlike [smartFormat], this method doesn't throw if the JSON field has an unexpected type.
@@ -391,6 +416,7 @@ private constructor(
         private var maxTurnSilence: JsonField<Long> = JsonMissing.of()
         private var minTurnSilence: JsonField<Long> = JsonMissing.of()
         private var numerals: JsonField<Boolean> = JsonMissing.of()
+        private var prompt: JsonField<String> = JsonMissing.of()
         private var smartFormat: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -409,6 +435,7 @@ private constructor(
             maxTurnSilence = transcriptionSettingsConfig.maxTurnSilence
             minTurnSilence = transcriptionSettingsConfig.minTurnSilence
             numerals = transcriptionSettingsConfig.numerals
+            prompt = transcriptionSettingsConfig.prompt
             smartFormat = transcriptionSettingsConfig.smartFormat
             additionalProperties = transcriptionSettingsConfig.additionalProperties.toMutableMap()
         }
@@ -469,10 +496,10 @@ private constructor(
         }
 
         /**
-         * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-         * assemblyai/universal-streaming). Confidence level required to trigger an end of turn.
-         * Higher values require more certainty before ending a turn.
+         * Deprecated and ignored. Accepted for backwards compatibility. AssemblyAI turn detection
+         * is configured with min_turn_silence and max_turn_silence.
          */
+        @Deprecated("deprecated")
         fun endOfTurnConfidenceThreshold(endOfTurnConfidenceThreshold: Double) =
             endOfTurnConfidenceThreshold(JsonField.of(endOfTurnConfidenceThreshold))
 
@@ -483,6 +510,7 @@ private constructor(
          * value instead. This method is primarily for setting the field to an undocumented or not
          * yet supported value.
          */
+        @Deprecated("deprecated")
         fun endOfTurnConfidenceThreshold(endOfTurnConfidenceThreshold: JsonField<Double>) = apply {
             this.endOfTurnConfidenceThreshold = endOfTurnConfidenceThreshold
         }
@@ -537,9 +565,12 @@ private constructor(
         }
 
         /**
-         * Available only for deepgram/nova-3 and deepgram/flux. A comma-separated list of key terms
-         * to boost for recognition during transcription. Helps improve accuracy for domain-specific
-         * terminology, proper nouns, or uncommon words. This field may be templated with
+         * A comma-separated list of key terms to boost for recognition during transcription, used
+         * by Deepgram, Reson8, Speechmatics Linden 1 and AssemblyAI models. Helps improve accuracy
+         * for domain-specific terminology, proper nouns, or uncommon words. At most 1000 characters
+         * in total. For assemblyai/universal-3-5-pro (and its legacy alias
+         * assemblyai/universal-streaming), also at most 100 terms of up to 50 characters each. This
+         * field may be templated with
          * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
          * using mustache syntax (e.g. `Telnyx,{{customer_name}},VoIP`). Variables are resolved at
          * call time before the value is sent to the speech-to-text engine.
@@ -650,6 +681,22 @@ private constructor(
          */
         fun numerals(numerals: JsonField<Boolean>) = apply { this.numerals = numerals }
 
+        /**
+         * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+         * assemblyai/universal-streaming). Context about the conversation (domain, names, terms) to
+         * improve transcription; describe the content, do not give instructions. Leave empty unless
+         * needed. At most 1750 characters.
+         */
+        fun prompt(prompt: String) = prompt(JsonField.of(prompt))
+
+        /**
+         * Sets [Builder.prompt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.prompt] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun prompt(prompt: JsonField<String>) = apply { this.prompt = prompt }
+
         fun smartFormat(smartFormat: Boolean) = smartFormat(JsonField.of(smartFormat))
 
         /**
@@ -700,6 +747,7 @@ private constructor(
                 maxTurnSilence,
                 minTurnSilence,
                 numerals,
+                prompt,
                 smartFormat,
                 additionalProperties.toMutableMap(),
             )
@@ -733,6 +781,7 @@ private constructor(
         maxTurnSilence()
         minTurnSilence()
         numerals()
+        prompt()
         smartFormat()
         validated = true
     }
@@ -765,6 +814,7 @@ private constructor(
             (if (maxTurnSilence.asKnown().isPresent) 1 else 0) +
             (if (minTurnSilence.asKnown().isPresent) 1 else 0) +
             (if (numerals.asKnown().isPresent) 1 else 0) +
+            (if (prompt.asKnown().isPresent) 1 else 0) +
             (if (smartFormat.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
@@ -786,6 +836,7 @@ private constructor(
             maxTurnSilence == other.maxTurnSilence &&
             minTurnSilence == other.minTurnSilence &&
             numerals == other.numerals &&
+            prompt == other.prompt &&
             smartFormat == other.smartFormat &&
             additionalProperties == other.additionalProperties
     }
@@ -805,6 +856,7 @@ private constructor(
             maxTurnSilence,
             minTurnSilence,
             numerals,
+            prompt,
             smartFormat,
             additionalProperties,
         )
@@ -813,5 +865,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TranscriptionSettingsConfig{context=$context, eagerEotThreshold=$eagerEotThreshold, enableEndpointDetection=$enableEndpointDetection, endOfTurnConfidenceThreshold=$endOfTurnConfidenceThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, interimResults=$interimResults, keyterm=$keyterm, languageHints=$languageHints, maxEndpointDelayMs=$maxEndpointDelayMs, maxTurnSilence=$maxTurnSilence, minTurnSilence=$minTurnSilence, numerals=$numerals, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
+        "TranscriptionSettingsConfig{context=$context, eagerEotThreshold=$eagerEotThreshold, enableEndpointDetection=$enableEndpointDetection, endOfTurnConfidenceThreshold=$endOfTurnConfidenceThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, interimResults=$interimResults, keyterm=$keyterm, languageHints=$languageHints, maxEndpointDelayMs=$maxEndpointDelayMs, maxTurnSilence=$maxTurnSilence, minTurnSilence=$minTurnSilence, numerals=$numerals, prompt=$prompt, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
 }
