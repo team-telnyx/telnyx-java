@@ -592,6 +592,15 @@ Methods:
 - <code title="get /ai/memory/namespaces/{namespace}/settings">client.ai().memory().namespaces().settings().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/SettingService.kt">list</a>(params)</code>
 - <code title="patch /ai/memory/namespaces/{namespace}/settings">client.ai().memory().namespaces().settings().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/SettingService.kt">patchAll</a>(params)</code>
 
+## Avatars
+
+Methods:
+
+- <code title="post /ai/avatars">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">create</a>(params)</code>
+- <code title="get /ai/avatars/{avatar_id}">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">retrieve</a>(params)</code>
+- <code title="patch /ai/avatars/{avatar_id}">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">update</a>(params)</code>
+- <code title="get /ai/avatars">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">list</a>(params)</code>
+
 # AuditEvents
 
 Methods:

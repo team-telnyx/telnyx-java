@@ -231,8 +231,9 @@ private constructor(
     fun a2aAgents(): Optional<List<AssistantA2AAgent>> = a2aAgents.getOptional("a2a_agents")
 
     /**
-     * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
-     * supports six avatars and office, studio, or reception backgrounds.
+     * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of the six stock
+     * avatars or an organization-owned custom avatar returned by the Avatars API. Supported
+     * backgrounds are office, studio, and reception.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -970,8 +971,9 @@ private constructor(
         }
 
         /**
-         * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
-         * supports six avatars and office, studio, or reception backgrounds.
+         * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of the six
+         * stock avatars or an organization-owned custom avatar returned by the Avatars API.
+         * Supported backgrounds are office, studio, and reception.
          */
         fun avatarSettings(avatarSettings: AvatarSettingsRequest?) =
             avatarSettings(JsonField.ofNullable(avatarSettings))
@@ -1687,6 +1689,9 @@ private constructor(
          */
         fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.SkipTurnConfig) =
             addTool(AssistantTool.SkipTurn.builder().skipTurn(skipTurn).build())
+
+        /** Alias for calling [addTool] with `AssistantTool.ofVision(vision)`. */
+        fun addTool(vision: AssistantTool.Vision) = addTool(AssistantTool.ofVision(vision))
 
         /** Alias for calling [addTool] with `AssistantTool.ofPay(pay)`. */
         fun addTool(pay: AssistantTool.Pay) = addTool(AssistantTool.ofPay(pay))

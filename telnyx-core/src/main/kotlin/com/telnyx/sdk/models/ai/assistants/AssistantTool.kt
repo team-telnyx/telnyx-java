@@ -29,6 +29,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import com.telnyx.sdk.models.ai.tools.PayToolParams
 import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
+import com.telnyx.sdk.models.ai.tools.VisionToolParams
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -54,6 +55,7 @@ private constructor(
     private val sendDtmf: DtmfTool? = null,
     private val sendMessage: SendMessage? = null,
     private val skipTurn: SkipTurn? = null,
+    private val vision: Vision? = null,
     private val pay: Pay? = null,
     private val updateDynamicVariables: UpdateDynamicVariables? = null,
     private val _json: JsonValue? = null,
@@ -92,6 +94,14 @@ private constructor(
     fun sendMessage(): Optional<SendMessage> = Optional.ofNullable(sendMessage)
 
     fun skipTurn(): Optional<SkipTurn> = Optional.ofNullable(skipTurn)
+
+    /**
+     * (BETA) Lets the assistant look at recent image frames the client sent into the conversation
+     * (for example webcam or screen-share frames). Frames are sent with `conversation.item.create`
+     * and `item.buffer: true`; they never trigger a response on their own. The assistant decides
+     * when to look and which frames it needs. Requires a model that supports image input.
+     */
+    fun vision(): Optional<Vision> = Optional.ofNullable(vision)
 
     /**
      * (BETA) The pay tool allows the assistant to collect card payments from the caller via DTMF
@@ -135,6 +145,8 @@ private constructor(
 
     fun isSkipTurn(): Boolean = skipTurn != null
 
+    fun isVision(): Boolean = vision != null
+
     fun isPay(): Boolean = pay != null
 
     fun isUpdateDynamicVariables(): Boolean = updateDynamicVariables != null
@@ -172,6 +184,14 @@ private constructor(
     fun asSendMessage(): SendMessage = sendMessage.getOrThrow("sendMessage")
 
     fun asSkipTurn(): SkipTurn = skipTurn.getOrThrow("skipTurn")
+
+    /**
+     * (BETA) Lets the assistant look at recent image frames the client sent into the conversation
+     * (for example webcam or screen-share frames). Frames are sent with `conversation.item.create`
+     * and `item.buffer: true`; they never trigger a response on their own. The assistant decides
+     * when to look and which frames it needs. Requires a model that supports image input.
+     */
+    fun asVision(): Vision = vision.getOrThrow("vision")
 
     /**
      * (BETA) The pay tool allows the assistant to collect card payments from the caller via DTMF
@@ -236,6 +256,7 @@ private constructor(
             sendDtmf != null -> visitor.visitSendDtmf(sendDtmf)
             sendMessage != null -> visitor.visitSendMessage(sendMessage)
             skipTurn != null -> visitor.visitSkipTurn(skipTurn)
+            vision != null -> visitor.visitVision(vision)
             pay != null -> visitor.visitPay(pay)
             updateDynamicVariables != null ->
                 visitor.visitUpdateDynamicVariables(updateDynamicVariables)
@@ -307,6 +328,10 @@ private constructor(
                     skipTurn.validate()
                 }
 
+                override fun visitVision(vision: Vision) {
+                    vision.validate()
+                }
+
                 override fun visitPay(pay: Pay) {
                     pay.validate()
                 }
@@ -363,6 +388,8 @@ private constructor(
 
                 override fun visitSkipTurn(skipTurn: SkipTurn) = skipTurn.validity()
 
+                override fun visitVision(vision: Vision) = vision.validity()
+
                 override fun visitPay(pay: Pay) = pay.validity()
 
                 override fun visitUpdateDynamicVariables(
@@ -391,6 +418,7 @@ private constructor(
             sendDtmf == other.sendDtmf &&
             sendMessage == other.sendMessage &&
             skipTurn == other.skipTurn &&
+            vision == other.vision &&
             pay == other.pay &&
             updateDynamicVariables == other.updateDynamicVariables
     }
@@ -409,6 +437,7 @@ private constructor(
             sendDtmf,
             sendMessage,
             skipTurn,
+            vision,
             pay,
             updateDynamicVariables,
         )
@@ -427,6 +456,7 @@ private constructor(
             sendDtmf != null -> "AssistantTool{sendDtmf=$sendDtmf}"
             sendMessage != null -> "AssistantTool{sendMessage=$sendMessage}"
             skipTurn != null -> "AssistantTool{skipTurn=$skipTurn}"
+            vision != null -> "AssistantTool{vision=$vision}"
             pay != null -> "AssistantTool{pay=$pay}"
             updateDynamicVariables != null ->
                 "AssistantTool{updateDynamicVariables=$updateDynamicVariables}"
@@ -473,6 +503,15 @@ private constructor(
         fun ofSendMessage(sendMessage: SendMessage) = AssistantTool(sendMessage = sendMessage)
 
         @JvmStatic fun ofSkipTurn(skipTurn: SkipTurn) = AssistantTool(skipTurn = skipTurn)
+
+        /**
+         * (BETA) Lets the assistant look at recent image frames the client sent into the
+         * conversation (for example webcam or screen-share frames). Frames are sent with
+         * `conversation.item.create` and `item.buffer: true`; they never trigger a response on
+         * their own. The assistant decides when to look and which frames it needs. Requires a model
+         * that supports image input.
+         */
+        @JvmStatic fun ofVision(vision: Vision) = AssistantTool(vision = vision)
 
         /**
          * (BETA) The pay tool allows the assistant to collect card payments from the caller via
@@ -532,6 +571,15 @@ private constructor(
         fun visitSendMessage(sendMessage: SendMessage): T
 
         fun visitSkipTurn(skipTurn: SkipTurn): T
+
+        /**
+         * (BETA) Lets the assistant look at recent image frames the client sent into the
+         * conversation (for example webcam or screen-share frames). Frames are sent with
+         * `conversation.item.create` and `item.buffer: true`; they never trigger a response on
+         * their own. The assistant decides when to look and which frames it needs. Requires a model
+         * that supports image input.
+         */
+        fun visitVision(vision: Vision): T
 
         /**
          * (BETA) The pay tool allows the assistant to collect card payments from the caller via
@@ -634,6 +682,11 @@ private constructor(
                         AssistantTool(skipTurn = it, _json = json)
                     } ?: AssistantTool(_json = json)
                 }
+                "vision" -> {
+                    return tryDeserialize(node, jacksonTypeRef<Vision>())?.let {
+                        AssistantTool(vision = it, _json = json)
+                    } ?: AssistantTool(_json = json)
+                }
                 "pay" -> {
                     return tryDeserialize(node, jacksonTypeRef<Pay>())?.let {
                         AssistantTool(pay = it, _json = json)
@@ -670,6 +723,7 @@ private constructor(
                 value.sendDtmf != null -> generator.writeObject(value.sendDtmf)
                 value.sendMessage != null -> generator.writeObject(value.sendMessage)
                 value.skipTurn != null -> generator.writeObject(value.skipTurn)
+                value.vision != null -> generator.writeObject(value.vision)
                 value.pay != null -> generator.writeObject(value.pay)
                 value.updateDynamicVariables != null ->
                     generator.writeObject(value.updateDynamicVariables)
@@ -6706,6 +6760,7 @@ private constructor(
             private constructor(
                 private val enabled: JsonField<Boolean>,
                 private val endUserTargetContextMode: JsonField<EndUserTargetContextMode>,
+                private val requireAcceptance: JsonField<Boolean>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
@@ -6716,8 +6771,12 @@ private constructor(
                     enabled: JsonField<Boolean> = JsonMissing.of(),
                     @JsonProperty("end_user_target_context_mode")
                     @ExcludeMissing
-                    endUserTargetContextMode: JsonField<EndUserTargetContextMode> = JsonMissing.of(),
-                ) : this(enabled, endUserTargetContextMode, mutableMapOf())
+                    endUserTargetContextMode: JsonField<EndUserTargetContextMode> =
+                        JsonMissing.of(),
+                    @JsonProperty("require_acceptance")
+                    @ExcludeMissing
+                    requireAcceptance: JsonField<Boolean> = JsonMissing.of(),
+                ) : this(enabled, endUserTargetContextMode, requireAcceptance, mutableMapOf())
 
                 /**
                  * Whether the destination must accept the transfer before the calls are bridged.
@@ -6741,6 +6800,24 @@ private constructor(
                     endUserTargetContextMode.getOptional("end_user_target_context_mode")
 
                 /**
+                 * Fail closed when the acceptance consult cannot run. Off by default: if the
+                 * consult cannot be set up for any reason — including where acceptance is
+                 * unavailable at all (`gather_using_ai`, Conversation Relay or web calls, a
+                 * conference, or additional invited participants) — the transfer degrades to a
+                 * plain warm transfer (the warm transfer message is played to the destination as
+                 * audio and the calls are bridged anyway). Set to true to treat those paths as a
+                 * decline instead: the destination is disconnected without being asked, the
+                 * assistant returns to the caller, and no bridge happens without an acceptance.
+                 * Only consult-setup failures are affected; the destination must still explicitly
+                 * accept on every consult that does run.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun requireAcceptance(): Optional<Boolean> =
+                    requireAcceptance.getOptional("require_acceptance")
+
+                /**
                  * Returns the raw JSON value of [enabled].
                  *
                  * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected
@@ -6760,6 +6837,16 @@ private constructor(
                 @ExcludeMissing
                 fun _endUserTargetContextMode(): JsonField<EndUserTargetContextMode> =
                     endUserTargetContextMode
+
+                /**
+                 * Returns the raw JSON value of [requireAcceptance].
+                 *
+                 * Unlike [requireAcceptance], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("require_acceptance")
+                @ExcludeMissing
+                fun _requireAcceptance(): JsonField<Boolean> = requireAcceptance
 
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -6788,12 +6875,14 @@ private constructor(
                     private var enabled: JsonField<Boolean> = JsonMissing.of()
                     private var endUserTargetContextMode: JsonField<EndUserTargetContextMode> =
                         JsonMissing.of()
+                    private var requireAcceptance: JsonField<Boolean> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
                     internal fun from(warmTransferAcceptance: WarmTransferAcceptance) = apply {
                         enabled = warmTransferAcceptance.enabled
                         endUserTargetContextMode = warmTransferAcceptance.endUserTargetContextMode
+                        requireAcceptance = warmTransferAcceptance.requireAcceptance
                         additionalProperties =
                             warmTransferAcceptance.additionalProperties.toMutableMap()
                     }
@@ -6835,6 +6924,32 @@ private constructor(
                         endUserTargetContextMode: JsonField<EndUserTargetContextMode>
                     ) = apply { this.endUserTargetContextMode = endUserTargetContextMode }
 
+                    /**
+                     * Fail closed when the acceptance consult cannot run. Off by default: if the
+                     * consult cannot be set up for any reason — including where acceptance is
+                     * unavailable at all (`gather_using_ai`, Conversation Relay or web calls, a
+                     * conference, or additional invited participants) — the transfer degrades to a
+                     * plain warm transfer (the warm transfer message is played to the destination
+                     * as audio and the calls are bridged anyway). Set to true to treat those paths
+                     * as a decline instead: the destination is disconnected without being asked,
+                     * the assistant returns to the caller, and no bridge happens without an
+                     * acceptance. Only consult-setup failures are affected; the destination must
+                     * still explicitly accept on every consult that does run.
+                     */
+                    fun requireAcceptance(requireAcceptance: Boolean) =
+                        requireAcceptance(JsonField.of(requireAcceptance))
+
+                    /**
+                     * Sets [Builder.requireAcceptance] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.requireAcceptance] with a well-typed
+                     * [Boolean] value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun requireAcceptance(requireAcceptance: JsonField<Boolean>) = apply {
+                        this.requireAcceptance = requireAcceptance
+                    }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         putAllAdditionalProperties(additionalProperties)
@@ -6866,6 +6981,7 @@ private constructor(
                         WarmTransferAcceptance(
                             enabled,
                             endUserTargetContextMode,
+                            requireAcceptance,
                             additionalProperties.toMutableMap(),
                         )
                 }
@@ -6889,6 +7005,7 @@ private constructor(
 
                     enabled()
                     endUserTargetContextMode().ifPresent { it.validate() }
+                    requireAcceptance()
                     validated = true
                 }
 
@@ -6909,7 +7026,8 @@ private constructor(
                 @JvmSynthetic
                 internal fun validity(): Int =
                     (if (enabled.asKnown().isPresent) 1 else 0) +
-                        (endUserTargetContextMode.asKnown().getOrNull()?.validity() ?: 0)
+                        (endUserTargetContextMode.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (requireAcceptance.asKnown().isPresent) 1 else 0)
 
                 /**
                  * Controls whether the private exchange between the assistant and the transfer
@@ -7076,17 +7194,23 @@ private constructor(
                     return other is WarmTransferAcceptance &&
                         enabled == other.enabled &&
                         endUserTargetContextMode == other.endUserTargetContextMode &&
+                        requireAcceptance == other.requireAcceptance &&
                         additionalProperties == other.additionalProperties
                 }
 
                 private val hashCode: Int by lazy {
-                    Objects.hash(enabled, endUserTargetContextMode, additionalProperties)
+                    Objects.hash(
+                        enabled,
+                        endUserTargetContextMode,
+                        requireAcceptance,
+                        additionalProperties,
+                    )
                 }
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "WarmTransferAcceptance{enabled=$enabled, endUserTargetContextMode=$endUserTargetContextMode, additionalProperties=$additionalProperties}"
+                    "WarmTransferAcceptance{enabled=$enabled, endUserTargetContextMode=$endUserTargetContextMode, requireAcceptance=$requireAcceptance, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -11766,6 +11890,247 @@ private constructor(
 
         override fun toString() =
             "SkipTurn{skipTurn=$skipTurn, type=$type, shared=$shared, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * (BETA) Lets the assistant look at recent image frames the client sent into the conversation
+     * (for example webcam or screen-share frames). Frames are sent with `conversation.item.create`
+     * and `item.buffer: true`; they never trigger a response on their own. The assistant decides
+     * when to look and which frames it needs. Requires a model that supports image input.
+     */
+    class Vision
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val type: JsonValue,
+        private val shared: JsonField<Boolean>,
+        private val vision: JsonField<VisionToolParams>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+            @JsonProperty("shared") @ExcludeMissing shared: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("vision")
+            @ExcludeMissing
+            vision: JsonField<VisionToolParams> = JsonMissing.of(),
+        ) : this(type, shared, vision, mutableMapOf())
+
+        /**
+         * Expected to always return the following:
+         * ```java
+         * JsonValue.from("vision")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+        /**
+         * Whether this tool comes from the shared Tools Library. Responses merge shared tools into
+         * `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set by the
+         * server, not accepted in requests. When updating an assistant, omit `shared: true` tools
+         * from the request `tools` array and manage them through `tool_ids` instead — re-sending
+         * their definitions creates an inline duplicate (rejected with error code 10015 when the
+         * type allows only one instance per assistant).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun shared(): Optional<Boolean> = shared.getOptional("shared")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun vision(): Optional<VisionToolParams> = vision.getOptional("vision")
+
+        /**
+         * Returns the raw JSON value of [shared].
+         *
+         * Unlike [shared], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shared") @ExcludeMissing fun _shared(): JsonField<Boolean> = shared
+
+        /**
+         * Returns the raw JSON value of [vision].
+         *
+         * Unlike [vision], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("vision") @ExcludeMissing fun _vision(): JsonField<VisionToolParams> = vision
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Vision]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Vision]. */
+        class Builder internal constructor() {
+
+            private var type: JsonValue = JsonValue.from("vision")
+            private var shared: JsonField<Boolean> = JsonMissing.of()
+            private var vision: JsonField<VisionToolParams> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(vision: Vision) = apply {
+                type = vision.type
+                shared = vision.shared
+                this.vision = vision.vision
+                additionalProperties = vision.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Sets the field to an arbitrary JSON value.
+             *
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```java
+             * JsonValue.from("vision")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun type(type: JsonValue) = apply { this.type = type }
+
+            /**
+             * Whether this tool comes from the shared Tools Library. Responses merge shared tools
+             * into `tools` with `shared: true`; inline tools carry `shared: false`. Read-only: set
+             * by the server, not accepted in requests. When updating an assistant, omit `shared:
+             * true` tools from the request `tools` array and manage them through `tool_ids` instead
+             * — re-sending their definitions creates an inline duplicate (rejected with error code
+             * 10015 when the type allows only one instance per assistant).
+             */
+            fun shared(shared: Boolean) = shared(JsonField.of(shared))
+
+            /**
+             * Sets [Builder.shared] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shared] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shared(shared: JsonField<Boolean>) = apply { this.shared = shared }
+
+            fun vision(vision: VisionToolParams) = vision(JsonField.of(vision))
+
+            /**
+             * Sets [Builder.vision] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vision] with a well-typed [VisionToolParams] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun vision(vision: JsonField<VisionToolParams>) = apply { this.vision = vision }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Vision].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Vision = Vision(type, shared, vision, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Vision = apply {
+            if (validated) {
+                return@apply
+            }
+
+            _type().let {
+                if (it != JsonValue.from("vision")) {
+                    throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                }
+            }
+            shared()
+            vision().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            type.let { if (it == JsonValue.from("vision")) 1 else 0 } +
+                (if (shared.asKnown().isPresent) 1 else 0) +
+                (vision.asKnown().getOrNull()?.validity() ?: 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Vision &&
+                type == other.type &&
+                shared == other.shared &&
+                vision == other.vision &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(type, shared, vision, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Vision{type=$type, shared=$shared, vision=$vision, additionalProperties=$additionalProperties}"
     }
 
     /**

@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ai.assistants
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ai.avatars.AvatarId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,12 +14,12 @@ internal class AvatarSettingsRequestTest {
     fun create() {
         val avatarSettingsRequest =
             AvatarSettingsRequest.builder()
-                .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                .avatarId(AvatarId.ELENA)
                 .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                 .model(AvatarSettingsRequest.Model.FOXTROT_1)
                 .build()
 
-        assertThat(avatarSettingsRequest.avatarId()).isEqualTo(AvatarSettingsRequest.AvatarId.ELENA)
+        assertThat(avatarSettingsRequest.avatarId()).isEqualTo(AvatarId.ELENA)
         assertThat(avatarSettingsRequest.backgroundId())
             .isEqualTo(AvatarSettingsRequest.BackgroundId.OFFICE)
         assertThat(avatarSettingsRequest.model()).isEqualTo(AvatarSettingsRequest.Model.FOXTROT_1)
@@ -29,7 +30,7 @@ internal class AvatarSettingsRequestTest {
         val jsonMapper = jsonMapper()
         val avatarSettingsRequest =
             AvatarSettingsRequest.builder()
-                .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                .avatarId(AvatarId.ELENA)
                 .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                 .model(AvatarSettingsRequest.Model.FOXTROT_1)
                 .build()

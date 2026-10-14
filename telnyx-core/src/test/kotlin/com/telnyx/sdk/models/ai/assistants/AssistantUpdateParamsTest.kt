@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ai.assistants
 
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
+import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -38,7 +39,7 @@ internal class AssistantUpdateParamsTest {
             )
             .avatarSettings(
                 AvatarSettingsRequest.builder()
-                    .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                    .avatarId(AvatarId.ELENA)
                     .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                     .model(AvatarSettingsRequest.Model.FOXTROT_1)
                     .build()
@@ -838,7 +839,7 @@ internal class AssistantUpdateParamsTest {
                 )
                 .avatarSettings(
                     AvatarSettingsRequest.builder()
-                        .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                        .avatarId(AvatarId.ELENA)
                         .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                         .model(AvatarSettingsRequest.Model.FOXTROT_1)
                         .build()
@@ -1648,7 +1649,7 @@ internal class AssistantUpdateParamsTest {
         assertThat(body.avatarSettings())
             .contains(
                 AvatarSettingsRequest.builder()
-                    .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                    .avatarId(AvatarId.ELENA)
                     .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                     .model(AvatarSettingsRequest.Model.FOXTROT_1)
                     .build()

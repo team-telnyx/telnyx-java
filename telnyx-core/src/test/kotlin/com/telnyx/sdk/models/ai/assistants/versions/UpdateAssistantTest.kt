@@ -37,6 +37,7 @@ import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.WebsocketSettings
 import com.telnyx.sdk.models.ai.assistants.WidgetSettings
+import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -73,7 +74,7 @@ internal class UpdateAssistantTest {
                 )
                 .avatarSettings(
                     AvatarSettingsRequest.builder()
-                        .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                        .avatarId(AvatarId.ELENA)
                         .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                         .model(AvatarSettingsRequest.Model.FOXTROT_1)
                         .build()
@@ -880,7 +881,7 @@ internal class UpdateAssistantTest {
         assertThat(updateAssistant.avatarSettings())
             .contains(
                 AvatarSettingsRequest.builder()
-                    .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                    .avatarId(AvatarId.ELENA)
                     .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                     .model(AvatarSettingsRequest.Model.FOXTROT_1)
                     .build()
@@ -1692,7 +1693,7 @@ internal class UpdateAssistantTest {
                 )
                 .avatarSettings(
                     AvatarSettingsRequest.builder()
-                        .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                        .avatarId(AvatarId.ELENA)
                         .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                         .model(AvatarSettingsRequest.Model.FOXTROT_1)
                         .build()

@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.ai.assistants
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
@@ -47,7 +48,7 @@ internal class InferenceEmbeddingTest {
                 )
                 .avatarSettings(
                     TelnyxAvatarSettings.builder()
-                        .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                        .avatarId(AvatarId.ELENA)
                         .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
                         .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                         .build()
@@ -909,7 +910,7 @@ internal class InferenceEmbeddingTest {
         assertThat(inferenceEmbedding.avatarSettings())
             .contains(
                 TelnyxAvatarSettings.builder()
-                    .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                    .avatarId(AvatarId.ELENA)
                     .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
                     .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                     .build()
@@ -1779,7 +1780,7 @@ internal class InferenceEmbeddingTest {
                 )
                 .avatarSettings(
                     TelnyxAvatarSettings.builder()
-                        .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                        .avatarId(AvatarId.ELENA)
                         .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
                         .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                         .build()
