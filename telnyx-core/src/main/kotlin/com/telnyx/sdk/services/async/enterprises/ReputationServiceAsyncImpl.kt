@@ -25,6 +25,9 @@ import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateWebhookParams
+import com.telnyx.sdk.services.async.enterprises.reputation.ExternalVerificationServiceAsync
+import com.telnyx.sdk.services.async.enterprises.reputation.ExternalVerificationServiceAsyncImpl
 import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsync
 import com.telnyx.sdk.services.async.enterprises.reputation.LoaServiceAsyncImpl
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsync
@@ -51,6 +54,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
         RemediationServiceAsyncImpl(clientOptions)
     }
 
+    private val externalVerification: ExternalVerificationServiceAsync by lazy {
+        ExternalVerificationServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): ReputationServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReputationServiceAsync =
@@ -64,6 +71,9 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
 
     /** Phone-number reputation monitoring (spam-score lookup and tracking). */
     override fun remediation(): RemediationServiceAsync = remediation
+
+    /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+    override fun externalVerification(): ExternalVerificationServiceAsync = externalVerification
 
     override fun retrieve(
         params: ReputationRetrieveParams,
@@ -93,6 +103,13 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
         // patch /enterprises/{enterprise_id}/reputation/frequency
         withRawResponse().updateFrequency(params, requestOptions).mapCancellable { it.parse() }
 
+    override fun updateWebhook(
+        params: ReputationUpdateWebhookParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EnterpriseReputationPublicWrapped> =
+        // patch /enterprises/{enterprise_id}/reputation/webhook
+        withRawResponse().updateWebhook(params, requestOptions).mapCancellable { it.parse() }
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ReputationServiceAsync.WithRawResponse {
 
@@ -111,6 +128,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
             RemediationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val externalVerification: ExternalVerificationServiceAsync.WithRawResponse by lazy {
+            ExternalVerificationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ReputationServiceAsync.WithRawResponse =
@@ -126,6 +147,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
 
         /** Phone-number reputation monitoring (spam-score lookup and tracking). */
         override fun remediation(): RemediationServiceAsync.WithRawResponse = remediation
+
+        /** Phone-number reputation monitoring (spam-score lookup and tracking). */
+        override fun externalVerification(): ExternalVerificationServiceAsync.WithRawResponse =
+            externalVerification
 
         private val retrieveHandler: Handler<EnterpriseReputationPublicWrapped> =
             jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
@@ -254,6 +279,42 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateFrequencyHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val updateWebhookHandler: Handler<EnterpriseReputationPublicWrapped> =
+            jsonHandler<EnterpriseReputationPublicWrapped>(clientOptions.jsonMapper)
+
+        override fun updateWebhook(
+            params: ReputationUpdateWebhookParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EnterpriseReputationPublicWrapped>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("enterprises", params._pathParam(0), "reputation", "webhook")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { updateWebhookHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

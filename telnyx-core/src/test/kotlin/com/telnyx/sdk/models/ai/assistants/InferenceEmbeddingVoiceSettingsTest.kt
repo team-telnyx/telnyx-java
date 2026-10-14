@@ -34,6 +34,18 @@ internal class InferenceEmbeddingVoiceSettingsTest {
                 .speed(0.0)
                 .style(0.0)
                 .temperature(0.0)
+                .toolCallAudio(
+                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.builder()
+                        .type(
+                            InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Type
+                                .PREDEFINED_MEDIA
+                        )
+                        .value(
+                            InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Value_.TYPING
+                        )
+                        .volume(0.5)
+                        .build()
+                )
                 .useSpeakerBoost(true)
                 .voiceSpeed(0.0)
                 .build()
@@ -63,6 +75,21 @@ internal class InferenceEmbeddingVoiceSettingsTest {
         assertThat(inferenceEmbeddingVoiceSettings.speed()).contains(0.0)
         assertThat(inferenceEmbeddingVoiceSettings.style()).contains(0.0)
         assertThat(inferenceEmbeddingVoiceSettings.temperature()).contains(0.0)
+        assertThat(inferenceEmbeddingVoiceSettings.toolCallAudio())
+            .contains(
+                InferenceEmbeddingVoiceSettings.ToolCallAudio.ofUnionMember0(
+                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.builder()
+                        .type(
+                            InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Type
+                                .PREDEFINED_MEDIA
+                        )
+                        .value(
+                            InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Value_.TYPING
+                        )
+                        .volume(0.5)
+                        .build()
+                )
+            )
         assertThat(inferenceEmbeddingVoiceSettings.useSpeakerBoost()).contains(true)
         assertThat(inferenceEmbeddingVoiceSettings.voiceSpeed()).contains(0.0)
     }
@@ -93,6 +120,18 @@ internal class InferenceEmbeddingVoiceSettingsTest {
                 .speed(0.0)
                 .style(0.0)
                 .temperature(0.0)
+                .toolCallAudio(
+                    InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.builder()
+                        .type(
+                            InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Type
+                                .PREDEFINED_MEDIA
+                        )
+                        .value(
+                            InferenceEmbeddingVoiceSettings.ToolCallAudio.UnionMember0.Value_.TYPING
+                        )
+                        .volume(0.5)
+                        .build()
+                )
                 .useSpeakerBoost(true)
                 .voiceSpeed(0.0)
                 .build()

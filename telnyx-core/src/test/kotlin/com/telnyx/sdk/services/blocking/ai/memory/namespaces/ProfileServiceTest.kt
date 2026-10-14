@@ -6,6 +6,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileDeleteParams
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileIngestParams
+import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfilePreviewParams
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRecallParams
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRememberParams
 import com.telnyx.sdk.models.ai.memory.namespaces.profiles.ProfileRetrieveSummaryParams
@@ -56,6 +57,24 @@ internal class ProfileServiceTest {
                             .putAdditionalProperty("messages", JsonValue.from("bar"))
                             .build()
                     )
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun preview() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val profileService = client.ai().memory().namespaces().profiles()
+
+        val response =
+            profileService.preview(
+                ProfilePreviewParams.builder()
+                    .namespace("namespace")
+                    .profileId("profile_id")
+                    .instructions("Lead with billing status. Prefer plain language over jargon.")
                     .build()
             )
 

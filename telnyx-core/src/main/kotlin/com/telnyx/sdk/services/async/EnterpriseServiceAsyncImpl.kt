@@ -33,6 +33,8 @@ import com.telnyx.sdk.services.async.enterprises.DirServiceAsync
 import com.telnyx.sdk.services.async.enterprises.DirServiceAsyncImpl
 import com.telnyx.sdk.services.async.enterprises.ReputationServiceAsync
 import com.telnyx.sdk.services.async.enterprises.ReputationServiceAsyncImpl
+import com.telnyx.sdk.services.async.enterprises.VerifyEmailServiceAsync
+import com.telnyx.sdk.services.async.enterprises.VerifyEmailServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -51,6 +53,10 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
 
     private val dir: DirServiceAsync by lazy { DirServiceAsyncImpl(clientOptions) }
 
+    private val verifyEmail: VerifyEmailServiceAsync by lazy {
+        VerifyEmailServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): EnterpriseServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnterpriseServiceAsync =
@@ -64,6 +70,12 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
      * reasons) shown to recipients on outbound calls.
      */
     override fun dir(): DirServiceAsync = dir
+
+    /**
+     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+     * email must be verified before references can be submitted.
+     */
+    override fun verifyEmail(): VerifyEmailServiceAsync = verifyEmail
 
     override fun create(
         params: EnterpriseCreateParams,
@@ -121,6 +133,10 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
             DirServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val verifyEmail: VerifyEmailServiceAsync.WithRawResponse by lazy {
+            VerifyEmailServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): EnterpriseServiceAsync.WithRawResponse =
@@ -136,6 +152,12 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
          * call reasons) shown to recipients on outbound calls.
          */
         override fun dir(): DirServiceAsync.WithRawResponse = dir
+
+        /**
+         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
+         * email must be verified before references can be submitted.
+         */
+        override fun verifyEmail(): VerifyEmailServiceAsync.WithRawResponse = verifyEmail
 
         private val createHandler: Handler<EnterprisePublicWrapped> =
             jsonHandler<EnterprisePublicWrapped>(clientOptions.jsonMapper)

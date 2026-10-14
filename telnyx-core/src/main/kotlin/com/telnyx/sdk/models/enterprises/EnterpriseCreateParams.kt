@@ -59,6 +59,9 @@ private constructor(
     fun countryCode(): String = body.countryCode()
 
     /**
+     * The trade name your business operates under if it is different from your legal name, also
+     * called a Doing Business As (DBA) name. Leave blank if you only use your legal name.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -73,7 +76,8 @@ private constructor(
     fun fein(): String = body.fein()
 
     /**
-     * Industry classification.
+     * The industry your business operates in. Choose the closest match from the list; if your value
+     * is not accepted, pick the nearest category.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -81,13 +85,17 @@ private constructor(
     fun industry(): Industry = body.industry()
 
     /**
+     * The state, province, or country where your business was legally incorporated, for example
+     * Delaware.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun jurisdictionOfIncorporation(): String = body.jurisdictionOfIncorporation()
 
     /**
-     * Legal name of the enterprise.
+     * Your business's full registered legal name, exactly as it appears on your incorporation or
+     * tax documents, 3 to 64 characters.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -143,13 +151,18 @@ private constructor(
     fun organizationType(): OrganizationType = body.organizationType()
 
     /**
+     * Your business's public website address, including https://. Leave blank if your business has
+     * no website.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun website(): String = body.website()
 
     /**
-     * Optional corporate-registration / company-number identifier.
+     * The official number your company received when it was legally registered or incorporated (for
+     * example from your state or national business registry). It is on your certificate of
+     * incorporation.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -157,8 +170,8 @@ private constructor(
     fun corporateRegistrationNumber(): Optional<String> = body.corporateRegistrationNumber()
 
     /**
-     * Optional free-form string the caller can attach for their own bookkeeping. Telnyx does not
-     * interpret it.
+     * Your own label for this account. Enter any reference that helps you find it in your records.
+     * Telnyx does not use it during vetting.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -166,7 +179,8 @@ private constructor(
     fun customerReference(): Optional<String> = body.customerReference()
 
     /**
-     * Optional D-U-N-S Number.
+     * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique identifier for your
+     * business. Leave blank if you do not have one.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -174,7 +188,9 @@ private constructor(
     fun dunBradstreetNumber(): Optional<String> = body.dunBradstreetNumber()
 
     /**
-     * Optional SIC code for the primary line of business.
+     * The 4-digit Standard Industrial Classification code for your main line of business, which
+     * tells us what industry you operate in. Look it up in the SIC code directory if you are
+     * unsure.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -182,7 +198,9 @@ private constructor(
     fun primaryBusinessDomainSicCode(): Optional<String> = body.primaryBusinessDomainSicCode()
 
     /**
-     * Optional professional-license number for regulated industries.
+     * If your business operates under a professional license (for example legal, medical, or
+     * financial services), enter the license number issued by the licensing authority. Leave blank
+     * if it does not apply.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -190,8 +208,12 @@ private constructor(
     fun professionalLicenseNumber(): Optional<String> = body.professionalLicenseNumber()
 
     /**
-     * `enterprise` for an organization registering its own DIRs; `bpo` for a Business Process
-     * Outsourcer placing calls on behalf of one or more enterprises.
+     * `enterprise` for an organization registering its own DIRs (the default, and the right choice
+     * when the calls display your own brand). `bpo` for a Business Process Outsourcer: a call
+     * center that places calls on behalf of other enterprises and displays their brand. A `bpo`
+     * enterprise describes the call center itself and cannot own a DIR. Each client the call center
+     * calls for gets its own `enterprise` in the same account, with the client's DIR under it; that
+     * DIR is then linked to the `bpo` enterprise through `bpo_authorizations`. Fixed at creation.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -457,6 +479,10 @@ private constructor(
          */
         fun countryCode(countryCode: JsonField<String>) = apply { body.countryCode(countryCode) }
 
+        /**
+         * The trade name your business operates under if it is different from your legal name, also
+         * called a Doing Business As (DBA) name. Leave blank if you only use your legal name.
+         */
         fun doingBusinessAs(doingBusinessAs: String) = apply {
             body.doingBusinessAs(doingBusinessAs)
         }
@@ -483,7 +509,10 @@ private constructor(
          */
         fun fein(fein: JsonField<String>) = apply { body.fein(fein) }
 
-        /** Industry classification. */
+        /**
+         * The industry your business operates in. Choose the closest match from the list; if your
+         * value is not accepted, pick the nearest category.
+         */
         fun industry(industry: Industry) = apply { body.industry(industry) }
 
         /**
@@ -495,6 +524,10 @@ private constructor(
          */
         fun industry(industry: JsonField<Industry>) = apply { body.industry(industry) }
 
+        /**
+         * The state, province, or country where your business was legally incorporated, for example
+         * Delaware.
+         */
         fun jurisdictionOfIncorporation(jurisdictionOfIncorporation: String) = apply {
             body.jurisdictionOfIncorporation(jurisdictionOfIncorporation)
         }
@@ -510,7 +543,10 @@ private constructor(
             body.jurisdictionOfIncorporation(jurisdictionOfIncorporation)
         }
 
-        /** Legal name of the enterprise. */
+        /**
+         * Your business's full registered legal name, exactly as it appears on your incorporation
+         * or tax documents, 3 to 64 characters.
+         */
         fun legalName(legalName: String) = apply { body.legalName(legalName) }
 
         /**
@@ -619,6 +655,10 @@ private constructor(
             body.organizationType(organizationType)
         }
 
+        /**
+         * Your business's public website address, including https://. Leave blank if your business
+         * has no website.
+         */
         fun website(website: String) = apply { body.website(website) }
 
         /**
@@ -629,7 +669,11 @@ private constructor(
          */
         fun website(website: JsonField<String>) = apply { body.website(website) }
 
-        /** Optional corporate-registration / company-number identifier. */
+        /**
+         * The official number your company received when it was legally registered or incorporated
+         * (for example from your state or national business registry). It is on your certificate of
+         * incorporation.
+         */
         fun corporateRegistrationNumber(corporateRegistrationNumber: String?) = apply {
             body.corporateRegistrationNumber(corporateRegistrationNumber)
         }
@@ -653,8 +697,8 @@ private constructor(
         }
 
         /**
-         * Optional free-form string the caller can attach for their own bookkeeping. Telnyx does
-         * not interpret it.
+         * Your own label for this account. Enter any reference that helps you find it in your
+         * records. Telnyx does not use it during vetting.
          */
         fun customerReference(customerReference: String) = apply {
             body.customerReference(customerReference)
@@ -671,7 +715,10 @@ private constructor(
             body.customerReference(customerReference)
         }
 
-        /** Optional D-U-N-S Number. */
+        /**
+         * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique identifier for
+         * your business. Leave blank if you do not have one.
+         */
         fun dunBradstreetNumber(dunBradstreetNumber: String?) = apply {
             body.dunBradstreetNumber(dunBradstreetNumber)
         }
@@ -693,7 +740,11 @@ private constructor(
             body.dunBradstreetNumber(dunBradstreetNumber)
         }
 
-        /** Optional SIC code for the primary line of business. */
+        /**
+         * The 4-digit Standard Industrial Classification code for your main line of business, which
+         * tells us what industry you operate in. Look it up in the SIC code directory if you are
+         * unsure.
+         */
         fun primaryBusinessDomainSicCode(primaryBusinessDomainSicCode: String?) = apply {
             body.primaryBusinessDomainSicCode(primaryBusinessDomainSicCode)
         }
@@ -716,7 +767,11 @@ private constructor(
             body.primaryBusinessDomainSicCode(primaryBusinessDomainSicCode)
         }
 
-        /** Optional professional-license number for regulated industries. */
+        /**
+         * If your business operates under a professional license (for example legal, medical, or
+         * financial services), enter the license number issued by the licensing authority. Leave
+         * blank if it does not apply.
+         */
         fun professionalLicenseNumber(professionalLicenseNumber: String?) = apply {
             body.professionalLicenseNumber(professionalLicenseNumber)
         }
@@ -740,8 +795,13 @@ private constructor(
         }
 
         /**
-         * `enterprise` for an organization registering its own DIRs; `bpo` for a Business Process
-         * Outsourcer placing calls on behalf of one or more enterprises.
+         * `enterprise` for an organization registering its own DIRs (the default, and the right
+         * choice when the calls display your own brand). `bpo` for a Business Process Outsourcer: a
+         * call center that places calls on behalf of other enterprises and displays their brand. A
+         * `bpo` enterprise describes the call center itself and cannot own a DIR. Each client the
+         * call center calls for gets its own `enterprise` in the same account, with the client's
+         * DIR under it; that DIR is then linked to the `bpo` enterprise through
+         * `bpo_authorizations`. Fixed at creation.
          */
         fun roleType(roleType: RoleType) = apply { body.roleType(roleType) }
 
@@ -1040,6 +1100,9 @@ private constructor(
         fun countryCode(): String = countryCode.getRequired("country_code")
 
         /**
+         * The trade name your business operates under if it is different from your legal name, also
+         * called a Doing Business As (DBA) name. Leave blank if you only use your legal name.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
@@ -1054,7 +1117,8 @@ private constructor(
         fun fein(): String = fein.getRequired("fein")
 
         /**
-         * Industry classification.
+         * The industry your business operates in. Choose the closest match from the list; if your
+         * value is not accepted, pick the nearest category.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1062,6 +1126,9 @@ private constructor(
         fun industry(): Industry = industry.getRequired("industry")
 
         /**
+         * The state, province, or country where your business was legally incorporated, for example
+         * Delaware.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
@@ -1069,7 +1136,8 @@ private constructor(
             jurisdictionOfIncorporation.getRequired("jurisdiction_of_incorporation")
 
         /**
-         * Legal name of the enterprise.
+         * Your business's full registered legal name, exactly as it appears on your incorporation
+         * or tax documents, 3 to 64 characters.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1129,13 +1197,18 @@ private constructor(
         fun organizationType(): OrganizationType = organizationType.getRequired("organization_type")
 
         /**
+         * Your business's public website address, including https://. Leave blank if your business
+         * has no website.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun website(): String = website.getRequired("website")
 
         /**
-         * Optional corporate-registration / company-number identifier.
+         * The official number your company received when it was legally registered or incorporated
+         * (for example from your state or national business registry). It is on your certificate of
+         * incorporation.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1144,8 +1217,8 @@ private constructor(
             corporateRegistrationNumber.getOptional("corporate_registration_number")
 
         /**
-         * Optional free-form string the caller can attach for their own bookkeeping. Telnyx does
-         * not interpret it.
+         * Your own label for this account. Enter any reference that helps you find it in your
+         * records. Telnyx does not use it during vetting.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1154,7 +1227,8 @@ private constructor(
             customerReference.getOptional("customer_reference")
 
         /**
-         * Optional D-U-N-S Number.
+         * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique identifier for
+         * your business. Leave blank if you do not have one.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1163,7 +1237,9 @@ private constructor(
             dunBradstreetNumber.getOptional("dun_bradstreet_number")
 
         /**
-         * Optional SIC code for the primary line of business.
+         * The 4-digit Standard Industrial Classification code for your main line of business, which
+         * tells us what industry you operate in. Look it up in the SIC code directory if you are
+         * unsure.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1172,7 +1248,9 @@ private constructor(
             primaryBusinessDomainSicCode.getOptional("primary_business_domain_sic_code")
 
         /**
-         * Optional professional-license number for regulated industries.
+         * If your business operates under a professional license (for example legal, medical, or
+         * financial services), enter the license number issued by the licensing authority. Leave
+         * blank if it does not apply.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1181,8 +1259,13 @@ private constructor(
             professionalLicenseNumber.getOptional("professional_license_number")
 
         /**
-         * `enterprise` for an organization registering its own DIRs; `bpo` for a Business Process
-         * Outsourcer placing calls on behalf of one or more enterprises.
+         * `enterprise` for an organization registering its own DIRs (the default, and the right
+         * choice when the calls display your own brand). `bpo` for a Business Process Outsourcer: a
+         * call center that places calls on behalf of other enterprises and displays their brand. A
+         * `bpo` enterprise describes the call center itself and cannot own a DIR. Each client the
+         * call center calls for gets its own `enterprise` in the same account, with the client's
+         * DIR under it; that DIR is then linked to the `bpo` enterprise through
+         * `bpo_authorizations`. Fixed at creation.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1503,6 +1586,11 @@ private constructor(
                 this.countryCode = countryCode
             }
 
+            /**
+             * The trade name your business operates under if it is different from your legal name,
+             * also called a Doing Business As (DBA) name. Leave blank if you only use your legal
+             * name.
+             */
             fun doingBusinessAs(doingBusinessAs: String) =
                 doingBusinessAs(JsonField.of(doingBusinessAs))
 
@@ -1529,7 +1617,10 @@ private constructor(
              */
             fun fein(fein: JsonField<String>) = apply { this.fein = fein }
 
-            /** Industry classification. */
+            /**
+             * The industry your business operates in. Choose the closest match from the list; if
+             * your value is not accepted, pick the nearest category.
+             */
             fun industry(industry: Industry) = industry(JsonField.of(industry))
 
             /**
@@ -1541,6 +1632,10 @@ private constructor(
              */
             fun industry(industry: JsonField<Industry>) = apply { this.industry = industry }
 
+            /**
+             * The state, province, or country where your business was legally incorporated, for
+             * example Delaware.
+             */
             fun jurisdictionOfIncorporation(jurisdictionOfIncorporation: String) =
                 jurisdictionOfIncorporation(JsonField.of(jurisdictionOfIncorporation))
 
@@ -1556,7 +1651,10 @@ private constructor(
                     this.jurisdictionOfIncorporation = jurisdictionOfIncorporation
                 }
 
-            /** Legal name of the enterprise. */
+            /**
+             * Your business's full registered legal name, exactly as it appears on your
+             * incorporation or tax documents, 3 to 64 characters.
+             */
             fun legalName(legalName: String) = legalName(JsonField.of(legalName))
 
             /**
@@ -1660,6 +1758,10 @@ private constructor(
                 this.organizationType = organizationType
             }
 
+            /**
+             * Your business's public website address, including https://. Leave blank if your
+             * business has no website.
+             */
             fun website(website: String) = website(JsonField.of(website))
 
             /**
@@ -1671,7 +1773,11 @@ private constructor(
              */
             fun website(website: JsonField<String>) = apply { this.website = website }
 
-            /** Optional corporate-registration / company-number identifier. */
+            /**
+             * The official number your company received when it was legally registered or
+             * incorporated (for example from your state or national business registry). It is on
+             * your certificate of incorporation.
+             */
             fun corporateRegistrationNumber(corporateRegistrationNumber: String?) =
                 corporateRegistrationNumber(JsonField.ofNullable(corporateRegistrationNumber))
 
@@ -1695,8 +1801,8 @@ private constructor(
                 }
 
             /**
-             * Optional free-form string the caller can attach for their own bookkeeping. Telnyx
-             * does not interpret it.
+             * Your own label for this account. Enter any reference that helps you find it in your
+             * records. Telnyx does not use it during vetting.
              */
             fun customerReference(customerReference: String) =
                 customerReference(JsonField.of(customerReference))
@@ -1712,7 +1818,10 @@ private constructor(
                 this.customerReference = customerReference
             }
 
-            /** Optional D-U-N-S Number. */
+            /**
+             * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique identifier
+             * for your business. Leave blank if you do not have one.
+             */
             fun dunBradstreetNumber(dunBradstreetNumber: String?) =
                 dunBradstreetNumber(JsonField.ofNullable(dunBradstreetNumber))
 
@@ -1734,7 +1843,11 @@ private constructor(
                 this.dunBradstreetNumber = dunBradstreetNumber
             }
 
-            /** Optional SIC code for the primary line of business. */
+            /**
+             * The 4-digit Standard Industrial Classification code for your main line of business,
+             * which tells us what industry you operate in. Look it up in the SIC code directory if
+             * you are unsure.
+             */
             fun primaryBusinessDomainSicCode(primaryBusinessDomainSicCode: String?) =
                 primaryBusinessDomainSicCode(JsonField.ofNullable(primaryBusinessDomainSicCode))
 
@@ -1757,7 +1870,11 @@ private constructor(
                     this.primaryBusinessDomainSicCode = primaryBusinessDomainSicCode
                 }
 
-            /** Optional professional-license number for regulated industries. */
+            /**
+             * If your business operates under a professional license (for example legal, medical,
+             * or financial services), enter the license number issued by the licensing authority.
+             * Leave blank if it does not apply.
+             */
             fun professionalLicenseNumber(professionalLicenseNumber: String?) =
                 professionalLicenseNumber(JsonField.ofNullable(professionalLicenseNumber))
 
@@ -1780,8 +1897,13 @@ private constructor(
             }
 
             /**
-             * `enterprise` for an organization registering its own DIRs; `bpo` for a Business
-             * Process Outsourcer placing calls on behalf of one or more enterprises.
+             * `enterprise` for an organization registering its own DIRs (the default, and the right
+             * choice when the calls display your own brand). `bpo` for a Business Process
+             * Outsourcer: a call center that places calls on behalf of other enterprises and
+             * displays their brand. A `bpo` enterprise describes the call center itself and cannot
+             * own a DIR. Each client the call center calls for gets its own `enterprise` in the
+             * same account, with the client's DIR under it; that DIR is then linked to the `bpo`
+             * enterprise through `bpo_authorizations`. Fixed at creation.
              */
             fun roleType(roleType: RoleType) = roleType(JsonField.of(roleType))
 
@@ -2001,7 +2123,10 @@ private constructor(
             "Body{billingAddress=$billingAddress, billingContact=$billingContact, countryCode=$countryCode, doingBusinessAs=$doingBusinessAs, fein=$fein, industry=$industry, jurisdictionOfIncorporation=$jurisdictionOfIncorporation, legalName=$legalName, numberOfEmployees=$numberOfEmployees, organizationContact=$organizationContact, organizationLegalType=$organizationLegalType, organizationPhysicalAddress=$organizationPhysicalAddress, organizationType=$organizationType, website=$website, corporateRegistrationNumber=$corporateRegistrationNumber, customerReference=$customerReference, dunBradstreetNumber=$dunBradstreetNumber, primaryBusinessDomainSicCode=$primaryBusinessDomainSicCode, professionalLicenseNumber=$professionalLicenseNumber, roleType=$roleType, additionalProperties=$additionalProperties}"
     }
 
-    /** Industry classification. */
+    /**
+     * The industry your business operates in. Choose the closest match from the list; if your value
+     * is not accepted, pick the nearest category.
+     */
     class Industry @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -2874,8 +2999,12 @@ private constructor(
     }
 
     /**
-     * `enterprise` for an organization registering its own DIRs; `bpo` for a Business Process
-     * Outsourcer placing calls on behalf of one or more enterprises.
+     * `enterprise` for an organization registering its own DIRs (the default, and the right choice
+     * when the calls display your own brand). `bpo` for a Business Process Outsourcer: a call
+     * center that places calls on behalf of other enterprises and displays their brand. A `bpo`
+     * enterprise describes the call center itself and cannot own a DIR. Each client the call center
+     * calls for gets its own `enterprise` in the same account, with the client's DIR under it; that
+     * DIR is then linked to the `bpo` enterprise through `bpo_authorizations`. Fixed at creation.
      */
     class RoleType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 

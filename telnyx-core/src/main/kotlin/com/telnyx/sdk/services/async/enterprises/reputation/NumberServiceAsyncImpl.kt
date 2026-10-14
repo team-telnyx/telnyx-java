@@ -24,8 +24,11 @@ import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParam
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPageAsync
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberOwnershipConfirmParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshResponse
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveOwnershipParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveOwnershipResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberList
 import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationPhoneNumberWithReputation
@@ -74,12 +77,26 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}
         withRawResponse().disassociate(params, requestOptions).mapCancellable { null }
 
+    override fun ownershipConfirm(
+        params: NumberOwnershipConfirmParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ReputationPhoneNumberWithReputation> =
+        // post /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership_confirm
+        withRawResponse().ownershipConfirm(params, requestOptions).mapCancellable { it.parse() }
+
     override fun refresh(
         params: NumberRefreshParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<NumberRefreshResponse> =
         // post /enterprises/{enterprise_id}/reputation/numbers/refresh
         withRawResponse().refresh(params, requestOptions).mapCancellable { it.parse() }
+
+    override fun retrieveOwnership(
+        params: NumberRetrieveOwnershipParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<NumberRetrieveOwnershipResponse> =
+        // get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership
+        withRawResponse().retrieveOwnership(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         NumberServiceAsync.WithRawResponse {
@@ -249,6 +266,49 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
+        private val ownershipConfirmHandler: Handler<ReputationPhoneNumberWithReputation> =
+            jsonHandler<ReputationPhoneNumberWithReputation>(clientOptions.jsonMapper)
+
+        override fun ownershipConfirm(
+            params: NumberOwnershipConfirmParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ReputationPhoneNumberWithReputation>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("phoneNumber", params.phoneNumber().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "enterprises",
+                        params._pathParam(0),
+                        "reputation",
+                        "numbers",
+                        params._pathParam(1),
+                        "ownership_confirm",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { ownershipConfirmHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
         private val refreshHandler: Handler<NumberRefreshResponse> =
             jsonHandler<NumberRefreshResponse>(clientOptions.jsonMapper)
 
@@ -282,6 +342,48 @@ class NumberServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     errorHandler.handle(response).parseable {
                         response
                             .use { refreshHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val retrieveOwnershipHandler: Handler<NumberRetrieveOwnershipResponse> =
+            jsonHandler<NumberRetrieveOwnershipResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveOwnership(
+            params: NumberRetrieveOwnershipParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<NumberRetrieveOwnershipResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("phoneNumber", params.phoneNumber().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "enterprises",
+                        params._pathParam(0),
+                        "reputation",
+                        "numbers",
+                        params._pathParam(1),
+                        "ownership",
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveOwnershipHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

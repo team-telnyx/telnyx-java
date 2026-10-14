@@ -31,6 +31,7 @@ internal class DirListTest {
                         .certifyIpOwnership(true)
                         .certifyNoShaftContent(true)
                         .createdAt(OffsetDateTime.parse("2026-04-26T18:06:51.940749Z"))
+                        .deleteRequestedAt(OffsetDateTime.parse("2026-04-27T09:12:44.201820Z"))
                         .displayName("Acme Plumbing")
                         .addDocument(
                             Document.builder()
@@ -56,6 +57,7 @@ internal class DirListTest {
                         .submittedAt(OffsetDateTime.parse("2026-04-26T18:07:03.716411Z"))
                         .updatedAt(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
                         .verifiedAt(OffsetDateTime.parse("2026-04-26T18:07:29.537926Z"))
+                        .webhookUrl("https://acmehealthcare.example.com/webhooks/branded-calling")
                         .build()
                 )
                 .meta(
@@ -84,6 +86,7 @@ internal class DirListTest {
                     .certifyIpOwnership(true)
                     .certifyNoShaftContent(true)
                     .createdAt(OffsetDateTime.parse("2026-04-26T18:06:51.940749Z"))
+                    .deleteRequestedAt(OffsetDateTime.parse("2026-04-27T09:12:44.201820Z"))
                     .displayName("Acme Plumbing")
                     .addDocument(
                         Document.builder()
@@ -109,6 +112,7 @@ internal class DirListTest {
                     .submittedAt(OffsetDateTime.parse("2026-04-26T18:07:03.716411Z"))
                     .updatedAt(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
                     .verifiedAt(OffsetDateTime.parse("2026-04-26T18:07:29.537926Z"))
+                    .webhookUrl("https://acmehealthcare.example.com/webhooks/branded-calling")
                     .build()
             )
         assertThat(dirList.meta())
@@ -142,6 +146,7 @@ internal class DirListTest {
                         .certifyIpOwnership(true)
                         .certifyNoShaftContent(true)
                         .createdAt(OffsetDateTime.parse("2026-04-26T18:06:51.940749Z"))
+                        .deleteRequestedAt(OffsetDateTime.parse("2026-04-27T09:12:44.201820Z"))
                         .displayName("Acme Plumbing")
                         .addDocument(
                             Document.builder()
@@ -167,6 +172,7 @@ internal class DirListTest {
                         .submittedAt(OffsetDateTime.parse("2026-04-26T18:07:03.716411Z"))
                         .updatedAt(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
                         .verifiedAt(OffsetDateTime.parse("2026-04-26T18:07:29.537926Z"))
+                        .webhookUrl("https://acmehealthcare.example.com/webhooks/branded-calling")
                         .build()
                 )
                 .meta(

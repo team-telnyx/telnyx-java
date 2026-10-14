@@ -29,6 +29,7 @@ internal class DirTest {
                 .certifyIpOwnership(true)
                 .certifyNoShaftContent(true)
                 .createdAt(OffsetDateTime.parse("2026-04-26T18:06:51.940749Z"))
+                .deleteRequestedAt(OffsetDateTime.parse("2026-04-27T09:12:44.201820Z"))
                 .displayName("Acme Plumbing")
                 .addDocument(
                     Document.builder()
@@ -54,6 +55,7 @@ internal class DirTest {
                 .submittedAt(OffsetDateTime.parse("2026-04-26T18:07:03.716411Z"))
                 .updatedAt(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
                 .verifiedAt(OffsetDateTime.parse("2026-04-26T18:07:29.537926Z"))
+                .webhookUrl("https://acmehealthcare.example.com/webhooks/branded-calling")
                 .build()
 
         assertThat(dir.id()).contains("16635d38-75a6-4481-82e8-69af60e05011")
@@ -70,6 +72,8 @@ internal class DirTest {
         assertThat(dir.certifyIpOwnership()).contains(true)
         assertThat(dir.certifyNoShaftContent()).contains(true)
         assertThat(dir.createdAt()).contains(OffsetDateTime.parse("2026-04-26T18:06:51.940749Z"))
+        assertThat(dir.deleteRequestedAt())
+            .contains(OffsetDateTime.parse("2026-04-27T09:12:44.201820Z"))
         assertThat(dir.displayName()).contains("Acme Plumbing")
         assertThat(dir.documents().getOrNull())
             .containsExactly(
@@ -97,6 +101,8 @@ internal class DirTest {
         assertThat(dir.submittedAt()).contains(OffsetDateTime.parse("2026-04-26T18:07:03.716411Z"))
         assertThat(dir.updatedAt()).contains(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
         assertThat(dir.verifiedAt()).contains(OffsetDateTime.parse("2026-04-26T18:07:29.537926Z"))
+        assertThat(dir.webhookUrl())
+            .contains("https://acmehealthcare.example.com/webhooks/branded-calling")
     }
 
     @Test
@@ -117,6 +123,7 @@ internal class DirTest {
                 .certifyIpOwnership(true)
                 .certifyNoShaftContent(true)
                 .createdAt(OffsetDateTime.parse("2026-04-26T18:06:51.940749Z"))
+                .deleteRequestedAt(OffsetDateTime.parse("2026-04-27T09:12:44.201820Z"))
                 .displayName("Acme Plumbing")
                 .addDocument(
                     Document.builder()
@@ -142,6 +149,7 @@ internal class DirTest {
                 .submittedAt(OffsetDateTime.parse("2026-04-26T18:07:03.716411Z"))
                 .updatedAt(OffsetDateTime.parse("2026-04-26T18:09:24.785211Z"))
                 .verifiedAt(OffsetDateTime.parse("2026-04-26T18:07:29.537926Z"))
+                .webhookUrl("https://acmehealthcare.example.com/webhooks/branded-calling")
                 .build()
 
         val roundtrippedDir =

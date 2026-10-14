@@ -27,6 +27,7 @@ internal class ActionPayParamsTest {
                     .putAdditionalProperty("order_id", JsonValue.from("bar"))
                     .build()
             )
+            .minPostalCodeLength(5L)
             .parameters(
                 ActionPayParams.Parameters.builder()
                     .putAdditionalProperty("customer_id", JsonValue.from("bar"))
@@ -34,6 +35,7 @@ internal class ActionPayParamsTest {
             )
             .paymentMethod(ActionPayParams.PaymentMethod.CREDIT_CARD)
             .paymentToken("tok_abc123")
+            .postalCode(false)
             .prompts(
                 ActionPayParams.Prompts.builder()
                     .bankAccountNumber("x")
@@ -96,6 +98,7 @@ internal class ActionPayParamsTest {
                         .putAdditionalProperty("order_id", JsonValue.from("bar"))
                         .build()
                 )
+                .minPostalCodeLength(5L)
                 .parameters(
                     ActionPayParams.Parameters.builder()
                         .putAdditionalProperty("customer_id", JsonValue.from("bar"))
@@ -103,6 +106,7 @@ internal class ActionPayParamsTest {
                 )
                 .paymentMethod(ActionPayParams.PaymentMethod.CREDIT_CARD)
                 .paymentToken("tok_abc123")
+                .postalCode(false)
                 .prompts(
                     ActionPayParams.Prompts.builder()
                         .bankAccountNumber("x")
@@ -157,6 +161,7 @@ internal class ActionPayParamsTest {
                     .putAdditionalProperty("order_id", JsonValue.from("bar"))
                     .build()
             )
+        assertThat(body.minPostalCodeLength()).contains(5L)
         assertThat(body.parameters())
             .contains(
                 ActionPayParams.Parameters.builder()
@@ -165,6 +170,7 @@ internal class ActionPayParamsTest {
             )
         assertThat(body.paymentMethod()).contains(ActionPayParams.PaymentMethod.CREDIT_CARD)
         assertThat(body.paymentToken()).contains("tok_abc123")
+        assertThat(body.postalCode()).contains(ActionPayParams.PostalCode.ofBool(false))
         assertThat(body.prompts())
             .contains(
                 ActionPayParams.Prompts.builder()

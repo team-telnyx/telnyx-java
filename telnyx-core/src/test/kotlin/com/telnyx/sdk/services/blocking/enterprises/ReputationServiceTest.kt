@@ -6,6 +6,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.enterprises.reputation.ReputationCheckFrequency
 import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateWebhookParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -61,6 +62,23 @@ internal class ReputationServiceTest {
                 ReputationUpdateFrequencyParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                     .checkFrequency(ReputationCheckFrequency.WEEKLY)
+                    .build()
+            )
+
+        enterpriseReputationPublicWrapped.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateWebhook() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val reputationService = client.enterprises().reputation()
+
+        val enterpriseReputationPublicWrapped =
+            reputationService.updateWebhook(
+                ReputationUpdateWebhookParams.builder()
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .webhookUrl("https://example.com/webhooks/telnyx")
                     .build()
             )
 

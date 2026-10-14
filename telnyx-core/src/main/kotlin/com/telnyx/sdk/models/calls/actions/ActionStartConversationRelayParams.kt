@@ -226,12 +226,14 @@ private constructor(
      * Engine-specific transcription settings for Conversation Relay. This accepts the same
      * provider-specific options used by the Call Transcription Start command, such as
      * `transcription_model`, without requiring the engine discriminator to be repeated inside this
-     * object.
+     * object. With Deepgram Flux (`deepgram/flux`), `interim_results`, `eot_threshold` and
+     * `eager_eot_threshold` control the interim prompts and the `eagerEndOfTurn` and `turnResumed`
+     * frames sent to your WebSocket server.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun transcriptionEngineConfig(): Optional<TranscriptionEngineConfig> =
+    fun transcriptionEngineConfig(): Optional<ConversationRelayTranscriptionEngineConfig> =
         body.transcriptionEngineConfig()
 
     /**
@@ -261,10 +263,10 @@ private constructor(
      *   `AWS.Polly.Joanna-Neural`). Check the
      *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for
      *   compatibility.
-     * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural,
-     *   Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a complete
-     *   list of voices, go to
-     *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+     * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+     *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
+     *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+     *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
      * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.BaseModel.John`).
      *   The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key
      *   as an integration secret under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See
@@ -446,7 +448,7 @@ private constructor(
      * Unlike [transcriptionEngineConfig], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
-    fun _transcriptionEngineConfig(): JsonField<TranscriptionEngineConfig> =
+    fun _transcriptionEngineConfig(): JsonField<ConversationRelayTranscriptionEngineConfig> =
         body._transcriptionEngineConfig()
 
     /**
@@ -855,22 +857,23 @@ private constructor(
          * Engine-specific transcription settings for Conversation Relay. This accepts the same
          * provider-specific options used by the Call Transcription Start command, such as
          * `transcription_model`, without requiring the engine discriminator to be repeated inside
-         * this object.
+         * this object. With Deepgram Flux (`deepgram/flux`), `interim_results`, `eot_threshold` and
+         * `eager_eot_threshold` control the interim prompts and the `eagerEndOfTurn` and
+         * `turnResumed` frames sent to your WebSocket server.
          */
-        fun transcriptionEngineConfig(transcriptionEngineConfig: TranscriptionEngineConfig) =
-            apply {
-                body.transcriptionEngineConfig(transcriptionEngineConfig)
-            }
+        fun transcriptionEngineConfig(
+            transcriptionEngineConfig: ConversationRelayTranscriptionEngineConfig
+        ) = apply { body.transcriptionEngineConfig(transcriptionEngineConfig) }
 
         /**
          * Sets [Builder.transcriptionEngineConfig] to an arbitrary JSON value.
          *
          * You should usually call [Builder.transcriptionEngineConfig] with a well-typed
-         * [TranscriptionEngineConfig] value instead. This method is primarily for setting the field
-         * to an undocumented or not yet supported value.
+         * [ConversationRelayTranscriptionEngineConfig] value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
         fun transcriptionEngineConfig(
-            transcriptionEngineConfig: JsonField<TranscriptionEngineConfig>
+            transcriptionEngineConfig: JsonField<ConversationRelayTranscriptionEngineConfig>
         ) = apply { body.transcriptionEngineConfig(transcriptionEngineConfig) }
 
         /** Text-to-speech provider. If omitted, Telnyx derives it from `voice` or `provider`. */
@@ -909,10 +912,10 @@ private constructor(
          *   `AWS.Polly.Joanna-Neural`). Check the
          *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
          *   for compatibility.
-         * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural,
-         *   Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a
-         *   complete list of voices, go to
-         *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+         * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+         *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
+         *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+         *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
          * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
          *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use ElevenLabs, you
          *   must provide your ElevenLabs API key as an integration secret under `"voice_settings":
@@ -1138,7 +1141,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     /**
-     * Start a Conversation Relay session. You may provide the WebSocket URL as `url`,
+     * Start a Conversation Relay session. A WebSocket URL is required: provide it as `url`,
      * `conversation_relay_url`, or `conversation_relay_settings.url`; top-level values take
      * precedence over nested settings. Use `transcription_engine` and `transcription_engine_config`
      * for speech-to-text configuration; the `transcription` object is not supported.
@@ -1164,7 +1167,8 @@ private constructor(
         private val structuredProvider: JsonField<StructuredProvider>,
         private val transcription: JsonField<Transcription>,
         private val transcriptionEngine: JsonField<TranscriptionEngine>,
-        private val transcriptionEngineConfig: JsonField<TranscriptionEngineConfig>,
+        private val transcriptionEngineConfig:
+            JsonField<ConversationRelayTranscriptionEngineConfig>,
         private val ttsProvider: JsonField<String>,
         private val url: JsonField<String>,
         private val voice: JsonField<String>,
@@ -1231,7 +1235,8 @@ private constructor(
             transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of(),
             @JsonProperty("transcription_engine_config")
             @ExcludeMissing
-            transcriptionEngineConfig: JsonField<TranscriptionEngineConfig> = JsonMissing.of(),
+            transcriptionEngineConfig: JsonField<ConversationRelayTranscriptionEngineConfig> =
+                JsonMissing.of(),
             @JsonProperty("tts_provider")
             @ExcludeMissing
             ttsProvider: JsonField<String> = JsonMissing.of(),
@@ -1443,12 +1448,14 @@ private constructor(
          * Engine-specific transcription settings for Conversation Relay. This accepts the same
          * provider-specific options used by the Call Transcription Start command, such as
          * `transcription_model`, without requiring the engine discriminator to be repeated inside
-         * this object.
+         * this object. With Deepgram Flux (`deepgram/flux`), `interim_results`, `eot_threshold` and
+         * `eager_eot_threshold` control the interim prompts and the `eagerEndOfTurn` and
+         * `turnResumed` frames sent to your WebSocket server.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun transcriptionEngineConfig(): Optional<TranscriptionEngineConfig> =
+        fun transcriptionEngineConfig(): Optional<ConversationRelayTranscriptionEngineConfig> =
             transcriptionEngineConfig.getOptional("transcription_engine_config")
 
         /**
@@ -1478,10 +1485,10 @@ private constructor(
          *   `AWS.Polly.Joanna-Neural`). Check the
          *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
          *   for compatibility.
-         * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural,
-         *   Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a
-         *   complete list of voices, go to
-         *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+         * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+         *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
+         *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+         *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
          * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
          *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use ElevenLabs, you
          *   must provide your ElevenLabs API key as an integration secret under `"voice_settings":
@@ -1697,7 +1704,7 @@ private constructor(
          */
         @JsonProperty("transcription_engine_config")
         @ExcludeMissing
-        fun _transcriptionEngineConfig(): JsonField<TranscriptionEngineConfig> =
+        fun _transcriptionEngineConfig(): JsonField<ConversationRelayTranscriptionEngineConfig> =
             transcriptionEngineConfig
 
         /**
@@ -1775,7 +1782,8 @@ private constructor(
             private var structuredProvider: JsonField<StructuredProvider> = JsonMissing.of()
             private var transcription: JsonField<Transcription> = JsonMissing.of()
             private var transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of()
-            private var transcriptionEngineConfig: JsonField<TranscriptionEngineConfig> =
+            private var transcriptionEngineConfig:
+                JsonField<ConversationRelayTranscriptionEngineConfig> =
                 JsonMissing.of()
             private var ttsProvider: JsonField<String> = JsonMissing.of()
             private var url: JsonField<String> = JsonMissing.of()
@@ -2128,20 +2136,23 @@ private constructor(
              * Engine-specific transcription settings for Conversation Relay. This accepts the same
              * provider-specific options used by the Call Transcription Start command, such as
              * `transcription_model`, without requiring the engine discriminator to be repeated
-             * inside this object.
+             * inside this object. With Deepgram Flux (`deepgram/flux`), `interim_results`,
+             * `eot_threshold` and `eager_eot_threshold` control the interim prompts and the
+             * `eagerEndOfTurn` and `turnResumed` frames sent to your WebSocket server.
              */
-            fun transcriptionEngineConfig(transcriptionEngineConfig: TranscriptionEngineConfig) =
-                transcriptionEngineConfig(JsonField.of(transcriptionEngineConfig))
+            fun transcriptionEngineConfig(
+                transcriptionEngineConfig: ConversationRelayTranscriptionEngineConfig
+            ) = transcriptionEngineConfig(JsonField.of(transcriptionEngineConfig))
 
             /**
              * Sets [Builder.transcriptionEngineConfig] to an arbitrary JSON value.
              *
              * You should usually call [Builder.transcriptionEngineConfig] with a well-typed
-             * [TranscriptionEngineConfig] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * [ConversationRelayTranscriptionEngineConfig] value instead. This method is primarily
+             * for setting the field to an undocumented or not yet supported value.
              */
             fun transcriptionEngineConfig(
-                transcriptionEngineConfig: JsonField<TranscriptionEngineConfig>
+                transcriptionEngineConfig: JsonField<ConversationRelayTranscriptionEngineConfig>
             ) = apply { this.transcriptionEngineConfig = transcriptionEngineConfig }
 
             /**
@@ -2185,10 +2196,10 @@ private constructor(
              *   (e.g., `AWS.Polly.Joanna-Neural`). Check the
              *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
              *   for compatibility.
-             * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-             *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-             *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-             *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+             * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+             *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
+             *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+             *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
              * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
              *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use ElevenLabs,
              *   you must provide your ElevenLabs API key as an integration secret under
@@ -3677,126 +3688,6 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
-    }
-
-    /**
-     * Engine-specific transcription settings for Conversation Relay. This accepts the same
-     * provider-specific options used by the Call Transcription Start command, such as
-     * `transcription_model`, without requiring the engine discriminator to be repeated inside this
-     * object.
-     */
-    class TranscriptionEngineConfig
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
-    ) {
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [TranscriptionEngineConfig].
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [TranscriptionEngineConfig]. */
-        class Builder internal constructor() {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(transcriptionEngineConfig: TranscriptionEngineConfig) = apply {
-                additionalProperties = transcriptionEngineConfig.additionalProperties.toMutableMap()
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [TranscriptionEngineConfig].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): TranscriptionEngineConfig =
-                TranscriptionEngineConfig(additionalProperties.toImmutable())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): TranscriptionEngineConfig = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is TranscriptionEngineConfig &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "TranscriptionEngineConfig{additionalProperties=$additionalProperties}"
     }
 
     /** The settings associated with the voice selected */

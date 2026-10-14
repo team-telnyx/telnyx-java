@@ -202,8 +202,7 @@ private constructor(
         ) : this(expiresAt, type, url, mutableMapOf())
 
         /**
-         * Expiry timestamp when supplied by the provider, or null. The current adapter returns
-         * null.
+         * Expiry timestamp when available, or null. Currently returns null.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -289,10 +288,7 @@ private constructor(
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
-            /**
-             * Expiry timestamp when supplied by the provider, or null. The current adapter returns
-             * null.
-             */
+            /** Expiry timestamp when available, or null. Currently returns null. */
             fun expiresAt(expiresAt: String?) = expiresAt(JsonField.ofNullable(expiresAt))
 
             /** Alias for calling [Builder.expiresAt] with `expiresAt.orElse(null)`. */

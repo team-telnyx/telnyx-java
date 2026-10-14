@@ -25,7 +25,9 @@ internal class EmbeddingServiceAsyncTest {
                     .bucketName("Bucket Name")
                     .documentChunkOverlapSize(512L)
                     .documentChunkSize(1024L)
-                    .embeddingModel(EmbeddingCreateParams.EmbeddingModel.THENLPER_GTE_LARGE)
+                    .embeddingModel(
+                        EmbeddingCreateParams.EmbeddingModel.INTFLOAT_MULTILINGUAL_E5_LARGE
+                    )
                     .loader(EmbeddingCreateParams.Loader.DEFAULT)
                     .build()
             )

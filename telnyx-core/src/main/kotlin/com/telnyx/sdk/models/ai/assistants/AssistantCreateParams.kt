@@ -69,6 +69,15 @@ private constructor(
     fun a2aAgents(): Optional<List<AssistantA2AAgent>> = body.a2aAgents()
 
     /**
+     * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
+     * supports six avatars and office, studio, or reception backgrounds.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun avatarSettings(): Optional<AvatarSettingsRequest> = body.avatarSettings()
+
+    /**
      * Conversation flow as supplied by API clients (create / update).
      *
      * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
@@ -79,6 +88,19 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun conversationFlow(): Optional<ConversationFlowReq> = body.conversationFlow()
+
+    /**
+     * Splits the conversation between a frontend model that talks to the caller and a backend model
+     * that does the work. On the GPT-Live route the frontend model cannot call tools at all — when
+     * it needs something done it raises a delegation and waits. On the chat completion route the
+     * frontend keeps a single `delegate` tool that returns immediately, so the conversation carries
+     * on while the backend works. Either way the backend's answer is spoken as commentary or kept
+     * as silent context, depending on `speak_results`. Beta feature.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun delegationSettings(): Optional<DelegationSettings> = body.delegationSettings()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -289,6 +311,18 @@ private constructor(
     fun voiceSettings(): Optional<InferenceEmbeddingVoiceSettings> = body.voiceSettings()
 
     /**
+     * Streams conversation and telephony events to a WebSocket server you host, and accepts
+     * messages injected back into the conversation. Telnyx opens the connection as a client, once
+     * per conversation. Delivery is best effort throughout: while the connection is down events are
+     * dropped rather than queued, and no socket failure is ever allowed to affect the call. Beta
+     * feature.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun websocketSettings(): Optional<WebsocketSettings> = body.websocketSettings()
+
+    /**
      * Configuration settings for the assistant's web widget.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -318,12 +352,27 @@ private constructor(
     fun _a2aAgents(): JsonField<List<AssistantA2AAgent>> = body._a2aAgents()
 
     /**
+     * Returns the raw JSON value of [avatarSettings].
+     *
+     * Unlike [avatarSettings], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _avatarSettings(): JsonField<AvatarSettingsRequest> = body._avatarSettings()
+
+    /**
      * Returns the raw JSON value of [conversationFlow].
      *
      * Unlike [conversationFlow], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
     fun _conversationFlow(): JsonField<ConversationFlowReq> = body._conversationFlow()
+
+    /**
+     * Returns the raw JSON value of [delegationSettings].
+     *
+     * Unlike [delegationSettings], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _delegationSettings(): JsonField<DelegationSettings> = body._delegationSettings()
 
     /**
      * Returns the raw JSON value of [description].
@@ -505,6 +554,14 @@ private constructor(
     fun _voiceSettings(): JsonField<InferenceEmbeddingVoiceSettings> = body._voiceSettings()
 
     /**
+     * Returns the raw JSON value of [websocketSettings].
+     *
+     * Unlike [websocketSettings], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _websocketSettings(): JsonField<WebsocketSettings> = body._websocketSettings()
+
+    /**
      * Returns the raw JSON value of [widgetSettings].
      *
      * Unlike [widgetSettings], this method doesn't throw if the JSON field has an unexpected type.
@@ -566,8 +623,8 @@ private constructor(
          * - [instructions]
          * - [name]
          * - [a2aAgents]
+         * - [avatarSettings]
          * - [conversationFlow]
-         * - [description]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -629,6 +686,29 @@ private constructor(
         fun addA2aAgent(a2aAgent: AssistantA2AAgent) = apply { body.addA2aAgent(a2aAgent) }
 
         /**
+         * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
+         * supports six avatars and office, studio, or reception backgrounds.
+         */
+        fun avatarSettings(avatarSettings: AvatarSettingsRequest?) = apply {
+            body.avatarSettings(avatarSettings)
+        }
+
+        /** Alias for calling [Builder.avatarSettings] with `avatarSettings.orElse(null)`. */
+        fun avatarSettings(avatarSettings: Optional<AvatarSettingsRequest>) =
+            avatarSettings(avatarSettings.getOrNull())
+
+        /**
+         * Sets [Builder.avatarSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.avatarSettings] with a well-typed
+         * [AvatarSettingsRequest] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun avatarSettings(avatarSettings: JsonField<AvatarSettingsRequest>) = apply {
+            body.avatarSettings(avatarSettings)
+        }
+
+        /**
          * Conversation flow as supplied by API clients (create / update).
          *
          * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
@@ -648,6 +728,30 @@ private constructor(
          */
         fun conversationFlow(conversationFlow: JsonField<ConversationFlowReq>) = apply {
             body.conversationFlow(conversationFlow)
+        }
+
+        /**
+         * Splits the conversation between a frontend model that talks to the caller and a backend
+         * model that does the work. On the GPT-Live route the frontend model cannot call tools at
+         * all — when it needs something done it raises a delegation and waits. On the chat
+         * completion route the frontend keeps a single `delegate` tool that returns immediately, so
+         * the conversation carries on while the backend works. Either way the backend's answer is
+         * spoken as commentary or kept as silent context, depending on `speak_results`. Beta
+         * feature.
+         */
+        fun delegationSettings(delegationSettings: DelegationSettings) = apply {
+            body.delegationSettings(delegationSettings)
+        }
+
+        /**
+         * Sets [Builder.delegationSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.delegationSettings] with a well-typed
+         * [DelegationSettings] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun delegationSettings(delegationSettings: JsonField<DelegationSettings>) = apply {
+            body.delegationSettings(delegationSettings)
         }
 
         fun description(description: String) = apply { body.description(description) }
@@ -1311,6 +1415,28 @@ private constructor(
             body.voiceSettings(voiceSettings)
         }
 
+        /**
+         * Streams conversation and telephony events to a WebSocket server you host, and accepts
+         * messages injected back into the conversation. Telnyx opens the connection as a client,
+         * once per conversation. Delivery is best effort throughout: while the connection is down
+         * events are dropped rather than queued, and no socket failure is ever allowed to affect
+         * the call. Beta feature.
+         */
+        fun websocketSettings(websocketSettings: WebsocketSettings) = apply {
+            body.websocketSettings(websocketSettings)
+        }
+
+        /**
+         * Sets [Builder.websocketSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.websocketSettings] with a well-typed [WebsocketSettings]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun websocketSettings(websocketSettings: JsonField<WebsocketSettings>) = apply {
+            body.websocketSettings(websocketSettings)
+        }
+
         /** Configuration settings for the assistant's web widget. */
         fun widgetSettings(widgetSettings: WidgetSettings) = apply {
             body.widgetSettings(widgetSettings)
@@ -1485,7 +1611,9 @@ private constructor(
         private val instructions: JsonField<String>,
         private val name: JsonField<String>,
         private val a2aAgents: JsonField<List<AssistantA2AAgent>>,
+        private val avatarSettings: JsonField<AvatarSettingsRequest>,
         private val conversationFlow: JsonField<ConversationFlowReq>,
+        private val delegationSettings: JsonField<DelegationSettings>,
         private val description: JsonField<String>,
         private val dynamicVariables: JsonField<DynamicVariables>,
         private val dynamicVariablesWebhookTimeoutMs: JsonField<Long>,
@@ -1510,6 +1638,7 @@ private constructor(
         private val tools: JsonField<List<AssistantTool>>,
         private val transcription: JsonField<TranscriptionSettings>,
         private val voiceSettings: JsonField<InferenceEmbeddingVoiceSettings>,
+        private val websocketSettings: JsonField<WebsocketSettings>,
         private val widgetSettings: JsonField<WidgetSettings>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1523,9 +1652,15 @@ private constructor(
             @JsonProperty("a2a_agents")
             @ExcludeMissing
             a2aAgents: JsonField<List<AssistantA2AAgent>> = JsonMissing.of(),
+            @JsonProperty("avatar_settings")
+            @ExcludeMissing
+            avatarSettings: JsonField<AvatarSettingsRequest> = JsonMissing.of(),
             @JsonProperty("conversation_flow")
             @ExcludeMissing
             conversationFlow: JsonField<ConversationFlowReq> = JsonMissing.of(),
+            @JsonProperty("delegation_settings")
+            @ExcludeMissing
+            delegationSettings: JsonField<DelegationSettings> = JsonMissing.of(),
             @JsonProperty("description")
             @ExcludeMissing
             description: JsonField<String> = JsonMissing.of(),
@@ -1595,6 +1730,9 @@ private constructor(
             @JsonProperty("voice_settings")
             @ExcludeMissing
             voiceSettings: JsonField<InferenceEmbeddingVoiceSettings> = JsonMissing.of(),
+            @JsonProperty("websocket_settings")
+            @ExcludeMissing
+            websocketSettings: JsonField<WebsocketSettings> = JsonMissing.of(),
             @JsonProperty("widget_settings")
             @ExcludeMissing
             widgetSettings: JsonField<WidgetSettings> = JsonMissing.of(),
@@ -1602,7 +1740,9 @@ private constructor(
             instructions,
             name,
             a2aAgents,
+            avatarSettings,
             conversationFlow,
+            delegationSettings,
             description,
             dynamicVariables,
             dynamicVariablesWebhookTimeoutMs,
@@ -1627,6 +1767,7 @@ private constructor(
             tools,
             transcription,
             voiceSettings,
+            websocketSettings,
             widgetSettings,
             mutableMapOf(),
         )
@@ -1661,6 +1802,16 @@ private constructor(
         fun a2aAgents(): Optional<List<AssistantA2AAgent>> = a2aAgents.getOptional("a2a_agents")
 
         /**
+         * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
+         * supports six avatars and office, studio, or reception backgrounds.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun avatarSettings(): Optional<AvatarSettingsRequest> =
+            avatarSettings.getOptional("avatar_settings")
+
+        /**
          * Conversation flow as supplied by API clients (create / update).
          *
          * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces unique
@@ -1672,6 +1823,21 @@ private constructor(
          */
         fun conversationFlow(): Optional<ConversationFlowReq> =
             conversationFlow.getOptional("conversation_flow")
+
+        /**
+         * Splits the conversation between a frontend model that talks to the caller and a backend
+         * model that does the work. On the GPT-Live route the frontend model cannot call tools at
+         * all — when it needs something done it raises a delegation and waits. On the chat
+         * completion route the frontend keeps a single `delegate` tool that returns immediately, so
+         * the conversation carries on while the backend works. Either way the backend's answer is
+         * spoken as commentary or kept as silent context, depending on `speak_results`. Beta
+         * feature.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun delegationSettings(): Optional<DelegationSettings> =
+            delegationSettings.getOptional("delegation_settings")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1896,6 +2062,19 @@ private constructor(
             voiceSettings.getOptional("voice_settings")
 
         /**
+         * Streams conversation and telephony events to a WebSocket server you host, and accepts
+         * messages injected back into the conversation. Telnyx opens the connection as a client,
+         * once per conversation. Delivery is best effort throughout: while the connection is down
+         * events are dropped rather than queued, and no socket failure is ever allowed to affect
+         * the call. Beta feature.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun websocketSettings(): Optional<WebsocketSettings> =
+            websocketSettings.getOptional("websocket_settings")
+
+        /**
          * Configuration settings for the assistant's web widget.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1931,6 +2110,16 @@ private constructor(
         fun _a2aAgents(): JsonField<List<AssistantA2AAgent>> = a2aAgents
 
         /**
+         * Returns the raw JSON value of [avatarSettings].
+         *
+         * Unlike [avatarSettings], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("avatar_settings")
+        @ExcludeMissing
+        fun _avatarSettings(): JsonField<AvatarSettingsRequest> = avatarSettings
+
+        /**
          * Returns the raw JSON value of [conversationFlow].
          *
          * Unlike [conversationFlow], this method doesn't throw if the JSON field has an unexpected
@@ -1939,6 +2128,16 @@ private constructor(
         @JsonProperty("conversation_flow")
         @ExcludeMissing
         fun _conversationFlow(): JsonField<ConversationFlowReq> = conversationFlow
+
+        /**
+         * Returns the raw JSON value of [delegationSettings].
+         *
+         * Unlike [delegationSettings], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("delegation_settings")
+        @ExcludeMissing
+        fun _delegationSettings(): JsonField<DelegationSettings> = delegationSettings
 
         /**
          * Returns the raw JSON value of [description].
@@ -2165,6 +2364,16 @@ private constructor(
         fun _voiceSettings(): JsonField<InferenceEmbeddingVoiceSettings> = voiceSettings
 
         /**
+         * Returns the raw JSON value of [websocketSettings].
+         *
+         * Unlike [websocketSettings], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("websocket_settings")
+        @ExcludeMissing
+        fun _websocketSettings(): JsonField<WebsocketSettings> = websocketSettings
+
+        /**
          * Returns the raw JSON value of [widgetSettings].
          *
          * Unlike [widgetSettings], this method doesn't throw if the JSON field has an unexpected
@@ -2206,7 +2415,9 @@ private constructor(
             private var instructions: JsonField<String>? = null
             private var name: JsonField<String>? = null
             private var a2aAgents: JsonField<MutableList<AssistantA2AAgent>>? = null
+            private var avatarSettings: JsonField<AvatarSettingsRequest> = JsonMissing.of()
             private var conversationFlow: JsonField<ConversationFlowReq> = JsonMissing.of()
+            private var delegationSettings: JsonField<DelegationSettings> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
             private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
             private var dynamicVariablesWebhookTimeoutMs: JsonField<Long> = JsonMissing.of()
@@ -2233,6 +2444,7 @@ private constructor(
             private var tools: JsonField<MutableList<AssistantTool>>? = null
             private var transcription: JsonField<TranscriptionSettings> = JsonMissing.of()
             private var voiceSettings: JsonField<InferenceEmbeddingVoiceSettings> = JsonMissing.of()
+            private var websocketSettings: JsonField<WebsocketSettings> = JsonMissing.of()
             private var widgetSettings: JsonField<WidgetSettings> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -2241,7 +2453,9 @@ private constructor(
                 instructions = body.instructions
                 name = body.name
                 a2aAgents = body.a2aAgents.map { it.toMutableList() }
+                avatarSettings = body.avatarSettings
                 conversationFlow = body.conversationFlow
+                delegationSettings = body.delegationSettings
                 description = body.description
                 dynamicVariables = body.dynamicVariables
                 dynamicVariablesWebhookTimeoutMs = body.dynamicVariablesWebhookTimeoutMs
@@ -2266,6 +2480,7 @@ private constructor(
                 tools = body.tools.map { it.toMutableList() }
                 transcription = body.transcription
                 voiceSettings = body.voiceSettings
+                websocketSettings = body.websocketSettings
                 widgetSettings = body.widgetSettings
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -2334,6 +2549,28 @@ private constructor(
             }
 
             /**
+             * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
+             * catalog supports six avatars and office, studio, or reception backgrounds.
+             */
+            fun avatarSettings(avatarSettings: AvatarSettingsRequest?) =
+                avatarSettings(JsonField.ofNullable(avatarSettings))
+
+            /** Alias for calling [Builder.avatarSettings] with `avatarSettings.orElse(null)`. */
+            fun avatarSettings(avatarSettings: Optional<AvatarSettingsRequest>) =
+                avatarSettings(avatarSettings.getOrNull())
+
+            /**
+             * Sets [Builder.avatarSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.avatarSettings] with a well-typed
+             * [AvatarSettingsRequest] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun avatarSettings(avatarSettings: JsonField<AvatarSettingsRequest>) = apply {
+                this.avatarSettings = avatarSettings
+            }
+
+            /**
              * Conversation flow as supplied by API clients (create / update).
              *
              * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
@@ -2352,6 +2589,29 @@ private constructor(
              */
             fun conversationFlow(conversationFlow: JsonField<ConversationFlowReq>) = apply {
                 this.conversationFlow = conversationFlow
+            }
+
+            /**
+             * Splits the conversation between a frontend model that talks to the caller and a
+             * backend model that does the work. On the GPT-Live route the frontend model cannot
+             * call tools at all — when it needs something done it raises a delegation and waits. On
+             * the chat completion route the frontend keeps a single `delegate` tool that returns
+             * immediately, so the conversation carries on while the backend works. Either way the
+             * backend's answer is spoken as commentary or kept as silent context, depending on
+             * `speak_results`. Beta feature.
+             */
+            fun delegationSettings(delegationSettings: DelegationSettings) =
+                delegationSettings(JsonField.of(delegationSettings))
+
+            /**
+             * Sets [Builder.delegationSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.delegationSettings] with a well-typed
+             * [DelegationSettings] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun delegationSettings(delegationSettings: JsonField<DelegationSettings>) = apply {
+                this.delegationSettings = delegationSettings
             }
 
             fun description(description: String) = description(JsonField.of(description))
@@ -3053,6 +3313,27 @@ private constructor(
                 this.voiceSettings = voiceSettings
             }
 
+            /**
+             * Streams conversation and telephony events to a WebSocket server you host, and accepts
+             * messages injected back into the conversation. Telnyx opens the connection as a
+             * client, once per conversation. Delivery is best effort throughout: while the
+             * connection is down events are dropped rather than queued, and no socket failure is
+             * ever allowed to affect the call. Beta feature.
+             */
+            fun websocketSettings(websocketSettings: WebsocketSettings) =
+                websocketSettings(JsonField.of(websocketSettings))
+
+            /**
+             * Sets [Builder.websocketSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.websocketSettings] with a well-typed
+             * [WebsocketSettings] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun websocketSettings(websocketSettings: JsonField<WebsocketSettings>) = apply {
+                this.websocketSettings = websocketSettings
+            }
+
             /** Configuration settings for the assistant's web widget. */
             fun widgetSettings(widgetSettings: WidgetSettings) =
                 widgetSettings(JsonField.of(widgetSettings))
@@ -3105,7 +3386,9 @@ private constructor(
                     checkRequired("instructions", instructions),
                     checkRequired("name", name),
                     (a2aAgents ?: JsonMissing.of()).map { it.toImmutable() },
+                    avatarSettings,
                     conversationFlow,
+                    delegationSettings,
                     description,
                     dynamicVariables,
                     dynamicVariablesWebhookTimeoutMs,
@@ -3130,6 +3413,7 @@ private constructor(
                     (tools ?: JsonMissing.of()).map { it.toImmutable() },
                     transcription,
                     voiceSettings,
+                    websocketSettings,
                     widgetSettings,
                     additionalProperties.toMutableMap(),
                 )
@@ -3154,7 +3438,9 @@ private constructor(
             instructions()
             name()
             a2aAgents().ifPresent { it.forEach { it.validate() } }
+            avatarSettings().ifPresent { it.validate() }
             conversationFlow().ifPresent { it.validate() }
+            delegationSettings().ifPresent { it.validate() }
             description()
             dynamicVariables().ifPresent { it.validate() }
             dynamicVariablesWebhookTimeoutMs()
@@ -3179,6 +3465,7 @@ private constructor(
             tools().ifPresent { it.forEach { it.validate() } }
             transcription().ifPresent { it.validate() }
             voiceSettings().ifPresent { it.validate() }
+            websocketSettings().ifPresent { it.validate() }
             widgetSettings().ifPresent { it.validate() }
             validated = true
         }
@@ -3202,7 +3489,9 @@ private constructor(
             (if (instructions.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (a2aAgents.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (avatarSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (conversationFlow.asKnown().getOrNull()?.validity() ?: 0) +
+                (delegationSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (description.asKnown().isPresent) 1 else 0) +
                 (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (dynamicVariablesWebhookTimeoutMs.asKnown().isPresent) 1 else 0) +
@@ -3227,6 +3516,7 @@ private constructor(
                 (tools.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (transcription.asKnown().getOrNull()?.validity() ?: 0) +
                 (voiceSettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (websocketSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (widgetSettings.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -3238,7 +3528,9 @@ private constructor(
                 instructions == other.instructions &&
                 name == other.name &&
                 a2aAgents == other.a2aAgents &&
+                avatarSettings == other.avatarSettings &&
                 conversationFlow == other.conversationFlow &&
+                delegationSettings == other.delegationSettings &&
                 description == other.description &&
                 dynamicVariables == other.dynamicVariables &&
                 dynamicVariablesWebhookTimeoutMs == other.dynamicVariablesWebhookTimeoutMs &&
@@ -3263,6 +3555,7 @@ private constructor(
                 tools == other.tools &&
                 transcription == other.transcription &&
                 voiceSettings == other.voiceSettings &&
+                websocketSettings == other.websocketSettings &&
                 widgetSettings == other.widgetSettings &&
                 additionalProperties == other.additionalProperties
         }
@@ -3272,7 +3565,9 @@ private constructor(
                 instructions,
                 name,
                 a2aAgents,
+                avatarSettings,
                 conversationFlow,
+                delegationSettings,
                 description,
                 dynamicVariables,
                 dynamicVariablesWebhookTimeoutMs,
@@ -3297,6 +3592,7 @@ private constructor(
                 tools,
                 transcription,
                 voiceSettings,
+                websocketSettings,
                 widgetSettings,
                 additionalProperties,
             )
@@ -3305,7 +3601,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{instructions=$instructions, name=$name, a2aAgents=$a2aAgents, conversationFlow=$conversationFlow, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+            "Body{instructions=$instructions, name=$name, a2aAgents=$a2aAgents, avatarSettings=$avatarSettings, conversationFlow=$conversationFlow, delegationSettings=$delegationSettings, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookTimeoutMs=$dynamicVariablesWebhookTimeoutMs, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, externalLlm=$externalLlm, fallbackConfig=$fallbackConfig, greeting=$greeting, insightSettings=$insightSettings, integrations=$integrations, interruptionSettings=$interruptionSettings, llmApiKeyRef=$llmApiKeyRef, mcpServers=$mcpServers, messagingSettings=$messagingSettings, model=$model, observabilitySettings=$observabilitySettings, postConversationSettings=$postConversationSettings, privacySettings=$privacySettings, tags=$tags, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, websocketSettings=$websocketSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
     }
 
     /** Map of dynamic variables and their default values */

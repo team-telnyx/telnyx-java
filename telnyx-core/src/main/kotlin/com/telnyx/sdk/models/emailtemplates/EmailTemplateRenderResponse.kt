@@ -34,8 +34,8 @@ private constructor(
 
     /**
      * Template object with `subject`, `html_body`, and `text_body` replaced by their
-     * Liquid-rendered values. All other template fields (id, name, variables, etc.) remain
-     * unchanged.
+     * Liquid-rendered values. Rendered content is not limited by the stored template-field lengths.
+     * All other template fields remain unchanged.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -88,8 +88,8 @@ private constructor(
 
         /**
          * Template object with `subject`, `html_body`, and `text_body` replaced by their
-         * Liquid-rendered values. All other template fields (id, name, variables, etc.) remain
-         * unchanged.
+         * Liquid-rendered values. Rendered content is not limited by the stored template-field
+         * lengths. All other template fields remain unchanged.
          */
         fun data(data: Data) = data(JsonField.of(data))
 
@@ -175,8 +175,8 @@ private constructor(
 
     /**
      * Template object with `subject`, `html_body`, and `text_body` replaced by their
-     * Liquid-rendered values. All other template fields (id, name, variables, etc.) remain
-     * unchanged.
+     * Liquid-rendered values. Rendered content is not limited by the stored template-field lengths.
+     * All other template fields remain unchanged.
      */
     class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -186,13 +186,14 @@ private constructor(
         private val createdAt: JsonField<OffsetDateTime>,
         private val htmlBody: JsonField<String>,
         private val name: JsonField<String>,
-        private val recordType: JsonField<EmailTemplate.RecordType>,
+        private val recordType: JsonField<EmailTemplateCommon.RecordType>,
         private val strictVariables: JsonField<Boolean>,
-        private val subject: JsonField<String>,
         private val textBody: JsonField<String>,
         private val updatedAt: JsonField<OffsetDateTime>,
-        private val variableSchema: JsonField<EmailTemplate.VariableSchema>,
+        private val variableSchema: JsonField<EmailTemplateCommon.VariableSchema>,
         private val variables: JsonField<List<String>>,
+        private val variablesMode: JsonField<EmailTemplateCommon.VariablesMode>,
+        private val subject: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -211,11 +212,10 @@ private constructor(
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
             @JsonProperty("record_type")
             @ExcludeMissing
-            recordType: JsonField<EmailTemplate.RecordType> = JsonMissing.of(),
+            recordType: JsonField<EmailTemplateCommon.RecordType> = JsonMissing.of(),
             @JsonProperty("strict_variables")
             @ExcludeMissing
             strictVariables: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("subject") @ExcludeMissing subject: JsonField<String> = JsonMissing.of(),
             @JsonProperty("text_body")
             @ExcludeMissing
             textBody: JsonField<String> = JsonMissing.of(),
@@ -224,10 +224,14 @@ private constructor(
             updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonProperty("variable_schema")
             @ExcludeMissing
-            variableSchema: JsonField<EmailTemplate.VariableSchema> = JsonMissing.of(),
+            variableSchema: JsonField<EmailTemplateCommon.VariableSchema> = JsonMissing.of(),
             @JsonProperty("variables")
             @ExcludeMissing
             variables: JsonField<List<String>> = JsonMissing.of(),
+            @JsonProperty("variables_mode")
+            @ExcludeMissing
+            variablesMode: JsonField<EmailTemplateCommon.VariablesMode> = JsonMissing.of(),
+            @JsonProperty("subject") @ExcludeMissing subject: JsonField<String> = JsonMissing.of(),
         ) : this(
             id,
             autoescape,
@@ -236,16 +240,17 @@ private constructor(
             name,
             recordType,
             strictVariables,
-            subject,
             textBody,
             updatedAt,
             variableSchema,
             variables,
+            variablesMode,
+            subject,
             mutableMapOf(),
         )
 
-        fun toEmailTemplate(): EmailTemplate =
-            EmailTemplate.builder()
+        fun toEmailTemplateCommon(): EmailTemplateCommon =
+            EmailTemplateCommon.builder()
                 .id(id)
                 .autoescape(autoescape)
                 .createdAt(createdAt)
@@ -253,11 +258,11 @@ private constructor(
                 .name(name)
                 .recordType(recordType)
                 .strictVariables(strictVariables)
-                .subject(subject)
                 .textBody(textBody)
                 .updatedAt(updatedAt)
                 .variableSchema(variableSchema)
                 .variables(variables)
+                .variablesMode(variablesMode)
                 .build()
 
         /**
@@ -298,7 +303,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun recordType(): EmailTemplate.RecordType = recordType.getRequired("record_type")
+        fun recordType(): EmailTemplateCommon.RecordType = recordType.getRequired("record_type")
 
         /**
          * Whether strict variable validation is enabled for this template. When `true`, sends and
@@ -309,12 +314,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun strictVariables(): Boolean = strictVariables.getRequired("strict_variables")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun subject(): Optional<String> = subject.getOptional("subject")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -335,16 +334,34 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun variableSchema(): Optional<EmailTemplate.VariableSchema> =
+        fun variableSchema(): Optional<EmailTemplateCommon.VariableSchema> =
             variableSchema.getOptional("variable_schema")
 
         /**
-         * Legacy unstructured variable names. This path remains supported unchanged.
+         * Persisted variable names. In `explicit` mode this array preserves the exact provided
+         * order, duplicates, and string contents; in `automatic` mode it is derived from the stored
+         * subject and bodies.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun variables(): List<String> = variables.getRequired("variables")
+
+        /**
+         * `automatic` when variable names are derived from template content; `explicit` when
+         * `variables` is the exact manually managed array.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun variablesMode(): EmailTemplateCommon.VariablesMode =
+            variablesMode.getRequired("variables_mode")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun subject(): Optional<String> = subject.getOptional("subject")
 
         /**
          * Returns the raw JSON value of [id].
@@ -392,7 +409,7 @@ private constructor(
          */
         @JsonProperty("record_type")
         @ExcludeMissing
-        fun _recordType(): JsonField<EmailTemplate.RecordType> = recordType
+        fun _recordType(): JsonField<EmailTemplateCommon.RecordType> = recordType
 
         /**
          * Returns the raw JSON value of [strictVariables].
@@ -403,13 +420,6 @@ private constructor(
         @JsonProperty("strict_variables")
         @ExcludeMissing
         fun _strictVariables(): JsonField<Boolean> = strictVariables
-
-        /**
-         * Returns the raw JSON value of [subject].
-         *
-         * Unlike [subject], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("subject") @ExcludeMissing fun _subject(): JsonField<String> = subject
 
         /**
          * Returns the raw JSON value of [textBody].
@@ -435,7 +445,7 @@ private constructor(
          */
         @JsonProperty("variable_schema")
         @ExcludeMissing
-        fun _variableSchema(): JsonField<EmailTemplate.VariableSchema> = variableSchema
+        fun _variableSchema(): JsonField<EmailTemplateCommon.VariableSchema> = variableSchema
 
         /**
          * Returns the raw JSON value of [variables].
@@ -445,6 +455,23 @@ private constructor(
         @JsonProperty("variables")
         @ExcludeMissing
         fun _variables(): JsonField<List<String>> = variables
+
+        /**
+         * Returns the raw JSON value of [variablesMode].
+         *
+         * Unlike [variablesMode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("variables_mode")
+        @ExcludeMissing
+        fun _variablesMode(): JsonField<EmailTemplateCommon.VariablesMode> = variablesMode
+
+        /**
+         * Returns the raw JSON value of [subject].
+         *
+         * Unlike [subject], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("subject") @ExcludeMissing fun _subject(): JsonField<String> = subject
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -472,11 +499,12 @@ private constructor(
              * .name()
              * .recordType()
              * .strictVariables()
-             * .subject()
              * .textBody()
              * .updatedAt()
              * .variableSchema()
              * .variables()
+             * .variablesMode()
+             * .subject()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -490,13 +518,14 @@ private constructor(
             private var createdAt: JsonField<OffsetDateTime>? = null
             private var htmlBody: JsonField<String>? = null
             private var name: JsonField<String>? = null
-            private var recordType: JsonField<EmailTemplate.RecordType>? = null
+            private var recordType: JsonField<EmailTemplateCommon.RecordType>? = null
             private var strictVariables: JsonField<Boolean>? = null
-            private var subject: JsonField<String>? = null
             private var textBody: JsonField<String>? = null
             private var updatedAt: JsonField<OffsetDateTime>? = null
-            private var variableSchema: JsonField<EmailTemplate.VariableSchema>? = null
+            private var variableSchema: JsonField<EmailTemplateCommon.VariableSchema>? = null
             private var variables: JsonField<MutableList<String>>? = null
+            private var variablesMode: JsonField<EmailTemplateCommon.VariablesMode>? = null
+            private var subject: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -508,11 +537,12 @@ private constructor(
                 name = data.name
                 recordType = data.recordType
                 strictVariables = data.strictVariables
-                subject = data.subject
                 textBody = data.textBody
                 updatedAt = data.updatedAt
                 variableSchema = data.variableSchema
                 variables = data.variables.map { it.toMutableList() }
+                variablesMode = data.variablesMode
+                subject = data.subject
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
@@ -581,17 +611,17 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
-            fun recordType(recordType: EmailTemplate.RecordType) =
+            fun recordType(recordType: EmailTemplateCommon.RecordType) =
                 recordType(JsonField.of(recordType))
 
             /**
              * Sets [Builder.recordType] to an arbitrary JSON value.
              *
              * You should usually call [Builder.recordType] with a well-typed
-             * [EmailTemplate.RecordType] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * [EmailTemplateCommon.RecordType] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
              */
-            fun recordType(recordType: JsonField<EmailTemplate.RecordType>) = apply {
+            fun recordType(recordType: JsonField<EmailTemplateCommon.RecordType>) = apply {
                 this.recordType = recordType
             }
 
@@ -613,20 +643,6 @@ private constructor(
             fun strictVariables(strictVariables: JsonField<Boolean>) = apply {
                 this.strictVariables = strictVariables
             }
-
-            fun subject(subject: String?) = subject(JsonField.ofNullable(subject))
-
-            /** Alias for calling [Builder.subject] with `subject.orElse(null)`. */
-            fun subject(subject: Optional<String>) = subject(subject.getOrNull())
-
-            /**
-             * Sets [Builder.subject] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.subject] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun subject(subject: JsonField<String>) = apply { this.subject = subject }
 
             fun textBody(textBody: String?) = textBody(JsonField.ofNullable(textBody))
 
@@ -659,25 +675,30 @@ private constructor(
              * Structured variable requirements, or `null` when the template uses only the legacy
              * `variables` array.
              */
-            fun variableSchema(variableSchema: EmailTemplate.VariableSchema?) =
+            fun variableSchema(variableSchema: EmailTemplateCommon.VariableSchema?) =
                 variableSchema(JsonField.ofNullable(variableSchema))
 
             /** Alias for calling [Builder.variableSchema] with `variableSchema.orElse(null)`. */
-            fun variableSchema(variableSchema: Optional<EmailTemplate.VariableSchema>) =
+            fun variableSchema(variableSchema: Optional<EmailTemplateCommon.VariableSchema>) =
                 variableSchema(variableSchema.getOrNull())
 
             /**
              * Sets [Builder.variableSchema] to an arbitrary JSON value.
              *
              * You should usually call [Builder.variableSchema] with a well-typed
-             * [EmailTemplate.VariableSchema] value instead. This method is primarily for setting
-             * the field to an undocumented or not yet supported value.
+             * [EmailTemplateCommon.VariableSchema] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
              */
-            fun variableSchema(variableSchema: JsonField<EmailTemplate.VariableSchema>) = apply {
-                this.variableSchema = variableSchema
-            }
+            fun variableSchema(variableSchema: JsonField<EmailTemplateCommon.VariableSchema>) =
+                apply {
+                    this.variableSchema = variableSchema
+                }
 
-            /** Legacy unstructured variable names. This path remains supported unchanged. */
+            /**
+             * Persisted variable names. In `explicit` mode this array preserves the exact provided
+             * order, duplicates, and string contents; in `automatic` mode it is derived from the
+             * stored subject and bodies.
+             */
             fun variables(variables: List<String>) = variables(JsonField.of(variables))
 
             /**
@@ -702,6 +723,38 @@ private constructor(
                         checkKnown("variables", it).add(variable)
                     }
             }
+
+            /**
+             * `automatic` when variable names are derived from template content; `explicit` when
+             * `variables` is the exact manually managed array.
+             */
+            fun variablesMode(variablesMode: EmailTemplateCommon.VariablesMode) =
+                variablesMode(JsonField.of(variablesMode))
+
+            /**
+             * Sets [Builder.variablesMode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.variablesMode] with a well-typed
+             * [EmailTemplateCommon.VariablesMode] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun variablesMode(variablesMode: JsonField<EmailTemplateCommon.VariablesMode>) = apply {
+                this.variablesMode = variablesMode
+            }
+
+            fun subject(subject: String?) = subject(JsonField.ofNullable(subject))
+
+            /** Alias for calling [Builder.subject] with `subject.orElse(null)`. */
+            fun subject(subject: Optional<String>) = subject(subject.getOrNull())
+
+            /**
+             * Sets [Builder.subject] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.subject] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun subject(subject: JsonField<String>) = apply { this.subject = subject }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -736,11 +789,12 @@ private constructor(
              * .name()
              * .recordType()
              * .strictVariables()
-             * .subject()
              * .textBody()
              * .updatedAt()
              * .variableSchema()
              * .variables()
+             * .variablesMode()
+             * .subject()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -754,11 +808,12 @@ private constructor(
                     checkRequired("name", name),
                     checkRequired("recordType", recordType),
                     checkRequired("strictVariables", strictVariables),
-                    checkRequired("subject", subject),
                     checkRequired("textBody", textBody),
                     checkRequired("updatedAt", updatedAt),
                     checkRequired("variableSchema", variableSchema),
                     checkRequired("variables", variables).map { it.toImmutable() },
+                    checkRequired("variablesMode", variablesMode),
+                    checkRequired("subject", subject),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -786,11 +841,12 @@ private constructor(
             name()
             recordType().validate()
             strictVariables()
-            subject()
             textBody()
             updatedAt()
             variableSchema().ifPresent { it.validate() }
             variables()
+            variablesMode().validate()
+            subject()
             validated = true
         }
 
@@ -817,11 +873,12 @@ private constructor(
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (recordType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (strictVariables.asKnown().isPresent) 1 else 0) +
-                (if (subject.asKnown().isPresent) 1 else 0) +
                 (if (textBody.asKnown().isPresent) 1 else 0) +
                 (if (updatedAt.asKnown().isPresent) 1 else 0) +
                 (variableSchema.asKnown().getOrNull()?.validity() ?: 0) +
-                (variables.asKnown().getOrNull()?.size ?: 0)
+                (variables.asKnown().getOrNull()?.size ?: 0) +
+                (variablesMode.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (subject.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -836,11 +893,12 @@ private constructor(
                 name == other.name &&
                 recordType == other.recordType &&
                 strictVariables == other.strictVariables &&
-                subject == other.subject &&
                 textBody == other.textBody &&
                 updatedAt == other.updatedAt &&
                 variableSchema == other.variableSchema &&
                 variables == other.variables &&
+                variablesMode == other.variablesMode &&
+                subject == other.subject &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -853,11 +911,12 @@ private constructor(
                 name,
                 recordType,
                 strictVariables,
-                subject,
                 textBody,
                 updatedAt,
                 variableSchema,
                 variables,
+                variablesMode,
+                subject,
                 additionalProperties,
             )
         }
@@ -865,7 +924,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, autoescape=$autoescape, createdAt=$createdAt, htmlBody=$htmlBody, name=$name, recordType=$recordType, strictVariables=$strictVariables, subject=$subject, textBody=$textBody, updatedAt=$updatedAt, variableSchema=$variableSchema, variables=$variables, additionalProperties=$additionalProperties}"
+            "Data{id=$id, autoescape=$autoescape, createdAt=$createdAt, htmlBody=$htmlBody, name=$name, recordType=$recordType, strictVariables=$strictVariables, textBody=$textBody, updatedAt=$updatedAt, variableSchema=$variableSchema, variables=$variables, variablesMode=$variablesMode, subject=$subject, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

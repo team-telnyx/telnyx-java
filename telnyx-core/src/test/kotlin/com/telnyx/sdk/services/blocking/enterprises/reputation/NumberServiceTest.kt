@@ -5,7 +5,9 @@ package com.telnyx.sdk.services.blocking.enterprises.reputation
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberOwnershipConfirmParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRefreshParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveOwnershipParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -75,6 +77,25 @@ internal class NumberServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun ownershipConfirm() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val numberService = client.enterprises().reputation().numbers()
+
+        val reputationPhoneNumberWithReputation =
+            numberService.ownershipConfirm(
+                NumberOwnershipConfirmParams.builder()
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .phoneNumber("+19493253498")
+                    .stillOwn(true)
+                    .evidenceDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
+                    .build()
+            )
+
+        reputationPhoneNumberWithReputation.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun refresh() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberService = client.enterprises().reputation().numbers()
@@ -84,6 +105,23 @@ internal class NumberServiceTest {
                 NumberRefreshParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                     .addPhoneNumber("+19493253498")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveOwnership() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val numberService = client.enterprises().reputation().numbers()
+
+        val response =
+            numberService.retrieveOwnership(
+                NumberRetrieveOwnershipParams.builder()
+                    .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                    .phoneNumber("+19493253498")
                     .build()
             )
 

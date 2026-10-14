@@ -6,7 +6,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.BookAppointmentToolParams
 import com.telnyx.sdk.models.ai.assistants.Assistant
-import com.telnyx.sdk.models.ai.assistants.HangupToolParams
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
 import com.telnyx.sdk.models.calls.CallAssistantRequest
 import com.telnyx.sdk.models.calls.ConversationRelayEmbeddedConfig
@@ -64,6 +63,7 @@ import com.telnyx.sdk.models.calls.actions.ActionTransferParams
 import com.telnyx.sdk.models.calls.actions.ActionUpdateClientStateParams
 import com.telnyx.sdk.models.calls.actions.AiAssistantJoinParticipant
 import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
+import com.telnyx.sdk.models.calls.actions.ConversationRelayTranscriptionEngineConfig
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.InterruptionSettings
@@ -166,7 +166,7 @@ internal class ActionServiceTest {
                                     .model("model")
                                     .build()
                             )
-                            .greeting("Hi, I'm your assistant. How can I help?")
+                            .greeting("greeting")
                             .instructions("You are a friendly voice assistant.")
                             .llmApiKeyRef("my_llm_api_key")
                             .addMcpServer(
@@ -182,8 +182,19 @@ internal class ActionServiceTest {
                                     .build()
                             )
                             .openaiApiKeyRef("my_openai_api_key")
-                            .addHangupTool(
-                                HangupToolParams.builder().description("description").build()
+                            .addBookAppointmentTool(
+                                BookAppointmentToolParams.builder()
+                                    .apiKeyRef("my_calcom_api_key")
+                                    .eventTypeId(0L)
+                                    .attendeeName("attendee_name")
+                                    .attendeeTimezone("attendee_timezone")
+                                    .build()
+                            )
+                            .transcription(
+                                TranscriptionConfig.builder()
+                                    .language("language")
+                                    .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
+                                    .build()
                             )
                             .voiceSettings(
                                 VoiceSettings.builder()
@@ -245,12 +256,10 @@ internal class ActionServiceTest {
                                         ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                                     )
                                     .transcriptionEngineConfig(
-                                        ConversationRelayLanguage.TranscriptionEngineConfig
-                                            .builder()
-                                            .putAdditionalProperty(
-                                                "transcription_model",
-                                                JsonValue.from("bar"),
-                                            )
+                                        ConversationRelayTranscriptionEngineConfig.builder()
+                                            .eagerEotThreshold(0.5)
+                                            .eotThreshold(0.5)
+                                            .interimResults(true)
                                             .build()
                                     )
                                     .transcriptionProvider("Deepgram")
@@ -275,16 +284,10 @@ internal class ActionServiceTest {
                                 ConversationRelayEmbeddedConfig.TranscriptionEngine.GOOGLE
                             )
                             .transcriptionEngineConfig(
-                                ConversationRelayEmbeddedConfig.TranscriptionEngineConfig.builder()
-                                    .putAdditionalProperty(
-                                        "transcription_model",
-                                        JsonValue.from("bar"),
-                                    )
-                                    .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                                    .putAdditionalProperty(
-                                        "keywords_boosting",
-                                        JsonValue.from("bar"),
-                                    )
+                                ConversationRelayTranscriptionEngineConfig.builder()
+                                    .eagerEotThreshold(0.5)
+                                    .eotThreshold(0.5)
+                                    .interimResults(true)
                                     .build()
                             )
                             .ttsProvider("telnyx")
@@ -735,6 +738,7 @@ internal class ActionServiceTest {
                             .putAdditionalProperty("order_id", JsonValue.from("bar"))
                             .build()
                     )
+                    .minPostalCodeLength(5L)
                     .parameters(
                         ActionPayParams.Parameters.builder()
                             .putAdditionalProperty("customer_id", JsonValue.from("bar"))
@@ -742,6 +746,7 @@ internal class ActionServiceTest {
                     )
                     .paymentMethod(ActionPayParams.PaymentMethod.CREDIT_CARD)
                     .paymentToken("tok_abc123")
+                    .postalCode(false)
                     .prompts(
                         ActionPayParams.Prompts.builder()
                             .bankAccountNumber("x")
@@ -1005,6 +1010,12 @@ internal class ActionServiceTest {
                                     .attendeeTimezone("attendee_timezone")
                                     .build()
                             )
+                            .transcription(
+                                TranscriptionConfig.builder()
+                                    .language("language")
+                                    .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
+                                    .build()
+                            )
                             .voiceSettings(
                                 VoiceSettings.builder()
                                     .voice("voice")
@@ -1105,12 +1116,10 @@ internal class ActionServiceTest {
                                         ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                                     )
                                     .transcriptionEngineConfig(
-                                        ConversationRelayLanguage.TranscriptionEngineConfig
-                                            .builder()
-                                            .putAdditionalProperty(
-                                                "transcription_model",
-                                                JsonValue.from("bar"),
-                                            )
+                                        ConversationRelayTranscriptionEngineConfig.builder()
+                                            .eagerEotThreshold(0.5)
+                                            .eotThreshold(0.5)
+                                            .interimResults(true)
                                             .build()
                                     )
                                     .transcriptionProvider("Deepgram")
@@ -1153,11 +1162,10 @@ internal class ActionServiceTest {
                                 ConversationRelayLanguage.TranscriptionEngine.DEEPGRAM
                             )
                             .transcriptionEngineConfig(
-                                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
-                                    .putAdditionalProperty(
-                                        "transcription_model",
-                                        JsonValue.from("bar"),
-                                    )
+                                ConversationRelayTranscriptionEngineConfig.builder()
+                                    .eagerEotThreshold(0.5)
+                                    .eotThreshold(0.5)
+                                    .interimResults(true)
                                     .build()
                             )
                             .transcriptionProvider("Deepgram")
@@ -1187,10 +1195,10 @@ internal class ActionServiceTest {
                         ActionStartConversationRelayParams.TranscriptionEngine.GOOGLE
                     )
                     .transcriptionEngineConfig(
-                        ActionStartConversationRelayParams.TranscriptionEngineConfig.builder()
-                            .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
-                            .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                            .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                        ConversationRelayTranscriptionEngineConfig.builder()
+                            .eagerEotThreshold(0.5)
+                            .eotThreshold(0.5)
+                            .interimResults(true)
                             .build()
                     )
                     .ttsProvider("telnyx")
@@ -1696,6 +1704,7 @@ internal class ActionServiceTest {
                             .initialSilenceMillis(1000)
                             .maximumNumberOfWords(1000)
                             .maximumWordLengthMillis(2000)
+                            .promptEndTimeoutMillis(5000)
                             .silenceThreshold(512)
                             .totalAnalysisTimeMillis(5000)
                             .build()

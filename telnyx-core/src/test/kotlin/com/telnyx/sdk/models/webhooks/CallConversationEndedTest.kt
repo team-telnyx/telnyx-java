@@ -33,6 +33,54 @@ internal class CallConversationEndedTest {
                         .durationSec(3L)
                         .from("+13124287921")
                         .llmModel("openai/gpt-4o")
+                        .addMessage(
+                            CallConversationEnded.Payload.Message.builder()
+                                .content("Hi, how can I help you today?")
+                                .role(CallConversationEnded.Payload.Message.Role.ASSISTANT)
+                                .timestamp(OffsetDateTime.parse("2025-05-29T13:35:35.912345Z"))
+                                .toolCallId("call_1")
+                                .addToolCall(
+                                    CallConversationEnded.Payload.Message.ToolCall.builder()
+                                        .id("call_1")
+                                        .function(
+                                            CallConversationEnded.Payload.Message.ToolCall.Function
+                                                .builder()
+                                                .arguments("{\"account\":\"123\"}")
+                                                .name("get_balance")
+                                                .build()
+                                        )
+                                        .type(
+                                            CallConversationEnded.Payload.Message.ToolCall.Type
+                                                .FUNCTION
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .addMessage(
+                            CallConversationEnded.Payload.Message.builder()
+                                .content("Goodbye.")
+                                .role(CallConversationEnded.Payload.Message.Role.USER)
+                                .timestamp(OffsetDateTime.parse("2025-05-29T13:35:37.654321Z"))
+                                .toolCallId("call_1")
+                                .addToolCall(
+                                    CallConversationEnded.Payload.Message.ToolCall.builder()
+                                        .id("call_1")
+                                        .function(
+                                            CallConversationEnded.Payload.Message.ToolCall.Function
+                                                .builder()
+                                                .arguments("{\"account\":\"123\"}")
+                                                .name("get_balance")
+                                                .build()
+                                        )
+                                        .type(
+                                            CallConversationEnded.Payload.Message.ToolCall.Type
+                                                .FUNCTION
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .reason("customer_disconnect")
                         .sttModel("distil-whisper/distil-large-v2")
                         .to("jamesw@assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d.sip.telnyx.com")
@@ -67,6 +115,52 @@ internal class CallConversationEndedTest {
                     .durationSec(3L)
                     .from("+13124287921")
                     .llmModel("openai/gpt-4o")
+                    .addMessage(
+                        CallConversationEnded.Payload.Message.builder()
+                            .content("Hi, how can I help you today?")
+                            .role(CallConversationEnded.Payload.Message.Role.ASSISTANT)
+                            .timestamp(OffsetDateTime.parse("2025-05-29T13:35:35.912345Z"))
+                            .toolCallId("call_1")
+                            .addToolCall(
+                                CallConversationEnded.Payload.Message.ToolCall.builder()
+                                    .id("call_1")
+                                    .function(
+                                        CallConversationEnded.Payload.Message.ToolCall.Function
+                                            .builder()
+                                            .arguments("{\"account\":\"123\"}")
+                                            .name("get_balance")
+                                            .build()
+                                    )
+                                    .type(
+                                        CallConversationEnded.Payload.Message.ToolCall.Type.FUNCTION
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .addMessage(
+                        CallConversationEnded.Payload.Message.builder()
+                            .content("Goodbye.")
+                            .role(CallConversationEnded.Payload.Message.Role.USER)
+                            .timestamp(OffsetDateTime.parse("2025-05-29T13:35:37.654321Z"))
+                            .toolCallId("call_1")
+                            .addToolCall(
+                                CallConversationEnded.Payload.Message.ToolCall.builder()
+                                    .id("call_1")
+                                    .function(
+                                        CallConversationEnded.Payload.Message.ToolCall.Function
+                                            .builder()
+                                            .arguments("{\"account\":\"123\"}")
+                                            .name("get_balance")
+                                            .build()
+                                    )
+                                    .type(
+                                        CallConversationEnded.Payload.Message.ToolCall.Type.FUNCTION
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .reason("customer_disconnect")
                     .sttModel("distil-whisper/distil-large-v2")
                     .to("jamesw@assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d.sip.telnyx.com")
@@ -103,6 +197,54 @@ internal class CallConversationEndedTest {
                         .durationSec(3L)
                         .from("+13124287921")
                         .llmModel("openai/gpt-4o")
+                        .addMessage(
+                            CallConversationEnded.Payload.Message.builder()
+                                .content("Hi, how can I help you today?")
+                                .role(CallConversationEnded.Payload.Message.Role.ASSISTANT)
+                                .timestamp(OffsetDateTime.parse("2025-05-29T13:35:35.912345Z"))
+                                .toolCallId("call_1")
+                                .addToolCall(
+                                    CallConversationEnded.Payload.Message.ToolCall.builder()
+                                        .id("call_1")
+                                        .function(
+                                            CallConversationEnded.Payload.Message.ToolCall.Function
+                                                .builder()
+                                                .arguments("{\"account\":\"123\"}")
+                                                .name("get_balance")
+                                                .build()
+                                        )
+                                        .type(
+                                            CallConversationEnded.Payload.Message.ToolCall.Type
+                                                .FUNCTION
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .addMessage(
+                            CallConversationEnded.Payload.Message.builder()
+                                .content("Goodbye.")
+                                .role(CallConversationEnded.Payload.Message.Role.USER)
+                                .timestamp(OffsetDateTime.parse("2025-05-29T13:35:37.654321Z"))
+                                .toolCallId("call_1")
+                                .addToolCall(
+                                    CallConversationEnded.Payload.Message.ToolCall.builder()
+                                        .id("call_1")
+                                        .function(
+                                            CallConversationEnded.Payload.Message.ToolCall.Function
+                                                .builder()
+                                                .arguments("{\"account\":\"123\"}")
+                                                .name("get_balance")
+                                                .build()
+                                        )
+                                        .type(
+                                            CallConversationEnded.Payload.Message.ToolCall.Type
+                                                .FUNCTION
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .reason("customer_disconnect")
                         .sttModel("distil-whisper/distil-large-v2")
                         .to("jamesw@assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d.sip.telnyx.com")

@@ -18,6 +18,7 @@ internal class ToolNodeTest {
             ToolNode.builder()
                 .id("id")
                 .sharedToolId("shared_tool_id")
+                .message("One moment while I process your payment.")
                 .name("name")
                 .position(NodePosition.builder().x(0.0).y(0.0).build())
                 .addTool(
@@ -41,6 +42,7 @@ internal class ToolNodeTest {
 
         assertThat(toolNode.id()).isEqualTo("id")
         assertThat(toolNode.sharedToolId()).isEqualTo("shared_tool_id")
+        assertThat(toolNode.message()).contains("One moment while I process your payment.")
         assertThat(toolNode.name()).contains("name")
         assertThat(toolNode.position()).contains(NodePosition.builder().x(0.0).y(0.0).build())
         assertThat(toolNode.tool().getOrNull())
@@ -72,6 +74,7 @@ internal class ToolNodeTest {
             ToolNode.builder()
                 .id("id")
                 .sharedToolId("shared_tool_id")
+                .message("One moment while I process your payment.")
                 .name("name")
                 .position(NodePosition.builder().x(0.0).y(0.0).build())
                 .addTool(

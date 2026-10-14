@@ -35,6 +35,8 @@ import kotlin.jvm.optionals.getOrNull
  * Start an AI assistant on the call.
  *
  * **Expected Webhooks:**
+ * - [`call.conversation.created`](/api-reference/callbacks/call-conversation-created) includes
+ *   `conversation_id` during startup
  * - `call.conversation.ended`
  * - `call.conversation_insights.generated`
  */
@@ -49,8 +51,11 @@ private constructor(
     fun callControlId(): Optional<String> = Optional.ofNullable(callControlId)
 
     /**
-     * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
-     * configuration will be used as fallback for any omitted fields.
+     * AI Assistant configuration and per-call overrides. All fields except `id` are optional.
+     * Omitted assistant fields use the stored configuration. Supplied `voice_settings` and
+     * `transcription` objects replace their stored objects rather than merging individual settings;
+     * include every setting you want to retain. `dynamic_variables` are merged, with request values
+     * taking precedence.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -253,8 +258,11 @@ private constructor(
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
         /**
-         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
-         * configuration will be used as fallback for any omitted fields.
+         * AI Assistant configuration and per-call overrides. All fields except `id` are optional.
+         * Omitted assistant fields use the stored configuration. Supplied `voice_settings` and
+         * `transcription` objects replace their stored objects rather than merging individual
+         * settings; include every setting you want to retain. `dynamic_variables` are merged, with
+         * request values taking precedence.
          */
         fun assistant(assistant: CallAssistantRequest) = apply { body.assistant(assistant) }
 
@@ -682,8 +690,11 @@ private constructor(
         )
 
         /**
-         * AI Assistant configuration. All fields except `id` are optional — the assistant's stored
-         * configuration will be used as fallback for any omitted fields.
+         * AI Assistant configuration and per-call overrides. All fields except `id` are optional.
+         * Omitted assistant fields use the stored configuration. Supplied `voice_settings` and
+         * `transcription` objects replace their stored objects rather than merging individual
+         * settings; include every setting you want to retain. `dynamic_variables` are merged, with
+         * request values taking precedence.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -898,8 +909,11 @@ private constructor(
             }
 
             /**
-             * AI Assistant configuration. All fields except `id` are optional — the assistant's
-             * stored configuration will be used as fallback for any omitted fields.
+             * AI Assistant configuration and per-call overrides. All fields except `id` are
+             * optional. Omitted assistant fields use the stored configuration. Supplied
+             * `voice_settings` and `transcription` objects replace their stored objects rather than
+             * merging individual settings; include every setting you want to retain.
+             * `dynamic_variables` are merged, with request values taking precedence.
              */
             fun assistant(assistant: CallAssistantRequest) = assistant(JsonField.of(assistant))
 

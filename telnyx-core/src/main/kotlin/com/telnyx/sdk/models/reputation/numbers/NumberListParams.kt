@@ -4,6 +4,8 @@ package com.telnyx.sdk.models.reputation.numbers
 
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationNumberSource
+import com.telnyx.sdk.models.enterprises.reputation.numbers.ReputationOwnershipStatus
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -16,8 +18,10 @@ import kotlin.jvm.optionals.getOrNull
 class NumberListParams
 private constructor(
     private val filterEnterpriseId: String?,
+    private val filterOwnershipStatus: ReputationOwnershipStatus?,
     private val filterPhoneNumberContains: String?,
     private val filterPhoneNumberEq: String?,
+    private val filterSource: ReputationNumberSource?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
@@ -27,12 +31,22 @@ private constructor(
     /** Filter by enterprise ID. */
     fun filterEnterpriseId(): Optional<String> = Optional.ofNullable(filterEnterpriseId)
 
+    /**
+     * Only numbers with this ownership status. `removed` lists the numbers that were removed, each
+     * with its `removal_reason` and `removed_at`; removed numbers are not returned otherwise.
+     */
+    fun filterOwnershipStatus(): Optional<ReputationOwnershipStatus> =
+        Optional.ofNullable(filterOwnershipStatus)
+
     /** Partial match on phone number. Must contain at least 5 digits. */
     fun filterPhoneNumberContains(): Optional<String> =
         Optional.ofNullable(filterPhoneNumberContains)
 
     /** Exact phone-number match (E.164). */
     fun filterPhoneNumberEq(): Optional<String> = Optional.ofNullable(filterPhoneNumberEq)
+
+    /** Only numbers with this source. */
+    fun filterSource(): Optional<ReputationNumberSource> = Optional.ofNullable(filterSource)
 
     /** 1-based page number. Out-of-range values return an empty page with correct meta. */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
@@ -60,8 +74,10 @@ private constructor(
     class Builder internal constructor() {
 
         private var filterEnterpriseId: String? = null
+        private var filterOwnershipStatus: ReputationOwnershipStatus? = null
         private var filterPhoneNumberContains: String? = null
         private var filterPhoneNumberEq: String? = null
+        private var filterSource: ReputationNumberSource? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
@@ -71,8 +87,10 @@ private constructor(
         @JvmSynthetic
         internal fun from(numberListParams: NumberListParams) = apply {
             filterEnterpriseId = numberListParams.filterEnterpriseId
+            filterOwnershipStatus = numberListParams.filterOwnershipStatus
             filterPhoneNumberContains = numberListParams.filterPhoneNumberContains
             filterPhoneNumberEq = numberListParams.filterPhoneNumberEq
+            filterSource = numberListParams.filterSource
             pageNumber = numberListParams.pageNumber
             pageSize = numberListParams.pageSize
             additionalHeaders = numberListParams.additionalHeaders.toBuilder()
@@ -89,6 +107,22 @@ private constructor(
          */
         fun filterEnterpriseId(filterEnterpriseId: Optional<String>) =
             filterEnterpriseId(filterEnterpriseId.getOrNull())
+
+        /**
+         * Only numbers with this ownership status. `removed` lists the numbers that were removed,
+         * each with its `removal_reason` and `removed_at`; removed numbers are not returned
+         * otherwise.
+         */
+        fun filterOwnershipStatus(filterOwnershipStatus: ReputationOwnershipStatus?) = apply {
+            this.filterOwnershipStatus = filterOwnershipStatus
+        }
+
+        /**
+         * Alias for calling [Builder.filterOwnershipStatus] with
+         * `filterOwnershipStatus.orElse(null)`.
+         */
+        fun filterOwnershipStatus(filterOwnershipStatus: Optional<ReputationOwnershipStatus>) =
+            filterOwnershipStatus(filterOwnershipStatus.getOrNull())
 
         /** Partial match on phone number. Must contain at least 5 digits. */
         fun filterPhoneNumberContains(filterPhoneNumberContains: String?) = apply {
@@ -112,6 +146,15 @@ private constructor(
          */
         fun filterPhoneNumberEq(filterPhoneNumberEq: Optional<String>) =
             filterPhoneNumberEq(filterPhoneNumberEq.getOrNull())
+
+        /** Only numbers with this source. */
+        fun filterSource(filterSource: ReputationNumberSource?) = apply {
+            this.filterSource = filterSource
+        }
+
+        /** Alias for calling [Builder.filterSource] with `filterSource.orElse(null)`. */
+        fun filterSource(filterSource: Optional<ReputationNumberSource>) =
+            filterSource(filterSource.getOrNull())
 
         /** 1-based page number. Out-of-range values return an empty page with correct meta. */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
@@ -246,8 +289,10 @@ private constructor(
         fun build(): NumberListParams =
             NumberListParams(
                 filterEnterpriseId,
+                filterOwnershipStatus,
                 filterPhoneNumberContains,
                 filterPhoneNumberEq,
+                filterSource,
                 pageNumber,
                 pageSize,
                 additionalHeaders.build(),
@@ -261,8 +306,10 @@ private constructor(
         QueryParams.builder()
             .apply {
                 filterEnterpriseId?.let { put("filter[enterprise_id]", it) }
+                filterOwnershipStatus?.let { put("filter[ownership_status]", it.toString()) }
                 filterPhoneNumberContains?.let { put("filter[phone_number][contains]", it) }
                 filterPhoneNumberEq?.let { put("filter[phone_number][eq]", it) }
+                filterSource?.let { put("filter[source]", it.toString()) }
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
                 putAll(additionalQueryParams)
@@ -276,8 +323,10 @@ private constructor(
 
         return other is NumberListParams &&
             filterEnterpriseId == other.filterEnterpriseId &&
+            filterOwnershipStatus == other.filterOwnershipStatus &&
             filterPhoneNumberContains == other.filterPhoneNumberContains &&
             filterPhoneNumberEq == other.filterPhoneNumberEq &&
+            filterSource == other.filterSource &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
             additionalHeaders == other.additionalHeaders &&
@@ -287,8 +336,10 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             filterEnterpriseId,
+            filterOwnershipStatus,
             filterPhoneNumberContains,
             filterPhoneNumberEq,
+            filterSource,
             pageNumber,
             pageSize,
             additionalHeaders,
@@ -296,5 +347,5 @@ private constructor(
         )
 
     override fun toString() =
-        "NumberListParams{filterEnterpriseId=$filterEnterpriseId, filterPhoneNumberContains=$filterPhoneNumberContains, filterPhoneNumberEq=$filterPhoneNumberEq, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "NumberListParams{filterEnterpriseId=$filterEnterpriseId, filterOwnershipStatus=$filterOwnershipStatus, filterPhoneNumberContains=$filterPhoneNumberContains, filterPhoneNumberEq=$filterPhoneNumberEq, filterSource=$filterSource, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

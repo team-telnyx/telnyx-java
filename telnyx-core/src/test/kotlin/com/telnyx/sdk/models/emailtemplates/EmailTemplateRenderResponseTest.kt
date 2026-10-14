@@ -22,13 +22,12 @@ internal class EmailTemplateRenderResponseTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .htmlBody("html_body")
                         .name("name")
-                        .recordType(EmailTemplate.RecordType.EMAIL_TEMPLATE)
+                        .recordType(EmailTemplateCommon.RecordType.EMAIL_TEMPLATE)
                         .strictVariables(true)
-                        .subject("subject")
                         .textBody("text_body")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .variableSchema(
-                            EmailTemplate.VariableSchema.builder()
+                            EmailTemplateCommon.VariableSchema.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -38,6 +37,8 @@ internal class EmailTemplateRenderResponseTest {
                                 .build()
                         )
                         .addVariable("string")
+                        .variablesMode(EmailTemplateCommon.VariablesMode.AUTOMATIC)
+                        .subject("subject")
                         .build()
                 )
                 .build()
@@ -50,13 +51,12 @@ internal class EmailTemplateRenderResponseTest {
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .htmlBody("html_body")
                     .name("name")
-                    .recordType(EmailTemplate.RecordType.EMAIL_TEMPLATE)
+                    .recordType(EmailTemplateCommon.RecordType.EMAIL_TEMPLATE)
                     .strictVariables(true)
-                    .subject("subject")
                     .textBody("text_body")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .variableSchema(
-                        EmailTemplate.VariableSchema.builder()
+                        EmailTemplateCommon.VariableSchema.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(mapOf("required" to true, "default" to "default")),
@@ -64,6 +64,8 @@ internal class EmailTemplateRenderResponseTest {
                             .build()
                     )
                     .addVariable("string")
+                    .variablesMode(EmailTemplateCommon.VariablesMode.AUTOMATIC)
+                    .subject("subject")
                     .build()
             )
     }
@@ -80,13 +82,12 @@ internal class EmailTemplateRenderResponseTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .htmlBody("html_body")
                         .name("name")
-                        .recordType(EmailTemplate.RecordType.EMAIL_TEMPLATE)
+                        .recordType(EmailTemplateCommon.RecordType.EMAIL_TEMPLATE)
                         .strictVariables(true)
-                        .subject("subject")
                         .textBody("text_body")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .variableSchema(
-                            EmailTemplate.VariableSchema.builder()
+                            EmailTemplateCommon.VariableSchema.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -96,6 +97,8 @@ internal class EmailTemplateRenderResponseTest {
                                 .build()
                         )
                         .addVariable("string")
+                        .variablesMode(EmailTemplateCommon.VariablesMode.AUTOMATIC)
+                        .subject("subject")
                         .build()
                 )
                 .build()

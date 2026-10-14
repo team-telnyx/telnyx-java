@@ -24,6 +24,19 @@ import kotlin.jvm.optionals.getOrNull
  * immutable fields (`id`, `record_type`, `created_at`, `updated_at`, status fields,
  * `organization_type`, `country_code`, `role_type`) cannot be changed: including any of them in the
  * body is rejected with `400 Bad Request` (`Field 'X' is not allowed in this request`).
+ *
+ * For an approved BPO enterprise (`role_type` `bpo`), changing any identity field (legal name, DBA,
+ * website, FEIN, industry, number of employees, physical address, organization contact, D-U-N-S
+ * number, legal type, SIC code, corporate registration number, professional license number, or
+ * jurisdiction of incorporation) resets `bpo_verification_status` to `pending` for re-approval and
+ * sets every DIR authorization for that BPO to `rejected`. After re-approval, link it again with a
+ * newly signed LOA (a new `loa_document_id`); resending the old one keeps the authorization
+ * `rejected`. Re-sending an unchanged value does not reset anything.
+ *
+ * If Number Reputation is enabled on the enterprise, `legal_name`, `doing_business_as`, `website`,
+ * `fein`, `industry`, `number_of_employees`, `organization_physical_address`,
+ * `organization_contact`, and `dun_bradstreet_number` cannot be changed: the request is rejected
+ * with `400`.
  */
 class EnterpriseUpdateParams
 private constructor(
@@ -48,43 +61,62 @@ private constructor(
     fun billingContact(): Optional<BillingContact> = body.billingContact()
 
     /**
+     * The official number your company received when it was legally registered or incorporated (for
+     * example from your state or national business registry). It is on your certificate of
+     * incorporation.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun corporateRegistrationNumber(): Optional<String> = body.corporateRegistrationNumber()
 
     /**
+     * Your own label for this account. Enter any reference that helps you find it in your records.
+     * Telnyx does not use it during vetting.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun customerReference(): Optional<String> = body.customerReference()
 
     /**
+     * The trade name your business operates under if it is different from your legal name, also
+     * called a Doing Business As (DBA) name. Leave blank if you only use your legal name.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun doingBusinessAs(): Optional<String> = body.doingBusinessAs()
 
     /**
+     * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique identifier for your
+     * business. Leave blank if you do not have one.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun dunBradstreetNumber(): Optional<String> = body.dunBradstreetNumber()
 
     /**
+     * US Federal Employer Identification Number (`NN-NNNNNNN`) or Canadian equivalent.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun fein(): Optional<String> = body.fein()
 
     /**
+     * The industry your business operates in. Choose the closest match from the list; if your value
+     * is not accepted, pick the nearest category.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun industry(): Optional<Industry> = body.industry()
 
     /**
-     * Updated state/province/country of incorporation. Optional on update.
+     * The state, province, or country where your business was legally incorporated, for example
+     * Delaware.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -92,7 +124,8 @@ private constructor(
     fun jurisdictionOfIncorporation(): Optional<String> = body.jurisdictionOfIncorporation()
 
     /**
-     * Legal name of the enterprise.
+     * Your business's full registered legal name, exactly as it appears on your incorporation or
+     * tax documents, 3 to 64 characters.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -100,6 +133,9 @@ private constructor(
     fun legalName(): Optional<String> = body.legalName()
 
     /**
+     * Approximate headcount range. Used for vetting heuristics; pick the bucket that contains your
+     * current employee count.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -112,6 +148,14 @@ private constructor(
     fun organizationContact(): Optional<OrganizationContact> = body.organizationContact()
 
     /**
+     * Legal-entity form. Pick the form that matches your incorporation documents:
+     * - `corporation` - C-corp or S-corp.
+     * - `llc` - limited liability company.
+     * - `partnership` - general/limited partnership.
+     * - `nonprofit` - non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
+     * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.). You may be
+     *   asked for additional documents during vetting.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -125,18 +169,29 @@ private constructor(
         body.organizationPhysicalAddress()
 
     /**
+     * The 4-digit Standard Industrial Classification code for your main line of business, which
+     * tells us what industry you operate in. Look it up in the SIC code directory if you are
+     * unsure.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun primaryBusinessDomainSicCode(): Optional<String> = body.primaryBusinessDomainSicCode()
 
     /**
+     * If your business operates under a professional license (for example legal, medical, or
+     * financial services), enter the license number issued by the licensing authority. Leave blank
+     * if it does not apply.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun professionalLicenseNumber(): Optional<String> = body.professionalLicenseNumber()
 
     /**
+     * Your business's public website address, including https://. Leave blank if your business has
+     * no website.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -356,6 +411,11 @@ private constructor(
             body.billingContact(billingContact)
         }
 
+        /**
+         * The official number your company received when it was legally registered or incorporated
+         * (for example from your state or national business registry). It is on your certificate of
+         * incorporation.
+         */
         fun corporateRegistrationNumber(corporateRegistrationNumber: String?) = apply {
             body.corporateRegistrationNumber(corporateRegistrationNumber)
         }
@@ -378,6 +438,10 @@ private constructor(
             body.corporateRegistrationNumber(corporateRegistrationNumber)
         }
 
+        /**
+         * Your own label for this account. Enter any reference that helps you find it in your
+         * records. Telnyx does not use it during vetting.
+         */
         fun customerReference(customerReference: String) = apply {
             body.customerReference(customerReference)
         }
@@ -393,6 +457,10 @@ private constructor(
             body.customerReference(customerReference)
         }
 
+        /**
+         * The trade name your business operates under if it is different from your legal name, also
+         * called a Doing Business As (DBA) name. Leave blank if you only use your legal name.
+         */
         fun doingBusinessAs(doingBusinessAs: String) = apply {
             body.doingBusinessAs(doingBusinessAs)
         }
@@ -408,6 +476,10 @@ private constructor(
             body.doingBusinessAs(doingBusinessAs)
         }
 
+        /**
+         * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique identifier for
+         * your business. Leave blank if you do not have one.
+         */
         fun dunBradstreetNumber(dunBradstreetNumber: String?) = apply {
             body.dunBradstreetNumber(dunBradstreetNumber)
         }
@@ -429,6 +501,7 @@ private constructor(
             body.dunBradstreetNumber(dunBradstreetNumber)
         }
 
+        /** US Federal Employer Identification Number (`NN-NNNNNNN`) or Canadian equivalent. */
         fun fein(fein: String) = apply { body.fein(fein) }
 
         /**
@@ -439,6 +512,10 @@ private constructor(
          */
         fun fein(fein: JsonField<String>) = apply { body.fein(fein) }
 
+        /**
+         * The industry your business operates in. Choose the closest match from the list; if your
+         * value is not accepted, pick the nearest category.
+         */
         fun industry(industry: Industry) = apply { body.industry(industry) }
 
         /**
@@ -450,7 +527,10 @@ private constructor(
          */
         fun industry(industry: JsonField<Industry>) = apply { body.industry(industry) }
 
-        /** Updated state/province/country of incorporation. Optional on update. */
+        /**
+         * The state, province, or country where your business was legally incorporated, for example
+         * Delaware.
+         */
         fun jurisdictionOfIncorporation(jurisdictionOfIncorporation: String) = apply {
             body.jurisdictionOfIncorporation(jurisdictionOfIncorporation)
         }
@@ -466,7 +546,10 @@ private constructor(
             body.jurisdictionOfIncorporation(jurisdictionOfIncorporation)
         }
 
-        /** Legal name of the enterprise. */
+        /**
+         * Your business's full registered legal name, exactly as it appears on your incorporation
+         * or tax documents, 3 to 64 characters.
+         */
         fun legalName(legalName: String) = apply { body.legalName(legalName) }
 
         /**
@@ -478,6 +561,10 @@ private constructor(
          */
         fun legalName(legalName: JsonField<String>) = apply { body.legalName(legalName) }
 
+        /**
+         * Approximate headcount range. Used for vetting heuristics; pick the bucket that contains
+         * your current employee count.
+         */
         fun numberOfEmployees(numberOfEmployees: String) = apply {
             body.numberOfEmployees(numberOfEmployees)
         }
@@ -508,6 +595,15 @@ private constructor(
             body.organizationContact(organizationContact)
         }
 
+        /**
+         * Legal-entity form. Pick the form that matches your incorporation documents:
+         * - `corporation` - C-corp or S-corp.
+         * - `llc` - limited liability company.
+         * - `partnership` - general/limited partnership.
+         * - `nonprofit` - non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
+         * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.). You may
+         *   be asked for additional documents during vetting.
+         */
         fun organizationLegalType(organizationLegalType: String) = apply {
             body.organizationLegalType(organizationLegalType)
         }
@@ -539,6 +635,11 @@ private constructor(
                 body.organizationPhysicalAddress(organizationPhysicalAddress)
             }
 
+        /**
+         * The 4-digit Standard Industrial Classification code for your main line of business, which
+         * tells us what industry you operate in. Look it up in the SIC code directory if you are
+         * unsure.
+         */
         fun primaryBusinessDomainSicCode(primaryBusinessDomainSicCode: String?) = apply {
             body.primaryBusinessDomainSicCode(primaryBusinessDomainSicCode)
         }
@@ -561,6 +662,11 @@ private constructor(
             body.primaryBusinessDomainSicCode(primaryBusinessDomainSicCode)
         }
 
+        /**
+         * If your business operates under a professional license (for example legal, medical, or
+         * financial services), enter the license number issued by the licensing authority. Leave
+         * blank if it does not apply.
+         */
         fun professionalLicenseNumber(professionalLicenseNumber: String?) = apply {
             body.professionalLicenseNumber(professionalLicenseNumber)
         }
@@ -583,6 +689,10 @@ private constructor(
             body.professionalLicenseNumber(professionalLicenseNumber)
         }
 
+        /**
+         * Your business's public website address, including https://. Leave blank if your business
+         * has no website.
+         */
         fun website(website: String) = apply { body.website(website) }
 
         /**
@@ -849,6 +959,10 @@ private constructor(
             billingContact.getOptional("billing_contact")
 
         /**
+         * The official number your company received when it was legally registered or incorporated
+         * (for example from your state or national business registry). It is on your certificate of
+         * incorporation.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -856,6 +970,9 @@ private constructor(
             corporateRegistrationNumber.getOptional("corporate_registration_number")
 
         /**
+         * Your own label for this account. Enter any reference that helps you find it in your
+         * records. Telnyx does not use it during vetting.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -863,12 +980,18 @@ private constructor(
             customerReference.getOptional("customer_reference")
 
         /**
+         * The trade name your business operates under if it is different from your legal name, also
+         * called a Doing Business As (DBA) name. Leave blank if you only use your legal name.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun doingBusinessAs(): Optional<String> = doingBusinessAs.getOptional("doing_business_as")
 
         /**
+         * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique identifier for
+         * your business. Leave blank if you do not have one.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -876,19 +999,25 @@ private constructor(
             dunBradstreetNumber.getOptional("dun_bradstreet_number")
 
         /**
+         * US Federal Employer Identification Number (`NN-NNNNNNN`) or Canadian equivalent.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun fein(): Optional<String> = fein.getOptional("fein")
 
         /**
+         * The industry your business operates in. Choose the closest match from the list; if your
+         * value is not accepted, pick the nearest category.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun industry(): Optional<Industry> = industry.getOptional("industry")
 
         /**
-         * Updated state/province/country of incorporation. Optional on update.
+         * The state, province, or country where your business was legally incorporated, for example
+         * Delaware.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -897,7 +1026,8 @@ private constructor(
             jurisdictionOfIncorporation.getOptional("jurisdiction_of_incorporation")
 
         /**
-         * Legal name of the enterprise.
+         * Your business's full registered legal name, exactly as it appears on your incorporation
+         * or tax documents, 3 to 64 characters.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -905,6 +1035,9 @@ private constructor(
         fun legalName(): Optional<String> = legalName.getOptional("legal_name")
 
         /**
+         * Approximate headcount range. Used for vetting heuristics; pick the bucket that contains
+         * your current employee count.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -919,6 +1052,14 @@ private constructor(
             organizationContact.getOptional("organization_contact")
 
         /**
+         * Legal-entity form. Pick the form that matches your incorporation documents:
+         * - `corporation` - C-corp or S-corp.
+         * - `llc` - limited liability company.
+         * - `partnership` - general/limited partnership.
+         * - `nonprofit` - non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
+         * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.). You may
+         *   be asked for additional documents during vetting.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -933,6 +1074,10 @@ private constructor(
             organizationPhysicalAddress.getOptional("organization_physical_address")
 
         /**
+         * The 4-digit Standard Industrial Classification code for your main line of business, which
+         * tells us what industry you operate in. Look it up in the SIC code directory if you are
+         * unsure.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -940,6 +1085,10 @@ private constructor(
             primaryBusinessDomainSicCode.getOptional("primary_business_domain_sic_code")
 
         /**
+         * If your business operates under a professional license (for example legal, medical, or
+         * financial services), enter the license number issued by the licensing authority. Leave
+         * blank if it does not apply.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -947,6 +1096,9 @@ private constructor(
             professionalLicenseNumber.getOptional("professional_license_number")
 
         /**
+         * Your business's public website address, including https://. Leave blank if your business
+         * has no website.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -1200,6 +1352,11 @@ private constructor(
                 this.billingContact = billingContact
             }
 
+            /**
+             * The official number your company received when it was legally registered or
+             * incorporated (for example from your state or national business registry). It is on
+             * your certificate of incorporation.
+             */
             fun corporateRegistrationNumber(corporateRegistrationNumber: String?) =
                 corporateRegistrationNumber(JsonField.ofNullable(corporateRegistrationNumber))
 
@@ -1222,6 +1379,10 @@ private constructor(
                     this.corporateRegistrationNumber = corporateRegistrationNumber
                 }
 
+            /**
+             * Your own label for this account. Enter any reference that helps you find it in your
+             * records. Telnyx does not use it during vetting.
+             */
             fun customerReference(customerReference: String) =
                 customerReference(JsonField.of(customerReference))
 
@@ -1236,6 +1397,11 @@ private constructor(
                 this.customerReference = customerReference
             }
 
+            /**
+             * The trade name your business operates under if it is different from your legal name,
+             * also called a Doing Business As (DBA) name. Leave blank if you only use your legal
+             * name.
+             */
             fun doingBusinessAs(doingBusinessAs: String) =
                 doingBusinessAs(JsonField.of(doingBusinessAs))
 
@@ -1250,6 +1416,10 @@ private constructor(
                 this.doingBusinessAs = doingBusinessAs
             }
 
+            /**
+             * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique identifier
+             * for your business. Leave blank if you do not have one.
+             */
             fun dunBradstreetNumber(dunBradstreetNumber: String?) =
                 dunBradstreetNumber(JsonField.ofNullable(dunBradstreetNumber))
 
@@ -1271,6 +1441,7 @@ private constructor(
                 this.dunBradstreetNumber = dunBradstreetNumber
             }
 
+            /** US Federal Employer Identification Number (`NN-NNNNNNN`) or Canadian equivalent. */
             fun fein(fein: String) = fein(JsonField.of(fein))
 
             /**
@@ -1282,6 +1453,10 @@ private constructor(
              */
             fun fein(fein: JsonField<String>) = apply { this.fein = fein }
 
+            /**
+             * The industry your business operates in. Choose the closest match from the list; if
+             * your value is not accepted, pick the nearest category.
+             */
             fun industry(industry: Industry) = industry(JsonField.of(industry))
 
             /**
@@ -1293,7 +1468,10 @@ private constructor(
              */
             fun industry(industry: JsonField<Industry>) = apply { this.industry = industry }
 
-            /** Updated state/province/country of incorporation. Optional on update. */
+            /**
+             * The state, province, or country where your business was legally incorporated, for
+             * example Delaware.
+             */
             fun jurisdictionOfIncorporation(jurisdictionOfIncorporation: String) =
                 jurisdictionOfIncorporation(JsonField.of(jurisdictionOfIncorporation))
 
@@ -1309,7 +1487,10 @@ private constructor(
                     this.jurisdictionOfIncorporation = jurisdictionOfIncorporation
                 }
 
-            /** Legal name of the enterprise. */
+            /**
+             * Your business's full registered legal name, exactly as it appears on your
+             * incorporation or tax documents, 3 to 64 characters.
+             */
             fun legalName(legalName: String) = legalName(JsonField.of(legalName))
 
             /**
@@ -1321,6 +1502,10 @@ private constructor(
              */
             fun legalName(legalName: JsonField<String>) = apply { this.legalName = legalName }
 
+            /**
+             * Approximate headcount range. Used for vetting heuristics; pick the bucket that
+             * contains your current employee count.
+             */
             fun numberOfEmployees(numberOfEmployees: String) =
                 numberOfEmployees(JsonField.of(numberOfEmployees))
 
@@ -1349,6 +1534,15 @@ private constructor(
                 this.organizationContact = organizationContact
             }
 
+            /**
+             * Legal-entity form. Pick the form that matches your incorporation documents:
+             * - `corporation` - C-corp or S-corp.
+             * - `llc` - limited liability company.
+             * - `partnership` - general/limited partnership.
+             * - `nonprofit` - non-profit corporation, charitable trust, or 501(c)(3)/equivalent.
+             * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.). You
+             *   may be asked for additional documents during vetting.
+             */
             fun organizationLegalType(organizationLegalType: String) =
                 organizationLegalType(JsonField.of(organizationLegalType))
 
@@ -1377,6 +1571,11 @@ private constructor(
                 organizationPhysicalAddress: JsonField<PhysicalAddress>
             ) = apply { this.organizationPhysicalAddress = organizationPhysicalAddress }
 
+            /**
+             * The 4-digit Standard Industrial Classification code for your main line of business,
+             * which tells us what industry you operate in. Look it up in the SIC code directory if
+             * you are unsure.
+             */
             fun primaryBusinessDomainSicCode(primaryBusinessDomainSicCode: String?) =
                 primaryBusinessDomainSicCode(JsonField.ofNullable(primaryBusinessDomainSicCode))
 
@@ -1399,6 +1598,11 @@ private constructor(
                     this.primaryBusinessDomainSicCode = primaryBusinessDomainSicCode
                 }
 
+            /**
+             * If your business operates under a professional license (for example legal, medical,
+             * or financial services), enter the license number issued by the licensing authority.
+             * Leave blank if it does not apply.
+             */
             fun professionalLicenseNumber(professionalLicenseNumber: String?) =
                 professionalLicenseNumber(JsonField.ofNullable(professionalLicenseNumber))
 
@@ -1420,6 +1624,10 @@ private constructor(
                 this.professionalLicenseNumber = professionalLicenseNumber
             }
 
+            /**
+             * Your business's public website address, including https://. Leave blank if your
+             * business has no website.
+             */
             fun website(website: String) = website(JsonField.of(website))
 
             /**
@@ -1603,6 +1811,10 @@ private constructor(
             "Body{billingAddress=$billingAddress, billingContact=$billingContact, corporateRegistrationNumber=$corporateRegistrationNumber, customerReference=$customerReference, doingBusinessAs=$doingBusinessAs, dunBradstreetNumber=$dunBradstreetNumber, fein=$fein, industry=$industry, jurisdictionOfIncorporation=$jurisdictionOfIncorporation, legalName=$legalName, numberOfEmployees=$numberOfEmployees, organizationContact=$organizationContact, organizationLegalType=$organizationLegalType, organizationPhysicalAddress=$organizationPhysicalAddress, primaryBusinessDomainSicCode=$primaryBusinessDomainSicCode, professionalLicenseNumber=$professionalLicenseNumber, website=$website, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The industry your business operates in. Choose the closest match from the list; if your value
+     * is not accepted, pick the nearest category.
+     */
     class Industry @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

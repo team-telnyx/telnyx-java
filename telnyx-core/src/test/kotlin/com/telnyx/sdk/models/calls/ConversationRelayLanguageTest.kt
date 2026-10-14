@@ -3,8 +3,8 @@
 package com.telnyx.sdk.models.calls
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.calls.actions.ConversationRelayTranscriptionEngineConfig
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -19,10 +19,10 @@ internal class ConversationRelayLanguageTest {
                 .speechModel("nova-3")
                 .transcriptionEngine(ConversationRelayLanguage.TranscriptionEngine.GOOGLE)
                 .transcriptionEngineConfig(
-                    ConversationRelayLanguage.TranscriptionEngineConfig.builder()
-                        .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
-                        .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                        .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                    ConversationRelayTranscriptionEngineConfig.builder()
+                        .eagerEotThreshold(0.5)
+                        .eotThreshold(0.5)
+                        .interimResults(true)
                         .build()
                 )
                 .transcriptionProvider("Deepgram")
@@ -42,10 +42,10 @@ internal class ConversationRelayLanguageTest {
             .contains(ConversationRelayLanguage.TranscriptionEngine.GOOGLE)
         assertThat(conversationRelayLanguage.transcriptionEngineConfig())
             .contains(
-                ConversationRelayLanguage.TranscriptionEngineConfig.builder()
-                    .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
-                    .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                    .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                ConversationRelayTranscriptionEngineConfig.builder()
+                    .eagerEotThreshold(0.5)
+                    .eotThreshold(0.5)
+                    .interimResults(true)
                     .build()
             )
         assertThat(conversationRelayLanguage.transcriptionProvider()).contains("Deepgram")
@@ -71,10 +71,10 @@ internal class ConversationRelayLanguageTest {
                 .speechModel("nova-3")
                 .transcriptionEngine(ConversationRelayLanguage.TranscriptionEngine.GOOGLE)
                 .transcriptionEngineConfig(
-                    ConversationRelayLanguage.TranscriptionEngineConfig.builder()
-                        .putAdditionalProperty("transcription_model", JsonValue.from("bar"))
-                        .putAdditionalProperty("interim_results", JsonValue.from("bar"))
-                        .putAdditionalProperty("keywords_boosting", JsonValue.from("bar"))
+                    ConversationRelayTranscriptionEngineConfig.builder()
+                        .eagerEotThreshold(0.5)
+                        .eotThreshold(0.5)
+                        .interimResults(true)
                         .build()
                 )
                 .transcriptionProvider("Deepgram")

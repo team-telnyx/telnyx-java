@@ -16,9 +16,9 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Returns background jobs that operate on phone numbers. Filter by job type, target phone numbers,
- * or job status, and sort by creation time. Multiple phone-number or status values use OR semantics
- * within that filter; different filter categories use AND semantics. Results include pagination
- * metadata.
+ * job status, or creation-time customer reference, and sort by creation time. Multiple phone-number
+ * or status values use OR semantics within that filter; different filter categories use AND
+ * semantics. Results include pagination metadata.
  */
 class JobListParams
 private constructor(
@@ -32,7 +32,7 @@ private constructor(
 
     /**
      * Consolidated filter parameter (deepObject style). Originally: filter[type],
-     * filter[phone_number], filter[phone_number][], filter[status][]
+     * filter[phone_number], filter[phone_number][], filter[status][], filter[customer_reference]
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
@@ -85,7 +85,8 @@ private constructor(
 
         /**
          * Consolidated filter parameter (deepObject style). Originally: filter[type],
-         * filter[phone_number], filter[phone_number][], filter[status][]
+         * filter[phone_number], filter[phone_number][], filter[status][],
+         * filter[customer_reference]
          */
         fun filter(filter: Filter?) = apply { this.filter = filter }
 
@@ -246,6 +247,7 @@ private constructor(
         QueryParams.builder()
             .apply {
                 filter?.let {
+                    it.customerReference().ifPresent { put("filter[customer_reference]", it) }
                     it.phoneNumber().ifPresent {
                         it.accept(
                             object : Filter.PhoneNumber.Visitor<Unit> {
@@ -278,15 +280,25 @@ private constructor(
 
     /**
      * Consolidated filter parameter (deepObject style). Originally: filter[type],
-     * filter[phone_number], filter[phone_number][], filter[status][]
+     * filter[phone_number], filter[phone_number][], filter[status][], filter[customer_reference]
      */
     class Filter
     private constructor(
+        private val customerReference: String?,
         private val phoneNumber: PhoneNumber?,
         private val status: List<Status>?,
         private val type: Type?,
         private val additionalProperties: QueryParams,
     ) {
+
+        /**
+         * Returns jobs whose creation-time customer reference exactly matches the supplied value,
+         * not the current reference on a phone number. Only jobs within the lookup window (90 days
+         * by default) are returned. Supply a single non-blank string of up to 250 characters,
+         * without null characters, using `filter[customer_reference]=yourcustomerrefhere`. An
+         * invalid filter value returns HTTP 422.
+         */
+        fun customerReference(): Optional<String> = Optional.ofNullable(customerReference)
 
         /**
          * Returns jobs that targeted any of the supplied account-owned phone numbers. Values
@@ -319,6 +331,7 @@ private constructor(
         /** A builder for [Filter]. */
         class Builder internal constructor() {
 
+            private var customerReference: String? = null
             private var phoneNumber: PhoneNumber? = null
             private var status: MutableList<Status>? = null
             private var type: Type? = null
@@ -326,11 +339,30 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(filter: Filter) = apply {
+                customerReference = filter.customerReference
                 phoneNumber = filter.phoneNumber
                 status = filter.status?.toMutableList()
                 type = filter.type
                 additionalProperties = filter.additionalProperties.toBuilder()
             }
+
+            /**
+             * Returns jobs whose creation-time customer reference exactly matches the supplied
+             * value, not the current reference on a phone number. Only jobs within the lookup
+             * window (90 days by default) are returned. Supply a single non-blank string of up to
+             * 250 characters, without null characters, using
+             * `filter[customer_reference]=yourcustomerrefhere`. An invalid filter value returns
+             * HTTP 422.
+             */
+            fun customerReference(customerReference: String?) = apply {
+                this.customerReference = customerReference
+            }
+
+            /**
+             * Alias for calling [Builder.customerReference] with `customerReference.orElse(null)`.
+             */
+            fun customerReference(customerReference: Optional<String>) =
+                customerReference(customerReference.getOrNull())
 
             /**
              * Returns jobs that targeted any of the supplied account-owned phone numbers. Values
@@ -431,7 +463,13 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Filter =
-                Filter(phoneNumber, status?.toImmutable(), type, additionalProperties.build())
+                Filter(
+                    customerReference,
+                    phoneNumber,
+                    status?.toImmutable(),
+                    type,
+                    additionalProperties.build(),
+                )
         }
 
         /**
@@ -845,6 +883,7 @@ private constructor(
             }
 
             return other is Filter &&
+                customerReference == other.customerReference &&
                 phoneNumber == other.phoneNumber &&
                 status == other.status &&
                 type == other.type &&
@@ -852,13 +891,13 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(phoneNumber, status, type, additionalProperties)
+            Objects.hash(customerReference, phoneNumber, status, type, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Filter{phoneNumber=$phoneNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
+            "Filter{customerReference=$customerReference, phoneNumber=$phoneNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /**

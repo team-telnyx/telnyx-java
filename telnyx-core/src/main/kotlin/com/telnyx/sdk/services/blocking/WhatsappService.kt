@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.services.blocking.whatsapp.BusinessAccountService
 import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberService
+import com.telnyx.sdk.services.blocking.whatsapp.SignupService
 import com.telnyx.sdk.services.blocking.whatsapp.TemplateService
 import com.telnyx.sdk.services.blocking.whatsapp.UserDataService
 import java.util.function.Consumer
@@ -35,6 +36,8 @@ interface WhatsappService {
     /** Manage Whatsapp business accounts */
     fun userData(): UserDataService
 
+    fun signup(): SignupService
+
     /** A view of [WhatsappService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -56,5 +59,7 @@ interface WhatsappService {
 
         /** Manage Whatsapp business accounts */
         fun userData(): UserDataService.WithRawResponse
+
+        fun signup(): SignupService.WithRawResponse
     }
 }

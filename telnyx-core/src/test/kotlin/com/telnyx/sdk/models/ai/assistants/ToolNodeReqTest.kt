@@ -15,6 +15,7 @@ internal class ToolNodeReqTest {
             ToolNodeReq.builder()
                 .id("n_charge")
                 .sharedToolId("tool-charge-card")
+                .message("One moment while I process your payment.")
                 .name("Charge card")
                 .position(NodePosition.builder().x(300.0).y(200.0).build())
                 .type(ToolNodeReq.Type.TOOL)
@@ -22,6 +23,7 @@ internal class ToolNodeReqTest {
 
         assertThat(toolNodeReq.id()).isEqualTo("n_charge")
         assertThat(toolNodeReq.sharedToolId()).isEqualTo("tool-charge-card")
+        assertThat(toolNodeReq.message()).contains("One moment while I process your payment.")
         assertThat(toolNodeReq.name()).contains("Charge card")
         assertThat(toolNodeReq.position())
             .contains(NodePosition.builder().x(300.0).y(200.0).build())
@@ -35,6 +37,7 @@ internal class ToolNodeReqTest {
             ToolNodeReq.builder()
                 .id("n_charge")
                 .sharedToolId("tool-charge-card")
+                .message("One moment while I process your payment.")
                 .name("Charge card")
                 .position(NodePosition.builder().x(300.0).y(200.0).build())
                 .type(ToolNodeReq.Type.TOOL)

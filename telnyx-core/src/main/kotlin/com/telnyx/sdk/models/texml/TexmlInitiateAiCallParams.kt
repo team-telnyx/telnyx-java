@@ -23,9 +23,11 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Initiate an outbound AI call with warm-up support. Validates parameters, builds an internal TeXML
- * with an AI Assistant configuration, encodes instructions into client state, and calls the dial
- * API. The Twiml, Texml, and Url parameters are not allowed and will result in a 422 error.
+ * Initiate an outbound AI call with warm-up support: Telnyx attempts to warm up the assistant
+ * identified by `AIAssistantId` before placing the call and starts it automatically when the called
+ * party answers. Validates parameters, builds an internal TeXML with an AI Assistant configuration,
+ * encodes instructions into client state, and calls the dial API. The Twiml, Texml, and Url
+ * parameters are not allowed and will result in a 422 error.
  *
  * **Expected callback events:**
  *
@@ -49,7 +51,8 @@ private constructor(
     fun connectionId(): Optional<String> = Optional.ofNullable(connectionId)
 
     /**
-     * The ID of the AI assistant to use for the call.
+     * The ID of the AI assistant to use for the call. Telnyx attempts to warm up this assistant
+     * before the call is placed and starts it automatically when the called party answers.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -925,7 +928,10 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The ID of the AI assistant to use for the call. */
+        /**
+         * The ID of the AI assistant to use for the call. Telnyx attempts to warm up this assistant
+         * before the call is placed and starts it automatically when the called party answers.
+         */
         fun aiAssistantId(aiAssistantId: String) = apply { body.aiAssistantId(aiAssistantId) }
 
         /**
@@ -2187,7 +2193,8 @@ private constructor(
         )
 
         /**
-         * The ID of the AI assistant to use for the call.
+         * The ID of the AI assistant to use for the call. Telnyx attempts to warm up this assistant
+         * before the call is placed and starts it automatically when the called party answers.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -3253,7 +3260,11 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The ID of the AI assistant to use for the call. */
+            /**
+             * The ID of the AI assistant to use for the call. Telnyx attempts to warm up this
+             * assistant before the call is placed and starts it automatically when the called party
+             * answers.
+             */
             fun aiAssistantId(aiAssistantId: String) = aiAssistantId(JsonField.of(aiAssistantId))
 
             /**

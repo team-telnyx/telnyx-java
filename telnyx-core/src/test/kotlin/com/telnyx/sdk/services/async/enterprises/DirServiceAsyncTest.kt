@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.async.enterprises
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.dir.BpoAuthorizationInput
 import com.telnyx.sdk.models.dir.Document
 import com.telnyx.sdk.models.enterprises.dir.DirCreateParams
 import org.junit.jupiter.api.Disabled
@@ -28,6 +29,12 @@ internal class DirServiceAsyncTest {
                     .certifyIpOwnership(DirCreateParams.CertifyIpOwnership.TRUE)
                     .certifyNoShaftContent(DirCreateParams.CertifyNoShaftContent.TRUE)
                     .displayName("Acme Plumbing")
+                    .addBpoAuthorization(
+                        BpoAuthorizationInput.builder()
+                            .bpoEnterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
+                            .loaDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
+                            .build()
+                    )
                     .addDocument(
                         Document.builder()
                             .documentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
@@ -37,6 +44,7 @@ internal class DirServiceAsyncTest {
                     )
                     .logoUrl("https://acmeplumbing.example.com/logo-256.bmp")
                     .reselling(false)
+                    .webhookUrl("https://mapleridge.example.com/webhooks/branded-calling")
                     .build()
             )
 

@@ -9,7 +9,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.enterprises.reputation.loa.AgentInput
 import com.telnyx.sdk.models.enterprises.reputation.loa.LoaRenderParams
 import com.telnyx.sdk.models.enterprises.reputation.loa.LoaUpdateParams
 import org.assertj.core.api.Assertions.assertThat
@@ -54,7 +53,7 @@ internal class LoaServiceAsyncTest {
                 LoaRenderParams.builder()
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                     .agent(
-                        AgentInput.builder()
+                        LoaRenderParams.Agent.builder()
                             .administrativeArea("administrative_area")
                             .city("city")
                             .contactEmail("dev@stainless.com")
