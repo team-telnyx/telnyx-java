@@ -6,7 +6,6 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.avatars.AvatarCreateParams
-import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.avatars.AvatarListPageAsync
 import com.telnyx.sdk.models.ai.avatars.AvatarListParams
 import com.telnyx.sdk.models.ai.avatars.AvatarResponse
@@ -59,12 +58,12 @@ interface AvatarServiceAsync {
      * Returns a Telnyx stock avatar or a custom avatar owned by the authenticated organization. A
      * custom avatar belonging to another organization is returned as not found.
      */
-    fun retrieve(avatarId: AvatarId): CompletableFuture<AvatarResponse> =
+    fun retrieve(avatarId: String): CompletableFuture<AvatarResponse> =
         retrieve(avatarId, AvatarRetrieveParams.none())
 
     /** @see retrieve */
     fun retrieve(
-        avatarId: AvatarId,
+        avatarId: String,
         params: AvatarRetrieveParams = AvatarRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AvatarResponse> =
@@ -72,7 +71,7 @@ interface AvatarServiceAsync {
 
     /** @see retrieve */
     fun retrieve(
-        avatarId: AvatarId,
+        avatarId: String,
         params: AvatarRetrieveParams = AvatarRetrieveParams.none(),
     ): CompletableFuture<AvatarResponse> = retrieve(avatarId, params, RequestOptions.none())
 
@@ -88,7 +87,7 @@ interface AvatarServiceAsync {
 
     /** @see retrieve */
     fun retrieve(
-        avatarId: AvatarId,
+        avatarId: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<AvatarResponse> =
         retrieve(avatarId, AvatarRetrieveParams.none(), requestOptions)
@@ -98,12 +97,12 @@ interface AvatarServiceAsync {
      * Stock avatars cannot be modified. To replace the image, create a new custom avatar so
      * existing references keep their original content.
      */
-    fun update(avatarId: AvatarId, params: AvatarUpdateParams): CompletableFuture<AvatarResponse> =
+    fun update(avatarId: String, params: AvatarUpdateParams): CompletableFuture<AvatarResponse> =
         update(avatarId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        avatarId: AvatarId,
+        avatarId: String,
         params: AvatarUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AvatarResponse> =
@@ -123,7 +122,9 @@ interface AvatarServiceAsync {
      * Returns a paginated list of the Telnyx stock avatars and custom avatars available to the
      * authenticated organization. Custom avatars owned by other organizations are never returned.
      * The `image_url` value is suitable for displaying a thumbnail and may be refreshed by listing
-     * or retrieving the avatar again.
+     * or retrieving the avatar again. `suggested_voice_id` recommends a compatible Telnyx voice for
+     * stock avatars and is an empty string for custom avatars; it does not change an AI Assistant's
+     * voice automatically.
      */
     fun list(): CompletableFuture<AvatarListPageAsync> = list(AvatarListParams.none())
 
@@ -173,12 +174,12 @@ interface AvatarServiceAsync {
          * Returns a raw HTTP response for `get /ai/avatars/{avatar_id}`, but is otherwise the same
          * as [AvatarServiceAsync.retrieve].
          */
-        fun retrieve(avatarId: AvatarId): CompletableFuture<HttpResponseFor<AvatarResponse>> =
+        fun retrieve(avatarId: String): CompletableFuture<HttpResponseFor<AvatarResponse>> =
             retrieve(avatarId, AvatarRetrieveParams.none())
 
         /** @see retrieve */
         fun retrieve(
-            avatarId: AvatarId,
+            avatarId: String,
             params: AvatarRetrieveParams = AvatarRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AvatarResponse>> =
@@ -186,7 +187,7 @@ interface AvatarServiceAsync {
 
         /** @see retrieve */
         fun retrieve(
-            avatarId: AvatarId,
+            avatarId: String,
             params: AvatarRetrieveParams = AvatarRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<AvatarResponse>> =
             retrieve(avatarId, params, RequestOptions.none())
@@ -205,7 +206,7 @@ interface AvatarServiceAsync {
 
         /** @see retrieve */
         fun retrieve(
-            avatarId: AvatarId,
+            avatarId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AvatarResponse>> =
             retrieve(avatarId, AvatarRetrieveParams.none(), requestOptions)
@@ -215,14 +216,14 @@ interface AvatarServiceAsync {
          * same as [AvatarServiceAsync.update].
          */
         fun update(
-            avatarId: AvatarId,
+            avatarId: String,
             params: AvatarUpdateParams,
         ): CompletableFuture<HttpResponseFor<AvatarResponse>> =
             update(avatarId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            avatarId: AvatarId,
+            avatarId: String,
             params: AvatarUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AvatarResponse>> =

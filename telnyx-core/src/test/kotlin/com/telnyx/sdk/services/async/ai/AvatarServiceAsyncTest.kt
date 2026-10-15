@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async.ai
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.avatars.AvatarCreateParams
-import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.avatars.AvatarUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -35,7 +34,8 @@ internal class AvatarServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val avatarServiceAsync = client.ai().avatars()
 
-        val avatarResponseFuture = avatarServiceAsync.retrieve(AvatarId.ELENA)
+        val avatarResponseFuture =
+            avatarServiceAsync.retrieve("avatar_0123456789abcdef0123456789abcdef")
 
         val avatarResponse = avatarResponseFuture.get()
         avatarResponse.validate()
@@ -50,7 +50,7 @@ internal class AvatarServiceAsyncTest {
         val avatarResponseFuture =
             avatarServiceAsync.update(
                 AvatarUpdateParams.builder()
-                    .avatarId(AvatarId.ELENA)
+                    .avatarId("avatar_0123456789abcdef0123456789abcdef")
                     .name("Updated portrait")
                     .build()
             )

@@ -12,7 +12,7 @@ internal class AvatarListParamsTest {
     fun create() {
         AvatarListParams.builder()
             .filterAvatarType(AvatarType.STOCK)
-            .filterId(AvatarId.ELENA)
+            .filterId("avatar_0123456789abcdef0123456789abcdef")
             .filterName("x")
             .pageNumber(1L)
             .pageSize(1L)
@@ -24,7 +24,7 @@ internal class AvatarListParamsTest {
         val params =
             AvatarListParams.builder()
                 .filterAvatarType(AvatarType.STOCK)
-                .filterId(AvatarId.ELENA)
+                .filterId("avatar_0123456789abcdef0123456789abcdef")
                 .filterName("x")
                 .pageNumber(1L)
                 .pageSize(1L)
@@ -36,7 +36,7 @@ internal class AvatarListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[avatar_type]", "stock")
-                    .put("filter[id]", "elena")
+                    .put("filter[id]", "avatar_0123456789abcdef0123456789abcdef")
                     .put("filter[name]", "x")
                     .put("page[number]", "1")
                     .put("page[size]", "1")

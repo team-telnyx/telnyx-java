@@ -268,9 +268,10 @@ private constructor(
     fun a2aAgents(): Optional<List<AssistantA2AAgent>> = a2aAgents.getOptional("a2a_agents")
 
     /**
-     * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of the six stock
-     * avatars or an organization-owned custom avatar returned by the Avatars API. Supported
-     * backgrounds are office, studio, and reception.
+     * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock avatar or an
+     * organization-owned custom avatar returned by the Avatars API. Discover the available stock
+     * catalog with GET /v2/ai/avatars and filter[avatar_type]=stock; follow meta.total_pages to
+     * load every page. Supported backgrounds are office, studio, and reception.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1120,9 +1121,11 @@ private constructor(
         }
 
         /**
-         * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of the six
-         * stock avatars or an organization-owned custom avatar returned by the Avatars API.
-         * Supported backgrounds are office, studio, and reception.
+         * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock avatar or
+         * an organization-owned custom avatar returned by the Avatars API. Discover the available
+         * stock catalog with GET /v2/ai/avatars and filter[avatar_type]=stock; follow
+         * meta.total_pages to load every page. Supported backgrounds are office, studio, and
+         * reception.
          */
         fun avatarSettings(avatarSettings: TelnyxAvatarSettings?) =
             avatarSettings(JsonField.ofNullable(avatarSettings))

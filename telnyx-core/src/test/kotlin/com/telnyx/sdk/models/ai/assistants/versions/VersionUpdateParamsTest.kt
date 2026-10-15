@@ -35,7 +35,6 @@ import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.WebsocketSettings
 import com.telnyx.sdk.models.ai.assistants.WidgetSettings
-import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -74,7 +73,7 @@ internal class VersionUpdateParamsTest {
                     )
                     .avatarSettings(
                         AvatarSettingsRequest.builder()
-                            .avatarId(AvatarId.ELENA)
+                            .avatarId("elena")
                             .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                             .model(AvatarSettingsRequest.Model.FOXTROT_1)
                             .build()
@@ -943,7 +942,7 @@ internal class VersionUpdateParamsTest {
                         )
                         .avatarSettings(
                             AvatarSettingsRequest.builder()
-                                .avatarId(AvatarId.ELENA)
+                                .avatarId("elena")
                                 .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                                 .model(AvatarSettingsRequest.Model.FOXTROT_1)
                                 .build()
@@ -1820,7 +1819,7 @@ internal class VersionUpdateParamsTest {
                     )
                     .avatarSettings(
                         AvatarSettingsRequest.builder()
-                            .avatarId(AvatarId.ELENA)
+                            .avatarId("elena")
                             .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                             .model(AvatarSettingsRequest.Model.FOXTROT_1)
                             .build()

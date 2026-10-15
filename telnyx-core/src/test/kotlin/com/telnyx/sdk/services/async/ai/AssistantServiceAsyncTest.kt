@@ -46,7 +46,6 @@ import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.WebsocketSettings
 import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
-import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -90,7 +89,7 @@ internal class AssistantServiceAsyncTest {
                     )
                     .avatarSettings(
                         AvatarSettingsRequest.builder()
-                            .avatarId(AvatarId.ELENA)
+                            .avatarId("elena")
                             .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                             .model(AvatarSettingsRequest.Model.FOXTROT_1)
                             .build()
@@ -966,7 +965,7 @@ internal class AssistantServiceAsyncTest {
                     )
                     .avatarSettings(
                         AvatarSettingsRequest.builder()
-                            .avatarId(AvatarId.ELENA)
+                            .avatarId("elena")
                             .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                             .model(AvatarSettingsRequest.Model.FOXTROT_1)
                             .build()

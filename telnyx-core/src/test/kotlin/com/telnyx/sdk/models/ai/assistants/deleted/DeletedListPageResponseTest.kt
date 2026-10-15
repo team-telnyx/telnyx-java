@@ -39,7 +39,6 @@ import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.WebsocketSettings
 import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.Meta
-import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -83,7 +82,7 @@ internal class DeletedListPageResponseTest {
                         )
                         .avatarSettings(
                             TelnyxAvatarSettings.builder()
-                                .avatarId(AvatarId.ELENA)
+                                .avatarId("elena")
                                 .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
                                 .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                                 .build()
@@ -1026,7 +1025,7 @@ internal class DeletedListPageResponseTest {
                     )
                     .avatarSettings(
                         TelnyxAvatarSettings.builder()
-                            .avatarId(AvatarId.ELENA)
+                            .avatarId("elena")
                             .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
                             .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                             .build()
@@ -1942,7 +1941,7 @@ internal class DeletedListPageResponseTest {
                         )
                         .avatarSettings(
                             TelnyxAvatarSettings.builder()
-                                .avatarId(AvatarId.ELENA)
+                                .avatarId("elena")
                                 .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
                                 .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                                 .build()

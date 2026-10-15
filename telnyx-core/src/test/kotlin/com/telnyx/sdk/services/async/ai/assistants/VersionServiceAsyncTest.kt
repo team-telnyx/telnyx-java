@@ -41,7 +41,6 @@ import com.telnyx.sdk.models.ai.assistants.versions.VersionDeleteParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateParams
-import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -106,7 +105,7 @@ internal class VersionServiceAsyncTest {
                             )
                             .avatarSettings(
                                 AvatarSettingsRequest.builder()
-                                    .avatarId(AvatarId.ELENA)
+                                    .avatarId("elena")
                                     .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                                     .model(AvatarSettingsRequest.Model.FOXTROT_1)
                                     .build()

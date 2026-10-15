@@ -13,20 +13,20 @@ import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.ai.avatars.AvatarId
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of the six stock
- * avatars or an organization-owned custom avatar returned by the Avatars API. Supported backgrounds
- * are office, studio, and reception.
+ * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock avatar or an
+ * organization-owned custom avatar returned by the Avatars API. Discover the available stock
+ * catalog with GET /v2/ai/avatars and filter[avatar_type]=stock; follow meta.total_pages to load
+ * every page. Supported backgrounds are office, studio, and reception.
  */
 class AvatarSettingsRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val avatarId: JsonField<AvatarId>,
+    private val avatarId: JsonField<String>,
     private val backgroundId: JsonField<BackgroundId>,
     private val model: JsonField<Model>,
     private val provider: JsonValue,
@@ -35,7 +35,7 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("avatar_id") @ExcludeMissing avatarId: JsonField<AvatarId> = JsonMissing.of(),
+        @JsonProperty("avatar_id") @ExcludeMissing avatarId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("background_id")
         @ExcludeMissing
         backgroundId: JsonField<BackgroundId> = JsonMissing.of(),
@@ -44,13 +44,12 @@ private constructor(
     ) : this(avatarId, backgroundId, model, provider, mutableMapOf())
 
     /**
-     * Stable identifier of a Telnyx stock avatar or an organization-owned custom avatar. Custom
-     * avatar IDs are returned by the Avatars API and use the `avatar_` prefix.
+     * The Telnyx stock avatar or organization-owned custom avatar to render.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun avatarId(): AvatarId = avatarId.getRequired("avatar_id")
+    fun avatarId(): String = avatarId.getRequired("avatar_id")
 
     /**
      * The background to render.
@@ -87,7 +86,7 @@ private constructor(
      *
      * Unlike [avatarId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("avatar_id") @ExcludeMissing fun _avatarId(): JsonField<AvatarId> = avatarId
+    @JsonProperty("avatar_id") @ExcludeMissing fun _avatarId(): JsonField<String> = avatarId
 
     /**
      * Returns the raw JSON value of [backgroundId].
@@ -135,7 +134,7 @@ private constructor(
     /** A builder for [AvatarSettingsRequest]. */
     class Builder internal constructor() {
 
-        private var avatarId: JsonField<AvatarId>? = null
+        private var avatarId: JsonField<String>? = null
         private var backgroundId: JsonField<BackgroundId>? = null
         private var model: JsonField<Model>? = null
         private var provider: JsonValue = JsonValue.from("telnyx")
@@ -150,28 +149,16 @@ private constructor(
             additionalProperties = avatarSettingsRequest.additionalProperties.toMutableMap()
         }
 
-        /**
-         * Stable identifier of a Telnyx stock avatar or an organization-owned custom avatar. Custom
-         * avatar IDs are returned by the Avatars API and use the `avatar_` prefix.
-         */
-        fun avatarId(avatarId: AvatarId) = avatarId(JsonField.of(avatarId))
+        /** The Telnyx stock avatar or organization-owned custom avatar to render. */
+        fun avatarId(avatarId: String) = avatarId(JsonField.of(avatarId))
 
         /**
          * Sets [Builder.avatarId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.avatarId] with a well-typed [AvatarId] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun avatarId(avatarId: JsonField<AvatarId>) = apply { this.avatarId = avatarId }
-
-        /**
-         * Sets [avatarId] to an arbitrary [String].
-         *
-         * You should usually call [avatarId] with a well-typed [AvatarId] constant instead. This
+         * You should usually call [Builder.avatarId] with a well-typed [String] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun avatarId(value: String) = avatarId(AvatarId.of(value))
+        fun avatarId(avatarId: JsonField<String>) = apply { this.avatarId = avatarId }
 
         /** The background to render. */
         fun backgroundId(backgroundId: BackgroundId) = backgroundId(JsonField.of(backgroundId))

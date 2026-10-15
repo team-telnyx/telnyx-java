@@ -12,12 +12,14 @@ import kotlin.jvm.optionals.getOrNull
  * Returns a paginated list of the Telnyx stock avatars and custom avatars available to the
  * authenticated organization. Custom avatars owned by other organizations are never returned. The
  * `image_url` value is suitable for displaying a thumbnail and may be refreshed by listing or
- * retrieving the avatar again.
+ * retrieving the avatar again. `suggested_voice_id` recommends a compatible Telnyx voice for stock
+ * avatars and is an empty string for custom avatars; it does not change an AI Assistant's voice
+ * automatically.
  */
 class AvatarListParams
 private constructor(
     private val filterAvatarType: AvatarType?,
-    private val filterId: AvatarId?,
+    private val filterId: String?,
     private val filterName: String?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
@@ -28,11 +30,8 @@ private constructor(
     /** Return only stock or custom avatars. */
     fun filterAvatarType(): Optional<AvatarType> = Optional.ofNullable(filterAvatarType)
 
-    /**
-     * Stable identifier of a Telnyx stock avatar or an organization-owned custom avatar. Custom
-     * avatar IDs are returned by the Avatars API and use the `avatar_` prefix.
-     */
-    fun filterId(): Optional<AvatarId> = Optional.ofNullable(filterId)
+    /** Return the avatar with this exact ID. */
+    fun filterId(): Optional<String> = Optional.ofNullable(filterId)
 
     /** Return avatars whose names contain this value, using case-insensitive matching. */
     fun filterName(): Optional<String> = Optional.ofNullable(filterName)
@@ -63,7 +62,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var filterAvatarType: AvatarType? = null
-        private var filterId: AvatarId? = null
+        private var filterId: String? = null
         private var filterName: String? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
@@ -91,22 +90,11 @@ private constructor(
         fun filterAvatarType(filterAvatarType: Optional<AvatarType>) =
             filterAvatarType(filterAvatarType.getOrNull())
 
-        /**
-         * Stable identifier of a Telnyx stock avatar or an organization-owned custom avatar. Custom
-         * avatar IDs are returned by the Avatars API and use the `avatar_` prefix.
-         */
-        fun filterId(filterId: AvatarId?) = apply { this.filterId = filterId }
+        /** Return the avatar with this exact ID. */
+        fun filterId(filterId: String?) = apply { this.filterId = filterId }
 
         /** Alias for calling [Builder.filterId] with `filterId.orElse(null)`. */
-        fun filterId(filterId: Optional<AvatarId>) = filterId(filterId.getOrNull())
-
-        /**
-         * Sets [filterId] to an arbitrary [String].
-         *
-         * You should usually call [filterId] with a well-typed [AvatarId] constant instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun filterId(value: String) = filterId(AvatarId.of(value))
+        fun filterId(filterId: Optional<String>) = filterId(filterId.getOrNull())
 
         /** Return avatars whose names contain this value, using case-insensitive matching. */
         fun filterName(filterName: String?) = apply { this.filterName = filterName }
@@ -262,7 +250,7 @@ private constructor(
         QueryParams.builder()
             .apply {
                 filterAvatarType?.let { put("filter[avatar_type]", it.toString()) }
-                filterId?.let { put("filter[id]", it.toString()) }
+                filterId?.let { put("filter[id]", it) }
                 filterName?.let { put("filter[name]", it) }
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }

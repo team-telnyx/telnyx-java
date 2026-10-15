@@ -9,15 +9,21 @@ internal class AvatarUpdateParamsTest {
 
     @Test
     fun create() {
-        AvatarUpdateParams.builder().avatarId(AvatarId.ELENA).name("Updated portrait").build()
+        AvatarUpdateParams.builder()
+            .avatarId("avatar_0123456789abcdef0123456789abcdef")
+            .name("Updated portrait")
+            .build()
     }
 
     @Test
     fun pathParams() {
         val params =
-            AvatarUpdateParams.builder().avatarId(AvatarId.ELENA).name("Updated portrait").build()
+            AvatarUpdateParams.builder()
+                .avatarId("avatar_0123456789abcdef0123456789abcdef")
+                .name("Updated portrait")
+                .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("elena")
+        assertThat(params._pathParam(0)).isEqualTo("avatar_0123456789abcdef0123456789abcdef")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -25,7 +31,10 @@ internal class AvatarUpdateParamsTest {
     @Test
     fun body() {
         val params =
-            AvatarUpdateParams.builder().avatarId(AvatarId.ELENA).name("Updated portrait").build()
+            AvatarUpdateParams.builder()
+                .avatarId("avatar_0123456789abcdef0123456789abcdef")
+                .name("Updated portrait")
+                .build()
 
         val body = params._body()
 

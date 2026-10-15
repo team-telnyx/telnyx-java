@@ -7,7 +7,6 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.avatars.AvatarCreateParams
-import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.avatars.AvatarListPage
 import com.telnyx.sdk.models.ai.avatars.AvatarListParams
 import com.telnyx.sdk.models.ai.avatars.AvatarResponse
@@ -58,19 +57,18 @@ interface AvatarService {
      * Returns a Telnyx stock avatar or a custom avatar owned by the authenticated organization. A
      * custom avatar belonging to another organization is returned as not found.
      */
-    fun retrieve(avatarId: AvatarId): AvatarResponse =
-        retrieve(avatarId, AvatarRetrieveParams.none())
+    fun retrieve(avatarId: String): AvatarResponse = retrieve(avatarId, AvatarRetrieveParams.none())
 
     /** @see retrieve */
     fun retrieve(
-        avatarId: AvatarId,
+        avatarId: String,
         params: AvatarRetrieveParams = AvatarRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AvatarResponse = retrieve(params.toBuilder().avatarId(avatarId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
-        avatarId: AvatarId,
+        avatarId: String,
         params: AvatarRetrieveParams = AvatarRetrieveParams.none(),
     ): AvatarResponse = retrieve(avatarId, params, RequestOptions.none())
 
@@ -85,7 +83,7 @@ interface AvatarService {
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(avatarId: AvatarId, requestOptions: RequestOptions): AvatarResponse =
+    fun retrieve(avatarId: String, requestOptions: RequestOptions): AvatarResponse =
         retrieve(avatarId, AvatarRetrieveParams.none(), requestOptions)
 
     /**
@@ -93,12 +91,12 @@ interface AvatarService {
      * Stock avatars cannot be modified. To replace the image, create a new custom avatar so
      * existing references keep their original content.
      */
-    fun update(avatarId: AvatarId, params: AvatarUpdateParams): AvatarResponse =
+    fun update(avatarId: String, params: AvatarUpdateParams): AvatarResponse =
         update(avatarId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        avatarId: AvatarId,
+        avatarId: String,
         params: AvatarUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AvatarResponse = update(params.toBuilder().avatarId(avatarId).build(), requestOptions)
@@ -116,7 +114,9 @@ interface AvatarService {
      * Returns a paginated list of the Telnyx stock avatars and custom avatars available to the
      * authenticated organization. Custom avatars owned by other organizations are never returned.
      * The `image_url` value is suitable for displaying a thumbnail and may be refreshed by listing
-     * or retrieving the avatar again.
+     * or retrieving the avatar again. `suggested_voice_id` recommends a compatible Telnyx voice for
+     * stock avatars and is an empty string for custom avatars; it does not change an AI Assistant's
+     * voice automatically.
      */
     fun list(): AvatarListPage = list(AvatarListParams.none())
 
@@ -164,13 +164,13 @@ interface AvatarService {
          * as [AvatarService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(avatarId: AvatarId): HttpResponseFor<AvatarResponse> =
+        fun retrieve(avatarId: String): HttpResponseFor<AvatarResponse> =
             retrieve(avatarId, AvatarRetrieveParams.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
-            avatarId: AvatarId,
+            avatarId: String,
             params: AvatarRetrieveParams = AvatarRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AvatarResponse> =
@@ -179,7 +179,7 @@ interface AvatarService {
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
-            avatarId: AvatarId,
+            avatarId: String,
             params: AvatarRetrieveParams = AvatarRetrieveParams.none(),
         ): HttpResponseFor<AvatarResponse> = retrieve(avatarId, params, RequestOptions.none())
 
@@ -198,7 +198,7 @@ interface AvatarService {
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
-            avatarId: AvatarId,
+            avatarId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AvatarResponse> =
             retrieve(avatarId, AvatarRetrieveParams.none(), requestOptions)
@@ -208,15 +208,13 @@ interface AvatarService {
          * same as [AvatarService.update].
          */
         @MustBeClosed
-        fun update(
-            avatarId: AvatarId,
-            params: AvatarUpdateParams,
-        ): HttpResponseFor<AvatarResponse> = update(avatarId, params, RequestOptions.none())
+        fun update(avatarId: String, params: AvatarUpdateParams): HttpResponseFor<AvatarResponse> =
+            update(avatarId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            avatarId: AvatarId,
+            avatarId: String,
             params: AvatarUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AvatarResponse> =

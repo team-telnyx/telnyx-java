@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class Avatar
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val id: JsonField<AvatarId>,
+    private val id: JsonField<String>,
     private val avatarType: JsonField<AvatarType>,
     private val hosted: JsonValue,
     private val imageUrl: JsonField<String>,
@@ -33,6 +33,7 @@ private constructor(
     private val heightPx: JsonField<Long>,
     private val imageUrlExpiresAt: JsonField<OffsetDateTime>,
     private val sizeBytes: JsonField<Long>,
+    private val suggestedVoiceId: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val widthPx: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -40,7 +41,7 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing id: JsonField<AvatarId> = JsonMissing.of(),
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("avatar_type")
         @ExcludeMissing
         avatarType: JsonField<AvatarType> = JsonMissing.of(),
@@ -59,6 +60,9 @@ private constructor(
         @ExcludeMissing
         imageUrlExpiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("size_bytes") @ExcludeMissing sizeBytes: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("suggested_voice_id")
+        @ExcludeMissing
+        suggestedVoiceId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -75,19 +79,22 @@ private constructor(
         heightPx,
         imageUrlExpiresAt,
         sizeBytes,
+        suggestedVoiceId,
         updatedAt,
         widthPx,
         mutableMapOf(),
     )
 
     /**
-     * Stable identifier of a Telnyx stock avatar or an organization-owned custom avatar. Custom
-     * avatar IDs are returned by the Avatars API and use the `avatar_` prefix.
+     * Stable identifier returned by the Avatars API. Discover available stock IDs with GET
+     * /v2/ai/avatars and filter[avatar_type]=stock rather than maintaining a fixed list. Custom
+     * avatar IDs use the `avatar_` prefix and must belong to the authenticated organization. The
+     * service validates that the selected avatar is available.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun id(): AvatarId = id.getRequired("id")
+    fun id(): String = id.getRequired("id")
 
     /**
      * Whether the avatar is provided by Telnyx or was uploaded by the authenticated organization.
@@ -182,6 +189,17 @@ private constructor(
     fun sizeBytes(): Optional<Long> = sizeBytes.getOptional("size_bytes")
 
     /**
+     * Optional recommended Telnyx text-to-speech voice for this avatar. An omitted field or empty
+     * string means no recommendation is available. Custom avatars have no suggested voice. It is
+     * informational and selecting the avatar does not automatically change the AI Assistant's
+     * configured voice.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun suggestedVoiceId(): Optional<String> = suggestedVoiceId.getOptional("suggested_voice_id")
+
+    /**
      * Time when the custom avatar was last updated.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -202,7 +220,7 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<AvatarId> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [avatarType].
@@ -270,6 +288,16 @@ private constructor(
     @JsonProperty("size_bytes") @ExcludeMissing fun _sizeBytes(): JsonField<Long> = sizeBytes
 
     /**
+     * Returns the raw JSON value of [suggestedVoiceId].
+     *
+     * Unlike [suggestedVoiceId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("suggested_voice_id")
+    @ExcludeMissing
+    fun _suggestedVoiceId(): JsonField<String> = suggestedVoiceId
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -316,7 +344,7 @@ private constructor(
     /** A builder for [Avatar]. */
     class Builder internal constructor() {
 
-        private var id: JsonField<AvatarId>? = null
+        private var id: JsonField<String>? = null
         private var avatarType: JsonField<AvatarType>? = null
         private var hosted: JsonValue = JsonValue.from(true)
         private var imageUrl: JsonField<String>? = null
@@ -327,6 +355,7 @@ private constructor(
         private var heightPx: JsonField<Long> = JsonMissing.of()
         private var imageUrlExpiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var sizeBytes: JsonField<Long> = JsonMissing.of()
+        private var suggestedVoiceId: JsonField<String> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var widthPx: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -344,32 +373,27 @@ private constructor(
             heightPx = avatar.heightPx
             imageUrlExpiresAt = avatar.imageUrlExpiresAt
             sizeBytes = avatar.sizeBytes
+            suggestedVoiceId = avatar.suggestedVoiceId
             updatedAt = avatar.updatedAt
             widthPx = avatar.widthPx
             additionalProperties = avatar.additionalProperties.toMutableMap()
         }
 
         /**
-         * Stable identifier of a Telnyx stock avatar or an organization-owned custom avatar. Custom
-         * avatar IDs are returned by the Avatars API and use the `avatar_` prefix.
+         * Stable identifier returned by the Avatars API. Discover available stock IDs with GET
+         * /v2/ai/avatars and filter[avatar_type]=stock rather than maintaining a fixed list. Custom
+         * avatar IDs use the `avatar_` prefix and must belong to the authenticated organization.
+         * The service validates that the selected avatar is available.
          */
-        fun id(id: AvatarId) = id(JsonField.of(id))
+        fun id(id: String) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [AvatarId] value instead. This
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun id(id: JsonField<AvatarId>) = apply { this.id = id }
-
-        /**
-         * Sets [id] to an arbitrary [String].
-         *
-         * You should usually call [id] with a well-typed [AvatarId] constant instead. This method
-         * is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun id(value: String) = id(AvatarId.of(value))
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * Whether the avatar is provided by Telnyx or was uploaded by the authenticated
@@ -502,6 +526,26 @@ private constructor(
          */
         fun sizeBytes(sizeBytes: JsonField<Long>) = apply { this.sizeBytes = sizeBytes }
 
+        /**
+         * Optional recommended Telnyx text-to-speech voice for this avatar. An omitted field or
+         * empty string means no recommendation is available. Custom avatars have no suggested
+         * voice. It is informational and selecting the avatar does not automatically change the AI
+         * Assistant's configured voice.
+         */
+        fun suggestedVoiceId(suggestedVoiceId: String) =
+            suggestedVoiceId(JsonField.of(suggestedVoiceId))
+
+        /**
+         * Sets [Builder.suggestedVoiceId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.suggestedVoiceId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun suggestedVoiceId(suggestedVoiceId: JsonField<String>) = apply {
+            this.suggestedVoiceId = suggestedVoiceId
+        }
+
         /** Time when the custom avatar was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
@@ -572,6 +616,7 @@ private constructor(
                 heightPx,
                 imageUrlExpiresAt,
                 sizeBytes,
+                suggestedVoiceId,
                 updatedAt,
                 widthPx,
                 additionalProperties.toMutableMap(),
@@ -612,6 +657,7 @@ private constructor(
         heightPx()
         imageUrlExpiresAt()
         sizeBytes()
+        suggestedVoiceId()
         updatedAt()
         widthPx()
         validated = true
@@ -643,6 +689,7 @@ private constructor(
             (if (heightPx.asKnown().isPresent) 1 else 0) +
             (if (imageUrlExpiresAt.asKnown().isPresent) 1 else 0) +
             (if (sizeBytes.asKnown().isPresent) 1 else 0) +
+            (if (suggestedVoiceId.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (if (widthPx.asKnown().isPresent) 1 else 0)
 
@@ -807,6 +854,7 @@ private constructor(
             heightPx == other.heightPx &&
             imageUrlExpiresAt == other.imageUrlExpiresAt &&
             sizeBytes == other.sizeBytes &&
+            suggestedVoiceId == other.suggestedVoiceId &&
             updatedAt == other.updatedAt &&
             widthPx == other.widthPx &&
             additionalProperties == other.additionalProperties
@@ -825,6 +873,7 @@ private constructor(
             heightPx,
             imageUrlExpiresAt,
             sizeBytes,
+            suggestedVoiceId,
             updatedAt,
             widthPx,
             additionalProperties,
@@ -834,5 +883,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Avatar{id=$id, avatarType=$avatarType, hosted=$hosted, imageUrl=$imageUrl, name=$name, provider=$provider, contentType=$contentType, createdAt=$createdAt, heightPx=$heightPx, imageUrlExpiresAt=$imageUrlExpiresAt, sizeBytes=$sizeBytes, updatedAt=$updatedAt, widthPx=$widthPx, additionalProperties=$additionalProperties}"
+        "Avatar{id=$id, avatarType=$avatarType, hosted=$hosted, imageUrl=$imageUrl, name=$name, provider=$provider, contentType=$contentType, createdAt=$createdAt, heightPx=$heightPx, imageUrlExpiresAt=$imageUrlExpiresAt, sizeBytes=$sizeBytes, suggestedVoiceId=$suggestedVoiceId, updatedAt=$updatedAt, widthPx=$widthPx, additionalProperties=$additionalProperties}"
 }

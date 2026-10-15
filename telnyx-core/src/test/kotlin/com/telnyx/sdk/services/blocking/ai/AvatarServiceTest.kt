@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking.ai
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.avatars.AvatarCreateParams
-import com.telnyx.sdk.models.ai.avatars.AvatarId
 import com.telnyx.sdk.models.ai.avatars.AvatarUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -34,7 +33,7 @@ internal class AvatarServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val avatarService = client.ai().avatars()
 
-        val avatarResponse = avatarService.retrieve(AvatarId.ELENA)
+        val avatarResponse = avatarService.retrieve("avatar_0123456789abcdef0123456789abcdef")
 
         avatarResponse.validate()
     }
@@ -48,7 +47,7 @@ internal class AvatarServiceTest {
         val avatarResponse =
             avatarService.update(
                 AvatarUpdateParams.builder()
-                    .avatarId(AvatarId.ELENA)
+                    .avatarId("avatar_0123456789abcdef0123456789abcdef")
                     .name("Updated portrait")
                     .build()
             )

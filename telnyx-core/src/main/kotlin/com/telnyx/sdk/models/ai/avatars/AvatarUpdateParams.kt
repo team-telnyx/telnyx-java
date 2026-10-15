@@ -26,17 +26,19 @@ import kotlin.jvm.optionals.getOrNull
  */
 class AvatarUpdateParams
 private constructor(
-    private val avatarId: AvatarId?,
+    private val avatarId: String?,
     private val body: Body,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /**
-     * Stable identifier of a Telnyx stock avatar or an organization-owned custom avatar. Custom
-     * avatar IDs are returned by the Avatars API and use the `avatar_` prefix.
+     * Stable identifier returned by the Avatars API. Discover available stock IDs with GET
+     * /v2/ai/avatars and filter[avatar_type]=stock rather than maintaining a fixed list. Custom
+     * avatar IDs use the `avatar_` prefix and must belong to the authenticated organization. The
+     * service validates that the selected avatar is available.
      */
-    fun avatarId(): Optional<AvatarId> = Optional.ofNullable(avatarId)
+    fun avatarId(): Optional<String> = Optional.ofNullable(avatarId)
 
     /**
      * New customer-facing name of the custom avatar.
@@ -79,7 +81,7 @@ private constructor(
     /** A builder for [AvatarUpdateParams]. */
     class Builder internal constructor() {
 
-        private var avatarId: AvatarId? = null
+        private var avatarId: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
@@ -94,21 +96,15 @@ private constructor(
         }
 
         /**
-         * Stable identifier of a Telnyx stock avatar or an organization-owned custom avatar. Custom
-         * avatar IDs are returned by the Avatars API and use the `avatar_` prefix.
+         * Stable identifier returned by the Avatars API. Discover available stock IDs with GET
+         * /v2/ai/avatars and filter[avatar_type]=stock rather than maintaining a fixed list. Custom
+         * avatar IDs use the `avatar_` prefix and must belong to the authenticated organization.
+         * The service validates that the selected avatar is available.
          */
-        fun avatarId(avatarId: AvatarId?) = apply { this.avatarId = avatarId }
+        fun avatarId(avatarId: String?) = apply { this.avatarId = avatarId }
 
         /** Alias for calling [Builder.avatarId] with `avatarId.orElse(null)`. */
-        fun avatarId(avatarId: Optional<AvatarId>) = avatarId(avatarId.getOrNull())
-
-        /**
-         * Sets [avatarId] to an arbitrary [String].
-         *
-         * You should usually call [avatarId] with a well-typed [AvatarId] constant instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun avatarId(value: String) = avatarId(AvatarId.of(value))
+        fun avatarId(avatarId: Optional<String>) = avatarId(avatarId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -273,7 +269,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> avatarId?.toString() ?: ""
+            0 -> avatarId ?: ""
             else -> ""
         }
 
