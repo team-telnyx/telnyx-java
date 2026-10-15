@@ -35,6 +35,7 @@ internal class CsvDownloadCreateParamsTest {
                     )
                     .build()
             )
+            .includeManagedAccounts(true)
             .build()
     }
 
@@ -66,6 +67,7 @@ internal class CsvDownloadCreateParamsTest {
                         )
                         .build()
                 )
+                .includeManagedAccounts(true)
                 .build()
 
         val queryParams = params._queryParams()
@@ -87,6 +89,7 @@ internal class CsvDownloadCreateParamsTest {
                     .put("filter[voice.connection_name][eq]", "test")
                     .put("filter[voice.connection_name][starts_with]", "test")
                     .put("filter[voice.usage_payment_method]", "channel")
+                    .put("include_managed_accounts", "true")
                     .build()
             )
     }

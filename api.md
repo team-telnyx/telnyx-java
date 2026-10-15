@@ -3206,7 +3206,6 @@ Methods:
 - <code title="delete /meeting_sessions/{id}">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">delete</a>(params)</code>
 - <code title="delete /meeting_sessions/{id}/recording_media">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">deleteRecordingMedia</a>(params)</code>
 - <code title="get /meeting_sessions/{id}/events">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveEvents</a>(params)</code>
-- <code title="get /meeting_sessions/{id}/recordings">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveRecordings</a>(params)</code>
 - <code title="get /meeting_sessions/{id}/transcript">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveTranscript</a>(params)</code>
 
 ## Actions

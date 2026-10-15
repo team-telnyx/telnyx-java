@@ -29,8 +29,6 @@ import com.telnyx.sdk.models.meetingsessions.MeetingSessionResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveParams
-import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveRecordingsParams
-import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveRecordingsResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionUpdateParams
@@ -114,13 +112,6 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
     ): CompletableFuture<MeetingSessionRetrieveEventsResponse> =
         // get /meeting_sessions/{id}/events
         withRawResponse().retrieveEvents(params, requestOptions).mapCancellable { it.parse() }
-
-    override fun retrieveRecordings(
-        params: MeetingSessionRetrieveRecordingsParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<MeetingSessionRetrieveRecordingsResponse> =
-        // get /meeting_sessions/{id}/recordings
-        withRawResponse().retrieveRecordings(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveTranscript(
         params: MeetingSessionRetrieveTranscriptParams,
@@ -391,41 +382,6 @@ internal constructor(private val clientOptions: ClientOptions) : MeetingSessionS
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveEventsHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val retrieveRecordingsHandler: Handler<MeetingSessionRetrieveRecordingsResponse> =
-            jsonHandler<MeetingSessionRetrieveRecordingsResponse>(clientOptions.jsonMapper)
-
-        override fun retrieveRecordings(
-            params: MeetingSessionRetrieveRecordingsParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MeetingSessionRetrieveRecordingsResponse>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("meeting_sessions", params._pathParam(0), "recordings")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .composeCancellableAsync {
-                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
-                }
-                .mapCancellable { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { retrieveRecordingsHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

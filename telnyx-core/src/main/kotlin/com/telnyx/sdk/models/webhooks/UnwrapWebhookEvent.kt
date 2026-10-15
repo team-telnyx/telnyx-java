@@ -114,7 +114,6 @@ private constructor(
         null,
     private val numberReputationNumberFlagged: NumberReputationNumberFlaggedWebhookEvent? = null,
     private val numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent? = null,
-    private val recordingAvailable: RecordingAvailableWebhookEvent? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
     private val sessionStatusChanged: SessionStatusChangedWebhookEvent? = null,
     private val transcriptCompleted: TranscriptCompletedWebhookEvent? = null,
@@ -340,9 +339,6 @@ private constructor(
     fun numberReputationNumberRemoved(): Optional<NumberReputationNumberRemovedWebhookEvent> =
         Optional.ofNullable(numberReputationNumberRemoved)
 
-    fun recordingAvailable(): Optional<RecordingAvailableWebhookEvent> =
-        Optional.ofNullable(recordingAvailable)
-
     fun replacedLinkClick(): Optional<ReplacedLinkClickWebhookEvent> =
         Optional.ofNullable(replacedLinkClick)
 
@@ -515,8 +511,6 @@ private constructor(
     fun isNumberReputationNumberFlagged(): Boolean = numberReputationNumberFlagged != null
 
     fun isNumberReputationNumberRemoved(): Boolean = numberReputationNumberRemoved != null
-
-    fun isRecordingAvailable(): Boolean = recordingAvailable != null
 
     fun isReplacedLinkClick(): Boolean = replacedLinkClick != null
 
@@ -745,9 +739,6 @@ private constructor(
     fun asNumberReputationNumberRemoved(): NumberReputationNumberRemovedWebhookEvent =
         numberReputationNumberRemoved.getOrThrow("numberReputationNumberRemoved")
 
-    fun asRecordingAvailable(): RecordingAvailableWebhookEvent =
-        recordingAvailable.getOrThrow("recordingAvailable")
-
     fun asReplacedLinkClick(): ReplacedLinkClickWebhookEvent =
         replacedLinkClick.getOrThrow("replacedLinkClick")
 
@@ -913,7 +904,6 @@ private constructor(
                 visitor.visitNumberReputationNumberFlagged(numberReputationNumberFlagged)
             numberReputationNumberRemoved != null ->
                 visitor.visitNumberReputationNumberRemoved(numberReputationNumberRemoved)
-            recordingAvailable != null -> visitor.visitRecordingAvailable(recordingAvailable)
             replacedLinkClick != null -> visitor.visitReplacedLinkClick(replacedLinkClick)
             sessionStatusChanged != null -> visitor.visitSessionStatusChanged(sessionStatusChanged)
             transcriptCompleted != null -> visitor.visitTranscriptCompleted(transcriptCompleted)
@@ -1341,12 +1331,6 @@ private constructor(
                     numberReputationNumberRemoved.validate()
                 }
 
-                override fun visitRecordingAvailable(
-                    recordingAvailable: RecordingAvailableWebhookEvent
-                ) {
-                    recordingAvailable.validate()
-                }
-
                 override fun visitReplacedLinkClick(
                     replacedLinkClick: ReplacedLinkClickWebhookEvent
                 ) {
@@ -1678,10 +1662,6 @@ private constructor(
                     numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent
                 ) = numberReputationNumberRemoved.validity()
 
-                override fun visitRecordingAvailable(
-                    recordingAvailable: RecordingAvailableWebhookEvent
-                ) = recordingAvailable.validity()
-
                 override fun visitReplacedLinkClick(
                     replacedLinkClick: ReplacedLinkClickWebhookEvent
                 ) = replacedLinkClick.validity()
@@ -1795,7 +1775,6 @@ private constructor(
                 other.numberReputationExternalVerificationStatusChanged &&
             numberReputationNumberFlagged == other.numberReputationNumberFlagged &&
             numberReputationNumberRemoved == other.numberReputationNumberRemoved &&
-            recordingAvailable == other.recordingAvailable &&
             replacedLinkClick == other.replacedLinkClick &&
             sessionStatusChanged == other.sessionStatusChanged &&
             transcriptCompleted == other.transcriptCompleted &&
@@ -1882,7 +1861,6 @@ private constructor(
             numberReputationExternalVerificationStatusChanged,
             numberReputationNumberFlagged,
             numberReputationNumberRemoved,
-            recordingAvailable,
             replacedLinkClick,
             sessionStatusChanged,
             transcriptCompleted,
@@ -2011,8 +1989,6 @@ private constructor(
                 "UnwrapWebhookEvent{numberReputationNumberFlagged=$numberReputationNumberFlagged}"
             numberReputationNumberRemoved != null ->
                 "UnwrapWebhookEvent{numberReputationNumberRemoved=$numberReputationNumberRemoved}"
-            recordingAvailable != null ->
-                "UnwrapWebhookEvent{recordingAvailable=$recordingAvailable}"
             replacedLinkClick != null -> "UnwrapWebhookEvent{replacedLinkClick=$replacedLinkClick}"
             sessionStatusChanged != null ->
                 "UnwrapWebhookEvent{sessionStatusChanged=$sessionStatusChanged}"
@@ -2379,10 +2355,6 @@ private constructor(
         ) = UnwrapWebhookEvent(numberReputationNumberRemoved = numberReputationNumberRemoved)
 
         @JvmStatic
-        fun ofRecordingAvailable(recordingAvailable: RecordingAvailableWebhookEvent) =
-            UnwrapWebhookEvent(recordingAvailable = recordingAvailable)
-
-        @JvmStatic
         fun ofReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent) =
             UnwrapWebhookEvent(replacedLinkClick = replacedLinkClick)
 
@@ -2626,8 +2598,6 @@ private constructor(
         fun visitNumberReputationNumberRemoved(
             numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent
         ): T
-
-        fun visitRecordingAvailable(recordingAvailable: RecordingAvailableWebhookEvent): T
 
         fun visitReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent): T
 
@@ -3010,8 +2980,6 @@ private constructor(
                             ?.let {
                                 UnwrapWebhookEvent(numberReputationNumberRemoved = it, _json = json)
                             },
-                        tryDeserialize(node, jacksonTypeRef<RecordingAvailableWebhookEvent>())
-                            ?.let { UnwrapWebhookEvent(recordingAvailable = it, _json = json) },
                         tryDeserialize(node, jacksonTypeRef<ReplacedLinkClickWebhookEvent>())?.let {
                             UnwrapWebhookEvent(replacedLinkClick = it, _json = json)
                         },
@@ -3169,7 +3137,6 @@ private constructor(
                     generator.writeObject(value.numberReputationNumberFlagged)
                 value.numberReputationNumberRemoved != null ->
                     generator.writeObject(value.numberReputationNumberRemoved)
-                value.recordingAvailable != null -> generator.writeObject(value.recordingAvailable)
                 value.replacedLinkClick != null -> generator.writeObject(value.replacedLinkClick)
                 value.sessionStatusChanged != null ->
                     generator.writeObject(value.sessionStatusChanged)

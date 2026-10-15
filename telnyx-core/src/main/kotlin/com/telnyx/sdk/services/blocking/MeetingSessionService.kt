@@ -16,8 +16,6 @@ import com.telnyx.sdk.models.meetingsessions.MeetingSessionResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveParams
-import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveRecordingsParams
-import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveRecordingsResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionUpdateParams
@@ -194,7 +192,7 @@ interface MeetingSessionService {
      * operation retains the Telnyx-local Meeting session, transcript segments, events, artifacts,
      * and usage records. It is separate from `DELETE /meeting_sessions/{id}`, which stops or
      * cancels participation without deleting the persisted session. A missing/foreign session
-     * returns 404; provider deletion failures return 502.
+     * returns 404; a deletion request whose outcome is unknown returns 502.
      */
     fun deleteRecordingMedia(id: String): MeetingSessionDeleteRecordingMediaResponse =
         deleteRecordingMedia(id, MeetingSessionDeleteRecordingMediaParams.none())
@@ -274,45 +272,6 @@ interface MeetingSessionService {
         requestOptions: RequestOptions,
     ): MeetingSessionRetrieveEventsResponse =
         retrieveEvents(id, MeetingSessionRetrieveEventsParams.none(), requestOptions)
-
-    /** Returns recordings for a meeting session. */
-    fun retrieveRecordings(id: String): MeetingSessionRetrieveRecordingsResponse =
-        retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none())
-
-    /** @see retrieveRecordings */
-    fun retrieveRecordings(
-        id: String,
-        params: MeetingSessionRetrieveRecordingsParams =
-            MeetingSessionRetrieveRecordingsParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MeetingSessionRetrieveRecordingsResponse =
-        retrieveRecordings(params.toBuilder().id(id).build(), requestOptions)
-
-    /** @see retrieveRecordings */
-    fun retrieveRecordings(
-        id: String,
-        params: MeetingSessionRetrieveRecordingsParams =
-            MeetingSessionRetrieveRecordingsParams.none(),
-    ): MeetingSessionRetrieveRecordingsResponse =
-        retrieveRecordings(id, params, RequestOptions.none())
-
-    /** @see retrieveRecordings */
-    fun retrieveRecordings(
-        params: MeetingSessionRetrieveRecordingsParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MeetingSessionRetrieveRecordingsResponse
-
-    /** @see retrieveRecordings */
-    fun retrieveRecordings(
-        params: MeetingSessionRetrieveRecordingsParams
-    ): MeetingSessionRetrieveRecordingsResponse = retrieveRecordings(params, RequestOptions.none())
-
-    /** @see retrieveRecordings */
-    fun retrieveRecordings(
-        id: String,
-        requestOptions: RequestOptions,
-    ): MeetingSessionRetrieveRecordingsResponse =
-        retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none(), requestOptions)
 
     /**
      * Returns transcript segments ordered by ascending `seq`. Default `limit` is 100 and maximum is
@@ -653,57 +612,6 @@ interface MeetingSessionService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<MeetingSessionRetrieveEventsResponse> =
             retrieveEvents(id, MeetingSessionRetrieveEventsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /meeting_sessions/{id}/recordings`, but is otherwise
-         * the same as [MeetingSessionService.retrieveRecordings].
-         */
-        @MustBeClosed
-        fun retrieveRecordings(
-            id: String
-        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> =
-            retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none())
-
-        /** @see retrieveRecordings */
-        @MustBeClosed
-        fun retrieveRecordings(
-            id: String,
-            params: MeetingSessionRetrieveRecordingsParams =
-                MeetingSessionRetrieveRecordingsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> =
-            retrieveRecordings(params.toBuilder().id(id).build(), requestOptions)
-
-        /** @see retrieveRecordings */
-        @MustBeClosed
-        fun retrieveRecordings(
-            id: String,
-            params: MeetingSessionRetrieveRecordingsParams =
-                MeetingSessionRetrieveRecordingsParams.none(),
-        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> =
-            retrieveRecordings(id, params, RequestOptions.none())
-
-        /** @see retrieveRecordings */
-        @MustBeClosed
-        fun retrieveRecordings(
-            params: MeetingSessionRetrieveRecordingsParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse>
-
-        /** @see retrieveRecordings */
-        @MustBeClosed
-        fun retrieveRecordings(
-            params: MeetingSessionRetrieveRecordingsParams
-        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> =
-            retrieveRecordings(params, RequestOptions.none())
-
-        /** @see retrieveRecordings */
-        @MustBeClosed
-        fun retrieveRecordings(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> =
-            retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /meeting_sessions/{id}/transcript`, but is otherwise

@@ -165,21 +165,6 @@ internal class MeetingSessionServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun retrieveRecordings() {
-        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
-        val meetingSessionServiceAsync = client.meetingSessions()
-
-        val responseFuture =
-            meetingSessionServiceAsync.retrieveRecordings(
-                "mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-            )
-
-        val response = responseFuture.get()
-        response.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
     fun retrieveTranscript() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val meetingSessionServiceAsync = client.meetingSessions()
