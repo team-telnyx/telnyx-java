@@ -10,7 +10,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Stops any active text-to-speech playback in a meeting session. */
+/**
+ * Stops any active text-to-speech playback in a meeting session. Sessions with a digital avatar
+ * (`assistant.avatar: true`) return 409 `invalid_state` (message prefix
+ * `avatar_requires_assistant_speech:`): the avatar renders only the assistant's own speech.
+ */
 class ActionStopSpeakingParams
 private constructor(
     private val id: String?,

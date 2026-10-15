@@ -50,12 +50,15 @@ interface MeetingSessionServiceAsync {
      * replay lookup is scoped to the authenticated account and compares only the key; the request
      * payload is not fingerprinted or compared. If a session with that key already exists for the
      * account, the existing session is replayed (200); otherwise a new session is created (201).
-     * Supports bring-your-own-key (BYOK) configuration. The session may enter asynchronous states
-     * (e.g. joining, waiting_for_admission) before becoming active. Optional `camera_image` input
-     * is write-only and applies only when no Avatar or Assistant webpage output takes precedence.
-     * An ignored URL is not fetched. An effective URL source is resolved before bot creation;
-     * neither the source URL nor image bytes are persisted, returned, or logged. Treat signed URLs
-     * as credentials.
+     * The session may enter asynchronous states (e.g. joining, waiting_for_admission) before
+     * becoming active. Optional `camera_image` input is write-only and applies only when no avatar
+     * or Assistant webpage output takes precedence. An ignored URL is not fetched. An effective URL
+     * source is resolved before bot creation; neither the source URL nor image bytes are persisted,
+     * returned, or logged. Treat signed URLs as credentials. With `assistant.avatar: true`, the
+     * assistant is read before the bot is created: an assistant without a Telnyx avatar configured
+     * is rejected with 400 `invalid_request` (message prefix `assistant_avatar_not_configured:`),
+     * an unknown assistant with 400 `invalid_request` (prefix `assistant_not_found:`), and a failed
+     * lookup with 503 `assistant_lookup_unavailable`; no bot is created in any of these cases.
      */
     fun create(params: MeetingSessionCreateParams): CompletableFuture<MeetingSessionResponse> =
         create(params, RequestOptions.none())

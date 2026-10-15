@@ -16,20 +16,14 @@ internal class MeetingSessionCreateParamsTest {
             .assistant(
                 MeetingSessionCreateParams.Assistant.builder()
                     .id("asst_fake-uuid-1234")
-                    .audioGate(MeetingSessionCreateParams.Assistant.AudioGate.HALF_DUPLEX)
+                    .audioGate(MeetingSessionCreateParams.Assistant.AudioGate.FULL_DUPLEX)
+                    .avatar(true)
                     .dynamicVariables(
                         MeetingSessionCreateParams.Assistant.DynamicVariables.builder()
-                            .putAdditionalProperty("candidate_name", JsonValue.from("Ada Lovelace"))
-                            .putAdditionalProperty("role", JsonValue.from("Staff Engineer"))
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .leaveOnEnd(true)
-                    .build()
-            )
-            .avatar(
-                MeetingSessionCreateParams.Avatar.builder()
-                    .apiKey("fake_avatar_api_key_do_not_use")
-                    .avatarId("avatar_fake-001")
                     .build()
             )
             .bargeIn(true)
@@ -65,23 +59,14 @@ internal class MeetingSessionCreateParamsTest {
                 .assistant(
                     MeetingSessionCreateParams.Assistant.builder()
                         .id("asst_fake-uuid-1234")
-                        .audioGate(MeetingSessionCreateParams.Assistant.AudioGate.HALF_DUPLEX)
+                        .audioGate(MeetingSessionCreateParams.Assistant.AudioGate.FULL_DUPLEX)
+                        .avatar(true)
                         .dynamicVariables(
                             MeetingSessionCreateParams.Assistant.DynamicVariables.builder()
-                                .putAdditionalProperty(
-                                    "candidate_name",
-                                    JsonValue.from("Ada Lovelace"),
-                                )
-                                .putAdditionalProperty("role", JsonValue.from("Staff Engineer"))
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .leaveOnEnd(true)
-                        .build()
-                )
-                .avatar(
-                    MeetingSessionCreateParams.Avatar.builder()
-                        .apiKey("fake_avatar_api_key_do_not_use")
-                        .avatarId("avatar_fake-001")
                         .build()
                 )
                 .bargeIn(true)
@@ -115,21 +100,14 @@ internal class MeetingSessionCreateParamsTest {
             .contains(
                 MeetingSessionCreateParams.Assistant.builder()
                     .id("asst_fake-uuid-1234")
-                    .audioGate(MeetingSessionCreateParams.Assistant.AudioGate.HALF_DUPLEX)
+                    .audioGate(MeetingSessionCreateParams.Assistant.AudioGate.FULL_DUPLEX)
+                    .avatar(true)
                     .dynamicVariables(
                         MeetingSessionCreateParams.Assistant.DynamicVariables.builder()
-                            .putAdditionalProperty("candidate_name", JsonValue.from("Ada Lovelace"))
-                            .putAdditionalProperty("role", JsonValue.from("Staff Engineer"))
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .leaveOnEnd(true)
-                    .build()
-            )
-        assertThat(body.avatar())
-            .contains(
-                MeetingSessionCreateParams.Avatar.builder()
-                    .apiKey("fake_avatar_api_key_do_not_use")
-                    .avatarId("avatar_fake-001")
                     .build()
             )
         assertThat(body.bargeIn()).contains(true)
