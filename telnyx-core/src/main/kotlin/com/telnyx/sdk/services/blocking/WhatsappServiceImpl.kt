@@ -5,6 +5,8 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.services.blocking.whatsapp.BusinessAccountService
 import com.telnyx.sdk.services.blocking.whatsapp.BusinessAccountServiceImpl
+import com.telnyx.sdk.services.blocking.whatsapp.HostedSignupService
+import com.telnyx.sdk.services.blocking.whatsapp.HostedSignupServiceImpl
 import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberService
 import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberServiceImpl
 import com.telnyx.sdk.services.blocking.whatsapp.SignupService
@@ -34,6 +36,10 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
 
     private val signup: SignupService by lazy { SignupServiceImpl(clientOptions) }
 
+    private val hostedSignups: HostedSignupService by lazy {
+        HostedSignupServiceImpl(clientOptions)
+    }
+
     override fun withRawResponse(): WhatsappService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WhatsappService =
@@ -52,6 +58,8 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
     override fun userData(): UserDataService = userData
 
     override fun signup(): SignupService = signup
+
+    override fun hostedSignups(): HostedSignupService = hostedSignups
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WhatsappService.WithRawResponse {
@@ -76,6 +84,10 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
             SignupServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val hostedSignups: HostedSignupService.WithRawResponse by lazy {
+            HostedSignupServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): WhatsappService.WithRawResponse =
@@ -96,5 +108,7 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
         override fun userData(): UserDataService.WithRawResponse = userData
 
         override fun signup(): SignupService.WithRawResponse = signup
+
+        override fun hostedSignups(): HostedSignupService.WithRawResponse = hostedSignups
     }
 }

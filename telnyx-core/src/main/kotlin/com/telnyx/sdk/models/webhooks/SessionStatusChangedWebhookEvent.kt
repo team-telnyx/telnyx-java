@@ -368,8 +368,7 @@ private constructor(
         fun status(): String = status.getRequired("status")
 
         /**
-         * Additional detail about the status (for example `timeout_exceeded_everyone_left` or
-         * `cancelled`), or null.
+         * Additional detail about the status (for example `cancelled`), or null.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -489,10 +488,7 @@ private constructor(
              */
             fun status(status: JsonField<String>) = apply { this.status = status }
 
-            /**
-             * Additional detail about the status (for example `timeout_exceeded_everyone_left` or
-             * `cancelled`), or null.
-             */
+            /** Additional detail about the status (for example `cancelled`), or null. */
             fun statusDetail(statusDetail: String?) =
                 statusDetail(JsonField.ofNullable(statusDetail))
 

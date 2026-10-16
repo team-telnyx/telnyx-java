@@ -69,6 +69,7 @@ internal class ToolUpdateParamsTest {
                     )
                     .build()
             )
+            .vision(VisionToolParams.builder().maxFrameAgeSecs(1L).build())
             .webhook(
                 ToolUpdateParams.Webhook.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -148,6 +149,7 @@ internal class ToolUpdateParamsTest {
                         )
                         .build()
                 )
+                .vision(VisionToolParams.builder().maxFrameAgeSecs(1L).build())
                 .webhook(
                     ToolUpdateParams.Webhook.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -221,6 +223,7 @@ internal class ToolUpdateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.vision()).contains(VisionToolParams.builder().maxFrameAgeSecs(1L).build())
         assertThat(body.webhook())
             .contains(
                 ToolUpdateParams.Webhook.builder()

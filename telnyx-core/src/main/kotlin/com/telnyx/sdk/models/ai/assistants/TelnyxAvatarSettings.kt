@@ -18,13 +18,15 @@ import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog supports
- * six avatars and office, studio, or reception backgrounds.
+ * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock avatar or an
+ * organization-owned custom avatar returned by the Avatars API. Discover the available stock
+ * catalog with GET /v2/ai/avatars and filter[avatar_type]=stock; follow meta.total_pages to load
+ * every page. Supported backgrounds are office, studio, and reception.
  */
 class TelnyxAvatarSettings
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val avatarId: JsonField<AvatarId>,
+    private val avatarId: JsonField<String>,
     private val backgroundId: JsonField<BackgroundId>,
     private val model: JsonField<Model>,
     private val provider: JsonValue,
@@ -33,7 +35,7 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("avatar_id") @ExcludeMissing avatarId: JsonField<AvatarId> = JsonMissing.of(),
+        @JsonProperty("avatar_id") @ExcludeMissing avatarId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("background_id")
         @ExcludeMissing
         backgroundId: JsonField<BackgroundId> = JsonMissing.of(),
@@ -42,12 +44,12 @@ private constructor(
     ) : this(avatarId, backgroundId, model, provider, mutableMapOf())
 
     /**
-     * The Telnyx avatar to render.
+     * The Telnyx stock avatar or organization-owned custom avatar to render.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun avatarId(): AvatarId = avatarId.getRequired("avatar_id")
+    fun avatarId(): String = avatarId.getRequired("avatar_id")
 
     /**
      * The background to render.
@@ -84,7 +86,7 @@ private constructor(
      *
      * Unlike [avatarId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("avatar_id") @ExcludeMissing fun _avatarId(): JsonField<AvatarId> = avatarId
+    @JsonProperty("avatar_id") @ExcludeMissing fun _avatarId(): JsonField<String> = avatarId
 
     /**
      * Returns the raw JSON value of [backgroundId].
@@ -132,7 +134,7 @@ private constructor(
     /** A builder for [TelnyxAvatarSettings]. */
     class Builder internal constructor() {
 
-        private var avatarId: JsonField<AvatarId>? = null
+        private var avatarId: JsonField<String>? = null
         private var backgroundId: JsonField<BackgroundId>? = null
         private var model: JsonField<Model>? = null
         private var provider: JsonValue = JsonValue.from("telnyx")
@@ -147,17 +149,16 @@ private constructor(
             additionalProperties = telnyxAvatarSettings.additionalProperties.toMutableMap()
         }
 
-        /** The Telnyx avatar to render. */
-        fun avatarId(avatarId: AvatarId) = avatarId(JsonField.of(avatarId))
+        /** The Telnyx stock avatar or organization-owned custom avatar to render. */
+        fun avatarId(avatarId: String) = avatarId(JsonField.of(avatarId))
 
         /**
          * Sets [Builder.avatarId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.avatarId] with a well-typed [AvatarId] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.avatarId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun avatarId(avatarId: JsonField<AvatarId>) = apply { this.avatarId = avatarId }
+        fun avatarId(avatarId: JsonField<String>) = apply { this.avatarId = avatarId }
 
         /** The background to render. */
         fun backgroundId(backgroundId: BackgroundId) = backgroundId(JsonField.of(backgroundId))
@@ -259,7 +260,7 @@ private constructor(
             return@apply
         }
 
-        avatarId().validate()
+        avatarId()
         backgroundId().validate()
         model().validate()
         _provider().let {
@@ -285,169 +286,10 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (avatarId.asKnown().getOrNull()?.validity() ?: 0) +
+        (if (avatarId.asKnown().isPresent) 1 else 0) +
             (backgroundId.asKnown().getOrNull()?.validity() ?: 0) +
             (model.asKnown().getOrNull()?.validity() ?: 0) +
             provider.let { if (it == JsonValue.from("telnyx")) 1 else 0 }
-
-    /** The Telnyx avatar to render. */
-    class AvatarId @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val ELENA = of("elena")
-
-            @JvmField val BEN = of("ben")
-
-            @JvmField val JORDAN = of("jordan")
-
-            @JvmField val LIN = of("lin")
-
-            @JvmField val AVERY = of("avery")
-
-            @JvmField val RAPHAEL = of("raphael")
-
-            @JvmStatic fun of(value: String) = AvatarId(JsonField.of(value))
-        }
-
-        /** An enum containing [AvatarId]'s known values. */
-        enum class Known {
-            ELENA,
-            BEN,
-            JORDAN,
-            LIN,
-            AVERY,
-            RAPHAEL,
-        }
-
-        /**
-         * An enum containing [AvatarId]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [AvatarId] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            ELENA,
-            BEN,
-            JORDAN,
-            LIN,
-            AVERY,
-            RAPHAEL,
-            /** An enum member indicating that [AvatarId] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                ELENA -> Value.ELENA
-                BEN -> Value.BEN
-                JORDAN -> Value.JORDAN
-                LIN -> Value.LIN
-                AVERY -> Value.AVERY
-                RAPHAEL -> Value.RAPHAEL
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                ELENA -> Known.ELENA
-                BEN -> Known.BEN
-                JORDAN -> Known.JORDAN
-                LIN -> Known.LIN
-                AVERY -> Known.AVERY
-                RAPHAEL -> Known.RAPHAEL
-                else -> throw TelnyxInvalidDataException("Unknown AvatarId: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): AvatarId = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is AvatarId && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
 
     /** The background to render. */
     class BackgroundId @JsonCreator private constructor(private val value: JsonField<String>) :

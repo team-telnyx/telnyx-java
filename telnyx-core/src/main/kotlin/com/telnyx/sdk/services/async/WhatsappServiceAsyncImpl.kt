@@ -5,6 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.services.async.whatsapp.BusinessAccountServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.BusinessAccountServiceAsyncImpl
+import com.telnyx.sdk.services.async.whatsapp.HostedSignupServiceAsync
+import com.telnyx.sdk.services.async.whatsapp.HostedSignupServiceAsyncImpl
 import com.telnyx.sdk.services.async.whatsapp.PhoneNumberServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.PhoneNumberServiceAsyncImpl
 import com.telnyx.sdk.services.async.whatsapp.SignupServiceAsync
@@ -36,6 +38,10 @@ class WhatsappServiceAsyncImpl internal constructor(private val clientOptions: C
 
     private val signup: SignupServiceAsync by lazy { SignupServiceAsyncImpl(clientOptions) }
 
+    private val hostedSignups: HostedSignupServiceAsync by lazy {
+        HostedSignupServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): WhatsappServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WhatsappServiceAsync =
@@ -54,6 +60,8 @@ class WhatsappServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun userData(): UserDataServiceAsync = userData
 
     override fun signup(): SignupServiceAsync = signup
+
+    override fun hostedSignups(): HostedSignupServiceAsync = hostedSignups
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WhatsappServiceAsync.WithRawResponse {
@@ -78,6 +86,10 @@ class WhatsappServiceAsyncImpl internal constructor(private val clientOptions: C
             SignupServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val hostedSignups: HostedSignupServiceAsync.WithRawResponse by lazy {
+            HostedSignupServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): WhatsappServiceAsync.WithRawResponse =
@@ -99,5 +111,7 @@ class WhatsappServiceAsyncImpl internal constructor(private val clientOptions: C
         override fun userData(): UserDataServiceAsync.WithRawResponse = userData
 
         override fun signup(): SignupServiceAsync.WithRawResponse = signup
+
+        override fun hostedSignups(): HostedSignupServiceAsync.WithRawResponse = hostedSignups
     }
 }

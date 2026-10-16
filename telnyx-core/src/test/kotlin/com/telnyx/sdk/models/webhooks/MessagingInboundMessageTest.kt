@@ -40,6 +40,7 @@ internal class MessagingInboundMessageTest {
                                 )
                                 .foreignId("foreign_id")
                                 .from("from")
+                                .fromUserId("from_user_id")
                                 .location(
                                     MessagingInboundMessagePayload.Body.Location.builder()
                                         .latitude(0.0)
@@ -222,6 +223,7 @@ internal class MessagingInboundMessageTest {
                             )
                             .foreignId("foreign_id")
                             .from("from")
+                            .fromUserId("from_user_id")
                             .location(
                                 MessagingInboundMessagePayload.Body.Location.builder()
                                     .latitude(0.0)
@@ -405,6 +407,7 @@ internal class MessagingInboundMessageTest {
                                 )
                                 .foreignId("foreign_id")
                                 .from("from")
+                                .fromUserId("from_user_id")
                                 .location(
                                     MessagingInboundMessagePayload.Body.Location.builder()
                                         .latitude(0.0)

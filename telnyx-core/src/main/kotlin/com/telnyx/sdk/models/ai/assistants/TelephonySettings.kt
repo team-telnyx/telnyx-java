@@ -200,8 +200,15 @@ private constructor(
 
     /**
      * Maximum duration in seconds for the AI assistant to participate on the call. When this limit
-     * is reached the assistant will be stopped. This limit does not apply to portions of a call
-     * without an active assistant (for instance, a call transferred to a human representative).
+     * is reached the assistant will be stopped. Stopping the assistant does not itself hang up the
+     * call, and what happens next depends on how the assistant is running. On Call Control
+     * (ai_assistant_start) the call leg stays connected and continues to be billed until it is hung
+     * up (for example with the Hangup call command) or until the call ends for another reason. On
+     * TeXML, the assistant's `<Connect><AIAssistant>` instruction ends; in the default TeXML setup
+     * for assistants no instructions follow it, so the call is hung up. Your application receives a
+     * call.conversation.ended webhook when the assistant stops. This limit does not apply to
+     * portions of a call without an active assistant (for instance, a call transferred to a human
+     * representative).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -220,8 +227,15 @@ private constructor(
 
     /**
      * Maximum duration in seconds of end user silence on the call. When this limit is reached the
-     * assistant will be stopped. This limit does not apply to portions of a call without an active
-     * assistant (for instance, a call transferred to a human representative).
+     * assistant will be stopped. Stopping the assistant does not itself hang up the call, and what
+     * happens next depends on how the assistant is running. On Call Control (ai_assistant_start)
+     * the call leg stays connected and continues to be billed until it is hung up (for example with
+     * the Hangup call command) or until the call ends for another reason. On TeXML, the assistant's
+     * `<Connect><AIAssistant>` instruction ends; in the default TeXML setup for assistants no
+     * instructions follow it, so the call is hung up. Your application receives a
+     * call.conversation.ended webhook when the assistant stops. This limit does not apply to
+     * portions of a call without an active assistant (for instance, a call transferred to a human
+     * representative).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -600,9 +614,15 @@ private constructor(
 
         /**
          * Maximum duration in seconds for the AI assistant to participate on the call. When this
-         * limit is reached the assistant will be stopped. This limit does not apply to portions of
-         * a call without an active assistant (for instance, a call transferred to a human
-         * representative).
+         * limit is reached the assistant will be stopped. Stopping the assistant does not itself
+         * hang up the call, and what happens next depends on how the assistant is running. On Call
+         * Control (ai_assistant_start) the call leg stays connected and continues to be billed
+         * until it is hung up (for example with the Hangup call command) or until the call ends for
+         * another reason. On TeXML, the assistant's `<Connect><AIAssistant>` instruction ends; in
+         * the default TeXML setup for assistants no instructions follow it, so the call is hung up.
+         * Your application receives a call.conversation.ended webhook when the assistant stops.
+         * This limit does not apply to portions of a call without an active assistant (for
+         * instance, a call transferred to a human representative).
          */
         fun timeLimitSecs(timeLimitSecs: Long) = timeLimitSecs(JsonField.of(timeLimitSecs))
 
@@ -638,8 +658,15 @@ private constructor(
 
         /**
          * Maximum duration in seconds of end user silence on the call. When this limit is reached
-         * the assistant will be stopped. This limit does not apply to portions of a call without an
-         * active assistant (for instance, a call transferred to a human representative).
+         * the assistant will be stopped. Stopping the assistant does not itself hang up the call,
+         * and what happens next depends on how the assistant is running. On Call Control
+         * (ai_assistant_start) the call leg stays connected and continues to be billed until it is
+         * hung up (for example with the Hangup call command) or until the call ends for another
+         * reason. On TeXML, the assistant's `<Connect><AIAssistant>` instruction ends; in the
+         * default TeXML setup for assistants no instructions follow it, so the call is hung up.
+         * Your application receives a call.conversation.ended webhook when the assistant stops.
+         * This limit does not apply to portions of a call without an active assistant (for
+         * instance, a call transferred to a human representative).
          */
         fun userIdleTimeoutSecs(userIdleTimeoutSecs: Long) =
             userIdleTimeoutSecs(JsonField.of(userIdleTimeoutSecs))

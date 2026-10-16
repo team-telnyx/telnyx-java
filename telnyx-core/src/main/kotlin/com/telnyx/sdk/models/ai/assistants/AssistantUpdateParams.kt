@@ -27,7 +27,10 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Updates the specified AI assistant's attributes and returns the updated assistant. The request
- * can also control how the change is promoted across assistant versions.
+ * can also control how the change is promoted across assistant versions. Every update saves a new
+ * version, and an assistant keeps at most 10 versions: once it has more, the oldest versions are
+ * permanently deleted, except the main version and any version referenced by a traffic distribution
+ * rule.
  */
 class AssistantUpdateParams
 private constructor(
@@ -55,8 +58,10 @@ private constructor(
     fun a2aAgents(): Optional<List<AssistantA2AAgent>> = body.a2aAgents()
 
     /**
-     * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
-     * supports six avatars and office, studio, or reception backgrounds.
+     * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock avatar or an
+     * organization-owned custom avatar returned by the Avatars API. Discover the available stock
+     * catalog with GET /v2/ai/avatars and filter[avatar_type]=stock; follow meta.total_pages to
+     * load every page. Supported backgrounds are office, studio, and reception.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -694,8 +699,11 @@ private constructor(
         fun addA2aAgent(a2aAgent: AssistantA2AAgent) = apply { body.addA2aAgent(a2aAgent) }
 
         /**
-         * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
-         * supports six avatars and office, studio, or reception backgrounds.
+         * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock avatar or
+         * an organization-owned custom avatar returned by the Avatars API. Discover the available
+         * stock catalog with GET /v2/ai/avatars and filter[avatar_type]=stock; follow
+         * meta.total_pages to load every page. Supported backgrounds are office, studio, and
+         * reception.
          */
         fun avatarSettings(avatarSettings: AvatarSettingsRequest?) = apply {
             body.avatarSettings(avatarSettings)
@@ -1398,6 +1406,9 @@ private constructor(
             body.addSkipTurnTool(skipTurn)
         }
 
+        /** Alias for calling [addTool] with `AssistantTool.ofVision(vision)`. */
+        fun addTool(vision: AssistantTool.Vision) = apply { body.addTool(vision) }
+
         /** Alias for calling [addTool] with `AssistantTool.ofPay(pay)`. */
         fun addTool(pay: AssistantTool.Pay) = apply { body.addTool(pay) }
 
@@ -1902,8 +1913,11 @@ private constructor(
         fun a2aAgents(): Optional<List<AssistantA2AAgent>> = a2aAgents.getOptional("a2a_agents")
 
         /**
-         * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch catalog
-         * supports six avatars and office, studio, or reception backgrounds.
+         * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock avatar or
+         * an organization-owned custom avatar returned by the Avatars API. Discover the available
+         * stock catalog with GET /v2/ai/avatars and filter[avatar_type]=stock; follow
+         * meta.total_pages to load every page. Supported backgrounds are office, studio, and
+         * reception.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -2679,8 +2693,11 @@ private constructor(
             }
 
             /**
-             * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
-             * catalog supports six avatars and office, studio, or reception backgrounds.
+             * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock
+             * avatar or an organization-owned custom avatar returned by the Avatars API. Discover
+             * the available stock catalog with GET /v2/ai/avatars and filter[avatar_type]=stock;
+             * follow meta.total_pages to load every page. Supported backgrounds are office, studio,
+             * and reception.
              */
             fun avatarSettings(avatarSettings: AvatarSettingsRequest?) =
                 avatarSettings(JsonField.ofNullable(avatarSettings))
@@ -3416,6 +3433,9 @@ private constructor(
              */
             fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.SkipTurnConfig) =
                 addTool(AssistantTool.SkipTurn.builder().skipTurn(skipTurn).build())
+
+            /** Alias for calling [addTool] with `AssistantTool.ofVision(vision)`. */
+            fun addTool(vision: AssistantTool.Vision) = addTool(AssistantTool.ofVision(vision))
 
             /** Alias for calling [addTool] with `AssistantTool.ofPay(pay)`. */
             fun addTool(pay: AssistantTool.Pay) = addTool(AssistantTool.ofPay(pay))

@@ -17,6 +17,7 @@ internal class ActionHangupParamsTest {
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
             .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
+            .reason("Call completed elsewhere")
             .build()
     }
 
@@ -38,6 +39,7 @@ internal class ActionHangupParamsTest {
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .addCustomHeader(CustomSipHeader.builder().name("head_1").value("val_1").build())
                 .addCustomHeader(CustomSipHeader.builder().name("head_2").value("val_2").build())
+                .reason("Call completed elsewhere")
                 .build()
 
         val body = params._body()
@@ -49,6 +51,7 @@ internal class ActionHangupParamsTest {
                 CustomSipHeader.builder().name("head_1").value("val_1").build(),
                 CustomSipHeader.builder().name("head_2").value("val_2").build(),
             )
+        assertThat(body.reason()).contains("Call completed elsewhere")
     }
 
     @Test

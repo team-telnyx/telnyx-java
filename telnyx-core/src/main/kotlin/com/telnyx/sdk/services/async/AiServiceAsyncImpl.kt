@@ -29,6 +29,8 @@ import com.telnyx.sdk.services.async.ai.AssistantServiceAsync
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.AudioServiceAsync
 import com.telnyx.sdk.services.async.ai.AudioServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.AvatarServiceAsync
+import com.telnyx.sdk.services.async.ai.AvatarServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.ChatServiceAsync
 import com.telnyx.sdk.services.async.ai.ChatServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.ClusterServiceAsync
@@ -119,6 +121,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     private val memory: MemoryServiceAsync by lazy { MemoryServiceAsyncImpl(clientOptions) }
 
+    private val avatars: AvatarServiceAsync by lazy { AvatarServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): AiServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync =
@@ -166,6 +170,9 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun typesafe(): TypesafeServiceAsync = typesafe
 
     override fun memory(): MemoryServiceAsync = memory
+
+    /** Create and manage real-time AI avatars */
+    override fun avatars(): AvatarServiceAsync = avatars
 
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
@@ -257,6 +264,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             MemoryServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val avatars: AvatarServiceAsync.WithRawResponse by lazy {
+            AvatarServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiServiceAsync.WithRawResponse =
@@ -306,6 +317,9 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         override fun typesafe(): TypesafeServiceAsync.WithRawResponse = typesafe
 
         override fun memory(): MemoryServiceAsync.WithRawResponse = memory
+
+        /** Create and manage real-time AI avatars */
+        override fun avatars(): AvatarServiceAsync.WithRawResponse = avatars
 
         private val retrieveConversationHistoriesHandler:
             Handler<AiRetrieveConversationHistoriesPageResponse> =
