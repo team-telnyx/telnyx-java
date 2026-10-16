@@ -3404,6 +3404,7 @@ private constructor(
         private constructor(
             private val from: JsonField<String>,
             private val targets: JsonField<Targets>,
+            private val bridgeBeep: JsonField<BridgeBeep>,
             private val customHeaders: JsonField<List<CustomHeader>>,
             private val description: JsonField<String>,
             private val diversion: JsonField<String>,
@@ -3420,6 +3421,9 @@ private constructor(
                 @JsonProperty("targets")
                 @ExcludeMissing
                 targets: JsonField<Targets> = JsonMissing.of(),
+                @JsonProperty("bridge_beep")
+                @ExcludeMissing
+                bridgeBeep: JsonField<BridgeBeep> = JsonMissing.of(),
                 @JsonProperty("custom_headers")
                 @ExcludeMissing
                 customHeaders: JsonField<List<CustomHeader>> = JsonMissing.of(),
@@ -3444,6 +3448,7 @@ private constructor(
             ) : this(
                 from,
                 targets,
+                bridgeBeep,
                 customHeaders,
                 description,
                 diversion,
@@ -3474,6 +3479,17 @@ private constructor(
              *   value).
              */
             fun targets(): Targets = targets.getRequired("targets")
+
+            /**
+             * Plays a short beep once the transfer completes and the calls are bridged, so the
+             * transfer destination knows the caller is now on the line. The warm transfer message
+             * plays before the bridge; this marks the moment the caller actually joins. Works with
+             * and without `warm_transfer_acceptance`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun bridgeBeep(): Optional<BridgeBeep> = bridgeBeep.getOptional("bridge_beep")
 
             /**
              * Custom headers to be added to the SIP INVITE for the transfer command.
@@ -3572,6 +3588,16 @@ private constructor(
              * Unlike [targets], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("targets") @ExcludeMissing fun _targets(): JsonField<Targets> = targets
+
+            /**
+             * Returns the raw JSON value of [bridgeBeep].
+             *
+             * Unlike [bridgeBeep], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("bridge_beep")
+            @ExcludeMissing
+            fun _bridgeBeep(): JsonField<BridgeBeep> = bridgeBeep
 
             /**
              * Returns the raw JSON value of [customHeaders].
@@ -3675,6 +3701,7 @@ private constructor(
 
                 private var from: JsonField<String>? = null
                 private var targets: JsonField<Targets>? = null
+                private var bridgeBeep: JsonField<BridgeBeep> = JsonMissing.of()
                 private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
                 private var description: JsonField<String> = JsonMissing.of()
                 private var diversion: JsonField<String> = JsonMissing.of()
@@ -3689,6 +3716,7 @@ private constructor(
                 internal fun from(transferConfig: TransferConfig) = apply {
                     from = transferConfig.from
                     targets = transferConfig.targets
+                    bridgeBeep = transferConfig.bridgeBeep
                     customHeaders = transferConfig.customHeaders.map { it.toMutableList() }
                     description = transferConfig.description
                     diversion = transferConfig.diversion
@@ -3733,6 +3761,25 @@ private constructor(
 
                 /** Alias for calling [targets] with `Targets.ofString(string)`. */
                 fun targets(string: String) = targets(Targets.ofString(string))
+
+                /**
+                 * Plays a short beep once the transfer completes and the calls are bridged, so the
+                 * transfer destination knows the caller is now on the line. The warm transfer
+                 * message plays before the bridge; this marks the moment the caller actually joins.
+                 * Works with and without `warm_transfer_acceptance`.
+                 */
+                fun bridgeBeep(bridgeBeep: BridgeBeep) = bridgeBeep(JsonField.of(bridgeBeep))
+
+                /**
+                 * Sets [Builder.bridgeBeep] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.bridgeBeep] with a well-typed [BridgeBeep] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun bridgeBeep(bridgeBeep: JsonField<BridgeBeep>) = apply {
+                    this.bridgeBeep = bridgeBeep
+                }
 
                 /** Custom headers to be added to the SIP INVITE for the transfer command. */
                 fun customHeaders(customHeaders: List<CustomHeader>) =
@@ -3938,6 +3985,7 @@ private constructor(
                     TransferConfig(
                         checkRequired("from", from),
                         checkRequired("targets", targets),
+                        bridgeBeep,
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
                         description,
                         diversion,
@@ -3968,6 +4016,7 @@ private constructor(
 
                 from()
                 targets().validate()
+                bridgeBeep().ifPresent { it.validate() }
                 customHeaders().ifPresent { it.forEach { it.validate() } }
                 description()
                 diversion()
@@ -3996,6 +4045,7 @@ private constructor(
             internal fun validity(): Int =
                 (if (from.asKnown().isPresent) 1 else 0) +
                     (targets.asKnown().getOrNull()?.validity() ?: 0) +
+                    (bridgeBeep.asKnown().getOrNull()?.validity() ?: 0) +
                     (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (if (description.asKnown().isPresent) 1 else 0) +
                     (if (diversion.asKnown().isPresent) 1 else 0) +
@@ -4669,6 +4719,371 @@ private constructor(
                     override fun toString() =
                         "TargetObject{to=$to, extension=$extension, message=$message, name=$name, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, additionalProperties=$additionalProperties}"
                 }
+            }
+
+            /**
+             * Plays a short beep once the transfer completes and the calls are bridged, so the
+             * transfer destination knows the caller is now on the line. The warm transfer message
+             * plays before the bridge; this marks the moment the caller actually joins. Works with
+             * and without `warm_transfer_acceptance`.
+             */
+            class BridgeBeep
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val enabled: JsonField<Boolean>,
+                private val targetLegs: JsonField<TargetLegs>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("enabled")
+                    @ExcludeMissing
+                    enabled: JsonField<Boolean> = JsonMissing.of(),
+                    @JsonProperty("target_legs")
+                    @ExcludeMissing
+                    targetLegs: JsonField<TargetLegs> = JsonMissing.of(),
+                ) : this(enabled, targetLegs, mutableMapOf())
+
+                /**
+                 * Whether to play the beep when the calls are bridged.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun enabled(): Optional<Boolean> = enabled.getOptional("enabled")
+
+                /**
+                 * Who hears the beep. `self` plays it to the transfer destination only; `both`
+                 * plays it to the destination and the original caller.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun targetLegs(): Optional<TargetLegs> = targetLegs.getOptional("target_legs")
+
+                /**
+                 * Returns the raw JSON value of [enabled].
+                 *
+                 * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("enabled")
+                @ExcludeMissing
+                fun _enabled(): JsonField<Boolean> = enabled
+
+                /**
+                 * Returns the raw JSON value of [targetLegs].
+                 *
+                 * Unlike [targetLegs], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("target_legs")
+                @ExcludeMissing
+                fun _targetLegs(): JsonField<TargetLegs> = targetLegs
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [BridgeBeep]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [BridgeBeep]. */
+                class Builder internal constructor() {
+
+                    private var enabled: JsonField<Boolean> = JsonMissing.of()
+                    private var targetLegs: JsonField<TargetLegs> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(bridgeBeep: BridgeBeep) = apply {
+                        enabled = bridgeBeep.enabled
+                        targetLegs = bridgeBeep.targetLegs
+                        additionalProperties = bridgeBeep.additionalProperties.toMutableMap()
+                    }
+
+                    /** Whether to play the beep when the calls are bridged. */
+                    fun enabled(enabled: Boolean) = enabled(JsonField.of(enabled))
+
+                    /**
+                     * Sets [Builder.enabled] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.enabled] with a well-typed [Boolean] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun enabled(enabled: JsonField<Boolean>) = apply { this.enabled = enabled }
+
+                    /**
+                     * Who hears the beep. `self` plays it to the transfer destination only; `both`
+                     * plays it to the destination and the original caller.
+                     */
+                    fun targetLegs(targetLegs: TargetLegs) = targetLegs(JsonField.of(targetLegs))
+
+                    /**
+                     * Sets [Builder.targetLegs] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.targetLegs] with a well-typed [TargetLegs]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun targetLegs(targetLegs: JsonField<TargetLegs>) = apply {
+                        this.targetLegs = targetLegs
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [BridgeBeep].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): BridgeBeep =
+                        BridgeBeep(enabled, targetLegs, additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): BridgeBeep = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    enabled()
+                    targetLegs().ifPresent { it.validate() }
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (enabled.asKnown().isPresent) 1 else 0) +
+                        (targetLegs.asKnown().getOrNull()?.validity() ?: 0)
+
+                /**
+                 * Who hears the beep. `self` plays it to the transfer destination only; `both`
+                 * plays it to the destination and the original caller.
+                 */
+                class TargetLegs
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val SELF = of("self")
+
+                        @JvmField val BOTH = of("both")
+
+                        @JvmStatic fun of(value: String) = TargetLegs(JsonField.of(value))
+                    }
+
+                    /** An enum containing [TargetLegs]'s known values. */
+                    enum class Known {
+                        SELF,
+                        BOTH,
+                    }
+
+                    /**
+                     * An enum containing [TargetLegs]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [TargetLegs] can contain an unknown value in a couple of
+                     * cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        SELF,
+                        BOTH,
+                        /**
+                         * An enum member indicating that [TargetLegs] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            SELF -> Value.SELF
+                            BOTH -> Value.BOTH
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            SELF -> Known.SELF
+                            BOTH -> Known.BOTH
+                            else -> throw TelnyxInvalidDataException("Unknown TargetLegs: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws TelnyxInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): TargetLegs = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is TargetLegs && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is BridgeBeep &&
+                        enabled == other.enabled &&
+                        targetLegs == other.targetLegs &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(enabled, targetLegs, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "BridgeBeep{enabled=$enabled, targetLegs=$targetLegs, additionalProperties=$additionalProperties}"
             }
 
             class CustomHeader
@@ -6761,6 +7176,7 @@ private constructor(
                 private val enabled: JsonField<Boolean>,
                 private val endUserTargetContextMode: JsonField<EndUserTargetContextMode>,
                 private val requireAcceptance: JsonField<Boolean>,
+                private val timeoutSecs: JsonField<Long>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
@@ -6776,7 +7192,16 @@ private constructor(
                     @JsonProperty("require_acceptance")
                     @ExcludeMissing
                     requireAcceptance: JsonField<Boolean> = JsonMissing.of(),
-                ) : this(enabled, endUserTargetContextMode, requireAcceptance, mutableMapOf())
+                    @JsonProperty("timeout_secs")
+                    @ExcludeMissing
+                    timeoutSecs: JsonField<Long> = JsonMissing.of(),
+                ) : this(
+                    enabled,
+                    endUserTargetContextMode,
+                    requireAcceptance,
+                    timeoutSecs,
+                    mutableMapOf(),
+                )
 
                 /**
                  * Whether the destination must accept the transfer before the calls are bridged.
@@ -6818,6 +7243,21 @@ private constructor(
                     requireAcceptance.getOptional("require_acceptance")
 
                 /**
+                 * How long, in seconds, the destination has to accept the transfer, counted from
+                 * when the private consult starts (right after the destination answers, or after
+                 * `warm_message_delay_ms`). The caller keeps hearing ringback the whole time. If no
+                 * acceptance arrives in time, the destination is hung up and the assistant returns
+                 * to the caller (the transfer fails as a timeout). Raise it for destinations that
+                 * answer before a human is on the line, such as a call-center queue/ACD or an IVR
+                 * playing hold audio; keep it as short as practical, since the caller waits on
+                 * ringback until it expires.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun timeoutSecs(): Optional<Long> = timeoutSecs.getOptional("timeout_secs")
+
+                /**
                  * Returns the raw JSON value of [enabled].
                  *
                  * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected
@@ -6848,6 +7288,16 @@ private constructor(
                 @ExcludeMissing
                 fun _requireAcceptance(): JsonField<Boolean> = requireAcceptance
 
+                /**
+                 * Returns the raw JSON value of [timeoutSecs].
+                 *
+                 * Unlike [timeoutSecs], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("timeout_secs")
+                @ExcludeMissing
+                fun _timeoutSecs(): JsonField<Long> = timeoutSecs
+
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
                     additionalProperties.put(key, value)
@@ -6876,6 +7326,7 @@ private constructor(
                     private var endUserTargetContextMode: JsonField<EndUserTargetContextMode> =
                         JsonMissing.of()
                     private var requireAcceptance: JsonField<Boolean> = JsonMissing.of()
+                    private var timeoutSecs: JsonField<Long> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -6883,6 +7334,7 @@ private constructor(
                         enabled = warmTransferAcceptance.enabled
                         endUserTargetContextMode = warmTransferAcceptance.endUserTargetContextMode
                         requireAcceptance = warmTransferAcceptance.requireAcceptance
+                        timeoutSecs = warmTransferAcceptance.timeoutSecs
                         additionalProperties =
                             warmTransferAcceptance.additionalProperties.toMutableMap()
                     }
@@ -6950,6 +7402,29 @@ private constructor(
                         this.requireAcceptance = requireAcceptance
                     }
 
+                    /**
+                     * How long, in seconds, the destination has to accept the transfer, counted
+                     * from when the private consult starts (right after the destination answers, or
+                     * after `warm_message_delay_ms`). The caller keeps hearing ringback the whole
+                     * time. If no acceptance arrives in time, the destination is hung up and the
+                     * assistant returns to the caller (the transfer fails as a timeout). Raise it
+                     * for destinations that answer before a human is on the line, such as a
+                     * call-center queue/ACD or an IVR playing hold audio; keep it as short as
+                     * practical, since the caller waits on ringback until it expires.
+                     */
+                    fun timeoutSecs(timeoutSecs: Long) = timeoutSecs(JsonField.of(timeoutSecs))
+
+                    /**
+                     * Sets [Builder.timeoutSecs] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.timeoutSecs] with a well-typed [Long] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun timeoutSecs(timeoutSecs: JsonField<Long>) = apply {
+                        this.timeoutSecs = timeoutSecs
+                    }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         putAllAdditionalProperties(additionalProperties)
@@ -6982,6 +7457,7 @@ private constructor(
                             enabled,
                             endUserTargetContextMode,
                             requireAcceptance,
+                            timeoutSecs,
                             additionalProperties.toMutableMap(),
                         )
                 }
@@ -7006,6 +7482,7 @@ private constructor(
                     enabled()
                     endUserTargetContextMode().ifPresent { it.validate() }
                     requireAcceptance()
+                    timeoutSecs()
                     validated = true
                 }
 
@@ -7027,7 +7504,8 @@ private constructor(
                 internal fun validity(): Int =
                     (if (enabled.asKnown().isPresent) 1 else 0) +
                         (endUserTargetContextMode.asKnown().getOrNull()?.validity() ?: 0) +
-                        (if (requireAcceptance.asKnown().isPresent) 1 else 0)
+                        (if (requireAcceptance.asKnown().isPresent) 1 else 0) +
+                        (if (timeoutSecs.asKnown().isPresent) 1 else 0)
 
                 /**
                  * Controls whether the private exchange between the assistant and the transfer
@@ -7195,6 +7673,7 @@ private constructor(
                         enabled == other.enabled &&
                         endUserTargetContextMode == other.endUserTargetContextMode &&
                         requireAcceptance == other.requireAcceptance &&
+                        timeoutSecs == other.timeoutSecs &&
                         additionalProperties == other.additionalProperties
                 }
 
@@ -7203,6 +7682,7 @@ private constructor(
                         enabled,
                         endUserTargetContextMode,
                         requireAcceptance,
+                        timeoutSecs,
                         additionalProperties,
                     )
                 }
@@ -7210,7 +7690,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "WarmTransferAcceptance{enabled=$enabled, endUserTargetContextMode=$endUserTargetContextMode, requireAcceptance=$requireAcceptance, additionalProperties=$additionalProperties}"
+                    "WarmTransferAcceptance{enabled=$enabled, endUserTargetContextMode=$endUserTargetContextMode, requireAcceptance=$requireAcceptance, timeoutSecs=$timeoutSecs, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -7221,6 +7701,7 @@ private constructor(
                 return other is TransferConfig &&
                     from == other.from &&
                     targets == other.targets &&
+                    bridgeBeep == other.bridgeBeep &&
                     customHeaders == other.customHeaders &&
                     description == other.description &&
                     diversion == other.diversion &&
@@ -7235,6 +7716,7 @@ private constructor(
                 Objects.hash(
                     from,
                     targets,
+                    bridgeBeep,
                     customHeaders,
                     description,
                     diversion,
@@ -7249,7 +7731,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "TransferConfig{from=$from, targets=$targets, customHeaders=$customHeaders, description=$description, diversion=$diversion, voicemailDetection=$voicemailDetection, warmMessageDelayMs=$warmMessageDelayMs, warmTransferAcceptance=$warmTransferAcceptance, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
+                "TransferConfig{from=$from, targets=$targets, bridgeBeep=$bridgeBeep, customHeaders=$customHeaders, description=$description, diversion=$diversion, voicemailDetection=$voicemailDetection, warmMessageDelayMs=$warmMessageDelayMs, warmTransferAcceptance=$warmTransferAcceptance, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

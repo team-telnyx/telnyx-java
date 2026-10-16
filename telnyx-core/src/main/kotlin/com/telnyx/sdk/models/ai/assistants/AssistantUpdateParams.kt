@@ -27,7 +27,10 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Updates the specified AI assistant's attributes and returns the updated assistant. The request
- * can also control how the change is promoted across assistant versions.
+ * can also control how the change is promoted across assistant versions. Every update saves a new
+ * version, and an assistant keeps at most 10 versions: once it has more, the oldest versions are
+ * permanently deleted, except the main version and any version referenced by a traffic distribution
+ * rule.
  */
 class AssistantUpdateParams
 private constructor(

@@ -621,6 +621,14 @@ internal class AssistantToolTest {
                     AssistantTool.Transfer.TransferConfig.builder()
                         .from("+35319605860")
                         .targets("{{ targets }}")
+                        .bridgeBeep(
+                            AssistantTool.Transfer.TransferConfig.BridgeBeep.builder()
+                                .enabled(true)
+                                .targetLegs(
+                                    AssistantTool.Transfer.TransferConfig.BridgeBeep.TargetLegs.SELF
+                                )
+                                .build()
+                        )
                         .addCustomHeader(
                             AssistantTool.Transfer.TransferConfig.CustomHeader.builder()
                                 .name("name")
@@ -693,6 +701,7 @@ internal class AssistantToolTest {
                                         .PRIVATE
                                 )
                                 .requireAcceptance(true)
+                                .timeoutSecs(10L)
                                 .build()
                         )
                         .warmTransferInstructions(
@@ -732,6 +741,15 @@ internal class AssistantToolTest {
                         AssistantTool.Transfer.TransferConfig.builder()
                             .from("+35319605860")
                             .targets("{{ targets }}")
+                            .bridgeBeep(
+                                AssistantTool.Transfer.TransferConfig.BridgeBeep.builder()
+                                    .enabled(true)
+                                    .targetLegs(
+                                        AssistantTool.Transfer.TransferConfig.BridgeBeep.TargetLegs
+                                            .SELF
+                                    )
+                                    .build()
+                            )
                             .addCustomHeader(
                                 AssistantTool.Transfer.TransferConfig.CustomHeader.builder()
                                     .name("name")
@@ -807,6 +825,7 @@ internal class AssistantToolTest {
                                             .PRIVATE
                                     )
                                     .requireAcceptance(true)
+                                    .timeoutSecs(10L)
                                     .build()
                             )
                             .warmTransferInstructions(
