@@ -101,6 +101,8 @@ internal class MessagingOutboundMessagePayloadTest {
                 .tcrCampaignBillable(true)
                 .tcrCampaignId("TCPA3X7")
                 .tcrCampaignRegistered("REGISTERED")
+                .templateId("template_id")
+                .templateName("template_name")
                 .text("Hello, World!")
                 .addTo(
                     MessagingOutboundMessagePayload.To.builder()
@@ -215,6 +217,8 @@ internal class MessagingOutboundMessagePayloadTest {
         assertThat(messagingOutboundMessagePayload.tcrCampaignBillable()).contains(true)
         assertThat(messagingOutboundMessagePayload.tcrCampaignId()).contains("TCPA3X7")
         assertThat(messagingOutboundMessagePayload.tcrCampaignRegistered()).contains("REGISTERED")
+        assertThat(messagingOutboundMessagePayload.templateId()).contains("template_id")
+        assertThat(messagingOutboundMessagePayload.templateName()).contains("template_name")
         assertThat(messagingOutboundMessagePayload.text()).contains("Hello, World!")
         assertThat(messagingOutboundMessagePayload.to().getOrNull())
             .containsExactly(
@@ -325,6 +329,8 @@ internal class MessagingOutboundMessagePayloadTest {
                 .tcrCampaignBillable(true)
                 .tcrCampaignId("TCPA3X7")
                 .tcrCampaignRegistered("REGISTERED")
+                .templateId("template_id")
+                .templateName("template_name")
                 .text("Hello, World!")
                 .addTo(
                     MessagingOutboundMessagePayload.To.builder()

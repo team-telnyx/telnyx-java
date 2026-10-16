@@ -28,6 +28,7 @@ private constructor(
     private val callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent? = null,
     private val artifactCompleted: ArtifactCompletedWebhookEvent? = null,
     private val artifactFailed: ArtifactFailedWebhookEvent? = null,
+    private val callAnalyzed: CallAnalyzedWebhookEvent? = null,
     private val callAnswered: CallAnsweredWebhookEvent? = null,
     private val callBridged: CallBridgedWebhookEvent? = null,
     private val callConversationCreated: CallConversationCreatedWebhookEvent? = null,
@@ -138,6 +139,8 @@ private constructor(
         Optional.ofNullable(artifactCompleted)
 
     fun artifactFailed(): Optional<ArtifactFailedWebhookEvent> = Optional.ofNullable(artifactFailed)
+
+    fun callAnalyzed(): Optional<CallAnalyzedWebhookEvent> = Optional.ofNullable(callAnalyzed)
 
     fun callAnswered(): Optional<CallAnsweredWebhookEvent> = Optional.ofNullable(callAnswered)
 
@@ -369,6 +372,8 @@ private constructor(
 
     fun isArtifactFailed(): Boolean = artifactFailed != null
 
+    fun isCallAnalyzed(): Boolean = callAnalyzed != null
+
     fun isCallAnswered(): Boolean = callAnswered != null
 
     fun isCallBridged(): Boolean = callBridged != null
@@ -539,6 +544,8 @@ private constructor(
         artifactCompleted.getOrThrow("artifactCompleted")
 
     fun asArtifactFailed(): ArtifactFailedWebhookEvent = artifactFailed.getOrThrow("artifactFailed")
+
+    fun asCallAnalyzed(): CallAnalyzedWebhookEvent = callAnalyzed.getOrThrow("callAnalyzed")
 
     fun asCallAnswered(): CallAnsweredWebhookEvent = callAnswered.getOrThrow("callAnswered")
 
@@ -799,6 +806,7 @@ private constructor(
                 visitor.visitCallAiGatherPartialResults(callAiGatherPartialResults)
             artifactCompleted != null -> visitor.visitArtifactCompleted(artifactCompleted)
             artifactFailed != null -> visitor.visitArtifactFailed(artifactFailed)
+            callAnalyzed != null -> visitor.visitCallAnalyzed(callAnalyzed)
             callAnswered != null -> visitor.visitCallAnswered(callAnswered)
             callBridged != null -> visitor.visitCallBridged(callBridged)
             callConversationCreated != null ->
@@ -958,6 +966,10 @@ private constructor(
 
                 override fun visitArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent) {
                     artifactFailed.validate()
+                }
+
+                override fun visitCallAnalyzed(callAnalyzed: CallAnalyzedWebhookEvent) {
+                    callAnalyzed.validate()
                 }
 
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) {
@@ -1409,6 +1421,9 @@ private constructor(
                 override fun visitArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent) =
                     artifactFailed.validity()
 
+                override fun visitCallAnalyzed(callAnalyzed: CallAnalyzedWebhookEvent) =
+                    callAnalyzed.validity()
+
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
                     callAnswered.validity()
 
@@ -1703,6 +1718,7 @@ private constructor(
             callAiGatherPartialResults == other.callAiGatherPartialResults &&
             artifactCompleted == other.artifactCompleted &&
             artifactFailed == other.artifactFailed &&
+            callAnalyzed == other.callAnalyzed &&
             callAnswered == other.callAnswered &&
             callBridged == other.callBridged &&
             callConversationCreated == other.callConversationCreated &&
@@ -1791,6 +1807,7 @@ private constructor(
             callAiGatherPartialResults,
             artifactCompleted,
             artifactFailed,
+            callAnalyzed,
             callAnswered,
             callBridged,
             callConversationCreated,
@@ -1879,6 +1896,7 @@ private constructor(
                 "UnwrapWebhookEvent{callAiGatherPartialResults=$callAiGatherPartialResults}"
             artifactCompleted != null -> "UnwrapWebhookEvent{artifactCompleted=$artifactCompleted}"
             artifactFailed != null -> "UnwrapWebhookEvent{artifactFailed=$artifactFailed}"
+            callAnalyzed != null -> "UnwrapWebhookEvent{callAnalyzed=$callAnalyzed}"
             callAnswered != null -> "UnwrapWebhookEvent{callAnswered=$callAnswered}"
             callBridged != null -> "UnwrapWebhookEvent{callBridged=$callBridged}"
             callConversationCreated != null ->
@@ -2030,6 +2048,10 @@ private constructor(
         @JvmStatic
         fun ofArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent) =
             UnwrapWebhookEvent(artifactFailed = artifactFailed)
+
+        @JvmStatic
+        fun ofCallAnalyzed(callAnalyzed: CallAnalyzedWebhookEvent) =
+            UnwrapWebhookEvent(callAnalyzed = callAnalyzed)
 
         @JvmStatic
         fun ofCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
@@ -2403,6 +2425,8 @@ private constructor(
 
         fun visitArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent): T
 
+        fun visitCallAnalyzed(callAnalyzed: CallAnalyzedWebhookEvent): T
+
         fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent): T
 
         fun visitCallBridged(callBridged: CallBridgedWebhookEvent): T
@@ -2660,6 +2684,9 @@ private constructor(
                         },
                         tryDeserialize(node, jacksonTypeRef<ArtifactFailedWebhookEvent>())?.let {
                             UnwrapWebhookEvent(artifactFailed = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<CallAnalyzedWebhookEvent>())?.let {
+                            UnwrapWebhookEvent(callAnalyzed = it, _json = json)
                         },
                         tryDeserialize(node, jacksonTypeRef<CallAnsweredWebhookEvent>())?.let {
                             UnwrapWebhookEvent(callAnswered = it, _json = json)
@@ -3030,6 +3057,7 @@ private constructor(
                     generator.writeObject(value.callAiGatherPartialResults)
                 value.artifactCompleted != null -> generator.writeObject(value.artifactCompleted)
                 value.artifactFailed != null -> generator.writeObject(value.artifactFailed)
+                value.callAnalyzed != null -> generator.writeObject(value.callAnalyzed)
                 value.callAnswered != null -> generator.writeObject(value.callAnswered)
                 value.callBridged != null -> generator.writeObject(value.callBridged)
                 value.callConversationCreated != null ->

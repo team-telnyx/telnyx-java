@@ -2721,6 +2721,14 @@ Methods:
 - <code title="get /whatsapp/signup">client.whatsapp().signup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/SignupService.kt">list</a>(params)</code>
 - <code title="get /whatsapp/signup/{id}/status">client.whatsapp().signup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/SignupService.kt">retrieveStatus</a>(params)</code>
 
+## HostedSignups
+
+Methods:
+
+- <code title="post /whatsapp/hosted_signups">client.whatsapp().hostedSignups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/HostedSignupService.kt">create</a>(params)</code>
+- <code title="get /whatsapp/hosted_signups/{id}">client.whatsapp().hostedSignups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/HostedSignupService.kt">retrieve</a>(params)</code>
+- <code title="get /whatsapp/hosted_signups">client.whatsapp().hostedSignups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/HostedSignupService.kt">list</a>(params)</code>
+
 # WhatsappMessageTemplates
 
 Methods:

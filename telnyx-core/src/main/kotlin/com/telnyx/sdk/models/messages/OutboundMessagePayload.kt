@@ -47,6 +47,8 @@ private constructor(
     private val tcrCampaignBillable: JsonField<Boolean>,
     private val tcrCampaignId: JsonField<String>,
     private val tcrCampaignRegistered: JsonField<String>,
+    private val templateId: JsonField<String>,
+    private val templateName: JsonField<String>,
     private val text: JsonField<String>,
     private val to: JsonField<List<To>>,
     private val type: JsonField<Type>,
@@ -109,6 +111,12 @@ private constructor(
         @JsonProperty("tcr_campaign_registered")
         @ExcludeMissing
         tcrCampaignRegistered: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("template_id")
+        @ExcludeMissing
+        templateId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("template_name")
+        @ExcludeMissing
+        templateName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
         @JsonProperty("to") @ExcludeMissing to: JsonField<List<To>> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
@@ -149,6 +157,8 @@ private constructor(
         tcrCampaignBillable,
         tcrCampaignId,
         tcrCampaignRegistered,
+        templateId,
+        templateName,
         text,
         to,
         type,
@@ -168,7 +178,8 @@ private constructor(
     fun id(): Optional<String> = id.getOptional("id")
 
     /**
-     * RCS webhook message body. Text messages use the text property.
+     * Message body for RCS and WhatsApp. RCS text messages use the text property. WhatsApp messages
+     * contain the `whatsapp_message` object from the send request.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -350,6 +361,22 @@ private constructor(
      */
     fun tcrCampaignRegistered(): Optional<String> =
         tcrCampaignRegistered.getOptional("tcr_campaign_registered")
+
+    /**
+     * Telnyx ID of the WhatsApp template used by the message, when known.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun templateId(): Optional<String> = templateId.getOptional("template_id")
+
+    /**
+     * Name of the WhatsApp template used by the message. Present for WhatsApp template messages.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun templateName(): Optional<String> = templateName.getOptional("template_name")
 
     /**
      * Message body (i.e., content) as a non-empty string.
@@ -607,6 +634,22 @@ private constructor(
     fun _tcrCampaignRegistered(): JsonField<String> = tcrCampaignRegistered
 
     /**
+     * Returns the raw JSON value of [templateId].
+     *
+     * Unlike [templateId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("template_id") @ExcludeMissing fun _templateId(): JsonField<String> = templateId
+
+    /**
+     * Returns the raw JSON value of [templateName].
+     *
+     * Unlike [templateName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("template_name")
+    @ExcludeMissing
+    fun _templateName(): JsonField<String> = templateName
+
+    /**
      * Returns the raw JSON value of [text].
      *
      * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
@@ -705,6 +748,8 @@ private constructor(
         private var tcrCampaignBillable: JsonField<Boolean> = JsonMissing.of()
         private var tcrCampaignId: JsonField<String> = JsonMissing.of()
         private var tcrCampaignRegistered: JsonField<String> = JsonMissing.of()
+        private var templateId: JsonField<String> = JsonMissing.of()
+        private var templateName: JsonField<String> = JsonMissing.of()
         private var text: JsonField<String> = JsonMissing.of()
         private var to: JsonField<MutableList<To>>? = null
         private var type: JsonField<Type> = JsonMissing.of()
@@ -740,6 +785,8 @@ private constructor(
             tcrCampaignBillable = outboundMessagePayload.tcrCampaignBillable
             tcrCampaignId = outboundMessagePayload.tcrCampaignId
             tcrCampaignRegistered = outboundMessagePayload.tcrCampaignRegistered
+            templateId = outboundMessagePayload.templateId
+            templateName = outboundMessagePayload.templateName
             text = outboundMessagePayload.text
             to = outboundMessagePayload.to.map { it.toMutableList() }
             type = outboundMessagePayload.type
@@ -761,7 +808,10 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /** RCS webhook message body. Text messages use the text property. */
+        /**
+         * Message body for RCS and WhatsApp. RCS text messages use the text property. WhatsApp
+         * messages contain the `whatsapp_message` object from the send request.
+         */
         fun body(body: Body) = body(JsonField.of(body))
 
         /**
@@ -1137,6 +1187,35 @@ private constructor(
             this.tcrCampaignRegistered = tcrCampaignRegistered
         }
 
+        /** Telnyx ID of the WhatsApp template used by the message, when known. */
+        fun templateId(templateId: String) = templateId(JsonField.of(templateId))
+
+        /**
+         * Sets [Builder.templateId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.templateId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun templateId(templateId: JsonField<String>) = apply { this.templateId = templateId }
+
+        /**
+         * Name of the WhatsApp template used by the message. Present for WhatsApp template
+         * messages.
+         */
+        fun templateName(templateName: String) = templateName(JsonField.of(templateName))
+
+        /**
+         * Sets [Builder.templateName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.templateName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun templateName(templateName: JsonField<String>) = apply {
+            this.templateName = templateName
+        }
+
         /**
          * Message body (i.e., content) as a non-empty string.
          *
@@ -1318,6 +1397,8 @@ private constructor(
                 tcrCampaignBillable,
                 tcrCampaignId,
                 tcrCampaignRegistered,
+                templateId,
+                templateName,
                 text,
                 (to ?: JsonMissing.of()).map { it.toImmutable() },
                 type,
@@ -1368,6 +1449,8 @@ private constructor(
         tcrCampaignBillable()
         tcrCampaignId()
         tcrCampaignRegistered()
+        templateId()
+        templateName()
         text()
         to().ifPresent { it.forEach { it.validate() } }
         type().ifPresent { it.validate() }
@@ -1417,6 +1500,8 @@ private constructor(
             (if (tcrCampaignBillable.asKnown().isPresent) 1 else 0) +
             (if (tcrCampaignId.asKnown().isPresent) 1 else 0) +
             (if (tcrCampaignRegistered.asKnown().isPresent) 1 else 0) +
+            (if (templateId.asKnown().isPresent) 1 else 0) +
+            (if (templateName.asKnown().isPresent) 1 else 0) +
             (if (text.asKnown().isPresent) 1 else 0) +
             (to.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1425,7 +1510,10 @@ private constructor(
             (if (webhookFailoverUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookUrl.asKnown().isPresent) 1 else 0)
 
-    /** RCS webhook message body. Text messages use the text property. */
+    /**
+     * Message body for RCS and WhatsApp. RCS text messages use the text property. WhatsApp messages
+     * contain the `whatsapp_message` object from the send request.
+     */
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
@@ -4593,6 +4681,8 @@ private constructor(
 
             @JvmField val RCS = of("RCS")
 
+            @JvmField val WHATSAPP = of("WHATSAPP")
+
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
@@ -4601,6 +4691,7 @@ private constructor(
             SMS,
             MMS,
             RCS,
+            WHATSAPP,
         }
 
         /**
@@ -4616,6 +4707,7 @@ private constructor(
             SMS,
             MMS,
             RCS,
+            WHATSAPP,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -4632,6 +4724,7 @@ private constructor(
                 SMS -> Value.SMS
                 MMS -> Value.MMS
                 RCS -> Value.RCS
+                WHATSAPP -> Value.WHATSAPP
                 else -> Value._UNKNOWN
             }
 
@@ -4649,6 +4742,7 @@ private constructor(
                 SMS -> Known.SMS
                 MMS -> Known.MMS
                 RCS -> Known.RCS
+                WHATSAPP -> Known.WHATSAPP
                 else -> throw TelnyxInvalidDataException("Unknown Type: $value")
             }
 
@@ -4743,6 +4837,8 @@ private constructor(
             tcrCampaignBillable == other.tcrCampaignBillable &&
             tcrCampaignId == other.tcrCampaignId &&
             tcrCampaignRegistered == other.tcrCampaignRegistered &&
+            templateId == other.templateId &&
+            templateName == other.templateName &&
             text == other.text &&
             to == other.to &&
             type == other.type &&
@@ -4779,6 +4875,8 @@ private constructor(
             tcrCampaignBillable,
             tcrCampaignId,
             tcrCampaignRegistered,
+            templateId,
+            templateName,
             text,
             to,
             type,
@@ -4793,5 +4891,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "OutboundMessagePayload{id=$id, body=$body, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, numChars=$numChars, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, waitSeconds=$waitSeconds, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "OutboundMessagePayload{id=$id, body=$body, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, numChars=$numChars, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, templateId=$templateId, templateName=$templateName, text=$text, to=$to, type=$type, validUntil=$validUntil, waitSeconds=$waitSeconds, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.services.blocking.whatsapp.BusinessAccountService
+import com.telnyx.sdk.services.blocking.whatsapp.HostedSignupService
 import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberService
 import com.telnyx.sdk.services.blocking.whatsapp.SignupService
 import com.telnyx.sdk.services.blocking.whatsapp.TemplateService
@@ -38,6 +39,8 @@ interface WhatsappService {
 
     fun signup(): SignupService
 
+    fun hostedSignups(): HostedSignupService
+
     /** A view of [WhatsappService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -61,5 +64,7 @@ interface WhatsappService {
         fun userData(): UserDataService.WithRawResponse
 
         fun signup(): SignupService.WithRawResponse
+
+        fun hostedSignups(): HostedSignupService.WithRawResponse
     }
 }

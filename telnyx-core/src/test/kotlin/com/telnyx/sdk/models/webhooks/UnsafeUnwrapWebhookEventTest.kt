@@ -78,6 +78,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -289,6 +290,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -502,6 +504,7 @@ internal class UnsafeUnwrapWebhookEventTest {
             .contains(callAiGatherPartialResults)
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -689,6 +692,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).contains(artifactCompleted)
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -835,6 +839,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).contains(artifactFailed)
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -946,6 +951,353 @@ internal class UnsafeUnwrapWebhookEventTest {
     }
 
     @Test
+    fun ofCallAnalyzed() {
+        val callAnalyzed =
+            CallAnalyzedWebhookEvent.builder()
+                .data(
+                    CallAnalyzedWebhookEvent.Data.builder()
+                        .id("afa6f4ac-f569-575b-9127-75a2746cf0ab")
+                        .eventType(CallAnalyzedWebhookEvent.Data.EventType.CALL_ANALYZED)
+                        .occurredAt(OffsetDateTime.parse("2026-10-15T20:38:46.308491Z"))
+                        .payload(
+                            CallAnalyzedWebhookEvent.Data.Payload.builder()
+                                .assistantId("assistant-258e1b9b-aa09-5f71-a931-56fd3cf2eb1c")
+                                .callControlId("v3:b5aa7d950dfd551e916cc42bee82e56e-510c4d08")
+                                .callLegId("9f4eec6d-19a9-503f-be41-024cfaf1d5a6")
+                                .callSessionId("340a438e-f327-5f36-be97-e5c13bde3a05")
+                                .clientState(
+                                    "g3QAAAACbQAAAAtkYXRhX2NlbnRlcm0AAAADY2gxbQAAAApkZXBsb3ltZW50bQAAAARiYXNl"
+                                )
+                                .connectionId("1294850382059482660")
+                                .conversationId("dc76aa9a-a1c2-5e6b-aed4-6775fe240151")
+                                .addConversationInsight(
+                                    CallAnalyzedWebhookEvent.Data.Payload.ConversationInsight
+                                        .builder()
+                                        .addConversationInsight(
+                                            CallAnalyzedWebhookEvent.Data.Payload
+                                                .ConversationInsight
+                                                .InnerConversationInsight
+                                                .builder()
+                                                .insightId("6c5018ff-25a2-5364-b6be-f53de3d493c6")
+                                                .result(
+                                                    "The user called the voice assistant to schedule a dental appointment. The assistant confirmed availability for Tuesday at 10:00 AM and transferred the call to the office scheduling line to complete the booking."
+                                                )
+                                                .build()
+                                        )
+                                        .status("completed")
+                                        .build()
+                                )
+                                .cost(
+                                    CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                        .builder()
+                                        .breakdown(
+                                            listOf(
+                                                CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                    .UnionMember0
+                                                    .Breakdown
+                                                    .builder()
+                                                    .cost("0.050000")
+                                                    .product("ai-voice-assistant")
+                                                    .build(),
+                                                CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                    .UnionMember0
+                                                    .Breakdown
+                                                    .builder()
+                                                    .cost("0.003600")
+                                                    .product("callcontrol-cdrs")
+                                                    .build(),
+                                                CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                    .UnionMember0
+                                                    .Breakdown
+                                                    .builder()
+                                                    .cost("0.000900")
+                                                    .product("inference")
+                                                    .build(),
+                                                CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                    .UnionMember0
+                                                    .Breakdown
+                                                    .builder()
+                                                    .cost("0.000800")
+                                                    .product("recording-cdrs")
+                                                    .build(),
+                                                CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                    .UnionMember0
+                                                    .Breakdown
+                                                    .builder()
+                                                    .cost("0.005000")
+                                                    .product("siptrunking-cdrs")
+                                                    .build(),
+                                            )
+                                        )
+                                        .currency("USD")
+                                        .total("0.060300")
+                                        .build()
+                                )
+                                .durationSec(37L)
+                                .from("+131****7421")
+                                .llmModel("moonshotai/Kimi-K2.6")
+                                .reason("normal")
+                                .addRecording(
+                                    CallAnalyzedWebhookEvent.Data.Payload.Recording.builder()
+                                        .id("850f003e-1278-5d6b-baf2-918aae3031dc")
+                                        .channels("dual")
+                                        .downloadUrls(
+                                            CallAnalyzedWebhookEvent.Data.Payload.Recording
+                                                .DownloadUrls
+                                                .builder()
+                                                .mp3(
+                                                    "https://storage.telnyx.com/recordings/06069104-45f7-5d17-9fa7-34cfeb4534fa/2026-10-15/9f4eec6d-19a9-503f.mp3"
+                                                )
+                                                .wav("wav")
+                                                .build()
+                                        )
+                                        .endTime(
+                                            OffsetDateTime.parse("2026-10-15T20:34:52.395814Z")
+                                        )
+                                        .format("mp3")
+                                        .startTime(
+                                            OffsetDateTime.parse("2026-10-15T20:34:07.955834Z")
+                                        )
+                                        .build()
+                                )
+                                .sttModel("deepgram/flux")
+                                .to("+131****4802")
+                                .ttsModelId("Ultra")
+                                .ttsProvider("telnyx")
+                                .ttsVoiceId("c80920a7-535c-5d39-b630-8ddf52d5a4f0")
+                                .build()
+                        )
+                        .recordType(CallAnalyzedWebhookEvent.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unsafeUnwrapWebhookEvent = UnsafeUnwrapWebhookEvent.ofCallAnalyzed(callAnalyzed)
+
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).contains(callAnalyzed)
+        assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callConversationStartFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumCallScreeningDetected()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumDetectionStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.numberReputationExternalVerificationStatusChanged())
+            .isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.transcriptCompleted()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.whatsappMessageEcho()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.whatsappWabaAdded()).isEmpty
+    }
+
+    @Test
+    fun ofCallAnalyzedRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unsafeUnwrapWebhookEvent =
+            UnsafeUnwrapWebhookEvent.ofCallAnalyzed(
+                CallAnalyzedWebhookEvent.builder()
+                    .data(
+                        CallAnalyzedWebhookEvent.Data.builder()
+                            .id("afa6f4ac-f569-575b-9127-75a2746cf0ab")
+                            .eventType(CallAnalyzedWebhookEvent.Data.EventType.CALL_ANALYZED)
+                            .occurredAt(OffsetDateTime.parse("2026-10-15T20:38:46.308491Z"))
+                            .payload(
+                                CallAnalyzedWebhookEvent.Data.Payload.builder()
+                                    .assistantId("assistant-258e1b9b-aa09-5f71-a931-56fd3cf2eb1c")
+                                    .callControlId("v3:b5aa7d950dfd551e916cc42bee82e56e-510c4d08")
+                                    .callLegId("9f4eec6d-19a9-503f-be41-024cfaf1d5a6")
+                                    .callSessionId("340a438e-f327-5f36-be97-e5c13bde3a05")
+                                    .clientState(
+                                        "g3QAAAACbQAAAAtkYXRhX2NlbnRlcm0AAAADY2gxbQAAAApkZXBsb3ltZW50bQAAAARiYXNl"
+                                    )
+                                    .connectionId("1294850382059482660")
+                                    .conversationId("dc76aa9a-a1c2-5e6b-aed4-6775fe240151")
+                                    .addConversationInsight(
+                                        CallAnalyzedWebhookEvent.Data.Payload.ConversationInsight
+                                            .builder()
+                                            .addConversationInsight(
+                                                CallAnalyzedWebhookEvent.Data.Payload
+                                                    .ConversationInsight
+                                                    .InnerConversationInsight
+                                                    .builder()
+                                                    .insightId(
+                                                        "6c5018ff-25a2-5364-b6be-f53de3d493c6"
+                                                    )
+                                                    .result(
+                                                        "The user called the voice assistant to schedule a dental appointment. The assistant confirmed availability for Tuesday at 10:00 AM and transferred the call to the office scheduling line to complete the booking."
+                                                    )
+                                                    .build()
+                                            )
+                                            .status("completed")
+                                            .build()
+                                    )
+                                    .cost(
+                                        CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                            .builder()
+                                            .breakdown(
+                                                listOf(
+                                                    CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                        .UnionMember0
+                                                        .Breakdown
+                                                        .builder()
+                                                        .cost("0.050000")
+                                                        .product("ai-voice-assistant")
+                                                        .build(),
+                                                    CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                        .UnionMember0
+                                                        .Breakdown
+                                                        .builder()
+                                                        .cost("0.003600")
+                                                        .product("callcontrol-cdrs")
+                                                        .build(),
+                                                    CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                        .UnionMember0
+                                                        .Breakdown
+                                                        .builder()
+                                                        .cost("0.000900")
+                                                        .product("inference")
+                                                        .build(),
+                                                    CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                        .UnionMember0
+                                                        .Breakdown
+                                                        .builder()
+                                                        .cost("0.000800")
+                                                        .product("recording-cdrs")
+                                                        .build(),
+                                                    CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                        .UnionMember0
+                                                        .Breakdown
+                                                        .builder()
+                                                        .cost("0.005000")
+                                                        .product("siptrunking-cdrs")
+                                                        .build(),
+                                                )
+                                            )
+                                            .currency("USD")
+                                            .total("0.060300")
+                                            .build()
+                                    )
+                                    .durationSec(37L)
+                                    .from("+131****7421")
+                                    .llmModel("moonshotai/Kimi-K2.6")
+                                    .reason("normal")
+                                    .addRecording(
+                                        CallAnalyzedWebhookEvent.Data.Payload.Recording.builder()
+                                            .id("850f003e-1278-5d6b-baf2-918aae3031dc")
+                                            .channels("dual")
+                                            .downloadUrls(
+                                                CallAnalyzedWebhookEvent.Data.Payload.Recording
+                                                    .DownloadUrls
+                                                    .builder()
+                                                    .mp3(
+                                                        "https://storage.telnyx.com/recordings/06069104-45f7-5d17-9fa7-34cfeb4534fa/2026-10-15/9f4eec6d-19a9-503f.mp3"
+                                                    )
+                                                    .wav("wav")
+                                                    .build()
+                                            )
+                                            .endTime(
+                                                OffsetDateTime.parse("2026-10-15T20:34:52.395814Z")
+                                            )
+                                            .format("mp3")
+                                            .startTime(
+                                                OffsetDateTime.parse("2026-10-15T20:34:07.955834Z")
+                                            )
+                                            .build()
+                                    )
+                                    .sttModel("deepgram/flux")
+                                    .to("+131****4802")
+                                    .ttsModelId("Ultra")
+                                    .ttsProvider("telnyx")
+                                    .ttsVoiceId("c80920a7-535c-5d39-b630-8ddf52d5a4f0")
+                                    .build()
+                            )
+                            .recordType(CallAnalyzedWebhookEvent.Data.RecordType.EVENT)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnsafeUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent),
+                jacksonTypeRef<UnsafeUnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnsafeUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unsafeUnwrapWebhookEvent))
+    }
+
+    @Test
     fun ofCallAnswered() {
         val callAnswered =
             CallAnsweredWebhookEvent.builder()
@@ -1001,6 +1353,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).contains(callAnswered)
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -1183,6 +1536,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).contains(callBridged)
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -1350,6 +1704,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated())
@@ -1591,6 +1946,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -1843,6 +2199,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -2030,6 +2387,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -2231,6 +2589,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -2419,6 +2778,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -2589,6 +2949,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -2754,6 +3115,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -2910,6 +3272,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -3064,6 +3427,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -3216,6 +3580,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -3371,6 +3736,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -3571,6 +3937,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -3777,6 +4144,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -3960,6 +4328,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -4151,6 +4520,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -4309,6 +4679,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -4469,6 +4840,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -4642,6 +5014,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -4817,6 +5190,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -4984,6 +5358,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -5154,6 +5529,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -5343,6 +5719,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -5558,6 +5935,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -5749,6 +6127,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -5910,6 +6289,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -6065,6 +6445,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -6233,6 +6614,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -6412,6 +6794,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -6582,6 +6965,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -6738,6 +7122,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -6894,6 +7279,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -7046,6 +7432,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -7194,6 +7581,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -7342,6 +7730,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -7492,6 +7881,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -7643,6 +8033,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -7804,6 +8195,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -7964,6 +8356,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -8113,6 +8506,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -8264,6 +8658,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -8406,6 +8801,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -8547,6 +8943,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -8700,6 +9097,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -8848,6 +9246,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -9000,6 +9399,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -9156,6 +9556,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -9320,6 +9721,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -9488,6 +9890,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -9654,6 +10057,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -9818,6 +10222,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -9973,6 +10378,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -10121,6 +10527,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -10293,6 +10700,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -10464,6 +10872,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -10607,6 +11016,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -10819,6 +11229,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 .tcrCampaignBillable(true)
                                 .tcrCampaignId("TCPA3X7")
                                 .tcrCampaignRegistered("REGISTERED")
+                                .templateId("template_id")
+                                .templateName("template_name")
                                 .text("Hello, World!")
                                 .addTo(
                                     OutboundMessagePayload.To.builder()
@@ -10853,6 +11265,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -11037,6 +11450,8 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     .tcrCampaignBillable(true)
                                     .tcrCampaignId("TCPA3X7")
                                     .tcrCampaignRegistered("REGISTERED")
+                                    .templateId("template_id")
+                                    .templateName("template_name")
                                     .text("Hello, World!")
                                     .addTo(
                                         OutboundMessagePayload.To.builder()
@@ -11118,6 +11533,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -11290,6 +11706,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -11461,6 +11878,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -11629,6 +12047,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -11798,6 +12217,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -11975,6 +12395,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -12146,6 +12567,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                         )
                                         .foreignId("foreign_id")
                                         .from("from")
+                                        .fromUserId("from_user_id")
                                         .location(
                                             MessagingInboundMessagePayload.Body.Location.builder()
                                                 .latitude(0.0)
@@ -12321,6 +12743,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -12436,6 +12859,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                             )
                                             .foreignId("foreign_id")
                                             .from("from")
+                                            .fromUserId("from_user_id")
                                             .location(
                                                 MessagingInboundMessagePayload.Body.Location
                                                     .builder()
@@ -12722,6 +13146,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -12973,6 +13398,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -13171,6 +13597,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -13367,6 +13794,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -13532,6 +13960,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -13666,6 +14095,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -13803,6 +14233,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -13958,6 +14389,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -14119,6 +14551,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -14317,6 +14750,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
@@ -14522,6 +14956,7 @@ internal class UnsafeUnwrapWebhookEventTest {
         assertThat(unsafeUnwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactCompleted()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unsafeUnwrapWebhookEvent.callAnalyzed()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unsafeUnwrapWebhookEvent.callConversationCreated()).isEmpty
