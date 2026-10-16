@@ -1407,6 +1407,7 @@ private constructor(
         private val edit: JsonField<Edit>,
         private val foreignId: JsonField<String>,
         private val from: JsonField<String>,
+        private val fromUserId: JsonField<String>,
         private val location: JsonField<Location>,
         private val revoke: JsonField<Revoke>,
         private val suggestionResponse: JsonField<SuggestionResponse>,
@@ -1425,6 +1426,9 @@ private constructor(
             @ExcludeMissing
             foreignId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("from_user_id")
+            @ExcludeMissing
+            fromUserId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("location")
             @ExcludeMissing
             location: JsonField<Location> = JsonMissing.of(),
@@ -1445,6 +1449,7 @@ private constructor(
             edit,
             foreignId,
             from,
+            fromUserId,
             location,
             revoke,
             suggestionResponse,
@@ -1480,12 +1485,23 @@ private constructor(
         fun foreignId(): Optional<String> = foreignId.getOptional("foreign_id")
 
         /**
-         * WhatsApp sender in E.164 format.
+         * WhatsApp sender in E.164 format. Empty when the user hides their phone number;
+         * `from_user_id` then identifies the sender.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun from(): Optional<String> = from.getOptional("from")
+
+        /**
+         * Business-scoped user ID (BSUID) of the WhatsApp sender when Meta provides one, for
+         * example `US.13491208655302741918`. When `from` is empty, pass this value as `to` to
+         * reply.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun fromUserId(): Optional<String> = fromUserId.getOptional("from_user_id")
 
         /**
          * Location shared in an RCS message.
@@ -1573,6 +1589,15 @@ private constructor(
         @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<String> = from
 
         /**
+         * Returns the raw JSON value of [fromUserId].
+         *
+         * Unlike [fromUserId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("from_user_id")
+        @ExcludeMissing
+        fun _fromUserId(): JsonField<String> = fromUserId
+
+        /**
          * Returns the raw JSON value of [location].
          *
          * Unlike [location], this method doesn't throw if the JSON field has an unexpected type.
@@ -1649,6 +1674,7 @@ private constructor(
             private var edit: JsonField<Edit> = JsonMissing.of()
             private var foreignId: JsonField<String> = JsonMissing.of()
             private var from: JsonField<String> = JsonMissing.of()
+            private var fromUserId: JsonField<String> = JsonMissing.of()
             private var location: JsonField<Location> = JsonMissing.of()
             private var revoke: JsonField<Revoke> = JsonMissing.of()
             private var suggestionResponse: JsonField<SuggestionResponse> = JsonMissing.of()
@@ -1664,6 +1690,7 @@ private constructor(
                 edit = body.edit
                 foreignId = body.foreignId
                 from = body.from
+                fromUserId = body.fromUserId
                 location = body.location
                 revoke = body.revoke
                 suggestionResponse = body.suggestionResponse
@@ -1710,7 +1737,10 @@ private constructor(
              */
             fun foreignId(foreignId: JsonField<String>) = apply { this.foreignId = foreignId }
 
-            /** WhatsApp sender in E.164 format. */
+            /**
+             * WhatsApp sender in E.164 format. Empty when the user hides their phone number;
+             * `from_user_id` then identifies the sender.
+             */
             fun from(from: String) = from(JsonField.of(from))
 
             /**
@@ -1721,6 +1751,22 @@ private constructor(
              * value.
              */
             fun from(from: JsonField<String>) = apply { this.from = from }
+
+            /**
+             * Business-scoped user ID (BSUID) of the WhatsApp sender when Meta provides one, for
+             * example `US.13491208655302741918`. When `from` is empty, pass this value as `to` to
+             * reply.
+             */
+            fun fromUserId(fromUserId: String) = fromUserId(JsonField.of(fromUserId))
+
+            /**
+             * Sets [Builder.fromUserId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fromUserId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun fromUserId(fromUserId: JsonField<String>) = apply { this.fromUserId = fromUserId }
 
             /** Location shared in an RCS message. */
             fun location(location: Location) = location(JsonField.of(location))
@@ -1848,6 +1894,7 @@ private constructor(
                     edit,
                     foreignId,
                     from,
+                    fromUserId,
                     location,
                     revoke,
                     suggestionResponse,
@@ -1879,6 +1926,7 @@ private constructor(
             edit().ifPresent { it.validate() }
             foreignId()
             from()
+            fromUserId()
             location().ifPresent { it.validate() }
             revoke().ifPresent { it.validate() }
             suggestionResponse().ifPresent { it.validate() }
@@ -1909,6 +1957,7 @@ private constructor(
                 (edit.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (foreignId.asKnown().isPresent) 1 else 0) +
                 (if (from.asKnown().isPresent) 1 else 0) +
+                (if (fromUserId.asKnown().isPresent) 1 else 0) +
                 (location.asKnown().getOrNull()?.validity() ?: 0) +
                 (revoke.asKnown().getOrNull()?.validity() ?: 0) +
                 (suggestionResponse.asKnown().getOrNull()?.validity() ?: 0) +
@@ -3972,6 +4021,7 @@ private constructor(
                 edit == other.edit &&
                 foreignId == other.foreignId &&
                 from == other.from &&
+                fromUserId == other.fromUserId &&
                 location == other.location &&
                 revoke == other.revoke &&
                 suggestionResponse == other.suggestionResponse &&
@@ -3988,6 +4038,7 @@ private constructor(
                 edit,
                 foreignId,
                 from,
+                fromUserId,
                 location,
                 revoke,
                 suggestionResponse,
@@ -4002,7 +4053,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, edit=$edit, foreignId=$foreignId, from=$from, location=$location, revoke=$revoke, suggestionResponse=$suggestionResponse, text=$text, timestamp=$timestamp, type=$type, userFile=$userFile, additionalProperties=$additionalProperties}"
+            "Body{id=$id, edit=$edit, foreignId=$foreignId, from=$from, fromUserId=$fromUserId, location=$location, revoke=$revoke, suggestionResponse=$suggestionResponse, text=$text, timestamp=$timestamp, type=$type, userFile=$userFile, additionalProperties=$additionalProperties}"
     }
 
     class Cc

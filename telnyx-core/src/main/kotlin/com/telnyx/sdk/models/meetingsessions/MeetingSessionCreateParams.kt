@@ -37,12 +37,16 @@ import kotlin.jvm.optionals.getOrNull
  * Creates a new meeting session. When an idempotency_key is supplied in the request body, replay
  * lookup is scoped to the authenticated account and compares only the key; the request payload is
  * not fingerprinted or compared. If a session with that key already exists for the account, the
- * existing session is replayed (200); otherwise a new session is created (201). Supports
- * bring-your-own-key (BYOK) configuration. The session may enter asynchronous states (e.g. joining,
- * waiting_for_admission) before becoming active. Optional `camera_image` input is write-only and
- * applies only when no Avatar or Assistant webpage output takes precedence. An ignored URL is not
- * fetched. An effective URL source is resolved before bot creation; neither the source URL nor
- * image bytes are persisted, returned, or logged. Treat signed URLs as credentials.
+ * existing session is replayed (200); otherwise a new session is created (201). The session may
+ * enter asynchronous states (e.g. joining, waiting_for_admission) before becoming active. Optional
+ * `camera_image` input is write-only and applies only when no avatar or Assistant webpage output
+ * takes precedence. An ignored URL is not fetched. An effective URL source is resolved before bot
+ * creation; neither the source URL nor image bytes are persisted, returned, or logged. Treat signed
+ * URLs as credentials. With `assistant.avatar: true`, the assistant is read before the bot is
+ * created: an assistant without a Telnyx avatar configured is rejected with 400 `invalid_request`
+ * (message prefix `assistant_avatar_not_configured:`), an unknown assistant with 400
+ * `invalid_request` (prefix `assistant_not_found:`), and a failed lookup with 503
+ * `assistant_lookup_unavailable`; no bot is created in any of these cases.
  */
 class MeetingSessionCreateParams
 private constructor(
@@ -68,14 +72,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun assistant(): Optional<Assistant> = body.assistant()
-
-    /**
-     * Request options for attaching a bring-your-own-key avatar to the session.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun avatar(): Optional<Avatar> = body.avatar()
 
     /**
      * When enabled, a human participant `speech_on` event interrupts and stops the current bot
@@ -150,7 +146,8 @@ private constructor(
      * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
      * attached**: the value is accepted and echoed back on the session, but the assistant owns the
      * voice and the line is never delivered, with no event reporting the omission. Use
-     * `chat_on_enter` to announce an assistant-backed bot.
+     * `chat_on_enter` to announce an assistant-backed bot. Rejected with 400 `invalid_request` when
+     * `assistant.avatar` is `true`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -197,13 +194,6 @@ private constructor(
      * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _assistant(): JsonField<Assistant> = body._assistant()
-
-    /**
-     * Returns the raw JSON value of [avatar].
-     *
-     * Unlike [avatar], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _avatar(): JsonField<Avatar> = body._avatar()
 
     /**
      * Returns the raw JSON value of [bargeIn].
@@ -327,9 +317,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [meetingUrl]
          * - [assistant]
-         * - [avatar]
          * - [bargeIn]
          * - [botName]
+         * - [cameraImage]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -362,17 +352,6 @@ private constructor(
          * value.
          */
         fun assistant(assistant: JsonField<Assistant>) = apply { body.assistant(assistant) }
-
-        /** Request options for attaching a bring-your-own-key avatar to the session. */
-        fun avatar(avatar: Avatar) = apply { body.avatar(avatar) }
-
-        /**
-         * Sets [Builder.avatar] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.avatar] with a well-typed [Avatar] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun avatar(avatar: JsonField<Avatar>) = apply { body.avatar(avatar) }
 
         /**
          * When enabled, a human participant `speech_on` event interrupts and stops the current bot
@@ -507,7 +486,8 @@ private constructor(
          * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
          * attached**: the value is accepted and echoed back on the session, but the assistant owns
          * the voice and the line is never delivered, with no event reporting the omission. Use
-         * `chat_on_enter` to announce an assistant-backed bot.
+         * `chat_on_enter` to announce an assistant-backed bot. Rejected with 400 `invalid_request`
+         * when `assistant.avatar` is `true`.
          */
         fun speakOnEnter(speakOnEnter: String) = apply { body.speakOnEnter(speakOnEnter) }
 
@@ -714,20 +694,23 @@ private constructor(
      * Request body for creating a new meeting session.
      *
      * Cross-field rules:
-     * - Neither `avatar` nor `assistant` can be combined with `join_at`; both are available only
-     *   for sessions that join immediately.
+     * - `assistant` cannot be combined with `join_at`; it is available only for sessions that join
+     *   immediately.
      * - `assistant` cannot be combined with `barge_in: true`.
-     * - The `avatar` and `assistant` options take effect at session creation and cannot be modified
-     *   later.
-     * - An effective Avatar or Assistant webpage output takes precedence over `camera_image`; the
+     * - `assistant.avatar: true` cannot be combined with `speak_on_enter`; the assistant greets
+     *   through its avatar.
+     * - The `assistant` options, including `avatar`, take effect at session creation and cannot be
+     *   modified later.
+     * - A digital avatar or Assistant webpage output takes precedence over `camera_image`; the
      *   static image is ignored and a URL source is not fetched.
+     * - The former top-level `avatar` object (bring-your-own-key avatar) has been removed and is
+     *   rejected with 400 `invalid_request`; use `assistant.avatar` instead.
      */
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val meetingUrl: JsonField<String>,
         private val assistant: JsonField<Assistant>,
-        private val avatar: JsonField<Avatar>,
         private val bargeIn: JsonField<Boolean>,
         private val botName: JsonField<String>,
         private val cameraImage: JsonField<CameraImage>,
@@ -750,7 +733,6 @@ private constructor(
             @JsonProperty("assistant")
             @ExcludeMissing
             assistant: JsonField<Assistant> = JsonMissing.of(),
-            @JsonProperty("avatar") @ExcludeMissing avatar: JsonField<Avatar> = JsonMissing.of(),
             @JsonProperty("barge_in")
             @ExcludeMissing
             bargeIn: JsonField<Boolean> = JsonMissing.of(),
@@ -783,7 +765,6 @@ private constructor(
         ) : this(
             meetingUrl,
             assistant,
-            avatar,
             bargeIn,
             botName,
             cameraImage,
@@ -816,14 +797,6 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun assistant(): Optional<Assistant> = assistant.getOptional("assistant")
-
-        /**
-         * Request options for attaching a bring-your-own-key avatar to the session.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun avatar(): Optional<Avatar> = avatar.getOptional("avatar")
 
         /**
          * When enabled, a human participant `speech_on` event interrupts and stops the current bot
@@ -900,7 +873,8 @@ private constructor(
          * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
          * attached**: the value is accepted and echoed back on the session, but the assistant owns
          * the voice and the line is never delivered, with no event reporting the omission. Use
-         * `chat_on_enter` to announce an assistant-backed bot.
+         * `chat_on_enter` to announce an assistant-backed bot. Rejected with 400 `invalid_request`
+         * when `assistant.avatar` is `true`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -951,13 +925,6 @@ private constructor(
         @JsonProperty("assistant")
         @ExcludeMissing
         fun _assistant(): JsonField<Assistant> = assistant
-
-        /**
-         * Returns the raw JSON value of [avatar].
-         *
-         * Unlike [avatar], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("avatar") @ExcludeMissing fun _avatar(): JsonField<Avatar> = avatar
 
         /**
          * Returns the raw JSON value of [bargeIn].
@@ -1081,7 +1048,6 @@ private constructor(
 
             private var meetingUrl: JsonField<String>? = null
             private var assistant: JsonField<Assistant> = JsonMissing.of()
-            private var avatar: JsonField<Avatar> = JsonMissing.of()
             private var bargeIn: JsonField<Boolean> = JsonMissing.of()
             private var botName: JsonField<String> = JsonMissing.of()
             private var cameraImage: JsonField<CameraImage> = JsonMissing.of()
@@ -1099,7 +1065,6 @@ private constructor(
             internal fun from(body: Body) = apply {
                 meetingUrl = body.meetingUrl
                 assistant = body.assistant
-                avatar = body.avatar
                 bargeIn = body.bargeIn
                 botName = body.botName
                 cameraImage = body.cameraImage
@@ -1142,18 +1107,6 @@ private constructor(
              * supported value.
              */
             fun assistant(assistant: JsonField<Assistant>) = apply { this.assistant = assistant }
-
-            /** Request options for attaching a bring-your-own-key avatar to the session. */
-            fun avatar(avatar: Avatar) = avatar(JsonField.of(avatar))
-
-            /**
-             * Sets [Builder.avatar] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.avatar] with a well-typed [Avatar] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun avatar(avatar: JsonField<Avatar>) = apply { this.avatar = avatar }
 
             /**
              * When enabled, a human participant `speech_on` event interrupts and stops the current
@@ -1304,7 +1257,8 @@ private constructor(
              * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
              * attached**: the value is accepted and echoed back on the session, but the assistant
              * owns the voice and the line is never delivered, with no event reporting the omission.
-             * Use `chat_on_enter` to announce an assistant-backed bot.
+             * Use `chat_on_enter` to announce an assistant-backed bot. Rejected with 400
+             * `invalid_request` when `assistant.avatar` is `true`.
              */
             fun speakOnEnter(speakOnEnter: String) = speakOnEnter(JsonField.of(speakOnEnter))
 
@@ -1401,7 +1355,6 @@ private constructor(
                 Body(
                     checkRequired("meetingUrl", meetingUrl),
                     assistant,
-                    avatar,
                     bargeIn,
                     botName,
                     cameraImage,
@@ -1435,7 +1388,6 @@ private constructor(
 
             meetingUrl()
             assistant().ifPresent { it.validate() }
-            avatar().ifPresent { it.validate() }
             bargeIn()
             botName()
             cameraImage().ifPresent { it.validate() }
@@ -1468,7 +1420,6 @@ private constructor(
         internal fun validity(): Int =
             (if (meetingUrl.asKnown().isPresent) 1 else 0) +
                 (assistant.asKnown().getOrNull()?.validity() ?: 0) +
-                (avatar.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (bargeIn.asKnown().isPresent) 1 else 0) +
                 (if (botName.asKnown().isPresent) 1 else 0) +
                 (cameraImage.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1489,7 +1440,6 @@ private constructor(
             return other is Body &&
                 meetingUrl == other.meetingUrl &&
                 assistant == other.assistant &&
-                avatar == other.avatar &&
                 bargeIn == other.bargeIn &&
                 botName == other.botName &&
                 cameraImage == other.cameraImage &&
@@ -1508,7 +1458,6 @@ private constructor(
             Objects.hash(
                 meetingUrl,
                 assistant,
-                avatar,
                 bargeIn,
                 botName,
                 cameraImage,
@@ -1527,7 +1476,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{meetingUrl=$meetingUrl, assistant=$assistant, avatar=$avatar, bargeIn=$bargeIn, botName=$botName, cameraImage=$cameraImage, chatOnEnter=$chatOnEnter, idempotencyKey=$idempotencyKey, joinAt=$joinAt, metadata=$metadata, speakOnEnter=$speakOnEnter, summarizeOnEnd=$summarizeOnEnd, voice=$voice, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{meetingUrl=$meetingUrl, assistant=$assistant, bargeIn=$bargeIn, botName=$botName, cameraImage=$cameraImage, chatOnEnter=$chatOnEnter, idempotencyKey=$idempotencyKey, joinAt=$joinAt, metadata=$metadata, speakOnEnter=$speakOnEnter, summarizeOnEnd=$summarizeOnEnd, voice=$voice, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1540,6 +1489,7 @@ private constructor(
     private constructor(
         private val id: JsonField<String>,
         private val audioGate: JsonField<AudioGate>,
+        private val avatar: JsonField<Boolean>,
         private val dynamicVariables: JsonField<DynamicVariables>,
         private val leaveOnEnd: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1551,13 +1501,14 @@ private constructor(
             @JsonProperty("audio_gate")
             @ExcludeMissing
             audioGate: JsonField<AudioGate> = JsonMissing.of(),
+            @JsonProperty("avatar") @ExcludeMissing avatar: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("dynamic_variables")
             @ExcludeMissing
             dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of(),
             @JsonProperty("leave_on_end")
             @ExcludeMissing
             leaveOnEnd: JsonField<Boolean> = JsonMissing.of(),
-        ) : this(id, audioGate, dynamicVariables, leaveOnEnd, mutableMapOf())
+        ) : this(id, audioGate, avatar, dynamicVariables, leaveOnEnd, mutableMapOf())
 
         /**
          * Identifier of the assistant to attach.
@@ -1579,6 +1530,22 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun audioGate(): Optional<AudioGate> = audioGate.getOptional("audio_gate")
+
+        /**
+         * Beta. Show the avatar configured on the assistant (its `avatar_settings`; see
+         * [AI Assistant avatars](/docs/inference/ai-assistants/avatars)) as the bot's camera,
+         * lip-synced to the assistant's own speech. The request carries no avatar ID or key: the
+         * assistant is read at creation and the request is rejected with 400 `invalid_request` if
+         * it has no Telnyx avatar configured. Supported on Google Meet, Zoom, Microsoft Teams and
+         * Webex; other platforms return 422 `unsupported_capability`. REST-only. Not echoed back on
+         * `assistant`; the session's top-level `avatar` and `avatar_state` fields report it
+         * instead. If the avatar fails, the session continues voice-only and `avatar_state` becomes
+         * `degraded`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun avatar(): Optional<Boolean> = avatar.getOptional("avatar")
 
         /**
          * Per-conversation values for the
@@ -1623,6 +1590,13 @@ private constructor(
         @JsonProperty("audio_gate")
         @ExcludeMissing
         fun _audioGate(): JsonField<AudioGate> = audioGate
+
+        /**
+         * Returns the raw JSON value of [avatar].
+         *
+         * Unlike [avatar], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("avatar") @ExcludeMissing fun _avatar(): JsonField<Boolean> = avatar
 
         /**
          * Returns the raw JSON value of [dynamicVariables].
@@ -1673,6 +1647,7 @@ private constructor(
 
             private var id: JsonField<String>? = null
             private var audioGate: JsonField<AudioGate> = JsonMissing.of()
+            private var avatar: JsonField<Boolean> = JsonMissing.of()
             private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
             private var leaveOnEnd: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1681,6 +1656,7 @@ private constructor(
             internal fun from(assistant: Assistant) = apply {
                 id = assistant.id
                 audioGate = assistant.audioGate
+                avatar = assistant.avatar
                 dynamicVariables = assistant.dynamicVariables
                 leaveOnEnd = assistant.leaveOnEnd
                 additionalProperties = assistant.additionalProperties.toMutableMap()
@@ -1716,6 +1692,28 @@ private constructor(
              * supported value.
              */
             fun audioGate(audioGate: JsonField<AudioGate>) = apply { this.audioGate = audioGate }
+
+            /**
+             * Beta. Show the avatar configured on the assistant (its `avatar_settings`; see
+             * [AI Assistant avatars](/docs/inference/ai-assistants/avatars)) as the bot's camera,
+             * lip-synced to the assistant's own speech. The request carries no avatar ID or key:
+             * the assistant is read at creation and the request is rejected with 400
+             * `invalid_request` if it has no Telnyx avatar configured. Supported on Google Meet,
+             * Zoom, Microsoft Teams and Webex; other platforms return 422 `unsupported_capability`.
+             * REST-only. Not echoed back on `assistant`; the session's top-level `avatar` and
+             * `avatar_state` fields report it instead. If the avatar fails, the session continues
+             * voice-only and `avatar_state` becomes `degraded`.
+             */
+            fun avatar(avatar: Boolean) = avatar(JsonField.of(avatar))
+
+            /**
+             * Sets [Builder.avatar] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.avatar] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun avatar(avatar: JsonField<Boolean>) = apply { this.avatar = avatar }
 
             /**
              * Per-conversation values for the
@@ -1794,6 +1792,7 @@ private constructor(
                 Assistant(
                     checkRequired("id", id),
                     audioGate,
+                    avatar,
                     dynamicVariables,
                     leaveOnEnd,
                     additionalProperties.toMutableMap(),
@@ -1818,6 +1817,7 @@ private constructor(
 
             id()
             audioGate().ifPresent { it.validate() }
+            avatar()
             dynamicVariables().ifPresent { it.validate() }
             leaveOnEnd()
             validated = true
@@ -1841,6 +1841,7 @@ private constructor(
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
                 (audioGate.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (avatar.asKnown().isPresent) 1 else 0) +
                 (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (leaveOnEnd.asKnown().isPresent) 1 else 0)
 
@@ -2125,274 +2126,20 @@ private constructor(
             return other is Assistant &&
                 id == other.id &&
                 audioGate == other.audioGate &&
+                avatar == other.avatar &&
                 dynamicVariables == other.dynamicVariables &&
                 leaveOnEnd == other.leaveOnEnd &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(id, audioGate, dynamicVariables, leaveOnEnd, additionalProperties)
+            Objects.hash(id, audioGate, avatar, dynamicVariables, leaveOnEnd, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Assistant{id=$id, audioGate=$audioGate, dynamicVariables=$dynamicVariables, leaveOnEnd=$leaveOnEnd, additionalProperties=$additionalProperties}"
-    }
-
-    /** Request options for attaching a bring-your-own-key avatar to the session. */
-    class Avatar
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val apiKey: JsonField<String>,
-        private val avatarId: JsonField<String>,
-        private val provider: JsonValue,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("api_key") @ExcludeMissing apiKey: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("avatar_id")
-            @ExcludeMissing
-            avatarId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("provider") @ExcludeMissing provider: JsonValue = JsonMissing.of(),
-        ) : this(apiKey, avatarId, provider, mutableMapOf())
-
-        /**
-         * Bring-your-own-key API key for the avatar provider. The key is never stored or returned
-         * by the API.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun apiKey(): String = apiKey.getRequired("api_key")
-
-        /**
-         * Identifier of the avatar to use.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun avatarId(): String = avatarId.getRequired("avatar_id")
-
-        /**
-         * Avatar provider identifier. Currently only "anam" is supported.
-         *
-         * Expected to always return the following:
-         * ```java
-         * JsonValue.from("anam")
-         * ```
-         *
-         * However, this method can be useful for debugging and logging (e.g. if the server
-         * responded with an unexpected value).
-         */
-        @JsonProperty("provider") @ExcludeMissing fun _provider(): JsonValue = provider
-
-        /**
-         * Returns the raw JSON value of [apiKey].
-         *
-         * Unlike [apiKey], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("api_key") @ExcludeMissing fun _apiKey(): JsonField<String> = apiKey
-
-        /**
-         * Returns the raw JSON value of [avatarId].
-         *
-         * Unlike [avatarId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("avatar_id") @ExcludeMissing fun _avatarId(): JsonField<String> = avatarId
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Avatar].
-             *
-             * The following fields are required:
-             * ```java
-             * .apiKey()
-             * .avatarId()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Avatar]. */
-        class Builder internal constructor() {
-
-            private var apiKey: JsonField<String>? = null
-            private var avatarId: JsonField<String>? = null
-            private var provider: JsonValue = JsonValue.from("anam")
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(avatar: Avatar) = apply {
-                apiKey = avatar.apiKey
-                avatarId = avatar.avatarId
-                provider = avatar.provider
-                additionalProperties = avatar.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * Bring-your-own-key API key for the avatar provider. The key is never stored or
-             * returned by the API.
-             */
-            fun apiKey(apiKey: String) = apiKey(JsonField.of(apiKey))
-
-            /**
-             * Sets [Builder.apiKey] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.apiKey] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun apiKey(apiKey: JsonField<String>) = apply { this.apiKey = apiKey }
-
-            /** Identifier of the avatar to use. */
-            fun avatarId(avatarId: String) = avatarId(JsonField.of(avatarId))
-
-            /**
-             * Sets [Builder.avatarId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.avatarId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun avatarId(avatarId: JsonField<String>) = apply { this.avatarId = avatarId }
-
-            /**
-             * Sets the field to an arbitrary JSON value.
-             *
-             * It is usually unnecessary to call this method because the field defaults to the
-             * following:
-             * ```java
-             * JsonValue.from("anam")
-             * ```
-             *
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun provider(provider: JsonValue) = apply { this.provider = provider }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Avatar].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .apiKey()
-             * .avatarId()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Avatar =
-                Avatar(
-                    checkRequired("apiKey", apiKey),
-                    checkRequired("avatarId", avatarId),
-                    provider,
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Avatar = apply {
-            if (validated) {
-                return@apply
-            }
-
-            apiKey()
-            avatarId()
-            _provider().let {
-                if (it != JsonValue.from("anam")) {
-                    throw TelnyxInvalidDataException("'provider' is invalid, received $it")
-                }
-            }
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (apiKey.asKnown().isPresent) 1 else 0) +
-                (if (avatarId.asKnown().isPresent) 1 else 0) +
-                provider.let { if (it == JsonValue.from("anam")) 1 else 0 }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Avatar &&
-                apiKey == other.apiKey &&
-                avatarId == other.avatarId &&
-                provider == other.provider &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(apiKey, avatarId, provider, additionalProperties)
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Avatar{apiKey=$apiKey, avatarId=$avatarId, provider=$provider, additionalProperties=$additionalProperties}"
+            "Assistant{id=$id, audioGate=$audioGate, avatar=$avatar, dynamicVariables=$dynamicVariables, leaveOnEnd=$leaveOnEnd, additionalProperties=$additionalProperties}"
     }
 
     /**

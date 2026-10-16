@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.meetingsessions
+package com.telnyx.sdk.models.whatsapp.hostedsignups
 
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
@@ -8,8 +8,8 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns recordings for a meeting session. */
-class MeetingSessionRetrieveRecordingsParams
+/** Retrieve a hosted signup and its onboarding URL. */
+class HostedSignupRetrieveParams
 private constructor(
     private val id: String?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
@@ -28,16 +28,15 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): MeetingSessionRetrieveRecordingsParams = builder().build()
+        @JvmStatic fun none(): HostedSignupRetrieveParams = builder().build()
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [MeetingSessionRetrieveRecordingsParams].
+         * Returns a mutable builder for constructing an instance of [HostedSignupRetrieveParams].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [MeetingSessionRetrieveRecordingsParams]. */
+    /** A builder for [HostedSignupRetrieveParams]. */
     class Builder internal constructor() {
 
         private var id: String? = null
@@ -46,13 +45,10 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(
-            meetingSessionRetrieveRecordingsParams: MeetingSessionRetrieveRecordingsParams
-        ) = apply {
-            id = meetingSessionRetrieveRecordingsParams.id
-            additionalHeaders = meetingSessionRetrieveRecordingsParams.additionalHeaders.toBuilder()
-            additionalQueryParams =
-                meetingSessionRetrieveRecordingsParams.additionalQueryParams.toBuilder()
+        internal fun from(hostedSignupRetrieveParams: HostedSignupRetrieveParams) = apply {
+            id = hostedSignupRetrieveParams.id
+            additionalHeaders = hostedSignupRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = hostedSignupRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         fun id(id: String?) = apply { this.id = id }
@@ -160,16 +156,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [MeetingSessionRetrieveRecordingsParams].
+         * Returns an immutable instance of [HostedSignupRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): MeetingSessionRetrieveRecordingsParams =
-            MeetingSessionRetrieveRecordingsParams(
-                id,
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+        fun build(): HostedSignupRetrieveParams =
+            HostedSignupRetrieveParams(id, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
@@ -187,7 +179,7 @@ private constructor(
             return true
         }
 
-        return other is MeetingSessionRetrieveRecordingsParams &&
+        return other is HostedSignupRetrieveParams &&
             id == other.id &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -196,5 +188,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(id, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MeetingSessionRetrieveRecordingsParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "HostedSignupRetrieveParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -26,8 +26,6 @@ import com.telnyx.sdk.models.meetingsessions.MeetingSessionResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveParams
-import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveRecordingsParams
-import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveRecordingsResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionUpdateParams
@@ -108,13 +106,6 @@ class MeetingSessionServiceImpl internal constructor(private val clientOptions: 
     ): MeetingSessionRetrieveEventsResponse =
         // get /meeting_sessions/{id}/events
         withRawResponse().retrieveEvents(params, requestOptions).parse()
-
-    override fun retrieveRecordings(
-        params: MeetingSessionRetrieveRecordingsParams,
-        requestOptions: RequestOptions,
-    ): MeetingSessionRetrieveRecordingsResponse =
-        // get /meeting_sessions/{id}/recordings
-        withRawResponse().retrieveRecordings(params, requestOptions).parse()
 
     override fun retrieveTranscript(
         params: MeetingSessionRetrieveTranscriptParams,
@@ -351,36 +342,6 @@ class MeetingSessionServiceImpl internal constructor(private val clientOptions: 
             return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveEventsHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val retrieveRecordingsHandler: Handler<MeetingSessionRetrieveRecordingsResponse> =
-            jsonHandler<MeetingSessionRetrieveRecordingsResponse>(clientOptions.jsonMapper)
-
-        override fun retrieveRecordings(
-            params: MeetingSessionRetrieveRecordingsParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("meeting_sessions", params._pathParam(0), "recordings")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveRecordingsHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

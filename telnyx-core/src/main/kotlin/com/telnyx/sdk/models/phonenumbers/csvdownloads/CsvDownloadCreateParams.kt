@@ -23,6 +23,7 @@ class CsvDownloadCreateParams
 private constructor(
     private val csvFormat: CsvFormat?,
     private val filter: Filter?,
+    private val includeManagedAccounts: Boolean?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -41,6 +42,15 @@ private constructor(
      * filter[emergency_address_id], filter[customer_reference]
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
+
+    /**
+     * When true, the CSV includes phone numbers from all managed accounts in addition to the
+     * requesting account's own numbers. Only applies to V2 format; ignored for V1. The export
+     * appends `user_id` and `email` columns identifying the account that owns each number. When a
+     * filter is provided, it applies to the combined set of numbers. Requires access to managed
+     * accounts; requests without that access are rejected.
+     */
+    fun includeManagedAccounts(): Optional<Boolean> = Optional.ofNullable(includeManagedAccounts)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -66,6 +76,7 @@ private constructor(
 
         private var csvFormat: CsvFormat? = null
         private var filter: Filter? = null
+        private var includeManagedAccounts: Boolean? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -75,6 +86,7 @@ private constructor(
         internal fun from(csvDownloadCreateParams: CsvDownloadCreateParams) = apply {
             csvFormat = csvDownloadCreateParams.csvFormat
             filter = csvDownloadCreateParams.filter
+            includeManagedAccounts = csvDownloadCreateParams.includeManagedAccounts
             additionalHeaders = csvDownloadCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = csvDownloadCreateParams.additionalQueryParams.toBuilder()
             additionalBodyProperties =
@@ -100,6 +112,32 @@ private constructor(
 
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
+
+        /**
+         * When true, the CSV includes phone numbers from all managed accounts in addition to the
+         * requesting account's own numbers. Only applies to V2 format; ignored for V1. The export
+         * appends `user_id` and `email` columns identifying the account that owns each number. When
+         * a filter is provided, it applies to the combined set of numbers. Requires access to
+         * managed accounts; requests without that access are rejected.
+         */
+        fun includeManagedAccounts(includeManagedAccounts: Boolean?) = apply {
+            this.includeManagedAccounts = includeManagedAccounts
+        }
+
+        /**
+         * Alias for [Builder.includeManagedAccounts].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun includeManagedAccounts(includeManagedAccounts: Boolean) =
+            includeManagedAccounts(includeManagedAccounts as Boolean?)
+
+        /**
+         * Alias for calling [Builder.includeManagedAccounts] with
+         * `includeManagedAccounts.orElse(null)`.
+         */
+        fun includeManagedAccounts(includeManagedAccounts: Optional<Boolean>) =
+            includeManagedAccounts(includeManagedAccounts.getOrNull())
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
@@ -231,6 +269,7 @@ private constructor(
             CsvDownloadCreateParams(
                 csvFormat,
                 filter,
+                includeManagedAccounts,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -281,6 +320,7 @@ private constructor(
                         }
                     }
                 }
+                includeManagedAccounts?.let { put("include_managed_accounts", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -1242,6 +1282,7 @@ private constructor(
         return other is CsvDownloadCreateParams &&
             csvFormat == other.csvFormat &&
             filter == other.filter &&
+            includeManagedAccounts == other.includeManagedAccounts &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
@@ -1251,11 +1292,12 @@ private constructor(
         Objects.hash(
             csvFormat,
             filter,
+            includeManagedAccounts,
             additionalHeaders,
             additionalQueryParams,
             additionalBodyProperties,
         )
 
     override fun toString() =
-        "CsvDownloadCreateParams{csvFormat=$csvFormat, filter=$filter, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "CsvDownloadCreateParams{csvFormat=$csvFormat, filter=$filter, includeManagedAccounts=$includeManagedAccounts, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

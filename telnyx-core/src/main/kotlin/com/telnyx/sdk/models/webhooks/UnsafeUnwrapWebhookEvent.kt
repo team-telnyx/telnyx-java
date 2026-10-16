@@ -28,6 +28,7 @@ private constructor(
     private val callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent? = null,
     private val artifactCompleted: ArtifactCompletedWebhookEvent? = null,
     private val artifactFailed: ArtifactFailedWebhookEvent? = null,
+    private val callAnalyzed: CallAnalyzedWebhookEvent? = null,
     private val callAnswered: CallAnsweredWebhookEvent? = null,
     private val callBridged: CallBridgedWebhookEvent? = null,
     private val callConversationCreated: CallConversationCreatedWebhookEvent? = null,
@@ -114,7 +115,6 @@ private constructor(
         null,
     private val numberReputationNumberFlagged: NumberReputationNumberFlaggedWebhookEvent? = null,
     private val numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent? = null,
-    private val recordingAvailable: RecordingAvailableWebhookEvent? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
     private val sessionStatusChanged: SessionStatusChangedWebhookEvent? = null,
     private val transcriptCompleted: TranscriptCompletedWebhookEvent? = null,
@@ -139,6 +139,8 @@ private constructor(
         Optional.ofNullable(artifactCompleted)
 
     fun artifactFailed(): Optional<ArtifactFailedWebhookEvent> = Optional.ofNullable(artifactFailed)
+
+    fun callAnalyzed(): Optional<CallAnalyzedWebhookEvent> = Optional.ofNullable(callAnalyzed)
 
     fun callAnswered(): Optional<CallAnsweredWebhookEvent> = Optional.ofNullable(callAnswered)
 
@@ -340,9 +342,6 @@ private constructor(
     fun numberReputationNumberRemoved(): Optional<NumberReputationNumberRemovedWebhookEvent> =
         Optional.ofNullable(numberReputationNumberRemoved)
 
-    fun recordingAvailable(): Optional<RecordingAvailableWebhookEvent> =
-        Optional.ofNullable(recordingAvailable)
-
     fun replacedLinkClick(): Optional<ReplacedLinkClickWebhookEvent> =
         Optional.ofNullable(replacedLinkClick)
 
@@ -372,6 +371,8 @@ private constructor(
     fun isArtifactCompleted(): Boolean = artifactCompleted != null
 
     fun isArtifactFailed(): Boolean = artifactFailed != null
+
+    fun isCallAnalyzed(): Boolean = callAnalyzed != null
 
     fun isCallAnswered(): Boolean = callAnswered != null
 
@@ -516,8 +517,6 @@ private constructor(
 
     fun isNumberReputationNumberRemoved(): Boolean = numberReputationNumberRemoved != null
 
-    fun isRecordingAvailable(): Boolean = recordingAvailable != null
-
     fun isReplacedLinkClick(): Boolean = replacedLinkClick != null
 
     fun isSessionStatusChanged(): Boolean = sessionStatusChanged != null
@@ -545,6 +544,8 @@ private constructor(
         artifactCompleted.getOrThrow("artifactCompleted")
 
     fun asArtifactFailed(): ArtifactFailedWebhookEvent = artifactFailed.getOrThrow("artifactFailed")
+
+    fun asCallAnalyzed(): CallAnalyzedWebhookEvent = callAnalyzed.getOrThrow("callAnalyzed")
 
     fun asCallAnswered(): CallAnsweredWebhookEvent = callAnswered.getOrThrow("callAnswered")
 
@@ -745,9 +746,6 @@ private constructor(
     fun asNumberReputationNumberRemoved(): NumberReputationNumberRemovedWebhookEvent =
         numberReputationNumberRemoved.getOrThrow("numberReputationNumberRemoved")
 
-    fun asRecordingAvailable(): RecordingAvailableWebhookEvent =
-        recordingAvailable.getOrThrow("recordingAvailable")
-
     fun asReplacedLinkClick(): ReplacedLinkClickWebhookEvent =
         replacedLinkClick.getOrThrow("replacedLinkClick")
 
@@ -808,6 +806,7 @@ private constructor(
                 visitor.visitCallAiGatherPartialResults(callAiGatherPartialResults)
             artifactCompleted != null -> visitor.visitArtifactCompleted(artifactCompleted)
             artifactFailed != null -> visitor.visitArtifactFailed(artifactFailed)
+            callAnalyzed != null -> visitor.visitCallAnalyzed(callAnalyzed)
             callAnswered != null -> visitor.visitCallAnswered(callAnswered)
             callBridged != null -> visitor.visitCallBridged(callBridged)
             callConversationCreated != null ->
@@ -913,7 +912,6 @@ private constructor(
                 visitor.visitNumberReputationNumberFlagged(numberReputationNumberFlagged)
             numberReputationNumberRemoved != null ->
                 visitor.visitNumberReputationNumberRemoved(numberReputationNumberRemoved)
-            recordingAvailable != null -> visitor.visitRecordingAvailable(recordingAvailable)
             replacedLinkClick != null -> visitor.visitReplacedLinkClick(replacedLinkClick)
             sessionStatusChanged != null -> visitor.visitSessionStatusChanged(sessionStatusChanged)
             transcriptCompleted != null -> visitor.visitTranscriptCompleted(transcriptCompleted)
@@ -968,6 +966,10 @@ private constructor(
 
                 override fun visitArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent) {
                     artifactFailed.validate()
+                }
+
+                override fun visitCallAnalyzed(callAnalyzed: CallAnalyzedWebhookEvent) {
+                    callAnalyzed.validate()
                 }
 
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) {
@@ -1341,12 +1343,6 @@ private constructor(
                     numberReputationNumberRemoved.validate()
                 }
 
-                override fun visitRecordingAvailable(
-                    recordingAvailable: RecordingAvailableWebhookEvent
-                ) {
-                    recordingAvailable.validate()
-                }
-
                 override fun visitReplacedLinkClick(
                     replacedLinkClick: ReplacedLinkClickWebhookEvent
                 ) {
@@ -1424,6 +1420,9 @@ private constructor(
 
                 override fun visitArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent) =
                     artifactFailed.validity()
+
+                override fun visitCallAnalyzed(callAnalyzed: CallAnalyzedWebhookEvent) =
+                    callAnalyzed.validity()
 
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
                     callAnswered.validity()
@@ -1678,10 +1677,6 @@ private constructor(
                     numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent
                 ) = numberReputationNumberRemoved.validity()
 
-                override fun visitRecordingAvailable(
-                    recordingAvailable: RecordingAvailableWebhookEvent
-                ) = recordingAvailable.validity()
-
                 override fun visitReplacedLinkClick(
                     replacedLinkClick: ReplacedLinkClickWebhookEvent
                 ) = replacedLinkClick.validity()
@@ -1723,6 +1718,7 @@ private constructor(
             callAiGatherPartialResults == other.callAiGatherPartialResults &&
             artifactCompleted == other.artifactCompleted &&
             artifactFailed == other.artifactFailed &&
+            callAnalyzed == other.callAnalyzed &&
             callAnswered == other.callAnswered &&
             callBridged == other.callBridged &&
             callConversationCreated == other.callConversationCreated &&
@@ -1795,7 +1791,6 @@ private constructor(
                 other.numberReputationExternalVerificationStatusChanged &&
             numberReputationNumberFlagged == other.numberReputationNumberFlagged &&
             numberReputationNumberRemoved == other.numberReputationNumberRemoved &&
-            recordingAvailable == other.recordingAvailable &&
             replacedLinkClick == other.replacedLinkClick &&
             sessionStatusChanged == other.sessionStatusChanged &&
             transcriptCompleted == other.transcriptCompleted &&
@@ -1812,6 +1807,7 @@ private constructor(
             callAiGatherPartialResults,
             artifactCompleted,
             artifactFailed,
+            callAnalyzed,
             callAnswered,
             callBridged,
             callConversationCreated,
@@ -1882,7 +1878,6 @@ private constructor(
             numberReputationExternalVerificationStatusChanged,
             numberReputationNumberFlagged,
             numberReputationNumberRemoved,
-            recordingAvailable,
             replacedLinkClick,
             sessionStatusChanged,
             transcriptCompleted,
@@ -1903,6 +1898,7 @@ private constructor(
             artifactCompleted != null ->
                 "UnsafeUnwrapWebhookEvent{artifactCompleted=$artifactCompleted}"
             artifactFailed != null -> "UnsafeUnwrapWebhookEvent{artifactFailed=$artifactFailed}"
+            callAnalyzed != null -> "UnsafeUnwrapWebhookEvent{callAnalyzed=$callAnalyzed}"
             callAnswered != null -> "UnsafeUnwrapWebhookEvent{callAnswered=$callAnswered}"
             callBridged != null -> "UnsafeUnwrapWebhookEvent{callBridged=$callBridged}"
             callConversationCreated != null ->
@@ -2023,8 +2019,6 @@ private constructor(
                 "UnsafeUnwrapWebhookEvent{numberReputationNumberFlagged=$numberReputationNumberFlagged}"
             numberReputationNumberRemoved != null ->
                 "UnsafeUnwrapWebhookEvent{numberReputationNumberRemoved=$numberReputationNumberRemoved}"
-            recordingAvailable != null ->
-                "UnsafeUnwrapWebhookEvent{recordingAvailable=$recordingAvailable}"
             replacedLinkClick != null ->
                 "UnsafeUnwrapWebhookEvent{replacedLinkClick=$replacedLinkClick}"
             sessionStatusChanged != null ->
@@ -2068,6 +2062,10 @@ private constructor(
         @JvmStatic
         fun ofArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent) =
             UnsafeUnwrapWebhookEvent(artifactFailed = artifactFailed)
+
+        @JvmStatic
+        fun ofCallAnalyzed(callAnalyzed: CallAnalyzedWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(callAnalyzed = callAnalyzed)
 
         @JvmStatic
         fun ofCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
@@ -2409,10 +2407,6 @@ private constructor(
         ) = UnsafeUnwrapWebhookEvent(numberReputationNumberRemoved = numberReputationNumberRemoved)
 
         @JvmStatic
-        fun ofRecordingAvailable(recordingAvailable: RecordingAvailableWebhookEvent) =
-            UnsafeUnwrapWebhookEvent(recordingAvailable = recordingAvailable)
-
-        @JvmStatic
         fun ofReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent) =
             UnsafeUnwrapWebhookEvent(replacedLinkClick = replacedLinkClick)
 
@@ -2460,6 +2454,8 @@ private constructor(
         fun visitArtifactCompleted(artifactCompleted: ArtifactCompletedWebhookEvent): T
 
         fun visitArtifactFailed(artifactFailed: ArtifactFailedWebhookEvent): T
+
+        fun visitCallAnalyzed(callAnalyzed: CallAnalyzedWebhookEvent): T
 
         fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent): T
 
@@ -2657,8 +2653,6 @@ private constructor(
             numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent
         ): T
 
-        fun visitRecordingAvailable(recordingAvailable: RecordingAvailableWebhookEvent): T
-
         fun visitReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent): T
 
         fun visitSessionStatusChanged(sessionStatusChanged: SessionStatusChangedWebhookEvent): T
@@ -2724,6 +2718,9 @@ private constructor(
                         },
                         tryDeserialize(node, jacksonTypeRef<ArtifactFailedWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(artifactFailed = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<CallAnalyzedWebhookEvent>())?.let {
+                            UnsafeUnwrapWebhookEvent(callAnalyzed = it, _json = json)
                         },
                         tryDeserialize(node, jacksonTypeRef<CallAnsweredWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(callAnswered = it, _json = json)
@@ -3103,10 +3100,6 @@ private constructor(
                                     _json = json,
                                 )
                             },
-                        tryDeserialize(node, jacksonTypeRef<RecordingAvailableWebhookEvent>())
-                            ?.let {
-                                UnsafeUnwrapWebhookEvent(recordingAvailable = it, _json = json)
-                            },
                         tryDeserialize(node, jacksonTypeRef<ReplacedLinkClickWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(replacedLinkClick = it, _json = json)
                         },
@@ -3162,6 +3155,7 @@ private constructor(
                     generator.writeObject(value.callAiGatherPartialResults)
                 value.artifactCompleted != null -> generator.writeObject(value.artifactCompleted)
                 value.artifactFailed != null -> generator.writeObject(value.artifactFailed)
+                value.callAnalyzed != null -> generator.writeObject(value.callAnalyzed)
                 value.callAnswered != null -> generator.writeObject(value.callAnswered)
                 value.callBridged != null -> generator.writeObject(value.callBridged)
                 value.callConversationCreated != null ->
@@ -3269,7 +3263,6 @@ private constructor(
                     generator.writeObject(value.numberReputationNumberFlagged)
                 value.numberReputationNumberRemoved != null ->
                     generator.writeObject(value.numberReputationNumberRemoved)
-                value.recordingAvailable != null -> generator.writeObject(value.recordingAvailable)
                 value.replacedLinkClick != null -> generator.writeObject(value.replacedLinkClick)
                 value.sessionStatusChanged != null ->
                     generator.writeObject(value.sessionStatusChanged)

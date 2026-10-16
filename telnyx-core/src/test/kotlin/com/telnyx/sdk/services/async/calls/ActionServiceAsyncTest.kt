@@ -652,6 +652,7 @@ internal class ActionServiceAsyncTest {
                     .addCustomHeader(
                         CustomSipHeader.builder().name("head_2").value("val_2").build()
                     )
+                    .reason("Call completed elsewhere")
                     .build()
             )
 

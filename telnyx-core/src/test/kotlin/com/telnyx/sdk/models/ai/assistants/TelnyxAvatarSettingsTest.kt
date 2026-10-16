@@ -13,12 +13,12 @@ internal class TelnyxAvatarSettingsTest {
     fun create() {
         val telnyxAvatarSettings =
             TelnyxAvatarSettings.builder()
-                .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                .avatarId("elena")
                 .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
                 .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                 .build()
 
-        assertThat(telnyxAvatarSettings.avatarId()).isEqualTo(TelnyxAvatarSettings.AvatarId.ELENA)
+        assertThat(telnyxAvatarSettings.avatarId()).isEqualTo("elena")
         assertThat(telnyxAvatarSettings.backgroundId())
             .isEqualTo(TelnyxAvatarSettings.BackgroundId.OFFICE)
         assertThat(telnyxAvatarSettings.model()).isEqualTo(TelnyxAvatarSettings.Model.FOXTROT_1)
@@ -29,7 +29,7 @@ internal class TelnyxAvatarSettingsTest {
         val jsonMapper = jsonMapper()
         val telnyxAvatarSettings =
             TelnyxAvatarSettings.builder()
-                .avatarId(TelnyxAvatarSettings.AvatarId.ELENA)
+                .avatarId("elena")
                 .backgroundId(TelnyxAvatarSettings.BackgroundId.OFFICE)
                 .model(TelnyxAvatarSettings.Model.FOXTROT_1)
                 .build()

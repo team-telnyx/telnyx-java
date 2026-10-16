@@ -13,6 +13,7 @@ import com.telnyx.sdk.models.ai.AiSummarizeResponse
 import com.telnyx.sdk.services.blocking.ai.AnthropicService
 import com.telnyx.sdk.services.blocking.ai.AssistantService
 import com.telnyx.sdk.services.blocking.ai.AudioService
+import com.telnyx.sdk.services.blocking.ai.AvatarService
 import com.telnyx.sdk.services.blocking.ai.ChatService
 import com.telnyx.sdk.services.blocking.ai.ClusterService
 import com.telnyx.sdk.services.blocking.ai.CollectionService
@@ -85,6 +86,9 @@ interface AiService {
     fun typesafe(): TypesafeService
 
     fun memory(): MemoryService
+
+    /** Create and manage real-time AI avatars */
+    fun avatars(): AvatarService
 
     /**
      * Performs semantic vector search across conversation history records.
@@ -214,6 +218,9 @@ interface AiService {
         fun typesafe(): TypesafeService.WithRawResponse
 
         fun memory(): MemoryService.WithRawResponse
+
+        /** Create and manage real-time AI avatars */
+        fun avatars(): AvatarService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the
