@@ -234,7 +234,7 @@ private constructor(
      * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock avatar or an
      * organization-owned custom avatar returned by the Avatars API. Discover the available stock
      * catalog with GET /v2/ai/avatars and filter[avatar_type]=stock; follow meta.total_pages to
-     * load every page. Supported backgrounds are office, studio, and reception.
+     * load every page.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -975,8 +975,7 @@ private constructor(
          * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock avatar or
          * an organization-owned custom avatar returned by the Avatars API. Discover the available
          * stock catalog with GET /v2/ai/avatars and filter[avatar_type]=stock; follow
-         * meta.total_pages to load every page. Supported backgrounds are office, studio, and
-         * reception.
+         * meta.total_pages to load every page.
          */
         fun avatarSettings(avatarSettings: AvatarSettingsRequest?) =
             avatarSettings(JsonField.ofNullable(avatarSettings))

@@ -40,6 +40,7 @@ private constructor(
     private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
     private val androidPushCredentialId: JsonField<String>,
     private val authentication: JsonField<Authentication>,
+    private val bridgeGenerateComfortNoiseOnCn: JsonField<Boolean>,
     private val callCostInWebhooks: JsonField<Boolean>,
     private val connectionName: JsonField<String>,
     private val createdAt: JsonField<String>,
@@ -88,6 +89,9 @@ private constructor(
         @JsonProperty("authentication")
         @ExcludeMissing
         authentication: JsonField<Authentication> = JsonMissing.of(),
+        @JsonProperty("bridge_generate_comfort_noise_on_cn")
+        @ExcludeMissing
+        bridgeGenerateComfortNoiseOnCn: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("call_cost_in_webhooks")
         @ExcludeMissing
         callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
@@ -172,6 +176,7 @@ private constructor(
         anchorsiteOverride,
         androidPushCredentialId,
         authentication,
+        bridgeGenerateComfortNoiseOnCn,
         callCostInWebhooks,
         connectionName,
         createdAt,
@@ -250,6 +255,20 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun authentication(): Optional<Authentication> = authentication.getOptional("authentication")
+
+    /**
+     * Stores the connection preference for generating silent RTP toward the opposite call leg when
+     * comfort-noise packets (CN, payload type 13) are received during hold. Defaults to false and
+     * returns the saved value. Only JSON true and false are accepted; null and non-boolean values
+     * are rejected. This preference is independent of default_on_hold_comfort_noise_enabled and
+     * does not modify that setting. This API provisions the preference; call-processing behavior is
+     * implemented separately.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun bridgeGenerateComfortNoiseOnCn(): Optional<Boolean> =
+        bridgeGenerateComfortNoiseOnCn.getOptional("bridge_generate_comfort_noise_on_cn")
 
     /**
      * Specifies if call cost webhooks should be sent for this connection.
@@ -583,6 +602,16 @@ private constructor(
     fun _authentication(): JsonField<Authentication> = authentication
 
     /**
+     * Returns the raw JSON value of [bridgeGenerateComfortNoiseOnCn].
+     *
+     * Unlike [bridgeGenerateComfortNoiseOnCn], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("bridge_generate_comfort_noise_on_cn")
+    @ExcludeMissing
+    fun _bridgeGenerateComfortNoiseOnCn(): JsonField<Boolean> = bridgeGenerateComfortNoiseOnCn
+
+    /**
      * Returns the raw JSON value of [callCostInWebhooks].
      *
      * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an unexpected
@@ -892,6 +921,7 @@ private constructor(
         private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
         private var androidPushCredentialId: JsonField<String> = JsonMissing.of()
         private var authentication: JsonField<Authentication> = JsonMissing.of()
+        private var bridgeGenerateComfortNoiseOnCn: JsonField<Boolean> = JsonMissing.of()
         private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
         private var connectionName: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
@@ -935,6 +965,7 @@ private constructor(
             anchorsiteOverride = uacConnection.anchorsiteOverride
             androidPushCredentialId = uacConnection.androidPushCredentialId
             authentication = uacConnection.authentication
+            bridgeGenerateComfortNoiseOnCn = uacConnection.bridgeGenerateComfortNoiseOnCn
             callCostInWebhooks = uacConnection.callCostInWebhooks
             connectionName = uacConnection.connectionName
             createdAt = uacConnection.createdAt
@@ -1047,6 +1078,29 @@ private constructor(
         fun authentication(authentication: JsonField<Authentication>) = apply {
             this.authentication = authentication
         }
+
+        /**
+         * Stores the connection preference for generating silent RTP toward the opposite call leg
+         * when comfort-noise packets (CN, payload type 13) are received during hold. Defaults to
+         * false and returns the saved value. Only JSON true and false are accepted; null and
+         * non-boolean values are rejected. This preference is independent of
+         * default_on_hold_comfort_noise_enabled and does not modify that setting. This API
+         * provisions the preference; call-processing behavior is implemented separately.
+         */
+        fun bridgeGenerateComfortNoiseOnCn(bridgeGenerateComfortNoiseOnCn: Boolean) =
+            bridgeGenerateComfortNoiseOnCn(JsonField.of(bridgeGenerateComfortNoiseOnCn))
+
+        /**
+         * Sets [Builder.bridgeGenerateComfortNoiseOnCn] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bridgeGenerateComfortNoiseOnCn] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun bridgeGenerateComfortNoiseOnCn(bridgeGenerateComfortNoiseOnCn: JsonField<Boolean>) =
+            apply {
+                this.bridgeGenerateComfortNoiseOnCn = bridgeGenerateComfortNoiseOnCn
+            }
 
         /** Specifies if call cost webhooks should be sent for this connection. */
         fun callCostInWebhooks(callCostInWebhooks: Boolean) =
@@ -1638,6 +1692,7 @@ private constructor(
                 anchorsiteOverride,
                 androidPushCredentialId,
                 authentication,
+                bridgeGenerateComfortNoiseOnCn,
                 callCostInWebhooks,
                 connectionName,
                 createdAt,
@@ -1694,6 +1749,7 @@ private constructor(
         anchorsiteOverride().ifPresent { it.validate() }
         androidPushCredentialId()
         authentication().ifPresent { it.validate() }
+        bridgeGenerateComfortNoiseOnCn()
         callCostInWebhooks()
         connectionName()
         createdAt()
@@ -1749,6 +1805,7 @@ private constructor(
             (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
             (if (androidPushCredentialId.asKnown().isPresent) 1 else 0) +
             (authentication.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (bridgeGenerateComfortNoiseOnCn.asKnown().isPresent) 1 else 0) +
             (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
             (if (connectionName.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
@@ -2355,6 +2412,7 @@ private constructor(
             anchorsiteOverride == other.anchorsiteOverride &&
             androidPushCredentialId == other.androidPushCredentialId &&
             authentication == other.authentication &&
+            bridgeGenerateComfortNoiseOnCn == other.bridgeGenerateComfortNoiseOnCn &&
             callCostInWebhooks == other.callCostInWebhooks &&
             connectionName == other.connectionName &&
             createdAt == other.createdAt &&
@@ -2397,6 +2455,7 @@ private constructor(
             anchorsiteOverride,
             androidPushCredentialId,
             authentication,
+            bridgeGenerateComfortNoiseOnCn,
             callCostInWebhooks,
             connectionName,
             createdAt,
@@ -2436,5 +2495,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UacConnection{id=$id, active=$active, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, authentication=$authentication, callCostInWebhooks=$callCostInWebhooks, connectionName=$connectionName, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, externalUacSettings=$externalUacSettings, fqdn=$fqdn, fqdnOutboundAuthentication=$fqdnOutboundAuthentication, fqdns=$fqdns, inbound=$inbound, internalUacSettings=$internalUacSettings, iosPushCredentialId=$iosPushCredentialId, jitterBuffer=$jitterBuffer, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, registrationStatus=$registrationStatus, registrationStatusUpdatedAt=$registrationStatusUpdatedAt, rtcpSettings=$rtcpSettings, sipUriCallingPreference=$sipUriCallingPreference, tags=$tags, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+        "UacConnection{id=$id, active=$active, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, authentication=$authentication, bridgeGenerateComfortNoiseOnCn=$bridgeGenerateComfortNoiseOnCn, callCostInWebhooks=$callCostInWebhooks, connectionName=$connectionName, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, externalUacSettings=$externalUacSettings, fqdn=$fqdn, fqdnOutboundAuthentication=$fqdnOutboundAuthentication, fqdns=$fqdns, inbound=$inbound, internalUacSettings=$internalUacSettings, iosPushCredentialId=$iosPushCredentialId, jitterBuffer=$jitterBuffer, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, registrationStatus=$registrationStatus, registrationStatusUpdatedAt=$registrationStatusUpdatedAt, rtcpSettings=$rtcpSettings, sipUriCallingPreference=$sipUriCallingPreference, tags=$tags, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
 }

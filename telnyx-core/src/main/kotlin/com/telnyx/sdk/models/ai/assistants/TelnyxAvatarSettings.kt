@@ -21,7 +21,7 @@ import kotlin.jvm.optionals.getOrNull
  * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock avatar or an
  * organization-owned custom avatar returned by the Avatars API. Discover the available stock
  * catalog with GET /v2/ai/avatars and filter[avatar_type]=stock; follow meta.total_pages to load
- * every page. Supported backgrounds are office, studio, and reception.
+ * every page.
  */
 class TelnyxAvatarSettings
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -313,6 +313,8 @@ private constructor(
 
             @JvmField val RECEPTION = of("reception")
 
+            @JvmField val ILLUSTRATED_WORKSPACE = of("illustrated_workspace")
+
             @JvmStatic fun of(value: String) = BackgroundId(JsonField.of(value))
         }
 
@@ -321,6 +323,7 @@ private constructor(
             OFFICE,
             STUDIO,
             RECEPTION,
+            ILLUSTRATED_WORKSPACE,
         }
 
         /**
@@ -336,6 +339,7 @@ private constructor(
             OFFICE,
             STUDIO,
             RECEPTION,
+            ILLUSTRATED_WORKSPACE,
             /**
              * An enum member indicating that [BackgroundId] was instantiated with an unknown value.
              */
@@ -354,6 +358,7 @@ private constructor(
                 OFFICE -> Value.OFFICE
                 STUDIO -> Value.STUDIO
                 RECEPTION -> Value.RECEPTION
+                ILLUSTRATED_WORKSPACE -> Value.ILLUSTRATED_WORKSPACE
                 else -> Value._UNKNOWN
             }
 
@@ -371,6 +376,7 @@ private constructor(
                 OFFICE -> Known.OFFICE
                 STUDIO -> Known.STUDIO
                 RECEPTION -> Known.RECEPTION
+                ILLUSTRATED_WORKSPACE -> Known.ILLUSTRATED_WORKSPACE
                 else -> throw TelnyxInvalidDataException("Unknown BackgroundId: $value")
             }
 

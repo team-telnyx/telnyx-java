@@ -35,6 +35,7 @@ private constructor(
     private val adjustDtmfTimestamp: JsonField<Boolean>,
     private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
     private val androidPushCredentialId: JsonField<String>,
+    private val bridgeGenerateComfortNoiseOnCn: JsonField<Boolean>,
     private val callCostEnabled: JsonField<Boolean>,
     private val callCostInWebhooks: JsonField<Boolean>,
     private val conversationPersistence: JsonField<Boolean>,
@@ -89,6 +90,9 @@ private constructor(
         @JsonProperty("android_push_credential_id")
         @ExcludeMissing
         androidPushCredentialId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("bridge_generate_comfort_noise_on_cn")
+        @ExcludeMissing
+        bridgeGenerateComfortNoiseOnCn: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("call_cost_enabled")
         @ExcludeMissing
         callCostEnabled: JsonField<Boolean> = JsonMissing.of(),
@@ -181,6 +185,7 @@ private constructor(
         adjustDtmfTimestamp,
         anchorsiteOverride,
         androidPushCredentialId,
+        bridgeGenerateComfortNoiseOnCn,
         callCostEnabled,
         callCostInWebhooks,
         conversationPersistence,
@@ -271,6 +276,20 @@ private constructor(
      */
     fun androidPushCredentialId(): Optional<String> =
         androidPushCredentialId.getOptional("android_push_credential_id")
+
+    /**
+     * Stores the connection preference for generating silent RTP toward the opposite call leg when
+     * comfort-noise packets (CN, payload type 13) are received during hold. Defaults to false and
+     * returns the saved value. Only JSON true and false are accepted; null and non-boolean values
+     * are rejected. This preference is independent of default_on_hold_comfort_noise_enabled and
+     * does not modify that setting. This API provisions the preference; call-processing behavior is
+     * implemented separately.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun bridgeGenerateComfortNoiseOnCn(): Optional<Boolean> =
+        bridgeGenerateComfortNoiseOnCn.getOptional("bridge_generate_comfort_noise_on_cn")
 
     /**
      * Indicates whether call cost calculation is enabled.
@@ -637,6 +656,16 @@ private constructor(
     fun _androidPushCredentialId(): JsonField<String> = androidPushCredentialId
 
     /**
+     * Returns the raw JSON value of [bridgeGenerateComfortNoiseOnCn].
+     *
+     * Unlike [bridgeGenerateComfortNoiseOnCn], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("bridge_generate_comfort_noise_on_cn")
+    @ExcludeMissing
+    fun _bridgeGenerateComfortNoiseOnCn(): JsonField<Boolean> = bridgeGenerateComfortNoiseOnCn
+
+    /**
      * Returns the raw JSON value of [callCostEnabled].
      *
      * Unlike [callCostEnabled], this method doesn't throw if the JSON field has an unexpected type.
@@ -979,6 +1008,7 @@ private constructor(
         private var adjustDtmfTimestamp: JsonField<Boolean> = JsonMissing.of()
         private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
         private var androidPushCredentialId: JsonField<String> = JsonMissing.of()
+        private var bridgeGenerateComfortNoiseOnCn: JsonField<Boolean> = JsonMissing.of()
         private var callCostEnabled: JsonField<Boolean> = JsonMissing.of()
         private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
         private var conversationPersistence: JsonField<Boolean> = JsonMissing.of()
@@ -1025,6 +1055,7 @@ private constructor(
             adjustDtmfTimestamp = fqdnConnection.adjustDtmfTimestamp
             anchorsiteOverride = fqdnConnection.anchorsiteOverride
             androidPushCredentialId = fqdnConnection.androidPushCredentialId
+            bridgeGenerateComfortNoiseOnCn = fqdnConnection.bridgeGenerateComfortNoiseOnCn
             callCostEnabled = fqdnConnection.callCostEnabled
             callCostInWebhooks = fqdnConnection.callCostInWebhooks
             conversationPersistence = fqdnConnection.conversationPersistence
@@ -1154,6 +1185,29 @@ private constructor(
         fun androidPushCredentialId(androidPushCredentialId: JsonField<String>) = apply {
             this.androidPushCredentialId = androidPushCredentialId
         }
+
+        /**
+         * Stores the connection preference for generating silent RTP toward the opposite call leg
+         * when comfort-noise packets (CN, payload type 13) are received during hold. Defaults to
+         * false and returns the saved value. Only JSON true and false are accepted; null and
+         * non-boolean values are rejected. This preference is independent of
+         * default_on_hold_comfort_noise_enabled and does not modify that setting. This API
+         * provisions the preference; call-processing behavior is implemented separately.
+         */
+        fun bridgeGenerateComfortNoiseOnCn(bridgeGenerateComfortNoiseOnCn: Boolean) =
+            bridgeGenerateComfortNoiseOnCn(JsonField.of(bridgeGenerateComfortNoiseOnCn))
+
+        /**
+         * Sets [Builder.bridgeGenerateComfortNoiseOnCn] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bridgeGenerateComfortNoiseOnCn] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun bridgeGenerateComfortNoiseOnCn(bridgeGenerateComfortNoiseOnCn: JsonField<Boolean>) =
+            apply {
+                this.bridgeGenerateComfortNoiseOnCn = bridgeGenerateComfortNoiseOnCn
+            }
 
         /** Indicates whether call cost calculation is enabled. */
         fun callCostEnabled(callCostEnabled: Boolean) =
@@ -1762,6 +1816,7 @@ private constructor(
                 adjustDtmfTimestamp,
                 anchorsiteOverride,
                 androidPushCredentialId,
+                bridgeGenerateComfortNoiseOnCn,
                 callCostEnabled,
                 callCostInWebhooks,
                 conversationPersistence,
@@ -1822,6 +1877,7 @@ private constructor(
         adjustDtmfTimestamp()
         anchorsiteOverride().ifPresent { it.validate() }
         androidPushCredentialId()
+        bridgeGenerateComfortNoiseOnCn()
         callCostEnabled()
         callCostInWebhooks()
         conversationPersistence()
@@ -1881,6 +1937,7 @@ private constructor(
             (if (adjustDtmfTimestamp.asKnown().isPresent) 1 else 0) +
             (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
             (if (androidPushCredentialId.asKnown().isPresent) 1 else 0) +
+            (if (bridgeGenerateComfortNoiseOnCn.asKnown().isPresent) 1 else 0) +
             (if (callCostEnabled.asKnown().isPresent) 1 else 0) +
             (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
             (if (conversationPersistence.asKnown().isPresent) 1 else 0) +
@@ -1929,6 +1986,7 @@ private constructor(
             adjustDtmfTimestamp == other.adjustDtmfTimestamp &&
             anchorsiteOverride == other.anchorsiteOverride &&
             androidPushCredentialId == other.androidPushCredentialId &&
+            bridgeGenerateComfortNoiseOnCn == other.bridgeGenerateComfortNoiseOnCn &&
             callCostEnabled == other.callCostEnabled &&
             callCostInWebhooks == other.callCostInWebhooks &&
             conversationPersistence == other.conversationPersistence &&
@@ -1975,6 +2033,7 @@ private constructor(
             adjustDtmfTimestamp,
             anchorsiteOverride,
             androidPushCredentialId,
+            bridgeGenerateComfortNoiseOnCn,
             callCostEnabled,
             callCostInWebhooks,
             conversationPersistence,
@@ -2017,5 +2076,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "FqdnConnection{connectionName=$connectionName, id=$id, active=$active, adjustDtmfTimestamp=$adjustDtmfTimestamp, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, callCostEnabled=$callCostEnabled, callCostInWebhooks=$callCostInWebhooks, conversationPersistence=$conversationPersistence, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, ignoreDtmfDuration=$ignoreDtmfDuration, ignoreMarkBit=$ignoreMarkBit, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, jitterBuffer=$jitterBuffer, microsoftTeamsSbc=$microsoftTeamsSbc, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, rtcpSettings=$rtcpSettings, rtpPassCodecsOnStreamChange=$rtpPassCodecsOnStreamChange, sendNormalizedTimestamps=$sendNormalizedTimestamps, tags=$tags, thirdPartyControlEnabled=$thirdPartyControlEnabled, transportProtocol=$transportProtocol, txtName=$txtName, txtTtl=$txtTtl, txtValue=$txtValue, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+        "FqdnConnection{connectionName=$connectionName, id=$id, active=$active, adjustDtmfTimestamp=$adjustDtmfTimestamp, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, bridgeGenerateComfortNoiseOnCn=$bridgeGenerateComfortNoiseOnCn, callCostEnabled=$callCostEnabled, callCostInWebhooks=$callCostInWebhooks, conversationPersistence=$conversationPersistence, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, ignoreDtmfDuration=$ignoreDtmfDuration, ignoreMarkBit=$ignoreMarkBit, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, jitterBuffer=$jitterBuffer, microsoftTeamsSbc=$microsoftTeamsSbc, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, rtcpSettings=$rtcpSettings, rtpPassCodecsOnStreamChange=$rtpPassCodecsOnStreamChange, sendNormalizedTimestamps=$sendNormalizedTimestamps, tags=$tags, thirdPartyControlEnabled=$thirdPartyControlEnabled, transportProtocol=$transportProtocol, txtName=$txtName, txtTtl=$txtTtl, txtValue=$txtValue, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
 }
