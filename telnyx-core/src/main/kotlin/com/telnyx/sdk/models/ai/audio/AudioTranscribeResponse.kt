@@ -333,6 +333,7 @@ private constructor(
         private val end: JsonField<Double>,
         private val start: JsonField<Double>,
         private val text: JsonField<String>,
+        private val channel: JsonField<Long>,
         private val speakers: JsonField<List<Long>>,
         private val words: JsonField<List<AudioTranscriptionResponseWord>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -344,13 +345,14 @@ private constructor(
             @JsonProperty("end") @ExcludeMissing end: JsonField<Double> = JsonMissing.of(),
             @JsonProperty("start") @ExcludeMissing start: JsonField<Double> = JsonMissing.of(),
             @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("channel") @ExcludeMissing channel: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("speakers")
             @ExcludeMissing
             speakers: JsonField<List<Long>> = JsonMissing.of(),
             @JsonProperty("words")
             @ExcludeMissing
             words: JsonField<List<AudioTranscriptionResponseWord>> = JsonMissing.of(),
-        ) : this(id, end, start, text, speakers, words, mutableMapOf())
+        ) : this(id, end, start, text, channel, speakers, words, mutableMapOf())
 
         /**
          * Unique identifier of the segment.
@@ -385,8 +387,19 @@ private constructor(
         fun text(): String = text.getRequired("text")
 
         /**
+         * Zero-indexed audio channel of this segment. Returned by the `deepgram&#47;*` models when
+         * `multichannel` is enabled via `model_config` and the file has more than one channel.
+         * Segments from all channels are merged in one list ordered by start time.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun channel(): Optional<Long> = channel.getOptional("channel")
+
+        /**
          * Speaker indices heard in this segment. Returned by the `deepgram&#47;*` models when
-         * `diarize` is enabled via `model_config`.
+         * `diarize` is enabled via `model_config`. With `multichannel`, speakers are numbered per
+         * channel from 0, so identify a speaker by (`channel`, speaker).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -429,6 +442,13 @@ private constructor(
          * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("text") @ExcludeMissing fun _text(): JsonField<String> = text
+
+        /**
+         * Returns the raw JSON value of [channel].
+         *
+         * Unlike [channel], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("channel") @ExcludeMissing fun _channel(): JsonField<Long> = channel
 
         /**
          * Returns the raw JSON value of [speakers].
@@ -481,6 +501,7 @@ private constructor(
             private var end: JsonField<Double>? = null
             private var start: JsonField<Double>? = null
             private var text: JsonField<String>? = null
+            private var channel: JsonField<Long> = JsonMissing.of()
             private var speakers: JsonField<MutableList<Long>>? = null
             private var words: JsonField<MutableList<AudioTranscriptionResponseWord>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -491,6 +512,7 @@ private constructor(
                 end = segment.end
                 start = segment.start
                 text = segment.text
+                channel = segment.channel
                 speakers = segment.speakers.map { it.toMutableList() }
                 words = segment.words.map { it.toMutableList() }
                 additionalProperties = segment.additionalProperties.toMutableMap()
@@ -545,8 +567,25 @@ private constructor(
             fun text(text: JsonField<String>) = apply { this.text = text }
 
             /**
+             * Zero-indexed audio channel of this segment. Returned by the `deepgram&#47;*` models
+             * when `multichannel` is enabled via `model_config` and the file has more than one
+             * channel. Segments from all channels are merged in one list ordered by start time.
+             */
+            fun channel(channel: Long) = channel(JsonField.of(channel))
+
+            /**
+             * Sets [Builder.channel] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.channel] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun channel(channel: JsonField<Long>) = apply { this.channel = channel }
+
+            /**
              * Speaker indices heard in this segment. Returned by the `deepgram&#47;*` models when
-             * `diarize` is enabled via `model_config`.
+             * `diarize` is enabled via `model_config`. With `multichannel`, speakers are numbered
+             * per channel from 0, so identify a speaker by (`channel`, speaker).
              */
             fun speakers(speakers: List<Long>) = speakers(JsonField.of(speakers))
 
@@ -642,6 +681,7 @@ private constructor(
                     checkRequired("end", end),
                     checkRequired("start", start),
                     checkRequired("text", text),
+                    channel,
                     (speakers ?: JsonMissing.of()).map { it.toImmutable() },
                     (words ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toMutableMap(),
@@ -668,6 +708,7 @@ private constructor(
             end()
             start()
             text()
+            channel()
             speakers()
             words().ifPresent { it.forEach { it.validate() } }
             validated = true
@@ -693,6 +734,7 @@ private constructor(
                 (if (end.asKnown().isPresent) 1 else 0) +
                 (if (start.asKnown().isPresent) 1 else 0) +
                 (if (text.asKnown().isPresent) 1 else 0) +
+                (if (channel.asKnown().isPresent) 1 else 0) +
                 (speakers.asKnown().getOrNull()?.size ?: 0) +
                 (words.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
@@ -706,19 +748,20 @@ private constructor(
                 end == other.end &&
                 start == other.start &&
                 text == other.text &&
+                channel == other.channel &&
                 speakers == other.speakers &&
                 words == other.words &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(id, end, start, text, speakers, words, additionalProperties)
+            Objects.hash(id, end, start, text, channel, speakers, words, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Segment{id=$id, end=$end, start=$start, text=$text, speakers=$speakers, words=$words, additionalProperties=$additionalProperties}"
+            "Segment{id=$id, end=$end, start=$start, text=$text, channel=$channel, speakers=$speakers, words=$words, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -22,6 +22,7 @@ internal class AudioTranscribeResponseTest {
                         .end(0.0)
                         .start(0.0)
                         .text("text")
+                        .channel(0L)
                         .addSpeaker(0L)
                         .addWord(
                             AudioTranscriptionResponseWord.builder()
@@ -58,6 +59,7 @@ internal class AudioTranscribeResponseTest {
                     .end(0.0)
                     .start(0.0)
                     .text("text")
+                    .channel(0L)
                     .addSpeaker(0L)
                     .addWord(
                         AudioTranscriptionResponseWord.builder()
@@ -99,6 +101,7 @@ internal class AudioTranscribeResponseTest {
                         .end(0.0)
                         .start(0.0)
                         .text("text")
+                        .channel(0L)
                         .addSpeaker(0L)
                         .addWord(
                             AudioTranscriptionResponseWord.builder()

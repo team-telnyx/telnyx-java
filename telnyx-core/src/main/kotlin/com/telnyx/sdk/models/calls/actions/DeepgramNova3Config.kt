@@ -93,8 +93,9 @@ private constructor(
     fun interimResults(): Optional<Boolean> = interimResults.getOptional("interim_results")
 
     /**
-     * Nova-3 keyterm prompting. Up to 100 domain-specific terms or brand names to bias recognition
-     * toward. Nova-3-only; use `hints` on Nova-2.
+     * Keyterm prompting. Up to 100 domain-specific terms or brand names to bias recognition toward.
+     * Supported on Nova-3 and Flux models (`deepgram/nova-3`, `deepgram/nova-3-medical`,
+     * `deepgram/flux`, `deepgram/flux-multi`); use `hints` on Nova-2.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -307,8 +308,10 @@ private constructor(
         }
 
         /**
-         * Nova-3 keyterm prompting. Up to 100 domain-specific terms or brand names to bias
-         * recognition toward. Nova-3-only; use `hints` on Nova-2.
+         * Keyterm prompting. Up to 100 domain-specific terms or brand names to bias recognition
+         * toward. Supported on Nova-3 and Flux models (`deepgram/nova-3`,
+         * `deepgram/nova-3-medical`, `deepgram/flux`, `deepgram/flux-multi`); use `hints` on
+         * Nova-2.
          */
         fun keyterms(keyterms: List<String>) = keyterms(JsonField.of(keyterms))
 

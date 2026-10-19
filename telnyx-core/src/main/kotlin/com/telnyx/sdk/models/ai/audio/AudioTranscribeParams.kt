@@ -87,9 +87,12 @@ private constructor(
 
     /**
      * Additional model-specific configuration parameters. Only allowed with the `deepgram&#47;*`
-     * models. Can include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize`,
-     * `utterance`, `numerals`, and `language`. If `language` is provided both as a top-level
-     * parameter and in `model_config`, the top-level parameter takes precedence.
+     * models. Sent as a JSON string in multipart requests and passed through to Deepgram as query
+     * parameters. Any other model with `model_config` returns 422. Can include Deepgram-specific
+     * options such as `smart_format`, `punctuate`, `diarize` (speaker labels), `multichannel`
+     * (transcribe each channel independently; billed duration is file duration multiplied by the
+     * number of channels), `utterances`, `numerals`, and `language`. If `language` is provided both
+     * as a top-level parameter and in `model_config`, the top-level parameter takes precedence.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -305,10 +308,13 @@ private constructor(
 
         /**
          * Additional model-specific configuration parameters. Only allowed with the
-         * `deepgram&#47;*` models. Can include Deepgram-specific options such as `smart_format`,
-         * `punctuate`, `diarize`, `utterance`, `numerals`, and `language`. If `language` is
-         * provided both as a top-level parameter and in `model_config`, the top-level parameter
-         * takes precedence.
+         * `deepgram&#47;*` models. Sent as a JSON string in multipart requests and passed through
+         * to Deepgram as query parameters. Any other model with `model_config` returns 422. Can
+         * include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize` (speaker
+         * labels), `multichannel` (transcribe each channel independently; billed duration is file
+         * duration multiplied by the number of channels), `utterances`, `numerals`, and `language`.
+         * If `language` is provided both as a top-level parameter and in `model_config`, the
+         * top-level parameter takes precedence.
          */
         fun modelConfig(modelConfig: ModelConfig) = apply { body.modelConfig(modelConfig) }
 
@@ -579,10 +585,13 @@ private constructor(
 
         /**
          * Additional model-specific configuration parameters. Only allowed with the
-         * `deepgram&#47;*` models. Can include Deepgram-specific options such as `smart_format`,
-         * `punctuate`, `diarize`, `utterance`, `numerals`, and `language`. If `language` is
-         * provided both as a top-level parameter and in `model_config`, the top-level parameter
-         * takes precedence.
+         * `deepgram&#47;*` models. Sent as a JSON string in multipart requests and passed through
+         * to Deepgram as query parameters. Any other model with `model_config` returns 422. Can
+         * include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize` (speaker
+         * labels), `multichannel` (transcribe each channel independently; billed duration is file
+         * duration multiplied by the number of channels), `utterances`, `numerals`, and `language`.
+         * If `language` is provided both as a top-level parameter and in `model_config`, the
+         * top-level parameter takes precedence.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -820,10 +829,14 @@ private constructor(
 
             /**
              * Additional model-specific configuration parameters. Only allowed with the
-             * `deepgram&#47;*` models. Can include Deepgram-specific options such as
-             * `smart_format`, `punctuate`, `diarize`, `utterance`, `numerals`, and `language`. If
-             * `language` is provided both as a top-level parameter and in `model_config`, the
-             * top-level parameter takes precedence.
+             * `deepgram&#47;*` models. Sent as a JSON string in multipart requests and passed
+             * through to Deepgram as query parameters. Any other model with `model_config`
+             * returns 422. Can include Deepgram-specific options such as `smart_format`,
+             * `punctuate`, `diarize` (speaker labels), `multichannel` (transcribe each channel
+             * independently; billed duration is file duration multiplied by the number of
+             * channels), `utterances`, `numerals`, and `language`. If `language` is provided both
+             * as a top-level parameter and in `model_config`, the top-level parameter takes
+             * precedence.
              */
             fun modelConfig(modelConfig: ModelConfig) = modelConfig(MultipartField.of(modelConfig))
 
@@ -1169,9 +1182,12 @@ private constructor(
 
     /**
      * Additional model-specific configuration parameters. Only allowed with the `deepgram&#47;*`
-     * models. Can include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize`,
-     * `utterance`, `numerals`, and `language`. If `language` is provided both as a top-level
-     * parameter and in `model_config`, the top-level parameter takes precedence.
+     * models. Sent as a JSON string in multipart requests and passed through to Deepgram as query
+     * parameters. Any other model with `model_config` returns 422. Can include Deepgram-specific
+     * options such as `smart_format`, `punctuate`, `diarize` (speaker labels), `multichannel`
+     * (transcribe each channel independently; billed duration is file duration multiplied by the
+     * number of channels), `utterances`, `numerals`, and `language`. If `language` is provided both
+     * as a top-level parameter and in `model_config`, the top-level parameter takes precedence.
      */
     class ModelConfig
     private constructor(
