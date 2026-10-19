@@ -22,10 +22,7 @@ import com.telnyx.sdk.models.enterprises.verifyemail.VerifyEmailCreateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the email
- * must be verified before references can be submitted.
- */
+/** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
 class VerifyEmailServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     VerifyEmailService {
 

@@ -11,10 +11,7 @@ import com.telnyx.sdk.models.enterprises.verifyemail.VerifyEmailCreateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
-/**
- * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the email
- * must be verified before references can be submitted.
- */
+/** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
 interface VerifyEmailServiceAsync {
 
     /**
