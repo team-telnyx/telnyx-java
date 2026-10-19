@@ -518,6 +518,8 @@ private constructor(
 
             @JvmField val LOCAL = of("local")
 
+            @JvmField val LOCALCOMMERCIAL = of("localcommercial")
+
             @JvmField val MOBILE = of("mobile")
 
             @JvmField val MULTIPURPOSE = of("multipurpose")
@@ -537,6 +539,7 @@ private constructor(
         enum class Known {
             LANDLINE,
             LOCAL,
+            LOCALCOMMERCIAL,
             MOBILE,
             MULTIPURPOSE,
             NATIONAL,
@@ -557,6 +560,7 @@ private constructor(
         enum class Value {
             LANDLINE,
             LOCAL,
+            LOCALCOMMERCIAL,
             MOBILE,
             MULTIPURPOSE,
             NATIONAL,
@@ -581,6 +585,7 @@ private constructor(
             when (this) {
                 LANDLINE -> Value.LANDLINE
                 LOCAL -> Value.LOCAL
+                LOCALCOMMERCIAL -> Value.LOCALCOMMERCIAL
                 MOBILE -> Value.MOBILE
                 MULTIPURPOSE -> Value.MULTIPURPOSE
                 NATIONAL -> Value.NATIONAL
@@ -603,6 +608,7 @@ private constructor(
             when (this) {
                 LANDLINE -> Known.LANDLINE
                 LOCAL -> Known.LOCAL
+                LOCALCOMMERCIAL -> Known.LOCALCOMMERCIAL
                 MOBILE -> Known.MOBILE
                 MULTIPURPOSE -> Known.MULTIPURPOSE
                 NATIONAL -> Known.NATIONAL
