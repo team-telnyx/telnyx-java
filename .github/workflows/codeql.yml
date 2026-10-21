@@ -1,0 +1,72 @@
+name: CodeQL
+
+# Production-owned: staging promotion restores this file from master.
+# Coordinate default-setup -> advanced-setup cutover after this workflow lands.
+on:
+  push:
+    branches: [master, next]
+  pull_request:
+    branches: [master, next]
+  workflow_dispatch:
+  schedule:
+    - cron: '23 4 * * 2'
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      security-events: write
+      packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+            build-mode: none
+          - language: java-kotlin
+            build-mode: manual
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      # Select the compiler runtime before CodeQL initializes tracing. Merely
+      # installing JDK21 leaves automatic JDK discovery free to select JDK25.
+      - name: Select JDK21
+        if: matrix.language == 'java-kotlin'
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      - name: Compile all production Kotlin and Java sources
+        if: matrix.language == 'java-kotlin'
+        run: |
+          java -version
+          ./gradlew --version
+          # classes selects every subproject's main source set, including the
+          # custom lib/websocket modules and examples. Tests/shrinkers are CI's
+          # responsibility. Recompile inside tracing, never restore bytecode.
+          # One compiler JVM avoids inheriting a second generated 12GiB heap.
+          ./gradlew clean classes --no-daemon --no-parallel --max-workers=1 \
+            --no-build-cache --no-configuration-cache --rerun-tasks \
+            -Dorg.gradle.jvmargs="-Xmx8g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8" \
+            -Pkotlin.compiler.execution.strategy=in-process \
+            -Pkotlin.incremental=false
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4
+        with:
+          category: '/language:${{ matrix.language }}'
