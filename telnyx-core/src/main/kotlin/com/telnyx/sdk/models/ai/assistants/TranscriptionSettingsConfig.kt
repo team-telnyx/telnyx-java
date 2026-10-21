@@ -35,6 +35,7 @@ private constructor(
     private val minTurnSilence: JsonField<Long>,
     private val numerals: JsonField<Boolean>,
     private val prompt: JsonField<String>,
+    private val removeDisfluencies: JsonField<Boolean>,
     private val smartFormat: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -75,6 +76,9 @@ private constructor(
         minTurnSilence: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("numerals") @ExcludeMissing numerals: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("prompt") @ExcludeMissing prompt: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("remove_disfluencies")
+        @ExcludeMissing
+        removeDisfluencies: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("smart_format")
         @ExcludeMissing
         smartFormat: JsonField<Boolean> = JsonMissing.of(),
@@ -93,6 +97,7 @@ private constructor(
         minTurnSilence,
         numerals,
         prompt,
+        removeDisfluencies,
         smartFormat,
         mutableMapOf(),
     )
@@ -243,6 +248,19 @@ private constructor(
     fun prompt(): Optional<String> = prompt.getOptional("prompt")
 
     /**
+     * Available only for speechmatics/linden-1. When true, filler words such as "um" and "uh" are
+     * removed from the transcript. Disfluency removal is supported only for `ar`, `cmn`, `da`,
+     * `de`, `el`, `en`, `es`, `fr`, `he`, `hi`, `hu`, `it`, `ja`, `nl`, `pl`, `pt`, and `ru`,
+     * determined by the base language (so `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant` are
+     * supported); for other languages, filler words remain in the transcript.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun removeDisfluencies(): Optional<Boolean> =
+        removeDisfluencies.getOptional("remove_disfluencies")
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -372,6 +390,16 @@ private constructor(
     @JsonProperty("prompt") @ExcludeMissing fun _prompt(): JsonField<String> = prompt
 
     /**
+     * Returns the raw JSON value of [removeDisfluencies].
+     *
+     * Unlike [removeDisfluencies], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("remove_disfluencies")
+    @ExcludeMissing
+    fun _removeDisfluencies(): JsonField<Boolean> = removeDisfluencies
+
+    /**
      * Returns the raw JSON value of [smartFormat].
      *
      * Unlike [smartFormat], this method doesn't throw if the JSON field has an unexpected type.
@@ -417,6 +445,7 @@ private constructor(
         private var minTurnSilence: JsonField<Long> = JsonMissing.of()
         private var numerals: JsonField<Boolean> = JsonMissing.of()
         private var prompt: JsonField<String> = JsonMissing.of()
+        private var removeDisfluencies: JsonField<Boolean> = JsonMissing.of()
         private var smartFormat: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -436,6 +465,7 @@ private constructor(
             minTurnSilence = transcriptionSettingsConfig.minTurnSilence
             numerals = transcriptionSettingsConfig.numerals
             prompt = transcriptionSettingsConfig.prompt
+            removeDisfluencies = transcriptionSettingsConfig.removeDisfluencies
             smartFormat = transcriptionSettingsConfig.smartFormat
             additionalProperties = transcriptionSettingsConfig.additionalProperties.toMutableMap()
         }
@@ -697,6 +727,27 @@ private constructor(
          */
         fun prompt(prompt: JsonField<String>) = apply { this.prompt = prompt }
 
+        /**
+         * Available only for speechmatics/linden-1. When true, filler words such as "um" and "uh"
+         * are removed from the transcript. Disfluency removal is supported only for `ar`, `cmn`,
+         * `da`, `de`, `el`, `en`, `es`, `fr`, `he`, `hi`, `hu`, `it`, `ja`, `nl`, `pl`, `pt`, and
+         * `ru`, determined by the base language (so `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and
+         * `cmn-Hant` are supported); for other languages, filler words remain in the transcript.
+         */
+        fun removeDisfluencies(removeDisfluencies: Boolean) =
+            removeDisfluencies(JsonField.of(removeDisfluencies))
+
+        /**
+         * Sets [Builder.removeDisfluencies] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.removeDisfluencies] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun removeDisfluencies(removeDisfluencies: JsonField<Boolean>) = apply {
+            this.removeDisfluencies = removeDisfluencies
+        }
+
         fun smartFormat(smartFormat: Boolean) = smartFormat(JsonField.of(smartFormat))
 
         /**
@@ -748,6 +799,7 @@ private constructor(
                 minTurnSilence,
                 numerals,
                 prompt,
+                removeDisfluencies,
                 smartFormat,
                 additionalProperties.toMutableMap(),
             )
@@ -782,6 +834,7 @@ private constructor(
         minTurnSilence()
         numerals()
         prompt()
+        removeDisfluencies()
         smartFormat()
         validated = true
     }
@@ -815,6 +868,7 @@ private constructor(
             (if (minTurnSilence.asKnown().isPresent) 1 else 0) +
             (if (numerals.asKnown().isPresent) 1 else 0) +
             (if (prompt.asKnown().isPresent) 1 else 0) +
+            (if (removeDisfluencies.asKnown().isPresent) 1 else 0) +
             (if (smartFormat.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
@@ -837,6 +891,7 @@ private constructor(
             minTurnSilence == other.minTurnSilence &&
             numerals == other.numerals &&
             prompt == other.prompt &&
+            removeDisfluencies == other.removeDisfluencies &&
             smartFormat == other.smartFormat &&
             additionalProperties == other.additionalProperties
     }
@@ -857,6 +912,7 @@ private constructor(
             minTurnSilence,
             numerals,
             prompt,
+            removeDisfluencies,
             smartFormat,
             additionalProperties,
         )
@@ -865,5 +921,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TranscriptionSettingsConfig{context=$context, eagerEotThreshold=$eagerEotThreshold, enableEndpointDetection=$enableEndpointDetection, endOfTurnConfidenceThreshold=$endOfTurnConfidenceThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, interimResults=$interimResults, keyterm=$keyterm, languageHints=$languageHints, maxEndpointDelayMs=$maxEndpointDelayMs, maxTurnSilence=$maxTurnSilence, minTurnSilence=$minTurnSilence, numerals=$numerals, prompt=$prompt, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
+        "TranscriptionSettingsConfig{context=$context, eagerEotThreshold=$eagerEotThreshold, enableEndpointDetection=$enableEndpointDetection, endOfTurnConfidenceThreshold=$endOfTurnConfidenceThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, interimResults=$interimResults, keyterm=$keyterm, languageHints=$languageHints, maxEndpointDelayMs=$maxEndpointDelayMs, maxTurnSilence=$maxTurnSilence, minTurnSilence=$minTurnSilence, numerals=$numerals, prompt=$prompt, removeDisfluencies=$removeDisfluencies, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
 }
