@@ -37,6 +37,7 @@ import com.telnyx.sdk.services.async.CredentialConnectionServiceAsync
 import com.telnyx.sdk.services.async.CustomStorageCredentialServiceAsync
 import com.telnyx.sdk.services.async.CustomerServiceRecordServiceAsync
 import com.telnyx.sdk.services.async.DetailRecordServiceAsync
+import com.telnyx.sdk.services.async.DialMetricServiceAsync
 import com.telnyx.sdk.services.async.DialogflowConnectionServiceAsync
 import com.telnyx.sdk.services.async.DirServiceAsync
 import com.telnyx.sdk.services.async.DocumentLinkServiceAsync
@@ -835,6 +836,9 @@ interface TelnyxClientAsync {
     /** UAC connection operations */
     fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync
 
+    /** Call information */
+    fun dialMetrics(): DialMetricServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1467,5 +1471,8 @@ interface TelnyxClientAsync {
 
         /** UAC connection operations */
         fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse
+
+        /** Call information */
+        fun dialMetrics(): DialMetricServiceAsync.WithRawResponse
     }
 }

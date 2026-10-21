@@ -322,7 +322,8 @@ private constructor(
         encodeContactHeaderEnabled.getOptional("encode_contact_header_enabled")
 
     /**
-     * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS.
+     * Enable use of SRTP for encryption. Can only be set when the SIP signaling transport protocol
+     * is TLS.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1193,7 +1194,10 @@ private constructor(
             this.encodeContactHeaderEnabled = encodeContactHeaderEnabled
         }
 
-        /** Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS. */
+        /**
+         * Enable use of SRTP for encryption. Can only be set when the SIP signaling transport
+         * protocol is TLS.
+         */
         fun encryptedMedia(encryptedMedia: EncryptedMedia?) =
             encryptedMedia(JsonField.ofNullable(encryptedMedia))
 

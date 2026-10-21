@@ -721,6 +721,7 @@ internal class VersionServiceAsyncTest {
                                 PrivacySettings.builder()
                                     .dataRetention(true)
                                     .inTransitDataLocality(true)
+                                    .piiRedaction(PrivacySettings.PiiRedaction.DISABLED)
                                     .build()
                             )
                             .addTag("string")

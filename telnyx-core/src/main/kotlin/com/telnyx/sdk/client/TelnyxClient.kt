@@ -37,6 +37,7 @@ import com.telnyx.sdk.services.blocking.CredentialConnectionService
 import com.telnyx.sdk.services.blocking.CustomStorageCredentialService
 import com.telnyx.sdk.services.blocking.CustomerServiceRecordService
 import com.telnyx.sdk.services.blocking.DetailRecordService
+import com.telnyx.sdk.services.blocking.DialMetricService
 import com.telnyx.sdk.services.blocking.DialogflowConnectionService
 import com.telnyx.sdk.services.blocking.DirService
 import com.telnyx.sdk.services.blocking.DocumentLinkService
@@ -835,6 +836,9 @@ interface TelnyxClient {
     /** UAC connection operations */
     fun sipRegistrationStatus(): SipRegistrationStatusService
 
+    /** Call information */
+    fun dialMetrics(): DialMetricService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1464,5 +1468,8 @@ interface TelnyxClient {
 
         /** UAC connection operations */
         fun sipRegistrationStatus(): SipRegistrationStatusService.WithRawResponse
+
+        /** Call information */
+        fun dialMetrics(): DialMetricService.WithRawResponse
     }
 }

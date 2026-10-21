@@ -12,17 +12,26 @@ internal class PrivacySettingsTest {
     @Test
     fun create() {
         val privacySettings =
-            PrivacySettings.builder().dataRetention(true).inTransitDataLocality(true).build()
+            PrivacySettings.builder()
+                .dataRetention(true)
+                .inTransitDataLocality(true)
+                .piiRedaction(PrivacySettings.PiiRedaction.DISABLED)
+                .build()
 
         assertThat(privacySettings.dataRetention()).contains(true)
         assertThat(privacySettings.inTransitDataLocality()).contains(true)
+        assertThat(privacySettings.piiRedaction()).contains(PrivacySettings.PiiRedaction.DISABLED)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val privacySettings =
-            PrivacySettings.builder().dataRetention(true).inTransitDataLocality(true).build()
+            PrivacySettings.builder()
+                .dataRetention(true)
+                .inTransitDataLocality(true)
+                .piiRedaction(PrivacySettings.PiiRedaction.DISABLED)
+                .build()
 
         val roundtrippedPrivacySettings =
             jsonMapper.readValue(

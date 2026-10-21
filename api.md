@@ -3341,3 +3341,9 @@ Methods:
 Methods:
 
 - <code title="get /sip_registration_status">client.sipRegistrationStatus().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SipRegistrationStatusService.kt">list</a>(params)</code>
+
+# DialMetrics
+
+Methods:
+
+- <code title="get /dial_metrics">client.dialMetrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DialMetricService.kt">list</a>(params)</code>

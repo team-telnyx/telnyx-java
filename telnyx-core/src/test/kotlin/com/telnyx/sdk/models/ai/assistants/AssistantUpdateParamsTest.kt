@@ -561,7 +561,11 @@ internal class AssistantUpdateParamsTest {
             )
             .postConversationSettings(PostConversationSettingsReq.builder().enabled(true).build())
             .privacySettings(
-                PrivacySettings.builder().dataRetention(true).inTransitDataLocality(true).build()
+                PrivacySettings.builder()
+                    .dataRetention(true)
+                    .inTransitDataLocality(true)
+                    .piiRedaction(PrivacySettings.PiiRedaction.DISABLED)
+                    .build()
             )
             .addTag("string")
             .telephonySettings(
@@ -1392,6 +1396,7 @@ internal class AssistantUpdateParamsTest {
                     PrivacySettings.builder()
                         .dataRetention(true)
                         .inTransitDataLocality(true)
+                        .piiRedaction(PrivacySettings.PiiRedaction.DISABLED)
                         .build()
                 )
                 .addTag("string")
@@ -2208,7 +2213,11 @@ internal class AssistantUpdateParamsTest {
             .contains(PostConversationSettingsReq.builder().enabled(true).build())
         assertThat(body.privacySettings())
             .contains(
-                PrivacySettings.builder().dataRetention(true).inTransitDataLocality(true).build()
+                PrivacySettings.builder()
+                    .dataRetention(true)
+                    .inTransitDataLocality(true)
+                    .piiRedaction(PrivacySettings.PiiRedaction.DISABLED)
+                    .build()
             )
         assertThat(body.tags().getOrNull()).containsExactly("string")
         assertThat(body.telephonySettings())

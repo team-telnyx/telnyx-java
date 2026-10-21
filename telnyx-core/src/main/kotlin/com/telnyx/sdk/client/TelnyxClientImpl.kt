@@ -72,6 +72,8 @@ import com.telnyx.sdk.services.blocking.CustomerServiceRecordService
 import com.telnyx.sdk.services.blocking.CustomerServiceRecordServiceImpl
 import com.telnyx.sdk.services.blocking.DetailRecordService
 import com.telnyx.sdk.services.blocking.DetailRecordServiceImpl
+import com.telnyx.sdk.services.blocking.DialMetricService
+import com.telnyx.sdk.services.blocking.DialMetricServiceImpl
 import com.telnyx.sdk.services.blocking.DialogflowConnectionService
 import com.telnyx.sdk.services.blocking.DialogflowConnectionServiceImpl
 import com.telnyx.sdk.services.blocking.DirService
@@ -1102,6 +1104,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         SipRegistrationStatusServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val dialMetrics: DialMetricService by lazy {
+        DialMetricServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1726,6 +1732,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** UAC connection operations */
     override fun sipRegistrationStatus(): SipRegistrationStatusService = sipRegistrationStatus
+
+    /** Call information */
+    override fun dialMetrics(): DialMetricService = dialMetrics
 
     override fun close() = clientOptions.close()
 
@@ -2511,6 +2520,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             SipRegistrationStatusServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val dialMetrics: DialMetricService.WithRawResponse by lazy {
+            DialMetricServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -3196,5 +3209,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         /** UAC connection operations */
         override fun sipRegistrationStatus(): SipRegistrationStatusService.WithRawResponse =
             sipRegistrationStatus
+
+        /** Call information */
+        override fun dialMetrics(): DialMetricService.WithRawResponse = dialMetrics
     }
 }

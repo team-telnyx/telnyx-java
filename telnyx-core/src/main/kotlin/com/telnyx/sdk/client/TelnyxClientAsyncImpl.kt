@@ -72,6 +72,8 @@ import com.telnyx.sdk.services.async.CustomerServiceRecordServiceAsync
 import com.telnyx.sdk.services.async.CustomerServiceRecordServiceAsyncImpl
 import com.telnyx.sdk.services.async.DetailRecordServiceAsync
 import com.telnyx.sdk.services.async.DetailRecordServiceAsyncImpl
+import com.telnyx.sdk.services.async.DialMetricServiceAsync
+import com.telnyx.sdk.services.async.DialMetricServiceAsyncImpl
 import com.telnyx.sdk.services.async.DialogflowConnectionServiceAsync
 import com.telnyx.sdk.services.async.DialogflowConnectionServiceAsyncImpl
 import com.telnyx.sdk.services.async.DirServiceAsync
@@ -1148,6 +1150,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         SipRegistrationStatusServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val dialMetrics: DialMetricServiceAsync by lazy {
+        DialMetricServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1788,6 +1794,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** UAC connection operations */
     override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync = sipRegistrationStatus
+
+    /** Call information */
+    override fun dialMetrics(): DialMetricServiceAsync = dialMetrics
 
     override fun close() = clientOptions.close()
 
@@ -2598,6 +2607,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             SipRegistrationStatusServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val dialMetrics: DialMetricServiceAsync.WithRawResponse by lazy {
+            DialMetricServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3298,5 +3311,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** UAC connection operations */
         override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse =
             sipRegistrationStatus
+
+        /** Call information */
+        override fun dialMetrics(): DialMetricServiceAsync.WithRawResponse = dialMetrics
     }
 }
