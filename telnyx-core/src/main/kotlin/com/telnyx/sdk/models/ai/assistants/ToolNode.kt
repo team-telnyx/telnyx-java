@@ -513,6 +513,9 @@ private constructor(
         fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.SkipTurnConfig) =
             addTool(AssistantTool.SkipTurn.builder().skipTurn(skipTurn).build())
 
+        /** Alias for calling [addTool] with `AssistantTool.ofVision(vision)`. */
+        fun addTool(vision: AssistantTool.Vision) = addTool(AssistantTool.ofVision(vision))
+
         /** Alias for calling [addTool] with `AssistantTool.ofPay(pay)`. */
         fun addTool(pay: AssistantTool.Pay) = addTool(AssistantTool.ofPay(pay))
 

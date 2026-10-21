@@ -10,7 +10,7 @@ internal class QueueCreateParamsTest {
     @Test
     fun create() {
         QueueCreateParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .friendlyName("Support Queue")
             .maxSize(10L)
             .build()
@@ -18,9 +18,10 @@ internal class QueueCreateParamsTest {
 
     @Test
     fun pathParams() {
-        val params = QueueCreateParams.builder().accountSid("account_sid").build()
+        val params =
+            QueueCreateParams.builder().accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -29,7 +30,7 @@ internal class QueueCreateParamsTest {
     fun body() {
         val params =
             QueueCreateParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .friendlyName("Support Queue")
                 .maxSize(10L)
                 .build()
@@ -42,7 +43,8 @@ internal class QueueCreateParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = QueueCreateParams.builder().accountSid("account_sid").build()
+        val params =
+            QueueCreateParams.builder().accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9").build()
 
         val body = params._body()
     }

@@ -592,6 +592,15 @@ Methods:
 - <code title="get /ai/memory/namespaces/{namespace}/settings">client.ai().memory().namespaces().settings().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/SettingService.kt">list</a>(params)</code>
 - <code title="patch /ai/memory/namespaces/{namespace}/settings">client.ai().memory().namespaces().settings().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/memory/namespaces/SettingService.kt">patchAll</a>(params)</code>
 
+## Avatars
+
+Methods:
+
+- <code title="post /ai/avatars">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">create</a>(params)</code>
+- <code title="get /ai/avatars/{avatar_id}">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">retrieve</a>(params)</code>
+- <code title="patch /ai/avatars/{avatar_id}">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">update</a>(params)</code>
+- <code title="get /ai/avatars">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">list</a>(params)</code>
+
 # AuditEvents
 
 Methods:
@@ -2712,6 +2721,14 @@ Methods:
 - <code title="get /whatsapp/signup">client.whatsapp().signup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/SignupService.kt">list</a>(params)</code>
 - <code title="get /whatsapp/signup/{id}/status">client.whatsapp().signup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/SignupService.kt">retrieveStatus</a>(params)</code>
 
+## HostedSignups
+
+Methods:
+
+- <code title="post /whatsapp/hosted_signups">client.whatsapp().hostedSignups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/HostedSignupService.kt">create</a>(params)</code>
+- <code title="get /whatsapp/hosted_signups/{id}">client.whatsapp().hostedSignups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/HostedSignupService.kt">retrieve</a>(params)</code>
+- <code title="get /whatsapp/hosted_signups">client.whatsapp().hostedSignups().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/whatsapp/HostedSignupService.kt">list</a>(params)</code>
+
 # WhatsappMessageTemplates
 
 Methods:
@@ -3197,7 +3214,6 @@ Methods:
 - <code title="delete /meeting_sessions/{id}">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">delete</a>(params)</code>
 - <code title="delete /meeting_sessions/{id}/recording_media">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">deleteRecordingMedia</a>(params)</code>
 - <code title="get /meeting_sessions/{id}/events">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveEvents</a>(params)</code>
-- <code title="get /meeting_sessions/{id}/recordings">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveRecordings</a>(params)</code>
 - <code title="get /meeting_sessions/{id}/transcript">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveTranscript</a>(params)</code>
 
 ## Actions
@@ -3227,10 +3243,15 @@ Methods:
 
 # Compute
 
+Methods:
+
+- <code title="get /compute/actors/{id}">client.compute().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ComputeService.kt">retrieve</a>(params)</code>
+
 ## Funcs
 
 Methods:
 
+- <code title="get /compute/funcs">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">list</a>(params)</code>
 - <code title="get /compute/funcs/{id}/logs">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveLogs</a>(params)</code>
 - <code title="get /compute/funcs/{id}/metric_aggregates">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveMetricAggregates</a>(params)</code>
 - <code title="get /compute/funcs/{id}/revisions">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveRevisions</a>(params)</code>
@@ -3325,3 +3346,19 @@ Methods:
 Methods:
 
 - <code title="get /sip_registration_status">client.sipRegistrationStatus().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/SipRegistrationStatusService.kt">list</a>(params)</code>
+
+# DialMetrics
+
+Methods:
+
+- <code title="get /dial_metrics">client.dialMetrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DialMetricService.kt">list</a>(params)</code>
+
+# TailscaleSubnetRouters
+
+Methods:
+
+- <code title="post /tailscale_subnet_routers">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">create</a>(params)</code>
+- <code title="get /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">retrieve</a>(params)</code>
+- <code title="patch /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">update</a>(params)</code>
+- <code title="get /tailscale_subnet_routers">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">list</a>(params)</code>
+- <code title="delete /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">delete</a>(params)</code>

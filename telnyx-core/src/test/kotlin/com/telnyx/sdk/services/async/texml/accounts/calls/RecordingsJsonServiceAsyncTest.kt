@@ -19,7 +19,7 @@ internal class RecordingsJsonServiceAsyncTest {
         val texmlCreateCallRecordingResponseBodyFuture =
             recordingsJsonServiceAsync.recordingsJson(
                 RecordingsJsonRecordingsJsonParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .callSid("call_sid")
                     .playBeep(false)
                     .recordingChannels(RecordingsJsonRecordingsJsonParams.RecordingChannels.SINGLE)
@@ -46,7 +46,7 @@ internal class RecordingsJsonServiceAsyncTest {
         val texmlGetCallRecordingsResponseBodyFuture =
             recordingsJsonServiceAsync.retrieveRecordingsJson(
                 RecordingsJsonRetrieveRecordingsJsonParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .callSid("call_sid")
                     .build()
             )

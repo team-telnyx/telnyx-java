@@ -11,7 +11,7 @@ internal class CallRetrieveCallsParamsTest {
     @Test
     fun create() {
         CallRetrieveCallsParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .endTime("EndTime")
             .endTimeLt("EndTime<")
             .endTimeGt("EndTime>")
@@ -29,9 +29,12 @@ internal class CallRetrieveCallsParamsTest {
 
     @Test
     fun pathParams() {
-        val params = CallRetrieveCallsParams.builder().accountSid("account_sid").build()
+        val params =
+            CallRetrieveCallsParams.builder()
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -40,7 +43,7 @@ internal class CallRetrieveCallsParamsTest {
     fun queryParams() {
         val params =
             CallRetrieveCallsParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .endTime("EndTime")
                 .endTimeLt("EndTime<")
                 .endTimeGt("EndTime>")
@@ -78,7 +81,10 @@ internal class CallRetrieveCallsParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = CallRetrieveCallsParams.builder().accountSid("account_sid").build()
+        val params =
+            CallRetrieveCallsParams.builder()
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                .build()
 
         val queryParams = params._queryParams()
 

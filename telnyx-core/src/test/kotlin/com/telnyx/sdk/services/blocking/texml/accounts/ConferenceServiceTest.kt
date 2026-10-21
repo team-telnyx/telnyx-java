@@ -22,7 +22,7 @@ internal class ConferenceServiceTest {
         val conferenceResource =
             conferenceService.retrieve(
                 ConferenceRetrieveParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .conferenceSid("conference_sid")
                     .build()
             )
@@ -39,7 +39,7 @@ internal class ConferenceServiceTest {
         val conferenceResource =
             conferenceService.update(
                 ConferenceUpdateParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .conferenceSid("conference_sid")
                     .announceMethod(ConferenceUpdateParams.AnnounceMethod.GET)
                     .announceUrl("https://www.example.com/announce.xml")
@@ -59,7 +59,7 @@ internal class ConferenceServiceTest {
         val response =
             conferenceService.retrieveConferences(
                 ConferenceRetrieveConferencesParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .dateCreated("DateCreated")
                     .dateUpdated("DateUpdated")
                     .friendlyName("FriendlyName")
@@ -82,7 +82,7 @@ internal class ConferenceServiceTest {
         val response =
             conferenceService.retrieveRecordings(
                 ConferenceRetrieveRecordingsParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .conferenceSid("conference_sid")
                     .build()
             )
@@ -99,7 +99,7 @@ internal class ConferenceServiceTest {
         val texmlGetCallRecordingsResponseBody =
             conferenceService.retrieveRecordingsJson(
                 ConferenceRetrieveRecordingsJsonParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .conferenceSid("conference_sid")
                     .build()
             )

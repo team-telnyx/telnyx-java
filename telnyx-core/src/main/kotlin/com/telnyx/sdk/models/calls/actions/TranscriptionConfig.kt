@@ -54,7 +54,10 @@ private constructor(
      * values are `auto` (or unset) for automatic language detection, and the language codes `nl`,
      * `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language.
      * For `cohere/ar-stt`, supported values are `ar` and `en`; unlike other models, this model does
-     * not auto-detect and defaults to `ar` when `language` is omitted.
+     * not auto-detect and defaults to `ar` when `language` is omitted. For `speechmatics/linden-1`,
+     * there is no auto-detect; set a code from Speechmatics' Realtime language list (see
+     * `SpeechmaticsTranscriptionLanguage`); unset defaults to `en`, while an explicit `auto`,
+     * `auto_beta`, or `multi` is rejected (unlike `speechmatics/standard`, which defaults to `en`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -66,6 +69,9 @@ private constructor(
      * - `deepgram/flux` (or `flux`) for live streaming turn-taking.
      * - `deepgram/nova-3` and `deepgram/nova-2` for live streaming transcription.
      * - `speechmatics/standard` and `speechmatics/enhanced` for live streaming transcription.
+     * - `speechmatics/linden-1` (preview, vendor-hosted) for live streaming transcription; no
+     *   auto-detect, so set `language` from Speechmatics' Realtime language list (defaults to
+     *   `en`).
      * - `assemblyai/universal-3-5-pro` for live streaming transcription. The legacy alias
      *   `assemblyai/universal-streaming` is still accepted and resolves to the same model.
      * - `xai/grok-stt` for live streaming transcription.
@@ -156,7 +162,10 @@ private constructor(
          * and the language codes `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es`, and `sv` to
          * fix the transcription language. For `cohere/ar-stt`, supported values are `ar` and `en`;
          * unlike other models, this model does not auto-detect and defaults to `ar` when `language`
-         * is omitted.
+         * is omitted. For `speechmatics/linden-1`, there is no auto-detect; set a code from
+         * Speechmatics' Realtime language list (see `SpeechmaticsTranscriptionLanguage`); unset
+         * defaults to `en`, while an explicit `auto`, `auto_beta`, or `multi` is rejected (unlike
+         * `speechmatics/standard`, which defaults to `en`).
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -173,6 +182,9 @@ private constructor(
          * - `deepgram/flux` (or `flux`) for live streaming turn-taking.
          * - `deepgram/nova-3` and `deepgram/nova-2` for live streaming transcription.
          * - `speechmatics/standard` and `speechmatics/enhanced` for live streaming transcription.
+         * - `speechmatics/linden-1` (preview, vendor-hosted) for live streaming transcription; no
+         *   auto-detect, so set `language` from Speechmatics' Realtime language list (defaults to
+         *   `en`).
          * - `assemblyai/universal-3-5-pro` for live streaming transcription. The legacy alias
          *   `assemblyai/universal-streaming` is still accepted and resolves to the same model.
          * - `xai/grok-stt` for live streaming transcription.
@@ -274,6 +286,9 @@ private constructor(
      * - `deepgram/flux` (or `flux`) for live streaming turn-taking.
      * - `deepgram/nova-3` and `deepgram/nova-2` for live streaming transcription.
      * - `speechmatics/standard` and `speechmatics/enhanced` for live streaming transcription.
+     * - `speechmatics/linden-1` (preview, vendor-hosted) for live streaming transcription; no
+     *   auto-detect, so set `language` from Speechmatics' Realtime language list (defaults to
+     *   `en`).
      * - `assemblyai/universal-3-5-pro` for live streaming transcription. The legacy alias
      *   `assemblyai/universal-streaming` is still accepted and resolves to the same model.
      * - `xai/grok-stt` for live streaming transcription.
@@ -320,6 +335,8 @@ private constructor(
 
             @JvmField val SPEECHMATICS_ENHANCED = of("speechmatics/enhanced")
 
+            @JvmField val SPEECHMATICS_LINDEN_1 = of("speechmatics/linden-1")
+
             @JvmField val ASSEMBLYAI_UNIVERSAL_3_5_PRO = of("assemblyai/universal-3-5-pro")
 
             @JvmField val ASSEMBLYAI_UNIVERSAL_STREAMING = of("assemblyai/universal-streaming")
@@ -359,6 +376,7 @@ private constructor(
             DEEPGRAM_NOVA_2,
             SPEECHMATICS_STANDARD,
             SPEECHMATICS_ENHANCED,
+            SPEECHMATICS_LINDEN_1,
             ASSEMBLYAI_UNIVERSAL_3_5_PRO,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
@@ -391,6 +409,7 @@ private constructor(
             DEEPGRAM_NOVA_2,
             SPEECHMATICS_STANDARD,
             SPEECHMATICS_ENHANCED,
+            SPEECHMATICS_LINDEN_1,
             ASSEMBLYAI_UNIVERSAL_3_5_PRO,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
@@ -424,6 +443,7 @@ private constructor(
                 DEEPGRAM_NOVA_2 -> Value.DEEPGRAM_NOVA_2
                 SPEECHMATICS_STANDARD -> Value.SPEECHMATICS_STANDARD
                 SPEECHMATICS_ENHANCED -> Value.SPEECHMATICS_ENHANCED
+                SPEECHMATICS_LINDEN_1 -> Value.SPEECHMATICS_LINDEN_1
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Value.XAI_GROK_STT
@@ -458,6 +478,7 @@ private constructor(
                 DEEPGRAM_NOVA_2 -> Known.DEEPGRAM_NOVA_2
                 SPEECHMATICS_STANDARD -> Known.SPEECHMATICS_STANDARD
                 SPEECHMATICS_ENHANCED -> Known.SPEECHMATICS_ENHANCED
+                SPEECHMATICS_LINDEN_1 -> Known.SPEECHMATICS_LINDEN_1
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Known.XAI_GROK_STT

@@ -149,19 +149,26 @@ private constructor(
     class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val callerIdentity: JsonField<CallerIdentity>,
         private val callerName: JsonField<CallerName>,
         private val carrier: JsonField<Carrier>,
         private val countryCode: JsonField<String>,
+        private val enhancedCallerName: JsonField<EnhancedCallerName>,
         private val fraud: JsonField<String>,
         private val nationalFormat: JsonField<String>,
+        private val nnidOverride: JsonField<NnidOverride>,
         private val phoneNumber: JsonField<String>,
         private val portability: JsonField<Portability>,
         private val recordType: JsonField<String>,
+        private val validNumber: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
+            @JsonProperty("caller_identity")
+            @ExcludeMissing
+            callerIdentity: JsonField<CallerIdentity> = JsonMissing.of(),
             @JsonProperty("caller_name")
             @ExcludeMissing
             callerName: JsonField<CallerName> = JsonMissing.of(),
@@ -169,10 +176,16 @@ private constructor(
             @JsonProperty("country_code")
             @ExcludeMissing
             countryCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("enhanced_caller_name")
+            @ExcludeMissing
+            enhancedCallerName: JsonField<EnhancedCallerName> = JsonMissing.of(),
             @JsonProperty("fraud") @ExcludeMissing fraud: JsonField<String> = JsonMissing.of(),
             @JsonProperty("national_format")
             @ExcludeMissing
             nationalFormat: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("nnid_override")
+            @ExcludeMissing
+            nnidOverride: JsonField<NnidOverride> = JsonMissing.of(),
             @JsonProperty("phone_number")
             @ExcludeMissing
             phoneNumber: JsonField<String> = JsonMissing.of(),
@@ -182,17 +195,34 @@ private constructor(
             @JsonProperty("record_type")
             @ExcludeMissing
             recordType: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("valid_number")
+            @ExcludeMissing
+            validNumber: JsonField<Boolean> = JsonMissing.of(),
         ) : this(
+            callerIdentity,
             callerName,
             carrier,
             countryCode,
+            enhancedCallerName,
             fraud,
             nationalFormat,
+            nnidOverride,
             phoneNumber,
             portability,
             recordType,
+            validNumber,
             mutableMapOf(),
         )
+
+        /**
+         * Identity information for the phone number's owner, including name and postal address.
+         * Populated when `type=caller-identity` is requested.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun callerIdentity(): Optional<CallerIdentity> =
+            callerIdentity.getOptional("caller_identity")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -215,6 +245,16 @@ private constructor(
         fun countryCode(): Optional<String> = countryCode.getOptional("country_code")
 
         /**
+         * Enhanced caller name for the phone number's owner. Populated when
+         * `type=enhanced-caller-name` is requested.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun enhancedCallerName(): Optional<EnhancedCallerName> =
+            enhancedCallerName.getOptional("enhanced_caller_name")
+
+        /**
          * Unused
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -230,6 +270,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun nationalFormat(): Optional<String> = nationalFormat.getOptional("national_format")
+
+        /**
+         * Network number ID (NNID) override for the phone number, when one applies (available only
+         * to accounts enabled for NNID); otherwise null.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun nnidOverride(): Optional<NnidOverride> = nnidOverride.getOptional("nnid_override")
 
         /**
          * E164-formatted phone number
@@ -252,6 +301,24 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun recordType(): Optional<String> = recordType.getOptional("record_type")
+
+        /**
+         * Indicates whether the phone number is valid.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun validNumber(): Optional<Boolean> = validNumber.getOptional("valid_number")
+
+        /**
+         * Returns the raw JSON value of [callerIdentity].
+         *
+         * Unlike [callerIdentity], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("caller_identity")
+        @ExcludeMissing
+        fun _callerIdentity(): JsonField<CallerIdentity> = callerIdentity
 
         /**
          * Returns the raw JSON value of [callerName].
@@ -279,6 +346,16 @@ private constructor(
         fun _countryCode(): JsonField<String> = countryCode
 
         /**
+         * Returns the raw JSON value of [enhancedCallerName].
+         *
+         * Unlike [enhancedCallerName], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("enhanced_caller_name")
+        @ExcludeMissing
+        fun _enhancedCallerName(): JsonField<EnhancedCallerName> = enhancedCallerName
+
+        /**
          * Returns the raw JSON value of [fraud].
          *
          * Unlike [fraud], this method doesn't throw if the JSON field has an unexpected type.
@@ -294,6 +371,16 @@ private constructor(
         @JsonProperty("national_format")
         @ExcludeMissing
         fun _nationalFormat(): JsonField<String> = nationalFormat
+
+        /**
+         * Returns the raw JSON value of [nnidOverride].
+         *
+         * Unlike [nnidOverride], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("nnid_override")
+        @ExcludeMissing
+        fun _nnidOverride(): JsonField<NnidOverride> = nnidOverride
 
         /**
          * Returns the raw JSON value of [phoneNumber].
@@ -322,6 +409,15 @@ private constructor(
         @ExcludeMissing
         fun _recordType(): JsonField<String> = recordType
 
+        /**
+         * Returns the raw JSON value of [validNumber].
+         *
+         * Unlike [validNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("valid_number")
+        @ExcludeMissing
+        fun _validNumber(): JsonField<Boolean> = validNumber
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -343,27 +439,53 @@ private constructor(
         /** A builder for [Data]. */
         class Builder internal constructor() {
 
+            private var callerIdentity: JsonField<CallerIdentity> = JsonMissing.of()
             private var callerName: JsonField<CallerName> = JsonMissing.of()
             private var carrier: JsonField<Carrier> = JsonMissing.of()
             private var countryCode: JsonField<String> = JsonMissing.of()
+            private var enhancedCallerName: JsonField<EnhancedCallerName> = JsonMissing.of()
             private var fraud: JsonField<String> = JsonMissing.of()
             private var nationalFormat: JsonField<String> = JsonMissing.of()
+            private var nnidOverride: JsonField<NnidOverride> = JsonMissing.of()
             private var phoneNumber: JsonField<String> = JsonMissing.of()
             private var portability: JsonField<Portability> = JsonMissing.of()
             private var recordType: JsonField<String> = JsonMissing.of()
+            private var validNumber: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(data: Data) = apply {
+                callerIdentity = data.callerIdentity
                 callerName = data.callerName
                 carrier = data.carrier
                 countryCode = data.countryCode
+                enhancedCallerName = data.enhancedCallerName
                 fraud = data.fraud
                 nationalFormat = data.nationalFormat
+                nnidOverride = data.nnidOverride
                 phoneNumber = data.phoneNumber
                 portability = data.portability
                 recordType = data.recordType
+                validNumber = data.validNumber
                 additionalProperties = data.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Identity information for the phone number's owner, including name and postal address.
+             * Populated when `type=caller-identity` is requested.
+             */
+            fun callerIdentity(callerIdentity: CallerIdentity) =
+                callerIdentity(JsonField.of(callerIdentity))
+
+            /**
+             * Sets [Builder.callerIdentity] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.callerIdentity] with a well-typed [CallerIdentity]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun callerIdentity(callerIdentity: JsonField<CallerIdentity>) = apply {
+                this.callerIdentity = callerIdentity
             }
 
             fun callerName(callerName: CallerName) = callerName(JsonField.of(callerName))
@@ -404,6 +526,24 @@ private constructor(
                 this.countryCode = countryCode
             }
 
+            /**
+             * Enhanced caller name for the phone number's owner. Populated when
+             * `type=enhanced-caller-name` is requested.
+             */
+            fun enhancedCallerName(enhancedCallerName: EnhancedCallerName) =
+                enhancedCallerName(JsonField.of(enhancedCallerName))
+
+            /**
+             * Sets [Builder.enhancedCallerName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enhancedCallerName] with a well-typed
+             * [EnhancedCallerName] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun enhancedCallerName(enhancedCallerName: JsonField<EnhancedCallerName>) = apply {
+                this.enhancedCallerName = enhancedCallerName
+            }
+
             /** Unused */
             fun fraud(fraud: String?) = fraud(JsonField.ofNullable(fraud))
 
@@ -435,6 +575,28 @@ private constructor(
              */
             fun nationalFormat(nationalFormat: JsonField<String>) = apply {
                 this.nationalFormat = nationalFormat
+            }
+
+            /**
+             * Network number ID (NNID) override for the phone number, when one applies (available
+             * only to accounts enabled for NNID); otherwise null.
+             */
+            fun nnidOverride(nnidOverride: NnidOverride?) =
+                nnidOverride(JsonField.ofNullable(nnidOverride))
+
+            /** Alias for calling [Builder.nnidOverride] with `nnidOverride.orElse(null)`. */
+            fun nnidOverride(nnidOverride: Optional<NnidOverride>) =
+                nnidOverride(nnidOverride.getOrNull())
+
+            /**
+             * Sets [Builder.nnidOverride] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.nnidOverride] with a well-typed [NnidOverride] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun nnidOverride(nnidOverride: JsonField<NnidOverride>) = apply {
+                this.nnidOverride = nnidOverride
             }
 
             /** E164-formatted phone number */
@@ -476,6 +638,20 @@ private constructor(
              */
             fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
 
+            /** Indicates whether the phone number is valid. */
+            fun validNumber(validNumber: Boolean) = validNumber(JsonField.of(validNumber))
+
+            /**
+             * Sets [Builder.validNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.validNumber] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun validNumber(validNumber: JsonField<Boolean>) = apply {
+                this.validNumber = validNumber
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -502,14 +678,18 @@ private constructor(
              */
             fun build(): Data =
                 Data(
+                    callerIdentity,
                     callerName,
                     carrier,
                     countryCode,
+                    enhancedCallerName,
                     fraud,
                     nationalFormat,
+                    nnidOverride,
                     phoneNumber,
                     portability,
                     recordType,
+                    validNumber,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -530,14 +710,18 @@ private constructor(
                 return@apply
             }
 
+            callerIdentity().ifPresent { it.validate() }
             callerName().ifPresent { it.validate() }
             carrier().ifPresent { it.validate() }
             countryCode()
+            enhancedCallerName().ifPresent { it.validate() }
             fraud()
             nationalFormat()
+            nnidOverride().ifPresent { it.validate() }
             phoneNumber()
             portability().ifPresent { it.validate() }
             recordType()
+            validNumber()
             validated = true
         }
 
@@ -557,14 +741,797 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (callerName.asKnown().getOrNull()?.validity() ?: 0) +
+            (callerIdentity.asKnown().getOrNull()?.validity() ?: 0) +
+                (callerName.asKnown().getOrNull()?.validity() ?: 0) +
                 (carrier.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (countryCode.asKnown().isPresent) 1 else 0) +
+                (enhancedCallerName.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (fraud.asKnown().isPresent) 1 else 0) +
                 (if (nationalFormat.asKnown().isPresent) 1 else 0) +
+                (nnidOverride.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (phoneNumber.asKnown().isPresent) 1 else 0) +
                 (portability.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (recordType.asKnown().isPresent) 1 else 0)
+                (if (recordType.asKnown().isPresent) 1 else 0) +
+                (if (validNumber.asKnown().isPresent) 1 else 0)
+
+        /**
+         * Identity information for the phone number's owner, including name and postal address.
+         * Populated when `type=caller-identity` is requested.
+         */
+        class CallerIdentity
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val address: JsonField<Address>,
+            private val confidenceScore: JsonField<Double>,
+            private val errorCode: JsonField<String>,
+            private val name: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("address")
+                @ExcludeMissing
+                address: JsonField<Address> = JsonMissing.of(),
+                @JsonProperty("confidence_score")
+                @ExcludeMissing
+                confidenceScore: JsonField<Double> = JsonMissing.of(),
+                @JsonProperty("error_code")
+                @ExcludeMissing
+                errorCode: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            ) : this(address, confidenceScore, errorCode, name, mutableMapOf())
+
+            /**
+             * Postal address associated with the phone number's owner.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun address(): Optional<Address> = address.getOptional("address")
+
+            /**
+             * How strongly the phone number is linked to the returned name, on a scale of 50 to 90
+             * (higher means more supporting signals). Reflects signal strength, not probability: 70
+             * indicates stronger, more consistent evidence than 60, not a 70% chance of being
+             * correct. As a guide, 70+ is high confidence, 60 moderate, and 50 limited. Below 50 no
+             * name is returned, so scores under 50 are never present.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun confidenceScore(): Optional<Double> =
+                confidenceScore.getOptional("confidence_score")
+
+            /**
+             * A lookup-specific error code if the identity could not be resolved; otherwise null.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun errorCode(): Optional<String> = errorCode.getOptional("error_code")
+
+            /**
+             * The name associated with the phone number.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun name(): Optional<String> = name.getOptional("name")
+
+            /**
+             * Returns the raw JSON value of [address].
+             *
+             * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+            /**
+             * Returns the raw JSON value of [confidenceScore].
+             *
+             * Unlike [confidenceScore], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("confidence_score")
+            @ExcludeMissing
+            fun _confidenceScore(): JsonField<Double> = confidenceScore
+
+            /**
+             * Returns the raw JSON value of [errorCode].
+             *
+             * Unlike [errorCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("error_code")
+            @ExcludeMissing
+            fun _errorCode(): JsonField<String> = errorCode
+
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [CallerIdentity]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [CallerIdentity]. */
+            class Builder internal constructor() {
+
+                private var address: JsonField<Address> = JsonMissing.of()
+                private var confidenceScore: JsonField<Double> = JsonMissing.of()
+                private var errorCode: JsonField<String> = JsonMissing.of()
+                private var name: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(callerIdentity: CallerIdentity) = apply {
+                    address = callerIdentity.address
+                    confidenceScore = callerIdentity.confidenceScore
+                    errorCode = callerIdentity.errorCode
+                    name = callerIdentity.name
+                    additionalProperties = callerIdentity.additionalProperties.toMutableMap()
+                }
+
+                /** Postal address associated with the phone number's owner. */
+                fun address(address: Address) = address(JsonField.of(address))
+
+                /**
+                 * Sets [Builder.address] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.address] with a well-typed [Address] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun address(address: JsonField<Address>) = apply { this.address = address }
+
+                /**
+                 * How strongly the phone number is linked to the returned name, on a scale of 50 to
+                 * 90 (higher means more supporting signals). Reflects signal strength, not
+                 * probability: 70 indicates stronger, more consistent evidence than 60, not a 70%
+                 * chance of being correct. As a guide, 70+ is high confidence, 60 moderate, and 50
+                 * limited. Below 50 no name is returned, so scores under 50 are never present.
+                 */
+                fun confidenceScore(confidenceScore: Double?) =
+                    confidenceScore(JsonField.ofNullable(confidenceScore))
+
+                /**
+                 * Alias for [Builder.confidenceScore].
+                 *
+                 * This unboxed primitive overload exists for backwards compatibility.
+                 */
+                fun confidenceScore(confidenceScore: Double) =
+                    confidenceScore(confidenceScore as Double?)
+
+                /**
+                 * Alias for calling [Builder.confidenceScore] with `confidenceScore.orElse(null)`.
+                 */
+                fun confidenceScore(confidenceScore: Optional<Double>) =
+                    confidenceScore(confidenceScore.getOrNull())
+
+                /**
+                 * Sets [Builder.confidenceScore] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.confidenceScore] with a well-typed [Double]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun confidenceScore(confidenceScore: JsonField<Double>) = apply {
+                    this.confidenceScore = confidenceScore
+                }
+
+                /**
+                 * A lookup-specific error code if the identity could not be resolved; otherwise
+                 * null.
+                 */
+                fun errorCode(errorCode: String?) = errorCode(JsonField.ofNullable(errorCode))
+
+                /** Alias for calling [Builder.errorCode] with `errorCode.orElse(null)`. */
+                fun errorCode(errorCode: Optional<String>) = errorCode(errorCode.getOrNull())
+
+                /**
+                 * Sets [Builder.errorCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.errorCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun errorCode(errorCode: JsonField<String>) = apply { this.errorCode = errorCode }
+
+                /** The name associated with the phone number. */
+                fun name(name: String?) = name(JsonField.ofNullable(name))
+
+                /** Alias for calling [Builder.name] with `name.orElse(null)`. */
+                fun name(name: Optional<String>) = name(name.getOrNull())
+
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun name(name: JsonField<String>) = apply { this.name = name }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [CallerIdentity].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): CallerIdentity =
+                    CallerIdentity(
+                        address,
+                        confidenceScore,
+                        errorCode,
+                        name,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): CallerIdentity = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                address().ifPresent { it.validate() }
+                confidenceScore()
+                errorCode()
+                name()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (address.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (confidenceScore.asKnown().isPresent) 1 else 0) +
+                    (if (errorCode.asKnown().isPresent) 1 else 0) +
+                    (if (name.asKnown().isPresent) 1 else 0)
+
+            /** Postal address associated with the phone number's owner. */
+            class Address
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val city: JsonField<String>,
+                private val countryCode: JsonField<String>,
+                private val postalCode: JsonField<String>,
+                private val stateCode: JsonField<String>,
+                private val streetLine1: JsonField<String>,
+                private val streetLine2: JsonField<String>,
+                private val zip4: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("city")
+                    @ExcludeMissing
+                    city: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("country_code")
+                    @ExcludeMissing
+                    countryCode: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("postal_code")
+                    @ExcludeMissing
+                    postalCode: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("state_code")
+                    @ExcludeMissing
+                    stateCode: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("street_line_1")
+                    @ExcludeMissing
+                    streetLine1: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("street_line_2")
+                    @ExcludeMissing
+                    streetLine2: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("zip4") @ExcludeMissing zip4: JsonField<String> = JsonMissing.of(),
+                ) : this(
+                    city,
+                    countryCode,
+                    postalCode,
+                    stateCode,
+                    streetLine1,
+                    streetLine2,
+                    zip4,
+                    mutableMapOf(),
+                )
+
+                /**
+                 * City.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun city(): Optional<String> = city.getOptional("city")
+
+                /**
+                 * Two-letter ISO 3166-1 country code.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun countryCode(): Optional<String> = countryCode.getOptional("country_code")
+
+                /**
+                 * Postal or ZIP code.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun postalCode(): Optional<String> = postalCode.getOptional("postal_code")
+
+                /**
+                 * Two-letter state or province code.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun stateCode(): Optional<String> = stateCode.getOptional("state_code")
+
+                /**
+                 * First line of the street address.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun streetLine1(): Optional<String> = streetLine1.getOptional("street_line_1")
+
+                /**
+                 * Second line of the street address, if any.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun streetLine2(): Optional<String> = streetLine2.getOptional("street_line_2")
+
+                /**
+                 * ZIP+4 extension, if available.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun zip4(): Optional<String> = zip4.getOptional("zip4")
+
+                /**
+                 * Returns the raw JSON value of [city].
+                 *
+                 * Unlike [city], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+                /**
+                 * Returns the raw JSON value of [countryCode].
+                 *
+                 * Unlike [countryCode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("country_code")
+                @ExcludeMissing
+                fun _countryCode(): JsonField<String> = countryCode
+
+                /**
+                 * Returns the raw JSON value of [postalCode].
+                 *
+                 * Unlike [postalCode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                fun _postalCode(): JsonField<String> = postalCode
+
+                /**
+                 * Returns the raw JSON value of [stateCode].
+                 *
+                 * Unlike [stateCode], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("state_code")
+                @ExcludeMissing
+                fun _stateCode(): JsonField<String> = stateCode
+
+                /**
+                 * Returns the raw JSON value of [streetLine1].
+                 *
+                 * Unlike [streetLine1], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("street_line_1")
+                @ExcludeMissing
+                fun _streetLine1(): JsonField<String> = streetLine1
+
+                /**
+                 * Returns the raw JSON value of [streetLine2].
+                 *
+                 * Unlike [streetLine2], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("street_line_2")
+                @ExcludeMissing
+                fun _streetLine2(): JsonField<String> = streetLine2
+
+                /**
+                 * Returns the raw JSON value of [zip4].
+                 *
+                 * Unlike [zip4], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("zip4") @ExcludeMissing fun _zip4(): JsonField<String> = zip4
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Address]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Address]. */
+                class Builder internal constructor() {
+
+                    private var city: JsonField<String> = JsonMissing.of()
+                    private var countryCode: JsonField<String> = JsonMissing.of()
+                    private var postalCode: JsonField<String> = JsonMissing.of()
+                    private var stateCode: JsonField<String> = JsonMissing.of()
+                    private var streetLine1: JsonField<String> = JsonMissing.of()
+                    private var streetLine2: JsonField<String> = JsonMissing.of()
+                    private var zip4: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(address: Address) = apply {
+                        city = address.city
+                        countryCode = address.countryCode
+                        postalCode = address.postalCode
+                        stateCode = address.stateCode
+                        streetLine1 = address.streetLine1
+                        streetLine2 = address.streetLine2
+                        zip4 = address.zip4
+                        additionalProperties = address.additionalProperties.toMutableMap()
+                    }
+
+                    /** City. */
+                    fun city(city: String?) = city(JsonField.ofNullable(city))
+
+                    /** Alias for calling [Builder.city] with `city.orElse(null)`. */
+                    fun city(city: Optional<String>) = city(city.getOrNull())
+
+                    /**
+                     * Sets [Builder.city] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.city] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun city(city: JsonField<String>) = apply { this.city = city }
+
+                    /** Two-letter ISO 3166-1 country code. */
+                    fun countryCode(countryCode: String?) =
+                        countryCode(JsonField.ofNullable(countryCode))
+
+                    /** Alias for calling [Builder.countryCode] with `countryCode.orElse(null)`. */
+                    fun countryCode(countryCode: Optional<String>) =
+                        countryCode(countryCode.getOrNull())
+
+                    /**
+                     * Sets [Builder.countryCode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.countryCode] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun countryCode(countryCode: JsonField<String>) = apply {
+                        this.countryCode = countryCode
+                    }
+
+                    /** Postal or ZIP code. */
+                    fun postalCode(postalCode: String?) =
+                        postalCode(JsonField.ofNullable(postalCode))
+
+                    /** Alias for calling [Builder.postalCode] with `postalCode.orElse(null)`. */
+                    fun postalCode(postalCode: Optional<String>) =
+                        postalCode(postalCode.getOrNull())
+
+                    /**
+                     * Sets [Builder.postalCode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.postalCode] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun postalCode(postalCode: JsonField<String>) = apply {
+                        this.postalCode = postalCode
+                    }
+
+                    /** Two-letter state or province code. */
+                    fun stateCode(stateCode: String?) = stateCode(JsonField.ofNullable(stateCode))
+
+                    /** Alias for calling [Builder.stateCode] with `stateCode.orElse(null)`. */
+                    fun stateCode(stateCode: Optional<String>) = stateCode(stateCode.getOrNull())
+
+                    /**
+                     * Sets [Builder.stateCode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.stateCode] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun stateCode(stateCode: JsonField<String>) = apply {
+                        this.stateCode = stateCode
+                    }
+
+                    /** First line of the street address. */
+                    fun streetLine1(streetLine1: String?) =
+                        streetLine1(JsonField.ofNullable(streetLine1))
+
+                    /** Alias for calling [Builder.streetLine1] with `streetLine1.orElse(null)`. */
+                    fun streetLine1(streetLine1: Optional<String>) =
+                        streetLine1(streetLine1.getOrNull())
+
+                    /**
+                     * Sets [Builder.streetLine1] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.streetLine1] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun streetLine1(streetLine1: JsonField<String>) = apply {
+                        this.streetLine1 = streetLine1
+                    }
+
+                    /** Second line of the street address, if any. */
+                    fun streetLine2(streetLine2: String?) =
+                        streetLine2(JsonField.ofNullable(streetLine2))
+
+                    /** Alias for calling [Builder.streetLine2] with `streetLine2.orElse(null)`. */
+                    fun streetLine2(streetLine2: Optional<String>) =
+                        streetLine2(streetLine2.getOrNull())
+
+                    /**
+                     * Sets [Builder.streetLine2] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.streetLine2] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun streetLine2(streetLine2: JsonField<String>) = apply {
+                        this.streetLine2 = streetLine2
+                    }
+
+                    /** ZIP+4 extension, if available. */
+                    fun zip4(zip4: String?) = zip4(JsonField.ofNullable(zip4))
+
+                    /** Alias for calling [Builder.zip4] with `zip4.orElse(null)`. */
+                    fun zip4(zip4: Optional<String>) = zip4(zip4.getOrNull())
+
+                    /**
+                     * Sets [Builder.zip4] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.zip4] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun zip4(zip4: JsonField<String>) = apply { this.zip4 = zip4 }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Address].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Address =
+                        Address(
+                            city,
+                            countryCode,
+                            postalCode,
+                            stateCode,
+                            streetLine1,
+                            streetLine2,
+                            zip4,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Address = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    city()
+                    countryCode()
+                    postalCode()
+                    stateCode()
+                    streetLine1()
+                    streetLine2()
+                    zip4()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (city.asKnown().isPresent) 1 else 0) +
+                        (if (countryCode.asKnown().isPresent) 1 else 0) +
+                        (if (postalCode.asKnown().isPresent) 1 else 0) +
+                        (if (stateCode.asKnown().isPresent) 1 else 0) +
+                        (if (streetLine1.asKnown().isPresent) 1 else 0) +
+                        (if (streetLine2.asKnown().isPresent) 1 else 0) +
+                        (if (zip4.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Address &&
+                        city == other.city &&
+                        countryCode == other.countryCode &&
+                        postalCode == other.postalCode &&
+                        stateCode == other.stateCode &&
+                        streetLine1 == other.streetLine1 &&
+                        streetLine2 == other.streetLine2 &&
+                        zip4 == other.zip4 &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        city,
+                        countryCode,
+                        postalCode,
+                        stateCode,
+                        streetLine1,
+                        streetLine2,
+                        zip4,
+                        additionalProperties,
+                    )
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Address{city=$city, countryCode=$countryCode, postalCode=$postalCode, stateCode=$stateCode, streetLine1=$streetLine1, streetLine2=$streetLine2, zip4=$zip4, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is CallerIdentity &&
+                    address == other.address &&
+                    confidenceScore == other.confidenceScore &&
+                    errorCode == other.errorCode &&
+                    name == other.name &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(address, confidenceScore, errorCode, name, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "CallerIdentity{address=$address, confidenceScore=$confidenceScore, errorCode=$errorCode, name=$name, additionalProperties=$additionalProperties}"
+        }
 
         class CallerName
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -1382,6 +2349,458 @@ private constructor(
                 "Carrier{errorCode=$errorCode, mobileCountryCode=$mobileCountryCode, mobileNetworkCode=$mobileNetworkCode, name=$name, normalizedCarrier=$normalizedCarrier, type=$type, additionalProperties=$additionalProperties}"
         }
 
+        /**
+         * Enhanced caller name for the phone number's owner. Populated when
+         * `type=enhanced-caller-name` is requested.
+         */
+        class EnhancedCallerName
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val callerName: JsonField<String>,
+            private val errorCode: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("caller_name")
+                @ExcludeMissing
+                callerName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("error_code")
+                @ExcludeMissing
+                errorCode: JsonField<String> = JsonMissing.of(),
+            ) : this(callerName, errorCode, mutableMapOf())
+
+            /**
+             * The name associated with the phone number.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun callerName(): Optional<String> = callerName.getOptional("caller_name")
+
+            /**
+             * A lookup-specific error code if the enhanced caller name could not be resolved;
+             * otherwise null.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun errorCode(): Optional<String> = errorCode.getOptional("error_code")
+
+            /**
+             * Returns the raw JSON value of [callerName].
+             *
+             * Unlike [callerName], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("caller_name")
+            @ExcludeMissing
+            fun _callerName(): JsonField<String> = callerName
+
+            /**
+             * Returns the raw JSON value of [errorCode].
+             *
+             * Unlike [errorCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("error_code")
+            @ExcludeMissing
+            fun _errorCode(): JsonField<String> = errorCode
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [EnhancedCallerName].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [EnhancedCallerName]. */
+            class Builder internal constructor() {
+
+                private var callerName: JsonField<String> = JsonMissing.of()
+                private var errorCode: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(enhancedCallerName: EnhancedCallerName) = apply {
+                    callerName = enhancedCallerName.callerName
+                    errorCode = enhancedCallerName.errorCode
+                    additionalProperties = enhancedCallerName.additionalProperties.toMutableMap()
+                }
+
+                /** The name associated with the phone number. */
+                fun callerName(callerName: String?) = callerName(JsonField.ofNullable(callerName))
+
+                /** Alias for calling [Builder.callerName] with `callerName.orElse(null)`. */
+                fun callerName(callerName: Optional<String>) = callerName(callerName.getOrNull())
+
+                /**
+                 * Sets [Builder.callerName] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.callerName] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun callerName(callerName: JsonField<String>) = apply {
+                    this.callerName = callerName
+                }
+
+                /**
+                 * A lookup-specific error code if the enhanced caller name could not be resolved;
+                 * otherwise null.
+                 */
+                fun errorCode(errorCode: String?) = errorCode(JsonField.ofNullable(errorCode))
+
+                /** Alias for calling [Builder.errorCode] with `errorCode.orElse(null)`. */
+                fun errorCode(errorCode: Optional<String>) = errorCode(errorCode.getOrNull())
+
+                /**
+                 * Sets [Builder.errorCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.errorCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun errorCode(errorCode: JsonField<String>) = apply { this.errorCode = errorCode }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [EnhancedCallerName].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): EnhancedCallerName =
+                    EnhancedCallerName(callerName, errorCode, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): EnhancedCallerName = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                callerName()
+                errorCode()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (callerName.asKnown().isPresent) 1 else 0) +
+                    (if (errorCode.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is EnhancedCallerName &&
+                    callerName == other.callerName &&
+                    errorCode == other.errorCode &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(callerName, errorCode, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "EnhancedCallerName{callerName=$callerName, errorCode=$errorCode, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * Network number ID (NNID) override for the phone number, when one applies (available only
+         * to accounts enabled for NNID); otherwise null.
+         */
+        class NnidOverride
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val name: JsonField<String>,
+            private val nnid: JsonField<String>,
+            private val type: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("nnid") @ExcludeMissing nnid: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
+            ) : this(name, nnid, type, mutableMapOf())
+
+            /**
+             * Name associated with the NNID.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun name(): Optional<String> = name.getOptional("name")
+
+            /**
+             * The network number ID.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun nnid(): Optional<String> = nnid.getOptional("nnid")
+
+            /**
+             * The NNID type.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun type(): Optional<String> = type.getOptional("type")
+
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            /**
+             * Returns the raw JSON value of [nnid].
+             *
+             * Unlike [nnid], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("nnid") @ExcludeMissing fun _nnid(): JsonField<String> = nnid
+
+            /**
+             * Returns the raw JSON value of [type].
+             *
+             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [NnidOverride]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [NnidOverride]. */
+            class Builder internal constructor() {
+
+                private var name: JsonField<String> = JsonMissing.of()
+                private var nnid: JsonField<String> = JsonMissing.of()
+                private var type: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(nnidOverride: NnidOverride) = apply {
+                    name = nnidOverride.name
+                    nnid = nnidOverride.nnid
+                    type = nnidOverride.type
+                    additionalProperties = nnidOverride.additionalProperties.toMutableMap()
+                }
+
+                /** Name associated with the NNID. */
+                fun name(name: String) = name(JsonField.of(name))
+
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun name(name: JsonField<String>) = apply { this.name = name }
+
+                /** The network number ID. */
+                fun nnid(nnid: String) = nnid(JsonField.of(nnid))
+
+                /**
+                 * Sets [Builder.nnid] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.nnid] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun nnid(nnid: JsonField<String>) = apply { this.nnid = nnid }
+
+                /** The NNID type. */
+                fun type(type: String) = type(JsonField.of(type))
+
+                /**
+                 * Sets [Builder.type] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.type] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun type(type: JsonField<String>) = apply { this.type = type }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [NnidOverride].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): NnidOverride =
+                    NnidOverride(name, nnid, type, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): NnidOverride = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                name()
+                nnid()
+                type()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (name.asKnown().isPresent) 1 else 0) +
+                    (if (nnid.asKnown().isPresent) 1 else 0) +
+                    (if (type.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is NnidOverride &&
+                    name == other.name &&
+                    nnid == other.nnid &&
+                    type == other.type &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(name, nnid, type, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "NnidOverride{name=$name, nnid=$nnid, type=$type, additionalProperties=$additionalProperties}"
+        }
+
         class Portability
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
@@ -1389,7 +2808,7 @@ private constructor(
             private val altspidCarrierName: JsonField<String>,
             private val altspidCarrierType: JsonField<String>,
             private val city: JsonField<String>,
-            private val lineType: JsonField<String>,
+            private val lineType: JsonField<LineType>,
             private val lrn: JsonField<String>,
             private val ocn: JsonField<String>,
             private val portedDate: JsonField<String>,
@@ -1415,7 +2834,7 @@ private constructor(
                 @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("line_type")
                 @ExcludeMissing
-                lineType: JsonField<String> = JsonMissing.of(),
+                lineType: JsonField<LineType> = JsonMissing.of(),
                 @JsonProperty("lrn") @ExcludeMissing lrn: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("ocn") @ExcludeMissing ocn: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("ported_date")
@@ -1486,12 +2905,13 @@ private constructor(
             fun city(): Optional<String> = city.getOptional("city")
 
             /**
-             * Type of number
+             * The line type of the phone number. Uses the same value set as carrier.type; see the
+             * API reference for the full list.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun lineType(): Optional<String> = lineType.getOptional("line_type")
+            fun lineType(): Optional<LineType> = lineType.getOptional("line_type")
 
             /**
              * Local Routing Number, if assigned to the requested phone number
@@ -1597,7 +3017,9 @@ private constructor(
              * Unlike [lineType], this method doesn't throw if the JSON field has an unexpected
              * type.
              */
-            @JsonProperty("line_type") @ExcludeMissing fun _lineType(): JsonField<String> = lineType
+            @JsonProperty("line_type")
+            @ExcludeMissing
+            fun _lineType(): JsonField<LineType> = lineType
 
             /**
              * Returns the raw JSON value of [lrn].
@@ -1692,7 +3114,7 @@ private constructor(
                 private var altspidCarrierName: JsonField<String> = JsonMissing.of()
                 private var altspidCarrierType: JsonField<String> = JsonMissing.of()
                 private var city: JsonField<String> = JsonMissing.of()
-                private var lineType: JsonField<String> = JsonMissing.of()
+                private var lineType: JsonField<LineType> = JsonMissing.of()
                 private var lrn: JsonField<String> = JsonMissing.of()
                 private var ocn: JsonField<String> = JsonMissing.of()
                 private var portedDate: JsonField<String> = JsonMissing.of()
@@ -1781,17 +3203,20 @@ private constructor(
                  */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
-                /** Type of number */
-                fun lineType(lineType: String) = lineType(JsonField.of(lineType))
+                /**
+                 * The line type of the phone number. Uses the same value set as carrier.type; see
+                 * the API reference for the full list.
+                 */
+                fun lineType(lineType: LineType) = lineType(JsonField.of(lineType))
 
                 /**
                  * Sets [Builder.lineType] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.lineType] with a well-typed [String] value
+                 * You should usually call [Builder.lineType] with a well-typed [LineType] value
                  * instead. This method is primarily for setting the field to an undocumented or not
                  * yet supported value.
                  */
-                fun lineType(lineType: JsonField<String>) = apply { this.lineType = lineType }
+                fun lineType(lineType: JsonField<LineType>) = apply { this.lineType = lineType }
 
                 /** Local Routing Number, if assigned to the requested phone number */
                 fun lrn(lrn: String) = lrn(JsonField.of(lrn))
@@ -1969,7 +3394,7 @@ private constructor(
                 altspidCarrierName()
                 altspidCarrierType()
                 city()
-                lineType()
+                lineType().ifPresent { it.validate() }
                 lrn()
                 ocn()
                 portedDate()
@@ -2001,7 +3426,7 @@ private constructor(
                     (if (altspidCarrierName.asKnown().isPresent) 1 else 0) +
                     (if (altspidCarrierType.asKnown().isPresent) 1 else 0) +
                     (if (city.asKnown().isPresent) 1 else 0) +
-                    (if (lineType.asKnown().isPresent) 1 else 0) +
+                    (lineType.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (lrn.asKnown().isPresent) 1 else 0) +
                     (if (ocn.asKnown().isPresent) 1 else 0) +
                     (if (portedDate.asKnown().isPresent) 1 else 0) +
@@ -2010,6 +3435,211 @@ private constructor(
                     (if (spidCarrierName.asKnown().isPresent) 1 else 0) +
                     (if (spidCarrierType.asKnown().isPresent) 1 else 0) +
                     (if (state.asKnown().isPresent) 1 else 0)
+
+            /**
+             * The line type of the phone number. Uses the same value set as carrier.type; see the
+             * API reference for the full list.
+             */
+            class LineType @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val FIXED_LINE = of("fixed line")
+
+                    @JvmField val MOBILE = of("mobile")
+
+                    @JvmField val VOIP = of("voip")
+
+                    @JvmField val FIXED_LINE_OR_MOBILE = of("fixed line or mobile")
+
+                    @JvmField val TOLL_FREE = of("toll free")
+
+                    @JvmField val PREMIUM_RATE = of("premium rate")
+
+                    @JvmField val SHARED_COST = of("shared cost")
+
+                    @JvmField val PERSONAL_NUMBER = of("personal number")
+
+                    @JvmField val PAGER = of("pager")
+
+                    @JvmField val UAN = of("uan")
+
+                    @JvmField val VOICEMAIL = of("voicemail")
+
+                    @JvmField val UNKNOWN = of("unknown")
+
+                    @JvmStatic fun of(value: String) = LineType(JsonField.of(value))
+                }
+
+                /** An enum containing [LineType]'s known values. */
+                enum class Known {
+                    FIXED_LINE,
+                    MOBILE,
+                    VOIP,
+                    FIXED_LINE_OR_MOBILE,
+                    TOLL_FREE,
+                    PREMIUM_RATE,
+                    SHARED_COST,
+                    PERSONAL_NUMBER,
+                    PAGER,
+                    UAN,
+                    VOICEMAIL,
+                    UNKNOWN,
+                }
+
+                /**
+                 * An enum containing [LineType]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [LineType] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    FIXED_LINE,
+                    MOBILE,
+                    VOIP,
+                    FIXED_LINE_OR_MOBILE,
+                    TOLL_FREE,
+                    PREMIUM_RATE,
+                    SHARED_COST,
+                    PERSONAL_NUMBER,
+                    PAGER,
+                    UAN,
+                    VOICEMAIL,
+                    UNKNOWN,
+                    /**
+                     * An enum member indicating that [LineType] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        FIXED_LINE -> Value.FIXED_LINE
+                        MOBILE -> Value.MOBILE
+                        VOIP -> Value.VOIP
+                        FIXED_LINE_OR_MOBILE -> Value.FIXED_LINE_OR_MOBILE
+                        TOLL_FREE -> Value.TOLL_FREE
+                        PREMIUM_RATE -> Value.PREMIUM_RATE
+                        SHARED_COST -> Value.SHARED_COST
+                        PERSONAL_NUMBER -> Value.PERSONAL_NUMBER
+                        PAGER -> Value.PAGER
+                        UAN -> Value.UAN
+                        VOICEMAIL -> Value.VOICEMAIL
+                        UNKNOWN -> Value.UNKNOWN
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        FIXED_LINE -> Known.FIXED_LINE
+                        MOBILE -> Known.MOBILE
+                        VOIP -> Known.VOIP
+                        FIXED_LINE_OR_MOBILE -> Known.FIXED_LINE_OR_MOBILE
+                        TOLL_FREE -> Known.TOLL_FREE
+                        PREMIUM_RATE -> Known.PREMIUM_RATE
+                        SHARED_COST -> Known.SHARED_COST
+                        PERSONAL_NUMBER -> Known.PERSONAL_NUMBER
+                        PAGER -> Known.PAGER
+                        UAN -> Known.UAN
+                        VOICEMAIL -> Known.VOICEMAIL
+                        UNKNOWN -> Known.UNKNOWN
+                        else -> throw TelnyxInvalidDataException("Unknown LineType: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): LineType = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is LineType && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
 
             /** Indicates whether or not the requested phone number has been ported */
             class PortedStatus
@@ -2214,27 +3844,35 @@ private constructor(
             }
 
             return other is Data &&
+                callerIdentity == other.callerIdentity &&
                 callerName == other.callerName &&
                 carrier == other.carrier &&
                 countryCode == other.countryCode &&
+                enhancedCallerName == other.enhancedCallerName &&
                 fraud == other.fraud &&
                 nationalFormat == other.nationalFormat &&
+                nnidOverride == other.nnidOverride &&
                 phoneNumber == other.phoneNumber &&
                 portability == other.portability &&
                 recordType == other.recordType &&
+                validNumber == other.validNumber &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                callerIdentity,
                 callerName,
                 carrier,
                 countryCode,
+                enhancedCallerName,
                 fraud,
                 nationalFormat,
+                nnidOverride,
                 phoneNumber,
                 portability,
                 recordType,
+                validNumber,
                 additionalProperties,
             )
         }
@@ -2242,7 +3880,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{callerName=$callerName, carrier=$carrier, countryCode=$countryCode, fraud=$fraud, nationalFormat=$nationalFormat, phoneNumber=$phoneNumber, portability=$portability, recordType=$recordType, additionalProperties=$additionalProperties}"
+            "Data{callerIdentity=$callerIdentity, callerName=$callerName, carrier=$carrier, countryCode=$countryCode, enhancedCallerName=$enhancedCallerName, fraud=$fraud, nationalFormat=$nationalFormat, nnidOverride=$nnidOverride, phoneNumber=$phoneNumber, portability=$portability, recordType=$recordType, validNumber=$validNumber, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

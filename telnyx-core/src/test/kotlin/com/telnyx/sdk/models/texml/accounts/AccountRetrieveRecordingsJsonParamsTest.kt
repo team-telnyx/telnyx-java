@@ -13,7 +13,7 @@ internal class AccountRetrieveRecordingsJsonParamsTest {
     @Test
     fun create() {
         AccountRetrieveRecordingsJsonParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .dateCreated(OffsetDateTime.parse("2023-05-22T00:00:00Z"))
             .page(0L)
             .pageSize(0L)
@@ -22,9 +22,12 @@ internal class AccountRetrieveRecordingsJsonParamsTest {
 
     @Test
     fun pathParams() {
-        val params = AccountRetrieveRecordingsJsonParams.builder().accountSid("account_sid").build()
+        val params =
+            AccountRetrieveRecordingsJsonParams.builder()
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -33,7 +36,7 @@ internal class AccountRetrieveRecordingsJsonParamsTest {
     fun queryParams() {
         val params =
             AccountRetrieveRecordingsJsonParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .dateCreated(OffsetDateTime.parse("2023-05-22T00:00:00Z"))
                 .page(0L)
                 .pageSize(0L)
@@ -58,7 +61,10 @@ internal class AccountRetrieveRecordingsJsonParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = AccountRetrieveRecordingsJsonParams.builder().accountSid("account_sid").build()
+        val params =
+            AccountRetrieveRecordingsJsonParams.builder()
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                .build()
 
         val queryParams = params._queryParams()
 

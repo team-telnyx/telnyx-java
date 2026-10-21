@@ -6,6 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.compute.funcs.FuncListPage
+import com.telnyx.sdk.models.compute.funcs.FuncListParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveLogsParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveLogsResponse
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveMetricAggregatesParams
@@ -17,6 +19,7 @@ import com.telnyx.sdk.models.compute.funcs.FuncRetrieveShipInspectionResponse
 import com.telnyx.sdk.services.blocking.compute.funcs.ExportService
 import java.util.function.Consumer
 
+/** Manage Edge Compute functions */
 interface FuncService {
 
     /**
@@ -31,7 +34,29 @@ interface FuncService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncService
 
+    /** Manage Edge Compute functions */
     fun export(): ExportService
+
+    /**
+     * List functions for the authenticated organization. Each function includes its persisted
+     * function-scoped bindings. Actor bindings expose actor_type and env_name, allowing clients to
+     * identify every function attached to a Stateful Actor type.
+     */
+    fun list(): FuncListPage = list(FuncListParams.none())
+
+    /** @see list */
+    fun list(
+        params: FuncListParams = FuncListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): FuncListPage
+
+    /** @see list */
+    fun list(params: FuncListParams = FuncListParams.none()): FuncListPage =
+        list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(requestOptions: RequestOptions): FuncListPage =
+        list(FuncListParams.none(), requestOptions)
 
     /**
      * Returns logs oldest first. `type=runtime` (default) returns function stdout/stderr.
@@ -187,7 +212,31 @@ interface FuncService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncService.WithRawResponse
 
+        /** Manage Edge Compute functions */
         fun export(): ExportService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /compute/funcs`, but is otherwise the same as
+         * [FuncService.list].
+         */
+        @MustBeClosed fun list(): HttpResponseFor<FuncListPage> = list(FuncListParams.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: FuncListParams = FuncListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<FuncListPage>
+
+        /** @see list */
+        @MustBeClosed
+        fun list(params: FuncListParams = FuncListParams.none()): HttpResponseFor<FuncListPage> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(requestOptions: RequestOptions): HttpResponseFor<FuncListPage> =
+            list(FuncListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /compute/funcs/{id}/logs`, but is otherwise the same

@@ -108,7 +108,12 @@ private constructor(
      * `reson8/turns`, supported values are `auto` (or unset) for automatic language detection, and
      * the language codes `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the
      * transcription language. For `cohere/ar-stt`, supported values are `ar` and `en`; unlike other
-     * models, this model does not auto-detect and defaults to `ar` when `language` is omitted.
+     * models, this model does not auto-detect and defaults to `ar` when `language` is omitted. For
+     * `speechmatics/linden-1`, there is no auto-detect; set a code from Speechmatics' Realtime
+     * language list (67 language codes, including `es-bilingual-en` for Spanish and English
+     * bilingual, and the spelling and script variants `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and
+     * `cmn-Hant`; `en` alone uses the default spelling); unset defaults to `en`, while an explicit
+     * `auto`, `auto_beta`, or `multi` is rejected with a 400.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -121,6 +126,10 @@ private constructor(
      * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
      * - `deepgram/nova-3` is multilingual with automatic language detection.
      * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
+     * - `speechmatics/standard` is a Speechmatics model self-hosted by Telnyx; it supports a fixed
+     *   set of language packs (including bilingual packs such as `ar_en`) and defaults to `en`.
+     * - `speechmatics/linden-1` (preview) is a vendor-hosted streaming model with no auto-detect;
+     *   set `language` from Speechmatics' Realtime language list (defaults to `en`).
      * - `azure/fast` is a multilingual Azure transcription model.
      * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with configurable turn
      *   detection. The legacy alias `assemblyai/universal-streaming` is still accepted and resolves
@@ -344,7 +353,12 @@ private constructor(
          * unset) for automatic language detection, and the language codes `nl`, `en`, `fr`, `fy`,
          * `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language. For
          * `cohere/ar-stt`, supported values are `ar` and `en`; unlike other models, this model does
-         * not auto-detect and defaults to `ar` when `language` is omitted.
+         * not auto-detect and defaults to `ar` when `language` is omitted. For
+         * `speechmatics/linden-1`, there is no auto-detect; set a code from Speechmatics' Realtime
+         * language list (67 language codes, including `es-bilingual-en` for Spanish and English
+         * bilingual, and the spelling and script variants `en-US`, `en-GB`, `en-AU`, `cmn-Hans`,
+         * and `cmn-Hant`; `en` alone uses the default spelling); unset defaults to `en`, while an
+         * explicit `auto`, `auto_beta`, or `multi` is rejected with a 400.
          */
         fun language(language: String) = language(JsonField.of(language))
 
@@ -362,6 +376,12 @@ private constructor(
          * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
          * - `deepgram/nova-3` is multilingual with automatic language detection.
          * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
+         * - `speechmatics/standard` is a Speechmatics model self-hosted by Telnyx; it supports a
+         *   fixed set of language packs (including bilingual packs such as `ar_en`) and defaults to
+         *   `en`.
+         * - `speechmatics/linden-1` (preview) is a vendor-hosted streaming model with no
+         *   auto-detect; set `language` from Speechmatics' Realtime language list (defaults to
+         *   `en`).
          * - `azure/fast` is a multilingual Azure transcription model.
          * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with configurable turn
          *   detection. The legacy alias `assemblyai/universal-streaming` is still accepted and
@@ -1750,6 +1770,10 @@ private constructor(
      * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
      * - `deepgram/nova-3` is multilingual with automatic language detection.
      * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
+     * - `speechmatics/standard` is a Speechmatics model self-hosted by Telnyx; it supports a fixed
+     *   set of language packs (including bilingual packs such as `ar_en`) and defaults to `en`.
+     * - `speechmatics/linden-1` (preview) is a vendor-hosted streaming model with no auto-detect;
+     *   set `language` from Speechmatics' Realtime language list (defaults to `en`).
      * - `azure/fast` is a multilingual Azure transcription model.
      * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with configurable turn
      *   detection. The legacy alias `assemblyai/universal-streaming` is still accepted and resolves
@@ -1789,6 +1813,10 @@ private constructor(
 
             @JvmField val DEEPGRAM_NOVA_2 = of("deepgram/nova-2")
 
+            @JvmField val SPEECHMATICS_STANDARD = of("speechmatics/standard")
+
+            @JvmField val SPEECHMATICS_LINDEN_1 = of("speechmatics/linden-1")
+
             @JvmField val AZURE_FAST = of("azure/fast")
 
             @JvmField val ASSEMBLYAI_UNIVERSAL_3_5_PRO = of("assemblyai/universal-3-5-pro")
@@ -1825,6 +1853,8 @@ private constructor(
             DEEPGRAM_FLUX,
             DEEPGRAM_NOVA_3,
             DEEPGRAM_NOVA_2,
+            SPEECHMATICS_STANDARD,
+            SPEECHMATICS_LINDEN_1,
             AZURE_FAST,
             ASSEMBLYAI_UNIVERSAL_3_5_PRO,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
@@ -1854,6 +1884,8 @@ private constructor(
             DEEPGRAM_FLUX,
             DEEPGRAM_NOVA_3,
             DEEPGRAM_NOVA_2,
+            SPEECHMATICS_STANDARD,
+            SPEECHMATICS_LINDEN_1,
             AZURE_FAST,
             ASSEMBLYAI_UNIVERSAL_3_5_PRO,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
@@ -1884,6 +1916,8 @@ private constructor(
                 DEEPGRAM_FLUX -> Value.DEEPGRAM_FLUX
                 DEEPGRAM_NOVA_3 -> Value.DEEPGRAM_NOVA_3
                 DEEPGRAM_NOVA_2 -> Value.DEEPGRAM_NOVA_2
+                SPEECHMATICS_STANDARD -> Value.SPEECHMATICS_STANDARD
+                SPEECHMATICS_LINDEN_1 -> Value.SPEECHMATICS_LINDEN_1
                 AZURE_FAST -> Value.AZURE_FAST
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
@@ -1915,6 +1949,8 @@ private constructor(
                 DEEPGRAM_FLUX -> Known.DEEPGRAM_FLUX
                 DEEPGRAM_NOVA_3 -> Known.DEEPGRAM_NOVA_3
                 DEEPGRAM_NOVA_2 -> Known.DEEPGRAM_NOVA_2
+                SPEECHMATICS_STANDARD -> Known.SPEECHMATICS_STANDARD
+                SPEECHMATICS_LINDEN_1 -> Known.SPEECHMATICS_LINDEN_1
                 AZURE_FAST -> Known.AZURE_FAST
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING

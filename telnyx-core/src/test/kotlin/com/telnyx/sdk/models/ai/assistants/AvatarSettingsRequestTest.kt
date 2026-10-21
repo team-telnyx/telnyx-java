@@ -13,12 +13,12 @@ internal class AvatarSettingsRequestTest {
     fun create() {
         val avatarSettingsRequest =
             AvatarSettingsRequest.builder()
-                .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                .avatarId("elena")
                 .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                 .model(AvatarSettingsRequest.Model.FOXTROT_1)
                 .build()
 
-        assertThat(avatarSettingsRequest.avatarId()).isEqualTo(AvatarSettingsRequest.AvatarId.ELENA)
+        assertThat(avatarSettingsRequest.avatarId()).isEqualTo("elena")
         assertThat(avatarSettingsRequest.backgroundId())
             .isEqualTo(AvatarSettingsRequest.BackgroundId.OFFICE)
         assertThat(avatarSettingsRequest.model()).isEqualTo(AvatarSettingsRequest.Model.FOXTROT_1)
@@ -29,7 +29,7 @@ internal class AvatarSettingsRequestTest {
         val jsonMapper = jsonMapper()
         val avatarSettingsRequest =
             AvatarSettingsRequest.builder()
-                .avatarId(AvatarSettingsRequest.AvatarId.ELENA)
+                .avatarId("elena")
                 .backgroundId(AvatarSettingsRequest.BackgroundId.OFFICE)
                 .model(AvatarSettingsRequest.Model.FOXTROT_1)
                 .build()

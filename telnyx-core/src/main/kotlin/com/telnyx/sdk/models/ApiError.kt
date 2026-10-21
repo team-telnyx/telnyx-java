@@ -24,6 +24,7 @@ private constructor(
     private val code: JsonField<String>,
     private val title: JsonField<String>,
     private val description: JsonField<String>,
+    private val detail: JsonField<String>,
     private val meta: JsonField<Meta>,
     private val source: JsonField<Source>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -36,9 +37,10 @@ private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("detail") @ExcludeMissing detail: JsonField<String> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
         @JsonProperty("source") @ExcludeMissing source: JsonField<Source> = JsonMissing.of(),
-    ) : this(code, title, description, meta, source, mutableMapOf())
+    ) : this(code, title, description, detail, meta, source, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -57,6 +59,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun description(): Optional<String> = description.getOptional("description")
+
+    /**
+     * A human-readable explanation of the error.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun detail(): Optional<String> = detail.getOptional("detail")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -90,6 +100,13 @@ private constructor(
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
+
+    /**
+     * Returns the raw JSON value of [detail].
+     *
+     * Unlike [detail], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("detail") @ExcludeMissing fun _detail(): JsonField<String> = detail
 
     /**
      * Returns the raw JSON value of [meta].
@@ -137,6 +154,7 @@ private constructor(
         private var code: JsonField<String>? = null
         private var title: JsonField<String>? = null
         private var description: JsonField<String> = JsonMissing.of()
+        private var detail: JsonField<String> = JsonMissing.of()
         private var meta: JsonField<Meta> = JsonMissing.of()
         private var source: JsonField<Source> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -146,6 +164,7 @@ private constructor(
             code = apiError.code
             title = apiError.title
             description = apiError.description
+            detail = apiError.detail
             meta = apiError.meta
             source = apiError.source
             additionalProperties = apiError.additionalProperties.toMutableMap()
@@ -181,6 +200,17 @@ private constructor(
          * value.
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
+
+        /** A human-readable explanation of the error. */
+        fun detail(detail: String) = detail(JsonField.of(detail))
+
+        /**
+         * Sets [Builder.detail] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.detail] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun detail(detail: JsonField<String>) = apply { this.detail = detail }
 
         fun meta(meta: Meta) = meta(JsonField.of(meta))
 
@@ -239,6 +269,7 @@ private constructor(
                 checkRequired("code", code),
                 checkRequired("title", title),
                 description,
+                detail,
                 meta,
                 source,
                 additionalProperties.toMutableMap(),
@@ -263,6 +294,7 @@ private constructor(
         code()
         title()
         description()
+        detail()
         meta().ifPresent { it.validate() }
         source().ifPresent { it.validate() }
         validated = true
@@ -286,6 +318,7 @@ private constructor(
         (if (code.asKnown().isPresent) 1 else 0) +
             (if (title.asKnown().isPresent) 1 else 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
+            (if (detail.asKnown().isPresent) 1 else 0) +
             (meta.asKnown().getOrNull()?.validity() ?: 0) +
             (source.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -594,17 +627,18 @@ private constructor(
             code == other.code &&
             title == other.title &&
             description == other.description &&
+            detail == other.detail &&
             meta == other.meta &&
             source == other.source &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(code, title, description, meta, source, additionalProperties)
+        Objects.hash(code, title, description, detail, meta, source, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ApiError{code=$code, title=$title, description=$description, meta=$meta, source=$source, additionalProperties=$additionalProperties}"
+        "ApiError{code=$code, title=$title, description=$description, detail=$detail, meta=$meta, source=$source, additionalProperties=$additionalProperties}"
 }

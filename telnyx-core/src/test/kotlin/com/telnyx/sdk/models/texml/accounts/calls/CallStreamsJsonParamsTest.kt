@@ -10,7 +10,7 @@ internal class CallStreamsJsonParamsTest {
     @Test
     fun create() {
         CallStreamsJsonParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .callSid("call_sid")
             .bidirectionalCodec(CallStreamsJsonParams.BidirectionalCodec.G722)
             .bidirectionalMode(CallStreamsJsonParams.BidirectionalMode.RTP)
@@ -25,9 +25,12 @@ internal class CallStreamsJsonParamsTest {
     @Test
     fun pathParams() {
         val params =
-            CallStreamsJsonParams.builder().accountSid("account_sid").callSid("call_sid").build()
+            CallStreamsJsonParams.builder()
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                .callSid("call_sid")
+                .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         assertThat(params._pathParam(1)).isEqualTo("call_sid")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -37,7 +40,7 @@ internal class CallStreamsJsonParamsTest {
     fun body() {
         val params =
             CallStreamsJsonParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .callSid("call_sid")
                 .bidirectionalCodec(CallStreamsJsonParams.BidirectionalCodec.G722)
                 .bidirectionalMode(CallStreamsJsonParams.BidirectionalMode.RTP)
@@ -64,7 +67,10 @@ internal class CallStreamsJsonParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            CallStreamsJsonParams.builder().accountSid("account_sid").callSid("call_sid").build()
+            CallStreamsJsonParams.builder()
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                .callSid("call_sid")
+                .build()
 
         val body = params._body()
     }

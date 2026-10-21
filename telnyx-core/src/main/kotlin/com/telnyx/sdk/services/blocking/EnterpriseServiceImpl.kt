@@ -63,10 +63,7 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
      */
     override fun dir(): DirService = dir
 
-    /**
-     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
-     * email must be verified before references can be submitted.
-     */
+    /** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
     override fun verifyEmail(): VerifyEmailService = verifyEmail
 
     override fun create(
@@ -143,10 +140,7 @@ class EnterpriseServiceImpl internal constructor(private val clientOptions: Clie
          */
         override fun dir(): DirService.WithRawResponse = dir
 
-        /**
-         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
-         * email must be verified before references can be submitted.
-         */
+        /** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
         override fun verifyEmail(): VerifyEmailService.WithRawResponse = verifyEmail
 
         private val createHandler: Handler<EnterprisePublicWrapped> =

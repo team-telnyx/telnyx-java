@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateParams
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateTokenParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -93,7 +94,13 @@ internal class TelephonyCredentialServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val telephonyCredentialServiceAsync = client.telephonyCredentials()
 
-        val responseFuture = telephonyCredentialServiceAsync.createToken("id")
+        val responseFuture =
+            telephonyCredentialServiceAsync.createToken(
+                TelephonyCredentialCreateTokenParams.builder()
+                    .id("id")
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
 
         val response = responseFuture.get()
     }

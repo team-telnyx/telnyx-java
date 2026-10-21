@@ -11,15 +11,24 @@ internal class InsightSettingsTest {
 
     @Test
     fun create() {
-        val insightSettings = InsightSettings.builder().insightGroupId("insight_group_id").build()
+        val insightSettings =
+            InsightSettings.builder()
+                .insightGroupId("insight_group_id")
+                .model("zai-org/GLM-5.3-Flash")
+                .build()
 
         assertThat(insightSettings.insightGroupId()).contains("insight_group_id")
+        assertThat(insightSettings.model()).contains("zai-org/GLM-5.3-Flash")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val insightSettings = InsightSettings.builder().insightGroupId("insight_group_id").build()
+        val insightSettings =
+            InsightSettings.builder()
+                .insightGroupId("insight_group_id")
+                .model("zai-org/GLM-5.3-Flash")
+                .build()
 
         val roundtrippedInsightSettings =
             jsonMapper.readValue(

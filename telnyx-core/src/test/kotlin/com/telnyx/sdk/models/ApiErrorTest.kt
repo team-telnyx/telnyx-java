@@ -17,6 +17,7 @@ internal class ApiErrorTest {
                 .code("20207")
                 .title("Invalid street address")
                 .description("The street address provided is invalid.")
+                .detail("detail")
                 .meta(
                     ApiError.Meta.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -33,6 +34,7 @@ internal class ApiErrorTest {
         assertThat(apiError.code()).isEqualTo("20207")
         assertThat(apiError.title()).isEqualTo("Invalid street address")
         assertThat(apiError.description()).contains("The street address provided is invalid.")
+        assertThat(apiError.detail()).contains("detail")
         assertThat(apiError.meta())
             .contains(
                 ApiError.Meta.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
@@ -51,6 +53,7 @@ internal class ApiErrorTest {
                 .code("20207")
                 .title("Invalid street address")
                 .description("The street address provided is invalid.")
+                .detail("detail")
                 .meta(
                     ApiError.Meta.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))

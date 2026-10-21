@@ -10,7 +10,7 @@ internal class SiprecSiprecSidJsonParamsTest {
     @Test
     fun create() {
         SiprecSiprecSidJsonParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .callSid("call_sid")
             .siprecSid("siprec_sid")
             .status(SiprecSiprecSidJsonParams.Status.STOPPED)
@@ -21,12 +21,12 @@ internal class SiprecSiprecSidJsonParamsTest {
     fun pathParams() {
         val params =
             SiprecSiprecSidJsonParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .callSid("call_sid")
                 .siprecSid("siprec_sid")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         assertThat(params._pathParam(1)).isEqualTo("call_sid")
         assertThat(params._pathParam(2)).isEqualTo("siprec_sid")
         // out-of-bound path param
@@ -37,7 +37,7 @@ internal class SiprecSiprecSidJsonParamsTest {
     fun body() {
         val params =
             SiprecSiprecSidJsonParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .callSid("call_sid")
                 .siprecSid("siprec_sid")
                 .status(SiprecSiprecSidJsonParams.Status.STOPPED)
@@ -52,7 +52,7 @@ internal class SiprecSiprecSidJsonParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             SiprecSiprecSidJsonParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .callSid("call_sid")
                 .siprecSid("siprec_sid")
                 .build()

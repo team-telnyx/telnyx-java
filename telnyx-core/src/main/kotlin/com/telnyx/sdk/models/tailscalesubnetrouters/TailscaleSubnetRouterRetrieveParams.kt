@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.meetingsessions
+package com.telnyx.sdk.models.tailscalesubnetrouters
 
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.QueryParams
@@ -8,8 +8,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns recordings for a meeting session. */
-class MeetingSessionRetrieveRecordingsParams
+/**
+ * Returns the details of a single Tailscale Subnet Router by its identifier, including its
+ * enrollment state.
+ */
+class TailscaleSubnetRouterRetrieveParams
 private constructor(
     private val id: String?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
@@ -28,16 +31,16 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): MeetingSessionRetrieveRecordingsParams = builder().build()
+        @JvmStatic fun none(): TailscaleSubnetRouterRetrieveParams = builder().build()
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [MeetingSessionRetrieveRecordingsParams].
+         * [TailscaleSubnetRouterRetrieveParams].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [MeetingSessionRetrieveRecordingsParams]. */
+    /** A builder for [TailscaleSubnetRouterRetrieveParams]. */
     class Builder internal constructor() {
 
         private var id: String? = null
@@ -47,12 +50,12 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(
-            meetingSessionRetrieveRecordingsParams: MeetingSessionRetrieveRecordingsParams
+            tailscaleSubnetRouterRetrieveParams: TailscaleSubnetRouterRetrieveParams
         ) = apply {
-            id = meetingSessionRetrieveRecordingsParams.id
-            additionalHeaders = meetingSessionRetrieveRecordingsParams.additionalHeaders.toBuilder()
+            id = tailscaleSubnetRouterRetrieveParams.id
+            additionalHeaders = tailscaleSubnetRouterRetrieveParams.additionalHeaders.toBuilder()
             additionalQueryParams =
-                meetingSessionRetrieveRecordingsParams.additionalQueryParams.toBuilder()
+                tailscaleSubnetRouterRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         fun id(id: String?) = apply { this.id = id }
@@ -160,12 +163,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [MeetingSessionRetrieveRecordingsParams].
+         * Returns an immutable instance of [TailscaleSubnetRouterRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): MeetingSessionRetrieveRecordingsParams =
-            MeetingSessionRetrieveRecordingsParams(
+        fun build(): TailscaleSubnetRouterRetrieveParams =
+            TailscaleSubnetRouterRetrieveParams(
                 id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -187,7 +190,7 @@ private constructor(
             return true
         }
 
-        return other is MeetingSessionRetrieveRecordingsParams &&
+        return other is TailscaleSubnetRouterRetrieveParams &&
             id == other.id &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -196,5 +199,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(id, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MeetingSessionRetrieveRecordingsParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "TailscaleSubnetRouterRetrieveParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

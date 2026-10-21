@@ -31,6 +31,12 @@ import kotlin.jvm.optionals.getOrNull
 /**
  * Submit and manage the two business references and one financial reference that vouch for a DIR.
  * References are contacted to confirm the business identity during vetting.
+ *
+ * References (two business references and one financial reference) are needed only if the documents
+ * uploaded with the DIR don't already prove the business is legitimate and financially stable. Any
+ * one of these is enough proof: audited or certified financial statements (uploaded as `other`,
+ * with a description), a commercial credit report (uploaded as `business_credit_report`), or
+ * references. Telnyx reviewers decide during vetting whether your documents are enough.
  */
 class ReferenceServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ReferenceServiceAsync {

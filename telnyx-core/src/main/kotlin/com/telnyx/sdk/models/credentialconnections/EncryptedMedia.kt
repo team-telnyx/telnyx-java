@@ -7,7 +7,10 @@ import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 
-/** Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS. */
+/**
+ * Enable use of SRTP for encryption. Can only be set when the SIP signaling transport protocol is
+ * TLS.
+ */
 class EncryptedMedia @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
     /**

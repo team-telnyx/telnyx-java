@@ -66,6 +66,19 @@ private constructor(
     fun androidPushCredentialId(): Optional<String> = body.androidPushCredentialId()
 
     /**
+     * Stores the connection preference for generating silent RTP toward the opposite call leg when
+     * comfort-noise packets (CN, payload type 13) are received during hold. Optional; omitting this
+     * field preserves the saved value. Only JSON true and false are accepted; null and non-boolean
+     * values are rejected. This preference is independent of default_on_hold_comfort_noise_enabled
+     * and does not modify that setting. This API provisions the preference; call-processing
+     * behavior is implemented separately.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun bridgeGenerateComfortNoiseOnCn(): Optional<Boolean> = body.bridgeGenerateComfortNoiseOnCn()
+
+    /**
      * Specifies if call cost webhooks should be sent for this connection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -109,7 +122,8 @@ private constructor(
     fun encodeContactHeaderEnabled(): Optional<Boolean> = body.encodeContactHeaderEnabled()
 
     /**
-     * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS.
+     * Enable use of SRTP for encryption. Can only be set when the SIP signaling transport protocol
+     * is TLS.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -300,6 +314,15 @@ private constructor(
      * unexpected type.
      */
     fun _androidPushCredentialId(): JsonField<String> = body._androidPushCredentialId()
+
+    /**
+     * Returns the raw JSON value of [bridgeGenerateComfortNoiseOnCn].
+     *
+     * Unlike [bridgeGenerateComfortNoiseOnCn], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _bridgeGenerateComfortNoiseOnCn(): JsonField<Boolean> =
+        body._bridgeGenerateComfortNoiseOnCn()
 
     /**
      * Returns the raw JSON value of [callCostInWebhooks].
@@ -535,8 +558,8 @@ private constructor(
          * - [active]
          * - [anchorsiteOverride]
          * - [androidPushCredentialId]
+         * - [bridgeGenerateComfortNoiseOnCn]
          * - [callCostInWebhooks]
-         * - [connectionName]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -594,6 +617,30 @@ private constructor(
         fun androidPushCredentialId(androidPushCredentialId: JsonField<String>) = apply {
             body.androidPushCredentialId(androidPushCredentialId)
         }
+
+        /**
+         * Stores the connection preference for generating silent RTP toward the opposite call leg
+         * when comfort-noise packets (CN, payload type 13) are received during hold. Optional;
+         * omitting this field preserves the saved value. Only JSON true and false are accepted;
+         * null and non-boolean values are rejected. This preference is independent of
+         * default_on_hold_comfort_noise_enabled and does not modify that setting. This API
+         * provisions the preference; call-processing behavior is implemented separately.
+         */
+        fun bridgeGenerateComfortNoiseOnCn(bridgeGenerateComfortNoiseOnCn: Boolean) = apply {
+            body.bridgeGenerateComfortNoiseOnCn(bridgeGenerateComfortNoiseOnCn)
+        }
+
+        /**
+         * Sets [Builder.bridgeGenerateComfortNoiseOnCn] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bridgeGenerateComfortNoiseOnCn] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun bridgeGenerateComfortNoiseOnCn(bridgeGenerateComfortNoiseOnCn: JsonField<Boolean>) =
+            apply {
+                body.bridgeGenerateComfortNoiseOnCn(bridgeGenerateComfortNoiseOnCn)
+            }
 
         /** Specifies if call cost webhooks should be sent for this connection. */
         fun callCostInWebhooks(callCostInWebhooks: Boolean) = apply {
@@ -678,7 +725,10 @@ private constructor(
             body.encodeContactHeaderEnabled(encodeContactHeaderEnabled)
         }
 
-        /** Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS. */
+        /**
+         * Enable use of SRTP for encryption. Can only be set when the SIP signaling transport
+         * protocol is TLS.
+         */
         fun encryptedMedia(encryptedMedia: EncryptedMedia?) = apply {
             body.encryptedMedia(encryptedMedia)
         }
@@ -1195,6 +1245,7 @@ private constructor(
         private val active: JsonField<Boolean>,
         private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
         private val androidPushCredentialId: JsonField<String>,
+        private val bridgeGenerateComfortNoiseOnCn: JsonField<Boolean>,
         private val callCostInWebhooks: JsonField<Boolean>,
         private val connectionName: JsonField<String>,
         private val defaultOnHoldComfortNoiseEnabled: JsonField<Boolean>,
@@ -1231,6 +1282,9 @@ private constructor(
             @JsonProperty("android_push_credential_id")
             @ExcludeMissing
             androidPushCredentialId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("bridge_generate_comfort_noise_on_cn")
+            @ExcludeMissing
+            bridgeGenerateComfortNoiseOnCn: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("call_cost_in_webhooks")
             @ExcludeMissing
             callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
@@ -1306,6 +1360,7 @@ private constructor(
             active,
             anchorsiteOverride,
             androidPushCredentialId,
+            bridgeGenerateComfortNoiseOnCn,
             callCostInWebhooks,
             connectionName,
             defaultOnHoldComfortNoiseEnabled,
@@ -1362,6 +1417,20 @@ private constructor(
             androidPushCredentialId.getOptional("android_push_credential_id")
 
         /**
+         * Stores the connection preference for generating silent RTP toward the opposite call leg
+         * when comfort-noise packets (CN, payload type 13) are received during hold. Optional;
+         * omitting this field preserves the saved value. Only JSON true and false are accepted;
+         * null and non-boolean values are rejected. This preference is independent of
+         * default_on_hold_comfort_noise_enabled and does not modify that setting. This API
+         * provisions the preference; call-processing behavior is implemented separately.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun bridgeGenerateComfortNoiseOnCn(): Optional<Boolean> =
+            bridgeGenerateComfortNoiseOnCn.getOptional("bridge_generate_comfort_noise_on_cn")
+
+        /**
          * Specifies if call cost webhooks should be sent for this connection.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1407,7 +1476,8 @@ private constructor(
             encodeContactHeaderEnabled.getOptional("encode_contact_header_enabled")
 
         /**
-         * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS.
+         * Enable use of SRTP for encryption. Can only be set when the SIP signaling transport
+         * protocol is TLS.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1614,6 +1684,16 @@ private constructor(
         @JsonProperty("android_push_credential_id")
         @ExcludeMissing
         fun _androidPushCredentialId(): JsonField<String> = androidPushCredentialId
+
+        /**
+         * Returns the raw JSON value of [bridgeGenerateComfortNoiseOnCn].
+         *
+         * Unlike [bridgeGenerateComfortNoiseOnCn], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("bridge_generate_comfort_noise_on_cn")
+        @ExcludeMissing
+        fun _bridgeGenerateComfortNoiseOnCn(): JsonField<Boolean> = bridgeGenerateComfortNoiseOnCn
 
         /**
          * Returns the raw JSON value of [callCostInWebhooks].
@@ -1865,6 +1945,7 @@ private constructor(
             private var active: JsonField<Boolean> = JsonMissing.of()
             private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
             private var androidPushCredentialId: JsonField<String> = JsonMissing.of()
+            private var bridgeGenerateComfortNoiseOnCn: JsonField<Boolean> = JsonMissing.of()
             private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
             private var connectionName: JsonField<String> = JsonMissing.of()
             private var defaultOnHoldComfortNoiseEnabled: JsonField<Boolean> = JsonMissing.of()
@@ -1898,6 +1979,7 @@ private constructor(
                 active = body.active
                 anchorsiteOverride = body.anchorsiteOverride
                 androidPushCredentialId = body.androidPushCredentialId
+                bridgeGenerateComfortNoiseOnCn = body.bridgeGenerateComfortNoiseOnCn
                 callCostInWebhooks = body.callCostInWebhooks
                 connectionName = body.connectionName
                 defaultOnHoldComfortNoiseEnabled = body.defaultOnHoldComfortNoiseEnabled
@@ -1977,6 +2059,29 @@ private constructor(
             fun androidPushCredentialId(androidPushCredentialId: JsonField<String>) = apply {
                 this.androidPushCredentialId = androidPushCredentialId
             }
+
+            /**
+             * Stores the connection preference for generating silent RTP toward the opposite call
+             * leg when comfort-noise packets (CN, payload type 13) are received during hold.
+             * Optional; omitting this field preserves the saved value. Only JSON true and false are
+             * accepted; null and non-boolean values are rejected. This preference is independent of
+             * default_on_hold_comfort_noise_enabled and does not modify that setting. This API
+             * provisions the preference; call-processing behavior is implemented separately.
+             */
+            fun bridgeGenerateComfortNoiseOnCn(bridgeGenerateComfortNoiseOnCn: Boolean) =
+                bridgeGenerateComfortNoiseOnCn(JsonField.of(bridgeGenerateComfortNoiseOnCn))
+
+            /**
+             * Sets [Builder.bridgeGenerateComfortNoiseOnCn] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bridgeGenerateComfortNoiseOnCn] with a well-typed
+             * [Boolean] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun bridgeGenerateComfortNoiseOnCn(bridgeGenerateComfortNoiseOnCn: JsonField<Boolean>) =
+                apply {
+                    this.bridgeGenerateComfortNoiseOnCn = bridgeGenerateComfortNoiseOnCn
+                }
 
             /** Specifies if call cost webhooks should be sent for this connection. */
             fun callCostInWebhooks(callCostInWebhooks: Boolean) =
@@ -2061,7 +2166,8 @@ private constructor(
             }
 
             /**
-             * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS.
+             * Enable use of SRTP for encryption. Can only be set when the SIP signaling transport
+             * protocol is TLS.
              */
             fun encryptedMedia(encryptedMedia: EncryptedMedia?) =
                 encryptedMedia(JsonField.ofNullable(encryptedMedia))
@@ -2449,6 +2555,7 @@ private constructor(
                     active,
                     anchorsiteOverride,
                     androidPushCredentialId,
+                    bridgeGenerateComfortNoiseOnCn,
                     callCostInWebhooks,
                     connectionName,
                     defaultOnHoldComfortNoiseEnabled,
@@ -2496,6 +2603,7 @@ private constructor(
             active()
             anchorsiteOverride().ifPresent { it.validate() }
             androidPushCredentialId()
+            bridgeGenerateComfortNoiseOnCn()
             callCostInWebhooks()
             connectionName()
             defaultOnHoldComfortNoiseEnabled()
@@ -2542,6 +2650,7 @@ private constructor(
             (if (active.asKnown().isPresent) 1 else 0) +
                 (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (androidPushCredentialId.asKnown().isPresent) 1 else 0) +
+                (if (bridgeGenerateComfortNoiseOnCn.asKnown().isPresent) 1 else 0) +
                 (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
                 (if (connectionName.asKnown().isPresent) 1 else 0) +
                 (if (defaultOnHoldComfortNoiseEnabled.asKnown().isPresent) 1 else 0) +
@@ -2576,6 +2685,7 @@ private constructor(
                 active == other.active &&
                 anchorsiteOverride == other.anchorsiteOverride &&
                 androidPushCredentialId == other.androidPushCredentialId &&
+                bridgeGenerateComfortNoiseOnCn == other.bridgeGenerateComfortNoiseOnCn &&
                 callCostInWebhooks == other.callCostInWebhooks &&
                 connectionName == other.connectionName &&
                 defaultOnHoldComfortNoiseEnabled == other.defaultOnHoldComfortNoiseEnabled &&
@@ -2608,6 +2718,7 @@ private constructor(
                 active,
                 anchorsiteOverride,
                 androidPushCredentialId,
+                bridgeGenerateComfortNoiseOnCn,
                 callCostInWebhooks,
                 connectionName,
                 defaultOnHoldComfortNoiseEnabled,
@@ -2639,7 +2750,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{active=$active, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, callCostInWebhooks=$callCostInWebhooks, connectionName=$connectionName, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, externalUacSettings=$externalUacSettings, inbound=$inbound, internalUacSettings=$internalUacSettings, iosPushCredentialId=$iosPushCredentialId, jitterBuffer=$jitterBuffer, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, rtcpSettings=$rtcpSettings, sipUriCallingPreference=$sipUriCallingPreference, tags=$tags, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+            "Body{active=$active, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, bridgeGenerateComfortNoiseOnCn=$bridgeGenerateComfortNoiseOnCn, callCostInWebhooks=$callCostInWebhooks, connectionName=$connectionName, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, externalUacSettings=$externalUacSettings, inbound=$inbound, internalUacSettings=$internalUacSettings, iosPushCredentialId=$iosPushCredentialId, jitterBuffer=$jitterBuffer, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, rtcpSettings=$rtcpSettings, sipUriCallingPreference=$sipUriCallingPreference, tags=$tags, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
     }
 
     /**

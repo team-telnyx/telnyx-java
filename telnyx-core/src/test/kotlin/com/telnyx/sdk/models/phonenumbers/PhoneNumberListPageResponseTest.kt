@@ -63,16 +63,16 @@ internal class PhoneNumberListPageResponseTest {
                         .build()
                 )
                 .addError(
-                    PhoneNumberListPageResponse.Error.builder()
+                    NumbersError73c9788e53.builder()
                         .code("10007")
                         .detail("An unexpected error occured.")
                         .meta(
-                            PhoneNumberListPageResponse.Error.Meta.builder()
+                            NumbersError73c9788e53.Meta.builder()
                                 .url("https://developers.telnyx.com/docs/overview/errors/10015")
                                 .build()
                         )
                         .source(
-                            PhoneNumberListPageResponse.Error.Source.builder()
+                            NumbersError73c9788e53.Source.builder()
                                 .parameter("parameter")
                                 .pointer("/base")
                                 .build()
@@ -130,16 +130,16 @@ internal class PhoneNumberListPageResponseTest {
             )
         assertThat(phoneNumberListPageResponse.errors().getOrNull())
             .containsExactly(
-                PhoneNumberListPageResponse.Error.builder()
+                NumbersError73c9788e53.builder()
                     .code("10007")
                     .detail("An unexpected error occured.")
                     .meta(
-                        PhoneNumberListPageResponse.Error.Meta.builder()
+                        NumbersError73c9788e53.Meta.builder()
                             .url("https://developers.telnyx.com/docs/overview/errors/10015")
                             .build()
                     )
                     .source(
-                        PhoneNumberListPageResponse.Error.Source.builder()
+                        NumbersError73c9788e53.Source.builder()
                             .parameter("parameter")
                             .pointer("/base")
                             .build()
@@ -201,16 +201,16 @@ internal class PhoneNumberListPageResponseTest {
                         .build()
                 )
                 .addError(
-                    PhoneNumberListPageResponse.Error.builder()
+                    NumbersError73c9788e53.builder()
                         .code("10007")
                         .detail("An unexpected error occured.")
                         .meta(
-                            PhoneNumberListPageResponse.Error.Meta.builder()
+                            NumbersError73c9788e53.Meta.builder()
                                 .url("https://developers.telnyx.com/docs/overview/errors/10015")
                                 .build()
                         )
                         .source(
-                            PhoneNumberListPageResponse.Error.Source.builder()
+                            NumbersError73c9788e53.Source.builder()
                                 .parameter("parameter")
                                 .pointer("/base")
                                 .build()

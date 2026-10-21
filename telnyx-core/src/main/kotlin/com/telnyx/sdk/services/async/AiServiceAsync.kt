@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.ai.AiSummarizeResponse
 import com.telnyx.sdk.services.async.ai.AnthropicServiceAsync
 import com.telnyx.sdk.services.async.ai.AssistantServiceAsync
 import com.telnyx.sdk.services.async.ai.AudioServiceAsync
+import com.telnyx.sdk.services.async.ai.AvatarServiceAsync
 import com.telnyx.sdk.services.async.ai.ChatServiceAsync
 import com.telnyx.sdk.services.async.ai.ClusterServiceAsync
 import com.telnyx.sdk.services.async.ai.CollectionServiceAsync
@@ -85,6 +86,9 @@ interface AiServiceAsync {
     fun typesafe(): TypesafeServiceAsync
 
     fun memory(): MemoryServiceAsync
+
+    /** Create and manage real-time AI avatars */
+    fun avatars(): AvatarServiceAsync
 
     /**
      * Performs semantic vector search across conversation history records.
@@ -214,6 +218,9 @@ interface AiServiceAsync {
         fun typesafe(): TypesafeServiceAsync.WithRawResponse
 
         fun memory(): MemoryServiceAsync.WithRawResponse
+
+        /** Create and manage real-time AI avatars */
+        fun avatars(): AvatarServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the

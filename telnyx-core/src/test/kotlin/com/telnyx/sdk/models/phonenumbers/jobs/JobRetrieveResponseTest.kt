@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.phonenumbers.jobs
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.PhoneNumbersJobPhoneNumber
-import com.telnyx.sdk.models.phonenumberblocks.jobs.JobError
+import com.telnyx.sdk.models.phonenumbers.NumbersError73c9788e53
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -17,26 +17,26 @@ internal class JobRetrieveResponseTest {
         val jobRetrieveResponse =
             JobRetrieveResponse.builder()
                 .data(
-                    PhoneNumbersJob.builder()
+                    NumbersPhoneNumbersJob.builder()
                         .id("42587e44-3a3e-46de-9255-0c9a7a1d1ec7")
                         .createdAt("2020-10-23T18:10:00.000Z")
                         .etc(OffsetDateTime.parse("2020-10-30T18:10:00.000Z"))
                         .addFailedOperation(
-                            PhoneNumbersJob.FailedOperation.builder()
+                            NumbersPhoneNumbersJob.FailedOperation.builder()
                                 .id("3388768018273")
                                 .addError(
-                                    JobError.builder()
+                                    NumbersError73c9788e53.builder()
                                         .code("10015")
                                         .detail("The field is invalid.")
                                         .meta(
-                                            JobError.Meta.builder()
+                                            NumbersError73c9788e53.Meta.builder()
                                                 .url(
                                                     "https://developers.telnyx.com/docs/overview/errors/10015"
                                                 )
                                                 .build()
                                         )
                                         .source(
-                                            JobError.Source.builder()
+                                            NumbersError73c9788e53.Source.builder()
                                                 .parameter("parameter")
                                                 .pointer("/emergency_address_id")
                                                 .build()
@@ -47,8 +47,69 @@ internal class JobRetrieveResponseTest {
                                 .phoneNumber("+19705551234")
                                 .build()
                         )
+                        .parameters(
+                            NumbersPhoneNumbersJob.Parameters.builder()
+                                .addAddTag("string")
+                                .billingGroupId("billing_group_id")
+                                .connectionId("connection_id")
+                                .customerReference("customer-reference")
+                                .deletionLockEnabled(true)
+                                .emergencyAddressId(null)
+                                .emergencyEnabled(false)
+                                .externalPin("external_pin")
+                                .hdVoiceEnabled(true)
+                                .addPhoneNumber("1583466971586889004")
+                                .addPhoneNumber("+13127367254")
+                                .addRemoveTag("string")
+                                .addTag("tag")
+                                .voice(
+                                    NumbersPhoneNumbersJob.Parameters.Voice.builder()
+                                        .callForwarding(
+                                            NumbersPhoneNumbersJob.Parameters.Voice.CallForwarding
+                                                .builder()
+                                                .callForwardingEnabled(true)
+                                                .forwardingType("forwarding_type")
+                                                .forwardsTo("forwards_to")
+                                                .build()
+                                        )
+                                        .callRecording(
+                                            NumbersPhoneNumbersJob.Parameters.Voice.CallRecording
+                                                .builder()
+                                                .inboundCallRecordingChannels(
+                                                    "inbound_call_recording_channels"
+                                                )
+                                                .inboundCallRecordingEnabled(true)
+                                                .inboundCallRecordingFormat(
+                                                    "inbound_call_recording_format"
+                                                )
+                                                .recordContinueOnHold(true)
+                                                .build()
+                                        )
+                                        .callerIdNameEnabled(true)
+                                        .cnamListing(
+                                            NumbersPhoneNumbersJob.Parameters.Voice.CnamListing
+                                                .builder()
+                                                .cnamListingDetails("cnam_listing_details")
+                                                .cnamListingEnabled(true)
+                                                .build()
+                                        )
+                                        .inboundCallScreening("inbound_call_screening")
+                                        .mediaFeatures(
+                                            NumbersPhoneNumbersJob.Parameters.Voice.MediaFeatures
+                                                .builder()
+                                                .acceptAnyRtpPacketsEnabled(true)
+                                                .rtpAutoAdjustEnabled(true)
+                                                .t38FaxGatewayEnabled(true)
+                                                .build()
+                                        )
+                                        .techPrefixEnabled(false)
+                                        .usagePaymentMethod("usage_payment_method")
+                                        .build()
+                                )
+                                .build()
+                        )
                         .addPendingOperation(
-                            PhoneNumbersJob.PendingOperation.builder()
+                            NumbersPhoneNumbersJob.PendingOperation.builder()
                                 .id("2637816387126861837")
                                 .phoneNumber("+19705555099")
                                 .build()
@@ -74,20 +135,20 @@ internal class JobRetrieveResponseTest {
                             )
                         )
                         .recordType("phone_numbers_job")
-                        .status(PhoneNumbersJob.Status.PENDING)
+                        .status(NumbersPhoneNumbersJob.Status.PENDING)
                         .addSuccessfulOperation(
-                            PhoneNumbersJob.SuccessfulOperation.builder()
+                            NumbersPhoneNumbersJob.SuccessfulOperation.builder()
                                 .id("2637816387126861836")
                                 .phoneNumber("+19705555098")
                                 .build()
                         )
                         .addSuccessfulOperation(
-                            PhoneNumbersJob.SuccessfulOperation.builder()
+                            NumbersPhoneNumbersJob.SuccessfulOperation.builder()
                                 .id("33081887126861836")
                                 .phoneNumber("+19715555098")
                                 .build()
                         )
-                        .type(PhoneNumbersJob.Type.UPDATE_EMERGENCY_SETTINGS)
+                        .type(NumbersPhoneNumbersJob.Type.UPDATE_EMERGENCY_SETTINGS)
                         .updatedAt("2020-10-23T18:10:01.000Z")
                         .build()
                 )
@@ -95,26 +156,26 @@ internal class JobRetrieveResponseTest {
 
         assertThat(jobRetrieveResponse.data())
             .contains(
-                PhoneNumbersJob.builder()
+                NumbersPhoneNumbersJob.builder()
                     .id("42587e44-3a3e-46de-9255-0c9a7a1d1ec7")
                     .createdAt("2020-10-23T18:10:00.000Z")
                     .etc(OffsetDateTime.parse("2020-10-30T18:10:00.000Z"))
                     .addFailedOperation(
-                        PhoneNumbersJob.FailedOperation.builder()
+                        NumbersPhoneNumbersJob.FailedOperation.builder()
                             .id("3388768018273")
                             .addError(
-                                JobError.builder()
+                                NumbersError73c9788e53.builder()
                                     .code("10015")
                                     .detail("The field is invalid.")
                                     .meta(
-                                        JobError.Meta.builder()
+                                        NumbersError73c9788e53.Meta.builder()
                                             .url(
                                                 "https://developers.telnyx.com/docs/overview/errors/10015"
                                             )
                                             .build()
                                     )
                                     .source(
-                                        JobError.Source.builder()
+                                        NumbersError73c9788e53.Source.builder()
                                             .parameter("parameter")
                                             .pointer("/emergency_address_id")
                                             .build()
@@ -125,8 +186,69 @@ internal class JobRetrieveResponseTest {
                             .phoneNumber("+19705551234")
                             .build()
                     )
+                    .parameters(
+                        NumbersPhoneNumbersJob.Parameters.builder()
+                            .addAddTag("string")
+                            .billingGroupId("billing_group_id")
+                            .connectionId("connection_id")
+                            .customerReference("customer-reference")
+                            .deletionLockEnabled(true)
+                            .emergencyAddressId(null)
+                            .emergencyEnabled(false)
+                            .externalPin("external_pin")
+                            .hdVoiceEnabled(true)
+                            .addPhoneNumber("1583466971586889004")
+                            .addPhoneNumber("+13127367254")
+                            .addRemoveTag("string")
+                            .addTag("tag")
+                            .voice(
+                                NumbersPhoneNumbersJob.Parameters.Voice.builder()
+                                    .callForwarding(
+                                        NumbersPhoneNumbersJob.Parameters.Voice.CallForwarding
+                                            .builder()
+                                            .callForwardingEnabled(true)
+                                            .forwardingType("forwarding_type")
+                                            .forwardsTo("forwards_to")
+                                            .build()
+                                    )
+                                    .callRecording(
+                                        NumbersPhoneNumbersJob.Parameters.Voice.CallRecording
+                                            .builder()
+                                            .inboundCallRecordingChannels(
+                                                "inbound_call_recording_channels"
+                                            )
+                                            .inboundCallRecordingEnabled(true)
+                                            .inboundCallRecordingFormat(
+                                                "inbound_call_recording_format"
+                                            )
+                                            .recordContinueOnHold(true)
+                                            .build()
+                                    )
+                                    .callerIdNameEnabled(true)
+                                    .cnamListing(
+                                        NumbersPhoneNumbersJob.Parameters.Voice.CnamListing
+                                            .builder()
+                                            .cnamListingDetails("cnam_listing_details")
+                                            .cnamListingEnabled(true)
+                                            .build()
+                                    )
+                                    .inboundCallScreening("inbound_call_screening")
+                                    .mediaFeatures(
+                                        NumbersPhoneNumbersJob.Parameters.Voice.MediaFeatures
+                                            .builder()
+                                            .acceptAnyRtpPacketsEnabled(true)
+                                            .rtpAutoAdjustEnabled(true)
+                                            .t38FaxGatewayEnabled(true)
+                                            .build()
+                                    )
+                                    .techPrefixEnabled(false)
+                                    .usagePaymentMethod("usage_payment_method")
+                                    .build()
+                            )
+                            .build()
+                    )
                     .addPendingOperation(
-                        PhoneNumbersJob.PendingOperation.builder()
+                        NumbersPhoneNumbersJob.PendingOperation.builder()
                             .id("2637816387126861837")
                             .phoneNumber("+19705555099")
                             .build()
@@ -152,20 +274,20 @@ internal class JobRetrieveResponseTest {
                         )
                     )
                     .recordType("phone_numbers_job")
-                    .status(PhoneNumbersJob.Status.PENDING)
+                    .status(NumbersPhoneNumbersJob.Status.PENDING)
                     .addSuccessfulOperation(
-                        PhoneNumbersJob.SuccessfulOperation.builder()
+                        NumbersPhoneNumbersJob.SuccessfulOperation.builder()
                             .id("2637816387126861836")
                             .phoneNumber("+19705555098")
                             .build()
                     )
                     .addSuccessfulOperation(
-                        PhoneNumbersJob.SuccessfulOperation.builder()
+                        NumbersPhoneNumbersJob.SuccessfulOperation.builder()
                             .id("33081887126861836")
                             .phoneNumber("+19715555098")
                             .build()
                     )
-                    .type(PhoneNumbersJob.Type.UPDATE_EMERGENCY_SETTINGS)
+                    .type(NumbersPhoneNumbersJob.Type.UPDATE_EMERGENCY_SETTINGS)
                     .updatedAt("2020-10-23T18:10:01.000Z")
                     .build()
             )
@@ -177,26 +299,26 @@ internal class JobRetrieveResponseTest {
         val jobRetrieveResponse =
             JobRetrieveResponse.builder()
                 .data(
-                    PhoneNumbersJob.builder()
+                    NumbersPhoneNumbersJob.builder()
                         .id("42587e44-3a3e-46de-9255-0c9a7a1d1ec7")
                         .createdAt("2020-10-23T18:10:00.000Z")
                         .etc(OffsetDateTime.parse("2020-10-30T18:10:00.000Z"))
                         .addFailedOperation(
-                            PhoneNumbersJob.FailedOperation.builder()
+                            NumbersPhoneNumbersJob.FailedOperation.builder()
                                 .id("3388768018273")
                                 .addError(
-                                    JobError.builder()
+                                    NumbersError73c9788e53.builder()
                                         .code("10015")
                                         .detail("The field is invalid.")
                                         .meta(
-                                            JobError.Meta.builder()
+                                            NumbersError73c9788e53.Meta.builder()
                                                 .url(
                                                     "https://developers.telnyx.com/docs/overview/errors/10015"
                                                 )
                                                 .build()
                                         )
                                         .source(
-                                            JobError.Source.builder()
+                                            NumbersError73c9788e53.Source.builder()
                                                 .parameter("parameter")
                                                 .pointer("/emergency_address_id")
                                                 .build()
@@ -207,8 +329,69 @@ internal class JobRetrieveResponseTest {
                                 .phoneNumber("+19705551234")
                                 .build()
                         )
+                        .parameters(
+                            NumbersPhoneNumbersJob.Parameters.builder()
+                                .addAddTag("string")
+                                .billingGroupId("billing_group_id")
+                                .connectionId("connection_id")
+                                .customerReference("customer-reference")
+                                .deletionLockEnabled(true)
+                                .emergencyAddressId(null)
+                                .emergencyEnabled(false)
+                                .externalPin("external_pin")
+                                .hdVoiceEnabled(true)
+                                .addPhoneNumber("1583466971586889004")
+                                .addPhoneNumber("+13127367254")
+                                .addRemoveTag("string")
+                                .addTag("tag")
+                                .voice(
+                                    NumbersPhoneNumbersJob.Parameters.Voice.builder()
+                                        .callForwarding(
+                                            NumbersPhoneNumbersJob.Parameters.Voice.CallForwarding
+                                                .builder()
+                                                .callForwardingEnabled(true)
+                                                .forwardingType("forwarding_type")
+                                                .forwardsTo("forwards_to")
+                                                .build()
+                                        )
+                                        .callRecording(
+                                            NumbersPhoneNumbersJob.Parameters.Voice.CallRecording
+                                                .builder()
+                                                .inboundCallRecordingChannels(
+                                                    "inbound_call_recording_channels"
+                                                )
+                                                .inboundCallRecordingEnabled(true)
+                                                .inboundCallRecordingFormat(
+                                                    "inbound_call_recording_format"
+                                                )
+                                                .recordContinueOnHold(true)
+                                                .build()
+                                        )
+                                        .callerIdNameEnabled(true)
+                                        .cnamListing(
+                                            NumbersPhoneNumbersJob.Parameters.Voice.CnamListing
+                                                .builder()
+                                                .cnamListingDetails("cnam_listing_details")
+                                                .cnamListingEnabled(true)
+                                                .build()
+                                        )
+                                        .inboundCallScreening("inbound_call_screening")
+                                        .mediaFeatures(
+                                            NumbersPhoneNumbersJob.Parameters.Voice.MediaFeatures
+                                                .builder()
+                                                .acceptAnyRtpPacketsEnabled(true)
+                                                .rtpAutoAdjustEnabled(true)
+                                                .t38FaxGatewayEnabled(true)
+                                                .build()
+                                        )
+                                        .techPrefixEnabled(false)
+                                        .usagePaymentMethod("usage_payment_method")
+                                        .build()
+                                )
+                                .build()
+                        )
                         .addPendingOperation(
-                            PhoneNumbersJob.PendingOperation.builder()
+                            NumbersPhoneNumbersJob.PendingOperation.builder()
                                 .id("2637816387126861837")
                                 .phoneNumber("+19705555099")
                                 .build()
@@ -234,20 +417,20 @@ internal class JobRetrieveResponseTest {
                             )
                         )
                         .recordType("phone_numbers_job")
-                        .status(PhoneNumbersJob.Status.PENDING)
+                        .status(NumbersPhoneNumbersJob.Status.PENDING)
                         .addSuccessfulOperation(
-                            PhoneNumbersJob.SuccessfulOperation.builder()
+                            NumbersPhoneNumbersJob.SuccessfulOperation.builder()
                                 .id("2637816387126861836")
                                 .phoneNumber("+19705555098")
                                 .build()
                         )
                         .addSuccessfulOperation(
-                            PhoneNumbersJob.SuccessfulOperation.builder()
+                            NumbersPhoneNumbersJob.SuccessfulOperation.builder()
                                 .id("33081887126861836")
                                 .phoneNumber("+19715555098")
                                 .build()
                         )
-                        .type(PhoneNumbersJob.Type.UPDATE_EMERGENCY_SETTINGS)
+                        .type(NumbersPhoneNumbersJob.Type.UPDATE_EMERGENCY_SETTINGS)
                         .updatedAt("2020-10-23T18:10:01.000Z")
                         .build()
                 )

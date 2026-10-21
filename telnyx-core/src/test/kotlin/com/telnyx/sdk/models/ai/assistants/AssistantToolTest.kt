@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.ai.chat.BucketIds
 import com.telnyx.sdk.models.ai.openai.chat.FunctionDefinition
 import com.telnyx.sdk.models.ai.tools.PayToolParams
 import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
+import com.telnyx.sdk.models.ai.tools.VisionToolParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -50,6 +51,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -209,6 +211,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -390,6 +393,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -466,6 +470,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -524,6 +529,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -581,6 +587,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -614,6 +621,14 @@ internal class AssistantToolTest {
                     AssistantTool.Transfer.TransferConfig.builder()
                         .from("+35319605860")
                         .targets("{{ targets }}")
+                        .bridgeBeep(
+                            AssistantTool.Transfer.TransferConfig.BridgeBeep.builder()
+                                .enabled(true)
+                                .targetLegs(
+                                    AssistantTool.Transfer.TransferConfig.BridgeBeep.TargetLegs.SELF
+                                )
+                                .build()
+                        )
                         .addCustomHeader(
                             AssistantTool.Transfer.TransferConfig.CustomHeader.builder()
                                 .name("name")
@@ -685,6 +700,8 @@ internal class AssistantToolTest {
                                         .EndUserTargetContextMode
                                         .PRIVATE
                                 )
+                                .requireAcceptance(true)
+                                .timeoutSecs(10L)
                                 .build()
                         )
                         .warmTransferInstructions(
@@ -709,6 +726,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -723,6 +741,15 @@ internal class AssistantToolTest {
                         AssistantTool.Transfer.TransferConfig.builder()
                             .from("+35319605860")
                             .targets("{{ targets }}")
+                            .bridgeBeep(
+                                AssistantTool.Transfer.TransferConfig.BridgeBeep.builder()
+                                    .enabled(true)
+                                    .targetLegs(
+                                        AssistantTool.Transfer.TransferConfig.BridgeBeep.TargetLegs
+                                            .SELF
+                                    )
+                                    .build()
+                            )
                             .addCustomHeader(
                                 AssistantTool.Transfer.TransferConfig.CustomHeader.builder()
                                     .name("name")
@@ -797,6 +824,8 @@ internal class AssistantToolTest {
                                             .EndUserTargetContextMode
                                             .PRIVATE
                                     )
+                                    .requireAcceptance(true)
+                                    .timeoutSecs(10L)
                                     .build()
                             )
                             .warmTransferInstructions(
@@ -873,6 +902,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -979,6 +1009,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -1055,6 +1086,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).contains(sendDtmf)
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -1110,6 +1142,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).contains(sendMessage)
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -1165,6 +1198,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).contains(skipTurn)
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -1181,6 +1215,54 @@ internal class AssistantToolTest {
                             .build()
                     )
                     .shared(true)
+                    .build()
+            )
+
+        val roundtrippedAssistantTool =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(assistantTool),
+                jacksonTypeRef<AssistantTool>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedAssistantTool))
+            .isEqualTo(jsonMapper.writeValueAsString(assistantTool))
+    }
+
+    @Test
+    fun ofVision() {
+        val vision =
+            AssistantTool.Vision.builder()
+                .shared(true)
+                .vision(VisionToolParams.builder().maxFrameAgeSecs(1L).build())
+                .build()
+
+        val assistantTool = AssistantTool.ofVision(vision)
+
+        assertThat(assistantTool.function()).isEmpty
+        assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.clientSide()).isEmpty
+        assertThat(assistantTool.retrieval()).isEmpty
+        assertThat(assistantTool.handoff()).isEmpty
+        assertThat(assistantTool.hangup()).isEmpty
+        assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
+        assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).contains(vision)
+        assertThat(assistantTool.pay()).isEmpty
+        assertThat(assistantTool.updateDynamicVariables()).isEmpty
+    }
+
+    @Test
+    fun ofVisionRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val assistantTool =
+            AssistantTool.ofVision(
+                AssistantTool.Vision.builder()
+                    .shared(true)
+                    .vision(VisionToolParams.builder().maxFrameAgeSecs(1L).build())
                     .build()
             )
 
@@ -1231,6 +1313,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).contains(pay)
         assertThat(assistantTool.updateDynamicVariables()).isEmpty
     }
@@ -1305,6 +1388,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
         assertThat(assistantTool.skipTurn()).isEmpty
+        assertThat(assistantTool.vision()).isEmpty
         assertThat(assistantTool.pay()).isEmpty
         assertThat(assistantTool.updateDynamicVariables()).contains(updateDynamicVariables)
     }

@@ -15,6 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.compute.funcs.FuncListPage
+import com.telnyx.sdk.models.compute.funcs.FuncListPageResponse
+import com.telnyx.sdk.models.compute.funcs.FuncListParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveLogsParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveLogsResponse
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveMetricAggregatesParams
@@ -28,6 +31,7 @@ import com.telnyx.sdk.services.blocking.compute.funcs.ExportServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage Edge Compute functions */
 class FuncServiceImpl internal constructor(private val clientOptions: ClientOptions) : FuncService {
 
     private val withRawResponse: FuncService.WithRawResponse by lazy {
@@ -41,7 +45,12 @@ class FuncServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncService =
         FuncServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Manage Edge Compute functions */
     override fun export(): ExportService = export
+
+    override fun list(params: FuncListParams, requestOptions: RequestOptions): FuncListPage =
+        // get /compute/funcs
+        withRawResponse().list(params, requestOptions).parse()
 
     override fun retrieveLogs(
         params: FuncRetrieveLogsParams,
@@ -88,7 +97,42 @@ class FuncServiceImpl internal constructor(private val clientOptions: ClientOpti
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Manage Edge Compute functions */
         override fun export(): ExportService.WithRawResponse = export
+
+        private val listHandler: Handler<FuncListPageResponse> =
+            jsonHandler<FuncListPageResponse>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: FuncListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<FuncListPage> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("compute", "funcs")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        FuncListPage.builder()
+                            .service(FuncServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
+            }
+        }
 
         private val retrieveLogsHandler: Handler<FuncRetrieveLogsResponse> =
             jsonHandler<FuncRetrieveLogsResponse>(clientOptions.jsonMapper)

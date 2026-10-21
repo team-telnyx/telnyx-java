@@ -42,6 +42,7 @@ internal class CsvDownloadServiceAsyncTest {
                             )
                             .build()
                     )
+                    .includeManagedAccounts(true)
                     .build()
             )
 

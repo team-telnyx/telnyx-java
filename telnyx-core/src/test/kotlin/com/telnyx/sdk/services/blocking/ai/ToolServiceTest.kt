@@ -8,6 +8,7 @@ import com.telnyx.sdk.models.ai.tools.PayToolParams
 import com.telnyx.sdk.models.ai.tools.ToolCreateParams
 import com.telnyx.sdk.models.ai.tools.ToolUpdateParams
 import com.telnyx.sdk.models.ai.tools.UpdateDynamicVariablesToolParams
+import com.telnyx.sdk.models.ai.tools.VisionToolParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -80,6 +81,7 @@ internal class ToolServiceTest {
                             )
                             .build()
                     )
+                    .vision(VisionToolParams.builder().maxFrameAgeSecs(1L).build())
                     .webhook(
                         ToolCreateParams.Webhook.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -169,6 +171,7 @@ internal class ToolServiceTest {
                             )
                             .build()
                     )
+                    .vision(VisionToolParams.builder().maxFrameAgeSecs(1L).build())
                     .webhook(
                         ToolUpdateParams.Webhook.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))

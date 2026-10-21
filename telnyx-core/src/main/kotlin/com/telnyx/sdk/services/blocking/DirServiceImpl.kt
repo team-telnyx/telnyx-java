@@ -89,13 +89,17 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
     /**
      * Submit and manage the two business references and one financial reference that vouch for a
      * DIR. References are contacted to confirm the business identity during vetting.
+     *
+     * References (two business references and one financial reference) are needed only if the
+     * documents uploaded with the DIR don't already prove the business is legitimate and
+     * financially stable. Any one of these is enough proof: audited or certified financial
+     * statements (uploaded as `other`, with a description), a commercial credit report (uploaded as
+     * `business_credit_report`), or references. Telnyx reviewers decide during vetting whether your
+     * documents are enough.
      */
     override fun references(): ReferenceService = references
 
-    /**
-     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
-     * email must be verified before references can be submitted.
-     */
+    /** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
     override fun verifyEmail(): VerifyEmailService = verifyEmail
 
     override fun retrieve(params: DirRetrieveParams, requestOptions: RequestOptions): DirWrapped =
@@ -209,13 +213,17 @@ class DirServiceImpl internal constructor(private val clientOptions: ClientOptio
         /**
          * Submit and manage the two business references and one financial reference that vouch for
          * a DIR. References are contacted to confirm the business identity during vetting.
+         *
+         * References (two business references and one financial reference) are needed only if the
+         * documents uploaded with the DIR don't already prove the business is legitimate and
+         * financially stable. Any one of these is enough proof: audited or certified financial
+         * statements (uploaded as `other`, with a description), a commercial credit report
+         * (uploaded as `business_credit_report`), or references. Telnyx reviewers decide during
+         * vetting whether your documents are enough.
          */
         override fun references(): ReferenceService.WithRawResponse = references
 
-        /**
-         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
-         * email must be verified before references can be submitted.
-         */
+        /** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
         override fun verifyEmail(): VerifyEmailService.WithRawResponse = verifyEmail
 
         private val retrieveHandler: Handler<DirWrapped> =

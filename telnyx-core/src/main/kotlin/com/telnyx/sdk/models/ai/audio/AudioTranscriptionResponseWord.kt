@@ -18,7 +18,7 @@ import java.util.Optional
 
 /**
  * Word-level timing detail. Only present when using a `deepgram&#47;*` model with `model_config`
- * options that enable word timestamps.
+ * options that enable word timestamps, or `reson8/prerecorded`.
  */
 class AudioTranscriptionResponseWord
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)

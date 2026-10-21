@@ -77,7 +77,11 @@ private constructor(
     fun connectionId(): Optional<String> = body.connectionId()
 
     /**
-     * A customer reference string for customer look ups.
+     * Sets the customer reference on the selected phone numbers and retains the supplied value on
+     * the job. Recover the job without its ID using GET /phone_numbers/jobs with
+     * filter[customer_reference] within 90 days of job creation. This body field updates the
+     * numbers; the separate filter[customer_reference] query parameter selects numbers by their
+     * current reference.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -311,7 +315,13 @@ private constructor(
             body.connectionId(connectionId)
         }
 
-        /** A customer reference string for customer look ups. */
+        /**
+         * Sets the customer reference on the selected phone numbers and retains the supplied value
+         * on the job. Recover the job without its ID using GET /phone_numbers/jobs with
+         * filter[customer_reference] within 90 days of job creation. This body field updates the
+         * numbers; the separate filter[customer_reference] query parameter selects numbers by their
+         * current reference.
+         */
         fun customerReference(customerReference: String) = apply {
             body.customerReference(customerReference)
         }
@@ -679,7 +689,11 @@ private constructor(
         fun connectionId(): Optional<String> = connectionId.getOptional("connection_id")
 
         /**
-         * A customer reference string for customer look ups.
+         * Sets the customer reference on the selected phone numbers and retains the supplied value
+         * on the job. Recover the job without its ID using GET /phone_numbers/jobs with
+         * filter[customer_reference] within 90 days of job creation. This body field updates the
+         * numbers; the separate filter[customer_reference] query parameter selects numbers by their
+         * current reference.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -929,7 +943,13 @@ private constructor(
                 this.connectionId = connectionId
             }
 
-            /** A customer reference string for customer look ups. */
+            /**
+             * Sets the customer reference on the selected phone numbers and retains the supplied
+             * value on the job. Recover the job without its ID using GET /phone_numbers/jobs with
+             * filter[customer_reference] within 90 days of job creation. This body field updates
+             * the numbers; the separate filter[customer_reference] query parameter selects numbers
+             * by their current reference.
+             */
             fun customerReference(customerReference: String) =
                 customerReference(JsonField.of(customerReference))
 

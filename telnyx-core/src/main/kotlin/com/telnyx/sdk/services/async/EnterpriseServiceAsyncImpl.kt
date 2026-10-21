@@ -71,10 +71,7 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
      */
     override fun dir(): DirServiceAsync = dir
 
-    /**
-     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
-     * email must be verified before references can be submitted.
-     */
+    /** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
     override fun verifyEmail(): VerifyEmailServiceAsync = verifyEmail
 
     override fun create(
@@ -153,10 +150,7 @@ class EnterpriseServiceAsyncImpl internal constructor(private val clientOptions:
          */
         override fun dir(): DirServiceAsync.WithRawResponse = dir
 
-        /**
-         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
-         * email must be verified before references can be submitted.
-         */
+        /** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
         override fun verifyEmail(): VerifyEmailServiceAsync.WithRawResponse = verifyEmail
 
         private val createHandler: Handler<EnterprisePublicWrapped> =

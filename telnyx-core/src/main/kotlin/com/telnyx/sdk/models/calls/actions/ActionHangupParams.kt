@@ -65,6 +65,20 @@ private constructor(
     fun customHeaders(): Optional<List<CustomSipHeader>> = body.customHeaders()
 
     /**
+     * Text for the SIP `Reason` header (RFC 3326) sent when cancelling an unanswered outbound leg.
+     * The SIP CANCEL carries `Reason: SIP;cause=200;text="<reason>"`; phones such as Poly and
+     * Yealink use it to suppress the missed-call entry for a call answered elsewhere. Has no effect
+     * on an answered leg or an inbound leg. A hangup sent before the leg's `call.initiated` webhook
+     * still hangs up the leg, but without the `Reason` header. Must not contain `"`, `\`, control
+     * characters, or characters outside the Basic Multilingual Plane (such as emoji); invalid
+     * values are rejected with a 422.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun reason(): Optional<String> = body.reason()
+
+    /**
      * Returns the raw JSON value of [clientState].
      *
      * Unlike [clientState], this method doesn't throw if the JSON field has an unexpected type.
@@ -84,6 +98,13 @@ private constructor(
      * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _customHeaders(): JsonField<List<CustomSipHeader>> = body._customHeaders()
+
+    /**
+     * Returns the raw JSON value of [reason].
+     *
+     * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _reason(): JsonField<String> = body._reason()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -134,6 +155,7 @@ private constructor(
          * - [clientState]
          * - [commandId]
          * - [customHeaders]
+         * - [reason]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -191,6 +213,25 @@ private constructor(
         fun addCustomHeader(customHeader: CustomSipHeader) = apply {
             body.addCustomHeader(customHeader)
         }
+
+        /**
+         * Text for the SIP `Reason` header (RFC 3326) sent when cancelling an unanswered outbound
+         * leg. The SIP CANCEL carries `Reason: SIP;cause=200;text="<reason>"`; phones such as Poly
+         * and Yealink use it to suppress the missed-call entry for a call answered elsewhere. Has
+         * no effect on an answered leg or an inbound leg. A hangup sent before the leg's
+         * `call.initiated` webhook still hangs up the leg, but without the `Reason` header. Must
+         * not contain `"`, `\`, control characters, or characters outside the Basic Multilingual
+         * Plane (such as emoji); invalid values are rejected with a 422.
+         */
+        fun reason(reason: String) = apply { body.reason(reason) }
+
+        /**
+         * Sets [Builder.reason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reason] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun reason(reason: JsonField<String>) = apply { body.reason(reason) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -342,6 +383,7 @@ private constructor(
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
         private val customHeaders: JsonField<List<CustomSipHeader>>,
+        private val reason: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -356,7 +398,8 @@ private constructor(
             @JsonProperty("custom_headers")
             @ExcludeMissing
             customHeaders: JsonField<List<CustomSipHeader>> = JsonMissing.of(),
-        ) : this(clientState, commandId, customHeaders, mutableMapOf())
+            @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of(),
+        ) : this(clientState, commandId, customHeaders, reason, mutableMapOf())
 
         /**
          * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -386,6 +429,20 @@ private constructor(
             customHeaders.getOptional("custom_headers")
 
         /**
+         * Text for the SIP `Reason` header (RFC 3326) sent when cancelling an unanswered outbound
+         * leg. The SIP CANCEL carries `Reason: SIP;cause=200;text="<reason>"`; phones such as Poly
+         * and Yealink use it to suppress the missed-call entry for a call answered elsewhere. Has
+         * no effect on an answered leg or an inbound leg. A hangup sent before the leg's
+         * `call.initiated` webhook still hangs up the leg, but without the `Reason` header. Must
+         * not contain `"`, `\`, control characters, or characters outside the Basic Multilingual
+         * Plane (such as emoji); invalid values are rejected with a 422.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun reason(): Optional<String> = reason.getOptional("reason")
+
+        /**
          * Returns the raw JSON value of [clientState].
          *
          * Unlike [clientState], this method doesn't throw if the JSON field has an unexpected type.
@@ -411,6 +468,13 @@ private constructor(
         @ExcludeMissing
         fun _customHeaders(): JsonField<List<CustomSipHeader>> = customHeaders
 
+        /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -435,6 +499,7 @@ private constructor(
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
             private var customHeaders: JsonField<MutableList<CustomSipHeader>>? = null
+            private var reason: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -442,6 +507,7 @@ private constructor(
                 clientState = body.clientState
                 commandId = body.commandId
                 customHeaders = body.customHeaders.map { it.toMutableList() }
+                reason = body.reason
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -504,6 +570,26 @@ private constructor(
                     }
             }
 
+            /**
+             * Text for the SIP `Reason` header (RFC 3326) sent when cancelling an unanswered
+             * outbound leg. The SIP CANCEL carries `Reason: SIP;cause=200;text="<reason>"`; phones
+             * such as Poly and Yealink use it to suppress the missed-call entry for a call answered
+             * elsewhere. Has no effect on an answered leg or an inbound leg. A hangup sent before
+             * the leg's `call.initiated` webhook still hangs up the leg, but without the `Reason`
+             * header. Must not contain `"`, `\`, control characters, or characters outside the
+             * Basic Multilingual Plane (such as emoji); invalid values are rejected with a 422.
+             */
+            fun reason(reason: String) = reason(JsonField.of(reason))
+
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reason(reason: JsonField<String>) = apply { this.reason = reason }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -533,6 +619,7 @@ private constructor(
                     clientState,
                     commandId,
                     (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                    reason,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -556,6 +643,7 @@ private constructor(
             clientState()
             commandId()
             customHeaders().ifPresent { it.forEach { it.validate() } }
+            reason()
             validated = true
         }
 
@@ -577,7 +665,8 @@ private constructor(
         internal fun validity(): Int =
             (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
-                (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+                (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (reason.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -588,17 +677,18 @@ private constructor(
                 clientState == other.clientState &&
                 commandId == other.commandId &&
                 customHeaders == other.customHeaders &&
+                reason == other.reason &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(clientState, commandId, customHeaders, additionalProperties)
+            Objects.hash(clientState, commandId, customHeaders, reason, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, additionalProperties=$additionalProperties}"
+            "Body{clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
