@@ -1742,11 +1742,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     /** Call information */
     override fun dialMetrics(): DialMetricService = dialMetrics
 
-    /**
-     * Register and manage text-to-speech (TTS) engines you publish, and find the public engines
-     * other organizations published, so an AI Assistant, TeXML or Call Control can speak with one
-     * of their voices, using your own key for it, instead of a Telnyx-integrated vendor.
-     */
     override fun ttsIntegrations(): TtsIntegrationService = ttsIntegrations
 
     override fun close() = clientOptions.close()
@@ -3230,11 +3225,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         /** Call information */
         override fun dialMetrics(): DialMetricService.WithRawResponse = dialMetrics
 
-        /**
-         * Register and manage text-to-speech (TTS) engines you publish, and find the public engines
-         * other organizations published, so an AI Assistant, TeXML or Call Control can speak with
-         * one of their voices, using your own key for it, instead of a Telnyx-integrated vendor.
-         */
         override fun ttsIntegrations(): TtsIntegrationService.WithRawResponse = ttsIntegrations
     }
 }

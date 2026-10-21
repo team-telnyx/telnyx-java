@@ -273,7 +273,8 @@ private constructor(
         fun sort(): Optional<Sort> = sort.getOptional("sort")
 
         /**
-         * Echo of the requested `start_time`.
+         * Start of the range actually used: the requested `start_time`, or the start of the
+         * retention window when the requested value is older.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -435,7 +436,10 @@ private constructor(
              */
             fun sort(sort: JsonField<Sort>) = apply { this.sort = sort }
 
-            /** Echo of the requested `start_time`. */
+            /**
+             * Start of the range actually used: the requested `start_time`, or the start of the
+             * retention window when the requested value is older.
+             */
             fun startTime(startTime: OffsetDateTime) = startTime(JsonField.of(startTime))
 
             /**

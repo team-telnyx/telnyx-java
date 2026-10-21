@@ -21,7 +21,12 @@ internal class ActionSpeakParamsTest {
             .serviceLevel(ActionSpeakParams.ServiceLevel.BASIC)
             .stop("current")
             .targetLegs(ActionSpeakParams.TargetLegs.BOTH)
-            .voiceSettings(CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build())
+            .voiceSettings(
+                ElevenLabsVoiceSettings.builder()
+                    .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                    .apiKeyRef("my_elevenlabs_api_key")
+                    .build()
+            )
             .build()
     }
 
@@ -55,7 +60,10 @@ internal class ActionSpeakParamsTest {
                 .stop("current")
                 .targetLegs(ActionSpeakParams.TargetLegs.BOTH)
                 .voiceSettings(
-                    CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build()
+                    ElevenLabsVoiceSettings.builder()
+                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                        .apiKeyRef("my_elevenlabs_api_key")
+                        .build()
                 )
                 .build()
 
@@ -73,8 +81,11 @@ internal class ActionSpeakParamsTest {
         assertThat(body.targetLegs()).contains(ActionSpeakParams.TargetLegs.BOTH)
         assertThat(body.voiceSettings())
             .contains(
-                ActionSpeakParams.VoiceSettings.ofCommunity(
-                    CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build()
+                ActionSpeakParams.VoiceSettings.ofElevenlabs(
+                    ElevenLabsVoiceSettings.builder()
+                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                        .apiKeyRef("my_elevenlabs_api_key")
+                        .build()
                 )
             )
     }
