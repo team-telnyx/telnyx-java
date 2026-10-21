@@ -14,11 +14,13 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 class InsightSettings
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val insightGroupId: JsonField<String>,
+    private val model: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -26,8 +28,9 @@ private constructor(
     private constructor(
         @JsonProperty("insight_group_id")
         @ExcludeMissing
-        insightGroupId: JsonField<String> = JsonMissing.of()
-    ) : this(insightGroupId, mutableMapOf())
+        insightGroupId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
+    ) : this(insightGroupId, model, mutableMapOf())
 
     /**
      * Reference to an Insight Group. Insights in this group will be run automatically for all the
@@ -39,6 +42,20 @@ private constructor(
     fun insightGroupId(): Optional<String> = insightGroupId.getOptional("insight_group_id")
 
     /**
+     * The model that generates the assistant's insights when a conversation ends. It runs every
+     * insight in the group, Telnyx-managed insights included. Must be `zai-org/GLM-5.3-Flash` or
+     * `meta-llama/Llama-3.3-70B-Instruct`; any other model returns `422`. When omitted on create,
+     * it defaults to `zai-org/GLM-5.3-Flash`; when omitted on update, the current model is kept.
+     * `null` uses Telnyx's default insight models, which assistants created before this setting
+     * have. Insights of messaging conversations, and insights regenerated later, always use
+     * Telnyx's default insight models.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun model(): Optional<String> = model.getOptional("model")
+
+    /**
      * Returns the raw JSON value of [insightGroupId].
      *
      * Unlike [insightGroupId], this method doesn't throw if the JSON field has an unexpected type.
@@ -46,6 +63,13 @@ private constructor(
     @JsonProperty("insight_group_id")
     @ExcludeMissing
     fun _insightGroupId(): JsonField<String> = insightGroupId
+
+    /**
+     * Returns the raw JSON value of [model].
+     *
+     * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<String> = model
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -69,11 +93,13 @@ private constructor(
     class Builder internal constructor() {
 
         private var insightGroupId: JsonField<String> = JsonMissing.of()
+        private var model: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(insightSettings: InsightSettings) = apply {
             insightGroupId = insightSettings.insightGroupId
+            model = insightSettings.model
             additionalProperties = insightSettings.additionalProperties.toMutableMap()
         }
 
@@ -93,6 +119,28 @@ private constructor(
         fun insightGroupId(insightGroupId: JsonField<String>) = apply {
             this.insightGroupId = insightGroupId
         }
+
+        /**
+         * The model that generates the assistant's insights when a conversation ends. It runs every
+         * insight in the group, Telnyx-managed insights included. Must be `zai-org/GLM-5.3-Flash`
+         * or `meta-llama/Llama-3.3-70B-Instruct`; any other model returns `422`. When omitted on
+         * create, it defaults to `zai-org/GLM-5.3-Flash`; when omitted on update, the current model
+         * is kept. `null` uses Telnyx's default insight models, which assistants created before
+         * this setting have. Insights of messaging conversations, and insights regenerated later,
+         * always use Telnyx's default insight models.
+         */
+        fun model(model: String?) = model(JsonField.ofNullable(model))
+
+        /** Alias for calling [Builder.model] with `model.orElse(null)`. */
+        fun model(model: Optional<String>) = model(model.getOrNull())
+
+        /**
+         * Sets [Builder.model] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.model] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun model(model: JsonField<String>) = apply { this.model = model }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -119,7 +167,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): InsightSettings =
-            InsightSettings(insightGroupId, additionalProperties.toMutableMap())
+            InsightSettings(insightGroupId, model, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
@@ -138,6 +186,7 @@ private constructor(
         }
 
         insightGroupId()
+        model()
         validated = true
     }
 
@@ -154,7 +203,10 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    @JvmSynthetic internal fun validity(): Int = (if (insightGroupId.asKnown().isPresent) 1 else 0)
+    @JvmSynthetic
+    internal fun validity(): Int =
+        (if (insightGroupId.asKnown().isPresent) 1 else 0) +
+            (if (model.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -163,13 +215,14 @@ private constructor(
 
         return other is InsightSettings &&
             insightGroupId == other.insightGroupId &&
+            model == other.model &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(insightGroupId, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(insightGroupId, model, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InsightSettings{insightGroupId=$insightGroupId, additionalProperties=$additionalProperties}"
+        "InsightSettings{insightGroupId=$insightGroupId, model=$model, additionalProperties=$additionalProperties}"
 }

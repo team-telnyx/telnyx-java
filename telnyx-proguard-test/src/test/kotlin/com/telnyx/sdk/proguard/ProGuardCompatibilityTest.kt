@@ -248,6 +248,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.sipRegistrationStatus()).isNotNull()
         assertThat(client.dialMetrics()).isNotNull()
         assertThat(client.ttsIntegrations()).isNotNull()
+        assertThat(client.tailscaleSubnetRouters()).isNotNull()
     }
 
     @Test

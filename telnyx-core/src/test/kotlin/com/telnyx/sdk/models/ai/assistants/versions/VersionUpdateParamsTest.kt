@@ -575,7 +575,10 @@ internal class VersionUpdateParamsTest {
                     )
                     .greeting("greeting")
                     .insightSettings(
-                        InsightSettings.builder().insightGroupId("insight_group_id").build()
+                        InsightSettings.builder()
+                            .insightGroupId("insight_group_id")
+                            .model("zai-org/GLM-5.3-Flash")
+                            .build()
                     )
                     .instructions("instructions")
                     .addIntegration(
@@ -1469,7 +1472,10 @@ internal class VersionUpdateParamsTest {
                         )
                         .greeting("greeting")
                         .insightSettings(
-                            InsightSettings.builder().insightGroupId("insight_group_id").build()
+                            InsightSettings.builder()
+                                .insightGroupId("insight_group_id")
+                                .model("zai-org/GLM-5.3-Flash")
+                                .build()
                         )
                         .instructions("instructions")
                         .addIntegration(
@@ -2347,7 +2353,10 @@ internal class VersionUpdateParamsTest {
                     )
                     .greeting("greeting")
                     .insightSettings(
-                        InsightSettings.builder().insightGroupId("insight_group_id").build()
+                        InsightSettings.builder()
+                            .insightGroupId("insight_group_id")
+                            .model("zai-org/GLM-5.3-Flash")
+                            .build()
                     )
                     .instructions("instructions")
                     .addIntegration(

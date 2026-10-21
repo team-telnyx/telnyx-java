@@ -165,6 +165,7 @@ import com.telnyx.sdk.services.blocking.SpendLimitService
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
 import com.telnyx.sdk.services.blocking.SubNumberOrdersReportService
+import com.telnyx.sdk.services.blocking.TailscaleSubnetRouterService
 import com.telnyx.sdk.services.blocking.TelephonyCredentialService
 import com.telnyx.sdk.services.blocking.TermsOfServiceService
 import com.telnyx.sdk.services.blocking.TexmlApplicationService
@@ -766,6 +767,7 @@ interface TelnyxClient {
 
     fun externalRequirements(): ExternalRequirementService
 
+    /** Inspect Stateful Actor types */
     fun compute(): ComputeService
 
     /**
@@ -841,6 +843,9 @@ interface TelnyxClient {
     fun dialMetrics(): DialMetricService
 
     fun ttsIntegrations(): TtsIntegrationService
+
+    /** Tailscale Subnet Router operations */
+    fun tailscaleSubnetRouters(): TailscaleSubnetRouterService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1401,6 +1406,7 @@ interface TelnyxClient {
 
         fun externalRequirements(): ExternalRequirementService.WithRawResponse
 
+        /** Inspect Stateful Actor types */
         fun compute(): ComputeService.WithRawResponse
 
         /**
@@ -1476,5 +1482,8 @@ interface TelnyxClient {
         fun dialMetrics(): DialMetricService.WithRawResponse
 
         fun ttsIntegrations(): TtsIntegrationService.WithRawResponse
+
+        /** Tailscale Subnet Router operations */
+        fun tailscaleSubnetRouters(): TailscaleSubnetRouterService.WithRawResponse
     }
 }

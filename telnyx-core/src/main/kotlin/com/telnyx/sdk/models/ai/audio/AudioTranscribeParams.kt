@@ -43,7 +43,8 @@ private constructor(
      * plus `multi` and `deepgram/nova-2` covers ~33, while the `-medical` variants are tuned for
      * clinical vocabulary and accept English only (`en` and its regional variants, e.g. `en-US`,
      * `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic language detection;
-     * `omi-health/omi-med-stt-v1` is a medical model, English only.
+     * `omi-health/omi-med-stt-v1` is a medical model, English only. `reson8/prerecorded` covers 10
+     * languages, returns word timestamps, and labels speakers via `model_config`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -79,6 +80,9 @@ private constructor(
      * `openai/whisper-large-v3-turbo`, supports multiple languages.
      * `distil-whisper/distil-large-v2` does not support language parameter. `nvidia/parakeet-v3`
      * detects the language automatically; `omi-health/omi-med-stt-v1` is English only.
+     * `reson8/prerecorded` accepts `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es` and `sv`
+     * (regional variants are transcribed as the base language) and detects the language when it is
+     * omitted.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -87,12 +91,14 @@ private constructor(
 
     /**
      * Additional model-specific configuration parameters. Only allowed with the `deepgram&#47;*`
-     * models. Sent as a JSON string in multipart requests and passed through to Deepgram as query
-     * parameters. Any other model with `model_config` returns 422. Can include Deepgram-specific
-     * options such as `smart_format`, `punctuate`, `diarize` (speaker labels), `multichannel`
-     * (transcribe each channel independently; billed duration is file duration multiplied by the
-     * number of channels), `utterances`, `numerals`, and `language`. If `language` is provided both
-     * as a top-level parameter and in `model_config`, the top-level parameter takes precedence.
+     * models and `reson8/prerecorded`. Sent as a JSON string in multipart requests; for the
+     * `deepgram&#47;*` models it is passed through to Deepgram as query parameters, while
+     * `reson8/prerecorded` accepts only `diarize` (speaker labels) and `max_speakers` (1 to 8). Any
+     * other model with `model_config` returns 400. Can include Deepgram-specific options such as
+     * `smart_format`, `punctuate`, `diarize` (speaker labels), `multichannel` (transcribe each
+     * channel independently; billed duration is file duration multiplied by the number of
+     * channels), `utterances`, `numerals`, and `language`. If `language` is provided both as a
+     * top-level parameter and in `model_config`, the top-level parameter takes precedence.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -229,6 +235,8 @@ private constructor(
          * variants are tuned for clinical vocabulary and accept English only (`en` and its regional
          * variants, e.g. `en-US`, `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic
          * language detection; `omi-health/omi-med-stt-v1` is a medical model, English only.
+         * `reson8/prerecorded` covers 10 languages, returns word timestamps, and labels speakers
+         * via `model_config`.
          */
         fun model(model: Model) = apply { body.model(model) }
 
@@ -294,7 +302,9 @@ private constructor(
          * language returns a 400. For `openai/whisper-large-v3-turbo`, supports multiple languages.
          * `distil-whisper/distil-large-v2` does not support language parameter.
          * `nvidia/parakeet-v3` detects the language automatically; `omi-health/omi-med-stt-v1` is
-         * English only.
+         * English only. `reson8/prerecorded` accepts `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`,
+         * `pt`, `es` and `sv` (regional variants are transcribed as the base language) and detects
+         * the language when it is omitted.
          */
         fun language(language: String) = apply { body.language(language) }
 
@@ -308,9 +318,11 @@ private constructor(
 
         /**
          * Additional model-specific configuration parameters. Only allowed with the
-         * `deepgram&#47;*` models. Sent as a JSON string in multipart requests and passed through
-         * to Deepgram as query parameters. Any other model with `model_config` returns 422. Can
-         * include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize` (speaker
+         * `deepgram&#47;*` models and `reson8/prerecorded`. Sent as a JSON string in multipart
+         * requests; for the `deepgram&#47;*` models it is passed through to Deepgram as query
+         * parameters, while `reson8/prerecorded` accepts only `diarize` (speaker labels) and
+         * `max_speakers` (1 to 8). Any other model with `model_config` returns 400. Can include
+         * Deepgram-specific options such as `smart_format`, `punctuate`, `diarize` (speaker
          * labels), `multichannel` (transcribe each channel independently; billed duration is file
          * duration multiplied by the number of channels), `utterances`, `numerals`, and `language`.
          * If `language` is provided both as a top-level parameter and in `model_config`, the
@@ -541,6 +553,8 @@ private constructor(
          * variants are tuned for clinical vocabulary and accept English only (`en` and its regional
          * variants, e.g. `en-US`, `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic
          * language detection; `omi-health/omi-med-stt-v1` is a medical model, English only.
+         * `reson8/prerecorded` covers 10 languages, returns word timestamps, and labels speakers
+         * via `model_config`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -576,7 +590,9 @@ private constructor(
          * language returns a 400. For `openai/whisper-large-v3-turbo`, supports multiple languages.
          * `distil-whisper/distil-large-v2` does not support language parameter.
          * `nvidia/parakeet-v3` detects the language automatically; `omi-health/omi-med-stt-v1` is
-         * English only.
+         * English only. `reson8/prerecorded` accepts `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`,
+         * `pt`, `es` and `sv` (regional variants are transcribed as the base language) and detects
+         * the language when it is omitted.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -585,9 +601,11 @@ private constructor(
 
         /**
          * Additional model-specific configuration parameters. Only allowed with the
-         * `deepgram&#47;*` models. Sent as a JSON string in multipart requests and passed through
-         * to Deepgram as query parameters. Any other model with `model_config` returns 422. Can
-         * include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize` (speaker
+         * `deepgram&#47;*` models and `reson8/prerecorded`. Sent as a JSON string in multipart
+         * requests; for the `deepgram&#47;*` models it is passed through to Deepgram as query
+         * parameters, while `reson8/prerecorded` accepts only `diarize` (speaker labels) and
+         * `max_speakers` (1 to 8). Any other model with `model_config` returns 400. Can include
+         * Deepgram-specific options such as `smart_format`, `punctuate`, `diarize` (speaker
          * labels), `multichannel` (transcribe each channel independently; billed duration is file
          * duration multiplied by the number of channels), `utterances`, `numerals`, and `language`.
          * If `language` is provided both as a top-level parameter and in `model_config`, the
@@ -736,7 +754,8 @@ private constructor(
              * `-medical` variants are tuned for clinical vocabulary and accept English only (`en`
              * and its regional variants, e.g. `en-US`, `en-GB`). `nvidia/parakeet-v3` is
              * multilingual with automatic language detection; `omi-health/omi-med-stt-v1` is a
-             * medical model, English only.
+             * medical model, English only. `reson8/prerecorded` covers 10 languages, returns word
+             * timestamps, and labels speakers via `model_config`.
              */
             fun model(model: Model) = model(MultipartField.of(model))
 
@@ -814,7 +833,9 @@ private constructor(
              * `openai/whisper-large-v3-turbo`, supports multiple languages.
              * `distil-whisper/distil-large-v2` does not support language parameter.
              * `nvidia/parakeet-v3` detects the language automatically; `omi-health/omi-med-stt-v1`
-             * is English only.
+             * is English only. `reson8/prerecorded` accepts `nl`, `en`, `fr`, `fy`, `de`, `it`,
+             * `pl`, `pt`, `es` and `sv` (regional variants are transcribed as the base language)
+             * and detects the language when it is omitted.
              */
             fun language(language: String) = language(MultipartField.of(language))
 
@@ -829,14 +850,15 @@ private constructor(
 
             /**
              * Additional model-specific configuration parameters. Only allowed with the
-             * `deepgram&#47;*` models. Sent as a JSON string in multipart requests and passed
-             * through to Deepgram as query parameters. Any other model with `model_config`
-             * returns 422. Can include Deepgram-specific options such as `smart_format`,
-             * `punctuate`, `diarize` (speaker labels), `multichannel` (transcribe each channel
-             * independently; billed duration is file duration multiplied by the number of
-             * channels), `utterances`, `numerals`, and `language`. If `language` is provided both
-             * as a top-level parameter and in `model_config`, the top-level parameter takes
-             * precedence.
+             * `deepgram&#47;*` models and `reson8/prerecorded`. Sent as a JSON string in multipart
+             * requests; for the `deepgram&#47;*` models it is passed through to Deepgram as query
+             * parameters, while `reson8/prerecorded` accepts only `diarize` (speaker labels) and
+             * `max_speakers` (1 to 8). Any other model with `model_config` returns 400. Can include
+             * Deepgram-specific options such as `smart_format`, `punctuate`, `diarize` (speaker
+             * labels), `multichannel` (transcribe each channel independently; billed duration is
+             * file duration multiplied by the number of channels), `utterances`, `numerals`, and
+             * `language`. If `language` is provided both as a top-level parameter and in
+             * `model_config`, the top-level parameter takes precedence.
              */
             fun modelConfig(modelConfig: ModelConfig) = modelConfig(MultipartField.of(modelConfig))
 
@@ -1008,7 +1030,8 @@ private constructor(
      * plus `multi` and `deepgram/nova-2` covers ~33, while the `-medical` variants are tuned for
      * clinical vocabulary and accept English only (`en` and its regional variants, e.g. `en-US`,
      * `en-GB`). `nvidia/parakeet-v3` is multilingual with automatic language detection;
-     * `omi-health/omi-med-stt-v1` is a medical model, English only.
+     * `omi-health/omi-med-stt-v1` is a medical model, English only. `reson8/prerecorded` covers 10
+     * languages, returns word timestamps, and labels speakers via `model_config`.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1040,6 +1063,8 @@ private constructor(
 
             @JvmField val OMI_HEALTH_OMI_MED_STT_V1 = of("omi-health/omi-med-stt-v1")
 
+            @JvmField val RESON8_PRERECORDED = of("reson8/prerecorded")
+
             @JvmStatic fun of(value: String) = Model(JsonField.of(value))
         }
 
@@ -1053,6 +1078,7 @@ private constructor(
             DEEPGRAM_NOVA_3_MEDICAL,
             NVIDIA_PARAKEET_V3,
             OMI_HEALTH_OMI_MED_STT_V1,
+            RESON8_PRERECORDED,
         }
 
         /**
@@ -1073,6 +1099,7 @@ private constructor(
             DEEPGRAM_NOVA_3_MEDICAL,
             NVIDIA_PARAKEET_V3,
             OMI_HEALTH_OMI_MED_STT_V1,
+            RESON8_PRERECORDED,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1094,6 +1121,7 @@ private constructor(
                 DEEPGRAM_NOVA_3_MEDICAL -> Value.DEEPGRAM_NOVA_3_MEDICAL
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 OMI_HEALTH_OMI_MED_STT_V1 -> Value.OMI_HEALTH_OMI_MED_STT_V1
+                RESON8_PRERECORDED -> Value.RESON8_PRERECORDED
                 else -> Value._UNKNOWN
             }
 
@@ -1116,6 +1144,7 @@ private constructor(
                 DEEPGRAM_NOVA_3_MEDICAL -> Known.DEEPGRAM_NOVA_3_MEDICAL
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 OMI_HEALTH_OMI_MED_STT_V1 -> Known.OMI_HEALTH_OMI_MED_STT_V1
+                RESON8_PRERECORDED -> Known.RESON8_PRERECORDED
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
             }
 
@@ -1182,12 +1211,14 @@ private constructor(
 
     /**
      * Additional model-specific configuration parameters. Only allowed with the `deepgram&#47;*`
-     * models. Sent as a JSON string in multipart requests and passed through to Deepgram as query
-     * parameters. Any other model with `model_config` returns 422. Can include Deepgram-specific
-     * options such as `smart_format`, `punctuate`, `diarize` (speaker labels), `multichannel`
-     * (transcribe each channel independently; billed duration is file duration multiplied by the
-     * number of channels), `utterances`, `numerals`, and `language`. If `language` is provided both
-     * as a top-level parameter and in `model_config`, the top-level parameter takes precedence.
+     * models and `reson8/prerecorded`. Sent as a JSON string in multipart requests; for the
+     * `deepgram&#47;*` models it is passed through to Deepgram as query parameters, while
+     * `reson8/prerecorded` accepts only `diarize` (speaker labels) and `max_speakers` (1 to 8). Any
+     * other model with `model_config` returns 400. Can include Deepgram-specific options such as
+     * `smart_format`, `punctuate`, `diarize` (speaker labels), `multichannel` (transcribe each
+     * channel independently; billed duration is file duration multiplied by the number of
+     * channels), `utterances`, `numerals`, and `language`. If `language` is provided both as a
+     * top-level parameter and in `model_config`, the top-level parameter takes precedence.
      */
     class ModelConfig
     private constructor(

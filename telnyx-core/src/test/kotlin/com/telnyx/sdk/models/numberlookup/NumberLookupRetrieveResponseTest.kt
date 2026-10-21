@@ -15,6 +15,25 @@ internal class NumberLookupRetrieveResponseTest {
             NumberLookupRetrieveResponse.builder()
                 .data(
                     NumberLookupRetrieveResponse.Data.builder()
+                        .callerIdentity(
+                            NumberLookupRetrieveResponse.Data.CallerIdentity.builder()
+                                .address(
+                                    NumberLookupRetrieveResponse.Data.CallerIdentity.Address
+                                        .builder()
+                                        .city("Anytown")
+                                        .countryCode("US")
+                                        .postalCode("90210")
+                                        .stateCode("CA")
+                                        .streetLine1("123 Main St")
+                                        .streetLine2(null)
+                                        .zip4("1234")
+                                        .build()
+                                )
+                                .confidenceScore(80.0)
+                                .errorCode(null)
+                                .name("Jane Doe")
+                                .build()
+                        )
                         .callerName(
                             NumberLookupRetrieveResponse.Data.CallerName.builder()
                                 .callerName("TELNYX LLC")
@@ -32,8 +51,21 @@ internal class NumberLookupRetrieveResponseTest {
                                 .build()
                         )
                         .countryCode("US")
+                        .enhancedCallerName(
+                            NumberLookupRetrieveResponse.Data.EnhancedCallerName.builder()
+                                .callerName("Jane Doe")
+                                .errorCode(null)
+                                .build()
+                        )
                         .fraud(null)
                         .nationalFormat("(0312) 945-7420")
+                        .nnidOverride(
+                            NumberLookupRetrieveResponse.Data.NnidOverride.builder()
+                                .name("name")
+                                .nnid("nnid")
+                                .type("type")
+                                .build()
+                        )
                         .phoneNumber("+13129457420")
                         .portability(
                             NumberLookupRetrieveResponse.Data.Portability.builder()
@@ -41,7 +73,9 @@ internal class NumberLookupRetrieveResponseTest {
                                 .altspidCarrierName("Telnyx/4")
                                 .altspidCarrierType("3")
                                 .city("WAUKEGAN")
-                                .lineType("voip")
+                                .lineType(
+                                    NumberLookupRetrieveResponse.Data.Portability.LineType.VOIP
+                                )
                                 .lrn("2245701999")
                                 .ocn("073H")
                                 .portedDate("2017-10-20")
@@ -55,6 +89,7 @@ internal class NumberLookupRetrieveResponseTest {
                                 .build()
                         )
                         .recordType("number_lookup")
+                        .validNumber(true)
                         .build()
                 )
                 .build()
@@ -62,6 +97,24 @@ internal class NumberLookupRetrieveResponseTest {
         assertThat(numberLookupRetrieveResponse.data())
             .contains(
                 NumberLookupRetrieveResponse.Data.builder()
+                    .callerIdentity(
+                        NumberLookupRetrieveResponse.Data.CallerIdentity.builder()
+                            .address(
+                                NumberLookupRetrieveResponse.Data.CallerIdentity.Address.builder()
+                                    .city("Anytown")
+                                    .countryCode("US")
+                                    .postalCode("90210")
+                                    .stateCode("CA")
+                                    .streetLine1("123 Main St")
+                                    .streetLine2(null)
+                                    .zip4("1234")
+                                    .build()
+                            )
+                            .confidenceScore(80.0)
+                            .errorCode(null)
+                            .name("Jane Doe")
+                            .build()
+                    )
                     .callerName(
                         NumberLookupRetrieveResponse.Data.CallerName.builder()
                             .callerName("TELNYX LLC")
@@ -79,8 +132,21 @@ internal class NumberLookupRetrieveResponseTest {
                             .build()
                     )
                     .countryCode("US")
+                    .enhancedCallerName(
+                        NumberLookupRetrieveResponse.Data.EnhancedCallerName.builder()
+                            .callerName("Jane Doe")
+                            .errorCode(null)
+                            .build()
+                    )
                     .fraud(null)
                     .nationalFormat("(0312) 945-7420")
+                    .nnidOverride(
+                        NumberLookupRetrieveResponse.Data.NnidOverride.builder()
+                            .name("name")
+                            .nnid("nnid")
+                            .type("type")
+                            .build()
+                    )
                     .phoneNumber("+13129457420")
                     .portability(
                         NumberLookupRetrieveResponse.Data.Portability.builder()
@@ -88,7 +154,7 @@ internal class NumberLookupRetrieveResponseTest {
                             .altspidCarrierName("Telnyx/4")
                             .altspidCarrierType("3")
                             .city("WAUKEGAN")
-                            .lineType("voip")
+                            .lineType(NumberLookupRetrieveResponse.Data.Portability.LineType.VOIP)
                             .lrn("2245701999")
                             .ocn("073H")
                             .portedDate("2017-10-20")
@@ -102,6 +168,7 @@ internal class NumberLookupRetrieveResponseTest {
                             .build()
                     )
                     .recordType("number_lookup")
+                    .validNumber(true)
                     .build()
             )
     }
@@ -113,6 +180,25 @@ internal class NumberLookupRetrieveResponseTest {
             NumberLookupRetrieveResponse.builder()
                 .data(
                     NumberLookupRetrieveResponse.Data.builder()
+                        .callerIdentity(
+                            NumberLookupRetrieveResponse.Data.CallerIdentity.builder()
+                                .address(
+                                    NumberLookupRetrieveResponse.Data.CallerIdentity.Address
+                                        .builder()
+                                        .city("Anytown")
+                                        .countryCode("US")
+                                        .postalCode("90210")
+                                        .stateCode("CA")
+                                        .streetLine1("123 Main St")
+                                        .streetLine2(null)
+                                        .zip4("1234")
+                                        .build()
+                                )
+                                .confidenceScore(80.0)
+                                .errorCode(null)
+                                .name("Jane Doe")
+                                .build()
+                        )
                         .callerName(
                             NumberLookupRetrieveResponse.Data.CallerName.builder()
                                 .callerName("TELNYX LLC")
@@ -130,8 +216,21 @@ internal class NumberLookupRetrieveResponseTest {
                                 .build()
                         )
                         .countryCode("US")
+                        .enhancedCallerName(
+                            NumberLookupRetrieveResponse.Data.EnhancedCallerName.builder()
+                                .callerName("Jane Doe")
+                                .errorCode(null)
+                                .build()
+                        )
                         .fraud(null)
                         .nationalFormat("(0312) 945-7420")
+                        .nnidOverride(
+                            NumberLookupRetrieveResponse.Data.NnidOverride.builder()
+                                .name("name")
+                                .nnid("nnid")
+                                .type("type")
+                                .build()
+                        )
                         .phoneNumber("+13129457420")
                         .portability(
                             NumberLookupRetrieveResponse.Data.Portability.builder()
@@ -139,7 +238,9 @@ internal class NumberLookupRetrieveResponseTest {
                                 .altspidCarrierName("Telnyx/4")
                                 .altspidCarrierType("3")
                                 .city("WAUKEGAN")
-                                .lineType("voip")
+                                .lineType(
+                                    NumberLookupRetrieveResponse.Data.Portability.LineType.VOIP
+                                )
                                 .lrn("2245701999")
                                 .ocn("073H")
                                 .portedDate("2017-10-20")
@@ -153,6 +254,7 @@ internal class NumberLookupRetrieveResponseTest {
                                 .build()
                         )
                         .recordType("number_lookup")
+                        .validNumber(true)
                         .build()
                 )
                 .build()

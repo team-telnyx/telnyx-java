@@ -518,7 +518,12 @@ internal class AssistantCreateParamsTest {
                     .build()
             )
             .greeting("greeting")
-            .insightSettings(InsightSettings.builder().insightGroupId("insight_group_id").build())
+            .insightSettings(
+                InsightSettings.builder()
+                    .insightGroupId("insight_group_id")
+                    .model("zai-org/GLM-5.3-Flash")
+                    .build()
+            )
             .addIntegration(
                 AssistantIntegration.builder()
                     .integrationId("integration_id")
@@ -1346,7 +1351,10 @@ internal class AssistantCreateParamsTest {
                 )
                 .greeting("greeting")
                 .insightSettings(
-                    InsightSettings.builder().insightGroupId("insight_group_id").build()
+                    InsightSettings.builder()
+                        .insightGroupId("insight_group_id")
+                        .model("zai-org/GLM-5.3-Flash")
+                        .build()
                 )
                 .addIntegration(
                     AssistantIntegration.builder()
@@ -2202,7 +2210,10 @@ internal class AssistantCreateParamsTest {
                 )
                 .greeting("greeting")
                 .insightSettings(
-                    InsightSettings.builder().insightGroupId("insight_group_id").build()
+                    InsightSettings.builder()
+                        .insightGroupId("insight_group_id")
+                        .model("zai-org/GLM-5.3-Flash")
+                        .build()
                 )
                 .addIntegration(
                     AssistantIntegration.builder()
@@ -3030,7 +3041,12 @@ internal class AssistantCreateParamsTest {
             )
         assertThat(body.greeting()).contains("greeting")
         assertThat(body.insightSettings())
-            .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())
+            .contains(
+                InsightSettings.builder()
+                    .insightGroupId("insight_group_id")
+                    .model("zai-org/GLM-5.3-Flash")
+                    .build()
+            )
         assertThat(body.integrations().getOrNull())
             .containsExactly(
                 AssistantIntegration.builder()

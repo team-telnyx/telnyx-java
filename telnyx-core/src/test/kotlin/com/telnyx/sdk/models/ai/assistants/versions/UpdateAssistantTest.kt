@@ -563,7 +563,10 @@ internal class UpdateAssistantTest {
                 )
                 .greeting("greeting")
                 .insightSettings(
-                    InsightSettings.builder().insightGroupId("insight_group_id").build()
+                    InsightSettings.builder()
+                        .insightGroupId("insight_group_id")
+                        .model("zai-org/GLM-5.3-Flash")
+                        .build()
                 )
                 .instructions("instructions")
                 .addIntegration(
@@ -1392,7 +1395,12 @@ internal class UpdateAssistantTest {
             )
         assertThat(updateAssistant.greeting()).contains("greeting")
         assertThat(updateAssistant.insightSettings())
-            .contains(InsightSettings.builder().insightGroupId("insight_group_id").build())
+            .contains(
+                InsightSettings.builder()
+                    .insightGroupId("insight_group_id")
+                    .model("zai-org/GLM-5.3-Flash")
+                    .build()
+            )
         assertThat(updateAssistant.instructions()).contains("instructions")
         assertThat(updateAssistant.integrations().getOrNull())
             .containsExactly(
@@ -2235,7 +2243,10 @@ internal class UpdateAssistantTest {
                 )
                 .greeting("greeting")
                 .insightSettings(
-                    InsightSettings.builder().insightGroupId("insight_group_id").build()
+                    InsightSettings.builder()
+                        .insightGroupId("insight_group_id")
+                        .model("zai-org/GLM-5.3-Flash")
+                        .build()
                 )
                 .instructions("instructions")
                 .addIntegration(

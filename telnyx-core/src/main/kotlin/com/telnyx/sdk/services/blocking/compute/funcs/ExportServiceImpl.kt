@@ -24,6 +24,7 @@ import com.telnyx.sdk.models.compute.funcs.export.FuncLogExportConfigResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage Edge Compute functions */
 class ExportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ExportService {
 

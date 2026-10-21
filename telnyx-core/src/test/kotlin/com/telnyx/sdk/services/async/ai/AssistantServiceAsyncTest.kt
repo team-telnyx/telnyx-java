@@ -591,7 +591,10 @@ internal class AssistantServiceAsyncTest {
                     )
                     .greeting("greeting")
                     .insightSettings(
-                        InsightSettings.builder().insightGroupId("insight_group_id").build()
+                        InsightSettings.builder()
+                            .insightGroupId("insight_group_id")
+                            .model("zai-org/GLM-5.3-Flash")
+                            .build()
                     )
                     .addIntegration(
                         AssistantIntegration.builder()
@@ -1480,7 +1483,10 @@ internal class AssistantServiceAsyncTest {
                     )
                     .greeting("greeting")
                     .insightSettings(
-                        InsightSettings.builder().insightGroupId("insight_group_id").build()
+                        InsightSettings.builder()
+                            .insightGroupId("insight_group_id")
+                            .model("zai-org/GLM-5.3-Flash")
+                            .build()
                     )
                     .instructions("instructions")
                     .addIntegration(

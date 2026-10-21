@@ -13,6 +13,7 @@ import com.telnyx.sdk.models.compute.funcs.export.ExportListParams
 import com.telnyx.sdk.models.compute.funcs.export.FuncLogExportConfigResponse
 import java.util.function.Consumer
 
+/** Manage Edge Compute functions */
 interface ExportService {
 
     /**

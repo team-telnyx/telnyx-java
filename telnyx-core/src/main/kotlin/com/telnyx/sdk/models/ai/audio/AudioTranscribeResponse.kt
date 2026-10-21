@@ -24,7 +24,9 @@ import kotlin.jvm.optionals.getOrNull
  * `segments` in `verbose_json` mode. `openai/whisper-large-v3-turbo` returns `text` only. The
  * `deepgram&#47;*` models return `text` and, depending on `model_config`, may include `words` with
  * per-word timestamps and speaker labels. The Parakeet models (`nvidia/parakeet-v3`,
- * `omi-health/omi-med-stt-v1`) return `text` only.
+ * `omi-health/omi-med-stt-v1`) return `text` only. `reson8/prerecorded` returns `text` and, in
+ * `verbose_json` mode, `duration` and `segments` with `words`; with `diarize`, one segment per
+ * speaker turn with speaker labels.
  */
 class AudioTranscribeResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -397,9 +399,9 @@ private constructor(
         fun channel(): Optional<Long> = channel.getOptional("channel")
 
         /**
-         * Speaker indices heard in this segment. Returned by the `deepgram&#47;*` models when
-         * `diarize` is enabled via `model_config`. With `multichannel`, speakers are numbered per
-         * channel from 0, so identify a speaker by (`channel`, speaker).
+         * Speaker indices heard in this segment. Returned by the `deepgram&#47;*` models and
+         * `reson8/prerecorded` when `diarize` is enabled via `model_config`. With `multichannel`,
+         * speakers are numbered per channel from 0, so identify a speaker by (`channel`, speaker).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -408,7 +410,7 @@ private constructor(
 
         /**
          * Word-level timing detail for this segment. Returned by the `deepgram&#47;*` models when
-         * word-level output is enabled via `model_config`.
+         * word-level output is enabled via `model_config`, and by `reson8/prerecorded`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -583,9 +585,10 @@ private constructor(
             fun channel(channel: JsonField<Long>) = apply { this.channel = channel }
 
             /**
-             * Speaker indices heard in this segment. Returned by the `deepgram&#47;*` models when
-             * `diarize` is enabled via `model_config`. With `multichannel`, speakers are numbered
-             * per channel from 0, so identify a speaker by (`channel`, speaker).
+             * Speaker indices heard in this segment. Returned by the `deepgram&#47;*` models and
+             * `reson8/prerecorded` when `diarize` is enabled via `model_config`. With
+             * `multichannel`, speakers are numbered per channel from 0, so identify a speaker by
+             * (`channel`, speaker).
              */
             fun speakers(speakers: List<Long>) = speakers(JsonField.of(speakers))
 
@@ -614,7 +617,7 @@ private constructor(
 
             /**
              * Word-level timing detail for this segment. Returned by the `deepgram&#47;*` models
-             * when word-level output is enabled via `model_config`.
+             * when word-level output is enabled via `model_config`, and by `reson8/prerecorded`.
              */
             fun words(words: List<AudioTranscriptionResponseWord>) = words(JsonField.of(words))
 

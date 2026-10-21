@@ -3243,10 +3243,15 @@ Methods:
 
 # Compute
 
+Methods:
+
+- <code title="get /compute/actors/{id}">client.compute().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ComputeService.kt">retrieve</a>(params)</code>
+
 ## Funcs
 
 Methods:
 
+- <code title="get /compute/funcs">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">list</a>(params)</code>
 - <code title="get /compute/funcs/{id}/logs">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveLogs</a>(params)</code>
 - <code title="get /compute/funcs/{id}/metric_aggregates">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveMetricAggregates</a>(params)</code>
 - <code title="get /compute/funcs/{id}/revisions">client.compute().funcs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/compute/FuncService.kt">retrieveRevisions</a>(params)</code>
@@ -3347,3 +3352,13 @@ Methods:
 Methods:
 
 - <code title="get /dial_metrics">client.dialMetrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DialMetricService.kt">list</a>(params)</code>
+
+# TailscaleSubnetRouters
+
+Methods:
+
+- <code title="post /tailscale_subnet_routers">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">create</a>(params)</code>
+- <code title="get /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">retrieve</a>(params)</code>
+- <code title="patch /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">update</a>(params)</code>
+- <code title="get /tailscale_subnet_routers">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">list</a>(params)</code>
+- <code title="delete /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">delete</a>(params)</code>

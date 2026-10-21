@@ -5,6 +5,8 @@ package com.telnyx.sdk.services.async.compute
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.compute.funcs.FuncListPageAsync
+import com.telnyx.sdk.models.compute.funcs.FuncListParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveLogsParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveLogsResponse
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveMetricAggregatesParams
@@ -17,6 +19,7 @@ import com.telnyx.sdk.services.async.compute.funcs.ExportServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Manage Edge Compute functions */
 interface FuncServiceAsync {
 
     /**
@@ -31,7 +34,29 @@ interface FuncServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncServiceAsync
 
+    /** Manage Edge Compute functions */
     fun export(): ExportServiceAsync
+
+    /**
+     * List functions for the authenticated organization. Each function includes its persisted
+     * function-scoped bindings. Actor bindings expose actor_type and env_name, allowing clients to
+     * identify every function attached to a Stateful Actor type.
+     */
+    fun list(): CompletableFuture<FuncListPageAsync> = list(FuncListParams.none())
+
+    /** @see list */
+    fun list(
+        params: FuncListParams = FuncListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<FuncListPageAsync>
+
+    /** @see list */
+    fun list(params: FuncListParams = FuncListParams.none()): CompletableFuture<FuncListPageAsync> =
+        list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(requestOptions: RequestOptions): CompletableFuture<FuncListPageAsync> =
+        list(FuncListParams.none(), requestOptions)
 
     /**
      * Returns logs oldest first. `type=runtime` (default) returns function stdout/stderr.
@@ -195,7 +220,33 @@ interface FuncServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncServiceAsync.WithRawResponse
 
+        /** Manage Edge Compute functions */
         fun export(): ExportServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /compute/funcs`, but is otherwise the same as
+         * [FuncServiceAsync.list].
+         */
+        fun list(): CompletableFuture<HttpResponseFor<FuncListPageAsync>> =
+            list(FuncListParams.none())
+
+        /** @see list */
+        fun list(
+            params: FuncListParams = FuncListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<FuncListPageAsync>>
+
+        /** @see list */
+        fun list(
+            params: FuncListParams = FuncListParams.none()
+        ): CompletableFuture<HttpResponseFor<FuncListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<FuncListPageAsync>> =
+            list(FuncListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /compute/funcs/{id}/logs`, but is otherwise the same
