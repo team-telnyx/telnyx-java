@@ -22,7 +22,7 @@ internal class ParticipantServiceTest {
         val participantResource =
             participantService.retrieve(
                 ParticipantRetrieveParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .conferenceSid("conference_sid")
                     .callSidOrParticipantLabel("call_sid_or_participant_label")
                     .build()
@@ -40,7 +40,7 @@ internal class ParticipantServiceTest {
         val participantResource =
             participantService.update(
                 ParticipantUpdateParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .conferenceSid("conference_sid")
                     .callSidOrParticipantLabel("call_sid_or_participant_label")
                     .announceMethod(ParticipantUpdateParams.AnnounceMethod.GET)
@@ -68,7 +68,7 @@ internal class ParticipantServiceTest {
 
         participantService.delete(
             ParticipantDeleteParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .conferenceSid("conference_sid")
                 .callSidOrParticipantLabel("call_sid_or_participant_label")
                 .build()
@@ -84,7 +84,7 @@ internal class ParticipantServiceTest {
         val response =
             participantService.participants(
                 ParticipantParticipantsParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .conferenceSid("conference_sid")
                     .amdStatusCallback("https://www.example.com/amd_result")
                     .amdStatusCallbackMethod(
@@ -176,7 +176,7 @@ internal class ParticipantServiceTest {
         val response =
             participantService.retrieveParticipants(
                 ParticipantRetrieveParticipantsParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .conferenceSid("conference_sid")
                     .build()
             )

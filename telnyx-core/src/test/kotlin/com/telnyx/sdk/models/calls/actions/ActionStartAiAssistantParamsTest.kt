@@ -145,6 +145,8 @@ internal class ActionStartAiAssistantParamsTest {
                     .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                     .build()
             )
+            .voice("acme.alpha")
+            .voiceSettings(CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build())
             .build()
     }
 
@@ -291,6 +293,10 @@ internal class ActionStartAiAssistantParamsTest {
                         .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                         .build()
                 )
+                .voice("acme.alpha")
+                .voiceSettings(
+                    CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build()
+                )
                 .build()
 
         val body = params._body()
@@ -430,6 +436,13 @@ internal class ActionStartAiAssistantParamsTest {
                     .language("language")
                     .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                     .build()
+            )
+        assertThat(body.voice()).contains("acme.alpha")
+        assertThat(body.voiceSettings())
+            .contains(
+                ActionStartAiAssistantParams.VoiceSettings.ofCommunity(
+                    CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build()
+                )
             )
     }
 

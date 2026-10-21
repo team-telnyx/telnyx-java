@@ -103,8 +103,11 @@ private constructor(
      * [integration secrets documentation](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
      * for details. For Telnyx voices, use `Telnyx.<model_id>.<voice_id>` (e.g.
      * Telnyx.KokoroTTS.af_heart). For Soniox voices, use `Soniox.tts-rt-v2.<voice_id>` (e.g.
-     * Soniox.tts-rt-v2.Emma); every Soniox voice speaks all supported languages. The voice portion
-     * of the identifier supports
+     * Soniox.tts-rt-v2.Emma); every Soniox voice speaks all supported languages. For a voice of a
+     * community text-to-speech engine, use `<engine_name>.<voice_id>` (e.g. `acme.alpha`) and
+     * reference your key for the engine under `api_key_ref` (see the
+     * [Community TTS engines guide](https://developers.telnyx.com/docs/voice/tts/community-engines)).
+     * The voice portion of the identifier supports
      * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
      * using mustache syntax (e.g. `Telnyx.Ultra.{{voice_id}}`). The variable is resolved at call
      * time from your dynamic variables webhook, allowing you to select the voice dynamically per
@@ -119,7 +122,8 @@ private constructor(
      * The `identifier` for an integration secret
      * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
      * that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work with this
-     * integration.
+     * integration. For a community text-to-speech engine voice, it refers to your key for that
+     * engine and is required.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -390,8 +394,11 @@ private constructor(
          * [integration secrets documentation](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
          * for details. For Telnyx voices, use `Telnyx.<model_id>.<voice_id>` (e.g.
          * Telnyx.KokoroTTS.af_heart). For Soniox voices, use `Soniox.tts-rt-v2.<voice_id>` (e.g.
-         * Soniox.tts-rt-v2.Emma); every Soniox voice speaks all supported languages. The voice
-         * portion of the identifier supports
+         * Soniox.tts-rt-v2.Emma); every Soniox voice speaks all supported languages. For a voice of
+         * a community text-to-speech engine, use `<engine_name>.<voice_id>` (e.g. `acme.alpha`) and
+         * reference your key for the engine under `api_key_ref` (see the
+         * [Community TTS engines guide](https://developers.telnyx.com/docs/voice/tts/community-engines)).
+         * The voice portion of the identifier supports
          * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
          * using mustache syntax (e.g. `Telnyx.Ultra.{{voice_id}}`). The variable is resolved at
          * call time from your dynamic variables webhook, allowing you to select the voice
@@ -411,7 +418,8 @@ private constructor(
          * The `identifier` for an integration secret
          * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
          * that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work with
-         * this integration.
+         * this integration. For a community text-to-speech engine voice, it refers to your key for
+         * that engine and is required.
          */
         fun apiKeyRef(apiKeyRef: String) = apiKeyRef(JsonField.of(apiKeyRef))
 

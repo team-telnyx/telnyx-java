@@ -10,7 +10,7 @@ internal class JsonRetrieveRecordingSidJsonParamsTest {
     @Test
     fun create() {
         JsonRetrieveRecordingSidJsonParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .recordingSid("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .build()
     }
@@ -19,11 +19,11 @@ internal class JsonRetrieveRecordingSidJsonParamsTest {
     fun pathParams() {
         val params =
             JsonRetrieveRecordingSidJsonParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .recordingSid("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         assertThat(params._pathParam(1)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")

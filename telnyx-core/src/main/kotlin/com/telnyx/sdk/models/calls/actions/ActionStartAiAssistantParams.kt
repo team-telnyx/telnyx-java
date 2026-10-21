@@ -20,11 +20,17 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.AzureVoiceSettings
+import com.telnyx.sdk.models.InworldVoiceSettings
+import com.telnyx.sdk.models.MinimaxVoiceSettings
+import com.telnyx.sdk.models.ResembleVoiceSettings
+import com.telnyx.sdk.models.XaiVoiceSettings
 import com.telnyx.sdk.models.calls.CallAssistantRequest
 import java.util.Collections
 import java.util.Objects
@@ -136,6 +142,28 @@ private constructor(
     fun transcription(): Optional<TranscriptionConfig> = body.transcription()
 
     /**
+     * The voice the assistant speaks with on this call, in place of the assistant's own voice. Use
+     * the same formats as the `voice` of the [speak](/api-reference/call-commands/speak-text)
+     * command. A community engine voice is `<EngineName>.<VoiceId>` (e.g., `acme.alpha`) and needs
+     * `voice_settings.api_key_ref`; see the
+     * [Community TTS engines guide](/docs/voice/tts/community-engines). Without `voice`, the
+     * assistant's own voice is used.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun voice(): Optional<String> = body.voice()
+
+    /**
+     * The settings of `voice`. A community engine voice requires `api_key_ref`; the other keys are
+     * the engine's own settings.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun voiceSettings(): Optional<VoiceSettings> = body.voiceSettings()
+
+    /**
      * Returns the raw JSON value of [assistant].
      *
      * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
@@ -199,6 +227,20 @@ private constructor(
      * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _transcription(): JsonField<TranscriptionConfig> = body._transcription()
+
+    /**
+     * Returns the raw JSON value of [voice].
+     *
+     * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _voice(): JsonField<String> = body._voice()
+
+    /**
+     * Returns the raw JSON value of [voiceSettings].
+     *
+     * Unlike [voiceSettings], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _voiceSettings(): JsonField<VoiceSettings> = body._voiceSettings()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -488,6 +530,77 @@ private constructor(
             body.transcription(transcription)
         }
 
+        /**
+         * The voice the assistant speaks with on this call, in place of the assistant's own voice.
+         * Use the same formats as the `voice` of the
+         * [speak](/api-reference/call-commands/speak-text) command. A community engine voice is
+         * `<EngineName>.<VoiceId>` (e.g., `acme.alpha`) and needs `voice_settings.api_key_ref`; see
+         * the [Community TTS engines guide](/docs/voice/tts/community-engines). Without `voice`,
+         * the assistant's own voice is used.
+         */
+        fun voice(voice: String) = apply { body.voice(voice) }
+
+        /**
+         * Sets [Builder.voice] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.voice] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun voice(voice: JsonField<String>) = apply { body.voice(voice) }
+
+        /**
+         * The settings of `voice`. A community engine voice requires `api_key_ref`; the other keys
+         * are the engine's own settings.
+         */
+        fun voiceSettings(voiceSettings: VoiceSettings) = apply {
+            body.voiceSettings(voiceSettings)
+        }
+
+        /**
+         * Sets [Builder.voiceSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.voiceSettings] with a well-typed [VoiceSettings] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun voiceSettings(voiceSettings: JsonField<VoiceSettings>) = apply {
+            body.voiceSettings(voiceSettings)
+        }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenLabs(elevenLabs)`. */
+        fun voiceSettings(elevenLabs: ElevenLabsVoiceSettings) = apply {
+            body.voiceSettings(elevenLabs)
+        }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofTelnyx(telnyx)`. */
+        fun voiceSettings(telnyx: TelnyxVoiceSettings) = apply { body.voiceSettings(telnyx) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
+        fun voiceSettings(aws: AwsVoiceSettings) = apply { body.voiceSettings(aws) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+        fun voiceSettings(minimax: MinimaxVoiceSettings) = apply { body.voiceSettings(minimax) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofAzure(azure)`. */
+        fun voiceSettings(azure: AzureVoiceSettings) = apply { body.voiceSettings(azure) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
+        fun voiceSettings(resemble: ResembleVoiceSettings) = apply { body.voiceSettings(resemble) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld(inworld)`. */
+        fun voiceSettings(inworld: InworldVoiceSettings) = apply { body.voiceSettings(inworld) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
+        fun voiceSettings(xai: XaiVoiceSettings) = apply { body.voiceSettings(xai) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofSoniox(soniox)`. */
+        fun voiceSettings(soniox: SonioxVoiceSettings) = apply { body.voiceSettings(soniox) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofCommunity(community)`. */
+        fun voiceSettings(community: CommunityVoiceSettings) = apply {
+            body.voiceSettings(community)
+        }
+
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
         }
@@ -644,6 +757,8 @@ private constructor(
         private val participants: JsonField<List<AiAssistantJoinParticipant>>,
         private val sendMessageHistoryUpdates: JsonField<Boolean>,
         private val transcription: JsonField<TranscriptionConfig>,
+        private val voice: JsonField<String>,
+        private val voiceSettings: JsonField<VoiceSettings>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -676,6 +791,10 @@ private constructor(
             @JsonProperty("transcription")
             @ExcludeMissing
             transcription: JsonField<TranscriptionConfig> = JsonMissing.of(),
+            @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("voice_settings")
+            @ExcludeMissing
+            voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
         ) : this(
             assistant,
             clientState,
@@ -686,6 +805,8 @@ private constructor(
             participants,
             sendMessageHistoryUpdates,
             transcription,
+            voice,
+            voiceSettings,
             mutableMapOf(),
         )
 
@@ -781,6 +902,28 @@ private constructor(
             transcription.getOptional("transcription")
 
         /**
+         * The voice the assistant speaks with on this call, in place of the assistant's own voice.
+         * Use the same formats as the `voice` of the
+         * [speak](/api-reference/call-commands/speak-text) command. A community engine voice is
+         * `<EngineName>.<VoiceId>` (e.g., `acme.alpha`) and needs `voice_settings.api_key_ref`; see
+         * the [Community TTS engines guide](/docs/voice/tts/community-engines). Without `voice`,
+         * the assistant's own voice is used.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun voice(): Optional<String> = voice.getOptional("voice")
+
+        /**
+         * The settings of `voice`. A community engine voice requires `api_key_ref`; the other keys
+         * are the engine's own settings.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun voiceSettings(): Optional<VoiceSettings> = voiceSettings.getOptional("voice_settings")
+
+        /**
          * Returns the raw JSON value of [assistant].
          *
          * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
@@ -862,6 +1005,23 @@ private constructor(
         @ExcludeMissing
         fun _transcription(): JsonField<TranscriptionConfig> = transcription
 
+        /**
+         * Returns the raw JSON value of [voice].
+         *
+         * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<String> = voice
+
+        /**
+         * Returns the raw JSON value of [voiceSettings].
+         *
+         * Unlike [voiceSettings], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("voice_settings")
+        @ExcludeMissing
+        fun _voiceSettings(): JsonField<VoiceSettings> = voiceSettings
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -892,6 +1052,8 @@ private constructor(
             private var participants: JsonField<MutableList<AiAssistantJoinParticipant>>? = null
             private var sendMessageHistoryUpdates: JsonField<Boolean> = JsonMissing.of()
             private var transcription: JsonField<TranscriptionConfig> = JsonMissing.of()
+            private var voice: JsonField<String> = JsonMissing.of()
+            private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -905,6 +1067,8 @@ private constructor(
                 participants = body.participants.map { it.toMutableList() }
                 sendMessageHistoryUpdates = body.sendMessageHistoryUpdates
                 transcription = body.transcription
+                voice = body.voice
+                voiceSettings = body.voiceSettings
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -1158,6 +1322,81 @@ private constructor(
                 this.transcription = transcription
             }
 
+            /**
+             * The voice the assistant speaks with on this call, in place of the assistant's own
+             * voice. Use the same formats as the `voice` of the
+             * [speak](/api-reference/call-commands/speak-text) command. A community engine voice is
+             * `<EngineName>.<VoiceId>` (e.g., `acme.alpha`) and needs `voice_settings.api_key_ref`;
+             * see the [Community TTS engines guide](/docs/voice/tts/community-engines). Without
+             * `voice`, the assistant's own voice is used.
+             */
+            fun voice(voice: String) = voice(JsonField.of(voice))
+
+            /**
+             * Sets [Builder.voice] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.voice] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun voice(voice: JsonField<String>) = apply { this.voice = voice }
+
+            /**
+             * The settings of `voice`. A community engine voice requires `api_key_ref`; the other
+             * keys are the engine's own settings.
+             */
+            fun voiceSettings(voiceSettings: VoiceSettings) =
+                voiceSettings(JsonField.of(voiceSettings))
+
+            /**
+             * Sets [Builder.voiceSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.voiceSettings] with a well-typed [VoiceSettings]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun voiceSettings(voiceSettings: JsonField<VoiceSettings>) = apply {
+                this.voiceSettings = voiceSettings
+            }
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenLabs(elevenLabs)`. */
+            fun voiceSettings(elevenLabs: ElevenLabsVoiceSettings) =
+                voiceSettings(VoiceSettings.ofElevenLabs(elevenLabs))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofTelnyx(telnyx)`. */
+            fun voiceSettings(telnyx: TelnyxVoiceSettings) =
+                voiceSettings(VoiceSettings.ofTelnyx(telnyx))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
+            fun voiceSettings(aws: AwsVoiceSettings) = voiceSettings(VoiceSettings.ofAws(aws))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+            fun voiceSettings(minimax: MinimaxVoiceSettings) =
+                voiceSettings(VoiceSettings.ofMinimax(minimax))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofAzure(azure)`. */
+            fun voiceSettings(azure: AzureVoiceSettings) =
+                voiceSettings(VoiceSettings.ofAzure(azure))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
+            fun voiceSettings(resemble: ResembleVoiceSettings) =
+                voiceSettings(VoiceSettings.ofResemble(resemble))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld(inworld)`. */
+            fun voiceSettings(inworld: InworldVoiceSettings) =
+                voiceSettings(VoiceSettings.ofInworld(inworld))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofXai(xai)`. */
+            fun voiceSettings(xai: XaiVoiceSettings) = voiceSettings(VoiceSettings.ofXai(xai))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofSoniox(soniox)`. */
+            fun voiceSettings(soniox: SonioxVoiceSettings) =
+                voiceSettings(VoiceSettings.ofSoniox(soniox))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofCommunity(community)`. */
+            fun voiceSettings(community: CommunityVoiceSettings) =
+                voiceSettings(VoiceSettings.ofCommunity(community))
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1193,6 +1432,8 @@ private constructor(
                     (participants ?: JsonMissing.of()).map { it.toImmutable() },
                     sendMessageHistoryUpdates,
                     transcription,
+                    voice,
+                    voiceSettings,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1222,6 +1463,8 @@ private constructor(
             participants().ifPresent { it.forEach { it.validate() } }
             sendMessageHistoryUpdates()
             transcription().ifPresent { it.validate() }
+            voice()
+            voiceSettings().ifPresent { it.validate() }
             validated = true
         }
 
@@ -1249,7 +1492,9 @@ private constructor(
                 (messageHistory.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (participants.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (sendMessageHistoryUpdates.asKnown().isPresent) 1 else 0) +
-                (transcription.asKnown().getOrNull()?.validity() ?: 0)
+                (transcription.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (voice.asKnown().isPresent) 1 else 0) +
+                (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1266,6 +1511,8 @@ private constructor(
                 participants == other.participants &&
                 sendMessageHistoryUpdates == other.sendMessageHistoryUpdates &&
                 transcription == other.transcription &&
+                voice == other.voice &&
+                voiceSettings == other.voiceSettings &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1280,6 +1527,8 @@ private constructor(
                 participants,
                 sendMessageHistoryUpdates,
                 transcription,
+                voice,
+                voiceSettings,
                 additionalProperties,
             )
         }
@@ -1287,7 +1536,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{assistant=$assistant, clientState=$clientState, commandId=$commandId, greeting=$greeting, interruptionSettings=$interruptionSettings, messageHistory=$messageHistory, participants=$participants, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, transcription=$transcription, additionalProperties=$additionalProperties}"
+            "Body{assistant=$assistant, clientState=$clientState, commandId=$commandId, greeting=$greeting, interruptionSettings=$interruptionSettings, messageHistory=$messageHistory, participants=$participants, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, transcription=$transcription, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
     /** Messages sent by an end user */
@@ -1613,6 +1862,462 @@ private constructor(
                     value.developer != null -> generator.writeObject(value.developer)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid MessageHistory")
+                }
+            }
+        }
+    }
+
+    /**
+     * The settings of `voice`. A community engine voice requires `api_key_ref`; the other keys are
+     * the engine's own settings.
+     */
+    @JsonDeserialize(using = VoiceSettings.Deserializer::class)
+    @JsonSerialize(using = VoiceSettings.Serializer::class)
+    class VoiceSettings
+    private constructor(
+        private val elevenLabs: ElevenLabsVoiceSettings? = null,
+        private val telnyx: TelnyxVoiceSettings? = null,
+        private val aws: AwsVoiceSettings? = null,
+        private val minimax: MinimaxVoiceSettings? = null,
+        private val azure: AzureVoiceSettings? = null,
+        private val resemble: ResembleVoiceSettings? = null,
+        private val inworld: InworldVoiceSettings? = null,
+        private val xai: XaiVoiceSettings? = null,
+        private val soniox: SonioxVoiceSettings? = null,
+        private val community: CommunityVoiceSettings? = null,
+        private val _json: JsonValue? = null,
+    ) {
+
+        fun elevenLabs(): Optional<ElevenLabsVoiceSettings> = Optional.ofNullable(elevenLabs)
+
+        fun telnyx(): Optional<TelnyxVoiceSettings> = Optional.ofNullable(telnyx)
+
+        fun aws(): Optional<AwsVoiceSettings> = Optional.ofNullable(aws)
+
+        fun minimax(): Optional<MinimaxVoiceSettings> = Optional.ofNullable(minimax)
+
+        fun azure(): Optional<AzureVoiceSettings> = Optional.ofNullable(azure)
+
+        fun resemble(): Optional<ResembleVoiceSettings> = Optional.ofNullable(resemble)
+
+        fun inworld(): Optional<InworldVoiceSettings> = Optional.ofNullable(inworld)
+
+        fun xai(): Optional<XaiVoiceSettings> = Optional.ofNullable(xai)
+
+        fun soniox(): Optional<SonioxVoiceSettings> = Optional.ofNullable(soniox)
+
+        /**
+         * Settings for a community text-to-speech engine voice (`<EngineName>.<VoiceId>`).
+         * `api_key_ref` is required. Every other key is a setting the engine declares in its
+         * `voice_settings_schema`, and is passed to the engine as sent. See the
+         * [Community TTS engines guide](/docs/voice/tts/community-engines).
+         */
+        fun community(): Optional<CommunityVoiceSettings> = Optional.ofNullable(community)
+
+        fun isElevenLabs(): Boolean = elevenLabs != null
+
+        fun isTelnyx(): Boolean = telnyx != null
+
+        fun isAws(): Boolean = aws != null
+
+        fun isMinimax(): Boolean = minimax != null
+
+        fun isAzure(): Boolean = azure != null
+
+        fun isResemble(): Boolean = resemble != null
+
+        fun isInworld(): Boolean = inworld != null
+
+        fun isXai(): Boolean = xai != null
+
+        fun isSoniox(): Boolean = soniox != null
+
+        fun isCommunity(): Boolean = community != null
+
+        fun asElevenLabs(): ElevenLabsVoiceSettings = elevenLabs.getOrThrow("elevenLabs")
+
+        fun asTelnyx(): TelnyxVoiceSettings = telnyx.getOrThrow("telnyx")
+
+        fun asAws(): AwsVoiceSettings = aws.getOrThrow("aws")
+
+        fun asMinimax(): MinimaxVoiceSettings = minimax.getOrThrow("minimax")
+
+        fun asAzure(): AzureVoiceSettings = azure.getOrThrow("azure")
+
+        fun asResemble(): ResembleVoiceSettings = resemble.getOrThrow("resemble")
+
+        fun asInworld(): InworldVoiceSettings = inworld.getOrThrow("inworld")
+
+        fun asXai(): XaiVoiceSettings = xai.getOrThrow("xai")
+
+        fun asSoniox(): SonioxVoiceSettings = soniox.getOrThrow("soniox")
+
+        /**
+         * Settings for a community text-to-speech engine voice (`<EngineName>.<VoiceId>`).
+         * `api_key_ref` is required. Every other key is a setting the engine declares in its
+         * `voice_settings_schema`, and is passed to the engine as sent. See the
+         * [Community TTS engines guide](/docs/voice/tts/community-engines).
+         */
+        fun asCommunity(): CommunityVoiceSettings = community.getOrThrow("community")
+
+        fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+        /**
+         * Maps this instance's current variant to a value of type [T] using the given [visitor].
+         *
+         * Note that this method is _not_ forwards compatible with new variants from the API, unless
+         * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of
+         * the SDK gracefully, consider overriding [Visitor.unknown]:
+         * ```java
+         * import com.telnyx.sdk.core.JsonValue;
+         * import java.util.Optional;
+         *
+         * Optional<String> result = voiceSettings.accept(new VoiceSettings.Visitor<Optional<String>>() {
+         *     @Override
+         *     public Optional<String> visitElevenLabs(ElevenLabsVoiceSettings elevenLabs) {
+         *         return Optional.of(elevenLabs.toString());
+         *     }
+         *
+         *     // ...
+         *
+         *     @Override
+         *     public Optional<String> unknown(JsonValue json) {
+         *         // Or inspect the `json`.
+         *         return Optional.empty();
+         *     }
+         * });
+         * ```
+         *
+         * @throws TelnyxInvalidDataException if [Visitor.unknown] is not overridden in [visitor]
+         *   and the current variant is unknown.
+         */
+        fun <T> accept(visitor: Visitor<T>): T =
+            when {
+                elevenLabs != null -> visitor.visitElevenLabs(elevenLabs)
+                telnyx != null -> visitor.visitTelnyx(telnyx)
+                aws != null -> visitor.visitAws(aws)
+                minimax != null -> visitor.visitMinimax(minimax)
+                azure != null -> visitor.visitAzure(azure)
+                resemble != null -> visitor.visitResemble(resemble)
+                inworld != null -> visitor.visitInworld(inworld)
+                xai != null -> visitor.visitXai(xai)
+                soniox != null -> visitor.visitSoniox(soniox)
+                community != null -> visitor.visitCommunity(community)
+                else -> visitor.unknown(_json)
+            }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): VoiceSettings = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accept(
+                object : Visitor<Unit> {
+                    override fun visitElevenLabs(elevenLabs: ElevenLabsVoiceSettings) {
+                        elevenLabs.validate()
+                    }
+
+                    override fun visitTelnyx(telnyx: TelnyxVoiceSettings) {
+                        telnyx.validate()
+                    }
+
+                    override fun visitAws(aws: AwsVoiceSettings) {
+                        aws.validate()
+                    }
+
+                    override fun visitMinimax(minimax: MinimaxVoiceSettings) {
+                        minimax.validate()
+                    }
+
+                    override fun visitAzure(azure: AzureVoiceSettings) {
+                        azure.validate()
+                    }
+
+                    override fun visitResemble(resemble: ResembleVoiceSettings) {
+                        resemble.validate()
+                    }
+
+                    override fun visitInworld(inworld: InworldVoiceSettings) {
+                        inworld.validate()
+                    }
+
+                    override fun visitXai(xai: XaiVoiceSettings) {
+                        xai.validate()
+                    }
+
+                    override fun visitSoniox(soniox: SonioxVoiceSettings) {
+                        soniox.validate()
+                    }
+
+                    override fun visitCommunity(community: CommunityVoiceSettings) {
+                        community.validate()
+                    }
+                }
+            )
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            accept(
+                object : Visitor<Int> {
+                    override fun visitElevenLabs(elevenLabs: ElevenLabsVoiceSettings) =
+                        elevenLabs.validity()
+
+                    override fun visitTelnyx(telnyx: TelnyxVoiceSettings) = telnyx.validity()
+
+                    override fun visitAws(aws: AwsVoiceSettings) = aws.validity()
+
+                    override fun visitMinimax(minimax: MinimaxVoiceSettings) = minimax.validity()
+
+                    override fun visitAzure(azure: AzureVoiceSettings) = azure.validity()
+
+                    override fun visitResemble(resemble: ResembleVoiceSettings) =
+                        resemble.validity()
+
+                    override fun visitInworld(inworld: InworldVoiceSettings) = inworld.validity()
+
+                    override fun visitXai(xai: XaiVoiceSettings) = xai.validity()
+
+                    override fun visitSoniox(soniox: SonioxVoiceSettings) = soniox.validity()
+
+                    override fun visitCommunity(community: CommunityVoiceSettings) =
+                        community.validity()
+
+                    override fun unknown(json: JsonValue?) = 0
+                }
+            )
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is VoiceSettings &&
+                elevenLabs == other.elevenLabs &&
+                telnyx == other.telnyx &&
+                aws == other.aws &&
+                minimax == other.minimax &&
+                azure == other.azure &&
+                resemble == other.resemble &&
+                inworld == other.inworld &&
+                xai == other.xai &&
+                soniox == other.soniox &&
+                community == other.community
+        }
+
+        override fun hashCode(): Int =
+            Objects.hash(
+                elevenLabs,
+                telnyx,
+                aws,
+                minimax,
+                azure,
+                resemble,
+                inworld,
+                xai,
+                soniox,
+                community,
+            )
+
+        override fun toString(): String =
+            when {
+                elevenLabs != null -> "VoiceSettings{elevenLabs=$elevenLabs}"
+                telnyx != null -> "VoiceSettings{telnyx=$telnyx}"
+                aws != null -> "VoiceSettings{aws=$aws}"
+                minimax != null -> "VoiceSettings{minimax=$minimax}"
+                azure != null -> "VoiceSettings{azure=$azure}"
+                resemble != null -> "VoiceSettings{resemble=$resemble}"
+                inworld != null -> "VoiceSettings{inworld=$inworld}"
+                xai != null -> "VoiceSettings{xai=$xai}"
+                soniox != null -> "VoiceSettings{soniox=$soniox}"
+                community != null -> "VoiceSettings{community=$community}"
+                _json != null -> "VoiceSettings{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid VoiceSettings")
+            }
+
+        companion object {
+
+            @JvmStatic
+            fun ofElevenLabs(elevenLabs: ElevenLabsVoiceSettings) =
+                VoiceSettings(elevenLabs = elevenLabs)
+
+            @JvmStatic fun ofTelnyx(telnyx: TelnyxVoiceSettings) = VoiceSettings(telnyx = telnyx)
+
+            @JvmStatic fun ofAws(aws: AwsVoiceSettings) = VoiceSettings(aws = aws)
+
+            @JvmStatic
+            fun ofMinimax(minimax: MinimaxVoiceSettings) = VoiceSettings(minimax = minimax)
+
+            @JvmStatic fun ofAzure(azure: AzureVoiceSettings) = VoiceSettings(azure = azure)
+
+            @JvmStatic
+            fun ofResemble(resemble: ResembleVoiceSettings) = VoiceSettings(resemble = resemble)
+
+            @JvmStatic
+            fun ofInworld(inworld: InworldVoiceSettings) = VoiceSettings(inworld = inworld)
+
+            @JvmStatic fun ofXai(xai: XaiVoiceSettings) = VoiceSettings(xai = xai)
+
+            @JvmStatic fun ofSoniox(soniox: SonioxVoiceSettings) = VoiceSettings(soniox = soniox)
+
+            /**
+             * Settings for a community text-to-speech engine voice (`<EngineName>.<VoiceId>`).
+             * `api_key_ref` is required. Every other key is a setting the engine declares in its
+             * `voice_settings_schema`, and is passed to the engine as sent. See the
+             * [Community TTS engines guide](/docs/voice/tts/community-engines).
+             */
+            @JvmStatic
+            fun ofCommunity(community: CommunityVoiceSettings) =
+                VoiceSettings(community = community)
+        }
+
+        /**
+         * An interface that defines how to map each variant of [VoiceSettings] to a value of type
+         * [T].
+         */
+        interface Visitor<out T> {
+
+            fun visitElevenLabs(elevenLabs: ElevenLabsVoiceSettings): T
+
+            fun visitTelnyx(telnyx: TelnyxVoiceSettings): T
+
+            fun visitAws(aws: AwsVoiceSettings): T
+
+            fun visitMinimax(minimax: MinimaxVoiceSettings): T
+
+            fun visitAzure(azure: AzureVoiceSettings): T
+
+            fun visitResemble(resemble: ResembleVoiceSettings): T
+
+            fun visitInworld(inworld: InworldVoiceSettings): T
+
+            fun visitXai(xai: XaiVoiceSettings): T
+
+            fun visitSoniox(soniox: SonioxVoiceSettings): T
+
+            /**
+             * Settings for a community text-to-speech engine voice (`<EngineName>.<VoiceId>`).
+             * `api_key_ref` is required. Every other key is a setting the engine declares in its
+             * `voice_settings_schema`, and is passed to the engine as sent. See the
+             * [Community TTS engines guide](/docs/voice/tts/community-engines).
+             */
+            fun visitCommunity(community: CommunityVoiceSettings): T
+
+            /**
+             * Maps an unknown variant of [VoiceSettings] to a value of type [T].
+             *
+             * An instance of [VoiceSettings] can contain an unknown variant if it was deserialized
+             * from data that doesn't match any known variant. For example, if the SDK is on an
+             * older version than the API, then the API may respond with new variants that the SDK
+             * is unaware of.
+             *
+             * @throws TelnyxInvalidDataException in the default implementation.
+             */
+            fun unknown(json: JsonValue?): T {
+                throw TelnyxInvalidDataException("Unknown VoiceSettings: $json")
+            }
+        }
+
+        internal class Deserializer : BaseDeserializer<VoiceSettings>(VoiceSettings::class) {
+
+            override fun ObjectCodec.deserialize(node: JsonNode): VoiceSettings {
+                val json = JsonValue.fromJsonNode(node)
+
+                val bestMatches =
+                    sequenceOf(
+                            tryDeserialize(node, jacksonTypeRef<ElevenLabsVoiceSettings>())?.let {
+                                VoiceSettings(elevenLabs = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<TelnyxVoiceSettings>())?.let {
+                                VoiceSettings(telnyx = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<AwsVoiceSettings>())?.let {
+                                VoiceSettings(aws = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<MinimaxVoiceSettings>())?.let {
+                                VoiceSettings(minimax = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<AzureVoiceSettings>())?.let {
+                                VoiceSettings(azure = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<ResembleVoiceSettings>())?.let {
+                                VoiceSettings(resemble = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<InworldVoiceSettings>())?.let {
+                                VoiceSettings(inworld = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<XaiVoiceSettings>())?.let {
+                                VoiceSettings(xai = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<SonioxVoiceSettings>())?.let {
+                                VoiceSettings(soniox = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<CommunityVoiceSettings>())?.let {
+                                VoiceSettings(community = it, _json = json)
+                            },
+                        )
+                        .filterNotNull()
+                        .allMaxBy { it.validity() }
+                        .toList()
+                return when (bestMatches.size) {
+                    // This can happen if what we're deserializing is completely incompatible with
+                    // all the possible variants (e.g. deserializing from boolean).
+                    0 -> VoiceSettings(_json = json)
+                    1 -> bestMatches.single()
+                    // If there's more than one match with the highest validity, then use the first
+                    // completely valid match, or simply the first match if none are completely
+                    // valid.
+                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                }
+            }
+        }
+
+        internal class Serializer : BaseSerializer<VoiceSettings>(VoiceSettings::class) {
+
+            override fun serialize(
+                value: VoiceSettings,
+                generator: JsonGenerator,
+                provider: SerializerProvider,
+            ) {
+                when {
+                    value.elevenLabs != null -> generator.writeObject(value.elevenLabs)
+                    value.telnyx != null -> generator.writeObject(value.telnyx)
+                    value.aws != null -> generator.writeObject(value.aws)
+                    value.minimax != null -> generator.writeObject(value.minimax)
+                    value.azure != null -> generator.writeObject(value.azure)
+                    value.resemble != null -> generator.writeObject(value.resemble)
+                    value.inworld != null -> generator.writeObject(value.inworld)
+                    value.xai != null -> generator.writeObject(value.xai)
+                    value.soniox != null -> generator.writeObject(value.soniox)
+                    value.community != null -> generator.writeObject(value.community)
+                    value._json != null -> generator.writeObject(value._json)
+                    else -> throw IllegalStateException("Invalid VoiceSettings")
                 }
             }
         }

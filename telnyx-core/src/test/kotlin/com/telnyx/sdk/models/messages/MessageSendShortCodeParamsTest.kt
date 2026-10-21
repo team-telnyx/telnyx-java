@@ -11,6 +11,7 @@ internal class MessageSendShortCodeParamsTest {
     @Test
     fun create() {
         MessageSendShortCodeParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .from("+18445550001")
             .to("+18445550001")
             .autoDetect(true)
@@ -26,9 +27,48 @@ internal class MessageSendShortCodeParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            MessageSendShortCodeParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .from("+18445550001")
+                .to("+18445550001")
+                .autoDetect(true)
+                .encoding(MessageSendShortCodeParams.Encoding.AUTO)
+                .addMediaUrl("http://example.com")
+                .subject("From Telnyx!")
+                .text("Hello, World!")
+                .type(MessageSendShortCodeParams.Type.MMS)
+                .useProfileWebhooks(true)
+                .webhookFailoverUrl("https://backup.example.com/hooks")
+                .webhookUrl("http://example.com/webhooks")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params =
+            MessageSendShortCodeParams.builder().from("+18445550001").to("+18445550001").build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             MessageSendShortCodeParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .from("+18445550001")
                 .to("+18445550001")
                 .autoDetect(true)

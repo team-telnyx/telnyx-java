@@ -90,6 +90,7 @@ internal class MessageServiceTest {
         val response =
             messageService.send(
                 MessageSendParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .to("+18445550001")
                     .autoDetect(true)
                     .encoding(MessageSendParams.Encoding.AUTO)
@@ -118,6 +119,7 @@ internal class MessageServiceTest {
         val response =
             messageService.sendGroupMms(
                 MessageSendGroupMmsParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .from("+13125551234")
                     .addTo("+18655551234")
                     .addTo("+14155551234")
@@ -142,6 +144,7 @@ internal class MessageServiceTest {
         val response =
             messageService.sendLongCode(
                 MessageSendLongCodeParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .from("+18445550001")
                     .to("+13125550002")
                     .autoDetect(true)
@@ -168,6 +171,7 @@ internal class MessageServiceTest {
         val response =
             messageService.sendNumberPool(
                 MessageSendNumberPoolParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
                     .to("+13125550002")
                     .autoDetect(true)
@@ -194,6 +198,7 @@ internal class MessageServiceTest {
         val response =
             messageService.sendShortCode(
                 MessageSendShortCodeParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .from("+18445550001")
                     .to("+18445550001")
                     .autoDetect(true)
@@ -220,6 +225,7 @@ internal class MessageServiceTest {
         val response =
             messageService.sendWithAlphanumericSender(
                 MessageSendWithAlphanumericSenderParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .from("MyCompany")
                     .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .text("text")
@@ -242,6 +248,7 @@ internal class MessageServiceTest {
         val response =
             messageService.whatsapp(
                 MessageWhatsappParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .from("+13125551234")
                     .to("+13125551234")
                     .whatsappMessage(

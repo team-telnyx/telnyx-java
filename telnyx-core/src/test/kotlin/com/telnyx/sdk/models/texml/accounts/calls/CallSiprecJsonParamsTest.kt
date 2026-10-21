@@ -10,7 +10,7 @@ internal class CallSiprecJsonParamsTest {
     @Test
     fun create() {
         CallSiprecJsonParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .callSid("call_sid")
             .connectorName("my_connector")
             .includeMetadataCustomHeaders(CallSiprecJsonParams.IncludeMetadataCustomHeaders.TRUE)
@@ -27,9 +27,12 @@ internal class CallSiprecJsonParamsTest {
     @Test
     fun pathParams() {
         val params =
-            CallSiprecJsonParams.builder().accountSid("account_sid").callSid("call_sid").build()
+            CallSiprecJsonParams.builder()
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                .callSid("call_sid")
+                .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         assertThat(params._pathParam(1)).isEqualTo("call_sid")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -39,7 +42,7 @@ internal class CallSiprecJsonParamsTest {
     fun body() {
         val params =
             CallSiprecJsonParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .callSid("call_sid")
                 .connectorName("my_connector")
                 .includeMetadataCustomHeaders(
@@ -72,7 +75,10 @@ internal class CallSiprecJsonParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            CallSiprecJsonParams.builder().accountSid("account_sid").callSid("call_sid").build()
+            CallSiprecJsonParams.builder()
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                .callSid("call_sid")
+                .build()
 
         val body = params._body()
     }

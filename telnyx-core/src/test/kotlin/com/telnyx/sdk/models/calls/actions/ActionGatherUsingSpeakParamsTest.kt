@@ -26,12 +26,7 @@ internal class ActionGatherUsingSpeakParamsTest {
             .terminatingDigit("#")
             .timeoutMillis(60000)
             .validDigits("123")
-            .voiceSettings(
-                ElevenLabsVoiceSettings.builder()
-                    .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
-                    .apiKeyRef("my_elevenlabs_api_key")
-                    .build()
-            )
+            .voiceSettings(CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build())
             .build()
     }
 
@@ -70,10 +65,7 @@ internal class ActionGatherUsingSpeakParamsTest {
                 .timeoutMillis(60000)
                 .validDigits("123")
                 .voiceSettings(
-                    ElevenLabsVoiceSettings.builder()
-                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
-                        .apiKeyRef("my_elevenlabs_api_key")
-                        .build()
+                    CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build()
                 )
                 .build()
 
@@ -96,11 +88,8 @@ internal class ActionGatherUsingSpeakParamsTest {
         assertThat(body.validDigits()).contains("123")
         assertThat(body.voiceSettings())
             .contains(
-                ActionGatherUsingSpeakParams.VoiceSettings.ofElevenlabs(
-                    ElevenLabsVoiceSettings.builder()
-                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
-                        .apiKeyRef("my_elevenlabs_api_key")
-                        .build()
+                ActionGatherUsingSpeakParams.VoiceSettings.ofCommunity(
+                    CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build()
                 )
             )
     }

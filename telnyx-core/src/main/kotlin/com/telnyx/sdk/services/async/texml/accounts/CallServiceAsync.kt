@@ -101,7 +101,7 @@ interface CallServiceAsync {
 
     /**
      * Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request URL
-     * configured for the connection in the Mission Control Portal.
+     * configured for the TeXML Application in the Mission Control Portal.
      */
     fun calls(accountSid: String, params: CallCallsParams): CompletableFuture<CallCallsResponse> =
         calls(accountSid, params, RequestOptions.none())

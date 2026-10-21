@@ -3347,3 +3347,27 @@ Methods:
 Methods:
 
 - <code title="get /dial_metrics">client.dialMetrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/DialMetricService.kt">list</a>(params)</code>
+
+# TtsIntegrations
+
+Methods:
+
+- <code title="post /tts_integrations">client.ttsIntegrations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TtsIntegrationService.kt">create</a>(params)</code>
+- <code title="get /tts_integrations/{id}">client.ttsIntegrations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TtsIntegrationService.kt">retrieve</a>(params)</code>
+- <code title="patch /tts_integrations/{id}">client.ttsIntegrations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TtsIntegrationService.kt">update</a>(params)</code>
+- <code title="get /tts_integrations">client.ttsIntegrations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TtsIntegrationService.kt">list</a>(params)</code>
+- <code title="delete /tts_integrations/{id}">client.ttsIntegrations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TtsIntegrationService.kt">delete</a>(params)</code>
+- <code title="put /tts_integrations/{id}">client.ttsIntegrations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TtsIntegrationService.kt">replace</a>(params)</code>
+- <code title="get /tts_integrations/{id}/conformance_runs">client.ttsIntegrations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TtsIntegrationService.kt">retrieveConformanceRuns</a>(params)</code>
+- <code title="get /tts_integrations/discoverable">client.ttsIntegrations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TtsIntegrationService.kt">retrieveDiscoverable</a>(params)</code>
+- <code title="get /tts_integrations/{id}/voices">client.ttsIntegrations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TtsIntegrationService.kt">retrieveVoices</a>(params)</code>
+
+## Actions
+
+Methods:
+
+- <code title="post /tts_integrations/{id}/actions/disable">client.ttsIntegrations().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ttsintegrations/ActionService.kt">disable</a>(params)</code>
+- <code title="post /tts_integrations/{id}/actions/enable">client.ttsIntegrations().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ttsintegrations/ActionService.kt">enable</a>(params)</code>
+- <code title="post /tts_integrations/{id}/actions/refresh_voices">client.ttsIntegrations().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ttsintegrations/ActionService.kt">refreshVoices</a>(params)</code>
+- <code title="post /tts_integrations/{id}/actions/request_review">client.ttsIntegrations().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ttsintegrations/ActionService.kt">requestReview</a>(params)</code>
+- <code title="post /tts_integrations/{id}/actions/test_connection">client.ttsIntegrations().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ttsintegrations/ActionService.kt">testConnection</a>(params)</code>

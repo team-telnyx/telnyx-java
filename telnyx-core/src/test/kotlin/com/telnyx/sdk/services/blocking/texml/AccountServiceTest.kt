@@ -20,7 +20,7 @@ internal class AccountServiceTest {
         val texmlGetCallRecordingsResponseBody =
             accountService.retrieveRecordingsJson(
                 AccountRetrieveRecordingsJsonParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .dateCreated(OffsetDateTime.parse("2023-05-22T00:00:00Z"))
                     .page(0L)
                     .pageSize(0L)
@@ -39,7 +39,7 @@ internal class AccountServiceTest {
         val response =
             accountService.retrieveTranscriptionsJson(
                 AccountRetrieveTranscriptionsJsonParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .pageSize(0L)
                     .pageToken("PageToken")
                     .build()

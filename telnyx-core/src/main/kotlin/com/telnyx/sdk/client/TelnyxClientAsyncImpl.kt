@@ -340,6 +340,8 @@ import com.telnyx.sdk.services.async.TextToSpeechServiceAsync
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsyncImpl
 import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsync
 import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsyncImpl
+import com.telnyx.sdk.services.async.TtsIntegrationServiceAsync
+import com.telnyx.sdk.services.async.TtsIntegrationServiceAsyncImpl
 import com.telnyx.sdk.services.async.UacConnectionServiceAsync
 import com.telnyx.sdk.services.async.UacConnectionServiceAsyncImpl
 import com.telnyx.sdk.services.async.UsageReportServiceAsync
@@ -1154,6 +1156,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         DialMetricServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val ttsIntegrations: TtsIntegrationServiceAsync by lazy {
+        TtsIntegrationServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1797,6 +1803,13 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** Call information */
     override fun dialMetrics(): DialMetricServiceAsync = dialMetrics
+
+    /**
+     * Register and manage text-to-speech (TTS) engines you publish, and find the public engines
+     * other organizations published, so an AI Assistant, TeXML or Call Control can speak with one
+     * of their voices, using your own key for it, instead of a Telnyx-integrated vendor.
+     */
+    override fun ttsIntegrations(): TtsIntegrationServiceAsync = ttsIntegrations
 
     override fun close() = clientOptions.close()
 
@@ -2611,6 +2624,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             DialMetricServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val ttsIntegrations: TtsIntegrationServiceAsync.WithRawResponse by lazy {
+            TtsIntegrationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3314,5 +3331,12 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         /** Call information */
         override fun dialMetrics(): DialMetricServiceAsync.WithRawResponse = dialMetrics
+
+        /**
+         * Register and manage text-to-speech (TTS) engines you publish, and find the public engines
+         * other organizations published, so an AI Assistant, TeXML or Call Control can speak with
+         * one of their voices, using your own key for it, instead of a Telnyx-integrated vendor.
+         */
+        override fun ttsIntegrations(): TtsIntegrationServiceAsync.WithRawResponse = ttsIntegrations
     }
 }

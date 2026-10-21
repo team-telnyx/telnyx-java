@@ -9,15 +9,21 @@ internal class CallRetrieveParamsTest {
 
     @Test
     fun create() {
-        CallRetrieveParams.builder().accountSid("account_sid").callSid("call_sid").build()
+        CallRetrieveParams.builder()
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+            .callSid("call_sid")
+            .build()
     }
 
     @Test
     fun pathParams() {
         val params =
-            CallRetrieveParams.builder().accountSid("account_sid").callSid("call_sid").build()
+            CallRetrieveParams.builder()
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                .callSid("call_sid")
+                .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         assertThat(params._pathParam(1)).isEqualTo("call_sid")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")

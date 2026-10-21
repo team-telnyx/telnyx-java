@@ -62,6 +62,7 @@ import com.telnyx.sdk.models.calls.actions.ActionSwitchSupervisorRoleParams
 import com.telnyx.sdk.models.calls.actions.ActionTransferParams
 import com.telnyx.sdk.models.calls.actions.ActionUpdateClientStateParams
 import com.telnyx.sdk.models.calls.actions.AiAssistantJoinParticipant
+import com.telnyx.sdk.models.calls.actions.CommunityVoiceSettings
 import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
 import com.telnyx.sdk.models.calls.actions.ConversationRelayTranscriptionEngineConfig
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
@@ -615,10 +616,7 @@ internal class ActionServiceTest {
                     .timeoutMillis(60000)
                     .validDigits("123")
                     .voiceSettings(
-                        ElevenLabsVoiceSettings.builder()
-                            .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
-                            .apiKeyRef("my_elevenlabs_api_key")
-                            .build()
+                        CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build()
                     )
                     .build()
             )
@@ -920,10 +918,7 @@ internal class ActionServiceTest {
                     .stop("current")
                     .targetLegs(ActionSpeakParams.TargetLegs.BOTH)
                     .voiceSettings(
-                        ElevenLabsVoiceSettings.builder()
-                            .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
-                            .apiKeyRef("my_elevenlabs_api_key")
-                            .build()
+                        CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build()
                     )
                     .build()
             )
@@ -1072,6 +1067,10 @@ internal class ActionServiceTest {
                             .language("language")
                             .model(TranscriptionConfig.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                             .build()
+                    )
+                    .voice("acme.alpha")
+                    .voiceSettings(
+                        CommunityVoiceSettings.builder().apiKeyRef("acme-engine-key").build()
                     )
                     .build()
             )

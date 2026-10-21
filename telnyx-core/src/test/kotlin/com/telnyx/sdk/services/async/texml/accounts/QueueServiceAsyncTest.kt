@@ -21,7 +21,7 @@ internal class QueueServiceAsyncTest {
         val queueResourceFuture =
             queueServiceAsync.create(
                 QueueCreateParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .friendlyName("Support Queue")
                     .maxSize(10L)
                     .build()
@@ -40,7 +40,7 @@ internal class QueueServiceAsyncTest {
         val queueResourceFuture =
             queueServiceAsync.retrieve(
                 QueueRetrieveParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .queueSid("queue_sid")
                     .build()
             )
@@ -58,7 +58,7 @@ internal class QueueServiceAsyncTest {
         val queueResourceFuture =
             queueServiceAsync.update(
                 QueueUpdateParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .queueSid("queue_sid")
                     .maxSize(10L)
                     .build()
@@ -74,7 +74,7 @@ internal class QueueServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val queueServiceAsync = client.texml().accounts().queues()
 
-        val pageFuture = queueServiceAsync.list("account_sid")
+        val pageFuture = queueServiceAsync.list("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
 
         val page = pageFuture.get()
         page.response().validate()
@@ -88,7 +88,10 @@ internal class QueueServiceAsyncTest {
 
         val future =
             queueServiceAsync.delete(
-                QueueDeleteParams.builder().accountSid("account_sid").queueSid("queue_sid").build()
+                QueueDeleteParams.builder()
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                    .queueSid("queue_sid")
+                    .build()
             )
 
         val response = future.get()

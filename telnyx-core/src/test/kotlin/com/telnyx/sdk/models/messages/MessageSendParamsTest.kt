@@ -12,6 +12,7 @@ internal class MessageSendParamsTest {
     @Test
     fun create() {
         MessageSendParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .to("+18445550001")
             .autoDetect(true)
             .encoding(MessageSendParams.Encoding.AUTO)
@@ -29,9 +30,49 @@ internal class MessageSendParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            MessageSendParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .to("+18445550001")
+                .autoDetect(true)
+                .encoding(MessageSendParams.Encoding.AUTO)
+                .from("+18445550001")
+                .addMediaUrl("http://example.com")
+                .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
+                .sendAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .subject("From Telnyx!")
+                .text("Hello, World!")
+                .type(MessageSendParams.Type.MMS)
+                .useProfileWebhooks(true)
+                .webhookFailoverUrl("https://backup.example.com/hooks")
+                .webhookUrl("http://example.com/webhooks")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params = MessageSendParams.builder().to("+18445550001").build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             MessageSendParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .to("+18445550001")
                 .autoDetect(true)
                 .encoding(MessageSendParams.Encoding.AUTO)

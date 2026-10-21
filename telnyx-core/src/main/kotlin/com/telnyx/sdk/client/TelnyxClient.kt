@@ -171,6 +171,7 @@ import com.telnyx.sdk.services.blocking.TexmlApplicationService
 import com.telnyx.sdk.services.blocking.TexmlService
 import com.telnyx.sdk.services.blocking.TextToSpeechService
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
+import com.telnyx.sdk.services.blocking.TtsIntegrationService
 import com.telnyx.sdk.services.blocking.UacConnectionService
 import com.telnyx.sdk.services.blocking.UsageReportService
 import com.telnyx.sdk.services.blocking.UserAddressService
@@ -840,6 +841,13 @@ interface TelnyxClient {
     fun dialMetrics(): DialMetricService
 
     /**
+     * Register and manage text-to-speech (TTS) engines you publish, and find the public engines
+     * other organizations published, so an AI Assistant, TeXML or Call Control can speak with one
+     * of their voices, using your own key for it, instead of a Telnyx-integrated vendor.
+     */
+    fun ttsIntegrations(): TtsIntegrationService
+
+    /**
      * Closes this client, relinquishing any underlying resources.
      *
      * This is purposefully not inherited from [AutoCloseable] because the client is long-lived and
@@ -1471,5 +1479,12 @@ interface TelnyxClient {
 
         /** Call information */
         fun dialMetrics(): DialMetricService.WithRawResponse
+
+        /**
+         * Register and manage text-to-speech (TTS) engines you publish, and find the public engines
+         * other organizations published, so an AI Assistant, TeXML or Call Control can speak with
+         * one of their voices, using your own key for it, instead of a Telnyx-integrated vendor.
+         */
+        fun ttsIntegrations(): TtsIntegrationService.WithRawResponse
     }
 }

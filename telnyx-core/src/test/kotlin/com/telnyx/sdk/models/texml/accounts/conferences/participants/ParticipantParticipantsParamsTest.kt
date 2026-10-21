@@ -11,7 +11,7 @@ internal class ParticipantParticipantsParamsTest {
     @Test
     fun create() {
         ParticipantParticipantsParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .conferenceSid("conference_sid")
             .amdStatusCallback("https://www.example.com/amd_result")
             .amdStatusCallbackMethod(ParticipantParticipantsParams.AmdStatusCallbackMethod.GET)
@@ -91,11 +91,11 @@ internal class ParticipantParticipantsParamsTest {
     fun pathParams() {
         val params =
             ParticipantParticipantsParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .conferenceSid("conference_sid")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         assertThat(params._pathParam(1)).isEqualTo("conference_sid")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -105,7 +105,7 @@ internal class ParticipantParticipantsParamsTest {
     fun body() {
         val params =
             ParticipantParticipantsParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .conferenceSid("conference_sid")
                 .amdStatusCallback("https://www.example.com/amd_result")
                 .amdStatusCallbackMethod(ParticipantParticipantsParams.AmdStatusCallbackMethod.GET)
@@ -266,7 +266,7 @@ internal class ParticipantParticipantsParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ParticipantParticipantsParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .conferenceSid("conference_sid")
                 .build()
 

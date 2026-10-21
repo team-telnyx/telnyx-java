@@ -10,6 +10,7 @@ internal class MessageSendWithAlphanumericSenderParamsTest {
     @Test
     fun create() {
         MessageSendWithAlphanumericSenderParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .from("MyCompany")
             .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .text("text")
@@ -21,9 +22,49 @@ internal class MessageSendWithAlphanumericSenderParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            MessageSendWithAlphanumericSenderParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .from("MyCompany")
+                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .text("text")
+                .to("+E.164")
+                .useProfileWebhooks(true)
+                .webhookFailoverUrl("webhook_failover_url")
+                .webhookUrl("webhook_url")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params =
+            MessageSendWithAlphanumericSenderParams.builder()
+                .from("MyCompany")
+                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .text("text")
+                .to("+E.164")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             MessageSendWithAlphanumericSenderParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .from("MyCompany")
                 .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .text("text")

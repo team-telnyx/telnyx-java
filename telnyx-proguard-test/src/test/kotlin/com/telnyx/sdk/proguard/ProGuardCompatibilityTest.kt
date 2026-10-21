@@ -247,6 +247,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.llmTokenGateway()).isNotNull()
         assertThat(client.sipRegistrationStatus()).isNotNull()
         assertThat(client.dialMetrics()).isNotNull()
+        assertThat(client.ttsIntegrations()).isNotNull()
     }
 
     @Test
