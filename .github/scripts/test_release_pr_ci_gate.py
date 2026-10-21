@@ -27,6 +27,19 @@ class JavaReleasePRGateTests(unittest.TestCase):
         self.assertNotIn("cache: gradle", workflow)
         self.assertNotIn("pull_request_target", workflow)
 
+    def test_codeql_uses_established_hosted_compiler_memory_budget(self):
+        workflow = (ROOT / ".github/workflows/codeql.yml").read_text(encoding="utf-8")
+        ci = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+        # The same source tree compiles in CI at 12GiB; 8GiB exhausts the
+        # Kotlin psi2ir heap even without CodeQL tracing.
+        budget = '-Dorg.gradle.jvmargs="-Xmx12g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8"'
+        self.assertIn(budget, ci)
+        self.assertIn(budget, workflow)
+        self.assertIn("runs-on: ubuntu-latest", workflow)
+        self.assertIn("-Pkotlin.compiler.execution.strategy=in-process", workflow)
+        self.assertIn("--max-workers=1", workflow)
+        self.assertNotIn("-Xmx8g", workflow)
+
     def test_classifier_owns_every_full_ci_job(self):
         ci = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
         self.assertIn("name: classify production CI", ci)

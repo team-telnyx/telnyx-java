@@ -59,10 +59,12 @@ jobs:
           # classes selects every subproject's main source set, including the
           # custom lib/websocket modules and examples. Tests/shrinkers are CI's
           # responsibility. Recompile inside tracing, never restore bytecode.
+          # Match CI's proven 12GiB compiler budget: 8GiB exhausts Kotlin's
+          # psi2ir heap on this source tree, even without CodeQL tracing.
           # One compiler JVM avoids inheriting a second generated 12GiB heap.
           ./gradlew clean classes --no-daemon --no-parallel --max-workers=1 \
             --no-build-cache --no-configuration-cache --rerun-tasks \
-            -Dorg.gradle.jvmargs="-Xmx8g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8" \
+            -Dorg.gradle.jvmargs="-Xmx12g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8" \
             -Pkotlin.compiler.execution.strategy=in-process \
             -Pkotlin.incremental=false
 
