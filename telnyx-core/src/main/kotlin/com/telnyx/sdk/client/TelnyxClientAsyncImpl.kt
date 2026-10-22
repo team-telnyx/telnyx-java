@@ -72,6 +72,8 @@ import com.telnyx.sdk.services.async.CustomerServiceRecordServiceAsync
 import com.telnyx.sdk.services.async.CustomerServiceRecordServiceAsyncImpl
 import com.telnyx.sdk.services.async.DetailRecordServiceAsync
 import com.telnyx.sdk.services.async.DetailRecordServiceAsyncImpl
+import com.telnyx.sdk.services.async.DialMetricServiceAsync
+import com.telnyx.sdk.services.async.DialMetricServiceAsyncImpl
 import com.telnyx.sdk.services.async.DialogflowConnectionServiceAsync
 import com.telnyx.sdk.services.async.DialogflowConnectionServiceAsyncImpl
 import com.telnyx.sdk.services.async.DirServiceAsync
@@ -326,6 +328,8 @@ import com.telnyx.sdk.services.async.SubNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrderServiceAsyncImpl
 import com.telnyx.sdk.services.async.SubNumberOrdersReportServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrdersReportServiceAsyncImpl
+import com.telnyx.sdk.services.async.TailscaleSubnetRouterServiceAsync
+import com.telnyx.sdk.services.async.TailscaleSubnetRouterServiceAsyncImpl
 import com.telnyx.sdk.services.async.TelephonyCredentialServiceAsync
 import com.telnyx.sdk.services.async.TelephonyCredentialServiceAsyncImpl
 import com.telnyx.sdk.services.async.TermsOfServiceServiceAsync
@@ -338,6 +342,8 @@ import com.telnyx.sdk.services.async.TextToSpeechServiceAsync
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsyncImpl
 import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsync
 import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsyncImpl
+import com.telnyx.sdk.services.async.TtsIntegrationServiceAsync
+import com.telnyx.sdk.services.async.TtsIntegrationServiceAsyncImpl
 import com.telnyx.sdk.services.async.UacConnectionServiceAsync
 import com.telnyx.sdk.services.async.UacConnectionServiceAsyncImpl
 import com.telnyx.sdk.services.async.UsageReportServiceAsync
@@ -1148,6 +1154,18 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         SipRegistrationStatusServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val dialMetrics: DialMetricServiceAsync by lazy {
+        DialMetricServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val ttsIntegrations: TtsIntegrationServiceAsync by lazy {
+        TtsIntegrationServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val tailscaleSubnetRouters: TailscaleSubnetRouterServiceAsync by lazy {
+        TailscaleSubnetRouterServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1717,6 +1735,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     override fun externalRequirements(): ExternalRequirementServiceAsync = externalRequirements
 
+    /** Inspect Stateful Actor types */
     override fun compute(): ComputeServiceAsync = compute
 
     /**
@@ -1788,6 +1807,15 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** UAC connection operations */
     override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync = sipRegistrationStatus
+
+    /** Call information */
+    override fun dialMetrics(): DialMetricServiceAsync = dialMetrics
+
+    override fun ttsIntegrations(): TtsIntegrationServiceAsync = ttsIntegrations
+
+    /** Tailscale Subnet Router operations */
+    override fun tailscaleSubnetRouters(): TailscaleSubnetRouterServiceAsync =
+        tailscaleSubnetRouters
 
     override fun close() = clientOptions.close()
 
@@ -2598,6 +2626,19 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             SipRegistrationStatusServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val dialMetrics: DialMetricServiceAsync.WithRawResponse by lazy {
+            DialMetricServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ttsIntegrations: TtsIntegrationServiceAsync.WithRawResponse by lazy {
+            TtsIntegrationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val tailscaleSubnetRouters:
+            TailscaleSubnetRouterServiceAsync.WithRawResponse by lazy {
+            TailscaleSubnetRouterServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3225,6 +3266,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun externalRequirements(): ExternalRequirementServiceAsync.WithRawResponse =
             externalRequirements
 
+        /** Inspect Stateful Actor types */
         override fun compute(): ComputeServiceAsync.WithRawResponse = compute
 
         /**
@@ -3298,5 +3340,14 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** UAC connection operations */
         override fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse =
             sipRegistrationStatus
+
+        /** Call information */
+        override fun dialMetrics(): DialMetricServiceAsync.WithRawResponse = dialMetrics
+
+        override fun ttsIntegrations(): TtsIntegrationServiceAsync.WithRawResponse = ttsIntegrations
+
+        /** Tailscale Subnet Router operations */
+        override fun tailscaleSubnetRouters(): TailscaleSubnetRouterServiceAsync.WithRawResponse =
+            tailscaleSubnetRouters
     }
 }

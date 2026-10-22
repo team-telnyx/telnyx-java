@@ -908,6 +908,8 @@ private constructor(
 
             @JvmField val ULTRA = of("Ultra")
 
+            @JvmField val BAYAN = of("Bayan")
+
             @JvmField val SPEECH_2_8_TURBO = of("speech-2.8-turbo")
 
             @JvmStatic fun of(value: String) = ModelId(JsonField.of(value))
@@ -917,6 +919,7 @@ private constructor(
         enum class Known {
             QWEN3_TTS,
             ULTRA,
+            BAYAN,
             SPEECH_2_8_TURBO,
         }
 
@@ -932,6 +935,7 @@ private constructor(
         enum class Value {
             QWEN3_TTS,
             ULTRA,
+            BAYAN,
             SPEECH_2_8_TURBO,
             /** An enum member indicating that [ModelId] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -948,6 +952,7 @@ private constructor(
             when (this) {
                 QWEN3_TTS -> Value.QWEN3_TTS
                 ULTRA -> Value.ULTRA
+                BAYAN -> Value.BAYAN
                 SPEECH_2_8_TURBO -> Value.SPEECH_2_8_TURBO
                 else -> Value._UNKNOWN
             }
@@ -965,6 +970,7 @@ private constructor(
             when (this) {
                 QWEN3_TTS -> Known.QWEN3_TTS
                 ULTRA -> Known.ULTRA
+                BAYAN -> Known.BAYAN
                 SPEECH_2_8_TURBO -> Known.SPEECH_2_8_TURBO
                 else -> throw TelnyxInvalidDataException("Unknown ModelId: $value")
             }

@@ -25,6 +25,8 @@ class AvailableService @JsonCreator private constructor(private val value: JsonF
 
         @JvmField val PRIVATE_WIRELESS_GATEWAY = of("private_wireless_gateway")
 
+        @JvmField val TAILSCALE_SUBNET_ROUTER = of("tailscale_subnet_router")
+
         @JvmField val VIRTUAL_CROSS_CONNECT = of("virtual_cross_connect")
 
         @JvmStatic fun of(value: String) = AvailableService(JsonField.of(value))
@@ -34,6 +36,7 @@ class AvailableService @JsonCreator private constructor(private val value: JsonF
     enum class Known {
         CLOUD_VPN,
         PRIVATE_WIRELESS_GATEWAY,
+        TAILSCALE_SUBNET_ROUTER,
         VIRTUAL_CROSS_CONNECT,
     }
 
@@ -49,6 +52,7 @@ class AvailableService @JsonCreator private constructor(private val value: JsonF
     enum class Value {
         CLOUD_VPN,
         PRIVATE_WIRELESS_GATEWAY,
+        TAILSCALE_SUBNET_ROUTER,
         VIRTUAL_CROSS_CONNECT,
         /**
          * An enum member indicating that [AvailableService] was instantiated with an unknown value.
@@ -67,6 +71,7 @@ class AvailableService @JsonCreator private constructor(private val value: JsonF
         when (this) {
             CLOUD_VPN -> Value.CLOUD_VPN
             PRIVATE_WIRELESS_GATEWAY -> Value.PRIVATE_WIRELESS_GATEWAY
+            TAILSCALE_SUBNET_ROUTER -> Value.TAILSCALE_SUBNET_ROUTER
             VIRTUAL_CROSS_CONNECT -> Value.VIRTUAL_CROSS_CONNECT
             else -> Value._UNKNOWN
         }
@@ -83,6 +88,7 @@ class AvailableService @JsonCreator private constructor(private val value: JsonF
         when (this) {
             CLOUD_VPN -> Known.CLOUD_VPN
             PRIVATE_WIRELESS_GATEWAY -> Known.PRIVATE_WIRELESS_GATEWAY
+            TAILSCALE_SUBNET_ROUTER -> Known.TAILSCALE_SUBNET_ROUTER
             VIRTUAL_CROSS_CONNECT -> Known.VIRTUAL_CROSS_CONNECT
             else -> throw TelnyxInvalidDataException("Unknown AvailableService: $value")
         }

@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateParams
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateTokenParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -88,6 +89,11 @@ internal class TelephonyCredentialServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val telephonyCredentialService = client.telephonyCredentials()
 
-        telephonyCredentialService.createToken("id")
+        telephonyCredentialService.createToken(
+            TelephonyCredentialCreateTokenParams.builder()
+                .id("id")
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .build()
+        )
     }
 }

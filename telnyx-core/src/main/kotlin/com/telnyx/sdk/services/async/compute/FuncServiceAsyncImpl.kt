@@ -18,6 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.mapCancellable
 import com.telnyx.sdk.core.ownResponse
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.compute.funcs.FuncListPageAsync
+import com.telnyx.sdk.models.compute.funcs.FuncListPageResponse
+import com.telnyx.sdk.models.compute.funcs.FuncListParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveLogsParams
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveLogsResponse
 import com.telnyx.sdk.models.compute.funcs.FuncRetrieveMetricAggregatesParams
@@ -32,6 +35,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage Edge Compute functions */
 class FuncServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     FuncServiceAsync {
 
@@ -46,7 +50,15 @@ class FuncServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FuncServiceAsync =
         FuncServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Manage Edge Compute functions */
     override fun export(): ExportServiceAsync = export
+
+    override fun list(
+        params: FuncListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<FuncListPageAsync> =
+        // get /compute/funcs
+        withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieveLogs(
         params: FuncRetrieveLogsParams,
@@ -97,7 +109,48 @@ class FuncServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Manage Edge Compute functions */
         override fun export(): ExportServiceAsync.WithRawResponse = export
+
+        private val listHandler: Handler<FuncListPageResponse> =
+            jsonHandler<FuncListPageResponse>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: FuncListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<FuncListPageAsync>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("compute", "funcs")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                FuncListPageAsync.builder()
+                                    .service(FuncServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
+                    }
+                }
+        }
 
         private val retrieveLogsHandler: Handler<FuncRetrieveLogsResponse> =
             jsonHandler<FuncRetrieveLogsResponse>(clientOptions.jsonMapper)

@@ -14,8 +14,8 @@ import kotlin.jvm.optionals.getOrNull
  * Irreversibly requests deletion of the aggregate recording media for the session. The operation
  * retains the Telnyx-local Meeting session, transcript segments, events, artifacts, and usage
  * records. It is separate from `DELETE /meeting_sessions/{id}`, which stops or cancels
- * participation without deleting the persisted session. A missing/foreign session returns 404;
- * provider deletion failures return 502.
+ * participation without deleting the persisted session. A missing/foreign session returns 404; a
+ * deletion request whose outcome is unknown returns 502.
  */
 class MeetingSessionDeleteRecordingMediaParams
 private constructor(

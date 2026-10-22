@@ -144,7 +144,8 @@ private constructor(
     fun channelLimit(): Optional<Long> = channelLimit.getOptional("channel_limit")
 
     /**
-     * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS.
+     * Enable use of SRTP for encryption. Can only be set when the SIP signaling transport protocol
+     * is TLS.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -519,7 +520,10 @@ private constructor(
          */
         fun channelLimit(channelLimit: JsonField<Long>) = apply { this.channelLimit = channelLimit }
 
-        /** Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS. */
+        /**
+         * Enable use of SRTP for encryption. Can only be set when the SIP signaling transport
+         * protocol is TLS.
+         */
         fun encryptedMedia(encryptedMedia: EncryptedMedia?) =
             encryptedMedia(JsonField.ofNullable(encryptedMedia))
 

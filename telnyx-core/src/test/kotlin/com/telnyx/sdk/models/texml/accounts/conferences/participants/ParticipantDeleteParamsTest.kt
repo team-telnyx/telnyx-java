@@ -10,7 +10,7 @@ internal class ParticipantDeleteParamsTest {
     @Test
     fun create() {
         ParticipantDeleteParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .conferenceSid("conference_sid")
             .callSidOrParticipantLabel("call_sid_or_participant_label")
             .build()
@@ -20,12 +20,12 @@ internal class ParticipantDeleteParamsTest {
     fun pathParams() {
         val params =
             ParticipantDeleteParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .conferenceSid("conference_sid")
                 .callSidOrParticipantLabel("call_sid_or_participant_label")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         assertThat(params._pathParam(1)).isEqualTo("conference_sid")
         assertThat(params._pathParam(2)).isEqualTo("call_sid_or_participant_label")
         // out-of-bound path param

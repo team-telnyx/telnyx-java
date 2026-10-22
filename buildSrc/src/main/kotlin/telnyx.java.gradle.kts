@@ -31,6 +31,14 @@ tasks.named<Jar>("jar") {
     }
 }
 
+dependencies {
+    // Gradle 9 no longer supplies test framework runtime dependencies.
+    // Ref: https://docs.gradle.org/9.1.0/userguide/upgrading_major_version_9.html
+    testImplementation(platform("org.junit:junit-bom:5.9.3"))
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 

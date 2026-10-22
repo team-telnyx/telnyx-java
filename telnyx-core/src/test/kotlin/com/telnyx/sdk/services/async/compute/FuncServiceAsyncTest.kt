@@ -14,6 +14,18 @@ internal class FuncServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun list() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val funcServiceAsync = client.compute().funcs()
+
+        val pageFuture = funcServiceAsync.list()
+
+        val page = pageFuture.get()
+        page.response().validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun retrieveLogs() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val funcServiceAsync = client.compute().funcs()

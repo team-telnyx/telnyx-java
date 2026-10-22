@@ -10,11 +10,11 @@ internal class CallCallsParamsTest {
     @Test
     fun create() {
         CallCallsParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .body(
                 CallCallsParams.Body.WithUrl.builder()
                     .url("https://www.example.com/texml.xml")
-                    .applicationSid("example-app-sid")
+                    .applicationSid("1293384261075731499")
                     .asyncAmd(true)
                     .asyncAmdStatusCallback("https://www.example.com/callback")
                     .asyncAmdStatusCallbackMethod(
@@ -88,7 +88,7 @@ internal class CallCallsParamsTest {
     fun pathParams() {
         val params =
             CallCallsParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .body(
                     CallCallsParams.Body.WithUrl.builder()
                         .url("https://www.example.com/texml.xml")
@@ -96,7 +96,7 @@ internal class CallCallsParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -105,11 +105,11 @@ internal class CallCallsParamsTest {
     fun body() {
         val params =
             CallCallsParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .body(
                     CallCallsParams.Body.WithUrl.builder()
                         .url("https://www.example.com/texml.xml")
-                        .applicationSid("example-app-sid")
+                        .applicationSid("1293384261075731499")
                         .asyncAmd(true)
                         .asyncAmdStatusCallback("https://www.example.com/callback")
                         .asyncAmdStatusCallbackMethod(
@@ -187,7 +187,7 @@ internal class CallCallsParamsTest {
                 CallCallsParams.Body.ofWithUrl(
                     CallCallsParams.Body.WithUrl.builder()
                         .url("https://www.example.com/texml.xml")
-                        .applicationSid("example-app-sid")
+                        .applicationSid("1293384261075731499")
                         .asyncAmd(true)
                         .asyncAmdStatusCallback("https://www.example.com/callback")
                         .asyncAmdStatusCallbackMethod(
@@ -263,7 +263,7 @@ internal class CallCallsParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             CallCallsParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .body(
                     CallCallsParams.Body.WithUrl.builder()
                         .url("https://www.example.com/texml.xml")

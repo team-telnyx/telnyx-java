@@ -27,6 +27,8 @@ internal class TranscriptionSettingsConfigTest {
                 .maxTurnSilence(100L)
                 .minTurnSilence(100L)
                 .numerals(true)
+                .prompt("prompt")
+                .removeDisfluencies(true)
                 .smartFormat(true)
                 .build()
 
@@ -44,6 +46,8 @@ internal class TranscriptionSettingsConfigTest {
         assertThat(transcriptionSettingsConfig.maxTurnSilence()).contains(100L)
         assertThat(transcriptionSettingsConfig.minTurnSilence()).contains(100L)
         assertThat(transcriptionSettingsConfig.numerals()).contains(true)
+        assertThat(transcriptionSettingsConfig.prompt()).contains("prompt")
+        assertThat(transcriptionSettingsConfig.removeDisfluencies()).contains(true)
         assertThat(transcriptionSettingsConfig.smartFormat()).contains(true)
     }
 
@@ -65,6 +69,8 @@ internal class TranscriptionSettingsConfigTest {
                 .maxTurnSilence(100L)
                 .minTurnSilence(100L)
                 .numerals(true)
+                .prompt("prompt")
+                .removeDisfluencies(true)
                 .smartFormat(true)
                 .build()
 

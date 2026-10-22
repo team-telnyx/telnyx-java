@@ -50,7 +50,19 @@ private constructor(
     fun interimResults(): Optional<Boolean> = interimResults.getOptional("interim_results")
 
     /**
-     * Language to use for speech recognition
+     * Language to use for speech recognition. Accepted values depend on the selected
+     * `transcription_model`. `speechmatics/standard` supports: `en`, `ba`, `eu`, `gl`, `ga`, `mt`,
+     * `mn`, `sw`, `ug`, `cy`, `ar_en`, `cmn_en`, `en_ms`, `en_ta`, `tl`, `es-bilingual-en`,
+     * `cmn_en_ms_ta`. `speechmatics/linden-1` (preview) supports the same languages as Speechmatics
+     * Realtime: `ar`, `ar_en`, `ba`, `be`, `bg`, `bn`, `ca`, `cmn`, `cmn_en`, `cmn_en_ms_ta`, `cs`,
+     * `cy`, `da`, `de`, `el`, `en`, `en_ms`, `en_ta`, `eo`, `es`, `es-bilingual-en`, `et`, `eu`,
+     * `fa`, `fi`, `fr`, `ga`, `gl`, `he`, `hi`, `hr`, `hu`, `ia`, `id`, `it`, `ja`, `ko`, `lt`,
+     * `lv`, `mn`, `mr`, `ms`, `mt`, `nl`, `no`, `pl`, `pt`, `ro`, `ru`, `sk`, `sl`, `sv`, `sw`,
+     * `ta`, `th`, `tl`, `tr`, `ug`, `uk`, `ur`, `vi`, `yue`, plus the spelling and script variants
+     * `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant` (`en` alone uses the default spelling).
+     * A value outside the selected model's list is rejected. For `speechmatics/standard`, unset,
+     * blank, `auto`, `auto_beta`, or `multi` defaults to `en`; for `speechmatics/linden-1`, only an
+     * unset language defaults to `en`, and `auto`, `auto_beta`, or `multi` is rejected.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -67,7 +79,8 @@ private constructor(
         transcriptionEngine.getOptional("transcription_engine")
 
     /**
-     * The model to use for transcription.
+     * The model to use for transcription. `speechmatics/linden-1` is a preview, vendor-hosted model
+     * with its own language support (see `language`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -169,7 +182,22 @@ private constructor(
             this.interimResults = interimResults
         }
 
-        /** Language to use for speech recognition */
+        /**
+         * Language to use for speech recognition. Accepted values depend on the selected
+         * `transcription_model`. `speechmatics/standard` supports: `en`, `ba`, `eu`, `gl`, `ga`,
+         * `mt`, `mn`, `sw`, `ug`, `cy`, `ar_en`, `cmn_en`, `en_ms`, `en_ta`, `tl`,
+         * `es-bilingual-en`, `cmn_en_ms_ta`. `speechmatics/linden-1` (preview) supports the same
+         * languages as Speechmatics Realtime: `ar`, `ar_en`, `ba`, `be`, `bg`, `bn`, `ca`, `cmn`,
+         * `cmn_en`, `cmn_en_ms_ta`, `cs`, `cy`, `da`, `de`, `el`, `en`, `en_ms`, `en_ta`, `eo`,
+         * `es`, `es-bilingual-en`, `et`, `eu`, `fa`, `fi`, `fr`, `ga`, `gl`, `he`, `hi`, `hr`,
+         * `hu`, `ia`, `id`, `it`, `ja`, `ko`, `lt`, `lv`, `mn`, `mr`, `ms`, `mt`, `nl`, `no`, `pl`,
+         * `pt`, `ro`, `ru`, `sk`, `sl`, `sv`, `sw`, `ta`, `th`, `tl`, `tr`, `ug`, `uk`, `ur`, `vi`,
+         * `yue`, plus the spelling and script variants `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and
+         * `cmn-Hant` (`en` alone uses the default spelling). A value outside the selected model's
+         * list is rejected. For `speechmatics/standard`, unset, blank, `auto`, `auto_beta`, or
+         * `multi` defaults to `en`; for `speechmatics/linden-1`, only an unset language defaults to
+         * `en`, and `auto`, `auto_beta`, or `multi` is rejected.
+         */
         fun language(language: Language) = language(JsonField.of(language))
 
         /**
@@ -196,7 +224,10 @@ private constructor(
             this.transcriptionEngine = transcriptionEngine
         }
 
-        /** The model to use for transcription. */
+        /**
+         * The model to use for transcription. `speechmatics/linden-1` is a preview, vendor-hosted
+         * model with its own language support (see `language`).
+         */
         fun transcriptionModel(transcriptionModel: TranscriptionModel) =
             transcriptionModel(JsonField.of(transcriptionModel))
 
@@ -287,7 +318,21 @@ private constructor(
             (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
             (transcriptionModel.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** Language to use for speech recognition */
+    /**
+     * Language to use for speech recognition. Accepted values depend on the selected
+     * `transcription_model`. `speechmatics/standard` supports: `en`, `ba`, `eu`, `gl`, `ga`, `mt`,
+     * `mn`, `sw`, `ug`, `cy`, `ar_en`, `cmn_en`, `en_ms`, `en_ta`, `tl`, `es-bilingual-en`,
+     * `cmn_en_ms_ta`. `speechmatics/linden-1` (preview) supports the same languages as Speechmatics
+     * Realtime: `ar`, `ar_en`, `ba`, `be`, `bg`, `bn`, `ca`, `cmn`, `cmn_en`, `cmn_en_ms_ta`, `cs`,
+     * `cy`, `da`, `de`, `el`, `en`, `en_ms`, `en_ta`, `eo`, `es`, `es-bilingual-en`, `et`, `eu`,
+     * `fa`, `fi`, `fr`, `ga`, `gl`, `he`, `hi`, `hr`, `hu`, `ia`, `id`, `it`, `ja`, `ko`, `lt`,
+     * `lv`, `mn`, `mr`, `ms`, `mt`, `nl`, `no`, `pl`, `pt`, `ro`, `ru`, `sk`, `sl`, `sv`, `sw`,
+     * `ta`, `th`, `tl`, `tr`, `ug`, `uk`, `ur`, `vi`, `yue`, plus the spelling and script variants
+     * `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant` (`en` alone uses the default spelling).
+     * A value outside the selected model's list is rejected. For `speechmatics/standard`, unset,
+     * blank, `auto`, `auto_beta`, or `multi` defaults to `en`; for `speechmatics/linden-1`, only an
+     * unset language defaults to `en`, and `auto`, `auto_beta`, or `multi` is rejected.
+     */
     class Language @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -336,6 +381,106 @@ private constructor(
 
             @JvmField val CMN_EN_MS_TA = of("cmn_en_ms_ta")
 
+            @JvmField val AR = of("ar")
+
+            @JvmField val BE = of("be")
+
+            @JvmField val BG = of("bg")
+
+            @JvmField val BN = of("bn")
+
+            @JvmField val CA = of("ca")
+
+            @JvmField val CMN = of("cmn")
+
+            @JvmField val CS = of("cs")
+
+            @JvmField val DA = of("da")
+
+            @JvmField val DE = of("de")
+
+            @JvmField val EL = of("el")
+
+            @JvmField val EO = of("eo")
+
+            @JvmField val ES = of("es")
+
+            @JvmField val ET = of("et")
+
+            @JvmField val FA = of("fa")
+
+            @JvmField val FI = of("fi")
+
+            @JvmField val FR = of("fr")
+
+            @JvmField val HE = of("he")
+
+            @JvmField val HI = of("hi")
+
+            @JvmField val HR = of("hr")
+
+            @JvmField val HU = of("hu")
+
+            @JvmField val IA = of("ia")
+
+            @JvmField val ID = of("id")
+
+            @JvmField val IT = of("it")
+
+            @JvmField val JA = of("ja")
+
+            @JvmField val KO = of("ko")
+
+            @JvmField val LT = of("lt")
+
+            @JvmField val LV = of("lv")
+
+            @JvmField val MR = of("mr")
+
+            @JvmField val MS = of("ms")
+
+            @JvmField val NL = of("nl")
+
+            @JvmField val NO = of("no")
+
+            @JvmField val PL = of("pl")
+
+            @JvmField val PT = of("pt")
+
+            @JvmField val RO = of("ro")
+
+            @JvmField val RU = of("ru")
+
+            @JvmField val SK = of("sk")
+
+            @JvmField val SL = of("sl")
+
+            @JvmField val SV = of("sv")
+
+            @JvmField val TA = of("ta")
+
+            @JvmField val TH = of("th")
+
+            @JvmField val TR = of("tr")
+
+            @JvmField val UK = of("uk")
+
+            @JvmField val UR = of("ur")
+
+            @JvmField val VI = of("vi")
+
+            @JvmField val YUE = of("yue")
+
+            @JvmField val EN_US = of("en-US")
+
+            @JvmField val EN_GB = of("en-GB")
+
+            @JvmField val EN_AU = of("en-AU")
+
+            @JvmField val CMN_HANS = of("cmn-Hans")
+
+            @JvmField val CMN_HANT = of("cmn-Hant")
+
             @JvmStatic fun of(value: String) = Language(JsonField.of(value))
         }
 
@@ -358,6 +503,56 @@ private constructor(
             TL,
             ES_BILINGUAL_EN,
             CMN_EN_MS_TA,
+            AR,
+            BE,
+            BG,
+            BN,
+            CA,
+            CMN,
+            CS,
+            DA,
+            DE,
+            EL,
+            EO,
+            ES,
+            ET,
+            FA,
+            FI,
+            FR,
+            HE,
+            HI,
+            HR,
+            HU,
+            IA,
+            ID,
+            IT,
+            JA,
+            KO,
+            LT,
+            LV,
+            MR,
+            MS,
+            NL,
+            NO,
+            PL,
+            PT,
+            RO,
+            RU,
+            SK,
+            SL,
+            SV,
+            TA,
+            TH,
+            TR,
+            UK,
+            UR,
+            VI,
+            YUE,
+            EN_US,
+            EN_GB,
+            EN_AU,
+            CMN_HANS,
+            CMN_HANT,
         }
 
         /**
@@ -387,6 +582,56 @@ private constructor(
             TL,
             ES_BILINGUAL_EN,
             CMN_EN_MS_TA,
+            AR,
+            BE,
+            BG,
+            BN,
+            CA,
+            CMN,
+            CS,
+            DA,
+            DE,
+            EL,
+            EO,
+            ES,
+            ET,
+            FA,
+            FI,
+            FR,
+            HE,
+            HI,
+            HR,
+            HU,
+            IA,
+            ID,
+            IT,
+            JA,
+            KO,
+            LT,
+            LV,
+            MR,
+            MS,
+            NL,
+            NO,
+            PL,
+            PT,
+            RO,
+            RU,
+            SK,
+            SL,
+            SV,
+            TA,
+            TH,
+            TR,
+            UK,
+            UR,
+            VI,
+            YUE,
+            EN_US,
+            EN_GB,
+            EN_AU,
+            CMN_HANS,
+            CMN_HANT,
             /** An enum member indicating that [Language] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -417,6 +662,56 @@ private constructor(
                 TL -> Value.TL
                 ES_BILINGUAL_EN -> Value.ES_BILINGUAL_EN
                 CMN_EN_MS_TA -> Value.CMN_EN_MS_TA
+                AR -> Value.AR
+                BE -> Value.BE
+                BG -> Value.BG
+                BN -> Value.BN
+                CA -> Value.CA
+                CMN -> Value.CMN
+                CS -> Value.CS
+                DA -> Value.DA
+                DE -> Value.DE
+                EL -> Value.EL
+                EO -> Value.EO
+                ES -> Value.ES
+                ET -> Value.ET
+                FA -> Value.FA
+                FI -> Value.FI
+                FR -> Value.FR
+                HE -> Value.HE
+                HI -> Value.HI
+                HR -> Value.HR
+                HU -> Value.HU
+                IA -> Value.IA
+                ID -> Value.ID
+                IT -> Value.IT
+                JA -> Value.JA
+                KO -> Value.KO
+                LT -> Value.LT
+                LV -> Value.LV
+                MR -> Value.MR
+                MS -> Value.MS
+                NL -> Value.NL
+                NO -> Value.NO
+                PL -> Value.PL
+                PT -> Value.PT
+                RO -> Value.RO
+                RU -> Value.RU
+                SK -> Value.SK
+                SL -> Value.SL
+                SV -> Value.SV
+                TA -> Value.TA
+                TH -> Value.TH
+                TR -> Value.TR
+                UK -> Value.UK
+                UR -> Value.UR
+                VI -> Value.VI
+                YUE -> Value.YUE
+                EN_US -> Value.EN_US
+                EN_GB -> Value.EN_GB
+                EN_AU -> Value.EN_AU
+                CMN_HANS -> Value.CMN_HANS
+                CMN_HANT -> Value.CMN_HANT
                 else -> Value._UNKNOWN
             }
 
@@ -448,6 +743,56 @@ private constructor(
                 TL -> Known.TL
                 ES_BILINGUAL_EN -> Known.ES_BILINGUAL_EN
                 CMN_EN_MS_TA -> Known.CMN_EN_MS_TA
+                AR -> Known.AR
+                BE -> Known.BE
+                BG -> Known.BG
+                BN -> Known.BN
+                CA -> Known.CA
+                CMN -> Known.CMN
+                CS -> Known.CS
+                DA -> Known.DA
+                DE -> Known.DE
+                EL -> Known.EL
+                EO -> Known.EO
+                ES -> Known.ES
+                ET -> Known.ET
+                FA -> Known.FA
+                FI -> Known.FI
+                FR -> Known.FR
+                HE -> Known.HE
+                HI -> Known.HI
+                HR -> Known.HR
+                HU -> Known.HU
+                IA -> Known.IA
+                ID -> Known.ID
+                IT -> Known.IT
+                JA -> Known.JA
+                KO -> Known.KO
+                LT -> Known.LT
+                LV -> Known.LV
+                MR -> Known.MR
+                MS -> Known.MS
+                NL -> Known.NL
+                NO -> Known.NO
+                PL -> Known.PL
+                PT -> Known.PT
+                RO -> Known.RO
+                RU -> Known.RU
+                SK -> Known.SK
+                SL -> Known.SL
+                SV -> Known.SV
+                TA -> Known.TA
+                TH -> Known.TH
+                TR -> Known.TR
+                UK -> Known.UK
+                UR -> Known.UR
+                VI -> Known.VI
+                YUE -> Known.YUE
+                EN_US -> Known.EN_US
+                EN_GB -> Known.EN_GB
+                EN_AU -> Known.EN_AU
+                CMN_HANS -> Known.CMN_HANS
+                CMN_HANT -> Known.CMN_HANT
                 else -> throw TelnyxInvalidDataException("Unknown Language: $value")
             }
 
@@ -646,7 +991,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The model to use for transcription. */
+    /**
+     * The model to use for transcription. `speechmatics/linden-1` is a preview, vendor-hosted model
+     * with its own language support (see `language`).
+     */
     class TranscriptionModel
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {
@@ -665,12 +1013,15 @@ private constructor(
 
             @JvmField val SPEECHMATICS_STANDARD = of("speechmatics/standard")
 
+            @JvmField val SPEECHMATICS_LINDEN_1 = of("speechmatics/linden-1")
+
             @JvmStatic fun of(value: String) = TranscriptionModel(JsonField.of(value))
         }
 
         /** An enum containing [TranscriptionModel]'s known values. */
         enum class Known {
-            SPEECHMATICS_STANDARD
+            SPEECHMATICS_STANDARD,
+            SPEECHMATICS_LINDEN_1,
         }
 
         /**
@@ -684,6 +1035,7 @@ private constructor(
          */
         enum class Value {
             SPEECHMATICS_STANDARD,
+            SPEECHMATICS_LINDEN_1,
             /**
              * An enum member indicating that [TranscriptionModel] was instantiated with an unknown
              * value.
@@ -701,6 +1053,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 SPEECHMATICS_STANDARD -> Value.SPEECHMATICS_STANDARD
+                SPEECHMATICS_LINDEN_1 -> Value.SPEECHMATICS_LINDEN_1
                 else -> Value._UNKNOWN
             }
 
@@ -716,6 +1069,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 SPEECHMATICS_STANDARD -> Known.SPEECHMATICS_STANDARD
+                SPEECHMATICS_LINDEN_1 -> Known.SPEECHMATICS_LINDEN_1
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionModel: $value")
             }
 

@@ -44,10 +44,7 @@ interface EnterpriseServiceAsync {
      */
     fun dir(): DirServiceAsync
 
-    /**
-     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
-     * email must be verified before references can be submitted.
-     */
+    /** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
     fun verifyEmail(): VerifyEmailServiceAsync
 
     /**
@@ -307,10 +304,7 @@ interface EnterpriseServiceAsync {
          */
         fun dir(): DirServiceAsync.WithRawResponse
 
-        /**
-         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
-         * email must be verified before references can be submitted.
-         */
+        /** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
         fun verifyEmail(): VerifyEmailServiceAsync.WithRawResponse
 
         /**

@@ -43,6 +43,7 @@ internal class RcServiceTest {
         val response =
             rcService.send(
                 RcSendParams.builder()
+                    .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                     .agentId("Agent007")
                     .agentMessage(
                         RcsAgentMessage.builder()

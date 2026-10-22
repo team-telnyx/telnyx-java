@@ -15,8 +15,6 @@ import com.telnyx.sdk.models.meetingsessions.MeetingSessionResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveParams
-import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveRecordingsParams
-import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveRecordingsResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionUpdateParams
@@ -50,12 +48,15 @@ interface MeetingSessionServiceAsync {
      * replay lookup is scoped to the authenticated account and compares only the key; the request
      * payload is not fingerprinted or compared. If a session with that key already exists for the
      * account, the existing session is replayed (200); otherwise a new session is created (201).
-     * Supports bring-your-own-key (BYOK) configuration. The session may enter asynchronous states
-     * (e.g. joining, waiting_for_admission) before becoming active. Optional `camera_image` input
-     * is write-only and applies only when no Avatar or Assistant webpage output takes precedence.
-     * An ignored URL is not fetched. An effective URL source is resolved before bot creation;
-     * neither the source URL nor image bytes are persisted, returned, or logged. Treat signed URLs
-     * as credentials.
+     * The session may enter asynchronous states (e.g. joining, waiting_for_admission) before
+     * becoming active. Optional `camera_image` input is write-only and applies only when no avatar
+     * or Assistant webpage output takes precedence. An ignored URL is not fetched. An effective URL
+     * source is resolved before bot creation; neither the source URL nor image bytes are persisted,
+     * returned, or logged. Treat signed URLs as credentials. With `assistant.avatar: true`, the
+     * assistant is read before the bot is created: an assistant without a Telnyx avatar configured
+     * is rejected with 400 `invalid_request` (message prefix `assistant_avatar_not_configured:`),
+     * an unknown assistant with 400 `invalid_request` (prefix `assistant_not_found:`), and a failed
+     * lookup with 503 `assistant_lookup_unavailable`; no bot is created in any of these cases.
      */
     fun create(params: MeetingSessionCreateParams): CompletableFuture<MeetingSessionResponse> =
         create(params, RequestOptions.none())
@@ -206,7 +207,7 @@ interface MeetingSessionServiceAsync {
      * operation retains the Telnyx-local Meeting session, transcript segments, events, artifacts,
      * and usage records. It is separate from `DELETE /meeting_sessions/{id}`, which stops or
      * cancels participation without deleting the persisted session. A missing/foreign session
-     * returns 404; provider deletion failures return 502.
+     * returns 404; a deletion request whose outcome is unknown returns 502.
      */
     fun deleteRecordingMedia(
         id: String
@@ -290,48 +291,6 @@ interface MeetingSessionServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<MeetingSessionRetrieveEventsResponse> =
         retrieveEvents(id, MeetingSessionRetrieveEventsParams.none(), requestOptions)
-
-    /** Returns recordings for a meeting session. */
-    fun retrieveRecordings(
-        id: String
-    ): CompletableFuture<MeetingSessionRetrieveRecordingsResponse> =
-        retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none())
-
-    /** @see retrieveRecordings */
-    fun retrieveRecordings(
-        id: String,
-        params: MeetingSessionRetrieveRecordingsParams =
-            MeetingSessionRetrieveRecordingsParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MeetingSessionRetrieveRecordingsResponse> =
-        retrieveRecordings(params.toBuilder().id(id).build(), requestOptions)
-
-    /** @see retrieveRecordings */
-    fun retrieveRecordings(
-        id: String,
-        params: MeetingSessionRetrieveRecordingsParams =
-            MeetingSessionRetrieveRecordingsParams.none(),
-    ): CompletableFuture<MeetingSessionRetrieveRecordingsResponse> =
-        retrieveRecordings(id, params, RequestOptions.none())
-
-    /** @see retrieveRecordings */
-    fun retrieveRecordings(
-        params: MeetingSessionRetrieveRecordingsParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MeetingSessionRetrieveRecordingsResponse>
-
-    /** @see retrieveRecordings */
-    fun retrieveRecordings(
-        params: MeetingSessionRetrieveRecordingsParams
-    ): CompletableFuture<MeetingSessionRetrieveRecordingsResponse> =
-        retrieveRecordings(params, RequestOptions.none())
-
-    /** @see retrieveRecordings */
-    fun retrieveRecordings(
-        id: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<MeetingSessionRetrieveRecordingsResponse> =
-        retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none(), requestOptions)
 
     /**
      * Returns transcript segments ordered by ascending `seq`. Default `limit` is 100 and maximum is
@@ -655,51 +614,6 @@ interface MeetingSessionServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<MeetingSessionRetrieveEventsResponse>> =
             retrieveEvents(id, MeetingSessionRetrieveEventsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /meeting_sessions/{id}/recordings`, but is otherwise
-         * the same as [MeetingSessionServiceAsync.retrieveRecordings].
-         */
-        fun retrieveRecordings(
-            id: String
-        ): CompletableFuture<HttpResponseFor<MeetingSessionRetrieveRecordingsResponse>> =
-            retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none())
-
-        /** @see retrieveRecordings */
-        fun retrieveRecordings(
-            id: String,
-            params: MeetingSessionRetrieveRecordingsParams =
-                MeetingSessionRetrieveRecordingsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MeetingSessionRetrieveRecordingsResponse>> =
-            retrieveRecordings(params.toBuilder().id(id).build(), requestOptions)
-
-        /** @see retrieveRecordings */
-        fun retrieveRecordings(
-            id: String,
-            params: MeetingSessionRetrieveRecordingsParams =
-                MeetingSessionRetrieveRecordingsParams.none(),
-        ): CompletableFuture<HttpResponseFor<MeetingSessionRetrieveRecordingsResponse>> =
-            retrieveRecordings(id, params, RequestOptions.none())
-
-        /** @see retrieveRecordings */
-        fun retrieveRecordings(
-            params: MeetingSessionRetrieveRecordingsParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MeetingSessionRetrieveRecordingsResponse>>
-
-        /** @see retrieveRecordings */
-        fun retrieveRecordings(
-            params: MeetingSessionRetrieveRecordingsParams
-        ): CompletableFuture<HttpResponseFor<MeetingSessionRetrieveRecordingsResponse>> =
-            retrieveRecordings(params, RequestOptions.none())
-
-        /** @see retrieveRecordings */
-        fun retrieveRecordings(
-            id: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MeetingSessionRetrieveRecordingsResponse>> =
-            retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /meeting_sessions/{id}/transcript`, but is otherwise

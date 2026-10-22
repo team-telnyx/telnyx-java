@@ -284,6 +284,8 @@ private constructor(
 
             @JvmField val ARTICLES_OF_INCORPORATION = of("articles_of_incorporation")
 
+            @JvmField val CERTIFICATE_OF_GOOD_STANDING = of("certificate_of_good_standing")
+
             @JvmField val TAX_DOCUMENT = of("tax_document")
 
             @JvmField val EIN_LETTER = of("ein_letter")
@@ -302,6 +304,10 @@ private constructor(
 
             @JvmField val BANK_STATEMENT = of("bank_statement")
 
+            @JvmField val BUSINESS_CREDIT_REPORT = of("business_credit_report")
+
+            @JvmField val BANK_REFERENCE_LETTER = of("bank_reference_letter")
+
             @JvmField val OTHER = of("other")
 
             @JvmStatic fun of(value: String) = DocumentType(JsonField.of(value))
@@ -312,6 +318,7 @@ private constructor(
             LETTER_OF_AUTHORIZATION,
             BUSINESS_REGISTRATION,
             ARTICLES_OF_INCORPORATION,
+            CERTIFICATE_OF_GOOD_STANDING,
             TAX_DOCUMENT,
             EIN_LETTER,
             TRADEMARK_REGISTRATION,
@@ -321,6 +328,8 @@ private constructor(
             GOVERNMENT_ID,
             UTILITY_BILL,
             BANK_STATEMENT,
+            BUSINESS_CREDIT_REPORT,
+            BANK_REFERENCE_LETTER,
             OTHER,
         }
 
@@ -337,6 +346,7 @@ private constructor(
             LETTER_OF_AUTHORIZATION,
             BUSINESS_REGISTRATION,
             ARTICLES_OF_INCORPORATION,
+            CERTIFICATE_OF_GOOD_STANDING,
             TAX_DOCUMENT,
             EIN_LETTER,
             TRADEMARK_REGISTRATION,
@@ -346,6 +356,8 @@ private constructor(
             GOVERNMENT_ID,
             UTILITY_BILL,
             BANK_STATEMENT,
+            BUSINESS_CREDIT_REPORT,
+            BANK_REFERENCE_LETTER,
             OTHER,
             /**
              * An enum member indicating that [DocumentType] was instantiated with an unknown value.
@@ -365,6 +377,7 @@ private constructor(
                 LETTER_OF_AUTHORIZATION -> Value.LETTER_OF_AUTHORIZATION
                 BUSINESS_REGISTRATION -> Value.BUSINESS_REGISTRATION
                 ARTICLES_OF_INCORPORATION -> Value.ARTICLES_OF_INCORPORATION
+                CERTIFICATE_OF_GOOD_STANDING -> Value.CERTIFICATE_OF_GOOD_STANDING
                 TAX_DOCUMENT -> Value.TAX_DOCUMENT
                 EIN_LETTER -> Value.EIN_LETTER
                 TRADEMARK_REGISTRATION -> Value.TRADEMARK_REGISTRATION
@@ -374,6 +387,8 @@ private constructor(
                 GOVERNMENT_ID -> Value.GOVERNMENT_ID
                 UTILITY_BILL -> Value.UTILITY_BILL
                 BANK_STATEMENT -> Value.BANK_STATEMENT
+                BUSINESS_CREDIT_REPORT -> Value.BUSINESS_CREDIT_REPORT
+                BANK_REFERENCE_LETTER -> Value.BANK_REFERENCE_LETTER
                 OTHER -> Value.OTHER
                 else -> Value._UNKNOWN
             }
@@ -392,6 +407,7 @@ private constructor(
                 LETTER_OF_AUTHORIZATION -> Known.LETTER_OF_AUTHORIZATION
                 BUSINESS_REGISTRATION -> Known.BUSINESS_REGISTRATION
                 ARTICLES_OF_INCORPORATION -> Known.ARTICLES_OF_INCORPORATION
+                CERTIFICATE_OF_GOOD_STANDING -> Known.CERTIFICATE_OF_GOOD_STANDING
                 TAX_DOCUMENT -> Known.TAX_DOCUMENT
                 EIN_LETTER -> Known.EIN_LETTER
                 TRADEMARK_REGISTRATION -> Known.TRADEMARK_REGISTRATION
@@ -401,6 +417,8 @@ private constructor(
                 GOVERNMENT_ID -> Known.GOVERNMENT_ID
                 UTILITY_BILL -> Known.UTILITY_BILL
                 BANK_STATEMENT -> Known.BANK_STATEMENT
+                BUSINESS_CREDIT_REPORT -> Known.BUSINESS_CREDIT_REPORT
+                BANK_REFERENCE_LETTER -> Known.BANK_REFERENCE_LETTER
                 OTHER -> Known.OTHER
                 else -> throw TelnyxInvalidDataException("Unknown DocumentType: $value")
             }

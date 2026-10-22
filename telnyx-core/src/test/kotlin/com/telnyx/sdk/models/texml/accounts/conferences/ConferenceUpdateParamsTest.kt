@@ -10,7 +10,7 @@ internal class ConferenceUpdateParamsTest {
     @Test
     fun create() {
         ConferenceUpdateParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .conferenceSid("conference_sid")
             .announceMethod(ConferenceUpdateParams.AnnounceMethod.GET)
             .announceUrl("https://www.example.com/announce.xml")
@@ -22,11 +22,11 @@ internal class ConferenceUpdateParamsTest {
     fun pathParams() {
         val params =
             ConferenceUpdateParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .conferenceSid("conference_sid")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         assertThat(params._pathParam(1)).isEqualTo("conference_sid")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -36,7 +36,7 @@ internal class ConferenceUpdateParamsTest {
     fun body() {
         val params =
             ConferenceUpdateParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .conferenceSid("conference_sid")
                 .announceMethod(ConferenceUpdateParams.AnnounceMethod.GET)
                 .announceUrl("https://www.example.com/announce.xml")
@@ -54,7 +54,7 @@ internal class ConferenceUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ConferenceUpdateParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .conferenceSid("conference_sid")
                 .build()
 

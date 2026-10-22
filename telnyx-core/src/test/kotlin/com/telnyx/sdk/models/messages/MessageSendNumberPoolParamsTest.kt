@@ -11,6 +11,7 @@ internal class MessageSendNumberPoolParamsTest {
     @Test
     fun create() {
         MessageSendNumberPoolParams.builder()
+            .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
             .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
             .to("+13125550002")
             .autoDetect(true)
@@ -26,9 +27,51 @@ internal class MessageSendNumberPoolParamsTest {
     }
 
     @Test
+    fun headers() {
+        val params =
+            MessageSendNumberPoolParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
+                .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
+                .to("+13125550002")
+                .autoDetect(true)
+                .encoding(MessageSendNumberPoolParams.Encoding.AUTO)
+                .addMediaUrl("http://example.com")
+                .subject("From Telnyx!")
+                .text("Hello, World!")
+                .type(MessageSendNumberPoolParams.Type.MMS)
+                .useProfileWebhooks(true)
+                .webhookFailoverUrl("https://backup.example.com/hooks")
+                .webhookUrl("http://example.com/webhooks")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers)
+            .isEqualTo(
+                com.telnyx.sdk.core.http.Headers.builder()
+                    .put("Idempotency-Key", "8e03978e-40d5-43e8-bc93-6894a57f9326")
+                    .build()
+            )
+    }
+
+    @Test
+    fun headersWithoutOptionalFields() {
+        val params =
+            MessageSendNumberPoolParams.builder()
+                .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
+                .to("+13125550002")
+                .build()
+
+        val headers = params._headers()
+
+        assertThat(headers).isEqualTo(com.telnyx.sdk.core.http.Headers.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             MessageSendNumberPoolParams.builder()
+                .idempotencyKey("8e03978e-40d5-43e8-bc93-6894a57f9326")
                 .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
                 .to("+13125550002")
                 .autoDetect(true)

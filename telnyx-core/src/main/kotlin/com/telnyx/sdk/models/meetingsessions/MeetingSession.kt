@@ -179,7 +179,8 @@ private constructor(
         assistantStateChangedAt.getOptional("assistant_state_changed_at")
 
     /**
-     * Avatar configuration if an avatar is attached, otherwise null.
+     * The assistant's avatar, captured from its `avatar_settings` when the session was created. For
+     * display only; later changes to the assistant do not update it.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -187,7 +188,10 @@ private constructor(
     fun avatar(): Optional<Avatar> = avatar.getOptional("avatar")
 
     /**
-     * Current state of the avatar connection, or null if no avatar is attached.
+     * Current state of the avatar, or null if the session has no avatar. `starting` until the
+     * avatar's video is playing, then `connected`; `degraded` when the session has fallen back to
+     * voice-only (the `avatar.degraded` event carries the reason); `disconnected` when the avatar
+     * has ended.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -705,7 +709,10 @@ private constructor(
             this.assistantStateChangedAt = assistantStateChangedAt
         }
 
-        /** Avatar configuration if an avatar is attached, otherwise null. */
+        /**
+         * The assistant's avatar, captured from its `avatar_settings` when the session was created.
+         * For display only; later changes to the assistant do not update it.
+         */
         fun avatar(avatar: Avatar?) = avatar(JsonField.ofNullable(avatar))
 
         /** Alias for calling [Builder.avatar] with `avatar.orElse(null)`. */
@@ -719,7 +726,12 @@ private constructor(
          */
         fun avatar(avatar: JsonField<Avatar>) = apply { this.avatar = avatar }
 
-        /** Current state of the avatar connection, or null if no avatar is attached. */
+        /**
+         * Current state of the avatar, or null if the session has no avatar. `starting` until the
+         * avatar's video is playing, then `connected`; `degraded` when the session has fallen back
+         * to voice-only (the `avatar.degraded` event carries the reason); `disconnected` when the
+         * avatar has ended.
+         */
         fun avatarState(avatarState: AvatarState?) = avatarState(JsonField.ofNullable(avatarState))
 
         /** Alias for calling [Builder.avatarState] with `avatarState.orElse(null)`. */
@@ -1858,11 +1870,16 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Avatar configuration if an avatar is attached, otherwise null. */
+    /**
+     * The assistant's avatar, captured from its `avatar_settings` when the session was created. For
+     * display only; later changes to the assistant do not update it.
+     */
     class Avatar
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val avatarId: JsonField<String>,
+        private val backgroundId: JsonField<String>,
+        private val model: JsonField<String>,
         private val provider: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1872,8 +1889,12 @@ private constructor(
             @JsonProperty("avatar_id")
             @ExcludeMissing
             avatarId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("background_id")
+            @ExcludeMissing
+            backgroundId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("model") @ExcludeMissing model: JsonField<String> = JsonMissing.of(),
             @JsonProperty("provider") @ExcludeMissing provider: JsonValue = JsonMissing.of(),
-        ) : this(avatarId, provider, mutableMapOf())
+        ) : this(avatarId, backgroundId, model, provider, mutableMapOf())
 
         /**
          * Identifier of the avatar.
@@ -1884,11 +1905,27 @@ private constructor(
         fun avatarId(): String = avatarId.getRequired("avatar_id")
 
         /**
+         * Identifier of the avatar's background.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun backgroundId(): String = backgroundId.getRequired("background_id")
+
+        /**
+         * Avatar rendering model, for example `foxtrot-1`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun model(): String = model.getRequired("model")
+
+        /**
          * Avatar provider identifier.
          *
          * Expected to always return the following:
          * ```java
-         * JsonValue.from("anam")
+         * JsonValue.from("telnyx")
          * ```
          *
          * However, this method can be useful for debugging and logging (e.g. if the server
@@ -1902,6 +1939,23 @@ private constructor(
          * Unlike [avatarId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("avatar_id") @ExcludeMissing fun _avatarId(): JsonField<String> = avatarId
+
+        /**
+         * Returns the raw JSON value of [backgroundId].
+         *
+         * Unlike [backgroundId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("background_id")
+        @ExcludeMissing
+        fun _backgroundId(): JsonField<String> = backgroundId
+
+        /**
+         * Returns the raw JSON value of [model].
+         *
+         * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<String> = model
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1923,6 +1977,8 @@ private constructor(
              * The following fields are required:
              * ```java
              * .avatarId()
+             * .backgroundId()
+             * .model()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -1932,12 +1988,16 @@ private constructor(
         class Builder internal constructor() {
 
             private var avatarId: JsonField<String>? = null
-            private var provider: JsonValue = JsonValue.from("anam")
+            private var backgroundId: JsonField<String>? = null
+            private var model: JsonField<String>? = null
+            private var provider: JsonValue = JsonValue.from("telnyx")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(avatar: Avatar) = apply {
                 avatarId = avatar.avatarId
+                backgroundId = avatar.backgroundId
+                model = avatar.model
                 provider = avatar.provider
                 additionalProperties = avatar.additionalProperties.toMutableMap()
             }
@@ -1954,13 +2014,39 @@ private constructor(
              */
             fun avatarId(avatarId: JsonField<String>) = apply { this.avatarId = avatarId }
 
+            /** Identifier of the avatar's background. */
+            fun backgroundId(backgroundId: String) = backgroundId(JsonField.of(backgroundId))
+
+            /**
+             * Sets [Builder.backgroundId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.backgroundId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun backgroundId(backgroundId: JsonField<String>) = apply {
+                this.backgroundId = backgroundId
+            }
+
+            /** Avatar rendering model, for example `foxtrot-1`. */
+            fun model(model: String) = model(JsonField.of(model))
+
+            /**
+             * Sets [Builder.model] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.model] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun model(model: JsonField<String>) = apply { this.model = model }
+
             /**
              * Sets the field to an arbitrary JSON value.
              *
              * It is usually unnecessary to call this method because the field defaults to the
              * following:
              * ```java
-             * JsonValue.from("anam")
+             * JsonValue.from("telnyx")
              * ```
              *
              * This method is primarily for setting the field to an undocumented or not yet
@@ -1995,6 +2081,8 @@ private constructor(
              * The following fields are required:
              * ```java
              * .avatarId()
+             * .backgroundId()
+             * .model()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -2002,6 +2090,8 @@ private constructor(
             fun build(): Avatar =
                 Avatar(
                     checkRequired("avatarId", avatarId),
+                    checkRequired("backgroundId", backgroundId),
+                    checkRequired("model", model),
                     provider,
                     additionalProperties.toMutableMap(),
                 )
@@ -2024,8 +2114,10 @@ private constructor(
             }
 
             avatarId()
+            backgroundId()
+            model()
             _provider().let {
-                if (it != JsonValue.from("anam")) {
+                if (it != JsonValue.from("telnyx")) {
                     throw TelnyxInvalidDataException("'provider' is invalid, received $it")
                 }
             }
@@ -2049,7 +2141,9 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (avatarId.asKnown().isPresent) 1 else 0) +
-                provider.let { if (it == JsonValue.from("anam")) 1 else 0 }
+                (if (backgroundId.asKnown().isPresent) 1 else 0) +
+                (if (model.asKnown().isPresent) 1 else 0) +
+                provider.let { if (it == JsonValue.from("telnyx")) 1 else 0 }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -2058,19 +2152,28 @@ private constructor(
 
             return other is Avatar &&
                 avatarId == other.avatarId &&
+                backgroundId == other.backgroundId &&
+                model == other.model &&
                 provider == other.provider &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(avatarId, provider, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(avatarId, backgroundId, model, provider, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Avatar{avatarId=$avatarId, provider=$provider, additionalProperties=$additionalProperties}"
+            "Avatar{avatarId=$avatarId, backgroundId=$backgroundId, model=$model, provider=$provider, additionalProperties=$additionalProperties}"
     }
 
-    /** Current state of the avatar connection, or null if no avatar is attached. */
+    /**
+     * Current state of the avatar, or null if the session has no avatar. `starting` until the
+     * avatar's video is playing, then `connected`; `degraded` when the session has fallen back to
+     * voice-only (the `avatar.degraded` event carries the reason); `disconnected` when the avatar
+     * has ended.
+     */
     class AvatarState @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

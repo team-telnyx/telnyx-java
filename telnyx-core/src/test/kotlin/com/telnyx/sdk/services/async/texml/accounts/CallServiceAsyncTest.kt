@@ -23,7 +23,10 @@ internal class CallServiceAsyncTest {
 
         val callResourceFuture =
             callServiceAsync.retrieve(
-                CallRetrieveParams.builder().accountSid("account_sid").callSid("call_sid").build()
+                CallRetrieveParams.builder()
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                    .callSid("call_sid")
+                    .build()
             )
 
         val callResource = callResourceFuture.get()
@@ -39,7 +42,7 @@ internal class CallServiceAsyncTest {
         val callResourceFuture =
             callServiceAsync.update(
                 CallUpdateParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .callSid("call_sid")
                     .updateCall(
                         UpdateCall.builder()
@@ -71,11 +74,11 @@ internal class CallServiceAsyncTest {
         val responseFuture =
             callServiceAsync.calls(
                 CallCallsParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .body(
                         CallCallsParams.Body.WithUrl.builder()
                             .url("https://www.example.com/texml.xml")
-                            .applicationSid("example-app-sid")
+                            .applicationSid("1293384261075731499")
                             .asyncAmd(true)
                             .asyncAmdStatusCallback("https://www.example.com/callback")
                             .asyncAmdStatusCallbackMethod(
@@ -168,7 +171,7 @@ internal class CallServiceAsyncTest {
         val responseFuture =
             callServiceAsync.retrieveCalls(
                 CallRetrieveCallsParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .endTime("EndTime")
                     .endTimeLt("EndTime<")
                     .endTimeGt("EndTime>")
@@ -197,7 +200,7 @@ internal class CallServiceAsyncTest {
         val responseFuture =
             callServiceAsync.siprecJson(
                 CallSiprecJsonParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .callSid("call_sid")
                     .connectorName("my_connector")
                     .includeMetadataCustomHeaders(
@@ -226,7 +229,7 @@ internal class CallServiceAsyncTest {
         val responseFuture =
             callServiceAsync.streamsJson(
                 CallStreamsJsonParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .callSid("call_sid")
                     .bidirectionalCodec(CallStreamsJsonParams.BidirectionalCodec.G722)
                     .bidirectionalMode(CallStreamsJsonParams.BidirectionalMode.RTP)

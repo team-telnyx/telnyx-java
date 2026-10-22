@@ -10,7 +10,7 @@ internal class RecordingRecordingSidJsonParamsTest {
     @Test
     fun create() {
         RecordingRecordingSidJsonParams.builder()
-            .accountSid("account_sid")
+            .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
             .callSid("call_sid")
             .recordingSid("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .status(RecordingRecordingSidJsonParams.Status.PAUSED)
@@ -21,12 +21,12 @@ internal class RecordingRecordingSidJsonParamsTest {
     fun pathParams() {
         val params =
             RecordingRecordingSidJsonParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .callSid("call_sid")
                 .recordingSid("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("account_sid")
+        assertThat(params._pathParam(0)).isEqualTo("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
         assertThat(params._pathParam(1)).isEqualTo("call_sid")
         assertThat(params._pathParam(2)).isEqualTo("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         // out-of-bound path param
@@ -37,7 +37,7 @@ internal class RecordingRecordingSidJsonParamsTest {
     fun body() {
         val params =
             RecordingRecordingSidJsonParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .callSid("call_sid")
                 .recordingSid("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .status(RecordingRecordingSidJsonParams.Status.PAUSED)
@@ -52,7 +52,7 @@ internal class RecordingRecordingSidJsonParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             RecordingRecordingSidJsonParams.builder()
-                .accountSid("account_sid")
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                 .callSid("call_sid")
                 .recordingSid("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .build()

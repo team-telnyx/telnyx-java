@@ -63,13 +63,17 @@ interface DirServiceAsync {
     /**
      * Submit and manage the two business references and one financial reference that vouch for a
      * DIR. References are contacted to confirm the business identity during vetting.
+     *
+     * References (two business references and one financial reference) are needed only if the
+     * documents uploaded with the DIR don't already prove the business is legitimate and
+     * financially stable. Any one of these is enough proof: audited or certified financial
+     * statements (uploaded as `other`, with a description), a commercial credit report (uploaded as
+     * `business_credit_report`), or references. Telnyx reviewers decide during vetting whether your
+     * documents are enough.
      */
     fun references(): ReferenceServiceAsync
 
-    /**
-     * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
-     * email must be verified before references can be submitted.
-     */
+    /** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
     fun verifyEmail(): VerifyEmailServiceAsync
 
     /**
@@ -411,9 +415,8 @@ interface DirServiceAsync {
      * When re-submitting from `verified`, the existing registration stays live throughout the new
      * vetting cycle.
      *
-     * Returns `400` from `submitted`/`in_review`/`permanently_rejected`. Returns `400` if the DIR's
-     * business and financial references have not been submitted. Returns `400` if the DIR has an
-     * unresolved infringement claim.
+     * Returns `400` from `submitted`/`in_review`/`permanently_rejected`. Returns `400` if the DIR
+     * has an unresolved infringement claim.
      */
     fun submit(dirId: String): CompletableFuture<DirWrapped> = submit(dirId, DirSubmitParams.none())
 
@@ -504,13 +507,17 @@ interface DirServiceAsync {
         /**
          * Submit and manage the two business references and one financial reference that vouch for
          * a DIR. References are contacted to confirm the business identity during vetting.
+         *
+         * References (two business references and one financial reference) are needed only if the
+         * documents uploaded with the DIR don't already prove the business is legitimate and
+         * financially stable. Any one of these is enough proof: audited or certified financial
+         * statements (uploaded as `other`, with a description), a commercial credit report
+         * (uploaded as `business_credit_report`), or references. Telnyx reviewers decide during
+         * vetting whether your documents are enough.
          */
         fun references(): ReferenceServiceAsync.WithRawResponse
 
-        /**
-         * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the
-         * email must be verified before references can be submitted.
-         */
+        /** Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed. */
         fun verifyEmail(): VerifyEmailServiceAsync.WithRawResponse
 
         /**

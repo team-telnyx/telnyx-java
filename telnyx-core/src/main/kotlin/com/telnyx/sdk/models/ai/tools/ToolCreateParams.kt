@@ -98,6 +98,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    fun vision(): Optional<VisionToolParams> = body.vision()
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun webhook(): Optional<Webhook> = body.webhook()
 
     /**
@@ -171,6 +177,13 @@ private constructor(
      */
     fun _updateDynamicVariables(): JsonField<UpdateDynamicVariablesToolParams> =
         body._updateDynamicVariables()
+
+    /**
+     * Returns the raw JSON value of [vision].
+     *
+     * Unlike [vision], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _vision(): JsonField<VisionToolParams> = body._vision()
 
     /**
      * Returns the raw JSON value of [webhook].
@@ -356,6 +369,17 @@ private constructor(
             updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>
         ) = apply { body.updateDynamicVariables(updateDynamicVariables) }
 
+        fun vision(vision: VisionToolParams) = apply { body.vision(vision) }
+
+        /**
+         * Sets [Builder.vision] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.vision] with a well-typed [VisionToolParams] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun vision(vision: JsonField<VisionToolParams>) = apply { body.vision(vision) }
+
         fun webhook(webhook: Webhook) = apply { body.webhook(webhook) }
 
         /**
@@ -532,6 +556,7 @@ private constructor(
         private val retrieval: JsonField<Retrieval>,
         private val timeoutMs: JsonField<Long>,
         private val updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>,
+        private val vision: JsonField<VisionToolParams>,
         private val webhook: JsonField<Webhook>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -560,6 +585,9 @@ private constructor(
             @JsonProperty("update_dynamic_variables")
             @ExcludeMissing
             updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams> = JsonMissing.of(),
+            @JsonProperty("vision")
+            @ExcludeMissing
+            vision: JsonField<VisionToolParams> = JsonMissing.of(),
             @JsonProperty("webhook") @ExcludeMissing webhook: JsonField<Webhook> = JsonMissing.of(),
         ) : this(
             displayName,
@@ -572,6 +600,7 @@ private constructor(
             retrieval,
             timeoutMs,
             updateDynamicVariables,
+            vision,
             webhook,
             mutableMapOf(),
         )
@@ -639,6 +668,12 @@ private constructor(
          */
         fun updateDynamicVariables(): Optional<UpdateDynamicVariablesToolParams> =
             updateDynamicVariables.getOptional("update_dynamic_variables")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun vision(): Optional<VisionToolParams> = vision.getOptional("vision")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -728,6 +763,13 @@ private constructor(
             updateDynamicVariables
 
         /**
+         * Returns the raw JSON value of [vision].
+         *
+         * Unlike [vision], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("vision") @ExcludeMissing fun _vision(): JsonField<VisionToolParams> = vision
+
+        /**
          * Returns the raw JSON value of [webhook].
          *
          * Unlike [webhook], this method doesn't throw if the JSON field has an unexpected type.
@@ -774,6 +816,7 @@ private constructor(
             private var timeoutMs: JsonField<Long> = JsonMissing.of()
             private var updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams> =
                 JsonMissing.of()
+            private var vision: JsonField<VisionToolParams> = JsonMissing.of()
             private var webhook: JsonField<Webhook> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -789,6 +832,7 @@ private constructor(
                 retrieval = body.retrieval
                 timeoutMs = body.timeoutMs
                 updateDynamicVariables = body.updateDynamicVariables
+                vision = body.vision
                 webhook = body.webhook
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -912,6 +956,17 @@ private constructor(
                 updateDynamicVariables: JsonField<UpdateDynamicVariablesToolParams>
             ) = apply { this.updateDynamicVariables = updateDynamicVariables }
 
+            fun vision(vision: VisionToolParams) = vision(JsonField.of(vision))
+
+            /**
+             * Sets [Builder.vision] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vision] with a well-typed [VisionToolParams] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun vision(vision: JsonField<VisionToolParams>) = apply { this.vision = vision }
+
             fun webhook(webhook: Webhook) = webhook(JsonField.of(webhook))
 
             /**
@@ -967,6 +1022,7 @@ private constructor(
                     retrieval,
                     timeoutMs,
                     updateDynamicVariables,
+                    vision,
                     webhook,
                     additionalProperties.toMutableMap(),
                 )
@@ -998,6 +1054,7 @@ private constructor(
             retrieval().ifPresent { it.validate() }
             timeoutMs()
             updateDynamicVariables().ifPresent { it.validate() }
+            vision().ifPresent { it.validate() }
             webhook().ifPresent { it.validate() }
             validated = true
         }
@@ -1028,6 +1085,7 @@ private constructor(
                 (retrieval.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (timeoutMs.asKnown().isPresent) 1 else 0) +
                 (updateDynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
+                (vision.asKnown().getOrNull()?.validity() ?: 0) +
                 (webhook.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1046,6 +1104,7 @@ private constructor(
                 retrieval == other.retrieval &&
                 timeoutMs == other.timeoutMs &&
                 updateDynamicVariables == other.updateDynamicVariables &&
+                vision == other.vision &&
                 webhook == other.webhook &&
                 additionalProperties == other.additionalProperties
         }
@@ -1062,6 +1121,7 @@ private constructor(
                 retrieval,
                 timeoutMs,
                 updateDynamicVariables,
+                vision,
                 webhook,
                 additionalProperties,
             )
@@ -1070,7 +1130,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{displayName=$displayName, type=$type, clientSideTool=$clientSideTool, function=$function, handoff=$handoff, invite=$invite, pay=$pay, retrieval=$retrieval, timeoutMs=$timeoutMs, updateDynamicVariables=$updateDynamicVariables, webhook=$webhook, additionalProperties=$additionalProperties}"
+            "Body{displayName=$displayName, type=$type, clientSideTool=$clientSideTool, function=$function, handoff=$handoff, invite=$invite, pay=$pay, retrieval=$retrieval, timeoutMs=$timeoutMs, updateDynamicVariables=$updateDynamicVariables, vision=$vision, webhook=$webhook, additionalProperties=$additionalProperties}"
     }
 
     class ClientSideTool

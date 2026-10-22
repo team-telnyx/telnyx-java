@@ -23,7 +23,12 @@ private constructor(
 
     fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
 
-    /** Specifies the type of number lookup to be performed */
+    /**
+     * Specifies the type of number lookup to be performed. May be supplied more than once to
+     * request several data sources in a single call (for example,
+     * `?type=carrier&type=enhanced-caller-name`). Each requested type populates the corresponding
+     * object in the response.
+     */
     fun type(): Optional<Type> = Optional.ofNullable(type)
 
     /** Additional headers to send with the request. */
@@ -66,7 +71,12 @@ private constructor(
         /** Alias for calling [Builder.phoneNumber] with `phoneNumber.orElse(null)`. */
         fun phoneNumber(phoneNumber: Optional<String>) = phoneNumber(phoneNumber.getOrNull())
 
-        /** Specifies the type of number lookup to be performed */
+        /**
+         * Specifies the type of number lookup to be performed. May be supplied more than once to
+         * request several data sources in a single call (for example,
+         * `?type=carrier&type=enhanced-caller-name`). Each requested type populates the
+         * corresponding object in the response.
+         */
         fun type(type: Type?) = apply { this.type = type }
 
         /** Alias for calling [Builder.type] with `type.orElse(null)`. */
@@ -201,7 +211,12 @@ private constructor(
             }
             .build()
 
-    /** Specifies the type of number lookup to be performed */
+    /**
+     * Specifies the type of number lookup to be performed. May be supplied more than once to
+     * request several data sources in a single call (for example,
+     * `?type=carrier&type=enhanced-caller-name`). Each requested type populates the corresponding
+     * object in the response.
+     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -220,6 +235,10 @@ private constructor(
 
             @JvmField val CALLER_NAME = of("caller-name")
 
+            @JvmField val CALLER_IDENTITY = of("caller-identity")
+
+            @JvmField val ENHANCED_CALLER_NAME = of("enhanced-caller-name")
+
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
@@ -227,6 +246,8 @@ private constructor(
         enum class Known {
             CARRIER,
             CALLER_NAME,
+            CALLER_IDENTITY,
+            ENHANCED_CALLER_NAME,
         }
 
         /**
@@ -241,6 +262,8 @@ private constructor(
         enum class Value {
             CARRIER,
             CALLER_NAME,
+            CALLER_IDENTITY,
+            ENHANCED_CALLER_NAME,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -256,6 +279,8 @@ private constructor(
             when (this) {
                 CARRIER -> Value.CARRIER
                 CALLER_NAME -> Value.CALLER_NAME
+                CALLER_IDENTITY -> Value.CALLER_IDENTITY
+                ENHANCED_CALLER_NAME -> Value.ENHANCED_CALLER_NAME
                 else -> Value._UNKNOWN
             }
 
@@ -272,6 +297,8 @@ private constructor(
             when (this) {
                 CARRIER -> Known.CARRIER
                 CALLER_NAME -> Known.CALLER_NAME
+                CALLER_IDENTITY -> Known.CALLER_IDENTITY
+                ENHANCED_CALLER_NAME -> Known.ENHANCED_CALLER_NAME
                 else -> throw TelnyxInvalidDataException("Unknown Type: $value")
             }
 

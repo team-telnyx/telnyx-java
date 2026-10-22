@@ -14,12 +14,15 @@ import kotlin.jvm.optionals.getOrNull
 class TelephonyCredentialCreateTokenParams
 private constructor(
     private val id: String?,
+    private val idempotencyKey: String?,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     fun id(): Optional<String> = Optional.ofNullable(id)
+
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -47,6 +50,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
+        private var idempotencyKey: String? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -57,6 +61,7 @@ private constructor(
             telephonyCredentialCreateTokenParams: TelephonyCredentialCreateTokenParams
         ) = apply {
             id = telephonyCredentialCreateTokenParams.id
+            idempotencyKey = telephonyCredentialCreateTokenParams.idempotencyKey
             additionalHeaders = telephonyCredentialCreateTokenParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 telephonyCredentialCreateTokenParams.additionalQueryParams.toBuilder()
@@ -68,6 +73,12 @@ private constructor(
 
         /** Alias for calling [Builder.id] with `id.orElse(null)`. */
         fun id(id: Optional<String>) = id(id.getOrNull())
+
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
+
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
             this.additionalHeaders.clear()
@@ -198,6 +209,7 @@ private constructor(
         fun build(): TelephonyCredentialCreateTokenParams =
             TelephonyCredentialCreateTokenParams(
                 id,
+                idempotencyKey,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -213,7 +225,13 @@ private constructor(
             else -> ""
         }
 
-    override fun _headers(): com.telnyx.sdk.core.http.Headers = additionalHeaders
+    override fun _headers(): com.telnyx.sdk.core.http.Headers =
+        com.telnyx.sdk.core.http.Headers.builder()
+            .apply {
+                idempotencyKey?.let { put("Idempotency-Key", it) }
+                putAll(additionalHeaders)
+            }
+            .build()
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
@@ -224,14 +242,21 @@ private constructor(
 
         return other is TelephonyCredentialCreateTokenParams &&
             id == other.id &&
+            idempotencyKey == other.idempotencyKey &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(id, additionalHeaders, additionalQueryParams, additionalBodyProperties)
+        Objects.hash(
+            id,
+            idempotencyKey,
+            additionalHeaders,
+            additionalQueryParams,
+            additionalBodyProperties,
+        )
 
     override fun toString() =
-        "TelephonyCredentialCreateTokenParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "TelephonyCredentialCreateTokenParams{id=$id, idempotencyKey=$idempotencyKey, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

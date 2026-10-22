@@ -35,7 +35,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request URL configured
- * for the connection in the Mission Control Portal.
+ * for the TeXML Application in the Mission Control Portal.
  */
 class CallCallsParams
 private constructor(
@@ -771,7 +771,12 @@ private constructor(
             fun url(): String = url.getRequired("Url")
 
             /**
-             * The ID of the TeXML Application.
+             * The ID of the TeXML Application that will handle the call, for example
+             * `1293384261075731499`. The `ApplicationSid` name is kept for Twilio API
+             * compatibility, but the value is the numeric ID of one of your TeXML Applications (see
+             * the TeXML Applications API or the Mission Control Portal), not a Twilio `AP...` SID.
+             * If `Url` and `Texml` are omitted, Telnyx fetches instructions from the XML Request
+             * URL configured on this application.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
@@ -1961,7 +1966,14 @@ private constructor(
                  */
                 fun url(url: JsonField<String>) = apply { this.url = url }
 
-                /** The ID of the TeXML Application. */
+                /**
+                 * The ID of the TeXML Application that will handle the call, for example
+                 * `1293384261075731499`. The `ApplicationSid` name is kept for Twilio API
+                 * compatibility, but the value is the numeric ID of one of your TeXML Applications
+                 * (see the TeXML Applications API or the Mission Control Portal), not a Twilio
+                 * `AP...` SID. If `Url` and `Texml` are omitted, Telnyx fetches instructions from
+                 * the XML Request URL configured on this application.
+                 */
                 fun applicationSid(applicationSid: String) =
                     applicationSid(JsonField.of(applicationSid))
 
@@ -6024,7 +6036,12 @@ private constructor(
             fun texml(): String = texml.getRequired("Texml")
 
             /**
-             * The ID of the TeXML Application.
+             * The ID of the TeXML Application that will handle the call, for example
+             * `1293384261075731499`. The `ApplicationSid` name is kept for Twilio API
+             * compatibility, but the value is the numeric ID of one of your TeXML Applications (see
+             * the TeXML Applications API or the Mission Control Portal), not a Twilio `AP...` SID.
+             * If `Url` and `Texml` are omitted, Telnyx fetches instructions from the XML Request
+             * URL configured on this application.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
@@ -7219,7 +7236,14 @@ private constructor(
                  */
                 fun texml(texml: JsonField<String>) = apply { this.texml = texml }
 
-                /** The ID of the TeXML Application. */
+                /**
+                 * The ID of the TeXML Application that will handle the call, for example
+                 * `1293384261075731499`. The `ApplicationSid` name is kept for Twilio API
+                 * compatibility, but the value is the numeric ID of one of your TeXML Applications
+                 * (see the TeXML Applications API or the Mission Control Portal), not a Twilio
+                 * `AP...` SID. If `Url` and `Texml` are omitted, Telnyx fetches instructions from
+                 * the XML Request URL configured on this application.
+                 */
                 fun applicationSid(applicationSid: String) =
                     applicationSid(JsonField.of(applicationSid))
 
@@ -11272,7 +11296,12 @@ private constructor(
             )
 
             /**
-             * The ID of the TeXML Application.
+             * The ID of the TeXML Application that will handle the call, for example
+             * `1293384261075731499`. The `ApplicationSid` name is kept for Twilio API
+             * compatibility, but the value is the numeric ID of one of your TeXML Applications (see
+             * the TeXML Applications API or the Mission Control Portal), not a Twilio `AP...` SID.
+             * If `Url` and `Texml` are omitted, Telnyx fetches instructions from the XML Request
+             * URL configured on this application.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
@@ -12461,7 +12490,14 @@ private constructor(
                     additionalProperties = applicationDefault.additionalProperties.toMutableMap()
                 }
 
-                /** The ID of the TeXML Application. */
+                /**
+                 * The ID of the TeXML Application that will handle the call, for example
+                 * `1293384261075731499`. The `ApplicationSid` name is kept for Twilio API
+                 * compatibility, but the value is the numeric ID of one of your TeXML Applications
+                 * (see the TeXML Applications API or the Mission Control Portal), not a Twilio
+                 * `AP...` SID. If `Url` and `Texml` are omitted, Telnyx fetches instructions from
+                 * the XML Request URL configured on this application.
+                 */
                 fun applicationSid(applicationSid: String) =
                     applicationSid(JsonField.of(applicationSid))
 

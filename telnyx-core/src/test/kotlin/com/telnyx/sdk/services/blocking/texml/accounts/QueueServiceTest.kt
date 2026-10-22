@@ -21,7 +21,7 @@ internal class QueueServiceTest {
         val queueResource =
             queueService.create(
                 QueueCreateParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .friendlyName("Support Queue")
                     .maxSize(10L)
                     .build()
@@ -39,7 +39,7 @@ internal class QueueServiceTest {
         val queueResource =
             queueService.retrieve(
                 QueueRetrieveParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .queueSid("queue_sid")
                     .build()
             )
@@ -56,7 +56,7 @@ internal class QueueServiceTest {
         val queueResource =
             queueService.update(
                 QueueUpdateParams.builder()
-                    .accountSid("account_sid")
+                    .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
                     .queueSid("queue_sid")
                     .maxSize(10L)
                     .build()
@@ -71,7 +71,7 @@ internal class QueueServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val queueService = client.texml().accounts().queues()
 
-        val page = queueService.list("account_sid")
+        val page = queueService.list("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
 
         page.response().validate()
     }
@@ -83,7 +83,10 @@ internal class QueueServiceTest {
         val queueService = client.texml().accounts().queues()
 
         queueService.delete(
-            QueueDeleteParams.builder().accountSid("account_sid").queueSid("queue_sid").build()
+            QueueDeleteParams.builder()
+                .accountSid("f5586561-8ff0-4291-a51b-c7dfe4139ff9")
+                .queueSid("queue_sid")
+                .build()
         )
     }
 }

@@ -28,6 +28,11 @@ tasks.shadowJar {
     configurations = listOf(project.configurations.testRuntimeClasspath.get())
 }
 
+// Shrinkers must inspect the SDK toolchain's libraries, not an independently newer Gradle JVM.
+val shrinkerJavaHome = javaToolchains.launcherFor {
+    languageVersion.set(JavaLanguageVersion.of(21))
+}.map { it.metadata.installationPath.asFile.absolutePath }
+
 val proguardJarPath = "${layout.buildDirectory.get()}/libs/${project.name}-${project.version}-proguard.jar"
 val proguardJar by tasks.registering(proguard.gradle.ProGuardTask::class) {
     group = "verification"
@@ -38,18 +43,12 @@ val proguardJar by tasks.registering(proguard.gradle.ProGuardTask::class) {
     outjars(proguardJarPath)
     printmapping("${layout.buildDirectory.get()}/proguard-mapping.txt")
 
-    val javaHome = System.getProperty("java.home")
-    if (System.getProperty("java.version").startsWith("1.")) {
-        // Before Java 9, the runtime classes were packaged in a single jar file.
-        libraryjars("$javaHome/lib/rt.jar")
-    } else {
-        // As of Java 9, the runtime classes are packaged in modular jmod files.
-        libraryjars(
-            // Filters must be specified first, as a map.
-            mapOf("jarfilter" to "!**.jar", "filter" to "!module-info.class"),
-            "$javaHome/jmods/java.base.jmod"
-        )
-    }
+    val javaHome = shrinkerJavaHome.get()
+    libraryjars(
+        // Filters must be specified first, as a map.
+        mapOf("jarfilter" to "!**.jar", "filter" to "!module-info.class"),
+        "$javaHome/jmods/java.base.jmod"
+    )
 
     configuration("./test.pro")
     configuration("../telnyx-core/src/main/resources/META-INF/proguard/telnyx-core.pro")
@@ -77,7 +76,7 @@ val r8Jar by tasks.registering(JavaExec::class) {
         "--release",
         "--classfile",
         "--output", r8JarPath,
-        "--lib", System.getProperty("java.home"),
+        "--lib", shrinkerJavaHome.get(),
         "--pg-conf", "./test.pro",
         "--pg-conf", "../telnyx-core/src/main/resources/META-INF/proguard/telnyx-core.pro",
         "--pg-map-output", "${layout.buildDirectory.get()}/r8-mapping.txt",

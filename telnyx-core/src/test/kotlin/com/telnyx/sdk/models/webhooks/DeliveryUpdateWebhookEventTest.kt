@@ -110,6 +110,8 @@ internal class DeliveryUpdateWebhookEventTest {
                                 .tcrCampaignBillable(true)
                                 .tcrCampaignId("TCPA3X7")
                                 .tcrCampaignRegistered("REGISTERED")
+                                .templateId("template_id")
+                                .templateName("template_name")
                                 .text("Hello, World!")
                                 .addTo(
                                     OutboundMessagePayload.To.builder()
@@ -230,6 +232,8 @@ internal class DeliveryUpdateWebhookEventTest {
                             .tcrCampaignBillable(true)
                             .tcrCampaignId("TCPA3X7")
                             .tcrCampaignRegistered("REGISTERED")
+                            .templateId("template_id")
+                            .templateName("template_name")
                             .text("Hello, World!")
                             .addTo(
                                 OutboundMessagePayload.To.builder()
@@ -356,6 +360,8 @@ internal class DeliveryUpdateWebhookEventTest {
                                 .tcrCampaignBillable(true)
                                 .tcrCampaignId("TCPA3X7")
                                 .tcrCampaignRegistered("REGISTERED")
+                                .templateId("template_id")
+                                .templateName("template_name")
                                 .text("Hello, World!")
                                 .addTo(
                                     OutboundMessagePayload.To.builder()

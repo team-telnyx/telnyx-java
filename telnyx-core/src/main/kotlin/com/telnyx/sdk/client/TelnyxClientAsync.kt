@@ -37,6 +37,7 @@ import com.telnyx.sdk.services.async.CredentialConnectionServiceAsync
 import com.telnyx.sdk.services.async.CustomStorageCredentialServiceAsync
 import com.telnyx.sdk.services.async.CustomerServiceRecordServiceAsync
 import com.telnyx.sdk.services.async.DetailRecordServiceAsync
+import com.telnyx.sdk.services.async.DialMetricServiceAsync
 import com.telnyx.sdk.services.async.DialogflowConnectionServiceAsync
 import com.telnyx.sdk.services.async.DirServiceAsync
 import com.telnyx.sdk.services.async.DocumentLinkServiceAsync
@@ -164,12 +165,14 @@ import com.telnyx.sdk.services.async.SpendLimitServiceAsync
 import com.telnyx.sdk.services.async.StorageServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrdersReportServiceAsync
+import com.telnyx.sdk.services.async.TailscaleSubnetRouterServiceAsync
 import com.telnyx.sdk.services.async.TelephonyCredentialServiceAsync
 import com.telnyx.sdk.services.async.TermsOfServiceServiceAsync
 import com.telnyx.sdk.services.async.TexmlApplicationServiceAsync
 import com.telnyx.sdk.services.async.TexmlServiceAsync
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsync
 import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsync
+import com.telnyx.sdk.services.async.TtsIntegrationServiceAsync
 import com.telnyx.sdk.services.async.UacConnectionServiceAsync
 import com.telnyx.sdk.services.async.UsageReportServiceAsync
 import com.telnyx.sdk.services.async.UserAddressServiceAsync
@@ -764,6 +767,7 @@ interface TelnyxClientAsync {
 
     fun externalRequirements(): ExternalRequirementServiceAsync
 
+    /** Inspect Stateful Actor types */
     fun compute(): ComputeServiceAsync
 
     /**
@@ -834,6 +838,14 @@ interface TelnyxClientAsync {
 
     /** UAC connection operations */
     fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync
+
+    /** Call information */
+    fun dialMetrics(): DialMetricServiceAsync
+
+    fun ttsIntegrations(): TtsIntegrationServiceAsync
+
+    /** Tailscale Subnet Router operations */
+    fun tailscaleSubnetRouters(): TailscaleSubnetRouterServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1397,6 +1409,7 @@ interface TelnyxClientAsync {
 
         fun externalRequirements(): ExternalRequirementServiceAsync.WithRawResponse
 
+        /** Inspect Stateful Actor types */
         fun compute(): ComputeServiceAsync.WithRawResponse
 
         /**
@@ -1467,5 +1480,13 @@ interface TelnyxClientAsync {
 
         /** UAC connection operations */
         fun sipRegistrationStatus(): SipRegistrationStatusServiceAsync.WithRawResponse
+
+        /** Call information */
+        fun dialMetrics(): DialMetricServiceAsync.WithRawResponse
+
+        fun ttsIntegrations(): TtsIntegrationServiceAsync.WithRawResponse
+
+        /** Tailscale Subnet Router operations */
+        fun tailscaleSubnetRouters(): TailscaleSubnetRouterServiceAsync.WithRawResponse
     }
 }
