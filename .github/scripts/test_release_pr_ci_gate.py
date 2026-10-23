@@ -7,6 +7,39 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class JavaReleasePRGateTests(unittest.TestCase):
+    def test_codeql_compiles_kotlin_with_pinned_jdk_without_caches(self):
+        path = ROOT / ".github/workflows/codeql.yml"
+        self.assertTrue(path.is_file(), "Production needs an explicit CodeQL workflow")
+        workflow = path.read_text(encoding="utf-8")
+        for contract in (
+            "name: Analyze (${{ matrix.language }})",
+            "language: actions", "language: java-kotlin", "build-mode: manual",
+            "java-version: '21'", "distribution: temurin",
+            "./gradlew clean classes", "--no-build-cache", "--no-configuration-cache",
+            "--rerun-tasks", "--no-parallel", "--max-workers=1",
+            "-Pkotlin.compiler.execution.strategy=in-process",
+            "-Pkotlin.incremental=false", "persist-credentials: false",
+            "security-events: write", "branches: [master, next]",
+        ):
+            with self.subTest(contract=contract):
+                self.assertIn(contract, workflow)
+        self.assertNotIn("autobuild", workflow)
+        self.assertNotIn("cache: gradle", workflow)
+        self.assertNotIn("pull_request_target", workflow)
+
+    def test_codeql_uses_established_hosted_compiler_memory_budget(self):
+        workflow = (ROOT / ".github/workflows/codeql.yml").read_text(encoding="utf-8")
+        ci = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+        # The same source tree compiles in CI at 12GiB; 8GiB exhausts the
+        # Kotlin psi2ir heap even without CodeQL tracing.
+        budget = '-Dorg.gradle.jvmargs="-Xmx12g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8"'
+        self.assertIn(budget, ci)
+        self.assertIn(budget, workflow)
+        self.assertIn("runs-on: ubuntu-latest", workflow)
+        self.assertIn("-Pkotlin.compiler.execution.strategy=in-process", workflow)
+        self.assertIn("--max-workers=1", workflow)
+        self.assertNotIn("-Xmx8g", workflow)
+
     def test_classifier_owns_every_full_ci_job(self):
         ci = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
         self.assertIn("name: classify production CI", ci)
