@@ -11,7 +11,9 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -20,11 +22,14 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** The spend limit, spend and block state of one product and period. */
+/**
+ * The spend limit, spend and block state of one product and period. The top-level fields describe
+ * the total limit of the account; API key limits are nested in `credential_limits`.
+ */
 class SpendLimit
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val block: JsonField<Block>,
+    private val block: JsonField<SpendLimitBlock>,
     private val blocked: JsonField<Boolean>,
     private val effectiveLimitUsd: JsonField<String>,
     private val limit: JsonField<Limit>,
@@ -36,13 +41,15 @@ private constructor(
     private val recordType: JsonField<String>,
     private val spendError: JsonField<String>,
     private val spendUsd: JsonField<String>,
+    private val credentialId: JsonField<String>,
+    private val credentialLimits: JsonField<List<CredentialLimit>>,
     private val evaluation: JsonField<Evaluation>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("block") @ExcludeMissing block: JsonField<Block> = JsonMissing.of(),
+        @JsonProperty("block") @ExcludeMissing block: JsonField<SpendLimitBlock> = JsonMissing.of(),
         @JsonProperty("blocked") @ExcludeMissing blocked: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("effective_limit_usd")
         @ExcludeMissing
@@ -68,6 +75,12 @@ private constructor(
         @ExcludeMissing
         spendError: JsonField<String> = JsonMissing.of(),
         @JsonProperty("spend_usd") @ExcludeMissing spendUsd: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("credential_id")
+        @ExcludeMissing
+        credentialId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("credential_limits")
+        @ExcludeMissing
+        credentialLimits: JsonField<List<CredentialLimit>> = JsonMissing.of(),
         @JsonProperty("evaluation")
         @ExcludeMissing
         evaluation: JsonField<Evaluation> = JsonMissing.of(),
@@ -84,6 +97,8 @@ private constructor(
         recordType,
         spendError,
         spendUsd,
+        credentialId,
+        credentialLimits,
         evaluation,
         mutableMapOf(),
     )
@@ -94,11 +109,12 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun block(): Optional<Block> = block.getOptional("block")
+    fun block(): Optional<SpendLimitBlock> = block.getOptional("block")
 
     /**
-     * The product is blocked for this period. Always `false` in write responses; list the limits to
-     * read the block state.
+     * The product is blocked for the whole account in this period (total limit). An API key's own
+     * block appears only in `credential_limits`. Always `false` in write responses; list the limits
+     * to read the block state.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -188,6 +204,25 @@ private constructor(
     fun spendUsd(): Optional<String> = spendUsd.getOptional("spend_usd")
 
     /**
+     * In write responses, the API key the write was about; `null` for the total limit. Always
+     * `null` in list entries, which describe the total limit.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun credentialId(): Optional<String> = credentialId.getOptional("credential_id")
+
+    /**
+     * List responses only. One item per API key limit of the product and period, sorted by
+     * `credential_id`, plus every API key that is still blocked. `[]` when there are none.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun credentialLimits(): Optional<List<CredentialLimit>> =
+        credentialLimits.getOptional("credential_limits")
+
+    /**
      * What a create, update or delete did to the period at once. Only present in write responses.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -200,7 +235,7 @@ private constructor(
      *
      * Unlike [block], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("block") @ExcludeMissing fun _block(): JsonField<Block> = block
+    @JsonProperty("block") @ExcludeMissing fun _block(): JsonField<SpendLimitBlock> = block
 
     /**
      * Returns the raw JSON value of [blocked].
@@ -287,6 +322,25 @@ private constructor(
     @JsonProperty("spend_usd") @ExcludeMissing fun _spendUsd(): JsonField<String> = spendUsd
 
     /**
+     * Returns the raw JSON value of [credentialId].
+     *
+     * Unlike [credentialId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("credential_id")
+    @ExcludeMissing
+    fun _credentialId(): JsonField<String> = credentialId
+
+    /**
+     * Returns the raw JSON value of [credentialLimits].
+     *
+     * Unlike [credentialLimits], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("credential_limits")
+    @ExcludeMissing
+    fun _credentialLimits(): JsonField<List<CredentialLimit>> = credentialLimits
+
+    /**
      * Returns the raw JSON value of [evaluation].
      *
      * Unlike [evaluation], this method doesn't throw if the JSON field has an unexpected type.
@@ -334,7 +388,7 @@ private constructor(
     /** A builder for [SpendLimit]. */
     class Builder internal constructor() {
 
-        private var block: JsonField<Block>? = null
+        private var block: JsonField<SpendLimitBlock>? = null
         private var blocked: JsonField<Boolean>? = null
         private var effectiveLimitUsd: JsonField<String>? = null
         private var limit: JsonField<Limit>? = null
@@ -346,6 +400,8 @@ private constructor(
         private var recordType: JsonField<String>? = null
         private var spendError: JsonField<String>? = null
         private var spendUsd: JsonField<String>? = null
+        private var credentialId: JsonField<String> = JsonMissing.of()
+        private var credentialLimits: JsonField<MutableList<CredentialLimit>>? = null
         private var evaluation: JsonField<Evaluation> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -363,27 +419,31 @@ private constructor(
             recordType = spendLimit.recordType
             spendError = spendLimit.spendError
             spendUsd = spendLimit.spendUsd
+            credentialId = spendLimit.credentialId
+            credentialLimits = spendLimit.credentialLimits.map { it.toMutableList() }
             evaluation = spendLimit.evaluation
             additionalProperties = spendLimit.additionalProperties.toMutableMap()
         }
 
         /** The active block of the period. `null` when the period is not blocked. */
-        fun block(block: Block?) = block(JsonField.ofNullable(block))
+        fun block(block: SpendLimitBlock?) = block(JsonField.ofNullable(block))
 
         /** Alias for calling [Builder.block] with `block.orElse(null)`. */
-        fun block(block: Optional<Block>) = block(block.getOrNull())
+        fun block(block: Optional<SpendLimitBlock>) = block(block.getOrNull())
 
         /**
          * Sets [Builder.block] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.block] with a well-typed [Block] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.block] with a well-typed [SpendLimitBlock] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun block(block: JsonField<Block>) = apply { this.block = block }
+        fun block(block: JsonField<SpendLimitBlock>) = apply { this.block = block }
 
         /**
-         * The product is blocked for this period. Always `false` in write responses; list the
-         * limits to read the block state.
+         * The product is blocked for the whole account in this period (total limit). An API key's
+         * own block appears only in `credential_limits`. Always `false` in write responses; list
+         * the limits to read the block state.
          */
         fun blocked(blocked: Boolean) = blocked(JsonField.of(blocked))
 
@@ -537,6 +597,56 @@ private constructor(
         fun spendUsd(spendUsd: JsonField<String>) = apply { this.spendUsd = spendUsd }
 
         /**
+         * In write responses, the API key the write was about; `null` for the total limit. Always
+         * `null` in list entries, which describe the total limit.
+         */
+        fun credentialId(credentialId: String?) = credentialId(JsonField.ofNullable(credentialId))
+
+        /** Alias for calling [Builder.credentialId] with `credentialId.orElse(null)`. */
+        fun credentialId(credentialId: Optional<String>) = credentialId(credentialId.getOrNull())
+
+        /**
+         * Sets [Builder.credentialId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.credentialId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun credentialId(credentialId: JsonField<String>) = apply {
+            this.credentialId = credentialId
+        }
+
+        /**
+         * List responses only. One item per API key limit of the product and period, sorted by
+         * `credential_id`, plus every API key that is still blocked. `[]` when there are none.
+         */
+        fun credentialLimits(credentialLimits: List<CredentialLimit>) =
+            credentialLimits(JsonField.of(credentialLimits))
+
+        /**
+         * Sets [Builder.credentialLimits] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.credentialLimits] with a well-typed
+         * `List<CredentialLimit>` value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun credentialLimits(credentialLimits: JsonField<List<CredentialLimit>>) = apply {
+            this.credentialLimits = credentialLimits.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [CredentialLimit] to [credentialLimits].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addCredentialLimit(credentialLimit: CredentialLimit) = apply {
+            credentialLimits =
+                (credentialLimits ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("credentialLimits", it).add(credentialLimit)
+                }
+        }
+
+        /**
          * What a create, update or delete did to the period at once. Only present in write
          * responses.
          */
@@ -607,6 +717,8 @@ private constructor(
                 checkRequired("recordType", recordType),
                 checkRequired("spendError", spendError),
                 checkRequired("spendUsd", spendUsd),
+                credentialId,
+                (credentialLimits ?: JsonMissing.of()).map { it.toImmutable() },
                 evaluation,
                 additionalProperties.toMutableMap(),
             )
@@ -639,6 +751,8 @@ private constructor(
         recordType()
         spendError()
         spendUsd()
+        credentialId()
+        credentialLimits().ifPresent { it.forEach { it.validate() } }
         evaluation().ifPresent { it.validate() }
         validated = true
     }
@@ -670,308 +784,9 @@ private constructor(
             (if (recordType.asKnown().isPresent) 1 else 0) +
             (if (spendError.asKnown().isPresent) 1 else 0) +
             (if (spendUsd.asKnown().isPresent) 1 else 0) +
+            (if (credentialId.asKnown().isPresent) 1 else 0) +
+            (credentialLimits.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (evaluation.asKnown().getOrNull()?.validity() ?: 0)
-
-    /** The active block of the period. `null` when the period is not blocked. */
-    class Block
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val blockedUntil: JsonField<LocalDate>,
-        private val detectedAt: JsonField<OffsetDateTime>,
-        private val limitUsd: JsonField<String>,
-        private val spendUsd: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("blocked_until")
-            @ExcludeMissing
-            blockedUntil: JsonField<LocalDate> = JsonMissing.of(),
-            @JsonProperty("detected_at")
-            @ExcludeMissing
-            detectedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("limit_usd")
-            @ExcludeMissing
-            limitUsd: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("spend_usd")
-            @ExcludeMissing
-            spendUsd: JsonField<String> = JsonMissing.of(),
-        ) : this(blockedUntil, detectedAt, limitUsd, spendUsd, mutableMapOf())
-
-        /**
-         * Exclusive end of the block: it is lifted at 00:00 UTC on this date at the latest.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun blockedUntil(): LocalDate = blockedUntil.getRequired("blocked_until")
-
-        /**
-         * When the block started.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun detectedAt(): OffsetDateTime = detectedAt.getRequired("detected_at")
-
-        /**
-         * The limit in USD that the spend went above, as a decimal string.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun limitUsd(): String = limitUsd.getRequired("limit_usd")
-
-        /**
-         * Spend in USD when the block started, as a decimal string.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun spendUsd(): String = spendUsd.getRequired("spend_usd")
-
-        /**
-         * Returns the raw JSON value of [blockedUntil].
-         *
-         * Unlike [blockedUntil], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("blocked_until")
-        @ExcludeMissing
-        fun _blockedUntil(): JsonField<LocalDate> = blockedUntil
-
-        /**
-         * Returns the raw JSON value of [detectedAt].
-         *
-         * Unlike [detectedAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("detected_at")
-        @ExcludeMissing
-        fun _detectedAt(): JsonField<OffsetDateTime> = detectedAt
-
-        /**
-         * Returns the raw JSON value of [limitUsd].
-         *
-         * Unlike [limitUsd], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("limit_usd") @ExcludeMissing fun _limitUsd(): JsonField<String> = limitUsd
-
-        /**
-         * Returns the raw JSON value of [spendUsd].
-         *
-         * Unlike [spendUsd], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("spend_usd") @ExcludeMissing fun _spendUsd(): JsonField<String> = spendUsd
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Block].
-             *
-             * The following fields are required:
-             * ```java
-             * .blockedUntil()
-             * .detectedAt()
-             * .limitUsd()
-             * .spendUsd()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Block]. */
-        class Builder internal constructor() {
-
-            private var blockedUntil: JsonField<LocalDate>? = null
-            private var detectedAt: JsonField<OffsetDateTime>? = null
-            private var limitUsd: JsonField<String>? = null
-            private var spendUsd: JsonField<String>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(block: Block) = apply {
-                blockedUntil = block.blockedUntil
-                detectedAt = block.detectedAt
-                limitUsd = block.limitUsd
-                spendUsd = block.spendUsd
-                additionalProperties = block.additionalProperties.toMutableMap()
-            }
-
-            /** Exclusive end of the block: it is lifted at 00:00 UTC on this date at the latest. */
-            fun blockedUntil(blockedUntil: LocalDate) = blockedUntil(JsonField.of(blockedUntil))
-
-            /**
-             * Sets [Builder.blockedUntil] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.blockedUntil] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun blockedUntil(blockedUntil: JsonField<LocalDate>) = apply {
-                this.blockedUntil = blockedUntil
-            }
-
-            /** When the block started. */
-            fun detectedAt(detectedAt: OffsetDateTime) = detectedAt(JsonField.of(detectedAt))
-
-            /**
-             * Sets [Builder.detectedAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.detectedAt] with a well-typed [OffsetDateTime] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun detectedAt(detectedAt: JsonField<OffsetDateTime>) = apply {
-                this.detectedAt = detectedAt
-            }
-
-            /** The limit in USD that the spend went above, as a decimal string. */
-            fun limitUsd(limitUsd: String) = limitUsd(JsonField.of(limitUsd))
-
-            /**
-             * Sets [Builder.limitUsd] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.limitUsd] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun limitUsd(limitUsd: JsonField<String>) = apply { this.limitUsd = limitUsd }
-
-            /** Spend in USD when the block started, as a decimal string. */
-            fun spendUsd(spendUsd: String) = spendUsd(JsonField.of(spendUsd))
-
-            /**
-             * Sets [Builder.spendUsd] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.spendUsd] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun spendUsd(spendUsd: JsonField<String>) = apply { this.spendUsd = spendUsd }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Block].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .blockedUntil()
-             * .detectedAt()
-             * .limitUsd()
-             * .spendUsd()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Block =
-                Block(
-                    checkRequired("blockedUntil", blockedUntil),
-                    checkRequired("detectedAt", detectedAt),
-                    checkRequired("limitUsd", limitUsd),
-                    checkRequired("spendUsd", spendUsd),
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Block = apply {
-            if (validated) {
-                return@apply
-            }
-
-            blockedUntil()
-            detectedAt()
-            limitUsd()
-            spendUsd()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (blockedUntil.asKnown().isPresent) 1 else 0) +
-                (if (detectedAt.asKnown().isPresent) 1 else 0) +
-                (if (limitUsd.asKnown().isPresent) 1 else 0) +
-                (if (spendUsd.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Block &&
-                blockedUntil == other.blockedUntil &&
-                detectedAt == other.detectedAt &&
-                limitUsd == other.limitUsd &&
-                spendUsd == other.spendUsd &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(blockedUntil, detectedAt, limitUsd, spendUsd, additionalProperties)
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Block{blockedUntil=$blockedUntil, detectedAt=$detectedAt, limitUsd=$limitUsd, spendUsd=$spendUsd, additionalProperties=$additionalProperties}"
-    }
 
     /**
      * The limit set on the account for the product and period, whoever set it. `null` when none is
@@ -1413,6 +1228,882 @@ private constructor(
             "Limit{amount=$amount, origin=$origin, unlimited=$unlimited, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
+    /** The limit, spend and block state of one API key in the product and period. */
+    class CredentialLimit
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val block: JsonField<SpendLimitBlock>,
+        private val blocked: JsonField<Boolean>,
+        private val credentialId: JsonField<String>,
+        private val limit: JsonField<Limit>,
+        private val spendError: JsonField<String>,
+        private val spendUsd: JsonField<String>,
+        private val exceedsTotal: JsonField<Boolean>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("block")
+            @ExcludeMissing
+            block: JsonField<SpendLimitBlock> = JsonMissing.of(),
+            @JsonProperty("blocked") @ExcludeMissing blocked: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("credential_id")
+            @ExcludeMissing
+            credentialId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("limit") @ExcludeMissing limit: JsonField<Limit> = JsonMissing.of(),
+            @JsonProperty("spend_error")
+            @ExcludeMissing
+            spendError: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("spend_usd")
+            @ExcludeMissing
+            spendUsd: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("exceeds_total")
+            @ExcludeMissing
+            exceedsTotal: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(
+            block,
+            blocked,
+            credentialId,
+            limit,
+            spendError,
+            spendUsd,
+            exceedsTotal,
+            mutableMapOf(),
+        )
+
+        /**
+         * The active block of the period. `null` when the period is not blocked.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun block(): Optional<SpendLimitBlock> = block.getOptional("block")
+
+        /**
+         * This API key is blocked for the period.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun blocked(): Boolean = blocked.getRequired("blocked")
+
+        /**
+         * Identifier of the API key as recorded on usage. Never the key's secret.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun credentialId(): String = credentialId.getRequired("credential_id")
+
+        /**
+         * The limit of one API key. It always has an amount. `null` for an API key that is still
+         * blocked after its limit was removed.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun limit(): Optional<Limit> = limit.getOptional("limit")
+
+        /**
+         * Set when `spend_usd` is `null`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun spendError(): Optional<String> = spendError.getOptional("spend_error")
+
+        /**
+         * Spend in USD in the period made with exactly this API key, as a decimal string. Usage
+         * without an API key identifier, or with another one, counts only toward the total. `null`
+         * when it could not be read.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun spendUsd(): Optional<String> = spendUsd.getOptional("spend_usd")
+
+        /**
+         * The API key's limit is above the period's total limit. Only a change by Telnyx support
+         * can cause it; the total limit still applies to the whole account. Lower the API key limit
+         * or raise the total.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun exceedsTotal(): Optional<Boolean> = exceedsTotal.getOptional("exceeds_total")
+
+        /**
+         * Returns the raw JSON value of [block].
+         *
+         * Unlike [block], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("block") @ExcludeMissing fun _block(): JsonField<SpendLimitBlock> = block
+
+        /**
+         * Returns the raw JSON value of [blocked].
+         *
+         * Unlike [blocked], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("blocked") @ExcludeMissing fun _blocked(): JsonField<Boolean> = blocked
+
+        /**
+         * Returns the raw JSON value of [credentialId].
+         *
+         * Unlike [credentialId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("credential_id")
+        @ExcludeMissing
+        fun _credentialId(): JsonField<String> = credentialId
+
+        /**
+         * Returns the raw JSON value of [limit].
+         *
+         * Unlike [limit], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("limit") @ExcludeMissing fun _limit(): JsonField<Limit> = limit
+
+        /**
+         * Returns the raw JSON value of [spendError].
+         *
+         * Unlike [spendError], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("spend_error")
+        @ExcludeMissing
+        fun _spendError(): JsonField<String> = spendError
+
+        /**
+         * Returns the raw JSON value of [spendUsd].
+         *
+         * Unlike [spendUsd], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("spend_usd") @ExcludeMissing fun _spendUsd(): JsonField<String> = spendUsd
+
+        /**
+         * Returns the raw JSON value of [exceedsTotal].
+         *
+         * Unlike [exceedsTotal], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("exceeds_total")
+        @ExcludeMissing
+        fun _exceedsTotal(): JsonField<Boolean> = exceedsTotal
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [CredentialLimit].
+             *
+             * The following fields are required:
+             * ```java
+             * .block()
+             * .blocked()
+             * .credentialId()
+             * .limit()
+             * .spendError()
+             * .spendUsd()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [CredentialLimit]. */
+        class Builder internal constructor() {
+
+            private var block: JsonField<SpendLimitBlock>? = null
+            private var blocked: JsonField<Boolean>? = null
+            private var credentialId: JsonField<String>? = null
+            private var limit: JsonField<Limit>? = null
+            private var spendError: JsonField<String>? = null
+            private var spendUsd: JsonField<String>? = null
+            private var exceedsTotal: JsonField<Boolean> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(credentialLimit: CredentialLimit) = apply {
+                block = credentialLimit.block
+                blocked = credentialLimit.blocked
+                credentialId = credentialLimit.credentialId
+                limit = credentialLimit.limit
+                spendError = credentialLimit.spendError
+                spendUsd = credentialLimit.spendUsd
+                exceedsTotal = credentialLimit.exceedsTotal
+                additionalProperties = credentialLimit.additionalProperties.toMutableMap()
+            }
+
+            /** The active block of the period. `null` when the period is not blocked. */
+            fun block(block: SpendLimitBlock?) = block(JsonField.ofNullable(block))
+
+            /** Alias for calling [Builder.block] with `block.orElse(null)`. */
+            fun block(block: Optional<SpendLimitBlock>) = block(block.getOrNull())
+
+            /**
+             * Sets [Builder.block] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.block] with a well-typed [SpendLimitBlock] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun block(block: JsonField<SpendLimitBlock>) = apply { this.block = block }
+
+            /** This API key is blocked for the period. */
+            fun blocked(blocked: Boolean) = blocked(JsonField.of(blocked))
+
+            /**
+             * Sets [Builder.blocked] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.blocked] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun blocked(blocked: JsonField<Boolean>) = apply { this.blocked = blocked }
+
+            /** Identifier of the API key as recorded on usage. Never the key's secret. */
+            fun credentialId(credentialId: String) = credentialId(JsonField.of(credentialId))
+
+            /**
+             * Sets [Builder.credentialId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.credentialId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun credentialId(credentialId: JsonField<String>) = apply {
+                this.credentialId = credentialId
+            }
+
+            /**
+             * The limit of one API key. It always has an amount. `null` for an API key that is
+             * still blocked after its limit was removed.
+             */
+            fun limit(limit: Limit?) = limit(JsonField.ofNullable(limit))
+
+            /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
+            fun limit(limit: Optional<Limit>) = limit(limit.getOrNull())
+
+            /**
+             * Sets [Builder.limit] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.limit] with a well-typed [Limit] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun limit(limit: JsonField<Limit>) = apply { this.limit = limit }
+
+            /** Set when `spend_usd` is `null`. */
+            fun spendError(spendError: String?) = spendError(JsonField.ofNullable(spendError))
+
+            /** Alias for calling [Builder.spendError] with `spendError.orElse(null)`. */
+            fun spendError(spendError: Optional<String>) = spendError(spendError.getOrNull())
+
+            /**
+             * Sets [Builder.spendError] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.spendError] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun spendError(spendError: JsonField<String>) = apply { this.spendError = spendError }
+
+            /**
+             * Spend in USD in the period made with exactly this API key, as a decimal string. Usage
+             * without an API key identifier, or with another one, counts only toward the total.
+             * `null` when it could not be read.
+             */
+            fun spendUsd(spendUsd: String?) = spendUsd(JsonField.ofNullable(spendUsd))
+
+            /** Alias for calling [Builder.spendUsd] with `spendUsd.orElse(null)`. */
+            fun spendUsd(spendUsd: Optional<String>) = spendUsd(spendUsd.getOrNull())
+
+            /**
+             * Sets [Builder.spendUsd] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.spendUsd] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun spendUsd(spendUsd: JsonField<String>) = apply { this.spendUsd = spendUsd }
+
+            /**
+             * The API key's limit is above the period's total limit. Only a change by Telnyx
+             * support can cause it; the total limit still applies to the whole account. Lower the
+             * API key limit or raise the total.
+             */
+            fun exceedsTotal(exceedsTotal: Boolean) = exceedsTotal(JsonField.of(exceedsTotal))
+
+            /**
+             * Sets [Builder.exceedsTotal] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.exceedsTotal] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun exceedsTotal(exceedsTotal: JsonField<Boolean>) = apply {
+                this.exceedsTotal = exceedsTotal
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [CredentialLimit].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .block()
+             * .blocked()
+             * .credentialId()
+             * .limit()
+             * .spendError()
+             * .spendUsd()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): CredentialLimit =
+                CredentialLimit(
+                    checkRequired("block", block),
+                    checkRequired("blocked", blocked),
+                    checkRequired("credentialId", credentialId),
+                    checkRequired("limit", limit),
+                    checkRequired("spendError", spendError),
+                    checkRequired("spendUsd", spendUsd),
+                    exceedsTotal,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): CredentialLimit = apply {
+            if (validated) {
+                return@apply
+            }
+
+            block().ifPresent { it.validate() }
+            blocked()
+            credentialId()
+            limit().ifPresent { it.validate() }
+            spendError()
+            spendUsd()
+            exceedsTotal()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (block.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (blocked.asKnown().isPresent) 1 else 0) +
+                (if (credentialId.asKnown().isPresent) 1 else 0) +
+                (limit.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (spendError.asKnown().isPresent) 1 else 0) +
+                (if (spendUsd.asKnown().isPresent) 1 else 0) +
+                (if (exceedsTotal.asKnown().isPresent) 1 else 0)
+
+        /**
+         * The limit of one API key. It always has an amount. `null` for an API key that is still
+         * blocked after its limit was removed.
+         */
+        class Limit
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val amount: JsonField<String>,
+            private val origin: JsonField<Origin>,
+            private val updatedAt: JsonField<OffsetDateTime>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount")
+                @ExcludeMissing
+                amount: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("origin")
+                @ExcludeMissing
+                origin: JsonField<Origin> = JsonMissing.of(),
+                @JsonProperty("updated_at")
+                @ExcludeMissing
+                updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            ) : this(amount, origin, updatedAt, mutableMapOf())
+
+            /**
+             * Limit in USD, as a decimal string.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun amount(): String = amount.getRequired("amount")
+
+            /**
+             * `self_service` when a user of the account set it, `operator` when Telnyx support did.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun origin(): Origin = origin.getRequired("origin")
+
+            /**
+             * When the limit was last set or changed.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<String> = amount
+
+            /**
+             * Returns the raw JSON value of [origin].
+             *
+             * Unlike [origin], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("origin") @ExcludeMissing fun _origin(): JsonField<Origin> = origin
+
+            /**
+             * Returns the raw JSON value of [updatedAt].
+             *
+             * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Limit].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .origin()
+                 * .updatedAt()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Limit]. */
+            class Builder internal constructor() {
+
+                private var amount: JsonField<String>? = null
+                private var origin: JsonField<Origin>? = null
+                private var updatedAt: JsonField<OffsetDateTime>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(limit: Limit) = apply {
+                    amount = limit.amount
+                    origin = limit.origin
+                    updatedAt = limit.updatedAt
+                    additionalProperties = limit.additionalProperties.toMutableMap()
+                }
+
+                /** Limit in USD, as a decimal string. */
+                fun amount(amount: String) = amount(JsonField.of(amount))
+
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                /**
+                 * `self_service` when a user of the account set it, `operator` when Telnyx support
+                 * did.
+                 */
+                fun origin(origin: Origin) = origin(JsonField.of(origin))
+
+                /**
+                 * Sets [Builder.origin] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.origin] with a well-typed [Origin] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun origin(origin: JsonField<Origin>) = apply { this.origin = origin }
+
+                /** When the limit was last set or changed. */
+                fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+                /**
+                 * Sets [Builder.updatedAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
+                    this.updatedAt = updatedAt
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Limit].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .origin()
+                 * .updatedAt()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Limit =
+                    Limit(
+                        checkRequired("amount", amount),
+                        checkRequired("origin", origin),
+                        checkRequired("updatedAt", updatedAt),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): Limit = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                origin().validate()
+                updatedAt()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (amount.asKnown().isPresent) 1 else 0) +
+                    (origin.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (updatedAt.asKnown().isPresent) 1 else 0)
+
+            /**
+             * `self_service` when a user of the account set it, `operator` when Telnyx support did.
+             */
+            class Origin @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val SELF_SERVICE = of("self_service")
+
+                    @JvmField val OPERATOR = of("operator")
+
+                    @JvmStatic fun of(value: String) = Origin(JsonField.of(value))
+                }
+
+                /** An enum containing [Origin]'s known values. */
+                enum class Known {
+                    SELF_SERVICE,
+                    OPERATOR,
+                }
+
+                /**
+                 * An enum containing [Origin]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Origin] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    SELF_SERVICE,
+                    OPERATOR,
+                    /**
+                     * An enum member indicating that [Origin] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        SELF_SERVICE -> Value.SELF_SERVICE
+                        OPERATOR -> Value.OPERATOR
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        SELF_SERVICE -> Known.SELF_SERVICE
+                        OPERATOR -> Known.OPERATOR
+                        else -> throw TelnyxInvalidDataException("Unknown Origin: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Origin = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Origin && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Limit &&
+                    amount == other.amount &&
+                    origin == other.origin &&
+                    updatedAt == other.updatedAt &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(amount, origin, updatedAt, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Limit{amount=$amount, origin=$origin, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CredentialLimit &&
+                block == other.block &&
+                blocked == other.blocked &&
+                credentialId == other.credentialId &&
+                limit == other.limit &&
+                spendError == other.spendError &&
+                spendUsd == other.spendUsd &&
+                exceedsTotal == other.exceedsTotal &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                block,
+                blocked,
+                credentialId,
+                limit,
+                spendError,
+                spendUsd,
+                exceedsTotal,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "CredentialLimit{block=$block, blocked=$blocked, credentialId=$credentialId, limit=$limit, spendError=$spendError, spendUsd=$spendUsd, exceedsTotal=$exceedsTotal, additionalProperties=$additionalProperties}"
+    }
+
     /**
      * What a create, update or delete did to the period at once. Only present in write responses.
      */
@@ -1425,6 +2116,7 @@ private constructor(
         private val spendUsd: JsonField<String>,
         private val stillBlockedOtherPeriod: JsonField<Boolean>,
         private val stillOverLimit: JsonField<Boolean>,
+        private val accountBlocked: JsonField<Boolean>,
         private val note: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1449,6 +2141,9 @@ private constructor(
             @JsonProperty("still_over_limit")
             @ExcludeMissing
             stillOverLimit: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("account_blocked")
+            @ExcludeMissing
+            accountBlocked: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("note") @ExcludeMissing note: JsonField<String> = JsonMissing.of(),
         ) : this(
             blockedNow,
@@ -1457,6 +2152,7 @@ private constructor(
             spendUsd,
             stillBlockedOtherPeriod,
             stillOverLimit,
+            accountBlocked,
             note,
             mutableMapOf(),
         )
@@ -1496,7 +2192,7 @@ private constructor(
 
         /**
          * The other period has an active block, so the product stays blocked whatever this period's
-         * result.
+         * result. For an API key write, the API key's limit in the other period.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1511,6 +2207,15 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun stillOverLimit(): Boolean = stillOverLimit.getRequired("still_over_limit")
+
+        /**
+         * API key writes only: the account itself remains blocked for the product under a total
+         * limit. Absent for total limit writes.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun accountBlocked(): Optional<Boolean> = accountBlocked.getOptional("account_blocked")
 
         /**
          * Additional information about the result, when there is any.
@@ -1574,6 +2279,16 @@ private constructor(
         fun _stillOverLimit(): JsonField<Boolean> = stillOverLimit
 
         /**
+         * Returns the raw JSON value of [accountBlocked].
+         *
+         * Unlike [accountBlocked], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_blocked")
+        @ExcludeMissing
+        fun _accountBlocked(): JsonField<Boolean> = accountBlocked
+
+        /**
          * Returns the raw JSON value of [note].
          *
          * Unlike [note], this method doesn't throw if the JSON field has an unexpected type.
@@ -1619,6 +2334,7 @@ private constructor(
             private var spendUsd: JsonField<String>? = null
             private var stillBlockedOtherPeriod: JsonField<Boolean>? = null
             private var stillOverLimit: JsonField<Boolean>? = null
+            private var accountBlocked: JsonField<Boolean> = JsonMissing.of()
             private var note: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1630,6 +2346,7 @@ private constructor(
                 spendUsd = evaluation.spendUsd
                 stillBlockedOtherPeriod = evaluation.stillBlockedOtherPeriod
                 stillOverLimit = evaluation.stillOverLimit
+                accountBlocked = evaluation.accountBlocked
                 note = evaluation.note
                 additionalProperties = evaluation.additionalProperties.toMutableMap()
             }
@@ -1696,7 +2413,7 @@ private constructor(
 
             /**
              * The other period has an active block, so the product stays blocked whatever this
-             * period's result.
+             * period's result. For an API key write, the API key's limit in the other period.
              */
             fun stillBlockedOtherPeriod(stillBlockedOtherPeriod: Boolean) =
                 stillBlockedOtherPeriod(JsonField.of(stillBlockedOtherPeriod))
@@ -1725,6 +2442,24 @@ private constructor(
              */
             fun stillOverLimit(stillOverLimit: JsonField<Boolean>) = apply {
                 this.stillOverLimit = stillOverLimit
+            }
+
+            /**
+             * API key writes only: the account itself remains blocked for the product under a total
+             * limit. Absent for total limit writes.
+             */
+            fun accountBlocked(accountBlocked: Boolean) =
+                accountBlocked(JsonField.of(accountBlocked))
+
+            /**
+             * Sets [Builder.accountBlocked] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountBlocked] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountBlocked(accountBlocked: JsonField<Boolean>) = apply {
+                this.accountBlocked = accountBlocked
             }
 
             /** Additional information about the result, when there is any. */
@@ -1783,6 +2518,7 @@ private constructor(
                     checkRequired("spendUsd", spendUsd),
                     checkRequired("stillBlockedOtherPeriod", stillBlockedOtherPeriod),
                     checkRequired("stillOverLimit", stillOverLimit),
+                    accountBlocked,
                     note,
                     additionalProperties.toMutableMap(),
                 )
@@ -1810,6 +2546,7 @@ private constructor(
             spendUsd()
             stillBlockedOtherPeriod()
             stillOverLimit()
+            accountBlocked()
             note()
             validated = true
         }
@@ -1836,6 +2573,7 @@ private constructor(
                 (if (spendUsd.asKnown().isPresent) 1 else 0) +
                 (if (stillBlockedOtherPeriod.asKnown().isPresent) 1 else 0) +
                 (if (stillOverLimit.asKnown().isPresent) 1 else 0) +
+                (if (accountBlocked.asKnown().isPresent) 1 else 0) +
                 (if (note.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1850,6 +2588,7 @@ private constructor(
                 spendUsd == other.spendUsd &&
                 stillBlockedOtherPeriod == other.stillBlockedOtherPeriod &&
                 stillOverLimit == other.stillOverLimit &&
+                accountBlocked == other.accountBlocked &&
                 note == other.note &&
                 additionalProperties == other.additionalProperties
         }
@@ -1862,6 +2601,7 @@ private constructor(
                 spendUsd,
                 stillBlockedOtherPeriod,
                 stillOverLimit,
+                accountBlocked,
                 note,
                 additionalProperties,
             )
@@ -1870,7 +2610,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Evaluation{blockedNow=$blockedNow, evaluationDeferred=$evaluationDeferred, released=$released, spendUsd=$spendUsd, stillBlockedOtherPeriod=$stillBlockedOtherPeriod, stillOverLimit=$stillOverLimit, note=$note, additionalProperties=$additionalProperties}"
+            "Evaluation{blockedNow=$blockedNow, evaluationDeferred=$evaluationDeferred, released=$released, spendUsd=$spendUsd, stillBlockedOtherPeriod=$stillBlockedOtherPeriod, stillOverLimit=$stillOverLimit, accountBlocked=$accountBlocked, note=$note, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -1891,6 +2631,8 @@ private constructor(
             recordType == other.recordType &&
             spendError == other.spendError &&
             spendUsd == other.spendUsd &&
+            credentialId == other.credentialId &&
+            credentialLimits == other.credentialLimits &&
             evaluation == other.evaluation &&
             additionalProperties == other.additionalProperties
     }
@@ -1909,6 +2651,8 @@ private constructor(
             recordType,
             spendError,
             spendUsd,
+            credentialId,
+            credentialLimits,
             evaluation,
             additionalProperties,
         )
@@ -1917,5 +2661,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SpendLimit{block=$block, blocked=$blocked, effectiveLimitUsd=$effectiveLimitUsd, limit=$limit, period=$period, periodEnd=$periodEnd, periodStart=$periodStart, product=$product, productName=$productName, recordType=$recordType, spendError=$spendError, spendUsd=$spendUsd, evaluation=$evaluation, additionalProperties=$additionalProperties}"
+        "SpendLimit{block=$block, blocked=$blocked, effectiveLimitUsd=$effectiveLimitUsd, limit=$limit, period=$period, periodEnd=$periodEnd, periodStart=$periodStart, product=$product, productName=$productName, recordType=$recordType, spendError=$spendError, spendUsd=$spendUsd, credentialId=$credentialId, credentialLimits=$credentialLimits, evaluation=$evaluation, additionalProperties=$additionalProperties}"
 }

@@ -250,6 +250,11 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.dialMetrics()).isNotNull()
         assertThat(client.ttsIntegrations()).isNotNull()
         assertThat(client.tailscaleSubnetRouters()).isNotNull()
+        assertThat(client.artifactDownloads()).isNotNull()
+        assertThat(client.email()).isNotNull()
+        assertThat(client.networkRoutes()).isNotNull()
+        assertThat(client.payConnectors()).isNotNull()
+        assertThat(client.tunnels()).isNotNull()
     }
 
     @Test

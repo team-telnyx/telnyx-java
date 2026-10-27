@@ -11,6 +11,7 @@ internal class VoiceCloneListParamsTest {
     @Test
     fun create() {
         VoiceCloneListParams.builder()
+            .filterModelId(VoiceCloneListParams.FilterModelId.QWEN3_TTS)
             .filterName("filter[name]")
             .filterProvider(VoiceCloneListParams.FilterProvider.TELNYX)
             .pageNumber(1L)
@@ -23,6 +24,7 @@ internal class VoiceCloneListParamsTest {
     fun queryParams() {
         val params =
             VoiceCloneListParams.builder()
+                .filterModelId(VoiceCloneListParams.FilterModelId.QWEN3_TTS)
                 .filterName("filter[name]")
                 .filterProvider(VoiceCloneListParams.FilterProvider.TELNYX)
                 .pageNumber(1L)
@@ -35,6 +37,7 @@ internal class VoiceCloneListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
+                    .put("filter[model_id]", "Qwen3TTS")
                     .put("filter[name]", "filter[name]")
                     .put("filter[provider]", "telnyx")
                     .put("page[number]", "1")

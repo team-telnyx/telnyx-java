@@ -67,7 +67,7 @@ interface BotSessionServiceAsync {
         ): BotSessionServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /v2/bot_sessions`, but is otherwise the same as
+         * Returns a raw HTTP response for `get /bot_sessions`, but is otherwise the same as
          * [BotSessionServiceAsync.list].
          */
         fun list(

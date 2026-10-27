@@ -10,7 +10,9 @@ import java.util.Objects
  * Returns one entry per product and period you can set a limit on, with the limit, the spend so far
  * in the period and whether the product is blocked. An entry without a limit is still listed
  * (`limit: null`). When the spend cannot be read, the entry is returned with `spend_usd: null` and
- * `spend_error` set. The list is not paginated.
+ * `spend_error` set. The list is not paginated. Each entry also lists the API key limits of its
+ * product and period in `credential_limits`, with each key's spend and block. Each API key limit
+ * can be at most the total limit; together they may add up to more than it.
  */
 class SpendLimitListParams
 private constructor(

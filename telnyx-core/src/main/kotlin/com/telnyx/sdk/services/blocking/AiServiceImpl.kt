@@ -52,6 +52,8 @@ import com.telnyx.sdk.services.blocking.ai.MissionService
 import com.telnyx.sdk.services.blocking.ai.MissionServiceImpl
 import com.telnyx.sdk.services.blocking.ai.OpenAIService
 import com.telnyx.sdk.services.blocking.ai.OpenAIServiceImpl
+import com.telnyx.sdk.services.blocking.ai.TestService
+import com.telnyx.sdk.services.blocking.ai.TestServiceImpl
 import com.telnyx.sdk.services.blocking.ai.ToolService
 import com.telnyx.sdk.services.blocking.ai.ToolServiceImpl
 import com.telnyx.sdk.services.blocking.ai.TypesafeService
@@ -101,6 +103,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     private val memory: MemoryService by lazy { MemoryServiceImpl(clientOptions) }
 
     private val avatars: AvatarService by lazy { AvatarServiceImpl(clientOptions) }
+
+    private val tests: TestService by lazy { TestServiceImpl(clientOptions) }
 
     override fun withRawResponse(): AiService.WithRawResponse = withRawResponse
 
@@ -152,6 +156,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
     /** Create and manage real-time AI avatars */
     override fun avatars(): AvatarService = avatars
+
+    override fun tests(): TestService = tests
 
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
@@ -245,6 +251,10 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             AvatarServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val tests: TestService.WithRawResponse by lazy {
+            TestServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiService.WithRawResponse =
@@ -297,6 +307,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
         /** Create and manage real-time AI avatars */
         override fun avatars(): AvatarService.WithRawResponse = avatars
+
+        override fun tests(): TestService.WithRawResponse = tests
 
         private val retrieveConversationHistoriesHandler:
             Handler<AiRetrieveConversationHistoriesPageResponse> =

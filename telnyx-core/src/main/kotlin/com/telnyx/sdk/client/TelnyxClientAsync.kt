@@ -10,6 +10,7 @@ import com.telnyx.sdk.services.async.AddressServiceAsync
 import com.telnyx.sdk.services.async.AdvancedOrderServiceAsync
 import com.telnyx.sdk.services.async.AiServiceAsync
 import com.telnyx.sdk.services.async.AlphanumericSenderIdServiceAsync
+import com.telnyx.sdk.services.async.ArtifactDownloadServiceAsync
 import com.telnyx.sdk.services.async.AuditEventServiceAsync
 import com.telnyx.sdk.services.async.AuthenticationProviderServiceAsync
 import com.telnyx.sdk.services.async.AvailablePhoneNumberBlockServiceAsync
@@ -50,6 +51,7 @@ import com.telnyx.sdk.services.async.EmailDomainServiceAsync
 import com.telnyx.sdk.services.async.EmailEventServiceAsync
 import com.telnyx.sdk.services.async.EmailInboxServiceAsync
 import com.telnyx.sdk.services.async.EmailMessageServiceAsync
+import com.telnyx.sdk.services.async.EmailServiceAsync
 import com.telnyx.sdk.services.async.EmailTemplateServiceAsync
 import com.telnyx.sdk.services.async.EmailThreadServiceAsync
 import com.telnyx.sdk.services.async.EmailUnsubscribeGroupServiceAsync
@@ -103,6 +105,7 @@ import com.telnyx.sdk.services.async.MobilePhoneNumberServiceAsync
 import com.telnyx.sdk.services.async.MobilePushCredentialServiceAsync
 import com.telnyx.sdk.services.async.MobileVoiceConnectionServiceAsync
 import com.telnyx.sdk.services.async.NetworkCoverageServiceAsync
+import com.telnyx.sdk.services.async.NetworkRouteServiceAsync
 import com.telnyx.sdk.services.async.NetworkServiceAsync
 import com.telnyx.sdk.services.async.NoiseSuppressionEngineServiceAsync
 import com.telnyx.sdk.services.async.NotificationChannelServiceAsync
@@ -123,6 +126,7 @@ import com.telnyx.sdk.services.async.OperatorConnectServiceAsync
 import com.telnyx.sdk.services.async.OrganizationServiceAsync
 import com.telnyx.sdk.services.async.OtaUpdateServiceAsync
 import com.telnyx.sdk.services.async.OutboundVoiceProfileServiceAsync
+import com.telnyx.sdk.services.async.PayConnectorServiceAsync
 import com.telnyx.sdk.services.async.PaymentServiceAsync
 import com.telnyx.sdk.services.async.PhoneNumberBlockServiceAsync
 import com.telnyx.sdk.services.async.PhoneNumberServiceAsync
@@ -174,6 +178,7 @@ import com.telnyx.sdk.services.async.TexmlServiceAsync
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsync
 import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsync
 import com.telnyx.sdk.services.async.TtsIntegrationServiceAsync
+import com.telnyx.sdk.services.async.TunnelServiceAsync
 import com.telnyx.sdk.services.async.UacConnectionServiceAsync
 import com.telnyx.sdk.services.async.UsageReportServiceAsync
 import com.telnyx.sdk.services.async.UserAddressServiceAsync
@@ -832,6 +837,12 @@ interface TelnyxClientAsync {
      *   billable chat completions, Responses, Anthropic Messages and classification requests;
      *   requests already running finish normally. Take the list of products from the list
      *   operation.
+     * - **API key limits.** For `inference`, a limit can also apply to one API key, named by
+     *   `credential_id`: the key's identifier as recorded on usage, never its secret. When the
+     *   key's spend goes above its own limit, only that key is blocked, with the error title `API
+     *   key spend limit reached` (code `10039`); the account's other keys keep working. The API key
+     *   limits of a period cannot add up to more than the total limit when the total has an amount.
+     *   Only language-model requests authenticated with an API key count toward its limit.
      * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is listed
      *   with `origin: operator` and you can update or delete it like your own.
      */
@@ -849,6 +860,20 @@ interface TelnyxClientAsync {
 
     /** Tailscale Subnet Router operations */
     fun tailscaleSubnetRouters(): TailscaleSubnetRouterServiceAsync
+
+    /** Download screenshots and other artifacts. */
+    fun artifactDownloads(): ArtifactDownloadServiceAsync
+
+    fun email(): EmailServiceAsync
+
+    /** Routes on a Network that send a CIDR to a next hop, such as a tunnel. */
+    fun networkRoutes(): NetworkRouteServiceAsync
+
+    /** Generic payment connector configuration. */
+    fun payConnectors(): PayConnectorServiceAsync
+
+    /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
+    fun tunnels(): TunnelServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1476,6 +1501,13 @@ interface TelnyxClientAsync {
          *   new billable chat completions, Responses, Anthropic Messages and classification
          *   requests; requests already running finish normally. Take the list of products from the
          *   list operation.
+         * - **API key limits.** For `inference`, a limit can also apply to one API key, named by
+         *   `credential_id`: the key's identifier as recorded on usage, never its secret. When the
+         *   key's spend goes above its own limit, only that key is blocked, with the error title
+         *   `API key spend limit reached` (code `10039`); the account's other keys keep working.
+         *   The API key limits of a period cannot add up to more than the total limit when the
+         *   total has an amount. Only language-model requests authenticated with an API key count
+         *   toward its limit.
          * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is
          *   listed with `origin: operator` and you can update or delete it like your own.
          */
@@ -1493,5 +1525,19 @@ interface TelnyxClientAsync {
 
         /** Tailscale Subnet Router operations */
         fun tailscaleSubnetRouters(): TailscaleSubnetRouterServiceAsync.WithRawResponse
+
+        /** Download screenshots and other artifacts. */
+        fun artifactDownloads(): ArtifactDownloadServiceAsync.WithRawResponse
+
+        fun email(): EmailServiceAsync.WithRawResponse
+
+        /** Routes on a Network that send a CIDR to a next hop, such as a tunnel. */
+        fun networkRoutes(): NetworkRouteServiceAsync.WithRawResponse
+
+        /** Generic payment connector configuration. */
+        fun payConnectors(): PayConnectorServiceAsync.WithRawResponse
+
+        /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
+        fun tunnels(): TunnelServiceAsync.WithRawResponse
     }
 }

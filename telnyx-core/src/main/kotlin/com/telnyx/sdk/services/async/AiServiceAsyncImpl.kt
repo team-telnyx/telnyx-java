@@ -55,6 +55,8 @@ import com.telnyx.sdk.services.async.ai.MissionServiceAsync
 import com.telnyx.sdk.services.async.ai.MissionServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.TestServiceAsync
+import com.telnyx.sdk.services.async.ai.TestServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.ToolServiceAsync
 import com.telnyx.sdk.services.async.ai.ToolServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.TypesafeServiceAsync
@@ -123,6 +125,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     private val avatars: AvatarServiceAsync by lazy { AvatarServiceAsyncImpl(clientOptions) }
 
+    private val tests: TestServiceAsync by lazy { TestServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): AiServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync =
@@ -173,6 +177,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     /** Create and manage real-time AI avatars */
     override fun avatars(): AvatarServiceAsync = avatars
+
+    override fun tests(): TestServiceAsync = tests
 
     override fun retrieveConversationHistories(
         params: AiRetrieveConversationHistoriesParams,
@@ -268,6 +274,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             AvatarServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val tests: TestServiceAsync.WithRawResponse by lazy {
+            TestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiServiceAsync.WithRawResponse =
@@ -320,6 +330,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
         /** Create and manage real-time AI avatars */
         override fun avatars(): AvatarServiceAsync.WithRawResponse = avatars
+
+        override fun tests(): TestServiceAsync.WithRawResponse = tests
 
         private val retrieveConversationHistoriesHandler:
             Handler<AiRetrieveConversationHistoriesPageResponse> =

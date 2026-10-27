@@ -64,7 +64,6 @@ internal class TextToSpeechGenerateSpeechParamsTest {
             .provider(TextToSpeechGenerateSpeechParams.Provider.AWS)
             .resemble(
                 TextToSpeechGenerateSpeechParams.Resemble.builder()
-                    .apiKey("string")
                     .format("string")
                     .precision("string")
                     .sampleRate("string")
@@ -166,7 +165,6 @@ internal class TextToSpeechGenerateSpeechParamsTest {
                 .provider(TextToSpeechGenerateSpeechParams.Provider.AWS)
                 .resemble(
                     TextToSpeechGenerateSpeechParams.Resemble.builder()
-                        .apiKey("string")
                         .format("string")
                         .precision("string")
                         .sampleRate("string")
@@ -272,7 +270,6 @@ internal class TextToSpeechGenerateSpeechParamsTest {
         assertThat(body.resemble())
             .contains(
                 TextToSpeechGenerateSpeechParams.Resemble.builder()
-                    .apiKey("string")
                     .format("string")
                     .precision("string")
                     .sampleRate("string")

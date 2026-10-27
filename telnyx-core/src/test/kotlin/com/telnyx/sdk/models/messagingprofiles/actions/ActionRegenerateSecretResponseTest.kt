@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.messagingprofiles.MessagingMessagingProfile
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileFeatures
+import com.telnyx.sdk.models.messagingprofiles.Mm7Metadata
 import com.telnyx.sdk.models.messagingprofiles.NumberPoolSettings
 import com.telnyx.sdk.models.messagingprofiles.UrlShortenerSettings
 import java.time.OffsetDateTime
@@ -33,6 +34,12 @@ internal class ActionRegenerateSecretResponseTest {
                                 .build()
                         )
                         .healthWebhookUrl(null)
+                        .mm7Metadata(
+                            Mm7Metadata.builder()
+                                .mm7FailoverWebhookUrl("https://backup.example.com/hooks")
+                                .mm7WebhookUrl("https://www.example.com/hooks")
+                                .build()
+                        )
                         .mmsFallBackToSms(false)
                         .mmsTranscoding(false)
                         .mobileOnly(false)
@@ -84,6 +91,12 @@ internal class ActionRegenerateSecretResponseTest {
                         MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
                     )
                     .healthWebhookUrl(null)
+                    .mm7Metadata(
+                        Mm7Metadata.builder()
+                            .mm7FailoverWebhookUrl("https://backup.example.com/hooks")
+                            .mm7WebhookUrl("https://www.example.com/hooks")
+                            .build()
+                    )
                     .mmsFallBackToSms(false)
                     .mmsTranscoding(false)
                     .mobileOnly(false)
@@ -141,6 +154,12 @@ internal class ActionRegenerateSecretResponseTest {
                                 .build()
                         )
                         .healthWebhookUrl(null)
+                        .mm7Metadata(
+                            Mm7Metadata.builder()
+                                .mm7FailoverWebhookUrl("https://backup.example.com/hooks")
+                                .mm7WebhookUrl("https://www.example.com/hooks")
+                                .build()
+                        )
                         .mmsFallBackToSms(false)
                         .mmsTranscoding(false)
                         .mobileOnly(false)

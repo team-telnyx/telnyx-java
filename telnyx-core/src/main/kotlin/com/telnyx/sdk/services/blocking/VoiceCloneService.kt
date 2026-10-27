@@ -156,11 +156,12 @@ interface VoiceCloneService {
 
     /**
      * Creates a new voice clone by uploading an audio file directly. Supported formats: WAV, MP3,
-     * FLAC, OGG, M4A. Maximum file size: 20MB. Reference audio is trimmed per model: Qwen3TTS and
-     * Bayan use the first 10 seconds, Ultra uses up to 60 seconds, and Minimax accepts 10 seconds
-     * to 5 minutes. Ultra clones return `202` with status `pending`; all other models return `201`
-     * with status `active`. Bayan clones require `ref_text` (the exact transcript of the reference
-     * audio) and support `ar` (default) and `en` only.
+     * FLAC, OGG, M4A. Maximum file size: 20MB. Reference audio is trimmed per model: Qwen3TTS,
+     * Bayan, and Resemble use the first 10 seconds, Ultra uses up to 60 seconds, and Minimax
+     * accepts 10 seconds to 5 minutes. Ultra clones return `202` with status `pending`; all other
+     * models return `201` with status `active`. Bayan clones require `ref_text` (the exact
+     * transcript of the reference audio) and support `ar` (default) and `en` only. Resemble clones
+     * (`provider: resemble`) take `model_id` `Pro`, `Turbo`, or `Urdu`.
      */
     fun createFromUpload(params: VoiceCloneCreateFromUploadParams): VoiceCloneResponse =
         createFromUpload(params, RequestOptions.none())
@@ -255,6 +256,21 @@ interface VoiceCloneService {
     fun createFromUpload(
         minimaxClone: VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.MinimaxClone
     ): VoiceCloneResponse = createFromUpload(minimaxClone, RequestOptions.none())
+
+    /** @see createFromUpload */
+    fun createFromUpload(
+        resembleClone: VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.ResembleClone,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): VoiceCloneResponse =
+        createFromUpload(
+            VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.ofResembleClone(resembleClone),
+            requestOptions,
+        )
+
+    /** @see createFromUpload */
+    fun createFromUpload(
+        resembleClone: VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.ResembleClone
+    ): VoiceCloneResponse = createFromUpload(resembleClone, RequestOptions.none())
 
     /** Downloads the WAV audio sample that was used to create the voice clone. */
     @MustBeClosed
@@ -587,6 +603,26 @@ interface VoiceCloneService {
             minimaxClone: VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.MinimaxClone
         ): HttpResponseFor<VoiceCloneResponse> =
             createFromUpload(minimaxClone, RequestOptions.none())
+
+        /** @see createFromUpload */
+        @MustBeClosed
+        fun createFromUpload(
+            resembleClone: VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.ResembleClone,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<VoiceCloneResponse> =
+            createFromUpload(
+                VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.ofResembleClone(
+                    resembleClone
+                ),
+                requestOptions,
+            )
+
+        /** @see createFromUpload */
+        @MustBeClosed
+        fun createFromUpload(
+            resembleClone: VoiceCloneCreateFromUploadParams.VoiceCloneUploadRequest.ResembleClone
+        ): HttpResponseFor<VoiceCloneResponse> =
+            createFromUpload(resembleClone, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /voice_clones/{id}/sample`, but is otherwise the

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,7 +17,7 @@ internal class SpendLimitTest {
         val spendLimit =
             SpendLimit.builder()
                 .block(
-                    SpendLimit.Block.builder()
+                    SpendLimitBlock.builder()
                         .blockedUntil(LocalDate.parse("2026-09-25"))
                         .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
                         .limitUsd("10")
@@ -41,6 +42,31 @@ internal class SpendLimitTest {
                 .recordType("spend_limit")
                 .spendError(null)
                 .spendUsd("37.41")
+                .credentialId(null)
+                .addCredentialLimit(
+                    SpendLimit.CredentialLimit.builder()
+                        .block(
+                            SpendLimitBlock.builder()
+                                .blockedUntil(LocalDate.parse("2026-09-25"))
+                                .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
+                                .limitUsd("10")
+                                .spendUsd("10.20")
+                                .build()
+                        )
+                        .blocked(false)
+                        .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
+                        .limit(
+                            SpendLimit.CredentialLimit.Limit.builder()
+                                .amount("300.00")
+                                .origin(SpendLimit.CredentialLimit.Limit.Origin.SELF_SERVICE)
+                                .updatedAt(OffsetDateTime.parse("2026-10-20T08:03:40Z"))
+                                .build()
+                        )
+                        .spendError(null)
+                        .spendUsd("120.00")
+                        .exceedsTotal(false)
+                        .build()
+                )
                 .evaluation(
                     SpendLimit.Evaluation.builder()
                         .blockedNow(false)
@@ -49,6 +75,7 @@ internal class SpendLimitTest {
                         .spendUsd("37.41")
                         .stillBlockedOtherPeriod(false)
                         .stillOverLimit(false)
+                        .accountBlocked(false)
                         .note(
                             "A block was lifted by Telnyx support today; this limit applies from tomorrow."
                         )
@@ -58,7 +85,7 @@ internal class SpendLimitTest {
 
         assertThat(spendLimit.block())
             .contains(
-                SpendLimit.Block.builder()
+                SpendLimitBlock.builder()
                     .blockedUntil(LocalDate.parse("2026-09-25"))
                     .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
                     .limitUsd("10")
@@ -84,6 +111,32 @@ internal class SpendLimitTest {
         assertThat(spendLimit.recordType()).isEqualTo("spend_limit")
         assertThat(spendLimit.spendError()).isEmpty
         assertThat(spendLimit.spendUsd()).contains("37.41")
+        assertThat(spendLimit.credentialId()).isEmpty
+        assertThat(spendLimit.credentialLimits().getOrNull())
+            .containsExactly(
+                SpendLimit.CredentialLimit.builder()
+                    .block(
+                        SpendLimitBlock.builder()
+                            .blockedUntil(LocalDate.parse("2026-09-25"))
+                            .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
+                            .limitUsd("10")
+                            .spendUsd("10.20")
+                            .build()
+                    )
+                    .blocked(false)
+                    .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
+                    .limit(
+                        SpendLimit.CredentialLimit.Limit.builder()
+                            .amount("300.00")
+                            .origin(SpendLimit.CredentialLimit.Limit.Origin.SELF_SERVICE)
+                            .updatedAt(OffsetDateTime.parse("2026-10-20T08:03:40Z"))
+                            .build()
+                    )
+                    .spendError(null)
+                    .spendUsd("120.00")
+                    .exceedsTotal(false)
+                    .build()
+            )
         assertThat(spendLimit.evaluation())
             .contains(
                 SpendLimit.Evaluation.builder()
@@ -93,6 +146,7 @@ internal class SpendLimitTest {
                     .spendUsd("37.41")
                     .stillBlockedOtherPeriod(false)
                     .stillOverLimit(false)
+                    .accountBlocked(false)
                     .note(
                         "A block was lifted by Telnyx support today; this limit applies from tomorrow."
                     )
@@ -106,7 +160,7 @@ internal class SpendLimitTest {
         val spendLimit =
             SpendLimit.builder()
                 .block(
-                    SpendLimit.Block.builder()
+                    SpendLimitBlock.builder()
                         .blockedUntil(LocalDate.parse("2026-09-25"))
                         .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
                         .limitUsd("10")
@@ -131,6 +185,31 @@ internal class SpendLimitTest {
                 .recordType("spend_limit")
                 .spendError(null)
                 .spendUsd("37.41")
+                .credentialId(null)
+                .addCredentialLimit(
+                    SpendLimit.CredentialLimit.builder()
+                        .block(
+                            SpendLimitBlock.builder()
+                                .blockedUntil(LocalDate.parse("2026-09-25"))
+                                .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
+                                .limitUsd("10")
+                                .spendUsd("10.20")
+                                .build()
+                        )
+                        .blocked(false)
+                        .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
+                        .limit(
+                            SpendLimit.CredentialLimit.Limit.builder()
+                                .amount("300.00")
+                                .origin(SpendLimit.CredentialLimit.Limit.Origin.SELF_SERVICE)
+                                .updatedAt(OffsetDateTime.parse("2026-10-20T08:03:40Z"))
+                                .build()
+                        )
+                        .spendError(null)
+                        .spendUsd("120.00")
+                        .exceedsTotal(false)
+                        .build()
+                )
                 .evaluation(
                     SpendLimit.Evaluation.builder()
                         .blockedNow(false)
@@ -139,6 +218,7 @@ internal class SpendLimitTest {
                         .spendUsd("37.41")
                         .stillBlockedOtherPeriod(false)
                         .stillOverLimit(false)
+                        .accountBlocked(false)
                         .note(
                             "A block was lifted by Telnyx support today; this limit applies from tomorrow."
                         )

@@ -43,6 +43,12 @@ import kotlin.jvm.optionals.getOrNull
  *   HTTP 403 with the error title `Inference spend limit reached` (code `10039`) on new billable
  *   chat completions, Responses, Anthropic Messages and classification requests; requests already
  *   running finish normally. Take the list of products from the list operation.
+ * - **API key limits.** For `inference`, a limit can also apply to one API key, named by
+ *   `credential_id`: the key's identifier as recorded on usage, never its secret. When the key's
+ *   spend goes above its own limit, only that key is blocked, with the error title `API key spend
+ *   limit reached` (code `10039`); the account's other keys keep working. The API key limits of a
+ *   period cannot add up to more than the total limit when the total has an amount. Only
+ *   language-model requests authenticated with an API key count toward its limit.
  * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is listed
  *   with `origin: operator` and you can update or delete it like your own.
  */

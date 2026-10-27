@@ -85,7 +85,7 @@ interface BotSignupServiceAsync {
         ): BotSignupServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /v2/bot_signup`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /bot_signup`, but is otherwise the same as
          * [BotSignupServiceAsync.create].
          */
         fun create(
@@ -100,7 +100,7 @@ interface BotSignupServiceAsync {
         ): CompletableFuture<HttpResponseFor<SuccessResponse>>
 
         /**
-         * Returns a raw HTTP response for `post /v2/bot_signup/resend_magic_link`, but is otherwise
+         * Returns a raw HTTP response for `post /bot_signup/resend_magic_link`, but is otherwise
          * the same as [BotSignupServiceAsync.resendMagicLink].
          */
         fun resendMagicLink(

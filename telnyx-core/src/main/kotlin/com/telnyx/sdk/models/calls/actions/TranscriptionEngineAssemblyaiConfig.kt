@@ -57,8 +57,10 @@ private constructor(
         transcriptionEngine.getOptional("transcription_engine")
 
     /**
-     * The model to use for transcription. `assemblyai/universal-streaming` is a legacy alias of
-     * `assemblyai/universal-3-5-pro` and resolves to the same model.
+     * The model to use for transcription. `assemblyai/universal-3-6-pro` is the AssemblyAI
+     * Universal-3.6 Pro model. `assemblyai/universal-3-5-pro` (the default) and
+     * `assemblyai/universal-streaming` are legacy aliases that run the same Universal-3.6 Pro
+     * model.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -167,8 +169,10 @@ private constructor(
         }
 
         /**
-         * The model to use for transcription. `assemblyai/universal-streaming` is a legacy alias of
-         * `assemblyai/universal-3-5-pro` and resolves to the same model.
+         * The model to use for transcription. `assemblyai/universal-3-6-pro` is the AssemblyAI
+         * Universal-3.6 Pro model. `assemblyai/universal-3-5-pro` (the default) and
+         * `assemblyai/universal-streaming` are legacy aliases that run the same Universal-3.6 Pro
+         * model.
          */
         fun transcriptionModel(transcriptionModel: TranscriptionModel) =
             transcriptionModel(JsonField.of(transcriptionModel))
@@ -392,8 +396,10 @@ private constructor(
     }
 
     /**
-     * The model to use for transcription. `assemblyai/universal-streaming` is a legacy alias of
-     * `assemblyai/universal-3-5-pro` and resolves to the same model.
+     * The model to use for transcription. `assemblyai/universal-3-6-pro` is the AssemblyAI
+     * Universal-3.6 Pro model. `assemblyai/universal-3-5-pro` (the default) and
+     * `assemblyai/universal-streaming` are legacy aliases that run the same Universal-3.6 Pro
+     * model.
      */
     class TranscriptionModel
     @JsonCreator
@@ -411,6 +417,8 @@ private constructor(
 
         companion object {
 
+            @JvmField val ASSEMBLYAI_UNIVERSAL_3_6_PRO = of("assemblyai/universal-3-6-pro")
+
             @JvmField val ASSEMBLYAI_UNIVERSAL_3_5_PRO = of("assemblyai/universal-3-5-pro")
 
             @JvmField val ASSEMBLYAI_UNIVERSAL_STREAMING = of("assemblyai/universal-streaming")
@@ -420,6 +428,7 @@ private constructor(
 
         /** An enum containing [TranscriptionModel]'s known values. */
         enum class Known {
+            ASSEMBLYAI_UNIVERSAL_3_6_PRO,
             ASSEMBLYAI_UNIVERSAL_3_5_PRO,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
         }
@@ -434,6 +443,7 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            ASSEMBLYAI_UNIVERSAL_3_6_PRO,
             ASSEMBLYAI_UNIVERSAL_3_5_PRO,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             /**
@@ -452,6 +462,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                ASSEMBLYAI_UNIVERSAL_3_6_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_6_PRO
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                 else -> Value._UNKNOWN
@@ -468,6 +479,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                ASSEMBLYAI_UNIVERSAL_3_6_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_6_PRO
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionModel: $value")
