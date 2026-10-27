@@ -55,6 +55,7 @@ internal class ProGuardCompatibilityTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
 
         assertThat(client).isNotNull()
+        assertThat(client.browserSessions()).isNotNull()
         assertThat(client.legacy()).isNotNull()
         assertThat(client.oauth()).isNotNull()
         assertThat(client.oauthClients()).isNotNull()

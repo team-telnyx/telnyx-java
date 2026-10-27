@@ -36,6 +36,8 @@ import com.telnyx.sdk.services.async.BotSessionServiceAsync
 import com.telnyx.sdk.services.async.BotSessionServiceAsyncImpl
 import com.telnyx.sdk.services.async.BotSignupServiceAsync
 import com.telnyx.sdk.services.async.BotSignupServiceAsyncImpl
+import com.telnyx.sdk.services.async.BrowserSessionServiceAsync
+import com.telnyx.sdk.services.async.BrowserSessionServiceAsyncImpl
 import com.telnyx.sdk.services.async.BulkSimCardActionServiceAsync
 import com.telnyx.sdk.services.async.BulkSimCardActionServiceAsyncImpl
 import com.telnyx.sdk.services.async.BundlePricingServiceAsync
@@ -409,6 +411,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     private val withRawResponse: TelnyxClientAsync.WithRawResponse by lazy {
         WithRawResponseImpl(clientOptions)
+    }
+
+    private val browserSessions: BrowserSessionServiceAsync by lazy {
+        BrowserSessionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val legacy: LegacyServiceAsync by lazy {
@@ -1173,6 +1179,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TelnyxClientAsync =
         TelnyxClientAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    override fun browserSessions(): BrowserSessionServiceAsync = browserSessions
+
     override fun legacy(): LegacyServiceAsync = legacy
 
     override fun oauth(): OAuthServiceAsync = oauth
@@ -1821,6 +1829,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TelnyxClientAsync.WithRawResponse {
+
+        private val browserSessions: BrowserSessionServiceAsync.WithRawResponse by lazy {
+            BrowserSessionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
 
         private val legacy: LegacyServiceAsync.WithRawResponse by lazy {
             LegacyServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -2645,6 +2657,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             TelnyxClientAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun browserSessions(): BrowserSessionServiceAsync.WithRawResponse = browserSessions
 
         override fun legacy(): LegacyServiceAsync.WithRawResponse = legacy
 

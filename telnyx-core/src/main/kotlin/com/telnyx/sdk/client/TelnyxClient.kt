@@ -19,6 +19,7 @@ import com.telnyx.sdk.services.blocking.BillingGroupService
 import com.telnyx.sdk.services.blocking.BotChallengeService
 import com.telnyx.sdk.services.blocking.BotSessionService
 import com.telnyx.sdk.services.blocking.BotSignupService
+import com.telnyx.sdk.services.blocking.BrowserSessionService
 import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BundlePricingService
 import com.telnyx.sdk.services.blocking.CallControlApplicationService
@@ -234,6 +235,8 @@ interface TelnyxClient {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TelnyxClient
+
+    fun browserSessions(): BrowserSessionService
 
     fun legacy(): LegacyService
 
@@ -869,6 +872,8 @@ interface TelnyxClient {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TelnyxClient.WithRawResponse
+
+        fun browserSessions(): BrowserSessionService.WithRawResponse
 
         fun legacy(): LegacyService.WithRawResponse
 
