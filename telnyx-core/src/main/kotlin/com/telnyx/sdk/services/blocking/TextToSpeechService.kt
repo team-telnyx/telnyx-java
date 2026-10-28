@@ -68,7 +68,7 @@ interface TextToSpeechService {
      * specified, returns voices for that provider only. Otherwise, returns voices from all
      * providers.
      *
-     * Some providers (ElevenLabs, Resemble) require an API key to list voices.
+     * Some providers (ElevenLabs) require an API key to list voices.
      */
     fun listVoices(): TextToSpeechListVoicesResponse =
         listVoices(TextToSpeechListVoicesParams.none())

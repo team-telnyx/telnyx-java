@@ -131,9 +131,9 @@ private constructor(
      * - `speechmatics/linden-1` (preview) is a vendor-hosted streaming model with no auto-detect;
      *   set `language` from Speechmatics' Realtime language list (defaults to `en`).
      * - `azure/fast` is a multilingual Azure transcription model.
-     * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with configurable turn
-     *   detection. The legacy alias `assemblyai/universal-streaming` is still accepted and resolves
-     *   to the same model.
+     * - `assemblyai/universal-3-6-pro` (AssemblyAI Universal-3.6 Pro) is a multilingual streaming
+     *   model with configurable turn detection. The legacy aliases `assemblyai/universal-3-5-pro`
+     *   and `assemblyai/universal-streaming` are still accepted and run the same model.
      * - `xai/grok-stt` is a multilingual Grok STT model.
      * - `soniox/stt-rt-v4` and `soniox/stt-rt-v5` are multilingual streaming models with automatic
      *   language detection, configurable endpointing, term biasing (`context`), and
@@ -383,9 +383,10 @@ private constructor(
          *   auto-detect; set `language` from Speechmatics' Realtime language list (defaults to
          *   `en`).
          * - `azure/fast` is a multilingual Azure transcription model.
-         * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with configurable turn
-         *   detection. The legacy alias `assemblyai/universal-streaming` is still accepted and
-         *   resolves to the same model.
+         * - `assemblyai/universal-3-6-pro` (AssemblyAI Universal-3.6 Pro) is a multilingual
+         *   streaming model with configurable turn detection. The legacy aliases
+         *   `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming` are still accepted
+         *   and run the same model.
          * - `xai/grok-stt` is a multilingual Grok STT model.
          * - `soniox/stt-rt-v4` and `soniox/stt-rt-v5` are multilingual streaming models with
          *   automatic language detection, configurable endpointing, term biasing (`context`), and
@@ -552,12 +553,12 @@ private constructor(
         /**
          * The language booster's model. It must be the same kind of model as `transcription.model`:
          * both streaming (`deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
-         * `assemblyai/universal-3-5-pro` or its legacy alias `assemblyai/universal-streaming`,
-         * `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`,
-         * `reson8/turns`) or both non-streaming (`azure/fast`, `nvidia/parakeet-v3`,
-         * `omi-health/omi-med-stt-v1`, `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
-         * `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can be the same model as
-         * `transcription.model` on a different `language`.
+         * `assemblyai/universal-3-6-pro` or its legacy aliases `assemblyai/universal-3-5-pro` and
+         * `assemblyai/universal-streaming`, `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`,
+         * `humain/realtime`, `reson8/turns`) or both non-streaming (`azure/fast`,
+         * `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`, `cohere/ar-stt`,
+         * `distil-whisper/distil-large-v2`, `openai/whisper-large-v3-turbo`, `telnyx/basira`). It
+         * can be the same model as `transcription.model` on a different `language`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -685,12 +686,13 @@ private constructor(
             /**
              * The language booster's model. It must be the same kind of model as
              * `transcription.model`: both streaming (`deepgram/flux`, `deepgram/nova-3`,
-             * `deepgram/nova-2`, `assemblyai/universal-3-5-pro` or its legacy alias
-             * `assemblyai/universal-streaming`, `xai/grok-stt`, `soniox/stt-rt-v4`,
-             * `soniox/stt-rt-v5`, `humain/realtime`, `reson8/turns`) or both non-streaming
-             * (`azure/fast`, `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`, `cohere/ar-stt`,
-             * `distil-whisper/distil-large-v2`, `openai/whisper-large-v3-turbo`, `telnyx/basira`).
-             * It can be the same model as `transcription.model` on a different `language`.
+             * `deepgram/nova-2`, `assemblyai/universal-3-6-pro` or its legacy aliases
+             * `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming`, `xai/grok-stt`,
+             * `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`, `reson8/turns`) or both
+             * non-streaming (`azure/fast`, `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`,
+             * `cohere/ar-stt`, `distil-whisper/distil-large-v2`, `openai/whisper-large-v3-turbo`,
+             * `telnyx/basira`). It can be the same model as `transcription.model` on a different
+             * `language`.
              */
             fun model(model: Model) = model(JsonField.of(model))
 
@@ -865,12 +867,12 @@ private constructor(
         /**
          * The language booster's model. It must be the same kind of model as `transcription.model`:
          * both streaming (`deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
-         * `assemblyai/universal-3-5-pro` or its legacy alias `assemblyai/universal-streaming`,
-         * `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`,
-         * `reson8/turns`) or both non-streaming (`azure/fast`, `nvidia/parakeet-v3`,
-         * `omi-health/omi-med-stt-v1`, `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
-         * `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can be the same model as
-         * `transcription.model` on a different `language`.
+         * `assemblyai/universal-3-6-pro` or its legacy aliases `assemblyai/universal-3-5-pro` and
+         * `assemblyai/universal-streaming`, `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`,
+         * `humain/realtime`, `reson8/turns`) or both non-streaming (`azure/fast`,
+         * `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`, `cohere/ar-stt`,
+         * `distil-whisper/distil-large-v2`, `openai/whisper-large-v3-turbo`, `telnyx/basira`). It
+         * can be the same model as `transcription.model` on a different `language`.
          */
         class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -893,6 +895,8 @@ private constructor(
                 @JvmField val DEEPGRAM_NOVA_2 = of("deepgram/nova-2")
 
                 @JvmField val AZURE_FAST = of("azure/fast")
+
+                @JvmField val ASSEMBLYAI_UNIVERSAL_3_6_PRO = of("assemblyai/universal-3-6-pro")
 
                 @JvmField val ASSEMBLYAI_UNIVERSAL_3_5_PRO = of("assemblyai/universal-3-5-pro")
 
@@ -929,6 +933,7 @@ private constructor(
                 DEEPGRAM_NOVA_3,
                 DEEPGRAM_NOVA_2,
                 AZURE_FAST,
+                ASSEMBLYAI_UNIVERSAL_3_6_PRO,
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO,
                 ASSEMBLYAI_UNIVERSAL_STREAMING,
                 XAI_GROK_STT,
@@ -958,6 +963,7 @@ private constructor(
                 DEEPGRAM_NOVA_3,
                 DEEPGRAM_NOVA_2,
                 AZURE_FAST,
+                ASSEMBLYAI_UNIVERSAL_3_6_PRO,
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO,
                 ASSEMBLYAI_UNIVERSAL_STREAMING,
                 XAI_GROK_STT,
@@ -990,6 +996,7 @@ private constructor(
                     DEEPGRAM_NOVA_3 -> Value.DEEPGRAM_NOVA_3
                     DEEPGRAM_NOVA_2 -> Value.DEEPGRAM_NOVA_2
                     AZURE_FAST -> Value.AZURE_FAST
+                    ASSEMBLYAI_UNIVERSAL_3_6_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_6_PRO
                     ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                     ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                     XAI_GROK_STT -> Value.XAI_GROK_STT
@@ -1021,6 +1028,7 @@ private constructor(
                     DEEPGRAM_NOVA_3 -> Known.DEEPGRAM_NOVA_3
                     DEEPGRAM_NOVA_2 -> Known.DEEPGRAM_NOVA_2
                     AZURE_FAST -> Known.AZURE_FAST
+                    ASSEMBLYAI_UNIVERSAL_3_6_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_6_PRO
                     ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                     ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                     XAI_GROK_STT -> Known.XAI_GROK_STT
@@ -1311,9 +1319,9 @@ private constructor(
         /**
          * The fallback model. It must be a streaming model other than `transcription.model` and the
          * other fallbacks: `deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
-         * `assemblyai/universal-3-5-pro` (or its legacy alias `assemblyai/universal-streaming`),
-         * `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`, or
-         * `reson8/turns`.
+         * `assemblyai/universal-3-6-pro` (or its legacy aliases `assemblyai/universal-3-5-pro` and
+         * `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`,
+         * `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1408,8 +1416,8 @@ private constructor(
             /**
              * The fallback model. It must be a streaming model other than `transcription.model` and
              * the other fallbacks: `deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
-             * `assemblyai/universal-3-5-pro` (or its legacy alias
-             * `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`,
+             * `assemblyai/universal-3-6-pro` (or its legacy aliases `assemblyai/universal-3-5-pro`
+             * and `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`,
              * `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
              */
             fun model(model: Model) = model(JsonField.of(model))
@@ -1551,9 +1559,9 @@ private constructor(
         /**
          * The fallback model. It must be a streaming model other than `transcription.model` and the
          * other fallbacks: `deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
-         * `assemblyai/universal-3-5-pro` (or its legacy alias `assemblyai/universal-streaming`),
-         * `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`, or
-         * `reson8/turns`.
+         * `assemblyai/universal-3-6-pro` (or its legacy aliases `assemblyai/universal-3-5-pro` and
+         * `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`,
+         * `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
          */
         class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1574,6 +1582,8 @@ private constructor(
                 @JvmField val DEEPGRAM_NOVA_3 = of("deepgram/nova-3")
 
                 @JvmField val DEEPGRAM_NOVA_2 = of("deepgram/nova-2")
+
+                @JvmField val ASSEMBLYAI_UNIVERSAL_3_6_PRO = of("assemblyai/universal-3-6-pro")
 
                 @JvmField val ASSEMBLYAI_UNIVERSAL_3_5_PRO = of("assemblyai/universal-3-5-pro")
 
@@ -1597,6 +1607,7 @@ private constructor(
                 DEEPGRAM_FLUX,
                 DEEPGRAM_NOVA_3,
                 DEEPGRAM_NOVA_2,
+                ASSEMBLYAI_UNIVERSAL_3_6_PRO,
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO,
                 ASSEMBLYAI_UNIVERSAL_STREAMING,
                 XAI_GROK_STT,
@@ -1619,6 +1630,7 @@ private constructor(
                 DEEPGRAM_FLUX,
                 DEEPGRAM_NOVA_3,
                 DEEPGRAM_NOVA_2,
+                ASSEMBLYAI_UNIVERSAL_3_6_PRO,
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO,
                 ASSEMBLYAI_UNIVERSAL_STREAMING,
                 XAI_GROK_STT,
@@ -1644,6 +1656,7 @@ private constructor(
                     DEEPGRAM_FLUX -> Value.DEEPGRAM_FLUX
                     DEEPGRAM_NOVA_3 -> Value.DEEPGRAM_NOVA_3
                     DEEPGRAM_NOVA_2 -> Value.DEEPGRAM_NOVA_2
+                    ASSEMBLYAI_UNIVERSAL_3_6_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_6_PRO
                     ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                     ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                     XAI_GROK_STT -> Value.XAI_GROK_STT
@@ -1668,6 +1681,7 @@ private constructor(
                     DEEPGRAM_FLUX -> Known.DEEPGRAM_FLUX
                     DEEPGRAM_NOVA_3 -> Known.DEEPGRAM_NOVA_3
                     DEEPGRAM_NOVA_2 -> Known.DEEPGRAM_NOVA_2
+                    ASSEMBLYAI_UNIVERSAL_3_6_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_6_PRO
                     ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                     ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                     XAI_GROK_STT -> Known.XAI_GROK_STT
@@ -1775,9 +1789,9 @@ private constructor(
      * - `speechmatics/linden-1` (preview) is a vendor-hosted streaming model with no auto-detect;
      *   set `language` from Speechmatics' Realtime language list (defaults to `en`).
      * - `azure/fast` is a multilingual Azure transcription model.
-     * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with configurable turn
-     *   detection. The legacy alias `assemblyai/universal-streaming` is still accepted and resolves
-     *   to the same model.
+     * - `assemblyai/universal-3-6-pro` (AssemblyAI Universal-3.6 Pro) is a multilingual streaming
+     *   model with configurable turn detection. The legacy aliases `assemblyai/universal-3-5-pro`
+     *   and `assemblyai/universal-streaming` are still accepted and run the same model.
      * - `xai/grok-stt` is a multilingual Grok STT model.
      * - `soniox/stt-rt-v4` and `soniox/stt-rt-v5` are multilingual streaming models with automatic
      *   language detection, configurable endpointing, term biasing (`context`), and
@@ -1819,6 +1833,8 @@ private constructor(
 
             @JvmField val AZURE_FAST = of("azure/fast")
 
+            @JvmField val ASSEMBLYAI_UNIVERSAL_3_6_PRO = of("assemblyai/universal-3-6-pro")
+
             @JvmField val ASSEMBLYAI_UNIVERSAL_3_5_PRO = of("assemblyai/universal-3-5-pro")
 
             @JvmField val ASSEMBLYAI_UNIVERSAL_STREAMING = of("assemblyai/universal-streaming")
@@ -1856,6 +1872,7 @@ private constructor(
             SPEECHMATICS_STANDARD,
             SPEECHMATICS_LINDEN_1,
             AZURE_FAST,
+            ASSEMBLYAI_UNIVERSAL_3_6_PRO,
             ASSEMBLYAI_UNIVERSAL_3_5_PRO,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
@@ -1887,6 +1904,7 @@ private constructor(
             SPEECHMATICS_STANDARD,
             SPEECHMATICS_LINDEN_1,
             AZURE_FAST,
+            ASSEMBLYAI_UNIVERSAL_3_6_PRO,
             ASSEMBLYAI_UNIVERSAL_3_5_PRO,
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
@@ -1919,6 +1937,7 @@ private constructor(
                 SPEECHMATICS_STANDARD -> Value.SPEECHMATICS_STANDARD
                 SPEECHMATICS_LINDEN_1 -> Value.SPEECHMATICS_LINDEN_1
                 AZURE_FAST -> Value.AZURE_FAST
+                ASSEMBLYAI_UNIVERSAL_3_6_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_6_PRO
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Value.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Value.XAI_GROK_STT
@@ -1952,6 +1971,7 @@ private constructor(
                 SPEECHMATICS_STANDARD -> Known.SPEECHMATICS_STANDARD
                 SPEECHMATICS_LINDEN_1 -> Known.SPEECHMATICS_LINDEN_1
                 AZURE_FAST -> Known.AZURE_FAST
+                ASSEMBLYAI_UNIVERSAL_3_6_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_6_PRO
                 ASSEMBLYAI_UNIVERSAL_3_5_PRO -> Known.ASSEMBLYAI_UNIVERSAL_3_5_PRO
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Known.XAI_GROK_STT

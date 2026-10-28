@@ -12,6 +12,7 @@ internal class SpendLimitUpdateParamsTest {
     fun create() {
         SpendLimitUpdateParams.builder()
             .product("inference")
+            .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
             .period(SpendLimitPeriod.DAILY)
             .body(
                 SpendLimitUpdateParams.Body.UpdateSpendLimitWithAmount.builder()
@@ -47,6 +48,7 @@ internal class SpendLimitUpdateParamsTest {
         val params =
             SpendLimitUpdateParams.builder()
                 .product("inference")
+                .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
                 .period(SpendLimitPeriod.DAILY)
                 .body(
                     SpendLimitUpdateParams.Body.UpdateSpendLimitWithAmount.builder()
@@ -61,7 +63,13 @@ internal class SpendLimitUpdateParamsTest {
 
         val queryParams = params._queryParams()
 
-        assertThat(queryParams).isEqualTo(QueryParams.builder().put("period", "daily").build())
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("credential_id", "KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
+                    .put("period", "daily")
+                    .build()
+            )
     }
 
     @Test
@@ -86,6 +94,7 @@ internal class SpendLimitUpdateParamsTest {
         val params =
             SpendLimitUpdateParams.builder()
                 .product("inference")
+                .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
                 .period(SpendLimitPeriod.DAILY)
                 .body(
                     SpendLimitUpdateParams.Body.UpdateSpendLimitWithAmount.builder()

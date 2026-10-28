@@ -44,7 +44,7 @@ class BotSessionServiceAsyncImpl internal constructor(private val clientOptions:
         params: BotSessionListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BotSessionListResponse> =
-        // get /v2/bot_sessions
+        // get /bot_sessions
         withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -71,7 +71,7 @@ class BotSessionServiceAsyncImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "bot_sessions")
+                    .addPathSegments("bot_sessions")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

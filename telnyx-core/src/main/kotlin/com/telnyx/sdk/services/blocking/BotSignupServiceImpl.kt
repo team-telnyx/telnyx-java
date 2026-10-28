@@ -42,14 +42,14 @@ class BotSignupServiceImpl internal constructor(private val clientOptions: Clien
         params: BotSignupCreateParams,
         requestOptions: RequestOptions,
     ): SuccessResponse =
-        // post /v2/bot_signup
+        // post /bot_signup
         withRawResponse().create(params, requestOptions).parse()
 
     override fun resendMagicLink(
         params: BotSignupResendMagicLinkParams,
         requestOptions: RequestOptions,
     ): SuccessResponse =
-        // post /v2/bot_signup/resend_magic_link
+        // post /bot_signup/resend_magic_link
         withRawResponse().resendMagicLink(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -76,7 +76,7 @@ class BotSignupServiceImpl internal constructor(private val clientOptions: Clien
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "bot_signup")
+                    .addPathSegments("bot_signup")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -104,7 +104,7 @@ class BotSignupServiceImpl internal constructor(private val clientOptions: Clien
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "bot_signup", "resend_magic_link")
+                    .addPathSegments("bot_signup", "resend_magic_link")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

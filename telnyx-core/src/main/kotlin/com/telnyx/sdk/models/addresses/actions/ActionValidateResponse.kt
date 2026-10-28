@@ -173,8 +173,6 @@ private constructor(
         ) : this(result, suggested, errors, recordType, mutableMapOf())
 
         /**
-         * Indicates whether an address is valid or invalid.
-         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
@@ -278,7 +276,6 @@ private constructor(
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
-            /** Indicates whether an address is valid or invalid. */
             fun result(result: Result) = result(JsonField.of(result))
 
             /**
@@ -425,7 +422,6 @@ private constructor(
                 (errors.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (recordType.asKnown().isPresent) 1 else 0)
 
-        /** Indicates whether an address is valid or invalid. */
         class Result @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
@@ -442,15 +438,12 @@ private constructor(
 
                 @JvmField val VALID = of("valid")
 
-                @JvmField val INVALID = of("invalid")
-
                 @JvmStatic fun of(value: String) = Result(JsonField.of(value))
             }
 
             /** An enum containing [Result]'s known values. */
             enum class Known {
-                VALID,
-                INVALID,
+                VALID
             }
 
             /**
@@ -464,7 +457,6 @@ private constructor(
              */
             enum class Value {
                 VALID,
-                INVALID,
                 /**
                  * An enum member indicating that [Result] was instantiated with an unknown value.
                  */
@@ -481,7 +473,6 @@ private constructor(
             fun value(): Value =
                 when (this) {
                     VALID -> Value.VALID
-                    INVALID -> Value.INVALID
                     else -> Value._UNKNOWN
                 }
 
@@ -497,7 +488,6 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     VALID -> Known.VALID
-                    INVALID -> Known.INVALID
                     else -> throw TelnyxInvalidDataException("Unknown Result: $value")
                 }
 
@@ -570,9 +560,13 @@ private constructor(
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val administrativeArea: JsonField<String>,
+            private val borough: JsonField<String>,
             private val countryCode: JsonField<String>,
             private val extendedAddress: JsonField<String>,
+            private val latitude: JsonField<Double>,
             private val locality: JsonField<String>,
+            private val longitude: JsonField<Double>,
+            private val neighborhood: JsonField<String>,
             private val postalCode: JsonField<String>,
             private val streetAddress: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -583,15 +577,27 @@ private constructor(
                 @JsonProperty("administrative_area")
                 @ExcludeMissing
                 administrativeArea: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("borough")
+                @ExcludeMissing
+                borough: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("country_code")
                 @ExcludeMissing
                 countryCode: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("extended_address")
                 @ExcludeMissing
                 extendedAddress: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("latitude")
+                @ExcludeMissing
+                latitude: JsonField<Double> = JsonMissing.of(),
                 @JsonProperty("locality")
                 @ExcludeMissing
                 locality: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("longitude")
+                @ExcludeMissing
+                longitude: JsonField<Double> = JsonMissing.of(),
+                @JsonProperty("neighborhood")
+                @ExcludeMissing
+                neighborhood: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("postal_code")
                 @ExcludeMissing
                 postalCode: JsonField<String> = JsonMissing.of(),
@@ -600,9 +606,13 @@ private constructor(
                 streetAddress: JsonField<String> = JsonMissing.of(),
             ) : this(
                 administrativeArea,
+                borough,
                 countryCode,
                 extendedAddress,
+                latitude,
                 locality,
+                longitude,
+                neighborhood,
                 postalCode,
                 streetAddress,
                 mutableMapOf(),
@@ -617,6 +627,15 @@ private constructor(
              */
             fun administrativeArea(): Optional<String> =
                 administrativeArea.getOptional("administrative_area")
+
+            /**
+             * The borough of the address. This field is not used for addresses in the US but is
+             * used for some international addresses.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun borough(): Optional<String> = borough.getOptional("borough")
 
             /**
              * The two-character (ISO 3166-1 alpha-2) country code of the address.
@@ -637,6 +656,14 @@ private constructor(
                 extendedAddress.getOptional("extended_address")
 
             /**
+             * Latitude of the suggested address, when available.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun latitude(): Optional<Double> = latitude.getOptional("latitude")
+
+            /**
              * The locality of the address. For US addresses, this corresponds to the city of the
              * address.
              *
@@ -644,6 +671,23 @@ private constructor(
              *   the server responded with an unexpected value).
              */
             fun locality(): Optional<String> = locality.getOptional("locality")
+
+            /**
+             * Longitude of the suggested address, when available.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun longitude(): Optional<Double> = longitude.getOptional("longitude")
+
+            /**
+             * The neighborhood of the address. This field is not used for addresses in the US but
+             * is used for some international addresses.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun neighborhood(): Optional<String> = neighborhood.getOptional("neighborhood")
 
             /**
              * The postal code of the address.
@@ -672,6 +716,13 @@ private constructor(
             fun _administrativeArea(): JsonField<String> = administrativeArea
 
             /**
+             * Returns the raw JSON value of [borough].
+             *
+             * Unlike [borough], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("borough") @ExcludeMissing fun _borough(): JsonField<String> = borough
+
+            /**
              * Returns the raw JSON value of [countryCode].
              *
              * Unlike [countryCode], this method doesn't throw if the JSON field has an unexpected
@@ -692,12 +743,40 @@ private constructor(
             fun _extendedAddress(): JsonField<String> = extendedAddress
 
             /**
+             * Returns the raw JSON value of [latitude].
+             *
+             * Unlike [latitude], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("latitude") @ExcludeMissing fun _latitude(): JsonField<Double> = latitude
+
+            /**
              * Returns the raw JSON value of [locality].
              *
              * Unlike [locality], this method doesn't throw if the JSON field has an unexpected
              * type.
              */
             @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
+
+            /**
+             * Returns the raw JSON value of [longitude].
+             *
+             * Unlike [longitude], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("longitude")
+            @ExcludeMissing
+            fun _longitude(): JsonField<Double> = longitude
+
+            /**
+             * Returns the raw JSON value of [neighborhood].
+             *
+             * Unlike [neighborhood], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("neighborhood")
+            @ExcludeMissing
+            fun _neighborhood(): JsonField<String> = neighborhood
 
             /**
              * Returns the raw JSON value of [postalCode].
@@ -741,9 +820,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var administrativeArea: JsonField<String> = JsonMissing.of()
+                private var borough: JsonField<String> = JsonMissing.of()
                 private var countryCode: JsonField<String> = JsonMissing.of()
                 private var extendedAddress: JsonField<String> = JsonMissing.of()
+                private var latitude: JsonField<Double> = JsonMissing.of()
                 private var locality: JsonField<String> = JsonMissing.of()
+                private var longitude: JsonField<Double> = JsonMissing.of()
+                private var neighborhood: JsonField<String> = JsonMissing.of()
                 private var postalCode: JsonField<String> = JsonMissing.of()
                 private var streetAddress: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -751,9 +834,13 @@ private constructor(
                 @JvmSynthetic
                 internal fun from(suggested: Suggested) = apply {
                     administrativeArea = suggested.administrativeArea
+                    borough = suggested.borough
                     countryCode = suggested.countryCode
                     extendedAddress = suggested.extendedAddress
+                    latitude = suggested.latitude
                     locality = suggested.locality
+                    longitude = suggested.longitude
+                    neighborhood = suggested.neighborhood
                     postalCode = suggested.postalCode
                     streetAddress = suggested.streetAddress
                     additionalProperties = suggested.additionalProperties.toMutableMap()
@@ -776,6 +863,21 @@ private constructor(
                 fun administrativeArea(administrativeArea: JsonField<String>) = apply {
                     this.administrativeArea = administrativeArea
                 }
+
+                /**
+                 * The borough of the address. This field is not used for addresses in the US but is
+                 * used for some international addresses.
+                 */
+                fun borough(borough: String) = borough(JsonField.of(borough))
+
+                /**
+                 * Sets [Builder.borough] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.borough] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun borough(borough: JsonField<String>) = apply { this.borough = borough }
 
                 /** The two-character (ISO 3166-1 alpha-2) country code of the address. */
                 fun countryCode(countryCode: String) = countryCode(JsonField.of(countryCode))
@@ -809,6 +911,28 @@ private constructor(
                     this.extendedAddress = extendedAddress
                 }
 
+                /** Latitude of the suggested address, when available. */
+                fun latitude(latitude: Double?) = latitude(JsonField.ofNullable(latitude))
+
+                /**
+                 * Alias for [Builder.latitude].
+                 *
+                 * This unboxed primitive overload exists for backwards compatibility.
+                 */
+                fun latitude(latitude: Double) = latitude(latitude as Double?)
+
+                /** Alias for calling [Builder.latitude] with `latitude.orElse(null)`. */
+                fun latitude(latitude: Optional<Double>) = latitude(latitude.getOrNull())
+
+                /**
+                 * Sets [Builder.latitude] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.latitude] with a well-typed [Double] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun latitude(latitude: JsonField<Double>) = apply { this.latitude = latitude }
+
                 /**
                  * The locality of the address. For US addresses, this corresponds to the city of
                  * the address.
@@ -823,6 +947,45 @@ private constructor(
                  * yet supported value.
                  */
                 fun locality(locality: JsonField<String>) = apply { this.locality = locality }
+
+                /** Longitude of the suggested address, when available. */
+                fun longitude(longitude: Double?) = longitude(JsonField.ofNullable(longitude))
+
+                /**
+                 * Alias for [Builder.longitude].
+                 *
+                 * This unboxed primitive overload exists for backwards compatibility.
+                 */
+                fun longitude(longitude: Double) = longitude(longitude as Double?)
+
+                /** Alias for calling [Builder.longitude] with `longitude.orElse(null)`. */
+                fun longitude(longitude: Optional<Double>) = longitude(longitude.getOrNull())
+
+                /**
+                 * Sets [Builder.longitude] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.longitude] with a well-typed [Double] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun longitude(longitude: JsonField<Double>) = apply { this.longitude = longitude }
+
+                /**
+                 * The neighborhood of the address. This field is not used for addresses in the US
+                 * but is used for some international addresses.
+                 */
+                fun neighborhood(neighborhood: String) = neighborhood(JsonField.of(neighborhood))
+
+                /**
+                 * Sets [Builder.neighborhood] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.neighborhood] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun neighborhood(neighborhood: JsonField<String>) = apply {
+                    this.neighborhood = neighborhood
+                }
 
                 /** The postal code of the address. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -883,9 +1046,13 @@ private constructor(
                 fun build(): Suggested =
                     Suggested(
                         administrativeArea,
+                        borough,
                         countryCode,
                         extendedAddress,
+                        latitude,
                         locality,
+                        longitude,
+                        neighborhood,
                         postalCode,
                         streetAddress,
                         additionalProperties.toMutableMap(),
@@ -910,9 +1077,13 @@ private constructor(
                 }
 
                 administrativeArea()
+                borough()
                 countryCode()
                 extendedAddress()
+                latitude()
                 locality()
+                longitude()
+                neighborhood()
                 postalCode()
                 streetAddress()
                 validated = true
@@ -935,9 +1106,13 @@ private constructor(
             @JvmSynthetic
             internal fun validity(): Int =
                 (if (administrativeArea.asKnown().isPresent) 1 else 0) +
+                    (if (borough.asKnown().isPresent) 1 else 0) +
                     (if (countryCode.asKnown().isPresent) 1 else 0) +
                     (if (extendedAddress.asKnown().isPresent) 1 else 0) +
+                    (if (latitude.asKnown().isPresent) 1 else 0) +
                     (if (locality.asKnown().isPresent) 1 else 0) +
+                    (if (longitude.asKnown().isPresent) 1 else 0) +
+                    (if (neighborhood.asKnown().isPresent) 1 else 0) +
                     (if (postalCode.asKnown().isPresent) 1 else 0) +
                     (if (streetAddress.asKnown().isPresent) 1 else 0)
 
@@ -948,9 +1123,13 @@ private constructor(
 
                 return other is Suggested &&
                     administrativeArea == other.administrativeArea &&
+                    borough == other.borough &&
                     countryCode == other.countryCode &&
                     extendedAddress == other.extendedAddress &&
+                    latitude == other.latitude &&
                     locality == other.locality &&
+                    longitude == other.longitude &&
+                    neighborhood == other.neighborhood &&
                     postalCode == other.postalCode &&
                     streetAddress == other.streetAddress &&
                     additionalProperties == other.additionalProperties
@@ -959,9 +1138,13 @@ private constructor(
             private val hashCode: Int by lazy {
                 Objects.hash(
                     administrativeArea,
+                    borough,
                     countryCode,
                     extendedAddress,
+                    latitude,
                     locality,
+                    longitude,
+                    neighborhood,
                     postalCode,
                     streetAddress,
                     additionalProperties,
@@ -971,7 +1154,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Suggested{administrativeArea=$administrativeArea, countryCode=$countryCode, extendedAddress=$extendedAddress, locality=$locality, postalCode=$postalCode, streetAddress=$streetAddress, additionalProperties=$additionalProperties}"
+                "Suggested{administrativeArea=$administrativeArea, borough=$borough, countryCode=$countryCode, extendedAddress=$extendedAddress, latitude=$latitude, locality=$locality, longitude=$longitude, neighborhood=$neighborhood, postalCode=$postalCode, streetAddress=$streetAddress, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

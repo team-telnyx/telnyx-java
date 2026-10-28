@@ -2575,8 +2575,8 @@ private constructor(
          * Specifies a subdomain that can be used to receive Inbound calls to a Connection, in the
          * same way a phone number is used, from a SIP endpoint. Example: the subdomain
          * "example.sip.telnyx.com" can be called from any SIP endpoint by using the SIP URI
-         * "sip:@example.sip.telnyx.com" where the user part can be any alphanumeric value. Please
-         * note TLS encrypted calls are not allowed for subdomain calls.
+         * "sip:@example.sip.telnyx.com" where the user part can be any alphanumeric value. TLS
+         * signaling is supported. SRTP media encryption requires TLS transport.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -3014,8 +3014,8 @@ private constructor(
              * Specifies a subdomain that can be used to receive Inbound calls to a Connection, in
              * the same way a phone number is used, from a SIP endpoint. Example: the subdomain
              * "example.sip.telnyx.com" can be called from any SIP endpoint by using the SIP URI
-             * "sip:@example.sip.telnyx.com" where the user part can be any alphanumeric value.
-             * Please note TLS encrypted calls are not allowed for subdomain calls.
+             * "sip:@example.sip.telnyx.com" where the user part can be any alphanumeric value. TLS
+             * signaling is supported. SRTP media encryption requires TLS transport.
              */
             fun sipSubdomain(sipSubdomain: String) = sipSubdomain(JsonField.of(sipSubdomain))
 

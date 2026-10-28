@@ -74,7 +74,6 @@ internal class TextToSpeechServiceAsyncTest {
                     .provider(TextToSpeechGenerateSpeechParams.Provider.AWS)
                     .resemble(
                         TextToSpeechGenerateSpeechParams.Resemble.builder()
-                            .apiKey("string")
                             .format("string")
                             .precision("string")
                             .sampleRate("string")

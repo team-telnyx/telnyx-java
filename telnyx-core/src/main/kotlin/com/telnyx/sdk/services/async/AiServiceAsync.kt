@@ -25,6 +25,7 @@ import com.telnyx.sdk.services.async.ai.McpServerServiceAsync
 import com.telnyx.sdk.services.async.ai.MemoryServiceAsync
 import com.telnyx.sdk.services.async.ai.MissionServiceAsync
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
+import com.telnyx.sdk.services.async.ai.TestServiceAsync
 import com.telnyx.sdk.services.async.ai.ToolServiceAsync
 import com.telnyx.sdk.services.async.ai.TypesafeServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -89,6 +90,8 @@ interface AiServiceAsync {
 
     /** Create and manage real-time AI avatars */
     fun avatars(): AvatarServiceAsync
+
+    fun tests(): TestServiceAsync
 
     /**
      * Performs semantic vector search across conversation history records.
@@ -221,6 +224,8 @@ interface AiServiceAsync {
 
         /** Create and manage real-time AI avatars */
         fun avatars(): AvatarServiceAsync.WithRawResponse
+
+        fun tests(): TestServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/conversation_histories`, but is otherwise the

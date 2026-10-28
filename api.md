@@ -1,3 +1,20 @@
+# BrowserSessions
+
+Methods:
+
+- <code title="post /browser_sessions">client.browserSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BrowserSessionService.kt">create</a>(params)</code>
+- <code title="get /browser_sessions/{id}">client.browserSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BrowserSessionService.kt">retrieve</a>(params)</code>
+- <code title="get /browser_sessions">client.browserSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BrowserSessionService.kt">list</a>(params)</code>
+- <code title="delete /browser_sessions/{id}">client.browserSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BrowserSessionService.kt">delete</a>(params)</code>
+- <code title="get /browser_sessions/{id}/artifacts/{artifactId}">client.browserSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BrowserSessionService.kt">retrieveArtifact</a>(params)</code>
+
+## Actions
+
+Methods:
+
+- <code title="post /browser_sessions/{id}/actions">client.browserSessions().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/browsersessions/ActionService.kt">create</a>(params)</code>
+- <code title="get /browser_sessions/{id}/actions/{actionId}">client.browserSessions().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/browsersessions/ActionService.kt">retrieve</a>(params)</code>
+
 # Legacy
 
 ## Reporting
@@ -600,6 +617,78 @@ Methods:
 - <code title="get /ai/avatars/{avatar_id}">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">retrieve</a>(params)</code>
 - <code title="patch /ai/avatars/{avatar_id}">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">update</a>(params)</code>
 - <code title="get /ai/avatars">client.ai().avatars().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/AvatarService.kt">list</a>(params)</code>
+
+## Tests
+
+### Schedules
+
+#### V1
+
+##### CronJobs
+
+Methods:
+
+- <code title="get /ai/tests/schedules/v1/cron-jobs/{id}">client.ai().tests().schedules().v1().cronJobs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/schedules/v1/CronJobService.kt">retrieve</a>(params)</code>
+- <code title="patch /ai/tests/schedules/v1/cron-jobs/{id}">client.ai().tests().schedules().v1().cronJobs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/schedules/v1/CronJobService.kt">update</a>(params)</code>
+- <code title="delete /ai/tests/schedules/v1/cron-jobs/{id}">client.ai().tests().schedules().v1().cronJobs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/schedules/v1/CronJobService.kt">delete</a>(params)</code>
+- <code title="post /ai/tests/schedules/v1/cron-jobs">client.ai().tests().schedules().v1().cronJobs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/schedules/v1/CronJobService.kt">cronJobs</a>(params)</code>
+- <code title="get /ai/tests/schedules/v1/cron-jobs">client.ai().tests().schedules().v1().cronJobs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/schedules/v1/CronJobService.kt">retrieveCronJobs</a>(params)</code>
+
+### TestFramework
+
+#### V1
+
+Methods:
+
+- <code title="get /ai/tests/test_framework/v1/personalities">client.ai().tests().testFramework().v1().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/V1Service.kt">retrievePersonalities</a>()</code>
+
+##### Aiagents
+
+Methods:
+
+- <code title="post /ai/tests/test_framework/v1/aiagents">client.ai().tests().testFramework().v1().aiagents().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/AiagentService.kt">create</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/aiagents/{id}">client.ai().tests().testFramework().v1().aiagents().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/AiagentService.kt">retrieve</a>(params)</code>
+- <code title="put /ai/tests/test_framework/v1/aiagents/{id}">client.ai().tests().testFramework().v1().aiagents().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/AiagentService.kt">update</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/aiagents">client.ai().tests().testFramework().v1().aiagents().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/AiagentService.kt">list</a>(params)</code>
+- <code title="delete /ai/tests/test_framework/v1/aiagents/{id}">client.ai().tests().testFramework().v1().aiagents().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/AiagentService.kt">delete</a>(params)</code>
+
+##### Metrics
+
+Methods:
+
+- <code title="post /ai/tests/test_framework/v1/metrics">client.ai().tests().testFramework().v1().metrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/MetricService.kt">create</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/metrics/{id}">client.ai().tests().testFramework().v1().metrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/MetricService.kt">retrieve</a>(params)</code>
+- <code title="patch /ai/tests/test_framework/v1/metrics/{id}">client.ai().tests().testFramework().v1().metrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/MetricService.kt">update</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/metrics">client.ai().tests().testFramework().v1().metrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/MetricService.kt">list</a>(params)</code>
+- <code title="delete /ai/tests/test_framework/v1/metrics/{id}">client.ai().tests().testFramework().v1().metrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/MetricService.kt">delete</a>(params)</code>
+- <code title="post /ai/tests/test_framework/v1/metrics/bulk_create">client.ai().tests().testFramework().v1().metrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/MetricService.kt">bulkCreate</a>(params)</code>
+- <code title="post /ai/tests/test_framework/v1/metrics/generate_metrics">client.ai().tests().testFramework().v1().metrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/MetricService.kt">generateMetrics</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/metrics/generate_metrics_progress">client.ai().tests().testFramework().v1().metrics().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/MetricService.kt">retrieveGenerateMetricsProgress</a>(params)</code>
+
+##### Results
+
+Methods:
+
+- <code title="get /ai/tests/test_framework/v1/results/{id}">client.ai().tests().testFramework().v1().results().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ResultService.kt">retrieve</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/results">client.ai().tests().testFramework().v1().results().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ResultService.kt">list</a>(params)</code>
+- <code title="delete /ai/tests/test_framework/v1/results/{id}">client.ai().tests().testFramework().v1().results().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ResultService.kt">delete</a>(params)</code>
+- <code title="post /ai/tests/test_framework/v1/results/{id}/rerun">client.ai().tests().testFramework().v1().results().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ResultService.kt">rerun</a>(params)</code>
+
+##### Scenarios
+
+Methods:
+
+- <code title="post /ai/tests/test_framework/v1/scenarios">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">create</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/scenarios/{id}">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">retrieve</a>(params)</code>
+- <code title="patch /ai/tests/test_framework/v1/scenarios/{id}">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">update</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/scenarios">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">list</a>(params)</code>
+- <code title="delete /ai/tests/test_framework/v1/scenarios/{id}">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">delete</a>(params)</code>
+- <code title="post /ai/tests/test_framework/v1/scenarios/generate-bg">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">generateBg</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/scenarios/export_scenarios">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">retrieveExportScenarios</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/scenarios/generate-progress">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">retrieveGenerateProgress</a>(params)</code>
+- <code title="get /ai/tests/test_framework/v1/scenarios/scenario-agent-progress">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">retrieveScenarioAgentProgress</a>(params)</code>
+- <code title="post /ai/tests/test_framework/v1/scenarios/run_scenarios">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">runScenarios</a>(params)</code>
+- <code title="post /ai/tests/test_framework/v1/scenarios/scenario-agent">client.ai().tests().testFramework().v1().scenarios().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/tests/testframework/v1/ScenarioService.kt">scenarioAgent</a>(params)</code>
 
 # AuditEvents
 
@@ -3275,20 +3364,20 @@ Methods:
 
 Methods:
 
-- <code title="post /v2/bot_challenge">client.botChallenge().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotChallengeService.kt">create</a>(params)</code>
+- <code title="post /bot_challenge">client.botChallenge().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotChallengeService.kt">create</a>(params)</code>
 
 # BotSessions
 
 Methods:
 
-- <code title="get /v2/bot_sessions">client.botSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSessionService.kt">list</a>(params)</code>
+- <code title="get /bot_sessions">client.botSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSessionService.kt">list</a>(params)</code>
 
 # BotSignup
 
 Methods:
 
-- <code title="post /v2/bot_signup">client.botSignup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSignupService.kt">create</a>(params)</code>
-- <code title="post /v2/bot_signup/resend_magic_link">client.botSignup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSignupService.kt">resendMagicLink</a>(params)</code>
+- <code title="post /bot_signup">client.botSignup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSignupService.kt">create</a>(params)</code>
+- <code title="post /bot_signup/resend_magic_link">client.botSignup().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/BotSignupService.kt">resendMagicLink</a>(params)</code>
 
 # MachinePayments
 
@@ -3362,3 +3451,81 @@ Methods:
 - <code title="patch /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">update</a>(params)</code>
 - <code title="get /tailscale_subnet_routers">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">list</a>(params)</code>
 - <code title="delete /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TailscaleSubnetRouterService.kt">delete</a>(params)</code>
+
+# ArtifactDownloads
+
+Methods:
+
+- <code title="get /artifact_downloads/{artifactId}">client.artifactDownloads().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ArtifactDownloadService.kt">retrieve</a>(params)</code>
+
+# Email
+
+## DedicatedIps
+
+Methods:
+
+- <code title="post /email/dedicated_ips">client.email().dedicatedIps().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/DedicatedIpService.kt">create</a>(params)</code>
+- <code title="get /email/dedicated_ips/{id}">client.email().dedicatedIps().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/DedicatedIpService.kt">retrieve</a>(params)</code>
+- <code title="patch /email/dedicated_ips/{id}">client.email().dedicatedIps().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/DedicatedIpService.kt">update</a>(params)</code>
+- <code title="get /email/dedicated_ips">client.email().dedicatedIps().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/DedicatedIpService.kt">list</a>(params)</code>
+- <code title="delete /email/dedicated_ips/{id}">client.email().dedicatedIps().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/DedicatedIpService.kt">delete</a>(params)</code>
+
+### Actions
+
+Methods:
+
+- <code title="post /email/dedicated_ips/{id}/actions/complete_warmup">client.email().dedicatedIps().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/dedicatedips/ActionService.kt">completeWarmup</a>(params)</code>
+- <code title="post /email/dedicated_ips/{id}/actions/pause_warmup">client.email().dedicatedIps().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/dedicatedips/ActionService.kt">pauseWarmup</a>(params)</code>
+- <code title="post /email/dedicated_ips/{id}/actions/resume_warmup">client.email().dedicatedIps().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/dedicatedips/ActionService.kt">resumeWarmup</a>(params)</code>
+- <code title="post /email/dedicated_ips/{id}/actions/start_warmup">client.email().dedicatedIps().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/dedicatedips/ActionService.kt">startWarmup</a>(params)</code>
+
+## IpPools
+
+Methods:
+
+- <code title="post /email/ip_pools">client.email().ipPools().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/IpPoolService.kt">create</a>(params)</code>
+- <code title="get /email/ip_pools/{id}">client.email().ipPools().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/IpPoolService.kt">retrieve</a>(params)</code>
+- <code title="patch /email/ip_pools/{id}">client.email().ipPools().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/IpPoolService.kt">update</a>(params)</code>
+- <code title="get /email/ip_pools">client.email().ipPools().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/IpPoolService.kt">list</a>()</code>
+- <code title="delete /email/ip_pools/{id}">client.email().ipPools().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/IpPoolService.kt">delete</a>(params)</code>
+
+### Ips
+
+Methods:
+
+- <code title="post /email/ip_pools/{id}/ips">client.email().ipPools().ips().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/ippools/IpService.kt">create</a>(params)</code>
+- <code title="delete /email/ip_pools/{id}/ips/{ip_id}">client.email().ipPools().ips().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/email/ippools/IpService.kt">delete</a>(params)</code>
+
+# NetworkRoutes
+
+Methods:
+
+- <code title="post /network_routes">client.networkRoutes().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/NetworkRouteService.kt">create</a>(params)</code>
+- <code title="get /network_routes/{id}">client.networkRoutes().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/NetworkRouteService.kt">retrieve</a>(params)</code>
+- <code title="get /network_routes">client.networkRoutes().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/NetworkRouteService.kt">list</a>(params)</code>
+- <code title="delete /network_routes/{id}">client.networkRoutes().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/NetworkRouteService.kt">delete</a>(params)</code>
+
+# PayConnectors
+
+Methods:
+
+- <code title="post /pay_connectors">client.payConnectors().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/PayConnectorService.kt">create</a>(params)</code>
+- <code title="get /pay_connectors/{name}">client.payConnectors().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/PayConnectorService.kt">retrieve</a>(params)</code>
+- <code title="patch /pay_connectors/{name}">client.payConnectors().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/PayConnectorService.kt">update</a>(params)</code>
+- <code title="get /pay_connectors">client.payConnectors().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/PayConnectorService.kt">list</a>(params)</code>
+- <code title="delete /pay_connectors/{name}">client.payConnectors().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/PayConnectorService.kt">delete</a>(params)</code>
+
+# Tunnels
+
+Methods:
+
+- <code title="post /tunnels">client.tunnels().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TunnelService.kt">create</a>(params)</code>
+- <code title="get /tunnels/{id}">client.tunnels().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TunnelService.kt">retrieve</a>(params)</code>
+- <code title="get /tunnels">client.tunnels().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TunnelService.kt">list</a>(params)</code>
+- <code title="delete /tunnels/{id}">client.tunnels().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TunnelService.kt">delete</a>(params)</code>
+
+## Actions
+
+Methods:
+
+- <code title="post /tunnels/{id}/actions/rotate_token">client.tunnels().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/tunnels/ActionService.kt">rotateToken</a>(params)</code>

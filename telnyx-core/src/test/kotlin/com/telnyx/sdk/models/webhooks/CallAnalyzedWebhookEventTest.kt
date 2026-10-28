@@ -106,7 +106,7 @@ internal class CallAnalyzedWebhookEventTest {
                                                 .DownloadUrls
                                                 .builder()
                                                 .mp3(
-                                                    "https://storage.telnyx.com/recordings/06069104-45f7-5d17-9fa7-34cfeb4534fa/2026-10-15/9f4eec6d-19a9-503f.mp3"
+                                                    "https://us-central-1.telnyxcloudstorage.com/recordings/06069104-45f7-5d17-9fa7-34cfeb4534fa/2026-10-15/9f4eec6d-19a9-503f.mp3"
                                                 )
                                                 .wav("wav")
                                                 .build()
@@ -216,7 +216,7 @@ internal class CallAnalyzedWebhookEventTest {
                                         CallAnalyzedWebhookEvent.Data.Payload.Recording.DownloadUrls
                                             .builder()
                                             .mp3(
-                                                "https://storage.telnyx.com/recordings/06069104-45f7-5d17-9fa7-34cfeb4534fa/2026-10-15/9f4eec6d-19a9-503f.mp3"
+                                                "https://us-central-1.telnyxcloudstorage.com/recordings/06069104-45f7-5d17-9fa7-34cfeb4534fa/2026-10-15/9f4eec6d-19a9-503f.mp3"
                                             )
                                             .wav("wav")
                                             .build()
@@ -335,7 +335,7 @@ internal class CallAnalyzedWebhookEventTest {
                                                 .DownloadUrls
                                                 .builder()
                                                 .mp3(
-                                                    "https://storage.telnyx.com/recordings/06069104-45f7-5d17-9fa7-34cfeb4534fa/2026-10-15/9f4eec6d-19a9-503f.mp3"
+                                                    "https://us-central-1.telnyxcloudstorage.com/recordings/06069104-45f7-5d17-9fa7-34cfeb4534fa/2026-10-15/9f4eec6d-19a9-503f.mp3"
                                                 )
                                                 .wav("wav")
                                                 .build()

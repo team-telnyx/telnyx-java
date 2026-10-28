@@ -96,9 +96,9 @@ private constructor(
      *   Supported models: `speech-02-turbo`, `speech-02-hd`, `speech-2.6-turbo`,
      *   `speech-2.8-turbo`. Use `voice_settings` to configure speed, volume, pitch, and
      *   language_boost.
-     * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
-     *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate, and
-     *   format.
+     * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Turbo.Aaron_en-US`).
+     *   Supported models: `Pro`, `Turbo`, `Urdu`. `<VoiceId>` is a stock voice name or the ID of a
+     *   Resemble voice clone. Use `voice_settings` to configure precision, sample_rate, and format.
      * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
      *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`, `TTS2`. Use
      *   `voice_settings` to configure `delivery_mode` (`STABLE`, `BALANCED`, `CREATIVE`), supported
@@ -465,8 +465,9 @@ private constructor(
          *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
          *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings` to
          *   configure speed, volume, pitch, and language_boost.
-         * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
-         *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate,
+         * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Turbo.Aaron_en-US`).
+         *   Supported models: `Pro`, `Turbo`, `Urdu`. `<VoiceId>` is a stock voice name or the ID
+         *   of a Resemble voice clone. Use `voice_settings` to configure precision, sample_rate,
          *   and format.
          * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
          *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`, `TTS2`.
@@ -1029,8 +1030,9 @@ private constructor(
          *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
          *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings` to
          *   configure speed, volume, pitch, and language_boost.
-         * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
-         *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate,
+         * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Turbo.Aaron_en-US`).
+         *   Supported models: `Pro`, `Turbo`, `Urdu`. `<VoiceId>` is a stock voice name or the ID
+         *   of a Resemble voice clone. Use `voice_settings` to configure precision, sample_rate,
          *   and format.
          * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
          *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`, `TTS2`.
@@ -1440,9 +1442,10 @@ private constructor(
              *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
              *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings` to
              *   configure speed, volume, pitch, and language_boost.
-             * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`).
-             *   Only `Turbo` model is supported. Use `voice_settings` to configure precision,
-             *   sample_rate, and format.
+             * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g.,
+             *   `Resemble.Turbo.Aaron_en-US`). Supported models: `Pro`, `Turbo`, `Urdu`.
+             *   `<VoiceId>` is a stock voice name or the ID of a Resemble voice clone. Use
+             *   `voice_settings` to configure precision, sample_rate, and format.
              * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
              *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`, `Max`,
              *   `TTS2`. Use `voice_settings` to configure `delivery_mode` (`STABLE`, `BALANCED`,

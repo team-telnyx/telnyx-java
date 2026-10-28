@@ -29,7 +29,8 @@ private constructor(
     ) : this(data, mutableMapOf())
 
     /**
-     * The spend limit, spend and block state of one product and period.
+     * The spend limit, spend and block state of one product and period. The top-level fields
+     * describe the total limit of the account; API key limits are nested in `credential_limits`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -80,7 +81,11 @@ private constructor(
             additionalProperties = spendLimitResponse.additionalProperties.toMutableMap()
         }
 
-        /** The spend limit, spend and block state of one product and period. */
+        /**
+         * The spend limit, spend and block state of one product and period. The top-level fields
+         * describe the total limit of the account; API key limits are nested in
+         * `credential_limits`.
+         */
         fun data(data: SpendLimit) = data(JsonField.of(data))
 
         /**

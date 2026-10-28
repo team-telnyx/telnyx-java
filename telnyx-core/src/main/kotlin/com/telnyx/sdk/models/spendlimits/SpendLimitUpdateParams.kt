@@ -35,11 +35,15 @@ import kotlin.jvm.optionals.getOrNull
  * Replaces the value of the existing limit for the product and period. Send exactly one of `amount`
  * and `unlimited: true`. The period's spend is checked at once: raising the limit above the spend
  * lifts the period's block (`evaluation.released`), and lowering it below the spend blocks the
- * product (`evaluation.blocked_now`). Returns 404 when no limit is set; create it instead.
+ * product (`evaluation.blocked_now`). Returns 404 when no limit is set; create it instead. With the
+ * `credential_id` query parameter, the request changes that API key's limit; it needs an `amount`,
+ * and it can be at most the period's total limit. Lowering the total limit below the period's
+ * highest API key limit is refused.
  */
 class SpendLimitUpdateParams
 private constructor(
     private val product: String?,
+    private val credentialId: String?,
     private val period: SpendLimitPeriod?,
     private val body: Body,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
@@ -47,6 +51,13 @@ private constructor(
 ) : Params {
 
     fun product(): Optional<String> = Optional.ofNullable(product)
+
+    /**
+     * Identifier of one API key as recorded on usage, never the key's secret, percent-encoded: the
+     * request is then about that key's limit. Absent means the total limit; present but blank is
+     * refused.
+     */
+    fun credentialId(): Optional<String> = Optional.ofNullable(credentialId)
 
     /** Limit period. Defaults to `daily`; send it explicitly. */
     fun period(): Optional<SpendLimitPeriod> = Optional.ofNullable(period)
@@ -79,6 +90,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var product: String? = null
+        private var credentialId: String? = null
         private var period: SpendLimitPeriod? = null
         private var body: Body? = null
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
@@ -88,6 +100,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(spendLimitUpdateParams: SpendLimitUpdateParams) = apply {
             product = spendLimitUpdateParams.product
+            credentialId = spendLimitUpdateParams.credentialId
             period = spendLimitUpdateParams.period
             body = spendLimitUpdateParams.body
             additionalHeaders = spendLimitUpdateParams.additionalHeaders.toBuilder()
@@ -98,6 +111,16 @@ private constructor(
 
         /** Alias for calling [Builder.product] with `product.orElse(null)`. */
         fun product(product: Optional<String>) = product(product.getOrNull())
+
+        /**
+         * Identifier of one API key as recorded on usage, never the key's secret, percent-encoded:
+         * the request is then about that key's limit. Absent means the total limit; present but
+         * blank is refused.
+         */
+        fun credentialId(credentialId: String?) = apply { this.credentialId = credentialId }
+
+        /** Alias for calling [Builder.credentialId] with `credentialId.orElse(null)`. */
+        fun credentialId(credentialId: Optional<String>) = credentialId(credentialId.getOrNull())
 
         /** Limit period. Defaults to `daily`; send it explicitly. */
         fun period(period: SpendLimitPeriod?) = apply { this.period = period }
@@ -236,6 +259,7 @@ private constructor(
         fun build(): SpendLimitUpdateParams =
             SpendLimitUpdateParams(
                 product,
+                credentialId,
                 period,
                 checkRequired("body", body),
                 additionalHeaders.build(),
@@ -256,6 +280,7 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
+                credentialId?.let { put("credential_id", it) }
                 period?.let { put("period", it.toString()) }
                 putAll(additionalQueryParams)
             }
@@ -1265,6 +1290,7 @@ private constructor(
 
         return other is SpendLimitUpdateParams &&
             product == other.product &&
+            credentialId == other.credentialId &&
             period == other.period &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -1272,8 +1298,8 @@ private constructor(
     }
 
     override fun hashCode(): Int =
-        Objects.hash(product, period, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(product, credentialId, period, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "SpendLimitUpdateParams{product=$product, period=$period, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SpendLimitUpdateParams{product=$product, credentialId=$credentialId, period=$period, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

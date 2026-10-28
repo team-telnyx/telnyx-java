@@ -23,6 +23,7 @@ internal class SpendLimitServiceAsyncTest {
                 SpendLimitCreateParams.Body.CreateSpendLimitWithAmount.builder()
                     .amount(100.0)
                     .product("inference")
+                    .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
                     .period(SpendLimitPeriod.DAILY)
                     .reason("Team budget")
                     .unlimited(
@@ -45,6 +46,7 @@ internal class SpendLimitServiceAsyncTest {
             spendLimitServiceAsync.update(
                 SpendLimitUpdateParams.builder()
                     .product("inference")
+                    .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
                     .period(SpendLimitPeriod.DAILY)
                     .body(
                         SpendLimitUpdateParams.Body.UpdateSpendLimitWithAmount.builder()
@@ -85,6 +87,7 @@ internal class SpendLimitServiceAsyncTest {
             spendLimitServiceAsync.delete(
                 SpendLimitDeleteParams.builder()
                     .product("inference")
+                    .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
                     .period(SpendLimitPeriod.DAILY)
                     .reason("reason")
                     .build()

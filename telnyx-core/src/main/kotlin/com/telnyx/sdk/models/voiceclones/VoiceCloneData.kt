@@ -126,7 +126,7 @@ private constructor(
     fun label(): Optional<String> = label.getOptional("label")
 
     /**
-     * ISO 639-1 language code of the voice clone.
+     * Language code of the voice clone (ISO 639-1, or the Resemble catalogue code such as `en-US`).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -453,7 +453,10 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
-        /** ISO 639-1 language code of the voice clone. */
+        /**
+         * Language code of the voice clone (ISO 639-1, or the Resemble catalogue code such as
+         * `en-US`).
+         */
         fun language(language: String?) = language(JsonField.ofNullable(language))
 
         /** Alias for calling [Builder.language] with `language.orElse(null)`. */
@@ -912,6 +915,12 @@ private constructor(
 
             @JvmField val SPEECH_2_8_TURBO = of("speech-2.8-turbo")
 
+            @JvmField val PRO = of("Pro")
+
+            @JvmField val TURBO = of("Turbo")
+
+            @JvmField val URDU = of("Urdu")
+
             @JvmStatic fun of(value: String) = ModelId(JsonField.of(value))
         }
 
@@ -921,6 +930,9 @@ private constructor(
             ULTRA,
             BAYAN,
             SPEECH_2_8_TURBO,
+            PRO,
+            TURBO,
+            URDU,
         }
 
         /**
@@ -937,6 +949,9 @@ private constructor(
             ULTRA,
             BAYAN,
             SPEECH_2_8_TURBO,
+            PRO,
+            TURBO,
+            URDU,
             /** An enum member indicating that [ModelId] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -954,6 +969,9 @@ private constructor(
                 ULTRA -> Value.ULTRA
                 BAYAN -> Value.BAYAN
                 SPEECH_2_8_TURBO -> Value.SPEECH_2_8_TURBO
+                PRO -> Value.PRO
+                TURBO -> Value.TURBO
+                URDU -> Value.URDU
                 else -> Value._UNKNOWN
             }
 
@@ -972,6 +990,9 @@ private constructor(
                 ULTRA -> Known.ULTRA
                 BAYAN -> Known.BAYAN
                 SPEECH_2_8_TURBO -> Known.SPEECH_2_8_TURBO
+                PRO -> Known.PRO
+                TURBO -> Known.TURBO
+                URDU -> Known.URDU
                 else -> throw TelnyxInvalidDataException("Unknown ModelId: $value")
             }
 

@@ -10,6 +10,7 @@ import com.telnyx.sdk.services.blocking.AddressService
 import com.telnyx.sdk.services.blocking.AdvancedOrderService
 import com.telnyx.sdk.services.blocking.AiService
 import com.telnyx.sdk.services.blocking.AlphanumericSenderIdService
+import com.telnyx.sdk.services.blocking.ArtifactDownloadService
 import com.telnyx.sdk.services.blocking.AuditEventService
 import com.telnyx.sdk.services.blocking.AuthenticationProviderService
 import com.telnyx.sdk.services.blocking.AvailablePhoneNumberBlockService
@@ -19,6 +20,7 @@ import com.telnyx.sdk.services.blocking.BillingGroupService
 import com.telnyx.sdk.services.blocking.BotChallengeService
 import com.telnyx.sdk.services.blocking.BotSessionService
 import com.telnyx.sdk.services.blocking.BotSignupService
+import com.telnyx.sdk.services.blocking.BrowserSessionService
 import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BundlePricingService
 import com.telnyx.sdk.services.blocking.CallControlApplicationService
@@ -49,6 +51,7 @@ import com.telnyx.sdk.services.blocking.EmailDomainService
 import com.telnyx.sdk.services.blocking.EmailEventService
 import com.telnyx.sdk.services.blocking.EmailInboxService
 import com.telnyx.sdk.services.blocking.EmailMessageService
+import com.telnyx.sdk.services.blocking.EmailService
 import com.telnyx.sdk.services.blocking.EmailTemplateService
 import com.telnyx.sdk.services.blocking.EmailThreadService
 import com.telnyx.sdk.services.blocking.EmailUnsubscribeGroupService
@@ -102,6 +105,7 @@ import com.telnyx.sdk.services.blocking.MobilePhoneNumberService
 import com.telnyx.sdk.services.blocking.MobilePushCredentialService
 import com.telnyx.sdk.services.blocking.MobileVoiceConnectionService
 import com.telnyx.sdk.services.blocking.NetworkCoverageService
+import com.telnyx.sdk.services.blocking.NetworkRouteService
 import com.telnyx.sdk.services.blocking.NetworkService
 import com.telnyx.sdk.services.blocking.NoiseSuppressionEngineService
 import com.telnyx.sdk.services.blocking.NotificationChannelService
@@ -122,6 +126,7 @@ import com.telnyx.sdk.services.blocking.OperatorConnectService
 import com.telnyx.sdk.services.blocking.OrganizationService
 import com.telnyx.sdk.services.blocking.OtaUpdateService
 import com.telnyx.sdk.services.blocking.OutboundVoiceProfileService
+import com.telnyx.sdk.services.blocking.PayConnectorService
 import com.telnyx.sdk.services.blocking.PaymentService
 import com.telnyx.sdk.services.blocking.PhoneNumberBlockService
 import com.telnyx.sdk.services.blocking.PhoneNumberService
@@ -173,6 +178,7 @@ import com.telnyx.sdk.services.blocking.TexmlService
 import com.telnyx.sdk.services.blocking.TextToSpeechService
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
 import com.telnyx.sdk.services.blocking.TtsIntegrationService
+import com.telnyx.sdk.services.blocking.TunnelService
 import com.telnyx.sdk.services.blocking.UacConnectionService
 import com.telnyx.sdk.services.blocking.UsageReportService
 import com.telnyx.sdk.services.blocking.UserAddressService
@@ -234,6 +240,8 @@ interface TelnyxClient {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TelnyxClient
+
+    fun browserSessions(): BrowserSessionService
 
     fun legacy(): LegacyService
 
@@ -829,6 +837,12 @@ interface TelnyxClient {
      *   billable chat completions, Responses, Anthropic Messages and classification requests;
      *   requests already running finish normally. Take the list of products from the list
      *   operation.
+     * - **API key limits.** For `inference`, a limit can also apply to one API key, named by
+     *   `credential_id`: the key's identifier as recorded on usage, never its secret. When the
+     *   key's spend goes above its own limit, only that key is blocked, with the error title `API
+     *   key spend limit reached` (code `10039`); the account's other keys keep working. The API key
+     *   limits of a period cannot add up to more than the total limit when the total has an amount.
+     *   Only language-model requests authenticated with an API key count toward its limit.
      * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is listed
      *   with `origin: operator` and you can update or delete it like your own.
      */
@@ -846,6 +860,20 @@ interface TelnyxClient {
 
     /** Tailscale Subnet Router operations */
     fun tailscaleSubnetRouters(): TailscaleSubnetRouterService
+
+    /** Download screenshots and other artifacts. */
+    fun artifactDownloads(): ArtifactDownloadService
+
+    fun email(): EmailService
+
+    /** Routes on a Network that send a CIDR to a next hop, such as a tunnel. */
+    fun networkRoutes(): NetworkRouteService
+
+    /** Generic payment connector configuration. */
+    fun payConnectors(): PayConnectorService
+
+    /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
+    fun tunnels(): TunnelService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -869,6 +897,8 @@ interface TelnyxClient {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TelnyxClient.WithRawResponse
+
+        fun browserSessions(): BrowserSessionService.WithRawResponse
 
         fun legacy(): LegacyService.WithRawResponse
 
@@ -1468,6 +1498,13 @@ interface TelnyxClient {
          *   new billable chat completions, Responses, Anthropic Messages and classification
          *   requests; requests already running finish normally. Take the list of products from the
          *   list operation.
+         * - **API key limits.** For `inference`, a limit can also apply to one API key, named by
+         *   `credential_id`: the key's identifier as recorded on usage, never its secret. When the
+         *   key's spend goes above its own limit, only that key is blocked, with the error title
+         *   `API key spend limit reached` (code `10039`); the account's other keys keep working.
+         *   The API key limits of a period cannot add up to more than the total limit when the
+         *   total has an amount. Only language-model requests authenticated with an API key count
+         *   toward its limit.
          * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is
          *   listed with `origin: operator` and you can update or delete it like your own.
          */
@@ -1485,5 +1522,19 @@ interface TelnyxClient {
 
         /** Tailscale Subnet Router operations */
         fun tailscaleSubnetRouters(): TailscaleSubnetRouterService.WithRawResponse
+
+        /** Download screenshots and other artifacts. */
+        fun artifactDownloads(): ArtifactDownloadService.WithRawResponse
+
+        fun email(): EmailService.WithRawResponse
+
+        /** Routes on a Network that send a CIDR to a next hop, such as a tunnel. */
+        fun networkRoutes(): NetworkRouteService.WithRawResponse
+
+        /** Generic payment connector configuration. */
+        fun payConnectors(): PayConnectorService.WithRawResponse
+
+        /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
+        fun tunnels(): TunnelService.WithRawResponse
     }
 }
