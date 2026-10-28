@@ -71,7 +71,7 @@ interface BotChallengeService {
         ): BotChallengeService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /v2/bot_challenge`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /bot_challenge`, but is otherwise the same as
          * [BotChallengeService.create].
          */
         @MustBeClosed

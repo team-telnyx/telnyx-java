@@ -14,6 +14,7 @@ internal class SpendLimitCreateParamsTest {
                 SpendLimitCreateParams.Body.CreateSpendLimitWithAmount.builder()
                     .amount(100.0)
                     .product("inference")
+                    .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
                     .period(SpendLimitPeriod.DAILY)
                     .reason("Team budget")
                     .unlimited(
@@ -32,6 +33,7 @@ internal class SpendLimitCreateParamsTest {
                     SpendLimitCreateParams.Body.CreateSpendLimitWithAmount.builder()
                         .amount(100.0)
                         .product("inference")
+                        .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
                         .period(SpendLimitPeriod.DAILY)
                         .reason("Team budget")
                         .unlimited(
@@ -49,6 +51,7 @@ internal class SpendLimitCreateParamsTest {
                     SpendLimitCreateParams.Body.CreateSpendLimitWithAmount.builder()
                         .amount(100.0)
                         .product("inference")
+                        .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
                         .period(SpendLimitPeriod.DAILY)
                         .reason("Team budget")
                         .unlimited(

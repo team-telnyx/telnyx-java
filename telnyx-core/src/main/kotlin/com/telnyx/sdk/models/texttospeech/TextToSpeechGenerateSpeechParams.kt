@@ -4009,7 +4009,6 @@ private constructor(
     class Resemble
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val apiKey: JsonField<String>,
         private val format: JsonField<String>,
         private val precision: JsonField<String>,
         private val sampleRate: JsonField<String>,
@@ -4018,7 +4017,6 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("api_key") @ExcludeMissing apiKey: JsonField<String> = JsonMissing.of(),
             @JsonProperty("format") @ExcludeMissing format: JsonField<String> = JsonMissing.of(),
             @JsonProperty("precision")
             @ExcludeMissing
@@ -4026,15 +4024,7 @@ private constructor(
             @JsonProperty("sample_rate")
             @ExcludeMissing
             sampleRate: JsonField<String> = JsonMissing.of(),
-        ) : this(apiKey, format, precision, sampleRate, mutableMapOf())
-
-        /**
-         * Custom Resemble API key.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun apiKey(): Optional<String> = apiKey.getOptional("api_key")
+        ) : this(format, precision, sampleRate, mutableMapOf())
 
         /**
          * Audio output format.
@@ -4059,13 +4049,6 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun sampleRate(): Optional<String> = sampleRate.getOptional("sample_rate")
-
-        /**
-         * Returns the raw JSON value of [apiKey].
-         *
-         * Unlike [apiKey], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("api_key") @ExcludeMissing fun _apiKey(): JsonField<String> = apiKey
 
         /**
          * Returns the raw JSON value of [format].
@@ -4111,7 +4094,6 @@ private constructor(
         /** A builder for [Resemble]. */
         class Builder internal constructor() {
 
-            private var apiKey: JsonField<String> = JsonMissing.of()
             private var format: JsonField<String> = JsonMissing.of()
             private var precision: JsonField<String> = JsonMissing.of()
             private var sampleRate: JsonField<String> = JsonMissing.of()
@@ -4119,24 +4101,11 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(resemble: Resemble) = apply {
-                apiKey = resemble.apiKey
                 format = resemble.format
                 precision = resemble.precision
                 sampleRate = resemble.sampleRate
                 additionalProperties = resemble.additionalProperties.toMutableMap()
             }
-
-            /** Custom Resemble API key. */
-            fun apiKey(apiKey: String) = apiKey(JsonField.of(apiKey))
-
-            /**
-             * Sets [Builder.apiKey] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.apiKey] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun apiKey(apiKey: JsonField<String>) = apply { this.apiKey = apiKey }
 
             /** Audio output format. */
             fun format(format: String) = format(JsonField.of(format))
@@ -4199,7 +4168,7 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Resemble =
-                Resemble(apiKey, format, precision, sampleRate, additionalProperties.toMutableMap())
+                Resemble(format, precision, sampleRate, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -4218,7 +4187,6 @@ private constructor(
                 return@apply
             }
 
-            apiKey()
             format()
             precision()
             sampleRate()
@@ -4241,8 +4209,7 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (apiKey.asKnown().isPresent) 1 else 0) +
-                (if (format.asKnown().isPresent) 1 else 0) +
+            (if (format.asKnown().isPresent) 1 else 0) +
                 (if (precision.asKnown().isPresent) 1 else 0) +
                 (if (sampleRate.asKnown().isPresent) 1 else 0)
 
@@ -4252,7 +4219,6 @@ private constructor(
             }
 
             return other is Resemble &&
-                apiKey == other.apiKey &&
                 format == other.format &&
                 precision == other.precision &&
                 sampleRate == other.sampleRate &&
@@ -4260,13 +4226,13 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(apiKey, format, precision, sampleRate, additionalProperties)
+            Objects.hash(format, precision, sampleRate, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Resemble{apiKey=$apiKey, format=$format, precision=$precision, sampleRate=$sampleRate, additionalProperties=$additionalProperties}"
+            "Resemble{format=$format, precision=$precision, sampleRate=$sampleRate, additionalProperties=$additionalProperties}"
     }
 
     /**

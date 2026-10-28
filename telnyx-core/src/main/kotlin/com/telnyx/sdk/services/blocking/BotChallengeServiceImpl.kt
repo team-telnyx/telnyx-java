@@ -41,7 +41,7 @@ class BotChallengeServiceImpl internal constructor(private val clientOptions: Cl
         params: BotChallengeCreateParams,
         requestOptions: RequestOptions,
     ): BotChallengeCreateResponse =
-        // post /v2/bot_challenge
+        // post /bot_challenge
         withRawResponse().create(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -68,7 +68,7 @@ class BotChallengeServiceImpl internal constructor(private val clientOptions: Cl
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "bot_challenge")
+                    .addPathSegments("bot_challenge")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

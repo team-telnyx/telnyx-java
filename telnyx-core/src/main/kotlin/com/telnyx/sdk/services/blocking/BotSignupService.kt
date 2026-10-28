@@ -80,7 +80,7 @@ interface BotSignupService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): BotSignupService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /v2/bot_signup`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /bot_signup`, but is otherwise the same as
          * [BotSignupService.create].
          */
         @MustBeClosed
@@ -95,7 +95,7 @@ interface BotSignupService {
         ): HttpResponseFor<SuccessResponse>
 
         /**
-         * Returns a raw HTTP response for `post /v2/bot_signup/resend_magic_link`, but is otherwise
+         * Returns a raw HTTP response for `post /bot_signup/resend_magic_link`, but is otherwise
          * the same as [BotSignupService.resendMagicLink].
          */
         @MustBeClosed

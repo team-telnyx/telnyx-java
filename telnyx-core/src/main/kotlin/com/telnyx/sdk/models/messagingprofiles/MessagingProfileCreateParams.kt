@@ -111,6 +111,14 @@ private constructor(
     fun healthWebhookUrl(): Optional<String> = body.healthWebhookUrl()
 
     /**
+     * MM7 settings for inbound messages
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mm7Metadata(): Optional<Mm7Metadata> = body.mm7Metadata()
+
+    /**
      * enables SMS fallback for MMS messages.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -268,6 +276,13 @@ private constructor(
      * type.
      */
     fun _healthWebhookUrl(): JsonField<String> = body._healthWebhookUrl()
+
+    /**
+     * Returns the raw JSON value of [mm7Metadata].
+     *
+     * Unlike [mm7Metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mm7Metadata(): JsonField<Mm7Metadata> = body._mm7Metadata()
 
     /**
      * Returns the raw JSON value of [mmsFallBackToSms].
@@ -558,6 +573,23 @@ private constructor(
          */
         fun healthWebhookUrl(healthWebhookUrl: JsonField<String>) = apply {
             body.healthWebhookUrl(healthWebhookUrl)
+        }
+
+        /** MM7 settings for inbound messages */
+        fun mm7Metadata(mm7Metadata: Mm7Metadata?) = apply { body.mm7Metadata(mm7Metadata) }
+
+        /** Alias for calling [Builder.mm7Metadata] with `mm7Metadata.orElse(null)`. */
+        fun mm7Metadata(mm7Metadata: Optional<Mm7Metadata>) = mm7Metadata(mm7Metadata.getOrNull())
+
+        /**
+         * Sets [Builder.mm7Metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mm7Metadata] with a well-typed [Mm7Metadata] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun mm7Metadata(mm7Metadata: JsonField<Mm7Metadata>) = apply {
+            body.mm7Metadata(mm7Metadata)
         }
 
         /** enables SMS fallback for MMS messages. */
@@ -915,6 +947,7 @@ private constructor(
         private val enabled: JsonField<Boolean>,
         private val features: JsonField<MessagingProfileFeatures>,
         private val healthWebhookUrl: JsonField<String>,
+        private val mm7Metadata: JsonField<Mm7Metadata>,
         private val mmsFallBackToSms: JsonField<Boolean>,
         private val mmsTranscoding: JsonField<Boolean>,
         private val mobileOnly: JsonField<Boolean>,
@@ -953,6 +986,9 @@ private constructor(
             @JsonProperty("health_webhook_url")
             @ExcludeMissing
             healthWebhookUrl: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("mm7_metadata")
+            @ExcludeMissing
+            mm7Metadata: JsonField<Mm7Metadata> = JsonMissing.of(),
             @JsonProperty("mms_fall_back_to_sms")
             @ExcludeMissing
             mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of(),
@@ -993,6 +1029,7 @@ private constructor(
             enabled,
             features,
             healthWebhookUrl,
+            mm7Metadata,
             mmsFallBackToSms,
             mmsTranscoding,
             mobileOnly,
@@ -1086,6 +1123,14 @@ private constructor(
          */
         fun healthWebhookUrl(): Optional<String> =
             healthWebhookUrl.getOptional("health_webhook_url")
+
+        /**
+         * MM7 settings for inbound messages
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mm7Metadata(): Optional<Mm7Metadata> = mm7Metadata.getOptional("mm7_metadata")
 
         /**
          * enables SMS fallback for MMS messages.
@@ -1269,6 +1314,15 @@ private constructor(
         fun _healthWebhookUrl(): JsonField<String> = healthWebhookUrl
 
         /**
+         * Returns the raw JSON value of [mm7Metadata].
+         *
+         * Unlike [mm7Metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("mm7_metadata")
+        @ExcludeMissing
+        fun _mm7Metadata(): JsonField<Mm7Metadata> = mm7Metadata
+
+        /**
          * Returns the raw JSON value of [mmsFallBackToSms].
          *
          * Unlike [mmsFallBackToSms], this method doesn't throw if the JSON field has an unexpected
@@ -1404,6 +1458,7 @@ private constructor(
             private var enabled: JsonField<Boolean> = JsonMissing.of()
             private var features: JsonField<MessagingProfileFeatures> = JsonMissing.of()
             private var healthWebhookUrl: JsonField<String> = JsonMissing.of()
+            private var mm7Metadata: JsonField<Mm7Metadata> = JsonMissing.of()
             private var mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of()
             private var mmsTranscoding: JsonField<Boolean> = JsonMissing.of()
             private var mobileOnly: JsonField<Boolean> = JsonMissing.of()
@@ -1427,6 +1482,7 @@ private constructor(
                 enabled = body.enabled
                 features = body.features
                 healthWebhookUrl = body.healthWebhookUrl
+                mm7Metadata = body.mm7Metadata
                 mmsFallBackToSms = body.mmsFallBackToSms
                 mmsTranscoding = body.mmsTranscoding
                 mobileOnly = body.mobileOnly
@@ -1609,6 +1665,25 @@ private constructor(
              */
             fun healthWebhookUrl(healthWebhookUrl: JsonField<String>) = apply {
                 this.healthWebhookUrl = healthWebhookUrl
+            }
+
+            /** MM7 settings for inbound messages */
+            fun mm7Metadata(mm7Metadata: Mm7Metadata?) =
+                mm7Metadata(JsonField.ofNullable(mm7Metadata))
+
+            /** Alias for calling [Builder.mm7Metadata] with `mm7Metadata.orElse(null)`. */
+            fun mm7Metadata(mm7Metadata: Optional<Mm7Metadata>) =
+                mm7Metadata(mm7Metadata.getOrNull())
+
+            /**
+             * Sets [Builder.mm7Metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mm7Metadata] with a well-typed [Mm7Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun mm7Metadata(mm7Metadata: JsonField<Mm7Metadata>) = apply {
+                this.mm7Metadata = mm7Metadata
             }
 
             /** enables SMS fallback for MMS messages. */
@@ -1852,6 +1927,7 @@ private constructor(
                     enabled,
                     features,
                     healthWebhookUrl,
+                    mm7Metadata,
                     mmsFallBackToSms,
                     mmsTranscoding,
                     mobileOnly,
@@ -1891,6 +1967,7 @@ private constructor(
             enabled()
             features().ifPresent { it.validate() }
             healthWebhookUrl()
+            mm7Metadata().ifPresent { it.validate() }
             mmsFallBackToSms()
             mmsTranscoding()
             mobileOnly()
@@ -1929,6 +2006,7 @@ private constructor(
                 (if (enabled.asKnown().isPresent) 1 else 0) +
                 (features.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (healthWebhookUrl.asKnown().isPresent) 1 else 0) +
+                (mm7Metadata.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (mmsFallBackToSms.asKnown().isPresent) 1 else 0) +
                 (if (mmsTranscoding.asKnown().isPresent) 1 else 0) +
                 (if (mobileOnly.asKnown().isPresent) 1 else 0) +
@@ -1955,6 +2033,7 @@ private constructor(
                 enabled == other.enabled &&
                 features == other.features &&
                 healthWebhookUrl == other.healthWebhookUrl &&
+                mm7Metadata == other.mm7Metadata &&
                 mmsFallBackToSms == other.mmsFallBackToSms &&
                 mmsTranscoding == other.mmsTranscoding &&
                 mobileOnly == other.mobileOnly &&
@@ -1979,6 +2058,7 @@ private constructor(
                 enabled,
                 features,
                 healthWebhookUrl,
+                mm7Metadata,
                 mmsFallBackToSms,
                 mmsTranscoding,
                 mobileOnly,
@@ -1996,7 +2076,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{name=$name, whitelistedDestinations=$whitelistedDestinations, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, features=$features, healthWebhookUrl=$healthWebhookUrl, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, numberPoolSettings=$numberPoolSettings, resourceGroupId=$resourceGroupId, smartEncoding=$smartEncoding, urlShortenerSettings=$urlShortenerSettings, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{name=$name, whitelistedDestinations=$whitelistedDestinations, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, features=$features, healthWebhookUrl=$healthWebhookUrl, mm7Metadata=$mm7Metadata, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, numberPoolSettings=$numberPoolSettings, resourceGroupId=$resourceGroupId, smartEncoding=$smartEncoding, urlShortenerSettings=$urlShortenerSettings, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     /**

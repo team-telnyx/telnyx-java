@@ -12,6 +12,7 @@ internal class SpendLimitDeleteParamsTest {
     fun create() {
         SpendLimitDeleteParams.builder()
             .product("inference")
+            .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
             .period(SpendLimitPeriod.DAILY)
             .reason("reason")
             .build()
@@ -31,6 +32,7 @@ internal class SpendLimitDeleteParamsTest {
         val params =
             SpendLimitDeleteParams.builder()
                 .product("inference")
+                .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
                 .period(SpendLimitPeriod.DAILY)
                 .reason("reason")
                 .build()
@@ -38,7 +40,13 @@ internal class SpendLimitDeleteParamsTest {
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
-            .isEqualTo(QueryParams.builder().put("period", "daily").put("reason", "reason").build())
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("credential_id", "KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
+                    .put("period", "daily")
+                    .put("reason", "reason")
+                    .build()
+            )
     }
 
     @Test

@@ -18,7 +18,7 @@ internal class SpendLimitResponseTest {
                 .data(
                     SpendLimit.builder()
                         .block(
-                            SpendLimit.Block.builder()
+                            SpendLimitBlock.builder()
                                 .blockedUntil(LocalDate.parse("2026-09-25"))
                                 .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
                                 .limitUsd("10")
@@ -43,6 +43,33 @@ internal class SpendLimitResponseTest {
                         .recordType("spend_limit")
                         .spendError(null)
                         .spendUsd("37.41")
+                        .credentialId(null)
+                        .addCredentialLimit(
+                            SpendLimit.CredentialLimit.builder()
+                                .block(
+                                    SpendLimitBlock.builder()
+                                        .blockedUntil(LocalDate.parse("2026-09-25"))
+                                        .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
+                                        .limitUsd("10")
+                                        .spendUsd("10.20")
+                                        .build()
+                                )
+                                .blocked(false)
+                                .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
+                                .limit(
+                                    SpendLimit.CredentialLimit.Limit.builder()
+                                        .amount("300.00")
+                                        .origin(
+                                            SpendLimit.CredentialLimit.Limit.Origin.SELF_SERVICE
+                                        )
+                                        .updatedAt(OffsetDateTime.parse("2026-10-20T08:03:40Z"))
+                                        .build()
+                                )
+                                .spendError(null)
+                                .spendUsd("120.00")
+                                .exceedsTotal(false)
+                                .build()
+                        )
                         .evaluation(
                             SpendLimit.Evaluation.builder()
                                 .blockedNow(false)
@@ -51,6 +78,7 @@ internal class SpendLimitResponseTest {
                                 .spendUsd("37.41")
                                 .stillBlockedOtherPeriod(false)
                                 .stillOverLimit(false)
+                                .accountBlocked(false)
                                 .note(
                                     "A block was lifted by Telnyx support today; this limit applies from tomorrow."
                                 )
@@ -64,7 +92,7 @@ internal class SpendLimitResponseTest {
             .isEqualTo(
                 SpendLimit.builder()
                     .block(
-                        SpendLimit.Block.builder()
+                        SpendLimitBlock.builder()
                             .blockedUntil(LocalDate.parse("2026-09-25"))
                             .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
                             .limitUsd("10")
@@ -89,6 +117,31 @@ internal class SpendLimitResponseTest {
                     .recordType("spend_limit")
                     .spendError(null)
                     .spendUsd("37.41")
+                    .credentialId(null)
+                    .addCredentialLimit(
+                        SpendLimit.CredentialLimit.builder()
+                            .block(
+                                SpendLimitBlock.builder()
+                                    .blockedUntil(LocalDate.parse("2026-09-25"))
+                                    .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
+                                    .limitUsd("10")
+                                    .spendUsd("10.20")
+                                    .build()
+                            )
+                            .blocked(false)
+                            .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
+                            .limit(
+                                SpendLimit.CredentialLimit.Limit.builder()
+                                    .amount("300.00")
+                                    .origin(SpendLimit.CredentialLimit.Limit.Origin.SELF_SERVICE)
+                                    .updatedAt(OffsetDateTime.parse("2026-10-20T08:03:40Z"))
+                                    .build()
+                            )
+                            .spendError(null)
+                            .spendUsd("120.00")
+                            .exceedsTotal(false)
+                            .build()
+                    )
                     .evaluation(
                         SpendLimit.Evaluation.builder()
                             .blockedNow(false)
@@ -97,6 +150,7 @@ internal class SpendLimitResponseTest {
                             .spendUsd("37.41")
                             .stillBlockedOtherPeriod(false)
                             .stillOverLimit(false)
+                            .accountBlocked(false)
                             .note(
                                 "A block was lifted by Telnyx support today; this limit applies from tomorrow."
                             )
@@ -114,7 +168,7 @@ internal class SpendLimitResponseTest {
                 .data(
                     SpendLimit.builder()
                         .block(
-                            SpendLimit.Block.builder()
+                            SpendLimitBlock.builder()
                                 .blockedUntil(LocalDate.parse("2026-09-25"))
                                 .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
                                 .limitUsd("10")
@@ -139,6 +193,33 @@ internal class SpendLimitResponseTest {
                         .recordType("spend_limit")
                         .spendError(null)
                         .spendUsd("37.41")
+                        .credentialId(null)
+                        .addCredentialLimit(
+                            SpendLimit.CredentialLimit.builder()
+                                .block(
+                                    SpendLimitBlock.builder()
+                                        .blockedUntil(LocalDate.parse("2026-09-25"))
+                                        .detectedAt(OffsetDateTime.parse("2026-09-24T08:41:17Z"))
+                                        .limitUsd("10")
+                                        .spendUsd("10.20")
+                                        .build()
+                                )
+                                .blocked(false)
+                                .credentialId("KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2")
+                                .limit(
+                                    SpendLimit.CredentialLimit.Limit.builder()
+                                        .amount("300.00")
+                                        .origin(
+                                            SpendLimit.CredentialLimit.Limit.Origin.SELF_SERVICE
+                                        )
+                                        .updatedAt(OffsetDateTime.parse("2026-10-20T08:03:40Z"))
+                                        .build()
+                                )
+                                .spendError(null)
+                                .spendUsd("120.00")
+                                .exceedsTotal(false)
+                                .build()
+                        )
                         .evaluation(
                             SpendLimit.Evaluation.builder()
                                 .blockedNow(false)
@@ -147,6 +228,7 @@ internal class SpendLimitResponseTest {
                                 .spendUsd("37.41")
                                 .stillBlockedOtherPeriod(false)
                                 .stillOverLimit(false)
+                                .accountBlocked(false)
                                 .note(
                                     "A block was lifted by Telnyx support today; this limit applies from tomorrow."
                                 )

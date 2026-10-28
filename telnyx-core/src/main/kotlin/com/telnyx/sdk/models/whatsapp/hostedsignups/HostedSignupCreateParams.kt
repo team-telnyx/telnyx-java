@@ -34,7 +34,7 @@ private constructor(
 ) : Params {
 
     /**
-     * Meta App ID linked to the Telnyx account. The app must be enabled.
+     * Meta App ID linked to the Telnyx account or its manager account. The app must be enabled.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -129,7 +129,9 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** Meta App ID linked to the Telnyx account. The app must be enabled. */
+        /**
+         * Meta App ID linked to the Telnyx account or its manager account. The app must be enabled.
+         */
         fun appId(appId: String) = apply { body.appId(appId) }
 
         /**
@@ -335,7 +337,7 @@ private constructor(
         ) : this(appId, expiresAt, signupType, mutableMapOf())
 
         /**
-         * Meta App ID linked to the Telnyx account. The app must be enabled.
+         * Meta App ID linked to the Telnyx account or its manager account. The app must be enabled.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -426,7 +428,10 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** Meta App ID linked to the Telnyx account. The app must be enabled. */
+            /**
+             * Meta App ID linked to the Telnyx account or its manager account. The app must be
+             * enabled.
+             */
             fun appId(appId: String) = appId(JsonField.of(appId))
 
             /**

@@ -45,7 +45,7 @@ class BotChallengeServiceAsyncImpl internal constructor(private val clientOption
         params: BotChallengeCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BotChallengeCreateResponse> =
-        // post /v2/bot_challenge
+        // post /bot_challenge
         withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -72,7 +72,7 @@ class BotChallengeServiceAsyncImpl internal constructor(private val clientOption
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "bot_challenge")
+                    .addPathSegments("bot_challenge")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

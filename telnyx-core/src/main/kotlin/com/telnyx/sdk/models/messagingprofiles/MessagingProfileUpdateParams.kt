@@ -104,6 +104,14 @@ private constructor(
     fun features(): Optional<MessagingProfileFeatures> = body.features()
 
     /**
+     * MM7 settings for inbound messages
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mm7Metadata(): Optional<Mm7Metadata> = body.mm7Metadata()
+
+    /**
      * enables SMS fallback for MMS messages.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -308,6 +316,13 @@ private constructor(
      * Unlike [features], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _features(): JsonField<MessagingProfileFeatures> = body._features()
+
+    /**
+     * Returns the raw JSON value of [mm7Metadata].
+     *
+     * Unlike [mm7Metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mm7Metadata(): JsonField<Mm7Metadata> = body._mm7Metadata()
 
     /**
      * Returns the raw JSON value of [mmsFallBackToSms].
@@ -613,6 +628,23 @@ private constructor(
          */
         fun features(features: JsonField<MessagingProfileFeatures>) = apply {
             body.features(features)
+        }
+
+        /** MM7 settings for inbound messages */
+        fun mm7Metadata(mm7Metadata: Mm7Metadata?) = apply { body.mm7Metadata(mm7Metadata) }
+
+        /** Alias for calling [Builder.mm7Metadata] with `mm7Metadata.orElse(null)`. */
+        fun mm7Metadata(mm7Metadata: Optional<Mm7Metadata>) = mm7Metadata(mm7Metadata.getOrNull())
+
+        /**
+         * Sets [Builder.mm7Metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mm7Metadata] with a well-typed [Mm7Metadata] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun mm7Metadata(mm7Metadata: JsonField<Mm7Metadata>) = apply {
+            body.mm7Metadata(mm7Metadata)
         }
 
         /** enables SMS fallback for MMS messages. */
@@ -1064,6 +1096,7 @@ private constructor(
         private val dailySpendLimitEnabled: JsonField<Boolean>,
         private val enabled: JsonField<Boolean>,
         private val features: JsonField<MessagingProfileFeatures>,
+        private val mm7Metadata: JsonField<Mm7Metadata>,
         private val mmsFallBackToSms: JsonField<Boolean>,
         private val mmsTranscoding: JsonField<Boolean>,
         private val mobileOnly: JsonField<Boolean>,
@@ -1105,6 +1138,9 @@ private constructor(
             @JsonProperty("features")
             @ExcludeMissing
             features: JsonField<MessagingProfileFeatures> = JsonMissing.of(),
+            @JsonProperty("mm7_metadata")
+            @ExcludeMissing
+            mm7Metadata: JsonField<Mm7Metadata> = JsonMissing.of(),
             @JsonProperty("mms_fall_back_to_sms")
             @ExcludeMissing
             mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of(),
@@ -1160,6 +1196,7 @@ private constructor(
             dailySpendLimitEnabled,
             enabled,
             features,
+            mm7Metadata,
             mmsFallBackToSms,
             mmsTranscoding,
             mobileOnly,
@@ -1247,6 +1284,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun features(): Optional<MessagingProfileFeatures> = features.getOptional("features")
+
+        /**
+         * MM7 settings for inbound messages
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mm7Metadata(): Optional<Mm7Metadata> = mm7Metadata.getOptional("mm7_metadata")
 
         /**
          * enables SMS fallback for MMS messages.
@@ -1478,6 +1523,15 @@ private constructor(
         fun _features(): JsonField<MessagingProfileFeatures> = features
 
         /**
+         * Returns the raw JSON value of [mm7Metadata].
+         *
+         * Unlike [mm7Metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("mm7_metadata")
+        @ExcludeMissing
+        fun _mm7Metadata(): JsonField<Mm7Metadata> = mm7Metadata
+
+        /**
          * Returns the raw JSON value of [mmsFallBackToSms].
          *
          * Unlike [mmsFallBackToSms], this method doesn't throw if the JSON field has an unexpected
@@ -1656,6 +1710,7 @@ private constructor(
             private var dailySpendLimitEnabled: JsonField<Boolean> = JsonMissing.of()
             private var enabled: JsonField<Boolean> = JsonMissing.of()
             private var features: JsonField<MessagingProfileFeatures> = JsonMissing.of()
+            private var mm7Metadata: JsonField<Mm7Metadata> = JsonMissing.of()
             private var mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of()
             private var mmsTranscoding: JsonField<Boolean> = JsonMissing.of()
             private var mobileOnly: JsonField<Boolean> = JsonMissing.of()
@@ -1684,6 +1739,7 @@ private constructor(
                 dailySpendLimitEnabled = body.dailySpendLimitEnabled
                 enabled = body.enabled
                 features = body.features
+                mm7Metadata = body.mm7Metadata
                 mmsFallBackToSms = body.mmsFallBackToSms
                 mmsTranscoding = body.mmsTranscoding
                 mobileOnly = body.mobileOnly
@@ -1834,6 +1890,25 @@ private constructor(
              */
             fun features(features: JsonField<MessagingProfileFeatures>) = apply {
                 this.features = features
+            }
+
+            /** MM7 settings for inbound messages */
+            fun mm7Metadata(mm7Metadata: Mm7Metadata?) =
+                mm7Metadata(JsonField.ofNullable(mm7Metadata))
+
+            /** Alias for calling [Builder.mm7Metadata] with `mm7Metadata.orElse(null)`. */
+            fun mm7Metadata(mm7Metadata: Optional<Mm7Metadata>) =
+                mm7Metadata(mm7Metadata.getOrNull())
+
+            /**
+             * Sets [Builder.mm7Metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mm7Metadata] with a well-typed [Mm7Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun mm7Metadata(mm7Metadata: JsonField<Mm7Metadata>) = apply {
+                this.mm7Metadata = mm7Metadata
             }
 
             /** enables SMS fallback for MMS messages. */
@@ -2170,6 +2245,7 @@ private constructor(
                     dailySpendLimitEnabled,
                     enabled,
                     features,
+                    mm7Metadata,
                     mmsFallBackToSms,
                     mmsTranscoding,
                     mobileOnly,
@@ -2214,6 +2290,7 @@ private constructor(
             dailySpendLimitEnabled()
             enabled()
             features().ifPresent { it.validate() }
+            mm7Metadata().ifPresent { it.validate() }
             mmsFallBackToSms()
             mmsTranscoding()
             mobileOnly()
@@ -2257,6 +2334,7 @@ private constructor(
                 (if (dailySpendLimitEnabled.asKnown().isPresent) 1 else 0) +
                 (if (enabled.asKnown().isPresent) 1 else 0) +
                 (features.asKnown().getOrNull()?.validity() ?: 0) +
+                (mm7Metadata.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (mmsFallBackToSms.asKnown().isPresent) 1 else 0) +
                 (if (mmsTranscoding.asKnown().isPresent) 1 else 0) +
                 (if (mobileOnly.asKnown().isPresent) 1 else 0) +
@@ -2288,6 +2366,7 @@ private constructor(
                 dailySpendLimitEnabled == other.dailySpendLimitEnabled &&
                 enabled == other.enabled &&
                 features == other.features &&
+                mm7Metadata == other.mm7Metadata &&
                 mmsFallBackToSms == other.mmsFallBackToSms &&
                 mmsTranscoding == other.mmsTranscoding &&
                 mobileOnly == other.mobileOnly &&
@@ -2317,6 +2396,7 @@ private constructor(
                 dailySpendLimitEnabled,
                 enabled,
                 features,
+                mm7Metadata,
                 mmsFallBackToSms,
                 mmsTranscoding,
                 mobileOnly,
@@ -2340,7 +2420,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, features=$features, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, redactionEnabled=$redactionEnabled, redactionLevel=$redactionLevel, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+            "Body{id=$id, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, features=$features, mm7Metadata=$mm7Metadata, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, redactionEnabled=$redactionEnabled, redactionLevel=$redactionLevel, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
     }
 
     /** Identifies the type of the resource. */

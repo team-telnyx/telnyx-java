@@ -46,14 +46,14 @@ class BotSignupServiceAsyncImpl internal constructor(private val clientOptions: 
         params: BotSignupCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SuccessResponse> =
-        // post /v2/bot_signup
+        // post /bot_signup
         withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun resendMagicLink(
         params: BotSignupResendMagicLinkParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SuccessResponse> =
-        // post /v2/bot_signup/resend_magic_link
+        // post /bot_signup/resend_magic_link
         withRawResponse().resendMagicLink(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -80,7 +80,7 @@ class BotSignupServiceAsyncImpl internal constructor(private val clientOptions: 
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "bot_signup")
+                    .addPathSegments("bot_signup")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -113,7 +113,7 @@ class BotSignupServiceAsyncImpl internal constructor(private val clientOptions: 
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "bot_signup", "resend_magic_link")
+                    .addPathSegments("bot_signup", "resend_magic_link")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

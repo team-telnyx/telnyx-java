@@ -35,7 +35,9 @@ import kotlin.jvm.optionals.getOrNull
  * Sets a limit for a product and period that has none. Send exactly one of `amount` and `unlimited:
  * true`. The period's spend is checked at once: if it is already above the new limit, the product
  * is blocked immediately (`evaluation.blocked_now`). Returns 409 when a limit already exists for
- * the product and period; update it instead.
+ * the product and period; update it instead. With `credential_id`, the limit applies to that API
+ * key only: it needs an `amount`, and the period's API key limits cannot add up to more than the
+ * total limit when the total has an amount.
  */
 class SpendLimitCreateParams
 private constructor(
@@ -239,7 +241,7 @@ private constructor(
         fun createSpendLimitWithAmount(): Optional<CreateSpendLimitWithAmount> =
             Optional.ofNullable(createSpendLimitWithAmount)
 
-        /** Explicitly no cap. */
+        /** Explicitly no cap. Not available for API key limits. */
         fun createSpendLimitUnlimited(): Optional<CreateSpendLimitUnlimited> =
             Optional.ofNullable(createSpendLimitUnlimited)
 
@@ -251,7 +253,7 @@ private constructor(
         fun asCreateSpendLimitWithAmount(): CreateSpendLimitWithAmount =
             createSpendLimitWithAmount.getOrThrow("createSpendLimitWithAmount")
 
-        /** Explicitly no cap. */
+        /** Explicitly no cap. Not available for API key limits. */
         fun asCreateSpendLimitUnlimited(): CreateSpendLimitUnlimited =
             createSpendLimitUnlimited.getOrThrow("createSpendLimitUnlimited")
 
@@ -390,7 +392,7 @@ private constructor(
                 createSpendLimitWithAmount: CreateSpendLimitWithAmount
             ) = Body(createSpendLimitWithAmount = createSpendLimitWithAmount)
 
-            /** Explicitly no cap. */
+            /** Explicitly no cap. Not available for API key limits. */
             @JvmStatic
             fun ofCreateSpendLimitUnlimited(createSpendLimitUnlimited: CreateSpendLimitUnlimited) =
                 Body(createSpendLimitUnlimited = createSpendLimitUnlimited)
@@ -404,7 +406,7 @@ private constructor(
                 createSpendLimitWithAmount: CreateSpendLimitWithAmount
             ): T
 
-            /** Explicitly no cap. */
+            /** Explicitly no cap. Not available for API key limits. */
             fun visitCreateSpendLimitUnlimited(
                 createSpendLimitUnlimited: CreateSpendLimitUnlimited
             ): T
@@ -476,6 +478,7 @@ private constructor(
         private constructor(
             private val amount: JsonField<Double>,
             private val product: JsonField<String>,
+            private val credentialId: JsonField<String>,
             private val period: JsonField<SpendLimitPeriod>,
             private val reason: JsonField<String>,
             private val unlimited: JsonField<Unlimited>,
@@ -490,6 +493,9 @@ private constructor(
                 @JsonProperty("product")
                 @ExcludeMissing
                 product: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("credential_id")
+                @ExcludeMissing
+                credentialId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("period")
                 @ExcludeMissing
                 period: JsonField<SpendLimitPeriod> = JsonMissing.of(),
@@ -499,7 +505,7 @@ private constructor(
                 @JsonProperty("unlimited")
                 @ExcludeMissing
                 unlimited: JsonField<Unlimited> = JsonMissing.of(),
-            ) : this(amount, product, period, reason, unlimited, mutableMapOf())
+            ) : this(amount, product, credentialId, period, reason, unlimited, mutableMapOf())
 
             /**
              * Limit in USD. `0` blocks at the first cent of spend.
@@ -518,6 +524,17 @@ private constructor(
              *   value).
              */
             fun product(): String = product.getRequired("product")
+
+            /**
+             * Optional. Identifier of one API key as recorded on usage, never the key's secret: the
+             * limit then applies to that key only. Absent or `null` sets the total limit. A blank
+             * value, or one with control characters, is refused; it never means the total limit. An
+             * API key limit always has an `amount`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun credentialId(): Optional<String> = credentialId.getOptional("credential_id")
 
             /**
              * `daily` is the current UTC day; `monthly` is the current UTC calendar month.
@@ -556,6 +573,16 @@ private constructor(
              * Unlike [product], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("product") @ExcludeMissing fun _product(): JsonField<String> = product
+
+            /**
+             * Returns the raw JSON value of [credentialId].
+             *
+             * Unlike [credentialId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("credential_id")
+            @ExcludeMissing
+            fun _credentialId(): JsonField<String> = credentialId
 
             /**
              * Returns the raw JSON value of [period].
@@ -615,6 +642,7 @@ private constructor(
 
                 private var amount: JsonField<Double>? = null
                 private var product: JsonField<String>? = null
+                private var credentialId: JsonField<String> = JsonMissing.of()
                 private var period: JsonField<SpendLimitPeriod> = JsonMissing.of()
                 private var reason: JsonField<String> = JsonMissing.of()
                 private var unlimited: JsonField<Unlimited> = JsonMissing.of()
@@ -624,6 +652,7 @@ private constructor(
                 internal fun from(createSpendLimitWithAmount: CreateSpendLimitWithAmount) = apply {
                     amount = createSpendLimitWithAmount.amount
                     product = createSpendLimitWithAmount.product
+                    credentialId = createSpendLimitWithAmount.credentialId
                     period = createSpendLimitWithAmount.period
                     reason = createSpendLimitWithAmount.reason
                     unlimited = createSpendLimitWithAmount.unlimited
@@ -654,6 +683,30 @@ private constructor(
                  * yet supported value.
                  */
                 fun product(product: JsonField<String>) = apply { this.product = product }
+
+                /**
+                 * Optional. Identifier of one API key as recorded on usage, never the key's secret:
+                 * the limit then applies to that key only. Absent or `null` sets the total limit. A
+                 * blank value, or one with control characters, is refused; it never means the total
+                 * limit. An API key limit always has an `amount`.
+                 */
+                fun credentialId(credentialId: String?) =
+                    credentialId(JsonField.ofNullable(credentialId))
+
+                /** Alias for calling [Builder.credentialId] with `credentialId.orElse(null)`. */
+                fun credentialId(credentialId: Optional<String>) =
+                    credentialId(credentialId.getOrNull())
+
+                /**
+                 * Sets [Builder.credentialId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.credentialId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun credentialId(credentialId: JsonField<String>) = apply {
+                    this.credentialId = credentialId
+                }
 
                 /** `daily` is the current UTC day; `monthly` is the current UTC calendar month. */
                 fun period(period: SpendLimitPeriod) = period(JsonField.of(period))
@@ -732,6 +785,7 @@ private constructor(
                     CreateSpendLimitWithAmount(
                         checkRequired("amount", amount),
                         checkRequired("product", product),
+                        credentialId,
                         period,
                         reason,
                         unlimited,
@@ -758,6 +812,7 @@ private constructor(
 
                 amount()
                 product()
+                credentialId()
                 period().ifPresent { it.validate() }
                 reason()
                 unlimited().ifPresent { it.validate() }
@@ -782,6 +837,7 @@ private constructor(
             internal fun validity(): Int =
                 (if (amount.asKnown().isPresent) 1 else 0) +
                     (if (product.asKnown().isPresent) 1 else 0) +
+                    (if (credentialId.asKnown().isPresent) 1 else 0) +
                     (period.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (reason.asKnown().isPresent) 1 else 0) +
                     (unlimited.asKnown().getOrNull()?.validity() ?: 0)
@@ -928,6 +984,7 @@ private constructor(
                 return other is CreateSpendLimitWithAmount &&
                     amount == other.amount &&
                     product == other.product &&
+                    credentialId == other.credentialId &&
                     period == other.period &&
                     reason == other.reason &&
                     unlimited == other.unlimited &&
@@ -935,16 +992,24 @@ private constructor(
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(amount, product, period, reason, unlimited, additionalProperties)
+                Objects.hash(
+                    amount,
+                    product,
+                    credentialId,
+                    period,
+                    reason,
+                    unlimited,
+                    additionalProperties,
+                )
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CreateSpendLimitWithAmount{amount=$amount, product=$product, period=$period, reason=$reason, unlimited=$unlimited, additionalProperties=$additionalProperties}"
+                "CreateSpendLimitWithAmount{amount=$amount, product=$product, credentialId=$credentialId, period=$period, reason=$reason, unlimited=$unlimited, additionalProperties=$additionalProperties}"
         }
 
-        /** Explicitly no cap. */
+        /** Explicitly no cap. Not available for API key limits. */
         class CreateSpendLimitUnlimited
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(

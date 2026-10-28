@@ -40,7 +40,7 @@ class BotSessionServiceImpl internal constructor(private val clientOptions: Clie
         params: BotSessionListParams,
         requestOptions: RequestOptions,
     ): BotSessionListResponse =
-        // get /v2/bot_sessions
+        // get /bot_sessions
         withRawResponse().list(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -67,7 +67,7 @@ class BotSessionServiceImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "bot_sessions")
+                    .addPathSegments("bot_sessions")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

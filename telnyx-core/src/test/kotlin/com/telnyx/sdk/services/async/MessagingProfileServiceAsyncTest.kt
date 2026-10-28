@@ -8,6 +8,7 @@ import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileFeatures
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveMetricsParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
+import com.telnyx.sdk.models.messagingprofiles.Mm7Metadata
 import com.telnyx.sdk.models.messagingprofiles.NumberPoolSettings
 import com.telnyx.sdk.models.messagingprofiles.UrlShortenerSettings
 import java.time.OffsetDateTime
@@ -36,6 +37,12 @@ internal class MessagingProfileServiceAsyncTest {
                         MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
                     )
                     .healthWebhookUrl("health_webhook_url")
+                    .mm7Metadata(
+                        Mm7Metadata.builder()
+                            .mm7FailoverWebhookUrl("https://backup.example.com/hooks")
+                            .mm7WebhookUrl("https://www.example.com/hooks")
+                            .build()
+                    )
                     .mmsFallBackToSms(true)
                     .mmsTranscoding(true)
                     .mobileOnly(true)
@@ -100,6 +107,12 @@ internal class MessagingProfileServiceAsyncTest {
                     .enabled(true)
                     .features(
                         MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
+                    )
+                    .mm7Metadata(
+                        Mm7Metadata.builder()
+                            .mm7FailoverWebhookUrl("https://backup.example.com/hooks")
+                            .mm7WebhookUrl("https://www.example.com/hooks")
+                            .build()
                     )
                     .mmsFallBackToSms(true)
                     .mmsTranscoding(true)

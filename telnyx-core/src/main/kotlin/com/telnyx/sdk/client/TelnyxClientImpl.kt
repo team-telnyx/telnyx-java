@@ -18,6 +18,8 @@ import com.telnyx.sdk.services.blocking.AiService
 import com.telnyx.sdk.services.blocking.AiServiceImpl
 import com.telnyx.sdk.services.blocking.AlphanumericSenderIdService
 import com.telnyx.sdk.services.blocking.AlphanumericSenderIdServiceImpl
+import com.telnyx.sdk.services.blocking.ArtifactDownloadService
+import com.telnyx.sdk.services.blocking.ArtifactDownloadServiceImpl
 import com.telnyx.sdk.services.blocking.AuditEventService
 import com.telnyx.sdk.services.blocking.AuditEventServiceImpl
 import com.telnyx.sdk.services.blocking.AuthenticationProviderService
@@ -36,6 +38,8 @@ import com.telnyx.sdk.services.blocking.BotSessionService
 import com.telnyx.sdk.services.blocking.BotSessionServiceImpl
 import com.telnyx.sdk.services.blocking.BotSignupService
 import com.telnyx.sdk.services.blocking.BotSignupServiceImpl
+import com.telnyx.sdk.services.blocking.BrowserSessionService
+import com.telnyx.sdk.services.blocking.BrowserSessionServiceImpl
 import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BulkSimCardActionServiceImpl
 import com.telnyx.sdk.services.blocking.BundlePricingService
@@ -96,6 +100,8 @@ import com.telnyx.sdk.services.blocking.EmailInboxService
 import com.telnyx.sdk.services.blocking.EmailInboxServiceImpl
 import com.telnyx.sdk.services.blocking.EmailMessageService
 import com.telnyx.sdk.services.blocking.EmailMessageServiceImpl
+import com.telnyx.sdk.services.blocking.EmailService
+import com.telnyx.sdk.services.blocking.EmailServiceImpl
 import com.telnyx.sdk.services.blocking.EmailTemplateService
 import com.telnyx.sdk.services.blocking.EmailTemplateServiceImpl
 import com.telnyx.sdk.services.blocking.EmailThreadService
@@ -202,6 +208,8 @@ import com.telnyx.sdk.services.blocking.MobileVoiceConnectionService
 import com.telnyx.sdk.services.blocking.MobileVoiceConnectionServiceImpl
 import com.telnyx.sdk.services.blocking.NetworkCoverageService
 import com.telnyx.sdk.services.blocking.NetworkCoverageServiceImpl
+import com.telnyx.sdk.services.blocking.NetworkRouteService
+import com.telnyx.sdk.services.blocking.NetworkRouteServiceImpl
 import com.telnyx.sdk.services.blocking.NetworkService
 import com.telnyx.sdk.services.blocking.NetworkServiceImpl
 import com.telnyx.sdk.services.blocking.NoiseSuppressionEngineService
@@ -242,6 +250,8 @@ import com.telnyx.sdk.services.blocking.OtaUpdateService
 import com.telnyx.sdk.services.blocking.OtaUpdateServiceImpl
 import com.telnyx.sdk.services.blocking.OutboundVoiceProfileService
 import com.telnyx.sdk.services.blocking.OutboundVoiceProfileServiceImpl
+import com.telnyx.sdk.services.blocking.PayConnectorService
+import com.telnyx.sdk.services.blocking.PayConnectorServiceImpl
 import com.telnyx.sdk.services.blocking.PaymentService
 import com.telnyx.sdk.services.blocking.PaymentServiceImpl
 import com.telnyx.sdk.services.blocking.PhoneNumberBlockService
@@ -344,6 +354,8 @@ import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileServiceImpl
 import com.telnyx.sdk.services.blocking.TtsIntegrationService
 import com.telnyx.sdk.services.blocking.TtsIntegrationServiceImpl
+import com.telnyx.sdk.services.blocking.TunnelService
+import com.telnyx.sdk.services.blocking.TunnelServiceImpl
 import com.telnyx.sdk.services.blocking.UacConnectionService
 import com.telnyx.sdk.services.blocking.UacConnectionServiceImpl
 import com.telnyx.sdk.services.blocking.UsageReportService
@@ -409,6 +421,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     private val withRawResponse: TelnyxClient.WithRawResponse by lazy {
         WithRawResponseImpl(clientOptions)
+    }
+
+    private val browserSessions: BrowserSessionService by lazy {
+        BrowserSessionServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val legacy: LegacyService by lazy { LegacyServiceImpl(clientOptionsWithUserAgent) }
@@ -1120,12 +1136,30 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         TailscaleSubnetRouterServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val artifactDownloads: ArtifactDownloadService by lazy {
+        ArtifactDownloadServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val email: EmailService by lazy { EmailServiceImpl(clientOptionsWithUserAgent) }
+
+    private val networkRoutes: NetworkRouteService by lazy {
+        NetworkRouteServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val payConnectors: PayConnectorService by lazy {
+        PayConnectorServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val tunnels: TunnelService by lazy { TunnelServiceImpl(clientOptionsWithUserAgent) }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TelnyxClient =
         TelnyxClientImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun browserSessions(): BrowserSessionService = browserSessions
 
     override fun legacy(): LegacyService = legacy
 
@@ -1736,6 +1770,12 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
      *   billable chat completions, Responses, Anthropic Messages and classification requests;
      *   requests already running finish normally. Take the list of products from the list
      *   operation.
+     * - **API key limits.** For `inference`, a limit can also apply to one API key, named by
+     *   `credential_id`: the key's identifier as recorded on usage, never its secret. When the
+     *   key's spend goes above its own limit, only that key is blocked, with the error title `API
+     *   key spend limit reached` (code `10039`); the account's other keys keep working. The API key
+     *   limits of a period cannot add up to more than the total limit when the total has an amount.
+     *   Only language-model requests authenticated with an API key count toward its limit.
      * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is listed
      *   with `origin: operator` and you can update or delete it like your own.
      */
@@ -1754,10 +1794,28 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     /** Tailscale Subnet Router operations */
     override fun tailscaleSubnetRouters(): TailscaleSubnetRouterService = tailscaleSubnetRouters
 
+    /** Download screenshots and other artifacts. */
+    override fun artifactDownloads(): ArtifactDownloadService = artifactDownloads
+
+    override fun email(): EmailService = email
+
+    /** Routes on a Network that send a CIDR to a next hop, such as a tunnel. */
+    override fun networkRoutes(): NetworkRouteService = networkRoutes
+
+    /** Generic payment connector configuration. */
+    override fun payConnectors(): PayConnectorService = payConnectors
+
+    /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
+    override fun tunnels(): TunnelService = tunnels
+
     override fun close() = clientOptions.close()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TelnyxClient.WithRawResponse {
+
+        private val browserSessions: BrowserSessionService.WithRawResponse by lazy {
+            BrowserSessionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
 
         private val legacy: LegacyService.WithRawResponse by lazy {
             LegacyServiceImpl.WithRawResponseImpl(clientOptions)
@@ -2550,12 +2608,34 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             TailscaleSubnetRouterServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val artifactDownloads: ArtifactDownloadService.WithRawResponse by lazy {
+            ArtifactDownloadServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val email: EmailService.WithRawResponse by lazy {
+            EmailServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val networkRoutes: NetworkRouteService.WithRawResponse by lazy {
+            NetworkRouteServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val payConnectors: PayConnectorService.WithRawResponse by lazy {
+            PayConnectorServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val tunnels: TunnelService.WithRawResponse by lazy {
+            TunnelServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
             TelnyxClientImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun browserSessions(): BrowserSessionService.WithRawResponse = browserSessions
 
         override fun legacy(): LegacyService.WithRawResponse = legacy
 
@@ -3226,6 +3306,13 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
          *   new billable chat completions, Responses, Anthropic Messages and classification
          *   requests; requests already running finish normally. Take the list of products from the
          *   list operation.
+         * - **API key limits.** For `inference`, a limit can also apply to one API key, named by
+         *   `credential_id`: the key's identifier as recorded on usage, never its secret. When the
+         *   key's spend goes above its own limit, only that key is blocked, with the error title
+         *   `API key spend limit reached` (code `10039`); the account's other keys keep working.
+         *   The API key limits of a period cannot add up to more than the total limit when the
+         *   total has an amount. Only language-model requests authenticated with an API key count
+         *   toward its limit.
          * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is
          *   listed with `origin: operator` and you can update or delete it like your own.
          */
@@ -3245,5 +3332,20 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         /** Tailscale Subnet Router operations */
         override fun tailscaleSubnetRouters(): TailscaleSubnetRouterService.WithRawResponse =
             tailscaleSubnetRouters
+
+        /** Download screenshots and other artifacts. */
+        override fun artifactDownloads(): ArtifactDownloadService.WithRawResponse =
+            artifactDownloads
+
+        override fun email(): EmailService.WithRawResponse = email
+
+        /** Routes on a Network that send a CIDR to a next hop, such as a tunnel. */
+        override fun networkRoutes(): NetworkRouteService.WithRawResponse = networkRoutes
+
+        /** Generic payment connector configuration. */
+        override fun payConnectors(): PayConnectorService.WithRawResponse = payConnectors
+
+        /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
+        override fun tunnels(): TunnelService.WithRawResponse = tunnels
     }
 }

@@ -177,8 +177,8 @@ private constructor(
      * A comma-separated list of key terms to boost for recognition during transcription, used by
      * Deepgram, Reson8, Speechmatics Linden 1 and AssemblyAI models. Helps improve accuracy for
      * domain-specific terminology, proper nouns, or uncommon words. At most 1000 characters in
-     * total. For assemblyai/universal-3-5-pro (and its legacy alias
-     * assemblyai/universal-streaming), also at most 100 terms of up to 50 characters each. This
+     * total. For assemblyai/universal-3-6-pro (and its legacy aliases assemblyai/universal-3-5-pro
+     * and assemblyai/universal-streaming), also at most 100 terms of up to 50 characters each. This
      * field may be templated with
      * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
      * using mustache syntax (e.g. `Telnyx,{{customer_name}},VoIP`). Variables are resolved at call
@@ -211,9 +211,9 @@ private constructor(
         maxEndpointDelayMs.getOptional("max_endpoint_delay_ms")
 
     /**
-     * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-     * assemblyai/universal-streaming). Maximum duration of silence in milliseconds before forcing
-     * an end of turn.
+     * Available only for assemblyai/universal-3-6-pro (and its legacy aliases
+     * assemblyai/universal-3-5-pro and assemblyai/universal-streaming). Maximum duration of silence
+     * in milliseconds before forcing an end of turn.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -221,9 +221,9 @@ private constructor(
     fun maxTurnSilence(): Optional<Long> = maxTurnSilence.getOptional("max_turn_silence")
 
     /**
-     * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-     * assemblyai/universal-streaming). Minimum duration of silence in milliseconds before a turn
-     * can end. Must be less than or equal to max_turn_silence.
+     * Available only for assemblyai/universal-3-6-pro (and its legacy aliases
+     * assemblyai/universal-3-5-pro and assemblyai/universal-streaming). Minimum duration of silence
+     * in milliseconds before a turn can end. Must be less than or equal to max_turn_silence.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -237,10 +237,10 @@ private constructor(
     fun numerals(): Optional<Boolean> = numerals.getOptional("numerals")
 
     /**
-     * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-     * assemblyai/universal-streaming). Context about the conversation (domain, names, terms) to
-     * improve transcription; describe the content, do not give instructions. Leave empty unless
-     * needed. At most 1750 characters.
+     * Available only for assemblyai/universal-3-6-pro (and its legacy aliases
+     * assemblyai/universal-3-5-pro and assemblyai/universal-streaming). Context about the
+     * conversation (domain, names, terms) to improve transcription; describe the content, do not
+     * give instructions. Leave empty unless needed. At most 1750 characters.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -598,9 +598,9 @@ private constructor(
          * A comma-separated list of key terms to boost for recognition during transcription, used
          * by Deepgram, Reson8, Speechmatics Linden 1 and AssemblyAI models. Helps improve accuracy
          * for domain-specific terminology, proper nouns, or uncommon words. At most 1000 characters
-         * in total. For assemblyai/universal-3-5-pro (and its legacy alias
-         * assemblyai/universal-streaming), also at most 100 terms of up to 50 characters each. This
-         * field may be templated with
+         * in total. For assemblyai/universal-3-6-pro (and its legacy aliases
+         * assemblyai/universal-3-5-pro and assemblyai/universal-streaming), also at most 100 terms
+         * of up to 50 characters each. This field may be templated with
          * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
          * using mustache syntax (e.g. `Telnyx,{{customer_name}},VoIP`). Variables are resolved at
          * call time before the value is sent to the speech-to-text engine.
@@ -665,9 +665,9 @@ private constructor(
         }
 
         /**
-         * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-         * assemblyai/universal-streaming). Maximum duration of silence in milliseconds before
-         * forcing an end of turn.
+         * Available only for assemblyai/universal-3-6-pro (and its legacy aliases
+         * assemblyai/universal-3-5-pro and assemblyai/universal-streaming). Maximum duration of
+         * silence in milliseconds before forcing an end of turn.
          */
         fun maxTurnSilence(maxTurnSilence: Long) = maxTurnSilence(JsonField.of(maxTurnSilence))
 
@@ -683,9 +683,10 @@ private constructor(
         }
 
         /**
-         * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-         * assemblyai/universal-streaming). Minimum duration of silence in milliseconds before a
-         * turn can end. Must be less than or equal to max_turn_silence.
+         * Available only for assemblyai/universal-3-6-pro (and its legacy aliases
+         * assemblyai/universal-3-5-pro and assemblyai/universal-streaming). Minimum duration of
+         * silence in milliseconds before a turn can end. Must be less than or equal to
+         * max_turn_silence.
          */
         fun minTurnSilence(minTurnSilence: Long) = minTurnSilence(JsonField.of(minTurnSilence))
 
@@ -712,10 +713,10 @@ private constructor(
         fun numerals(numerals: JsonField<Boolean>) = apply { this.numerals = numerals }
 
         /**
-         * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-         * assemblyai/universal-streaming). Context about the conversation (domain, names, terms) to
-         * improve transcription; describe the content, do not give instructions. Leave empty unless
-         * needed. At most 1750 characters.
+         * Available only for assemblyai/universal-3-6-pro (and its legacy aliases
+         * assemblyai/universal-3-5-pro and assemblyai/universal-streaming). Context about the
+         * conversation (domain, names, terms) to improve transcription; describe the content, do
+         * not give instructions. Leave empty unless needed. At most 1750 characters.
          */
         fun prompt(prompt: String) = prompt(JsonField.of(prompt))
 

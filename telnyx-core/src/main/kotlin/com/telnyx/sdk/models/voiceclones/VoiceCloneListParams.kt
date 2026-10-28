@@ -15,6 +15,7 @@ import kotlin.jvm.optionals.getOrNull
 /** Returns a paginated list of voice clones belonging to the authenticated account. */
 class VoiceCloneListParams
 private constructor(
+    private val filterModelId: FilterModelId?,
     private val filterName: String?,
     private val filterProvider: FilterProvider?,
     private val pageNumber: Long?,
@@ -23,6 +24,9 @@ private constructor(
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    /** Filter by TTS model. Case-insensitive. */
+    fun filterModelId(): Optional<FilterModelId> = Optional.ofNullable(filterModelId)
 
     /** Case-insensitive substring filter on the name field. */
     fun filterName(): Optional<String> = Optional.ofNullable(filterName)
@@ -58,6 +62,7 @@ private constructor(
     /** A builder for [VoiceCloneListParams]. */
     class Builder internal constructor() {
 
+        private var filterModelId: FilterModelId? = null
         private var filterName: String? = null
         private var filterProvider: FilterProvider? = null
         private var pageNumber: Long? = null
@@ -69,6 +74,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(voiceCloneListParams: VoiceCloneListParams) = apply {
+            filterModelId = voiceCloneListParams.filterModelId
             filterName = voiceCloneListParams.filterName
             filterProvider = voiceCloneListParams.filterProvider
             pageNumber = voiceCloneListParams.pageNumber
@@ -77,6 +83,15 @@ private constructor(
             additionalHeaders = voiceCloneListParams.additionalHeaders.toBuilder()
             additionalQueryParams = voiceCloneListParams.additionalQueryParams.toBuilder()
         }
+
+        /** Filter by TTS model. Case-insensitive. */
+        fun filterModelId(filterModelId: FilterModelId?) = apply {
+            this.filterModelId = filterModelId
+        }
+
+        /** Alias for calling [Builder.filterModelId] with `filterModelId.orElse(null)`. */
+        fun filterModelId(filterModelId: Optional<FilterModelId>) =
+            filterModelId(filterModelId.getOrNull())
 
         /** Case-insensitive substring filter on the name field. */
         fun filterName(filterName: String?) = apply { this.filterName = filterName }
@@ -231,6 +246,7 @@ private constructor(
          */
         fun build(): VoiceCloneListParams =
             VoiceCloneListParams(
+                filterModelId,
                 filterName,
                 filterProvider,
                 pageNumber,
@@ -246,6 +262,7 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
+                filterModelId?.let { put("filter[model_id]", it.toString()) }
                 filterName?.let { put("filter[name]", it) }
                 filterProvider?.let { put("filter[provider]", it.toString()) }
                 pageNumber?.let { put("page[number]", it.toString()) }
@@ -254,6 +271,175 @@ private constructor(
                 putAll(additionalQueryParams)
             }
             .build()
+
+    /** Filter by TTS model. Case-insensitive. */
+    class FilterModelId @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val QWEN3_TTS = of("Qwen3TTS")
+
+            @JvmField val ULTRA = of("Ultra")
+
+            @JvmField val BAYAN = of("Bayan")
+
+            @JvmField val SPEECH_2_8_TURBO = of("speech-2.8-turbo")
+
+            @JvmField val PRO = of("Pro")
+
+            @JvmField val TURBO = of("Turbo")
+
+            @JvmField val URDU = of("Urdu")
+
+            @JvmStatic fun of(value: String) = FilterModelId(JsonField.of(value))
+        }
+
+        /** An enum containing [FilterModelId]'s known values. */
+        enum class Known {
+            QWEN3_TTS,
+            ULTRA,
+            BAYAN,
+            SPEECH_2_8_TURBO,
+            PRO,
+            TURBO,
+            URDU,
+        }
+
+        /**
+         * An enum containing [FilterModelId]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [FilterModelId] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            QWEN3_TTS,
+            ULTRA,
+            BAYAN,
+            SPEECH_2_8_TURBO,
+            PRO,
+            TURBO,
+            URDU,
+            /**
+             * An enum member indicating that [FilterModelId] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                QWEN3_TTS -> Value.QWEN3_TTS
+                ULTRA -> Value.ULTRA
+                BAYAN -> Value.BAYAN
+                SPEECH_2_8_TURBO -> Value.SPEECH_2_8_TURBO
+                PRO -> Value.PRO
+                TURBO -> Value.TURBO
+                URDU -> Value.URDU
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                QWEN3_TTS -> Known.QWEN3_TTS
+                ULTRA -> Known.ULTRA
+                BAYAN -> Known.BAYAN
+                SPEECH_2_8_TURBO -> Known.SPEECH_2_8_TURBO
+                PRO -> Known.PRO
+                TURBO -> Known.TURBO
+                URDU -> Known.URDU
+                else -> throw TelnyxInvalidDataException("Unknown FilterModelId: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): FilterModelId = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is FilterModelId && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
 
     /** Filter by voice synthesis provider. Case-insensitive. */
     class FilterProvider @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -547,6 +733,7 @@ private constructor(
         }
 
         return other is VoiceCloneListParams &&
+            filterModelId == other.filterModelId &&
             filterName == other.filterName &&
             filterProvider == other.filterProvider &&
             pageNumber == other.pageNumber &&
@@ -558,6 +745,7 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
+            filterModelId,
             filterName,
             filterProvider,
             pageNumber,
@@ -568,5 +756,5 @@ private constructor(
         )
 
     override fun toString() =
-        "VoiceCloneListParams{filterName=$filterName, filterProvider=$filterProvider, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "VoiceCloneListParams{filterModelId=$filterModelId, filterName=$filterName, filterProvider=$filterProvider, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
