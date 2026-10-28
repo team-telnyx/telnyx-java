@@ -40,6 +40,7 @@ private constructor(
     private val parameters: JsonField<Long>,
     private val tier: JsonField<Tier>,
     private val baseModel: JsonField<String>,
+    private val beta: JsonField<Boolean>,
     private val description: JsonField<String>,
     private val isFineTunable: JsonField<Boolean>,
     private val isVisionSupported: JsonField<Boolean>,
@@ -74,6 +75,7 @@ private constructor(
         @JsonProperty("parameters") @ExcludeMissing parameters: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("tier") @ExcludeMissing tier: JsonField<Tier> = JsonMissing.of(),
         @JsonProperty("base_model") @ExcludeMissing baseModel: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beta") @ExcludeMissing beta: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("description")
         @ExcludeMissing
         description: JsonField<String> = JsonMissing.of(),
@@ -112,6 +114,7 @@ private constructor(
         parameters,
         tier,
         baseModel,
+        beta,
         description,
         isFineTunable,
         isVisionSupported,
@@ -210,6 +213,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun baseModel(): Optional<String> = baseModel.getOptional("base_model")
+
+    /**
+     * Whether the model is in beta. New Telnyx-hosted models launch with `beta: true`; the label is
+     * removed once the model is established.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun beta(): Optional<Boolean> = beta.getOptional("beta")
 
     /**
      * Short, human-readable summary of what the model is best suited for.
@@ -391,6 +403,13 @@ private constructor(
     @JsonProperty("base_model") @ExcludeMissing fun _baseModel(): JsonField<String> = baseModel
 
     /**
+     * Returns the raw JSON value of [beta].
+     *
+     * Unlike [beta], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("beta") @ExcludeMissing fun _beta(): JsonField<Boolean> = beta
+
+    /**
      * Returns the raw JSON value of [description].
      *
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
@@ -528,6 +547,7 @@ private constructor(
         private var parameters: JsonField<Long>? = null
         private var tier: JsonField<Tier>? = null
         private var baseModel: JsonField<String> = JsonMissing.of()
+        private var beta: JsonField<Boolean> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var isFineTunable: JsonField<Boolean> = JsonMissing.of()
         private var isVisionSupported: JsonField<Boolean> = JsonMissing.of()
@@ -553,6 +573,7 @@ private constructor(
             parameters = modelMetadata.parameters
             tier = modelMetadata.tier
             baseModel = modelMetadata.baseModel
+            beta = modelMetadata.beta
             description = modelMetadata.description
             isFineTunable = modelMetadata.isFineTunable
             isVisionSupported = modelMetadata.isVisionSupported
@@ -719,6 +740,20 @@ private constructor(
          * value.
          */
         fun baseModel(baseModel: JsonField<String>) = apply { this.baseModel = baseModel }
+
+        /**
+         * Whether the model is in beta. New Telnyx-hosted models launch with `beta: true`; the
+         * label is removed once the model is established.
+         */
+        fun beta(beta: Boolean) = beta(JsonField.of(beta))
+
+        /**
+         * Sets [Builder.beta] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beta] with a well-typed [Boolean] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun beta(beta: JsonField<Boolean>) = apply { this.beta = beta }
 
         /** Short, human-readable summary of what the model is best suited for. */
         fun description(description: String?) = description(JsonField.ofNullable(description))
@@ -995,6 +1030,7 @@ private constructor(
                 checkRequired("parameters", parameters),
                 checkRequired("tier", tier),
                 baseModel,
+                beta,
                 description,
                 isFineTunable,
                 isVisionSupported,
@@ -1035,6 +1071,7 @@ private constructor(
         parameters()
         tier().validate()
         baseModel()
+        beta()
         description()
         isFineTunable()
         isVisionSupported()
@@ -1074,6 +1111,7 @@ private constructor(
             (if (parameters.asKnown().isPresent) 1 else 0) +
             (tier.asKnown().getOrNull()?.validity() ?: 0) +
             (if (baseModel.asKnown().isPresent) 1 else 0) +
+            (if (beta.asKnown().isPresent) 1 else 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
             (if (isFineTunable.asKnown().isPresent) 1 else 0) +
             (if (isVisionSupported.asKnown().isPresent) 1 else 0) +
@@ -1509,6 +1547,7 @@ private constructor(
             parameters == other.parameters &&
             tier == other.tier &&
             baseModel == other.baseModel &&
+            beta == other.beta &&
             description == other.description &&
             isFineTunable == other.isFineTunable &&
             isVisionSupported == other.isVisionSupported &&
@@ -1535,6 +1574,7 @@ private constructor(
             parameters,
             tier,
             baseModel,
+            beta,
             description,
             isFineTunable,
             isVisionSupported,
@@ -1553,5 +1593,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ModelMetadata{id=$id, contextLength=$contextLength, created=$created, languages=$languages, license=$license, organization=$organization, ownedBy=$ownedBy, parameters=$parameters, tier=$tier, baseModel=$baseModel, description=$description, isFineTunable=$isFineTunable, isVisionSupported=$isVisionSupported, maxCompletionTokens=$maxCompletionTokens, modelObject=$modelObject, parametersStr=$parametersStr, pricing=$pricing, recommendedForAssistants=$recommendedForAssistants, regions=$regions, serviceTiers=$serviceTiers, task=$task, additionalProperties=$additionalProperties}"
+        "ModelMetadata{id=$id, contextLength=$contextLength, created=$created, languages=$languages, license=$license, organization=$organization, ownedBy=$ownedBy, parameters=$parameters, tier=$tier, baseModel=$baseModel, beta=$beta, description=$description, isFineTunable=$isFineTunable, isVisionSupported=$isVisionSupported, maxCompletionTokens=$maxCompletionTokens, modelObject=$modelObject, parametersStr=$parametersStr, pricing=$pricing, recommendedForAssistants=$recommendedForAssistants, regions=$regions, serviceTiers=$serviceTiers, task=$task, additionalProperties=$additionalProperties}"
 }
