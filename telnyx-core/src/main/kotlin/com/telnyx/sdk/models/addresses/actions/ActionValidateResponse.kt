@@ -438,15 +438,12 @@ private constructor(
 
                 @JvmField val VALID = of("valid")
 
-                @JvmField val INVALID = of("invalid")
-
                 @JvmStatic fun of(value: String) = Result(JsonField.of(value))
             }
 
             /** An enum containing [Result]'s known values. */
             enum class Known {
-                VALID,
-                INVALID,
+                VALID
             }
 
             /**
@@ -460,7 +457,6 @@ private constructor(
              */
             enum class Value {
                 VALID,
-                INVALID,
                 /**
                  * An enum member indicating that [Result] was instantiated with an unknown value.
                  */
@@ -477,7 +473,6 @@ private constructor(
             fun value(): Value =
                 when (this) {
                     VALID -> Value.VALID
-                    INVALID -> Value.INVALID
                     else -> Value._UNKNOWN
                 }
 
@@ -493,7 +488,6 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     VALID -> Known.VALID
-                    INVALID -> Known.INVALID
                     else -> throw TelnyxInvalidDataException("Unknown Result: $value")
                 }
 
