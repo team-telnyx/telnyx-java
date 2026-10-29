@@ -15,6 +15,8 @@ import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListPage
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveResponse
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveTokenMaterialParams
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveTokenMaterialResponse
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialUpdateParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialUpdateResponse
 import java.util.function.Consumer
@@ -191,6 +193,54 @@ interface TelephonyCredentialService {
     /** @see createToken */
     fun createToken(id: String, requestOptions: RequestOptions): String =
         createToken(id, TelephonyCredentialCreateTokenParams.none(), requestOptions)
+
+    /**
+     * Returns the material a server needs to mint login tokens for the credential locally, with no
+     * request per token: `kid`, `tel_token` and `signing_secret`. The same material is in the
+     * response of `POST /telephony_credentials`. Treat it like the SIP password.
+     */
+    fun retrieveTokenMaterial(id: String): TelephonyCredentialRetrieveTokenMaterialResponse =
+        retrieveTokenMaterial(id, TelephonyCredentialRetrieveTokenMaterialParams.none())
+
+    /** @see retrieveTokenMaterial */
+    fun retrieveTokenMaterial(
+        id: String,
+        params: TelephonyCredentialRetrieveTokenMaterialParams =
+            TelephonyCredentialRetrieveTokenMaterialParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): TelephonyCredentialRetrieveTokenMaterialResponse =
+        retrieveTokenMaterial(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see retrieveTokenMaterial */
+    fun retrieveTokenMaterial(
+        id: String,
+        params: TelephonyCredentialRetrieveTokenMaterialParams =
+            TelephonyCredentialRetrieveTokenMaterialParams.none(),
+    ): TelephonyCredentialRetrieveTokenMaterialResponse =
+        retrieveTokenMaterial(id, params, RequestOptions.none())
+
+    /** @see retrieveTokenMaterial */
+    fun retrieveTokenMaterial(
+        params: TelephonyCredentialRetrieveTokenMaterialParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): TelephonyCredentialRetrieveTokenMaterialResponse
+
+    /** @see retrieveTokenMaterial */
+    fun retrieveTokenMaterial(
+        params: TelephonyCredentialRetrieveTokenMaterialParams
+    ): TelephonyCredentialRetrieveTokenMaterialResponse =
+        retrieveTokenMaterial(params, RequestOptions.none())
+
+    /** @see retrieveTokenMaterial */
+    fun retrieveTokenMaterial(
+        id: String,
+        requestOptions: RequestOptions,
+    ): TelephonyCredentialRetrieveTokenMaterialResponse =
+        retrieveTokenMaterial(
+            id,
+            TelephonyCredentialRetrieveTokenMaterialParams.none(),
+            requestOptions,
+        )
 
     /**
      * A view of [TelephonyCredentialService] that provides access to raw HTTP responses for each
@@ -432,5 +482,60 @@ interface TelephonyCredentialService {
         @MustBeClosed
         fun createToken(id: String, requestOptions: RequestOptions): HttpResponseFor<String> =
             createToken(id, TelephonyCredentialCreateTokenParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /telephony_credentials/{id}/token_material`, but is
+         * otherwise the same as [TelephonyCredentialService.retrieveTokenMaterial].
+         */
+        @MustBeClosed
+        fun retrieveTokenMaterial(
+            id: String
+        ): HttpResponseFor<TelephonyCredentialRetrieveTokenMaterialResponse> =
+            retrieveTokenMaterial(id, TelephonyCredentialRetrieveTokenMaterialParams.none())
+
+        /** @see retrieveTokenMaterial */
+        @MustBeClosed
+        fun retrieveTokenMaterial(
+            id: String,
+            params: TelephonyCredentialRetrieveTokenMaterialParams =
+                TelephonyCredentialRetrieveTokenMaterialParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<TelephonyCredentialRetrieveTokenMaterialResponse> =
+            retrieveTokenMaterial(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see retrieveTokenMaterial */
+        @MustBeClosed
+        fun retrieveTokenMaterial(
+            id: String,
+            params: TelephonyCredentialRetrieveTokenMaterialParams =
+                TelephonyCredentialRetrieveTokenMaterialParams.none(),
+        ): HttpResponseFor<TelephonyCredentialRetrieveTokenMaterialResponse> =
+            retrieveTokenMaterial(id, params, RequestOptions.none())
+
+        /** @see retrieveTokenMaterial */
+        @MustBeClosed
+        fun retrieveTokenMaterial(
+            params: TelephonyCredentialRetrieveTokenMaterialParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<TelephonyCredentialRetrieveTokenMaterialResponse>
+
+        /** @see retrieveTokenMaterial */
+        @MustBeClosed
+        fun retrieveTokenMaterial(
+            params: TelephonyCredentialRetrieveTokenMaterialParams
+        ): HttpResponseFor<TelephonyCredentialRetrieveTokenMaterialResponse> =
+            retrieveTokenMaterial(params, RequestOptions.none())
+
+        /** @see retrieveTokenMaterial */
+        @MustBeClosed
+        fun retrieveTokenMaterial(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<TelephonyCredentialRetrieveTokenMaterialResponse> =
+            retrieveTokenMaterial(
+                id,
+                TelephonyCredentialRetrieveTokenMaterialParams.none(),
+                requestOptions,
+            )
     }
 }

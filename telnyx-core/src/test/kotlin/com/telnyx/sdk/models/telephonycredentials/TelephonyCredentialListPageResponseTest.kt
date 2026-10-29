@@ -26,6 +26,15 @@ internal class TelephonyCredentialListPageResponseTest {
                         .resourceId("connection:804252963366242252")
                         .sipPassword("a92dbcfb60184a8cb330b0acb2f7617b")
                         .sipUsername("gencrednCvHU5IYpSBPPsXI2iQsDX")
+                        .tokenMaterial(
+                            TokenMaterial.builder()
+                                .kid("v1")
+                                .signingSecret("cCL985ACi7wpbe_2xh1VDF3NabPJ90u1wCKmJCPNpxw")
+                                .telToken(
+                                    "rj_ZkkZUOZMxZOfOmLpEUB3siU7u6RjZFeM9s-gb_xCR56WFKFAJiMyF2T6CBRmlh_Sy0i_lfyT9AI8sEif8MTIIszyzSl_aDnG48aO50yaHGuRSYbUbSYm9WIiQ0g=="
+                                )
+                                .build()
+                        )
                         .updatedAt("2020-06-18T21:32:38.000Z")
                         .userId("user-id")
                         .build()
@@ -52,6 +61,15 @@ internal class TelephonyCredentialListPageResponseTest {
                     .resourceId("connection:804252963366242252")
                     .sipPassword("a92dbcfb60184a8cb330b0acb2f7617b")
                     .sipUsername("gencrednCvHU5IYpSBPPsXI2iQsDX")
+                    .tokenMaterial(
+                        TokenMaterial.builder()
+                            .kid("v1")
+                            .signingSecret("cCL985ACi7wpbe_2xh1VDF3NabPJ90u1wCKmJCPNpxw")
+                            .telToken(
+                                "rj_ZkkZUOZMxZOfOmLpEUB3siU7u6RjZFeM9s-gb_xCR56WFKFAJiMyF2T6CBRmlh_Sy0i_lfyT9AI8sEif8MTIIszyzSl_aDnG48aO50yaHGuRSYbUbSYm9WIiQ0g=="
+                            )
+                            .build()
+                    )
                     .updatedAt("2020-06-18T21:32:38.000Z")
                     .userId("user-id")
                     .build()
@@ -83,6 +101,15 @@ internal class TelephonyCredentialListPageResponseTest {
                         .resourceId("connection:804252963366242252")
                         .sipPassword("a92dbcfb60184a8cb330b0acb2f7617b")
                         .sipUsername("gencrednCvHU5IYpSBPPsXI2iQsDX")
+                        .tokenMaterial(
+                            TokenMaterial.builder()
+                                .kid("v1")
+                                .signingSecret("cCL985ACi7wpbe_2xh1VDF3NabPJ90u1wCKmJCPNpxw")
+                                .telToken(
+                                    "rj_ZkkZUOZMxZOfOmLpEUB3siU7u6RjZFeM9s-gb_xCR56WFKFAJiMyF2T6CBRmlh_Sy0i_lfyT9AI8sEif8MTIIszyzSl_aDnG48aO50yaHGuRSYbUbSYm9WIiQ0g=="
+                                )
+                                .build()
+                        )
                         .updatedAt("2020-06-18T21:32:38.000Z")
                         .userId("user-id")
                         .build()

@@ -86,7 +86,9 @@ internal class TextToSpeechServiceTest {
                             .language("en")
                             .modelId(TextToSpeechGenerateSpeechParams.Soniox.ModelId.TTS_RT_V2)
                             .reduceSilence(true)
-                            .sampleRate(TextToSpeechGenerateSpeechParams.Soniox.SampleRate._8000)
+                            .sampleRate(
+                                TextToSpeechGenerateSpeechParams.Soniox.SampleRate.SAMPLE_RATE_8000
+                            )
                             .speed(1.0f)
                             .build()
                     )

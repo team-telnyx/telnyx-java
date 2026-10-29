@@ -3,7 +3,6 @@
 package com.telnyx.sdk.models.payconnectors
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
@@ -24,7 +23,7 @@ internal class PayConnectorListPageResponseTest {
                                 .authType(PayConnector.Config.AuthType.NONE)
                                 .endpointUrl("https://processor.example.com/pay")
                                 .timeout(1L)
-                                .username(JsonValue.from(mapOf<String, Any>()))
+                                .username("username")
                                 .build()
                         )
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -55,7 +54,7 @@ internal class PayConnectorListPageResponseTest {
                             .authType(PayConnector.Config.AuthType.NONE)
                             .endpointUrl("https://processor.example.com/pay")
                             .timeout(1L)
-                            .username(JsonValue.from(mapOf<String, Any>()))
+                            .username("username")
                             .build()
                     )
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -91,7 +90,7 @@ internal class PayConnectorListPageResponseTest {
                                 .authType(PayConnector.Config.AuthType.NONE)
                                 .endpointUrl("https://processor.example.com/pay")
                                 .timeout(1L)
-                                .username(JsonValue.from(mapOf<String, Any>()))
+                                .username("username")
                                 .build()
                         )
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

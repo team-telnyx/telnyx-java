@@ -12,17 +12,17 @@ internal class VariableSchemaEntryTest {
     @Test
     fun create() {
         val variableSchemaEntry =
-            VariableSchemaEntry.builder().required(true).default_("default").build()
+            VariableSchemaEntry.builder().required(true).defaultValue("default").build()
 
         assertThat(variableSchemaEntry.required()).isEqualTo(true)
-        assertThat(variableSchemaEntry.default_()).contains("default")
+        assertThat(variableSchemaEntry.defaultValue()).contains("default")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val variableSchemaEntry =
-            VariableSchemaEntry.builder().required(true).default_("default").build()
+            VariableSchemaEntry.builder().required(true).defaultValue("default").build()
 
         val roundtrippedVariableSchemaEntry =
             jsonMapper.readValue(

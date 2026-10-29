@@ -30,6 +30,8 @@ import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListPageRes
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveResponse
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveTokenMaterialParams
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveTokenMaterialResponse
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialUpdateParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialUpdateResponse
 import java.util.concurrent.CompletableFuture
@@ -94,6 +96,15 @@ internal constructor(private val clientOptions: ClientOptions) : TelephonyCreden
     ): CompletableFuture<String> =
         // post /telephony_credentials/{id}/token
         withRawResponse().createToken(params, requestOptions).mapCancellable { it.parse() }
+
+    override fun retrieveTokenMaterial(
+        params: TelephonyCredentialRetrieveTokenMaterialParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<TelephonyCredentialRetrieveTokenMaterialResponse> =
+        // get /telephony_credentials/{id}/token_material
+        withRawResponse().retrieveTokenMaterial(params, requestOptions).mapCancellable {
+            it.parse()
+        }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TelephonyCredentialServiceAsync.WithRawResponse {
@@ -314,6 +325,46 @@ internal constructor(private val clientOptions: ClientOptions) : TelephonyCreden
                 .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { createTokenHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val retrieveTokenMaterialHandler:
+            Handler<TelephonyCredentialRetrieveTokenMaterialResponse> =
+            jsonHandler<TelephonyCredentialRetrieveTokenMaterialResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveTokenMaterial(
+            params: TelephonyCredentialRetrieveTokenMaterialParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<TelephonyCredentialRetrieveTokenMaterialResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "telephony_credentials",
+                        params._pathParam(0),
+                        "token_material",
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveTokenMaterialHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }

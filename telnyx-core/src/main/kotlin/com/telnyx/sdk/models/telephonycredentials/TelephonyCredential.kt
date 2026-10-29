@@ -14,6 +14,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 class TelephonyCredential
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -27,6 +28,7 @@ private constructor(
     private val resourceId: JsonField<String>,
     private val sipPassword: JsonField<String>,
     private val sipUsername: JsonField<String>,
+    private val tokenMaterial: JsonField<TokenMaterial>,
     private val updatedAt: JsonField<String>,
     private val userId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -51,6 +53,9 @@ private constructor(
         @JsonProperty("sip_username")
         @ExcludeMissing
         sipUsername: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("token_material")
+        @ExcludeMissing
+        tokenMaterial: JsonField<TokenMaterial> = JsonMissing.of(),
         @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("user_id") @ExcludeMissing userId: JsonField<String> = JsonMissing.of(),
     ) : this(
@@ -63,6 +68,7 @@ private constructor(
         resourceId,
         sipPassword,
         sipUsername,
+        tokenMaterial,
         updatedAt,
         userId,
         mutableMapOf(),
@@ -137,6 +143,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun sipUsername(): Optional<String> = sipUsername.getOptional("sip_username")
+
+    /**
+     * Returned when the credential is created. See `GET /telephony_credentials/{id}/token_material`
+     * to fetch it again.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun tokenMaterial(): Optional<TokenMaterial> = tokenMaterial.getOptional("token_material")
 
     /**
      * ISO-8601 formatted date indicating when the resource was updated.
@@ -222,6 +237,15 @@ private constructor(
     fun _sipUsername(): JsonField<String> = sipUsername
 
     /**
+     * Returns the raw JSON value of [tokenMaterial].
+     *
+     * Unlike [tokenMaterial], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("token_material")
+    @ExcludeMissing
+    fun _tokenMaterial(): JsonField<TokenMaterial> = tokenMaterial
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -265,6 +289,7 @@ private constructor(
         private var resourceId: JsonField<String> = JsonMissing.of()
         private var sipPassword: JsonField<String> = JsonMissing.of()
         private var sipUsername: JsonField<String> = JsonMissing.of()
+        private var tokenMaterial: JsonField<TokenMaterial> = JsonMissing.of()
         private var updatedAt: JsonField<String> = JsonMissing.of()
         private var userId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -280,6 +305,7 @@ private constructor(
             resourceId = telephonyCredential.resourceId
             sipPassword = telephonyCredential.sipPassword
             sipUsername = telephonyCredential.sipUsername
+            tokenMaterial = telephonyCredential.tokenMaterial
             updatedAt = telephonyCredential.updatedAt
             userId = telephonyCredential.userId
             additionalProperties = telephonyCredential.additionalProperties.toMutableMap()
@@ -389,6 +415,23 @@ private constructor(
          */
         fun sipUsername(sipUsername: JsonField<String>) = apply { this.sipUsername = sipUsername }
 
+        /**
+         * Returned when the credential is created. See `GET
+         * /telephony_credentials/{id}/token_material` to fetch it again.
+         */
+        fun tokenMaterial(tokenMaterial: TokenMaterial) = tokenMaterial(JsonField.of(tokenMaterial))
+
+        /**
+         * Sets [Builder.tokenMaterial] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tokenMaterial] with a well-typed [TokenMaterial] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun tokenMaterial(tokenMaterial: JsonField<TokenMaterial>) = apply {
+            this.tokenMaterial = tokenMaterial
+        }
+
         /** ISO-8601 formatted date indicating when the resource was updated. */
         fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
 
@@ -447,6 +490,7 @@ private constructor(
                 resourceId,
                 sipPassword,
                 sipUsername,
+                tokenMaterial,
                 updatedAt,
                 userId,
                 additionalProperties.toMutableMap(),
@@ -477,6 +521,7 @@ private constructor(
         resourceId()
         sipPassword()
         sipUsername()
+        tokenMaterial().ifPresent { it.validate() }
         updatedAt()
         userId()
         validated = true
@@ -506,6 +551,7 @@ private constructor(
             (if (resourceId.asKnown().isPresent) 1 else 0) +
             (if (sipPassword.asKnown().isPresent) 1 else 0) +
             (if (sipUsername.asKnown().isPresent) 1 else 0) +
+            (tokenMaterial.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (if (userId.asKnown().isPresent) 1 else 0)
 
@@ -524,6 +570,7 @@ private constructor(
             resourceId == other.resourceId &&
             sipPassword == other.sipPassword &&
             sipUsername == other.sipUsername &&
+            tokenMaterial == other.tokenMaterial &&
             updatedAt == other.updatedAt &&
             userId == other.userId &&
             additionalProperties == other.additionalProperties
@@ -540,6 +587,7 @@ private constructor(
             resourceId,
             sipPassword,
             sipUsername,
+            tokenMaterial,
             updatedAt,
             userId,
             additionalProperties,
@@ -549,5 +597,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TelephonyCredential{id=$id, createdAt=$createdAt, expired=$expired, expiresAt=$expiresAt, name=$name, recordType=$recordType, resourceId=$resourceId, sipPassword=$sipPassword, sipUsername=$sipUsername, updatedAt=$updatedAt, userId=$userId, additionalProperties=$additionalProperties}"
+        "TelephonyCredential{id=$id, createdAt=$createdAt, expired=$expired, expiresAt=$expiresAt, name=$name, recordType=$recordType, resourceId=$resourceId, sipPassword=$sipPassword, sipUsername=$sipUsername, tokenMaterial=$tokenMaterial, updatedAt=$updatedAt, userId=$userId, additionalProperties=$additionalProperties}"
 }

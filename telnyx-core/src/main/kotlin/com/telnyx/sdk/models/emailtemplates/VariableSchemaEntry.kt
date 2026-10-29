@@ -20,15 +20,15 @@ class VariableSchemaEntry
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val required: JsonField<Boolean>,
-    private val default_: JsonField<String>,
+    private val defaultValue: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("required") @ExcludeMissing required: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("default") @ExcludeMissing default_: JsonField<String> = JsonMissing.of(),
-    ) : this(required, default_, mutableMapOf())
+        @JsonProperty("default") @ExcludeMissing defaultValue: JsonField<String> = JsonMissing.of(),
+    ) : this(required, defaultValue, mutableMapOf())
 
     /**
      * Whether the variable must be supplied when strict variable validation is enabled.
@@ -44,7 +44,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun default_(): Optional<String> = default_.getOptional("default")
+    fun defaultValue(): Optional<String> = defaultValue.getOptional("default")
 
     /**
      * Returns the raw JSON value of [required].
@@ -54,11 +54,11 @@ private constructor(
     @JsonProperty("required") @ExcludeMissing fun _required(): JsonField<Boolean> = required
 
     /**
-     * Returns the raw JSON value of [default_].
+     * Returns the raw JSON value of [defaultValue].
      *
-     * Unlike [default_], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [defaultValue], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("default") @ExcludeMissing fun _default_(): JsonField<String> = default_
+    @JsonProperty("default") @ExcludeMissing fun _defaultValue(): JsonField<String> = defaultValue
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -89,13 +89,13 @@ private constructor(
     class Builder internal constructor() {
 
         private var required: JsonField<Boolean>? = null
-        private var default_: JsonField<String> = JsonMissing.of()
+        private var defaultValue: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(variableSchemaEntry: VariableSchemaEntry) = apply {
             required = variableSchemaEntry.required
-            default_ = variableSchemaEntry.default_
+            defaultValue = variableSchemaEntry.defaultValue
             additionalProperties = variableSchemaEntry.additionalProperties.toMutableMap()
         }
 
@@ -112,15 +112,18 @@ private constructor(
         fun required(required: JsonField<Boolean>) = apply { this.required = required }
 
         /** Default value for an optional variable. Rejected when `required` is `true`. */
-        fun default_(default_: String) = default_(JsonField.of(default_))
+        fun defaultValue(defaultValue: String) = defaultValue(JsonField.of(defaultValue))
 
         /**
-         * Sets [Builder.default_] to an arbitrary JSON value.
+         * Sets [Builder.defaultValue] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.default_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.defaultValue] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun default_(default_: JsonField<String>) = apply { this.default_ = default_ }
+        fun defaultValue(defaultValue: JsonField<String>) = apply {
+            this.defaultValue = defaultValue
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -156,7 +159,7 @@ private constructor(
         fun build(): VariableSchemaEntry =
             VariableSchemaEntry(
                 checkRequired("required", required),
-                default_,
+                defaultValue,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -177,7 +180,7 @@ private constructor(
         }
 
         required()
-        default_()
+        defaultValue()
         validated = true
     }
 
@@ -196,7 +199,8 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (required.asKnown().isPresent) 1 else 0) + (if (default_.asKnown().isPresent) 1 else 0)
+        (if (required.asKnown().isPresent) 1 else 0) +
+            (if (defaultValue.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -205,14 +209,14 @@ private constructor(
 
         return other is VariableSchemaEntry &&
             required == other.required &&
-            default_ == other.default_ &&
+            defaultValue == other.defaultValue &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(required, default_, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(required, defaultValue, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VariableSchemaEntry{required=$required, default_=$default_, additionalProperties=$additionalProperties}"
+        "VariableSchemaEntry{required=$required, defaultValue=$defaultValue, additionalProperties=$additionalProperties}"
 }

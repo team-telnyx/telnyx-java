@@ -52,7 +52,7 @@ internal class DialMetricListPageResponseTest {
                         .next(
                             "/v2/dial_metrics?end_time=2026-09-29T14%3A00%3A00.000Z&granularity=hour&page%5Bafter%5D=MTc5MDY4NjgwMDpldQ&page%5Blimit%5D=2&sort=-start_time&start_time=2026-09-29T12%3A00%3A00.000Z"
                         )
-                        .sort(DialMetricListPageResponse.Meta.Sort.minus_START_TIME)
+                        .sort(DialMetricListPageResponse.Meta.Sort.MINUS_START_TIME)
                         .startTime(OffsetDateTime.parse("2026-09-29T12:00:00.000Z"))
                         .build()
                 )
@@ -97,7 +97,7 @@ internal class DialMetricListPageResponseTest {
                     .next(
                         "/v2/dial_metrics?end_time=2026-09-29T14%3A00%3A00.000Z&granularity=hour&page%5Bafter%5D=MTc5MDY4NjgwMDpldQ&page%5Blimit%5D=2&sort=-start_time&start_time=2026-09-29T12%3A00%3A00.000Z"
                     )
-                    .sort(DialMetricListPageResponse.Meta.Sort.minus_START_TIME)
+                    .sort(DialMetricListPageResponse.Meta.Sort.MINUS_START_TIME)
                     .startTime(OffsetDateTime.parse("2026-09-29T12:00:00.000Z"))
                     .build()
             )
@@ -145,7 +145,7 @@ internal class DialMetricListPageResponseTest {
                         .next(
                             "/v2/dial_metrics?end_time=2026-09-29T14%3A00%3A00.000Z&granularity=hour&page%5Bafter%5D=MTc5MDY4NjgwMDpldQ&page%5Blimit%5D=2&sort=-start_time&start_time=2026-09-29T12%3A00%3A00.000Z"
                         )
-                        .sort(DialMetricListPageResponse.Meta.Sort.minus_START_TIME)
+                        .sort(DialMetricListPageResponse.Meta.Sort.MINUS_START_TIME)
                         .startTime(OffsetDateTime.parse("2026-09-29T12:00:00.000Z"))
                         .build()
                 )

@@ -3,7 +3,6 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.payconnectors.GenericPayConnectorConfig
 import com.telnyx.sdk.models.payconnectors.PayConnectorCreateParams
 import com.telnyx.sdk.models.payconnectors.PayConnectorUpdateParams
@@ -23,11 +22,11 @@ internal class PayConnectorServiceAsyncTest {
                 PayConnectorCreateParams.builder()
                     .config(
                         GenericPayConnectorConfig.NoProcessorAuthentication.builder()
-                            .token(JsonValue.from(mapOf<String, Any>()))
+                            .token("token")
                             .endpointUrl("https://processor.example.com/pay")
-                            .password(JsonValue.from(mapOf<String, Any>()))
+                            .password("password")
                             .timeout(1L)
-                            .username(JsonValue.from(mapOf<String, Any>()))
+                            .username("username")
                             .build()
                     )
                     .name("my-payment-connector")
@@ -67,7 +66,7 @@ internal class PayConnectorServiceAsyncTest {
                             .builder()
                             .password("P")
                             .username("P")
-                            .token(JsonValue.from(mapOf<String, Any>()))
+                            .token("token")
                             .authType(
                                 GenericPayConnectorConfig
                                     .BasicAuthenticationAlsoTheValidationDefault

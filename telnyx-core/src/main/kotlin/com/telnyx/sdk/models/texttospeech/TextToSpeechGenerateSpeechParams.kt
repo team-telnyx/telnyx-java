@@ -4951,26 +4951,26 @@ private constructor(
 
             companion object {
 
-                @JvmField val _8000 = of(8000L)
+                @JvmField val SAMPLE_RATE_8000 = of(8000L)
 
-                @JvmField val _16000 = of(16000L)
+                @JvmField val SAMPLE_RATE_16000 = of(16000L)
 
-                @JvmField val _24000 = of(24000L)
+                @JvmField val SAMPLE_RATE_24000 = of(24000L)
 
-                @JvmField val _44100 = of(44100L)
+                @JvmField val SAMPLE_RATE_44100 = of(44100L)
 
-                @JvmField val _48000 = of(48000L)
+                @JvmField val SAMPLE_RATE_48000 = of(48000L)
 
                 @JvmStatic fun of(value: Long) = SampleRate(JsonField.of(value))
             }
 
             /** An enum containing [SampleRate]'s known values. */
             enum class Known {
-                _8000,
-                _16000,
-                _24000,
-                _44100,
-                _48000,
+                SAMPLE_RATE_8000,
+                SAMPLE_RATE_16000,
+                SAMPLE_RATE_24000,
+                SAMPLE_RATE_44100,
+                SAMPLE_RATE_48000,
             }
 
             /**
@@ -4983,11 +4983,11 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                _8000,
-                _16000,
-                _24000,
-                _44100,
-                _48000,
+                SAMPLE_RATE_8000,
+                SAMPLE_RATE_16000,
+                SAMPLE_RATE_24000,
+                SAMPLE_RATE_44100,
+                SAMPLE_RATE_48000,
                 /**
                  * An enum member indicating that [SampleRate] was instantiated with an unknown
                  * value.
@@ -5004,11 +5004,11 @@ private constructor(
              */
             fun value(): Value =
                 when (this) {
-                    _8000 -> Value._8000
-                    _16000 -> Value._16000
-                    _24000 -> Value._24000
-                    _44100 -> Value._44100
-                    _48000 -> Value._48000
+                    SAMPLE_RATE_8000 -> Value.SAMPLE_RATE_8000
+                    SAMPLE_RATE_16000 -> Value.SAMPLE_RATE_16000
+                    SAMPLE_RATE_24000 -> Value.SAMPLE_RATE_24000
+                    SAMPLE_RATE_44100 -> Value.SAMPLE_RATE_44100
+                    SAMPLE_RATE_48000 -> Value.SAMPLE_RATE_48000
                     else -> Value._UNKNOWN
                 }
 
@@ -5023,11 +5023,11 @@ private constructor(
              */
             fun known(): Known =
                 when (this) {
-                    _8000 -> Known._8000
-                    _16000 -> Known._16000
-                    _24000 -> Known._24000
-                    _44100 -> Known._44100
-                    _48000 -> Known._48000
+                    SAMPLE_RATE_8000 -> Known.SAMPLE_RATE_8000
+                    SAMPLE_RATE_16000 -> Known.SAMPLE_RATE_16000
+                    SAMPLE_RATE_24000 -> Known.SAMPLE_RATE_24000
+                    SAMPLE_RATE_44100 -> Known.SAMPLE_RATE_44100
+                    SAMPLE_RATE_48000 -> Known.SAMPLE_RATE_48000
                     else -> throw TelnyxInvalidDataException("Unknown SampleRate: $value")
                 }
 

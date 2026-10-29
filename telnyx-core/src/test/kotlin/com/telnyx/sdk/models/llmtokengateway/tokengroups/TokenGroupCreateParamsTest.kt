@@ -17,7 +17,7 @@ internal class TokenGroupCreateParamsTest {
             .addAllowedModel("GLM-5.3-Flash")
             .name("support-backend")
             .blocked(true)
-            .budgetDuration(BudgetDuration._1D)
+            .budgetDuration(BudgetDuration.BUDGET_DURATION_1_D)
             .cacheTtl(1L)
             .fallbacks(
                 TokenGroupCreateParams.Fallbacks.builder()
@@ -67,7 +67,7 @@ internal class TokenGroupCreateParamsTest {
                 .addAllowedModel("GLM-5.3-Flash")
                 .name("support-backend")
                 .blocked(true)
-                .budgetDuration(BudgetDuration._1D)
+                .budgetDuration(BudgetDuration.BUDGET_DURATION_1_D)
                 .cacheTtl(1L)
                 .fallbacks(
                     TokenGroupCreateParams.Fallbacks.builder()
@@ -146,7 +146,7 @@ internal class TokenGroupCreateParamsTest {
                 .addAllowedModel("GLM-5.3-Flash")
                 .name("support-backend")
                 .blocked(true)
-                .budgetDuration(BudgetDuration._1D)
+                .budgetDuration(BudgetDuration.BUDGET_DURATION_1_D)
                 .cacheTtl(1L)
                 .fallbacks(
                     TokenGroupCreateParams.Fallbacks.builder()
@@ -191,7 +191,7 @@ internal class TokenGroupCreateParamsTest {
         assertThat(body.allowedModels()).containsExactly("Kimi-K3", "GLM-5.3-Flash")
         assertThat(body.name()).isEqualTo("support-backend")
         assertThat(body.blocked()).contains(true)
-        assertThat(body.budgetDuration()).contains(BudgetDuration._1D)
+        assertThat(body.budgetDuration()).contains(BudgetDuration.BUDGET_DURATION_1_D)
         assertThat(body.cacheTtl()).contains(1L)
         assertThat(body.fallbacks())
             .contains(
