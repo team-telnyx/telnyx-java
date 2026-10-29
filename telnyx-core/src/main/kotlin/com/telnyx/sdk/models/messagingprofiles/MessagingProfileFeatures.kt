@@ -24,6 +24,7 @@ class MessagingProfileFeatures
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val aiOptOutDetectionEnabled: JsonField<Boolean>,
+    private val autoChunkLongMessages: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -31,8 +32,11 @@ private constructor(
     private constructor(
         @JsonProperty("ai_opt_out_detection_enabled")
         @ExcludeMissing
-        aiOptOutDetectionEnabled: JsonField<Boolean> = JsonMissing.of()
-    ) : this(aiOptOutDetectionEnabled, mutableMapOf())
+        aiOptOutDetectionEnabled: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("auto_chunk_long_messages")
+        @ExcludeMissing
+        autoChunkLongMessages: JsonField<Boolean> = JsonMissing.of(),
+    ) : this(aiOptOutDetectionEnabled, autoChunkLongMessages, mutableMapOf())
 
     /**
      * Enables AI detection of inbound opt-out messages that do not follow the standard
@@ -47,6 +51,20 @@ private constructor(
         aiOptOutDetectionEnabled.getOptional("ai_opt_out_detection_enabled")
 
     /**
+     * Enables server-side chunking of outbound SMS. When enabled, an outbound message that exceeds
+     * the maximum number of segments allowed for its destination (10 segments by default; some
+     * aggregators accept up to 25) is automatically split into multiple child messages, each within
+     * the segment limit, and sent sequentially in order. Splitting is encoding-aware: GSM-7 bodies
+     * split at 153-character boundaries and UCS-2 bodies at 134-byte (67-character) boundaries.
+     * When disabled (the default), messages exceeding the segment limit are rejected with an error.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun autoChunkLongMessages(): Optional<Boolean> =
+        autoChunkLongMessages.getOptional("auto_chunk_long_messages")
+
+    /**
      * Returns the raw JSON value of [aiOptOutDetectionEnabled].
      *
      * Unlike [aiOptOutDetectionEnabled], this method doesn't throw if the JSON field has an
@@ -55,6 +73,16 @@ private constructor(
     @JsonProperty("ai_opt_out_detection_enabled")
     @ExcludeMissing
     fun _aiOptOutDetectionEnabled(): JsonField<Boolean> = aiOptOutDetectionEnabled
+
+    /**
+     * Returns the raw JSON value of [autoChunkLongMessages].
+     *
+     * Unlike [autoChunkLongMessages], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("auto_chunk_long_messages")
+    @ExcludeMissing
+    fun _autoChunkLongMessages(): JsonField<Boolean> = autoChunkLongMessages
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -78,11 +106,13 @@ private constructor(
     class Builder internal constructor() {
 
         private var aiOptOutDetectionEnabled: JsonField<Boolean> = JsonMissing.of()
+        private var autoChunkLongMessages: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(messagingProfileFeatures: MessagingProfileFeatures) = apply {
             aiOptOutDetectionEnabled = messagingProfileFeatures.aiOptOutDetectionEnabled
+            autoChunkLongMessages = messagingProfileFeatures.autoChunkLongMessages
             additionalProperties = messagingProfileFeatures.additionalProperties.toMutableMap()
         }
 
@@ -104,6 +134,29 @@ private constructor(
          */
         fun aiOptOutDetectionEnabled(aiOptOutDetectionEnabled: JsonField<Boolean>) = apply {
             this.aiOptOutDetectionEnabled = aiOptOutDetectionEnabled
+        }
+
+        /**
+         * Enables server-side chunking of outbound SMS. When enabled, an outbound message that
+         * exceeds the maximum number of segments allowed for its destination (10 segments by
+         * default; some aggregators accept up to 25) is automatically split into multiple child
+         * messages, each within the segment limit, and sent sequentially in order. Splitting is
+         * encoding-aware: GSM-7 bodies split at 153-character boundaries and UCS-2 bodies at
+         * 134-byte (67-character) boundaries. When disabled (the default), messages exceeding the
+         * segment limit are rejected with an error.
+         */
+        fun autoChunkLongMessages(autoChunkLongMessages: Boolean) =
+            autoChunkLongMessages(JsonField.of(autoChunkLongMessages))
+
+        /**
+         * Sets [Builder.autoChunkLongMessages] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.autoChunkLongMessages] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun autoChunkLongMessages(autoChunkLongMessages: JsonField<Boolean>) = apply {
+            this.autoChunkLongMessages = autoChunkLongMessages
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -131,7 +184,11 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): MessagingProfileFeatures =
-            MessagingProfileFeatures(aiOptOutDetectionEnabled, additionalProperties.toMutableMap())
+            MessagingProfileFeatures(
+                aiOptOutDetectionEnabled,
+                autoChunkLongMessages,
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false
@@ -150,6 +207,7 @@ private constructor(
         }
 
         aiOptOutDetectionEnabled()
+        autoChunkLongMessages()
         validated = true
     }
 
@@ -167,7 +225,9 @@ private constructor(
      * Used for best match union deserialization.
      */
     @JvmSynthetic
-    internal fun validity(): Int = (if (aiOptOutDetectionEnabled.asKnown().isPresent) 1 else 0)
+    internal fun validity(): Int =
+        (if (aiOptOutDetectionEnabled.asKnown().isPresent) 1 else 0) +
+            (if (autoChunkLongMessages.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -176,15 +236,16 @@ private constructor(
 
         return other is MessagingProfileFeatures &&
             aiOptOutDetectionEnabled == other.aiOptOutDetectionEnabled &&
+            autoChunkLongMessages == other.autoChunkLongMessages &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(aiOptOutDetectionEnabled, additionalProperties)
+        Objects.hash(aiOptOutDetectionEnabled, autoChunkLongMessages, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingProfileFeatures{aiOptOutDetectionEnabled=$aiOptOutDetectionEnabled, additionalProperties=$additionalProperties}"
+        "MessagingProfileFeatures{aiOptOutDetectionEnabled=$aiOptOutDetectionEnabled, autoChunkLongMessages=$autoChunkLongMessages, additionalProperties=$additionalProperties}"
 }

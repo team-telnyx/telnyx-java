@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class HostedSignupListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<HostedSignupListResponse>>,
+    private val data: JsonField<List<WhatsappHostedSignup>>,
     private val meta: JsonField<MessagingPaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<HostedSignupListResponse>> = JsonMissing.of(),
+        data: JsonField<List<WhatsappHostedSignup>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<MessagingPaginationMeta> = JsonMissing.of(),
@@ -41,7 +41,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<HostedSignupListResponse>> = data.getOptional("data")
+    fun data(): Optional<List<WhatsappHostedSignup>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -54,9 +54,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data")
-    @ExcludeMissing
-    fun _data(): JsonField<List<HostedSignupListResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<WhatsappHostedSignup>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -88,7 +86,7 @@ private constructor(
     /** A builder for [HostedSignupListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<HostedSignupListResponse>>? = null
+        private var data: JsonField<MutableList<WhatsappHostedSignup>>? = null
         private var meta: JsonField<MessagingPaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -99,25 +97,25 @@ private constructor(
             additionalProperties = hostedSignupListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<HostedSignupListResponse>) = data(JsonField.of(data))
+        fun data(data: List<WhatsappHostedSignup>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<HostedSignupListResponse>`
+         * You should usually call [Builder.data] with a well-typed `List<WhatsappHostedSignup>`
          * value instead. This method is primarily for setting the field to an undocumented or not
          * yet supported value.
          */
-        fun data(data: JsonField<List<HostedSignupListResponse>>) = apply {
+        fun data(data: JsonField<List<WhatsappHostedSignup>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [HostedSignupListResponse] to [Builder.data].
+         * Adds a single [WhatsappHostedSignup] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: HostedSignupListResponse) = apply {
+        fun addData(data: WhatsappHostedSignup) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

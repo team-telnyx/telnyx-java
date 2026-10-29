@@ -22,7 +22,10 @@ internal class EmailDomainRotateDkimResponseTest {
                                 .algorithm(
                                     EmailDomainRotateDkimResponse.Data.Dkim.Algorithm.RSA_SHA256
                                 )
-                                .keyLength(EmailDomainRotateDkimResponse.Data.Dkim.KeyLength._2048)
+                                .keyLength(
+                                    EmailDomainRotateDkimResponse.Data.Dkim.KeyLength
+                                        .KEY_LENGTH_2048
+                                )
                                 .selector("telnyx1")
                                 .status(EmailDomainRotateDkimResponse.Data.Dkim.Status.ACTIVE)
                                 .version(2L)
@@ -70,7 +73,9 @@ internal class EmailDomainRotateDkimResponseTest {
                         EmailDomainRotateDkimResponse.Data.Dkim.builder()
                             .id("123e4567-e89b-12d3-a456-42661417400a")
                             .algorithm(EmailDomainRotateDkimResponse.Data.Dkim.Algorithm.RSA_SHA256)
-                            .keyLength(EmailDomainRotateDkimResponse.Data.Dkim.KeyLength._2048)
+                            .keyLength(
+                                EmailDomainRotateDkimResponse.Data.Dkim.KeyLength.KEY_LENGTH_2048
+                            )
                             .selector("telnyx1")
                             .status(EmailDomainRotateDkimResponse.Data.Dkim.Status.ACTIVE)
                             .version(2L)
@@ -123,7 +128,10 @@ internal class EmailDomainRotateDkimResponseTest {
                                 .algorithm(
                                     EmailDomainRotateDkimResponse.Data.Dkim.Algorithm.RSA_SHA256
                                 )
-                                .keyLength(EmailDomainRotateDkimResponse.Data.Dkim.KeyLength._2048)
+                                .keyLength(
+                                    EmailDomainRotateDkimResponse.Data.Dkim.KeyLength
+                                        .KEY_LENGTH_2048
+                                )
                                 .selector("telnyx1")
                                 .status(EmailDomainRotateDkimResponse.Data.Dkim.Status.ACTIVE)
                                 .version(2L)

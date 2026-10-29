@@ -24,6 +24,7 @@ private constructor(
     private val defaultTexmlAppId: JsonField<String>,
     private val disableDtmf: JsonField<Boolean>,
     private val fallbackDestination: JsonField<String>,
+    private val greetingDelayMs: JsonField<Long>,
     private val noiseSuppression: JsonField<NoiseSuppression>,
     private val noiseSuppressionConfig: JsonField<NoiseSuppressionConfig>,
     private val recordingSettings: JsonField<RecordingSettings>,
@@ -50,6 +51,9 @@ private constructor(
         @JsonProperty("fallback_destination")
         @ExcludeMissing
         fallbackDestination: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("greeting_delay_ms")
+        @ExcludeMissing
+        greetingDelayMs: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("noise_suppression")
         @ExcludeMissing
         noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of(),
@@ -82,6 +86,7 @@ private constructor(
         defaultTexmlAppId,
         disableDtmf,
         fallbackDestination,
+        greetingDelayMs,
         noiseSuppression,
         noiseSuppressionConfig,
         recordingSettings,
@@ -140,6 +145,17 @@ private constructor(
      */
     fun fallbackDestination(): Optional<String> =
         fallbackDestination.getOptional("fallback_destination")
+
+    /**
+     * Milliseconds to wait after an inbound call is answered before the assistant starts and speaks
+     * its greeting. Increase it if the beginning of the greeting is cut off on some connections
+     * (for example, WebRTC calls). When unset (`null`), the platform default of 250 ms is used. Set
+     * to `0` to start without a delay. Maximum 2000.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun greetingDelayMs(): Optional<Long> = greetingDelayMs.getOptional("greeting_delay_ms")
 
     /**
      * The noise suppression engine to use. 'aicoustics' is STT-optimized and recommended for AI
@@ -296,6 +312,15 @@ private constructor(
     fun _fallbackDestination(): JsonField<String> = fallbackDestination
 
     /**
+     * Returns the raw JSON value of [greetingDelayMs].
+     *
+     * Unlike [greetingDelayMs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("greeting_delay_ms")
+    @ExcludeMissing
+    fun _greetingDelayMs(): JsonField<Long> = greetingDelayMs
+
+    /**
      * Returns the raw JSON value of [noiseSuppression].
      *
      * Unlike [noiseSuppression], this method doesn't throw if the JSON field has an unexpected
@@ -409,6 +434,7 @@ private constructor(
         private var defaultTexmlAppId: JsonField<String> = JsonMissing.of()
         private var disableDtmf: JsonField<Boolean> = JsonMissing.of()
         private var fallbackDestination: JsonField<String> = JsonMissing.of()
+        private var greetingDelayMs: JsonField<Long> = JsonMissing.of()
         private var noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of()
         private var noiseSuppressionConfig: JsonField<NoiseSuppressionConfig> = JsonMissing.of()
         private var recordingSettings: JsonField<RecordingSettings> = JsonMissing.of()
@@ -426,6 +452,7 @@ private constructor(
             defaultTexmlAppId = telephonySettings.defaultTexmlAppId
             disableDtmf = telephonySettings.disableDtmf
             fallbackDestination = telephonySettings.fallbackDestination
+            greetingDelayMs = telephonySettings.greetingDelayMs
             noiseSuppression = telephonySettings.noiseSuppression
             noiseSuppressionConfig = telephonySettings.noiseSuppressionConfig
             recordingSettings = telephonySettings.recordingSettings
@@ -513,6 +540,37 @@ private constructor(
          */
         fun fallbackDestination(fallbackDestination: JsonField<String>) = apply {
             this.fallbackDestination = fallbackDestination
+        }
+
+        /**
+         * Milliseconds to wait after an inbound call is answered before the assistant starts and
+         * speaks its greeting. Increase it if the beginning of the greeting is cut off on some
+         * connections (for example, WebRTC calls). When unset (`null`), the platform default of 250
+         * ms is used. Set to `0` to start without a delay. Maximum 2000.
+         */
+        fun greetingDelayMs(greetingDelayMs: Long?) =
+            greetingDelayMs(JsonField.ofNullable(greetingDelayMs))
+
+        /**
+         * Alias for [Builder.greetingDelayMs].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun greetingDelayMs(greetingDelayMs: Long) = greetingDelayMs(greetingDelayMs as Long?)
+
+        /** Alias for calling [Builder.greetingDelayMs] with `greetingDelayMs.orElse(null)`. */
+        fun greetingDelayMs(greetingDelayMs: Optional<Long>) =
+            greetingDelayMs(greetingDelayMs.getOrNull())
+
+        /**
+         * Sets [Builder.greetingDelayMs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.greetingDelayMs] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun greetingDelayMs(greetingDelayMs: JsonField<Long>) = apply {
+            this.greetingDelayMs = greetingDelayMs
         }
 
         /**
@@ -733,6 +791,7 @@ private constructor(
                 defaultTexmlAppId,
                 disableDtmf,
                 fallbackDestination,
+                greetingDelayMs,
                 noiseSuppression,
                 noiseSuppressionConfig,
                 recordingSettings,
@@ -765,6 +824,7 @@ private constructor(
         defaultTexmlAppId()
         disableDtmf()
         fallbackDestination()
+        greetingDelayMs()
         noiseSuppression().ifPresent { it.validate() }
         noiseSuppressionConfig().ifPresent { it.validate() }
         recordingSettings().ifPresent { it.validate() }
@@ -796,6 +856,7 @@ private constructor(
             (if (defaultTexmlAppId.asKnown().isPresent) 1 else 0) +
             (if (disableDtmf.asKnown().isPresent) 1 else 0) +
             (if (fallbackDestination.asKnown().isPresent) 1 else 0) +
+            (if (greetingDelayMs.asKnown().isPresent) 1 else 0) +
             (noiseSuppression.asKnown().getOrNull()?.validity() ?: 0) +
             (noiseSuppressionConfig.asKnown().getOrNull()?.validity() ?: 0) +
             (recordingSettings.asKnown().getOrNull()?.validity() ?: 0) +
@@ -3234,6 +3295,7 @@ private constructor(
             defaultTexmlAppId == other.defaultTexmlAppId &&
             disableDtmf == other.disableDtmf &&
             fallbackDestination == other.fallbackDestination &&
+            greetingDelayMs == other.greetingDelayMs &&
             noiseSuppression == other.noiseSuppression &&
             noiseSuppressionConfig == other.noiseSuppressionConfig &&
             recordingSettings == other.recordingSettings &&
@@ -3252,6 +3314,7 @@ private constructor(
             defaultTexmlAppId,
             disableDtmf,
             fallbackDestination,
+            greetingDelayMs,
             noiseSuppression,
             noiseSuppressionConfig,
             recordingSettings,
@@ -3268,5 +3331,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TelephonySettings{conversationEndedFullHistory=$conversationEndedFullHistory, defaultTexmlAppId=$defaultTexmlAppId, disableDtmf=$disableDtmf, fallbackDestination=$fallbackDestination, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleReplySecs=$userIdleReplySecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
+        "TelephonySettings{conversationEndedFullHistory=$conversationEndedFullHistory, defaultTexmlAppId=$defaultTexmlAppId, disableDtmf=$disableDtmf, fallbackDestination=$fallbackDestination, greetingDelayMs=$greetingDelayMs, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleReplySecs=$userIdleReplySecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
 }

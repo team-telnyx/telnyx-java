@@ -156,7 +156,7 @@ internal class MessagingInboundMessagePayloadTest {
                 .tcrCampaignId("TCPA3X7")
                 .tcrCampaignRegistered("REGISTERED")
                 .text("Hello, World!")
-                .toOfUnnamedSchemaWithArrayParent0s(
+                .toOfUnionMember0(
                     listOf(
                         MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0.builder()
                             .agentId("agent_id")
@@ -337,7 +337,7 @@ internal class MessagingInboundMessagePayloadTest {
         assertThat(messagingInboundMessagePayload.text()).contains("Hello, World!")
         assertThat(messagingInboundMessagePayload.to())
             .contains(
-                MessagingInboundMessagePayload.To.ofUnnamedSchemaWithArrayParent0s(
+                MessagingInboundMessagePayload.To.ofUnionMember0(
                     listOf(
                         MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0.builder()
                             .agentId("agent_id")
@@ -512,7 +512,7 @@ internal class MessagingInboundMessagePayloadTest {
                 .tcrCampaignId("TCPA3X7")
                 .tcrCampaignRegistered("REGISTERED")
                 .text("Hello, World!")
-                .toOfUnnamedSchemaWithArrayParent0s(
+                .toOfUnionMember0(
                     listOf(
                         MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0.builder()
                             .agentId("agent_id")

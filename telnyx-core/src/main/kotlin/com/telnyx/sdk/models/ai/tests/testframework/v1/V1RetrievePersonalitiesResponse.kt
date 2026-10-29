@@ -22,6 +22,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -41,15 +42,15 @@ private constructor(
     private val backgroundSoundVolume: JsonField<Double>,
     private val effectiveVoiceVolume: JsonField<Double>,
     private val forkedFrom: JsonField<Long>,
-    private val generationConfig: JsonValue,
+    private val generationConfig: JsonField<GenerationConfig>,
     private val interruptionLevel: JsonField<String>,
-    private val messagePlan: JsonValue,
-    private val networkSimulation: JsonValue,
+    private val messagePlan: JsonField<MessagePlan>,
+    private val networkSimulation: JsonField<NetworkSimulation>,
     private val organization: JsonField<Long>,
     private val project: JsonField<Long>,
     private val speed: JsonField<Speed>,
     private val startSpeakingPlan: JsonField<StartSpeakingPlan>,
-    private val stopSpeakingPlan: JsonValue,
+    private val stopSpeakingPlan: JsonField<StopSpeakingPlan>,
     private val voiceVolume: JsonField<Double>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -76,14 +77,16 @@ private constructor(
         @JsonProperty("forked_from") @ExcludeMissing forkedFrom: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("generation_config")
         @ExcludeMissing
-        generationConfig: JsonValue = JsonMissing.of(),
+        generationConfig: JsonField<GenerationConfig> = JsonMissing.of(),
         @JsonProperty("interruption_level")
         @ExcludeMissing
         interruptionLevel: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("message_plan") @ExcludeMissing messagePlan: JsonValue = JsonMissing.of(),
+        @JsonProperty("message_plan")
+        @ExcludeMissing
+        messagePlan: JsonField<MessagePlan> = JsonMissing.of(),
         @JsonProperty("network_simulation")
         @ExcludeMissing
-        networkSimulation: JsonValue = JsonMissing.of(),
+        networkSimulation: JsonField<NetworkSimulation> = JsonMissing.of(),
         @JsonProperty("organization")
         @ExcludeMissing
         organization: JsonField<Long> = JsonMissing.of(),
@@ -94,7 +97,7 @@ private constructor(
         startSpeakingPlan: JsonField<StartSpeakingPlan> = JsonMissing.of(),
         @JsonProperty("stop_speaking_plan")
         @ExcludeMissing
-        stopSpeakingPlan: JsonValue = JsonMissing.of(),
+        stopSpeakingPlan: JsonField<StopSpeakingPlan> = JsonMissing.of(),
         @JsonProperty("voice_volume")
         @ExcludeMissing
         voiceVolume: JsonField<Double> = JsonMissing.of(),
@@ -193,14 +196,11 @@ private constructor(
     fun forkedFrom(): Optional<Long> = forkedFrom.getOptional("forked_from")
 
     /**
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```java
-     * MyClass myObject = v1RetrievePersonalitiesResponse.generationConfig().convert(MyClass.class);
-     * ```
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    @JsonProperty("generation_config")
-    @ExcludeMissing
-    fun _generationConfig(): JsonValue = generationConfig
+    fun generationConfig(): Optional<GenerationConfig> =
+        generationConfig.getOptional("generation_config")
 
     /**
      * How aggressively the personality interrupts the assistant.
@@ -213,22 +213,17 @@ private constructor(
     /**
      * Idle-timeout plan for messages during a call.
      *
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```java
-     * MyClass myObject = v1RetrievePersonalitiesResponse.messagePlan().convert(MyClass.class);
-     * ```
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    @JsonProperty("message_plan") @ExcludeMissing fun _messagePlan(): JsonValue = messagePlan
+    fun messagePlan(): Optional<MessagePlan> = messagePlan.getOptional("message_plan")
 
     /**
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```java
-     * MyClass myObject = v1RetrievePersonalitiesResponse.networkSimulation().convert(MyClass.class);
-     * ```
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    @JsonProperty("network_simulation")
-    @ExcludeMissing
-    fun _networkSimulation(): JsonValue = networkSimulation
+    fun networkSimulation(): Optional<NetworkSimulation> =
+        networkSimulation.getOptional("network_simulation")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -256,14 +251,11 @@ private constructor(
         startSpeakingPlan.getOptional("start_speaking_plan")
 
     /**
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```java
-     * MyClass myObject = v1RetrievePersonalitiesResponse.stopSpeakingPlan().convert(MyClass.class);
-     * ```
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    @JsonProperty("stop_speaking_plan")
-    @ExcludeMissing
-    fun _stopSpeakingPlan(): JsonValue = stopSpeakingPlan
+    fun stopSpeakingPlan(): Optional<StopSpeakingPlan> =
+        stopSpeakingPlan.getOptional("stop_speaking_plan")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -352,6 +344,16 @@ private constructor(
     @JsonProperty("forked_from") @ExcludeMissing fun _forkedFrom(): JsonField<Long> = forkedFrom
 
     /**
+     * Returns the raw JSON value of [generationConfig].
+     *
+     * Unlike [generationConfig], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("generation_config")
+    @ExcludeMissing
+    fun _generationConfig(): JsonField<GenerationConfig> = generationConfig
+
+    /**
      * Returns the raw JSON value of [interruptionLevel].
      *
      * Unlike [interruptionLevel], this method doesn't throw if the JSON field has an unexpected
@@ -360,6 +362,25 @@ private constructor(
     @JsonProperty("interruption_level")
     @ExcludeMissing
     fun _interruptionLevel(): JsonField<String> = interruptionLevel
+
+    /**
+     * Returns the raw JSON value of [messagePlan].
+     *
+     * Unlike [messagePlan], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("message_plan")
+    @ExcludeMissing
+    fun _messagePlan(): JsonField<MessagePlan> = messagePlan
+
+    /**
+     * Returns the raw JSON value of [networkSimulation].
+     *
+     * Unlike [networkSimulation], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("network_simulation")
+    @ExcludeMissing
+    fun _networkSimulation(): JsonField<NetworkSimulation> = networkSimulation
 
     /**
      * Returns the raw JSON value of [organization].
@@ -393,6 +414,16 @@ private constructor(
     @JsonProperty("start_speaking_plan")
     @ExcludeMissing
     fun _startSpeakingPlan(): JsonField<StartSpeakingPlan> = startSpeakingPlan
+
+    /**
+     * Returns the raw JSON value of [stopSpeakingPlan].
+     *
+     * Unlike [stopSpeakingPlan], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("stop_speaking_plan")
+    @ExcludeMissing
+    fun _stopSpeakingPlan(): JsonField<StopSpeakingPlan> = stopSpeakingPlan
 
     /**
      * Returns the raw JSON value of [voiceVolume].
@@ -446,15 +477,15 @@ private constructor(
         private var backgroundSoundVolume: JsonField<Double> = JsonMissing.of()
         private var effectiveVoiceVolume: JsonField<Double> = JsonMissing.of()
         private var forkedFrom: JsonField<Long> = JsonMissing.of()
-        private var generationConfig: JsonValue = JsonMissing.of()
+        private var generationConfig: JsonField<GenerationConfig> = JsonMissing.of()
         private var interruptionLevel: JsonField<String> = JsonMissing.of()
-        private var messagePlan: JsonValue = JsonMissing.of()
-        private var networkSimulation: JsonValue = JsonMissing.of()
+        private var messagePlan: JsonField<MessagePlan> = JsonMissing.of()
+        private var networkSimulation: JsonField<NetworkSimulation> = JsonMissing.of()
         private var organization: JsonField<Long> = JsonMissing.of()
         private var project: JsonField<Long> = JsonMissing.of()
         private var speed: JsonField<Speed> = JsonMissing.of()
         private var startSpeakingPlan: JsonField<StartSpeakingPlan> = JsonMissing.of()
-        private var stopSpeakingPlan: JsonValue = JsonMissing.of()
+        private var stopSpeakingPlan: JsonField<StopSpeakingPlan> = JsonMissing.of()
         private var voiceVolume: JsonField<Double> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -648,7 +679,21 @@ private constructor(
          */
         fun forkedFrom(forkedFrom: JsonField<Long>) = apply { this.forkedFrom = forkedFrom }
 
-        fun generationConfig(generationConfig: JsonValue) = apply {
+        fun generationConfig(generationConfig: GenerationConfig?) =
+            generationConfig(JsonField.ofNullable(generationConfig))
+
+        /** Alias for calling [Builder.generationConfig] with `generationConfig.orElse(null)`. */
+        fun generationConfig(generationConfig: Optional<GenerationConfig>) =
+            generationConfig(generationConfig.getOrNull())
+
+        /**
+         * Sets [Builder.generationConfig] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.generationConfig] with a well-typed [GenerationConfig]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun generationConfig(generationConfig: JsonField<GenerationConfig>) = apply {
             this.generationConfig = generationConfig
         }
 
@@ -672,9 +717,37 @@ private constructor(
         }
 
         /** Idle-timeout plan for messages during a call. */
-        fun messagePlan(messagePlan: JsonValue) = apply { this.messagePlan = messagePlan }
+        fun messagePlan(messagePlan: MessagePlan?) = messagePlan(JsonField.ofNullable(messagePlan))
 
-        fun networkSimulation(networkSimulation: JsonValue) = apply {
+        /** Alias for calling [Builder.messagePlan] with `messagePlan.orElse(null)`. */
+        fun messagePlan(messagePlan: Optional<MessagePlan>) = messagePlan(messagePlan.getOrNull())
+
+        /**
+         * Sets [Builder.messagePlan] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.messagePlan] with a well-typed [MessagePlan] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun messagePlan(messagePlan: JsonField<MessagePlan>) = apply {
+            this.messagePlan = messagePlan
+        }
+
+        fun networkSimulation(networkSimulation: NetworkSimulation?) =
+            networkSimulation(JsonField.ofNullable(networkSimulation))
+
+        /** Alias for calling [Builder.networkSimulation] with `networkSimulation.orElse(null)`. */
+        fun networkSimulation(networkSimulation: Optional<NetworkSimulation>) =
+            networkSimulation(networkSimulation.getOrNull())
+
+        /**
+         * Sets [Builder.networkSimulation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.networkSimulation] with a well-typed [NetworkSimulation]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun networkSimulation(networkSimulation: JsonField<NetworkSimulation>) = apply {
             this.networkSimulation = networkSimulation
         }
 
@@ -761,12 +834,27 @@ private constructor(
             startSpeakingPlan(StartSpeakingPlan.ofNumber(number))
 
         /**
-         * Alias for calling [startSpeakingPlan] with `StartSpeakingPlan.ofJsonValue(jsonValue)`.
+         * Alias for calling [startSpeakingPlan] with
+         * `StartSpeakingPlan.ofUnionMember1(unionMember1)`.
          */
-        fun startSpeakingPlan(jsonValue: JsonValue) =
-            startSpeakingPlan(StartSpeakingPlan.ofJsonValue(jsonValue))
+        fun startSpeakingPlan(unionMember1: StartSpeakingPlan.UnionMember1) =
+            startSpeakingPlan(StartSpeakingPlan.ofUnionMember1(unionMember1))
 
-        fun stopSpeakingPlan(stopSpeakingPlan: JsonValue) = apply {
+        fun stopSpeakingPlan(stopSpeakingPlan: StopSpeakingPlan?) =
+            stopSpeakingPlan(JsonField.ofNullable(stopSpeakingPlan))
+
+        /** Alias for calling [Builder.stopSpeakingPlan] with `stopSpeakingPlan.orElse(null)`. */
+        fun stopSpeakingPlan(stopSpeakingPlan: Optional<StopSpeakingPlan>) =
+            stopSpeakingPlan(stopSpeakingPlan.getOrNull())
+
+        /**
+         * Sets [Builder.stopSpeakingPlan] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.stopSpeakingPlan] with a well-typed [StopSpeakingPlan]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun stopSpeakingPlan(stopSpeakingPlan: JsonField<StopSpeakingPlan>) = apply {
             this.stopSpeakingPlan = stopSpeakingPlan
         }
 
@@ -877,11 +965,15 @@ private constructor(
         backgroundSoundVolume()
         effectiveVoiceVolume()
         forkedFrom()
+        generationConfig().ifPresent { it.validate() }
         interruptionLevel()
+        messagePlan().ifPresent { it.validate() }
+        networkSimulation().ifPresent { it.validate() }
         organization()
         project()
         speed().ifPresent { it.validate() }
         startSpeakingPlan().ifPresent { it.validate() }
+        stopSpeakingPlan().ifPresent { it.validate() }
         voiceVolume()
         validated = true
     }
@@ -911,12 +1003,341 @@ private constructor(
             (if (backgroundSoundVolume.asKnown().isPresent) 1 else 0) +
             (if (effectiveVoiceVolume.asKnown().isPresent) 1 else 0) +
             (if (forkedFrom.asKnown().isPresent) 1 else 0) +
+            (generationConfig.asKnown().getOrNull()?.validity() ?: 0) +
             (if (interruptionLevel.asKnown().isPresent) 1 else 0) +
+            (messagePlan.asKnown().getOrNull()?.validity() ?: 0) +
+            (networkSimulation.asKnown().getOrNull()?.validity() ?: 0) +
             (if (organization.asKnown().isPresent) 1 else 0) +
             (if (project.asKnown().isPresent) 1 else 0) +
             (speed.asKnown().getOrNull()?.validity() ?: 0) +
             (startSpeakingPlan.asKnown().getOrNull()?.validity() ?: 0) +
+            (stopSpeakingPlan.asKnown().getOrNull()?.validity() ?: 0) +
             (if (voiceVolume.asKnown().isPresent) 1 else 0)
+
+    class GenerationConfig
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [GenerationConfig]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [GenerationConfig]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(generationConfig: GenerationConfig) = apply {
+                additionalProperties = generationConfig.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [GenerationConfig].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): GenerationConfig = GenerationConfig(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): GenerationConfig = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is GenerationConfig && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "GenerationConfig{additionalProperties=$additionalProperties}"
+    }
+
+    /** Idle-timeout plan for messages during a call. */
+    class MessagePlan
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [MessagePlan]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [MessagePlan]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(messagePlan: MessagePlan) = apply {
+                additionalProperties = messagePlan.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [MessagePlan].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): MessagePlan = MessagePlan(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): MessagePlan = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is MessagePlan && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "MessagePlan{additionalProperties=$additionalProperties}"
+    }
+
+    class NetworkSimulation
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [NetworkSimulation]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [NetworkSimulation]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(networkSimulation: NetworkSimulation) = apply {
+                additionalProperties = networkSimulation.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [NetworkSimulation].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): NetworkSimulation = NetworkSimulation(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): NetworkSimulation = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NetworkSimulation && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "NetworkSimulation{additionalProperties=$additionalProperties}"
+    }
 
     @JsonDeserialize(using = Speed.Deserializer::class)
     @JsonSerialize(using = Speed.Serializer::class)
@@ -1128,21 +1549,21 @@ private constructor(
     class StartSpeakingPlan
     private constructor(
         private val number: Double? = null,
-        private val jsonValue: JsonValue? = null,
+        private val unionMember1: UnionMember1? = null,
         private val _json: JsonValue? = null,
     ) {
 
         fun number(): Optional<Double> = Optional.ofNullable(number)
 
-        fun jsonValue(): Optional<JsonValue> = Optional.ofNullable(jsonValue)
+        fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
 
         fun isNumber(): Boolean = number != null
 
-        fun isJsonValue(): Boolean = jsonValue != null
+        fun isUnionMember1(): Boolean = unionMember1 != null
 
         fun asNumber(): Double = number.getOrThrow("number")
 
-        fun asJsonValue(): JsonValue = jsonValue.getOrThrow("jsonValue")
+        fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1178,7 +1599,7 @@ private constructor(
         fun <T> accept(visitor: Visitor<T>): T =
             when {
                 number != null -> visitor.visitNumber(number)
-                jsonValue != null -> visitor.visitJsonValue(jsonValue)
+                unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
                 else -> visitor.unknown(_json)
             }
 
@@ -1202,7 +1623,9 @@ private constructor(
                 object : Visitor<Unit> {
                     override fun visitNumber(number: Double) {}
 
-                    override fun visitJsonValue(jsonValue: JsonValue) {}
+                    override fun visitUnionMember1(unionMember1: UnionMember1) {
+                        unionMember1.validate()
+                    }
                 }
             )
             validated = true
@@ -1228,7 +1651,8 @@ private constructor(
                 object : Visitor<Int> {
                     override fun visitNumber(number: Double) = 1
 
-                    override fun visitJsonValue(jsonValue: JsonValue) = 1
+                    override fun visitUnionMember1(unionMember1: UnionMember1) =
+                        unionMember1.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1241,15 +1665,15 @@ private constructor(
 
             return other is StartSpeakingPlan &&
                 number == other.number &&
-                jsonValue == other.jsonValue
+                unionMember1 == other.unionMember1
         }
 
-        override fun hashCode(): Int = Objects.hash(number, jsonValue)
+        override fun hashCode(): Int = Objects.hash(number, unionMember1)
 
         override fun toString(): String =
             when {
                 number != null -> "StartSpeakingPlan{number=$number}"
-                jsonValue != null -> "StartSpeakingPlan{jsonValue=$jsonValue}"
+                unionMember1 != null -> "StartSpeakingPlan{unionMember1=$unionMember1}"
                 _json != null -> "StartSpeakingPlan{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid StartSpeakingPlan")
             }
@@ -1259,7 +1683,8 @@ private constructor(
             @JvmStatic fun ofNumber(number: Double) = StartSpeakingPlan(number = number)
 
             @JvmStatic
-            fun ofJsonValue(jsonValue: JsonValue) = StartSpeakingPlan(jsonValue = jsonValue)
+            fun ofUnionMember1(unionMember1: UnionMember1) =
+                StartSpeakingPlan(unionMember1 = unionMember1)
         }
 
         /**
@@ -1270,7 +1695,7 @@ private constructor(
 
             fun visitNumber(number: Double): T
 
-            fun visitJsonValue(jsonValue: JsonValue): T
+            fun visitUnionMember1(unionMember1: UnionMember1): T
 
             /**
              * Maps an unknown variant of [StartSpeakingPlan] to a value of type [T].
@@ -1295,11 +1720,11 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
+                            tryDeserialize(node, jacksonTypeRef<UnionMember1>())?.let {
+                                StartSpeakingPlan(unionMember1 = it, _json = json)
+                            },
                             tryDeserialize(node, jacksonTypeRef<Double>())?.let {
                                 StartSpeakingPlan(number = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<JsonValue>())?.let {
-                                StartSpeakingPlan(jsonValue = it, _json = json)
                             },
                         )
                         .filterNotNull()
@@ -1307,7 +1732,7 @@ private constructor(
                         .toList()
                 return when (bestMatches.size) {
                     // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants.
+                    // all the possible variants (e.g. deserializing from boolean).
                     0 -> StartSpeakingPlan(_json = json)
                     1 -> bestMatches.single()
                     // If there's more than one match with the highest validity, then use the first
@@ -1327,12 +1752,232 @@ private constructor(
             ) {
                 when {
                     value.number != null -> generator.writeObject(value.number)
-                    value.jsonValue != null -> generator.writeObject(value.jsonValue)
+                    value.unionMember1 != null -> generator.writeObject(value.unionMember1)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid StartSpeakingPlan")
                 }
             }
         }
+
+        class UnionMember1
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [UnionMember1]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [UnionMember1]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(unionMember1: UnionMember1) = apply {
+                    additionalProperties = unionMember1.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [UnionMember1].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): UnionMember1 = UnionMember1(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): UnionMember1 = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is UnionMember1 && additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "UnionMember1{additionalProperties=$additionalProperties}"
+        }
+    }
+
+    class StopSpeakingPlan
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [StopSpeakingPlan]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [StopSpeakingPlan]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(stopSpeakingPlan: StopSpeakingPlan) = apply {
+                additionalProperties = stopSpeakingPlan.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [StopSpeakingPlan].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): StopSpeakingPlan = StopSpeakingPlan(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): StopSpeakingPlan = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is StopSpeakingPlan && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "StopSpeakingPlan{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -15,7 +15,7 @@ internal class ExternalVerificationWrappedTest {
         val externalVerificationWrapped =
             ExternalVerificationWrapped.builder()
                 .data(
-                    ExternalVerificationWrapped.Data.builder()
+                    ExternalVerification.builder()
                         .addDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
                         .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                         .addPhoneNumber("+13125550142")
@@ -29,7 +29,7 @@ internal class ExternalVerificationWrappedTest {
 
         assertThat(externalVerificationWrapped.data())
             .isEqualTo(
-                ExternalVerificationWrapped.Data.builder()
+                ExternalVerification.builder()
                     .addDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
                     .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                     .addPhoneNumber("+13125550142")
@@ -47,7 +47,7 @@ internal class ExternalVerificationWrappedTest {
         val externalVerificationWrapped =
             ExternalVerificationWrapped.builder()
                 .data(
-                    ExternalVerificationWrapped.Data.builder()
+                    ExternalVerification.builder()
                         .addDocumentId("2a7e8337-e803-4057-a4ae-26c40eb0bc6c")
                         .enterpriseId("4a6192a4-573d-446d-b3ce-aff9117272a6")
                         .addPhoneNumber("+13125550142")

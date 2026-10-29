@@ -65,12 +65,10 @@ internal class ConversationFlowTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -94,11 +92,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -123,11 +118,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -280,12 +272,10 @@ internal class ConversationFlowTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -309,11 +299,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -338,11 +325,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -520,12 +504,10 @@ internal class ConversationFlowTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -549,11 +531,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -578,11 +557,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -735,12 +711,10 @@ internal class ConversationFlowTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -764,11 +738,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -793,11 +764,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -978,12 +946,10 @@ internal class ConversationFlowTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -1007,11 +973,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -1036,11 +999,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -1193,12 +1153,10 @@ internal class ConversationFlowTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -1222,11 +1180,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -1251,11 +1206,8 @@ internal class ConversationFlowTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()

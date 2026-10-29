@@ -508,7 +508,7 @@ private constructor(
         private val authType: JsonField<AuthType>,
         private val endpointUrl: JsonField<String>,
         private val timeout: JsonField<Long>,
-        private val username: JsonValue,
+        private val username: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -521,7 +521,7 @@ private constructor(
             @ExcludeMissing
             endpointUrl: JsonField<String> = JsonMissing.of(),
             @JsonProperty("timeout") @ExcludeMissing timeout: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("username") @ExcludeMissing username: JsonValue = JsonMissing.of(),
+            @JsonProperty("username") @ExcludeMissing username: JsonField<String> = JsonMissing.of(),
         ) : this(authType, endpointUrl, timeout, username, mutableMapOf())
 
         /**
@@ -553,12 +553,10 @@ private constructor(
          * Stored username, when supplied. Required to be a nonblank string for basic
          * authentication.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = config.username().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("username") @ExcludeMissing fun _username(): JsonValue = username
+        fun username(): Optional<String> = username.getOptional("username")
 
         /**
          * Returns the raw JSON value of [authType].
@@ -582,6 +580,13 @@ private constructor(
          * Unlike [timeout], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("timeout") @ExcludeMissing fun _timeout(): JsonField<Long> = timeout
+
+        /**
+         * Returns the raw JSON value of [username].
+         *
+         * Unlike [username], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("username") @ExcludeMissing fun _username(): JsonField<String> = username
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -607,7 +612,7 @@ private constructor(
             private var authType: JsonField<AuthType> = JsonMissing.of()
             private var endpointUrl: JsonField<String> = JsonMissing.of()
             private var timeout: JsonField<Long> = JsonMissing.of()
-            private var username: JsonValue = JsonMissing.of()
+            private var username: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -670,7 +675,16 @@ private constructor(
              * Stored username, when supplied. Required to be a nonblank string for basic
              * authentication.
              */
-            fun username(username: JsonValue) = apply { this.username = username }
+            fun username(username: String) = username(JsonField.of(username))
+
+            /**
+             * Sets [Builder.username] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.username] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun username(username: JsonField<String>) = apply { this.username = username }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -725,6 +739,7 @@ private constructor(
             authType().ifPresent { it.validate() }
             endpointUrl()
             timeout()
+            username()
             validated = true
         }
 
@@ -746,7 +761,8 @@ private constructor(
         internal fun validity(): Int =
             (authType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (endpointUrl.asKnown().isPresent) 1 else 0) +
-                (if (timeout.asKnown().isPresent) 1 else 0)
+                (if (timeout.asKnown().isPresent) 1 else 0) +
+                (if (username.asKnown().isPresent) 1 else 0)
 
         /**
          * Stored processor authentication selection. Omitted if it was not explicitly configured.

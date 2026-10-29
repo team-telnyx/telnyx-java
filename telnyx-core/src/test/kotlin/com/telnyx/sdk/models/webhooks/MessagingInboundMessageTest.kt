@@ -166,7 +166,7 @@ internal class MessagingInboundMessageTest {
                         .tcrCampaignId("TCPA3X7")
                         .tcrCampaignRegistered("REGISTERED")
                         .text("Hello, World!")
-                        .toOfUnnamedSchemaWithArrayParent0s(
+                        .toOfUnionMember0(
                             listOf(
                                 MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0
                                     .builder()
@@ -348,7 +348,7 @@ internal class MessagingInboundMessageTest {
                     .tcrCampaignId("TCPA3X7")
                     .tcrCampaignRegistered("REGISTERED")
                     .text("Hello, World!")
-                    .toOfUnnamedSchemaWithArrayParent0s(
+                    .toOfUnionMember0(
                         listOf(
                             MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0
                                 .builder()
@@ -533,7 +533,7 @@ internal class MessagingInboundMessageTest {
                         .tcrCampaignId("TCPA3X7")
                         .tcrCampaignRegistered("REGISTERED")
                         .text("Hello, World!")
-                        .toOfUnnamedSchemaWithArrayParent0s(
+                        .toOfUnionMember0(
                             listOf(
                                 MessagingInboundMessagePayload.To.UnnamedSchemaWithArrayParent0
                                     .builder()

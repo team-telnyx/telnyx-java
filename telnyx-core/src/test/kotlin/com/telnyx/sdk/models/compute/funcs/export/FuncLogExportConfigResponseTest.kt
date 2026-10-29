@@ -15,17 +15,14 @@ internal class FuncLogExportConfigResponseTest {
         val funcLogExportConfigResponse =
             FuncLogExportConfigResponse.builder()
                 .data(
-                    FuncLogExportConfigResponse.Data.builder()
+                    FuncLogExportConfig.builder()
                         .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .enabled(true)
                         .endpoint("https://example.com")
                         .funcId("func_id")
                         .invocationExportEnabled(true)
-                        .recordType(
-                            FuncLogExportConfigResponse.Data.RecordType
-                                .COMPUTE_FUNC_LOG_EXPORT_CONFIG
-                        )
+                        .recordType(FuncLogExportConfig.RecordType.COMPUTE_FUNC_LOG_EXPORT_CONFIG)
                         .runtimeExportEnabled(true)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
@@ -34,16 +31,14 @@ internal class FuncLogExportConfigResponseTest {
 
         assertThat(funcLogExportConfigResponse.data())
             .contains(
-                FuncLogExportConfigResponse.Data.builder()
+                FuncLogExportConfig.builder()
                     .id("id")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .enabled(true)
                     .endpoint("https://example.com")
                     .funcId("func_id")
                     .invocationExportEnabled(true)
-                    .recordType(
-                        FuncLogExportConfigResponse.Data.RecordType.COMPUTE_FUNC_LOG_EXPORT_CONFIG
-                    )
+                    .recordType(FuncLogExportConfig.RecordType.COMPUTE_FUNC_LOG_EXPORT_CONFIG)
                     .runtimeExportEnabled(true)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
@@ -56,17 +51,14 @@ internal class FuncLogExportConfigResponseTest {
         val funcLogExportConfigResponse =
             FuncLogExportConfigResponse.builder()
                 .data(
-                    FuncLogExportConfigResponse.Data.builder()
+                    FuncLogExportConfig.builder()
                         .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .enabled(true)
                         .endpoint("https://example.com")
                         .funcId("func_id")
                         .invocationExportEnabled(true)
-                        .recordType(
-                            FuncLogExportConfigResponse.Data.RecordType
-                                .COMPUTE_FUNC_LOG_EXPORT_CONFIG
-                        )
+                        .recordType(FuncLogExportConfig.RecordType.COMPUTE_FUNC_LOG_EXPORT_CONFIG)
                         .runtimeExportEnabled(true)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()

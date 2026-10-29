@@ -2261,6 +2261,7 @@ Methods:
 - <code title="get /telephony_credentials">client.telephonyCredentials().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TelephonyCredentialService.kt">list</a>(params)</code>
 - <code title="delete /telephony_credentials/{id}">client.telephonyCredentials().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TelephonyCredentialService.kt">delete</a>(params)</code>
 - <code title="post /telephony_credentials/{id}/token">client.telephonyCredentials().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TelephonyCredentialService.kt">createToken</a>(params)</code>
+- <code title="get /telephony_credentials/{id}/token_material">client.telephonyCredentials().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TelephonyCredentialService.kt">retrieveTokenMaterial</a>(params)</code>
 
 # Texml
 

@@ -192,8 +192,8 @@ private constructor(
         fun condition(unionMember2: Condition.UnionMember2) =
             condition(Condition.ofUnionMember2(unionMember2))
 
-        /** Alias for calling [condition] with `Condition.ofObject()`. */
-        fun conditionObject() = condition(Condition.ofObject())
+        /** Alias for calling [condition] with `Condition.ofUnionMember3()`. */
+        fun conditionUnionMember3() = condition(Condition.ofUnionMember3())
 
         /**
          * Sets the field to an arbitrary JSON value.
@@ -343,7 +343,7 @@ private constructor(
         private val unionMember0: UnionMember0? = null,
         private val unionMember1: UnionMember1? = null,
         private val unionMember2: UnionMember2? = null,
-        private val object_: JsonValue? = null,
+        private val unionMember3: JsonValue? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -353,7 +353,7 @@ private constructor(
 
         fun unionMember2(): Optional<UnionMember2> = Optional.ofNullable(unionMember2)
 
-        fun object_(): Optional<JsonValue> = Optional.ofNullable(object_)
+        fun unionMember3(): Optional<JsonValue> = Optional.ofNullable(unionMember3)
 
         fun isUnionMember0(): Boolean = unionMember0 != null
 
@@ -361,7 +361,7 @@ private constructor(
 
         fun isUnionMember2(): Boolean = unionMember2 != null
 
-        fun isObject(): Boolean = object_ != null
+        fun isUnionMember3(): Boolean = unionMember3 != null
 
         fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
 
@@ -369,7 +369,7 @@ private constructor(
 
         fun asUnionMember2(): UnionMember2 = unionMember2.getOrThrow("unionMember2")
 
-        fun asObject(): JsonValue = object_.getOrThrow("object_")
+        fun asUnionMember3(): JsonValue = unionMember3.getOrThrow("unionMember3")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -407,7 +407,7 @@ private constructor(
                 unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
                 unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
                 unionMember2 != null -> visitor.visitUnionMember2(unionMember2)
-                object_ != null -> visitor.visitObject(object_)
+                unionMember3 != null -> visitor.visitUnionMember3(unionMember3)
                 else -> visitor.unknown(_json)
             }
 
@@ -441,11 +441,11 @@ private constructor(
                         unionMember2.validate()
                     }
 
-                    override fun visitObject(object_: JsonValue) {
-                        object_.let {
+                    override fun visitUnionMember3(unionMember3: JsonValue) {
+                        unionMember3.let {
                             if (it != JsonValue.from(mapOf("kind" to "dom_stable"))) {
                                 throw TelnyxInvalidDataException(
-                                    "'object_' is invalid, received $it"
+                                    "'unionMember3' is invalid, received $it"
                                 )
                             }
                         }
@@ -482,8 +482,8 @@ private constructor(
                     override fun visitUnionMember2(unionMember2: UnionMember2) =
                         unionMember2.validity()
 
-                    override fun visitObject(object_: JsonValue) =
-                        object_.let {
+                    override fun visitUnionMember3(unionMember3: JsonValue) =
+                        unionMember3.let {
                             if (it == JsonValue.from(mapOf("kind" to "dom_stable"))) 1 else 0
                         }
 
@@ -500,18 +500,18 @@ private constructor(
                 unionMember0 == other.unionMember0 &&
                 unionMember1 == other.unionMember1 &&
                 unionMember2 == other.unionMember2 &&
-                object_ == other.object_
+                unionMember3 == other.unionMember3
         }
 
         override fun hashCode(): Int =
-            Objects.hash(unionMember0, unionMember1, unionMember2, object_)
+            Objects.hash(unionMember0, unionMember1, unionMember2, unionMember3)
 
         override fun toString(): String =
             when {
                 unionMember0 != null -> "Condition{unionMember0=$unionMember0}"
                 unionMember1 != null -> "Condition{unionMember1=$unionMember1}"
                 unionMember2 != null -> "Condition{unionMember2=$unionMember2}"
-                object_ != null -> "Condition{object_=$object_}"
+                unionMember3 != null -> "Condition{unionMember3=$unionMember3}"
                 _json != null -> "Condition{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Condition")
             }
@@ -528,7 +528,8 @@ private constructor(
             fun ofUnionMember2(unionMember2: UnionMember2) = Condition(unionMember2 = unionMember2)
 
             @JvmStatic
-            fun ofObject() = Condition(object_ = JsonValue.from(mapOf("kind" to "dom_stable")))
+            fun ofUnionMember3() =
+                Condition(unionMember3 = JsonValue.from(mapOf("kind" to "dom_stable")))
         }
 
         /**
@@ -542,7 +543,7 @@ private constructor(
 
             fun visitUnionMember2(unionMember2: UnionMember2): T
 
-            fun visitObject(object_: JsonValue): T
+            fun visitUnionMember3(unionMember3: JsonValue): T
 
             /**
              * Maps an unknown variant of [Condition] to a value of type [T].
@@ -567,7 +568,7 @@ private constructor(
                 val bestMatches =
                     sequenceOf(
                             tryDeserialize(node, jacksonTypeRef<JsonValue>())
-                                ?.let { Condition(object_ = it, _json = json) }
+                                ?.let { Condition(unionMember3 = it, _json = json) }
                                 ?.takeIf { it.isValid() },
                             tryDeserialize(node, jacksonTypeRef<UnionMember0>())?.let {
                                 Condition(unionMember0 = it, _json = json)
@@ -606,7 +607,7 @@ private constructor(
                     value.unionMember0 != null -> generator.writeObject(value.unionMember0)
                     value.unionMember1 != null -> generator.writeObject(value.unionMember1)
                     value.unionMember2 != null -> generator.writeObject(value.unionMember2)
-                    value.object_ != null -> generator.writeObject(value.object_)
+                    value.unionMember3 != null -> generator.writeObject(value.unionMember3)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Condition")
                 }

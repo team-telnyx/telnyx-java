@@ -15,13 +15,13 @@ internal class HostedSignupRetrieveResponseTest {
         val hostedSignupRetrieveResponse =
             HostedSignupRetrieveResponse.builder()
                 .data(
-                    HostedSignupRetrieveResponse.Data.builder()
+                    WhatsappHostedSignup.builder()
                         .id("0192345a-7b8c-7d9e-0f12-3456789abcde")
                         .appId("123456789012345")
                         .createdAt(OffsetDateTime.parse("2026-07-08T12:00:00Z"))
                         .expiresAt(OffsetDateTime.parse("2026-07-09T12:00:00Z"))
                         .jwt("eyJhbGciOiJSUzI1NiIs...")
-                        .recordType(HostedSignupRetrieveResponse.Data.RecordType.WHATSAPP_JWT)
+                        .recordType(WhatsappHostedSignup.RecordType.WHATSAPP_JWT)
                         .solutionId("987654321098765")
                         .url("https://acct.fyi?token=eyJhbGciOiJSUzI1NiIs...")
                         .build()
@@ -30,13 +30,13 @@ internal class HostedSignupRetrieveResponseTest {
 
         assertThat(hostedSignupRetrieveResponse.data())
             .contains(
-                HostedSignupRetrieveResponse.Data.builder()
+                WhatsappHostedSignup.builder()
                     .id("0192345a-7b8c-7d9e-0f12-3456789abcde")
                     .appId("123456789012345")
                     .createdAt(OffsetDateTime.parse("2026-07-08T12:00:00Z"))
                     .expiresAt(OffsetDateTime.parse("2026-07-09T12:00:00Z"))
                     .jwt("eyJhbGciOiJSUzI1NiIs...")
-                    .recordType(HostedSignupRetrieveResponse.Data.RecordType.WHATSAPP_JWT)
+                    .recordType(WhatsappHostedSignup.RecordType.WHATSAPP_JWT)
                     .solutionId("987654321098765")
                     .url("https://acct.fyi?token=eyJhbGciOiJSUzI1NiIs...")
                     .build()
@@ -49,13 +49,13 @@ internal class HostedSignupRetrieveResponseTest {
         val hostedSignupRetrieveResponse =
             HostedSignupRetrieveResponse.builder()
                 .data(
-                    HostedSignupRetrieveResponse.Data.builder()
+                    WhatsappHostedSignup.builder()
                         .id("0192345a-7b8c-7d9e-0f12-3456789abcde")
                         .appId("123456789012345")
                         .createdAt(OffsetDateTime.parse("2026-07-08T12:00:00Z"))
                         .expiresAt(OffsetDateTime.parse("2026-07-09T12:00:00Z"))
                         .jwt("eyJhbGciOiJSUzI1NiIs...")
-                        .recordType(HostedSignupRetrieveResponse.Data.RecordType.WHATSAPP_JWT)
+                        .recordType(WhatsappHostedSignup.RecordType.WHATSAPP_JWT)
                         .solutionId("987654321098765")
                         .url("https://acct.fyi?token=eyJhbGciOiJSUzI1NiIs...")
                         .build()

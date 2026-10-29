@@ -6,6 +6,7 @@ import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.alphanumericsenderids.MessagingPaginationMeta0b38e7044b
+import com.telnyx.sdk.models.whatsapp.phonenumbers.WhatsappPhoneResponse
 import com.telnyx.sdk.services.async.whatsapp.businessaccounts.PhoneNumberServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -21,14 +22,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: PhoneNumberListParams,
     private val response: PhoneNumberListPageResponse,
-) : PageAsync<PhoneNumberListResponse> {
+) : PageAsync<WhatsappPhoneResponse> {
 
     /**
      * Delegates to [PhoneNumberListPageResponse], but gracefully handles missing data.
      *
      * @see PhoneNumberListPageResponse.data
      */
-    fun data(): List<PhoneNumberListResponse> =
+    fun data(): List<WhatsappPhoneResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +39,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta0b38e7044b> = response._meta().getOptional("meta")
 
-    override fun items(): List<PhoneNumberListResponse> = data()
+    override fun items(): List<WhatsappPhoneResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -68,7 +69,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<PhoneNumberListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<PhoneNumberListResponse> =
+    fun autoPager(): AutoPagerAsync<WhatsappPhoneResponse> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
