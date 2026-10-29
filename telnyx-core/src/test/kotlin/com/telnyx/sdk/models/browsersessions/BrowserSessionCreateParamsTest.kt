@@ -18,7 +18,11 @@ internal class BrowserSessionCreateParamsTest {
             .limits(
                 BrowserSessionCreateParams.Limits.builder().idleTimeoutS(30L).lifetimeS(60L).build()
             )
-            .metadata(JsonValue.from(mapOf<String, Any>()))
+            .metadata(
+                BrowserSessionCreateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
             .build()
     }
 
@@ -38,7 +42,11 @@ internal class BrowserSessionCreateParamsTest {
                         .lifetimeS(60L)
                         .build()
                 )
-                .metadata(JsonValue.from(mapOf<String, Any>()))
+                .metadata(
+                    BrowserSessionCreateParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -52,7 +60,12 @@ internal class BrowserSessionCreateParamsTest {
             .contains(
                 BrowserSessionCreateParams.Limits.builder().idleTimeoutS(30L).lifetimeS(60L).build()
             )
-        assertThat(body._metadata()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body.metadata())
+            .contains(
+                BrowserSessionCreateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
     }
 
     @Test
