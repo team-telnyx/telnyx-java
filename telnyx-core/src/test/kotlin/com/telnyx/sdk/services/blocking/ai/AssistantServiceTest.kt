@@ -40,7 +40,9 @@ import com.telnyx.sdk.models.ai.assistants.PrivacySettings
 import com.telnyx.sdk.models.ai.assistants.PromptSyncStatus
 import com.telnyx.sdk.models.ai.assistants.StartSpeakingPlan
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
+import com.telnyx.sdk.models.ai.assistants.TranscriptionChallenger
 import com.telnyx.sdk.models.ai.assistants.TranscriptionEndpointingPlan
+import com.telnyx.sdk.models.ai.assistants.TranscriptionFallbackModel
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.WebsocketSettings
@@ -124,16 +126,13 @@ internal class AssistantServiceTest {
                                         TranscriptionSettings.builder()
                                             .apiKeyRef("api_key_ref")
                                             .challenger(
-                                                TranscriptionSettings.Challenger.builder()
+                                                TranscriptionChallenger.builder()
                                                     .model(
-                                                        TranscriptionSettings.Challenger.Model
+                                                        TranscriptionChallenger.Model
                                                             .DEEPGRAM_NOVA_3
                                                     )
                                                     .language("en")
-                                                    .rule(
-                                                        TranscriptionSettings.Challenger.Rule
-                                                            .BEST_TURN
-                                                    )
+                                                    .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                                     .settings(
                                                         TranscriptionSettingsConfig.builder()
                                                             .context("context")
@@ -157,9 +156,9 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .addFallbackModel(
-                                                TranscriptionSettings.FallbackModel.builder()
+                                                TranscriptionFallbackModel.builder()
                                                     .model(
-                                                        TranscriptionSettings.FallbackModel.Model
+                                                        TranscriptionFallbackModel.Model
                                                             .DEEPGRAM_NOVA_3
                                                     )
                                                     .language("en")
@@ -186,9 +185,9 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .addFallbackModel(
-                                                TranscriptionSettings.FallbackModel.builder()
+                                                TranscriptionFallbackModel.builder()
                                                     .model(
-                                                        TranscriptionSettings.FallbackModel.Model
+                                                        TranscriptionFallbackModel.Model
                                                             .SONIOX_STT_RT_V5
                                                     )
                                                     .language("en")
@@ -328,16 +327,13 @@ internal class AssistantServiceTest {
                                         TranscriptionSettings.builder()
                                             .apiKeyRef("api_key_ref")
                                             .challenger(
-                                                TranscriptionSettings.Challenger.builder()
+                                                TranscriptionChallenger.builder()
                                                     .model(
-                                                        TranscriptionSettings.Challenger.Model
+                                                        TranscriptionChallenger.Model
                                                             .DEEPGRAM_NOVA_3
                                                     )
                                                     .language("en")
-                                                    .rule(
-                                                        TranscriptionSettings.Challenger.Rule
-                                                            .BEST_TURN
-                                                    )
+                                                    .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                                     .settings(
                                                         TranscriptionSettingsConfig.builder()
                                                             .context("context")
@@ -361,9 +357,9 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .addFallbackModel(
-                                                TranscriptionSettings.FallbackModel.builder()
+                                                TranscriptionFallbackModel.builder()
                                                     .model(
-                                                        TranscriptionSettings.FallbackModel.Model
+                                                        TranscriptionFallbackModel.Model
                                                             .DEEPGRAM_NOVA_3
                                                     )
                                                     .language("en")
@@ -390,9 +386,9 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .addFallbackModel(
-                                                TranscriptionSettings.FallbackModel.builder()
+                                                TranscriptionFallbackModel.builder()
                                                     .model(
-                                                        TranscriptionSettings.FallbackModel.Model
+                                                        TranscriptionFallbackModel.Model
                                                             .SONIOX_STT_RT_V5
                                                     )
                                                     .language("en")
@@ -739,10 +735,10 @@ internal class AssistantServiceTest {
                         TranscriptionSettings.builder()
                             .apiKeyRef("api_key_ref")
                             .challenger(
-                                TranscriptionSettings.Challenger.builder()
-                                    .model(TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3)
+                                TranscriptionChallenger.builder()
+                                    .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                     .language("en")
-                                    .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                    .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                     .settings(
                                         TranscriptionSettingsConfig.builder()
                                             .context("context")
@@ -766,10 +762,8 @@ internal class AssistantServiceTest {
                                     .build()
                             )
                             .addFallbackModel(
-                                TranscriptionSettings.FallbackModel.builder()
-                                    .model(
-                                        TranscriptionSettings.FallbackModel.Model.DEEPGRAM_NOVA_3
-                                    )
+                                TranscriptionFallbackModel.builder()
+                                    .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                     .language("en")
                                     .settings(
                                         TranscriptionSettingsConfig.builder()
@@ -794,10 +788,8 @@ internal class AssistantServiceTest {
                                     .build()
                             )
                             .addFallbackModel(
-                                TranscriptionSettings.FallbackModel.builder()
-                                    .model(
-                                        TranscriptionSettings.FallbackModel.Model.SONIOX_STT_RT_V5
-                                    )
+                                TranscriptionFallbackModel.builder()
+                                    .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                     .language("en")
                                     .settings(
                                         TranscriptionSettingsConfig.builder()
@@ -1014,16 +1006,13 @@ internal class AssistantServiceTest {
                                         TranscriptionSettings.builder()
                                             .apiKeyRef("api_key_ref")
                                             .challenger(
-                                                TranscriptionSettings.Challenger.builder()
+                                                TranscriptionChallenger.builder()
                                                     .model(
-                                                        TranscriptionSettings.Challenger.Model
+                                                        TranscriptionChallenger.Model
                                                             .DEEPGRAM_NOVA_3
                                                     )
                                                     .language("en")
-                                                    .rule(
-                                                        TranscriptionSettings.Challenger.Rule
-                                                            .BEST_TURN
-                                                    )
+                                                    .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                                     .settings(
                                                         TranscriptionSettingsConfig.builder()
                                                             .context("context")
@@ -1047,9 +1036,9 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .addFallbackModel(
-                                                TranscriptionSettings.FallbackModel.builder()
+                                                TranscriptionFallbackModel.builder()
                                                     .model(
-                                                        TranscriptionSettings.FallbackModel.Model
+                                                        TranscriptionFallbackModel.Model
                                                             .DEEPGRAM_NOVA_3
                                                     )
                                                     .language("en")
@@ -1076,9 +1065,9 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .addFallbackModel(
-                                                TranscriptionSettings.FallbackModel.builder()
+                                                TranscriptionFallbackModel.builder()
                                                     .model(
-                                                        TranscriptionSettings.FallbackModel.Model
+                                                        TranscriptionFallbackModel.Model
                                                             .SONIOX_STT_RT_V5
                                                     )
                                                     .language("en")
@@ -1218,16 +1207,13 @@ internal class AssistantServiceTest {
                                         TranscriptionSettings.builder()
                                             .apiKeyRef("api_key_ref")
                                             .challenger(
-                                                TranscriptionSettings.Challenger.builder()
+                                                TranscriptionChallenger.builder()
                                                     .model(
-                                                        TranscriptionSettings.Challenger.Model
+                                                        TranscriptionChallenger.Model
                                                             .DEEPGRAM_NOVA_3
                                                     )
                                                     .language("en")
-                                                    .rule(
-                                                        TranscriptionSettings.Challenger.Rule
-                                                            .BEST_TURN
-                                                    )
+                                                    .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                                     .settings(
                                                         TranscriptionSettingsConfig.builder()
                                                             .context("context")
@@ -1251,9 +1237,9 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .addFallbackModel(
-                                                TranscriptionSettings.FallbackModel.builder()
+                                                TranscriptionFallbackModel.builder()
                                                     .model(
-                                                        TranscriptionSettings.FallbackModel.Model
+                                                        TranscriptionFallbackModel.Model
                                                             .DEEPGRAM_NOVA_3
                                                     )
                                                     .language("en")
@@ -1280,9 +1266,9 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .addFallbackModel(
-                                                TranscriptionSettings.FallbackModel.builder()
+                                                TranscriptionFallbackModel.builder()
                                                     .model(
-                                                        TranscriptionSettings.FallbackModel.Model
+                                                        TranscriptionFallbackModel.Model
                                                             .SONIOX_STT_RT_V5
                                                     )
                                                     .language("en")
@@ -1631,10 +1617,10 @@ internal class AssistantServiceTest {
                         TranscriptionSettings.builder()
                             .apiKeyRef("api_key_ref")
                             .challenger(
-                                TranscriptionSettings.Challenger.builder()
-                                    .model(TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3)
+                                TranscriptionChallenger.builder()
+                                    .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                     .language("en")
-                                    .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                    .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                     .settings(
                                         TranscriptionSettingsConfig.builder()
                                             .context("context")
@@ -1658,10 +1644,8 @@ internal class AssistantServiceTest {
                                     .build()
                             )
                             .addFallbackModel(
-                                TranscriptionSettings.FallbackModel.builder()
-                                    .model(
-                                        TranscriptionSettings.FallbackModel.Model.DEEPGRAM_NOVA_3
-                                    )
+                                TranscriptionFallbackModel.builder()
+                                    .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                     .language("en")
                                     .settings(
                                         TranscriptionSettingsConfig.builder()
@@ -1686,10 +1670,8 @@ internal class AssistantServiceTest {
                                     .build()
                             )
                             .addFallbackModel(
-                                TranscriptionSettings.FallbackModel.builder()
-                                    .model(
-                                        TranscriptionSettings.FallbackModel.Model.SONIOX_STT_RT_V5
-                                    )
+                                TranscriptionFallbackModel.builder()
+                                    .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                     .language("en")
                                     .settings(
                                         TranscriptionSettingsConfig.builder()

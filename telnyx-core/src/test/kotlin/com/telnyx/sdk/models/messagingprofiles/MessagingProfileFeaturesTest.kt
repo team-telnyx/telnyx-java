@@ -12,16 +12,23 @@ internal class MessagingProfileFeaturesTest {
     @Test
     fun create() {
         val messagingProfileFeatures =
-            MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
+            MessagingProfileFeatures.builder()
+                .aiOptOutDetectionEnabled(true)
+                .autoChunkLongMessages(true)
+                .build()
 
         assertThat(messagingProfileFeatures.aiOptOutDetectionEnabled()).contains(true)
+        assertThat(messagingProfileFeatures.autoChunkLongMessages()).contains(true)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val messagingProfileFeatures =
-            MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
+            MessagingProfileFeatures.builder()
+                .aiOptOutDetectionEnabled(true)
+                .autoChunkLongMessages(true)
+                .build()
 
         val roundtrippedMessagingProfileFeatures =
             jsonMapper.readValue(

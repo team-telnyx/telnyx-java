@@ -28,6 +28,7 @@ internal class MessageRetrieveGroupMessagesResponseTest {
                                 .status(OutboundMessagePayload.Cc.Status.QUEUED)
                                 .build()
                         )
+                        .childMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .completedAt(null)
                         .cost(
                             OutboundMessagePayload.Cost.builder()
@@ -93,6 +94,7 @@ internal class MessageRetrieveGroupMessagesResponseTest {
                         .messagingProfileId("4000eba1-a0c0-4563-9925-b25e842a7cb6")
                         .numChars(13L)
                         .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
+                        .parentMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .parts(1L)
                         .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .recordType(OutboundMessagePayload.RecordType.MESSAGE)
@@ -136,6 +138,7 @@ internal class MessageRetrieveGroupMessagesResponseTest {
                             .status(OutboundMessagePayload.Cc.Status.QUEUED)
                             .build()
                     )
+                    .childMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .completedAt(null)
                     .cost(
                         OutboundMessagePayload.Cost.builder()
@@ -201,6 +204,7 @@ internal class MessageRetrieveGroupMessagesResponseTest {
                     .messagingProfileId("4000eba1-a0c0-4563-9925-b25e842a7cb6")
                     .numChars(13L)
                     .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
+                    .parentMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .parts(1L)
                     .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .recordType(OutboundMessagePayload.RecordType.MESSAGE)
@@ -248,6 +252,7 @@ internal class MessageRetrieveGroupMessagesResponseTest {
                                 .status(OutboundMessagePayload.Cc.Status.QUEUED)
                                 .build()
                         )
+                        .childMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .completedAt(null)
                         .cost(
                             OutboundMessagePayload.Cost.builder()
@@ -313,6 +318,7 @@ internal class MessageRetrieveGroupMessagesResponseTest {
                         .messagingProfileId("4000eba1-a0c0-4563-9925-b25e842a7cb6")
                         .numChars(13L)
                         .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
+                        .parentMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .parts(1L)
                         .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .recordType(OutboundMessagePayload.RecordType.MESSAGE)

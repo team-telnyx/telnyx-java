@@ -29,11 +29,11 @@ private constructor(
     private val createdAt: JsonField<String>,
     private val etc: JsonField<OffsetDateTime>,
     private val failedOperations: JsonField<List<FailedOperation>>,
-    private val pendingOperations: JsonField<List<PendingOperation>>,
+    private val pendingOperations: JsonField<List<PhoneNumbersJobPendingOperation>>,
     private val phoneNumbers: JsonField<List<PhoneNumbersJobPhoneNumber>>,
     private val recordType: JsonField<String>,
     private val status: JsonField<Status>,
-    private val successfulOperations: JsonField<List<SuccessfulOperation>>,
+    private val successfulOperations: JsonField<List<PhoneNumbersJobSuccessfulOperation>>,
     private val type: JsonField<Type>,
     private val updatedAt: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -49,7 +49,7 @@ private constructor(
         failedOperations: JsonField<List<FailedOperation>> = JsonMissing.of(),
         @JsonProperty("pending_operations")
         @ExcludeMissing
-        pendingOperations: JsonField<List<PendingOperation>> = JsonMissing.of(),
+        pendingOperations: JsonField<List<PhoneNumbersJobPendingOperation>> = JsonMissing.of(),
         @JsonProperty("phone_numbers")
         @ExcludeMissing
         phoneNumbers: JsonField<List<PhoneNumbersJobPhoneNumber>> = JsonMissing.of(),
@@ -59,7 +59,8 @@ private constructor(
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("successful_operations")
         @ExcludeMissing
-        successfulOperations: JsonField<List<SuccessfulOperation>> = JsonMissing.of(),
+        successfulOperations: JsonField<List<PhoneNumbersJobSuccessfulOperation>> =
+            JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
     ) : this(
@@ -113,7 +114,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun pendingOperations(): Optional<List<PendingOperation>> =
+    fun pendingOperations(): Optional<List<PhoneNumbersJobPendingOperation>> =
         pendingOperations.getOptional("pending_operations")
 
     /**
@@ -143,7 +144,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun successfulOperations(): Optional<List<SuccessfulOperation>> =
+    fun successfulOperations(): Optional<List<PhoneNumbersJobSuccessfulOperation>> =
         successfulOperations.getOptional("successful_operations")
 
     /**
@@ -201,7 +202,7 @@ private constructor(
      */
     @JsonProperty("pending_operations")
     @ExcludeMissing
-    fun _pendingOperations(): JsonField<List<PendingOperation>> = pendingOperations
+    fun _pendingOperations(): JsonField<List<PhoneNumbersJobPendingOperation>> = pendingOperations
 
     /**
      * Returns the raw JSON value of [phoneNumbers].
@@ -234,7 +235,8 @@ private constructor(
      */
     @JsonProperty("successful_operations")
     @ExcludeMissing
-    fun _successfulOperations(): JsonField<List<SuccessfulOperation>> = successfulOperations
+    fun _successfulOperations(): JsonField<List<PhoneNumbersJobSuccessfulOperation>> =
+        successfulOperations
 
     /**
      * Returns the raw JSON value of [type].
@@ -275,11 +277,14 @@ private constructor(
         private var createdAt: JsonField<String> = JsonMissing.of()
         private var etc: JsonField<OffsetDateTime> = JsonMissing.of()
         private var failedOperations: JsonField<MutableList<FailedOperation>>? = null
-        private var pendingOperations: JsonField<MutableList<PendingOperation>>? = null
+        private var pendingOperations: JsonField<MutableList<PhoneNumbersJobPendingOperation>>? =
+            null
         private var phoneNumbers: JsonField<MutableList<PhoneNumbersJobPhoneNumber>>? = null
         private var recordType: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
-        private var successfulOperations: JsonField<MutableList<SuccessfulOperation>>? = null
+        private var successfulOperations:
+            JsonField<MutableList<PhoneNumbersJobSuccessfulOperation>>? =
+            null
         private var type: JsonField<Type> = JsonMissing.of()
         private var updatedAt: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -364,26 +369,27 @@ private constructor(
                 }
         }
 
-        fun pendingOperations(pendingOperations: List<PendingOperation>) =
+        fun pendingOperations(pendingOperations: List<PhoneNumbersJobPendingOperation>) =
             pendingOperations(JsonField.of(pendingOperations))
 
         /**
          * Sets [Builder.pendingOperations] to an arbitrary JSON value.
          *
          * You should usually call [Builder.pendingOperations] with a well-typed
-         * `List<PendingOperation>` value instead. This method is primarily for setting the field to
-         * an undocumented or not yet supported value.
+         * `List<PhoneNumbersJobPendingOperation>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun pendingOperations(pendingOperations: JsonField<List<PendingOperation>>) = apply {
-            this.pendingOperations = pendingOperations.map { it.toMutableList() }
-        }
+        fun pendingOperations(pendingOperations: JsonField<List<PhoneNumbersJobPendingOperation>>) =
+            apply {
+                this.pendingOperations = pendingOperations.map { it.toMutableList() }
+            }
 
         /**
-         * Adds a single [PendingOperation] to [pendingOperations].
+         * Adds a single [PhoneNumbersJobPendingOperation] to [pendingOperations].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addPendingOperation(pendingOperation: PendingOperation) = apply {
+        fun addPendingOperation(pendingOperation: PhoneNumbersJobPendingOperation) = apply {
             pendingOperations =
                 (pendingOperations ?: JsonField.of(mutableListOf())).also {
                     checkKnown("pendingOperations", it).add(pendingOperation)
@@ -439,32 +445,32 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        fun successfulOperations(successfulOperations: List<SuccessfulOperation>) =
+        fun successfulOperations(successfulOperations: List<PhoneNumbersJobSuccessfulOperation>) =
             successfulOperations(JsonField.of(successfulOperations))
 
         /**
          * Sets [Builder.successfulOperations] to an arbitrary JSON value.
          *
          * You should usually call [Builder.successfulOperations] with a well-typed
-         * `List<SuccessfulOperation>` value instead. This method is primarily for setting the field
-         * to an undocumented or not yet supported value.
+         * `List<PhoneNumbersJobSuccessfulOperation>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun successfulOperations(successfulOperations: JsonField<List<SuccessfulOperation>>) =
-            apply {
-                this.successfulOperations = successfulOperations.map { it.toMutableList() }
-            }
+        fun successfulOperations(
+            successfulOperations: JsonField<List<PhoneNumbersJobSuccessfulOperation>>
+        ) = apply { this.successfulOperations = successfulOperations.map { it.toMutableList() } }
 
         /**
-         * Adds a single [SuccessfulOperation] to [successfulOperations].
+         * Adds a single [PhoneNumbersJobSuccessfulOperation] to [successfulOperations].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addSuccessfulOperation(successfulOperation: SuccessfulOperation) = apply {
-            successfulOperations =
-                (successfulOperations ?: JsonField.of(mutableListOf())).also {
-                    checkKnown("successfulOperations", it).add(successfulOperation)
-                }
-        }
+        fun addSuccessfulOperation(successfulOperation: PhoneNumbersJobSuccessfulOperation) =
+            apply {
+                successfulOperations =
+                    (successfulOperations ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("successfulOperations", it).add(successfulOperation)
+                    }
+            }
 
         /** Identifies the type of the background job. */
         fun type(type: Type) = type(JsonField.of(type))
@@ -833,203 +839,6 @@ private constructor(
             "FailedOperation{id=$id, errors=$errors, phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * The phone numbers pending confirmation on update results. Entries in this list are transient,
-     * and will be moved to either successful_operations or failed_operations once the processing is
-     * done.
-     */
-    class PendingOperation
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val id: JsonField<String>,
-        private val phoneNumber: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("phone_number")
-            @ExcludeMissing
-            phoneNumber: JsonField<String> = JsonMissing.of(),
-        ) : this(id, phoneNumber, mutableMapOf())
-
-        /**
-         * The phone number's ID
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun id(): Optional<String> = id.getOptional("id")
-
-        /**
-         * The phone number in e164 format.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun phoneNumber(): Optional<String> = phoneNumber.getOptional("phone_number")
-
-        /**
-         * Returns the raw JSON value of [id].
-         *
-         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-        /**
-         * Returns the raw JSON value of [phoneNumber].
-         *
-         * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("phone_number")
-        @ExcludeMissing
-        fun _phoneNumber(): JsonField<String> = phoneNumber
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [PendingOperation]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [PendingOperation]. */
-        class Builder internal constructor() {
-
-            private var id: JsonField<String> = JsonMissing.of()
-            private var phoneNumber: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(pendingOperation: PendingOperation) = apply {
-                id = pendingOperation.id
-                phoneNumber = pendingOperation.phoneNumber
-                additionalProperties = pendingOperation.additionalProperties.toMutableMap()
-            }
-
-            /** The phone number's ID */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /**
-             * Sets [Builder.id] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.id] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
-            /** The phone number in e164 format. */
-            fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
-
-            /**
-             * Sets [Builder.phoneNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.phoneNumber] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun phoneNumber(phoneNumber: JsonField<String>) = apply {
-                this.phoneNumber = phoneNumber
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [PendingOperation].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): PendingOperation =
-                PendingOperation(id, phoneNumber, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): PendingOperation = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            phoneNumber()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (id.asKnown().isPresent) 1 else 0) + (if (phoneNumber.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is PendingOperation &&
-                id == other.id &&
-                phoneNumber == other.phoneNumber &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(id, phoneNumber, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "PendingOperation{id=$id, phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
-    }
-
     /** Indicates the completion status of the background update. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1181,199 +990,6 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
-    }
-
-    /** The phone numbers successfully updated. */
-    class SuccessfulOperation
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val id: JsonField<String>,
-        private val phoneNumber: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("phone_number")
-            @ExcludeMissing
-            phoneNumber: JsonField<String> = JsonMissing.of(),
-        ) : this(id, phoneNumber, mutableMapOf())
-
-        /**
-         * The phone number's ID
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun id(): Optional<String> = id.getOptional("id")
-
-        /**
-         * The phone number in e164 format.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun phoneNumber(): Optional<String> = phoneNumber.getOptional("phone_number")
-
-        /**
-         * Returns the raw JSON value of [id].
-         *
-         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-        /**
-         * Returns the raw JSON value of [phoneNumber].
-         *
-         * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("phone_number")
-        @ExcludeMissing
-        fun _phoneNumber(): JsonField<String> = phoneNumber
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [SuccessfulOperation]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [SuccessfulOperation]. */
-        class Builder internal constructor() {
-
-            private var id: JsonField<String> = JsonMissing.of()
-            private var phoneNumber: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(successfulOperation: SuccessfulOperation) = apply {
-                id = successfulOperation.id
-                phoneNumber = successfulOperation.phoneNumber
-                additionalProperties = successfulOperation.additionalProperties.toMutableMap()
-            }
-
-            /** The phone number's ID */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /**
-             * Sets [Builder.id] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.id] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
-            /** The phone number in e164 format. */
-            fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
-
-            /**
-             * Sets [Builder.phoneNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.phoneNumber] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun phoneNumber(phoneNumber: JsonField<String>) = apply {
-                this.phoneNumber = phoneNumber
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [SuccessfulOperation].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): SuccessfulOperation =
-                SuccessfulOperation(id, phoneNumber, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): SuccessfulOperation = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            phoneNumber()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (id.asKnown().isPresent) 1 else 0) + (if (phoneNumber.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is SuccessfulOperation &&
-                id == other.id &&
-                phoneNumber == other.phoneNumber &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(id, phoneNumber, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "SuccessfulOperation{id=$id, phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
     }
 
     /** Identifies the type of the background job. */

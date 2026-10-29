@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class HostedSignupListResponse
+class WhatsappHostedSignup
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -188,11 +188,11 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [HostedSignupListResponse]. */
+        /** Returns a mutable builder for constructing an instance of [WhatsappHostedSignup]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [HostedSignupListResponse]. */
+    /** A builder for [WhatsappHostedSignup]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
@@ -206,16 +206,16 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(hostedSignupListResponse: HostedSignupListResponse) = apply {
-            id = hostedSignupListResponse.id
-            appId = hostedSignupListResponse.appId
-            createdAt = hostedSignupListResponse.createdAt
-            expiresAt = hostedSignupListResponse.expiresAt
-            jwt = hostedSignupListResponse.jwt
-            recordType = hostedSignupListResponse.recordType
-            solutionId = hostedSignupListResponse.solutionId
-            url = hostedSignupListResponse.url
-            additionalProperties = hostedSignupListResponse.additionalProperties.toMutableMap()
+        internal fun from(whatsappHostedSignup: WhatsappHostedSignup) = apply {
+            id = whatsappHostedSignup.id
+            appId = whatsappHostedSignup.appId
+            createdAt = whatsappHostedSignup.createdAt
+            expiresAt = whatsappHostedSignup.expiresAt
+            jwt = whatsappHostedSignup.jwt
+            recordType = whatsappHostedSignup.recordType
+            solutionId = whatsappHostedSignup.solutionId
+            url = whatsappHostedSignup.url
+            additionalProperties = whatsappHostedSignup.additionalProperties.toMutableMap()
         }
 
         /** Hosted signup ID */
@@ -330,12 +330,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [HostedSignupListResponse].
+         * Returns an immutable instance of [WhatsappHostedSignup].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): HostedSignupListResponse =
-            HostedSignupListResponse(
+        fun build(): WhatsappHostedSignup =
+            WhatsappHostedSignup(
                 id,
                 appId,
                 createdAt,
@@ -358,7 +358,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): HostedSignupListResponse = apply {
+    fun validate(): WhatsappHostedSignup = apply {
         if (validated) {
             return@apply
         }
@@ -533,7 +533,7 @@ private constructor(
             return true
         }
 
-        return other is HostedSignupListResponse &&
+        return other is WhatsappHostedSignup &&
             id == other.id &&
             appId == other.appId &&
             createdAt == other.createdAt &&
@@ -562,5 +562,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "HostedSignupListResponse{id=$id, appId=$appId, createdAt=$createdAt, expiresAt=$expiresAt, jwt=$jwt, recordType=$recordType, solutionId=$solutionId, url=$url, additionalProperties=$additionalProperties}"
+        "WhatsappHostedSignup{id=$id, appId=$appId, createdAt=$createdAt, expiresAt=$expiresAt, jwt=$jwt, recordType=$recordType, solutionId=$solutionId, url=$url, additionalProperties=$additionalProperties}"
 }

@@ -177,7 +177,6 @@ import com.telnyx.sdk.services.blocking.TexmlApplicationService
 import com.telnyx.sdk.services.blocking.TexmlService
 import com.telnyx.sdk.services.blocking.TextToSpeechService
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
-import com.telnyx.sdk.services.blocking.TtsIntegrationService
 import com.telnyx.sdk.services.blocking.TunnelService
 import com.telnyx.sdk.services.blocking.UacConnectionService
 import com.telnyx.sdk.services.blocking.UsageReportService
@@ -856,8 +855,6 @@ interface TelnyxClient {
     /** Call information */
     fun dialMetrics(): DialMetricService
 
-    fun ttsIntegrations(): TtsIntegrationService
-
     /** Tailscale Subnet Router operations */
     fun tailscaleSubnetRouters(): TailscaleSubnetRouterService
 
@@ -1517,8 +1514,6 @@ interface TelnyxClient {
 
         /** Call information */
         fun dialMetrics(): DialMetricService.WithRawResponse
-
-        fun ttsIntegrations(): TtsIntegrationService.WithRawResponse
 
         /** Tailscale Subnet Router operations */
         fun tailscaleSubnetRouters(): TailscaleSubnetRouterService.WithRawResponse

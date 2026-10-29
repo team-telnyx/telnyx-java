@@ -8,14 +8,14 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class PhoneNumberListResponseTest {
+internal class WhatsappPhoneResponseTest {
 
     @Test
     fun create() {
-        val phoneNumberListResponse =
-            PhoneNumberListResponse.builder()
+        val whatsappPhoneResponse =
+            WhatsappPhoneResponse.builder()
                 .callingEnabled(true)
-                .coexistenceState(PhoneNumberListResponse.CoexistenceState.PENDING_ONBOARDING)
+                .coexistenceState(WhatsappPhoneResponse.CoexistenceState.PENDING_ONBOARDING)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .displayName("display_name")
                 .enabled(true)
@@ -27,7 +27,7 @@ internal class PhoneNumberListResponseTest {
                 .status("status")
                 .syncDeadline(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .syncProgress(
-                    PhoneNumberListResponse.SyncProgress.builder()
+                    WhatsappPhoneResponse.SyncProgress.builder()
                         .contactsStatus("contacts_status")
                         .historyChunkOrder(0L)
                         .historyPhase(0L)
@@ -39,24 +39,24 @@ internal class PhoneNumberListResponseTest {
                 .wabaId("waba_id")
                 .build()
 
-        assertThat(phoneNumberListResponse.callingEnabled()).contains(true)
-        assertThat(phoneNumberListResponse.coexistenceState())
-            .contains(PhoneNumberListResponse.CoexistenceState.PENDING_ONBOARDING)
-        assertThat(phoneNumberListResponse.createdAt())
+        assertThat(whatsappPhoneResponse.callingEnabled()).contains(true)
+        assertThat(whatsappPhoneResponse.coexistenceState())
+            .contains(WhatsappPhoneResponse.CoexistenceState.PENDING_ONBOARDING)
+        assertThat(whatsappPhoneResponse.createdAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(phoneNumberListResponse.displayName()).contains("display_name")
-        assertThat(phoneNumberListResponse.enabled()).contains(true)
-        assertThat(phoneNumberListResponse.isOnBizApp()).contains(true)
-        assertThat(phoneNumberListResponse.phoneNumber()).contains("phone_number")
-        assertThat(phoneNumberListResponse.phoneNumberId()).contains("phone_number_id")
-        assertThat(phoneNumberListResponse.qualityRating()).contains("quality_rating")
-        assertThat(phoneNumberListResponse.recordType()).contains("whatsapp_business_phone_number")
-        assertThat(phoneNumberListResponse.status()).contains("status")
-        assertThat(phoneNumberListResponse.syncDeadline())
+        assertThat(whatsappPhoneResponse.displayName()).contains("display_name")
+        assertThat(whatsappPhoneResponse.enabled()).contains(true)
+        assertThat(whatsappPhoneResponse.isOnBizApp()).contains(true)
+        assertThat(whatsappPhoneResponse.phoneNumber()).contains("phone_number")
+        assertThat(whatsappPhoneResponse.phoneNumberId()).contains("phone_number_id")
+        assertThat(whatsappPhoneResponse.qualityRating()).contains("quality_rating")
+        assertThat(whatsappPhoneResponse.recordType()).contains("whatsapp_business_phone_number")
+        assertThat(whatsappPhoneResponse.status()).contains("status")
+        assertThat(whatsappPhoneResponse.syncDeadline())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(phoneNumberListResponse.syncProgress())
+        assertThat(whatsappPhoneResponse.syncProgress())
             .contains(
-                PhoneNumberListResponse.SyncProgress.builder()
+                WhatsappPhoneResponse.SyncProgress.builder()
                     .contactsStatus("contacts_status")
                     .historyChunkOrder(0L)
                     .historyPhase(0L)
@@ -64,17 +64,17 @@ internal class PhoneNumberListResponseTest {
                     .historyStatus("history_status")
                     .build()
             )
-        assertThat(phoneNumberListResponse.userId()).contains("user_id")
-        assertThat(phoneNumberListResponse.wabaId()).contains("waba_id")
+        assertThat(whatsappPhoneResponse.userId()).contains("user_id")
+        assertThat(whatsappPhoneResponse.wabaId()).contains("waba_id")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val phoneNumberListResponse =
-            PhoneNumberListResponse.builder()
+        val whatsappPhoneResponse =
+            WhatsappPhoneResponse.builder()
                 .callingEnabled(true)
-                .coexistenceState(PhoneNumberListResponse.CoexistenceState.PENDING_ONBOARDING)
+                .coexistenceState(WhatsappPhoneResponse.CoexistenceState.PENDING_ONBOARDING)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .displayName("display_name")
                 .enabled(true)
@@ -86,7 +86,7 @@ internal class PhoneNumberListResponseTest {
                 .status("status")
                 .syncDeadline(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .syncProgress(
-                    PhoneNumberListResponse.SyncProgress.builder()
+                    WhatsappPhoneResponse.SyncProgress.builder()
                         .contactsStatus("contacts_status")
                         .historyChunkOrder(0L)
                         .historyPhase(0L)
@@ -98,12 +98,12 @@ internal class PhoneNumberListResponseTest {
                 .wabaId("waba_id")
                 .build()
 
-        val roundtrippedPhoneNumberListResponse =
+        val roundtrippedWhatsappPhoneResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(phoneNumberListResponse),
-                jacksonTypeRef<PhoneNumberListResponse>(),
+                jsonMapper.writeValueAsString(whatsappPhoneResponse),
+                jacksonTypeRef<WhatsappPhoneResponse>(),
             )
 
-        assertThat(roundtrippedPhoneNumberListResponse).isEqualTo(phoneNumberListResponse)
+        assertThat(roundtrippedWhatsappPhoneResponse).isEqualTo(whatsappPhoneResponse)
     }
 }
