@@ -573,6 +573,7 @@ internal class AssistantUpdateParamsTest {
                     .defaultTexmlAppId("default_texml_app_id")
                     .disableDtmf(true)
                     .fallbackDestination("fallback_destination")
+                    .greetingDelayMs(0L)
                     .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                     .noiseSuppressionConfig(
                         TelephonySettings.NoiseSuppressionConfig.builder()
@@ -1412,6 +1413,7 @@ internal class AssistantUpdateParamsTest {
                         .defaultTexmlAppId("default_texml_app_id")
                         .disableDtmf(true)
                         .fallbackDestination("fallback_destination")
+                        .greetingDelayMs(0L)
                         .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                         .noiseSuppressionConfig(
                             TelephonySettings.NoiseSuppressionConfig.builder()
@@ -2236,6 +2238,7 @@ internal class AssistantUpdateParamsTest {
                     .defaultTexmlAppId("default_texml_app_id")
                     .disableDtmf(true)
                     .fallbackDestination("fallback_destination")
+                    .greetingDelayMs(0L)
                     .noiseSuppression(TelephonySettings.NoiseSuppression.AICOUSTICS)
                     .noiseSuppressionConfig(
                         TelephonySettings.NoiseSuppressionConfig.builder()
