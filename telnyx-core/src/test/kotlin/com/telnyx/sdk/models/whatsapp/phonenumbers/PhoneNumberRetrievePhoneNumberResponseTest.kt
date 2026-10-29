@@ -15,12 +15,9 @@ internal class PhoneNumberRetrievePhoneNumberResponseTest {
         val phoneNumberRetrievePhoneNumberResponse =
             PhoneNumberRetrievePhoneNumberResponse.builder()
                 .data(
-                    PhoneNumberRetrievePhoneNumberResponse.Data.builder()
+                    WhatsappPhoneResponse.builder()
                         .callingEnabled(true)
-                        .coexistenceState(
-                            PhoneNumberRetrievePhoneNumberResponse.Data.CoexistenceState
-                                .PENDING_ONBOARDING
-                        )
+                        .coexistenceState(WhatsappPhoneResponse.CoexistenceState.PENDING_ONBOARDING)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .displayName("display_name")
                         .enabled(true)
@@ -32,7 +29,7 @@ internal class PhoneNumberRetrievePhoneNumberResponseTest {
                         .status("status")
                         .syncDeadline(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .syncProgress(
-                            PhoneNumberRetrievePhoneNumberResponse.Data.SyncProgress.builder()
+                            WhatsappPhoneResponse.SyncProgress.builder()
                                 .contactsStatus("contacts_status")
                                 .historyChunkOrder(0L)
                                 .historyPhase(0L)
@@ -48,12 +45,9 @@ internal class PhoneNumberRetrievePhoneNumberResponseTest {
 
         assertThat(phoneNumberRetrievePhoneNumberResponse.data())
             .isEqualTo(
-                PhoneNumberRetrievePhoneNumberResponse.Data.builder()
+                WhatsappPhoneResponse.builder()
                     .callingEnabled(true)
-                    .coexistenceState(
-                        PhoneNumberRetrievePhoneNumberResponse.Data.CoexistenceState
-                            .PENDING_ONBOARDING
-                    )
+                    .coexistenceState(WhatsappPhoneResponse.CoexistenceState.PENDING_ONBOARDING)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .displayName("display_name")
                     .enabled(true)
@@ -65,7 +59,7 @@ internal class PhoneNumberRetrievePhoneNumberResponseTest {
                     .status("status")
                     .syncDeadline(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .syncProgress(
-                        PhoneNumberRetrievePhoneNumberResponse.Data.SyncProgress.builder()
+                        WhatsappPhoneResponse.SyncProgress.builder()
                             .contactsStatus("contacts_status")
                             .historyChunkOrder(0L)
                             .historyPhase(0L)
@@ -85,12 +79,9 @@ internal class PhoneNumberRetrievePhoneNumberResponseTest {
         val phoneNumberRetrievePhoneNumberResponse =
             PhoneNumberRetrievePhoneNumberResponse.builder()
                 .data(
-                    PhoneNumberRetrievePhoneNumberResponse.Data.builder()
+                    WhatsappPhoneResponse.builder()
                         .callingEnabled(true)
-                        .coexistenceState(
-                            PhoneNumberRetrievePhoneNumberResponse.Data.CoexistenceState
-                                .PENDING_ONBOARDING
-                        )
+                        .coexistenceState(WhatsappPhoneResponse.CoexistenceState.PENDING_ONBOARDING)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .displayName("display_name")
                         .enabled(true)
@@ -102,7 +93,7 @@ internal class PhoneNumberRetrievePhoneNumberResponseTest {
                         .status("status")
                         .syncDeadline(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .syncProgress(
-                            PhoneNumberRetrievePhoneNumberResponse.Data.SyncProgress.builder()
+                            WhatsappPhoneResponse.SyncProgress.builder()
                                 .contactsStatus("contacts_status")
                                 .historyChunkOrder(0L)
                                 .historyPhase(0L)

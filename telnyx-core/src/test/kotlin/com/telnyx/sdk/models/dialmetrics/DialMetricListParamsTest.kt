@@ -18,7 +18,7 @@ internal class DialMetricListParamsTest {
             .startTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .pageAfter("page[after]")
             .pageLimit(1L)
-            .sort(DialMetricListParams.Sort.minus_START_TIME)
+            .sort(DialMetricListParams.Sort.MINUS_START_TIME)
             .build()
     }
 
@@ -31,7 +31,7 @@ internal class DialMetricListParamsTest {
                 .startTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .pageAfter("page[after]")
                 .pageLimit(1L)
-                .sort(DialMetricListParams.Sort.minus_START_TIME)
+                .sort(DialMetricListParams.Sort.MINUS_START_TIME)
                 .build()
 
         val queryParams = params._queryParams()

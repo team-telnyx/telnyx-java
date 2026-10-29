@@ -17,11 +17,9 @@ internal class PhoneNumberListPageResponseTest {
         val phoneNumberListPageResponse =
             PhoneNumberListPageResponse.builder()
                 .addData(
-                    PhoneNumberListResponse.builder()
+                    WhatsappPhoneResponse.builder()
                         .callingEnabled(true)
-                        .coexistenceState(
-                            PhoneNumberListResponse.CoexistenceState.PENDING_ONBOARDING
-                        )
+                        .coexistenceState(WhatsappPhoneResponse.CoexistenceState.PENDING_ONBOARDING)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .displayName("display_name")
                         .enabled(true)
@@ -33,7 +31,7 @@ internal class PhoneNumberListPageResponseTest {
                         .status("status")
                         .syncDeadline(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .syncProgress(
-                            PhoneNumberListResponse.SyncProgress.builder()
+                            WhatsappPhoneResponse.SyncProgress.builder()
                                 .contactsStatus("contacts_status")
                                 .historyChunkOrder(0L)
                                 .historyPhase(0L)
@@ -57,9 +55,9 @@ internal class PhoneNumberListPageResponseTest {
 
         assertThat(phoneNumberListPageResponse.data().getOrNull())
             .containsExactly(
-                PhoneNumberListResponse.builder()
+                WhatsappPhoneResponse.builder()
                     .callingEnabled(true)
-                    .coexistenceState(PhoneNumberListResponse.CoexistenceState.PENDING_ONBOARDING)
+                    .coexistenceState(WhatsappPhoneResponse.CoexistenceState.PENDING_ONBOARDING)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .displayName("display_name")
                     .enabled(true)
@@ -71,7 +69,7 @@ internal class PhoneNumberListPageResponseTest {
                     .status("status")
                     .syncDeadline(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .syncProgress(
-                        PhoneNumberListResponse.SyncProgress.builder()
+                        WhatsappPhoneResponse.SyncProgress.builder()
                             .contactsStatus("contacts_status")
                             .historyChunkOrder(0L)
                             .historyPhase(0L)
@@ -100,11 +98,9 @@ internal class PhoneNumberListPageResponseTest {
         val phoneNumberListPageResponse =
             PhoneNumberListPageResponse.builder()
                 .addData(
-                    PhoneNumberListResponse.builder()
+                    WhatsappPhoneResponse.builder()
                         .callingEnabled(true)
-                        .coexistenceState(
-                            PhoneNumberListResponse.CoexistenceState.PENDING_ONBOARDING
-                        )
+                        .coexistenceState(WhatsappPhoneResponse.CoexistenceState.PENDING_ONBOARDING)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .displayName("display_name")
                         .enabled(true)
@@ -116,7 +112,7 @@ internal class PhoneNumberListPageResponseTest {
                         .status("status")
                         .syncDeadline(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .syncProgress(
-                            PhoneNumberListResponse.SyncProgress.builder()
+                            WhatsappPhoneResponse.SyncProgress.builder()
                                 .contactsStatus("contacts_status")
                                 .historyChunkOrder(0L)
                                 .historyPhase(0L)

@@ -352,8 +352,6 @@ import com.telnyx.sdk.services.blocking.TextToSpeechService
 import com.telnyx.sdk.services.blocking.TextToSpeechServiceImpl
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileServiceImpl
-import com.telnyx.sdk.services.blocking.TtsIntegrationService
-import com.telnyx.sdk.services.blocking.TtsIntegrationServiceImpl
 import com.telnyx.sdk.services.blocking.TunnelService
 import com.telnyx.sdk.services.blocking.TunnelServiceImpl
 import com.telnyx.sdk.services.blocking.UacConnectionService
@@ -1128,10 +1126,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         DialMetricServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val ttsIntegrations: TtsIntegrationService by lazy {
-        TtsIntegrationServiceImpl(clientOptionsWithUserAgent)
-    }
-
     private val tailscaleSubnetRouters: TailscaleSubnetRouterService by lazy {
         TailscaleSubnetRouterServiceImpl(clientOptionsWithUserAgent)
     }
@@ -1788,8 +1782,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** Call information */
     override fun dialMetrics(): DialMetricService = dialMetrics
-
-    override fun ttsIntegrations(): TtsIntegrationService = ttsIntegrations
 
     /** Tailscale Subnet Router operations */
     override fun tailscaleSubnetRouters(): TailscaleSubnetRouterService = tailscaleSubnetRouters
@@ -2600,10 +2592,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             DialMetricServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val ttsIntegrations: TtsIntegrationService.WithRawResponse by lazy {
-            TtsIntegrationServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val tailscaleSubnetRouters: TailscaleSubnetRouterService.WithRawResponse by lazy {
             TailscaleSubnetRouterServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -3326,8 +3314,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         /** Call information */
         override fun dialMetrics(): DialMetricService.WithRawResponse = dialMetrics
-
-        override fun ttsIntegrations(): TtsIntegrationService.WithRawResponse = ttsIntegrations
 
         /** Tailscale Subnet Router operations */
         override fun tailscaleSubnetRouters(): TailscaleSubnetRouterService.WithRawResponse =

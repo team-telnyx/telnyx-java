@@ -14,24 +14,16 @@ internal class NamespaceSettingsResponseTest {
         val namespaceSettingsResponse =
             NamespaceSettingsResponse.builder()
                 .data(
-                    NamespaceSettingsResponse.Data.builder()
-                        .summary(
-                            NamespaceSettingsResponse.Data.Summary.builder()
-                                .instructions("instructions")
-                                .build()
-                        )
+                    NamespaceSettings.builder()
+                        .summary(SummarySettings.builder().instructions("instructions").build())
                         .build()
                 )
                 .build()
 
         assertThat(namespaceSettingsResponse.data())
             .isEqualTo(
-                NamespaceSettingsResponse.Data.builder()
-                    .summary(
-                        NamespaceSettingsResponse.Data.Summary.builder()
-                            .instructions("instructions")
-                            .build()
-                    )
+                NamespaceSettings.builder()
+                    .summary(SummarySettings.builder().instructions("instructions").build())
                     .build()
             )
     }
@@ -42,12 +34,8 @@ internal class NamespaceSettingsResponseTest {
         val namespaceSettingsResponse =
             NamespaceSettingsResponse.builder()
                 .data(
-                    NamespaceSettingsResponse.Data.builder()
-                        .summary(
-                            NamespaceSettingsResponse.Data.Summary.builder()
-                                .instructions("instructions")
-                                .build()
-                        )
+                    NamespaceSettings.builder()
+                        .summary(SummarySettings.builder().instructions("instructions").build())
                         .build()
                 )
                 .build()

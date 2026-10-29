@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers
+package com.telnyx.sdk.models.whatsapp.phonenumbers
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class PhoneNumberListResponse
+class WhatsappPhoneResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val callingEnabled: JsonField<Boolean>,
@@ -350,11 +350,11 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [PhoneNumberListResponse]. */
+        /** Returns a mutable builder for constructing an instance of [WhatsappPhoneResponse]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [PhoneNumberListResponse]. */
+    /** A builder for [WhatsappPhoneResponse]. */
     class Builder internal constructor() {
 
         private var callingEnabled: JsonField<Boolean> = JsonMissing.of()
@@ -375,23 +375,23 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(phoneNumberListResponse: PhoneNumberListResponse) = apply {
-            callingEnabled = phoneNumberListResponse.callingEnabled
-            coexistenceState = phoneNumberListResponse.coexistenceState
-            createdAt = phoneNumberListResponse.createdAt
-            displayName = phoneNumberListResponse.displayName
-            enabled = phoneNumberListResponse.enabled
-            isOnBizApp = phoneNumberListResponse.isOnBizApp
-            phoneNumber = phoneNumberListResponse.phoneNumber
-            phoneNumberId = phoneNumberListResponse.phoneNumberId
-            qualityRating = phoneNumberListResponse.qualityRating
-            recordType = phoneNumberListResponse.recordType
-            status = phoneNumberListResponse.status
-            syncDeadline = phoneNumberListResponse.syncDeadline
-            syncProgress = phoneNumberListResponse.syncProgress
-            userId = phoneNumberListResponse.userId
-            wabaId = phoneNumberListResponse.wabaId
-            additionalProperties = phoneNumberListResponse.additionalProperties.toMutableMap()
+        internal fun from(whatsappPhoneResponse: WhatsappPhoneResponse) = apply {
+            callingEnabled = whatsappPhoneResponse.callingEnabled
+            coexistenceState = whatsappPhoneResponse.coexistenceState
+            createdAt = whatsappPhoneResponse.createdAt
+            displayName = whatsappPhoneResponse.displayName
+            enabled = whatsappPhoneResponse.enabled
+            isOnBizApp = whatsappPhoneResponse.isOnBizApp
+            phoneNumber = whatsappPhoneResponse.phoneNumber
+            phoneNumberId = whatsappPhoneResponse.phoneNumberId
+            qualityRating = whatsappPhoneResponse.qualityRating
+            recordType = whatsappPhoneResponse.recordType
+            status = whatsappPhoneResponse.status
+            syncDeadline = whatsappPhoneResponse.syncDeadline
+            syncProgress = whatsappPhoneResponse.syncProgress
+            userId = whatsappPhoneResponse.userId
+            wabaId = whatsappPhoneResponse.wabaId
+            additionalProperties = whatsappPhoneResponse.additionalProperties.toMutableMap()
         }
 
         fun callingEnabled(callingEnabled: Boolean) = callingEnabled(JsonField.of(callingEnabled))
@@ -623,12 +623,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [PhoneNumberListResponse].
+         * Returns an immutable instance of [WhatsappPhoneResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): PhoneNumberListResponse =
-            PhoneNumberListResponse(
+        fun build(): WhatsappPhoneResponse =
+            WhatsappPhoneResponse(
                 callingEnabled,
                 coexistenceState,
                 createdAt,
@@ -658,7 +658,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): PhoneNumberListResponse = apply {
+    fun validate(): WhatsappPhoneResponse = apply {
         if (validated) {
             return@apply
         }
@@ -1276,7 +1276,7 @@ private constructor(
             return true
         }
 
-        return other is PhoneNumberListResponse &&
+        return other is WhatsappPhoneResponse &&
             callingEnabled == other.callingEnabled &&
             coexistenceState == other.coexistenceState &&
             createdAt == other.createdAt &&
@@ -1319,5 +1319,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PhoneNumberListResponse{callingEnabled=$callingEnabled, coexistenceState=$coexistenceState, createdAt=$createdAt, displayName=$displayName, enabled=$enabled, isOnBizApp=$isOnBizApp, phoneNumber=$phoneNumber, phoneNumberId=$phoneNumberId, qualityRating=$qualityRating, recordType=$recordType, status=$status, syncDeadline=$syncDeadline, syncProgress=$syncProgress, userId=$userId, wabaId=$wabaId, additionalProperties=$additionalProperties}"
+        "WhatsappPhoneResponse{callingEnabled=$callingEnabled, coexistenceState=$coexistenceState, createdAt=$createdAt, displayName=$displayName, enabled=$enabled, isOnBizApp=$isOnBizApp, phoneNumber=$phoneNumber, phoneNumberId=$phoneNumberId, qualityRating=$qualityRating, recordType=$recordType, status=$status, syncDeadline=$syncDeadline, syncProgress=$syncProgress, userId=$userId, wabaId=$wabaId, additionalProperties=$additionalProperties}"
 }

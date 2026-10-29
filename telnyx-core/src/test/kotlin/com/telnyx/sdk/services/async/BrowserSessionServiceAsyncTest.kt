@@ -33,7 +33,11 @@ internal class BrowserSessionServiceAsyncTest {
                             .lifetimeS(60L)
                             .build()
                     )
-                    .metadata(JsonValue.from(mapOf<String, Any>()))
+                    .metadata(
+                        BrowserSessionCreateParams.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .build()
             )
 

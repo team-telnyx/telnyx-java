@@ -28,7 +28,7 @@ private constructor(
     private val completedAt: JsonField<OffsetDateTime>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val error: JsonField<Error>,
-    private val request: JsonValue,
+    private val request: JsonField<Request>,
     private val result: JsonField<Result>,
     private val seq: JsonField<Long>,
     private val sessionId: JsonField<String>,
@@ -48,7 +48,7 @@ private constructor(
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("error") @ExcludeMissing error: JsonField<Error> = JsonMissing.of(),
-        @JsonProperty("request") @ExcludeMissing request: JsonValue = JsonMissing.of(),
+        @JsonProperty("request") @ExcludeMissing request: JsonField<Request> = JsonMissing.of(),
         @JsonProperty("result") @ExcludeMissing result: JsonField<Result> = JsonMissing.of(),
         @JsonProperty("seq") @ExcludeMissing seq: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("session_id") @ExcludeMissing sessionId: JsonField<String> = JsonMissing.of(),
@@ -107,12 +107,10 @@ private constructor(
      * Normalized request metadata; defaults may be materialized and fill values are redacted as
      * {redacted: true, length: number}, including inside batch actions.
      *
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```java
-     * MyClass myObject = actionResponse.request().convert(MyClass.class);
-     * ```
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    @JsonProperty("request") @ExcludeMissing fun _request(): JsonValue = request
+    fun request(): Request = request.getRequired("request")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -185,6 +183,13 @@ private constructor(
      * Unlike [error], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("error") @ExcludeMissing fun _error(): JsonField<Error> = error
+
+    /**
+     * Returns the raw JSON value of [request].
+     *
+     * Unlike [request], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("request") @ExcludeMissing fun _request(): JsonField<Request> = request
 
     /**
      * Returns the raw JSON value of [result].
@@ -272,7 +277,7 @@ private constructor(
         private var completedAt: JsonField<OffsetDateTime>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var error: JsonField<Error>? = null
-        private var request: JsonValue? = null
+        private var request: JsonField<Request>? = null
         private var result: JsonField<Result>? = null
         private var seq: JsonField<Long>? = null
         private var sessionId: JsonField<String>? = null
@@ -361,7 +366,15 @@ private constructor(
          * Normalized request metadata; defaults may be materialized and fill values are redacted as
          * {redacted: true, length: number}, including inside batch actions.
          */
-        fun request(request: JsonValue) = apply { this.request = request }
+        fun request(request: Request) = request(JsonField.of(request))
+
+        /**
+         * Sets [Builder.request] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.request] with a well-typed [Request] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun request(request: JsonField<Request>) = apply { this.request = request }
 
         fun result(result: Result?) = result(JsonField.ofNullable(result))
 
@@ -513,6 +526,7 @@ private constructor(
         completedAt()
         createdAt()
         error().ifPresent { it.validate() }
+        request().validate()
         result().ifPresent { it.validate() }
         seq()
         sessionId()
@@ -541,6 +555,7 @@ private constructor(
             (if (completedAt.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (error.asKnown().getOrNull()?.validity() ?: 0) +
+            (request.asKnown().getOrNull()?.validity() ?: 0) +
             (result.asKnown().getOrNull()?.validity() ?: 0) +
             (if (seq.asKnown().isPresent) 1 else 0) +
             (if (sessionId.asKnown().isPresent) 1 else 0) +
@@ -758,12 +773,124 @@ private constructor(
             "Error{code=$code, retryable=$retryable, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * Normalized request metadata; defaults may be materialized and fill values are redacted as
+     * {redacted: true, length: number}, including inside batch actions.
+     */
+    class Request
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Request]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Request]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(request: Request) = apply {
+                additionalProperties = request.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Request].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Request = Request(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Request = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Request && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Request{additionalProperties=$additionalProperties}"
+    }
+
     class Result
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val artifact: JsonField<Artifact>,
         private val observation: JsonField<Observation>,
-        private val results: JsonField<List<JsonValue>>,
+        private val results: JsonField<List<InnerResult>>,
         private val title: JsonField<String>,
         private val url: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -779,7 +906,7 @@ private constructor(
             observation: JsonField<Observation> = JsonMissing.of(),
             @JsonProperty("results")
             @ExcludeMissing
-            results: JsonField<List<JsonValue>> = JsonMissing.of(),
+            results: JsonField<List<InnerResult>> = JsonMissing.of(),
             @JsonProperty("title") @ExcludeMissing title: JsonField<String> = JsonMissing.of(),
             @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
         ) : this(artifact, observation, results, title, url, mutableMapOf())
@@ -806,7 +933,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun results(): Optional<List<JsonValue>> = results.getOptional("results")
+        fun results(): Optional<List<InnerResult>> = results.getOptional("results")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -843,7 +970,7 @@ private constructor(
          */
         @JsonProperty("results")
         @ExcludeMissing
-        fun _results(): JsonField<List<JsonValue>> = results
+        fun _results(): JsonField<List<InnerResult>> = results
 
         /**
          * Returns the raw JSON value of [title].
@@ -882,7 +1009,7 @@ private constructor(
 
             private var artifact: JsonField<Artifact> = JsonMissing.of()
             private var observation: JsonField<Observation> = JsonMissing.of()
-            private var results: JsonField<MutableList<JsonValue>>? = null
+            private var results: JsonField<MutableList<InnerResult>>? = null
             private var title: JsonField<String> = JsonMissing.of()
             private var url: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -928,25 +1055,25 @@ private constructor(
             }
 
             /** Present only for batch actions. */
-            fun results(results: List<JsonValue>) = results(JsonField.of(results))
+            fun results(results: List<InnerResult>) = results(JsonField.of(results))
 
             /**
              * Sets [Builder.results] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.results] with a well-typed `List<JsonValue>` value
+             * You should usually call [Builder.results] with a well-typed `List<InnerResult>` value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun results(results: JsonField<List<JsonValue>>) = apply {
+            fun results(results: JsonField<List<InnerResult>>) = apply {
                 this.results = results.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [JsonValue] to [results].
+             * Adds a single [InnerResult] to [results].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addResult(result: JsonValue) = apply {
+            fun addResult(result: InnerResult) = apply {
                 results =
                     (results ?: JsonField.of(mutableListOf())).also {
                         checkKnown("results", it).add(result)
@@ -1028,7 +1155,7 @@ private constructor(
 
             artifact().ifPresent { it.validate() }
             observation().ifPresent { it.validate() }
-            results()
+            results().ifPresent { it.forEach { it.validate() } }
             title()
             url()
             validated = true
@@ -1052,7 +1179,7 @@ private constructor(
         internal fun validity(): Int =
             (artifact.asKnown().getOrNull()?.validity() ?: 0) +
                 (observation.asKnown().getOrNull()?.validity() ?: 0) +
-                (results.asKnown().getOrNull()?.size ?: 0) +
+                (results.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (title.asKnown().isPresent) 1 else 0) +
                 (if (url.asKnown().isPresent) 1 else 0)
 
@@ -1308,7 +1435,7 @@ private constructor(
         private constructor(
             private val observationId: JsonField<String>,
             private val refCount: JsonField<Long>,
-            private val refs: JsonValue,
+            private val refs: JsonField<Refs>,
             private val title: JsonField<String>,
             private val tree: JsonField<String>,
             private val truncated: JsonField<Boolean>,
@@ -1324,7 +1451,7 @@ private constructor(
                 @JsonProperty("ref_count")
                 @ExcludeMissing
                 refCount: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("refs") @ExcludeMissing refs: JsonValue = JsonMissing.of(),
+                @JsonProperty("refs") @ExcludeMissing refs: JsonField<Refs> = JsonMissing.of(),
                 @JsonProperty("title") @ExcludeMissing title: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("tree") @ExcludeMissing tree: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("truncated")
@@ -1348,13 +1475,10 @@ private constructor(
             fun refCount(): Optional<Long> = refCount.getOptional("ref_count")
 
             /**
-             * This arbitrary value can be deserialized into a custom type using the `convert`
-             * method:
-             * ```java
-             * MyClass myObject = observation.refs().convert(MyClass.class);
-             * ```
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
              */
-            @JsonProperty("refs") @ExcludeMissing fun _refs(): JsonValue = refs
+            fun refs(): Optional<Refs> = refs.getOptional("refs")
 
             /**
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -1397,6 +1521,13 @@ private constructor(
              * type.
              */
             @JsonProperty("ref_count") @ExcludeMissing fun _refCount(): JsonField<Long> = refCount
+
+            /**
+             * Returns the raw JSON value of [refs].
+             *
+             * Unlike [refs], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("refs") @ExcludeMissing fun _refs(): JsonField<Refs> = refs
 
             /**
              * Returns the raw JSON value of [title].
@@ -1452,7 +1583,7 @@ private constructor(
 
                 private var observationId: JsonField<String> = JsonMissing.of()
                 private var refCount: JsonField<Long> = JsonMissing.of()
-                private var refs: JsonValue = JsonMissing.of()
+                private var refs: JsonField<Refs> = JsonMissing.of()
                 private var title: JsonField<String> = JsonMissing.of()
                 private var tree: JsonField<String> = JsonMissing.of()
                 private var truncated: JsonField<Boolean> = JsonMissing.of()
@@ -1500,7 +1631,16 @@ private constructor(
                  */
                 fun refCount(refCount: JsonField<Long>) = apply { this.refCount = refCount }
 
-                fun refs(refs: JsonValue) = apply { this.refs = refs }
+                fun refs(refs: Refs) = refs(JsonField.of(refs))
+
+                /**
+                 * Sets [Builder.refs] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.refs] with a well-typed [Refs] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun refs(refs: JsonField<Refs>) = apply { this.refs = refs }
 
                 fun title(title: String) = title(JsonField.of(title))
 
@@ -1605,6 +1745,7 @@ private constructor(
 
                 observationId()
                 refCount()
+                refs().ifPresent { it.validate() }
                 title()
                 tree()
                 truncated()
@@ -1630,10 +1771,125 @@ private constructor(
             internal fun validity(): Int =
                 (if (observationId.asKnown().isPresent) 1 else 0) +
                     (if (refCount.asKnown().isPresent) 1 else 0) +
+                    (refs.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (title.asKnown().isPresent) 1 else 0) +
                     (if (tree.asKnown().isPresent) 1 else 0) +
                     (if (truncated.asKnown().isPresent) 1 else 0) +
                     (if (url.asKnown().isPresent) 1 else 0)
+
+            class Refs
+            @JsonCreator
+            private constructor(
+                @com.fasterxml.jackson.annotation.JsonValue
+                private val additionalProperties: Map<String, JsonValue>
+            ) {
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Refs]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Refs]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(refs: Refs) = apply {
+                        additionalProperties = refs.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Refs].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Refs = Refs(additionalProperties.toImmutable())
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): Refs = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    additionalProperties.count { (_, value) ->
+                        !value.isNull() && !value.isMissing()
+                    }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Refs && additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Refs{additionalProperties=$additionalProperties}"
+            }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -1668,6 +1924,118 @@ private constructor(
 
             override fun toString() =
                 "Observation{observationId=$observationId, refCount=$refCount, refs=$refs, title=$title, tree=$tree, truncated=$truncated, url=$url, additionalProperties=$additionalProperties}"
+        }
+
+        class InnerResult
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [InnerResult]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [InnerResult]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(innerResult: InnerResult) = apply {
+                    additionalProperties = innerResult.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [InnerResult].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): InnerResult = InnerResult(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): InnerResult = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is InnerResult && additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "InnerResult{additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

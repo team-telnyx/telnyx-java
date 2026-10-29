@@ -88,7 +88,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    @Deprecated("deprecated") fun type(): EmailEventType = type.getRequired("type")
+    @Deprecated("Use event_type instead.") fun type(): EmailEventType = type.getRequired("type")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -127,7 +127,7 @@ private constructor(
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @Deprecated("deprecated")
+    @Deprecated("Use event_type instead.")
     @JsonProperty("type")
     @ExcludeMissing
     fun _type(): JsonField<EmailEventType> = type
@@ -245,7 +245,8 @@ private constructor(
          * remain valid for system/admin failures and hard bounces respectively. Existing stored
          * rows retain their original names.
          */
-        @Deprecated("deprecated") fun type(type: EmailEventType) = type(JsonField.of(type))
+        @Deprecated("Use event_type instead.")
+        fun type(type: EmailEventType) = type(JsonField.of(type))
 
         /**
          * Sets [Builder.type] to an arbitrary JSON value.
@@ -254,7 +255,7 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        @Deprecated("deprecated")
+        @Deprecated("Use event_type instead.")
         fun type(type: JsonField<EmailEventType>) = apply { this.type = type }
 
         fun payload(payload: Payload) = payload(JsonField.of(payload))

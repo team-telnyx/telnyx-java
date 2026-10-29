@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.payconnectors
 
-import com.telnyx.sdk.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,7 +15,7 @@ internal class PayConnectorUpdateParamsTest {
                 GenericPayConnectorConfig.BasicAuthenticationAlsoTheValidationDefault.builder()
                     .password("P")
                     .username("P")
-                    .token(JsonValue.from(mapOf<String, Any>()))
+                    .token("token")
                     .authType(
                         GenericPayConnectorConfig.BasicAuthenticationAlsoTheValidationDefault
                             .AuthType
@@ -49,7 +48,7 @@ internal class PayConnectorUpdateParamsTest {
                     GenericPayConnectorConfig.BasicAuthenticationAlsoTheValidationDefault.builder()
                         .password("P")
                         .username("P")
-                        .token(JsonValue.from(mapOf<String, Any>()))
+                        .token("token")
                         .authType(
                             GenericPayConnectorConfig.BasicAuthenticationAlsoTheValidationDefault
                                 .AuthType
@@ -71,7 +70,7 @@ internal class PayConnectorUpdateParamsTest {
                     GenericPayConnectorConfig.BasicAuthenticationAlsoTheValidationDefault.builder()
                         .password("P")
                         .username("P")
-                        .token(JsonValue.from(mapOf<String, Any>()))
+                        .token("token")
                         .authType(
                             GenericPayConnectorConfig.BasicAuthenticationAlsoTheValidationDefault
                                 .AuthType
