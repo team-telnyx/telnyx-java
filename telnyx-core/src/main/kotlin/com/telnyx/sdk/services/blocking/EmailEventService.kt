@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.emailevents.EmailEventListPage
 import com.telnyx.sdk.models.emailevents.EmailEventListParams
-import com.telnyx.sdk.models.emailevents.EmailEventListResponse
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsParams
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsResponse
 import java.util.function.Consumer
@@ -42,20 +42,20 @@ interface EmailEventService {
      * failed renders email.failed in polling while its webhook retains email.bounced, both with
      * canonical email.failed.
      */
-    fun list(): EmailEventListResponse = list(EmailEventListParams.none())
+    fun list(): EmailEventListPage = list(EmailEventListParams.none())
 
     /** @see list */
     fun list(
         params: EmailEventListParams = EmailEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmailEventListResponse
+    ): EmailEventListPage
 
     /** @see list */
-    fun list(params: EmailEventListParams = EmailEventListParams.none()): EmailEventListResponse =
+    fun list(params: EmailEventListParams = EmailEventListParams.none()): EmailEventListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EmailEventListResponse =
+    fun list(requestOptions: RequestOptions): EmailEventListPage =
         list(EmailEventListParams.none(), requestOptions)
 
     /**
@@ -97,24 +97,24 @@ interface EmailEventService {
          * [EmailEventService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<EmailEventListResponse> = list(EmailEventListParams.none())
+        fun list(): HttpResponseFor<EmailEventListPage> = list(EmailEventListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailEventListParams = EmailEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmailEventListResponse>
+        ): HttpResponseFor<EmailEventListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EmailEventListParams = EmailEventListParams.none()
-        ): HttpResponseFor<EmailEventListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<EmailEventListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailEventListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EmailEventListPage> =
             list(EmailEventListParams.none(), requestOptions)
 
         /**

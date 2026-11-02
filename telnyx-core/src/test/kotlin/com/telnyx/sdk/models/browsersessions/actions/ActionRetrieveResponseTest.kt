@@ -51,7 +51,7 @@ internal class ActionRetrieveResponseTest {
                                         .build()
                                 )
                                 .addResult(
-                                    ActionResponse.Result.InnerResult.builder()
+                                    ActionResponse.Result.BatchActionResult.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )
@@ -105,7 +105,7 @@ internal class ActionRetrieveResponseTest {
                                     .build()
                             )
                             .addResult(
-                                ActionResponse.Result.InnerResult.builder()
+                                ActionResponse.Result.BatchActionResult.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .build()
                             )
@@ -163,7 +163,7 @@ internal class ActionRetrieveResponseTest {
                                         .build()
                                 )
                                 .addResult(
-                                    ActionResponse.Result.InnerResult.builder()
+                                    ActionResponse.Result.BatchActionResult.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .build()
                                 )

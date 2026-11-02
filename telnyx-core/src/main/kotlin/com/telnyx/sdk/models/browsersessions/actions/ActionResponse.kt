@@ -890,7 +890,7 @@ private constructor(
     private constructor(
         private val artifact: JsonField<Artifact>,
         private val observation: JsonField<Observation>,
-        private val results: JsonField<List<InnerResult>>,
+        private val results: JsonField<List<BatchActionResult>>,
         private val title: JsonField<String>,
         private val url: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -906,7 +906,7 @@ private constructor(
             observation: JsonField<Observation> = JsonMissing.of(),
             @JsonProperty("results")
             @ExcludeMissing
-            results: JsonField<List<InnerResult>> = JsonMissing.of(),
+            results: JsonField<List<BatchActionResult>> = JsonMissing.of(),
             @JsonProperty("title") @ExcludeMissing title: JsonField<String> = JsonMissing.of(),
             @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
         ) : this(artifact, observation, results, title, url, mutableMapOf())
@@ -933,7 +933,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun results(): Optional<List<InnerResult>> = results.getOptional("results")
+        fun results(): Optional<List<BatchActionResult>> = results.getOptional("results")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -970,7 +970,7 @@ private constructor(
          */
         @JsonProperty("results")
         @ExcludeMissing
-        fun _results(): JsonField<List<InnerResult>> = results
+        fun _results(): JsonField<List<BatchActionResult>> = results
 
         /**
          * Returns the raw JSON value of [title].
@@ -1009,7 +1009,7 @@ private constructor(
 
             private var artifact: JsonField<Artifact> = JsonMissing.of()
             private var observation: JsonField<Observation> = JsonMissing.of()
-            private var results: JsonField<MutableList<InnerResult>>? = null
+            private var results: JsonField<MutableList<BatchActionResult>>? = null
             private var title: JsonField<String> = JsonMissing.of()
             private var url: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1055,25 +1055,25 @@ private constructor(
             }
 
             /** Present only for batch actions. */
-            fun results(results: List<InnerResult>) = results(JsonField.of(results))
+            fun results(results: List<BatchActionResult>) = results(JsonField.of(results))
 
             /**
              * Sets [Builder.results] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.results] with a well-typed `List<InnerResult>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.results] with a well-typed `List<BatchActionResult>`
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun results(results: JsonField<List<InnerResult>>) = apply {
+            fun results(results: JsonField<List<BatchActionResult>>) = apply {
                 this.results = results.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [InnerResult] to [results].
+             * Adds a single [BatchActionResult] to [results].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addResult(result: InnerResult) = apply {
+            fun addResult(result: BatchActionResult) = apply {
                 results =
                     (results ?: JsonField.of(mutableListOf())).also {
                         checkKnown("results", it).add(result)
@@ -1926,7 +1926,7 @@ private constructor(
                 "Observation{observationId=$observationId, refCount=$refCount, refs=$refs, title=$title, tree=$tree, truncated=$truncated, url=$url, additionalProperties=$additionalProperties}"
         }
 
-        class InnerResult
+        class BatchActionResult
         @JsonCreator
         private constructor(
             @com.fasterxml.jackson.annotation.JsonValue
@@ -1941,18 +1941,20 @@ private constructor(
 
             companion object {
 
-                /** Returns a mutable builder for constructing an instance of [InnerResult]. */
+                /**
+                 * Returns a mutable builder for constructing an instance of [BatchActionResult].
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [InnerResult]. */
+            /** A builder for [BatchActionResult]. */
             class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(innerResult: InnerResult) = apply {
-                    additionalProperties = innerResult.additionalProperties.toMutableMap()
+                internal fun from(batchActionResult: BatchActionResult) = apply {
+                    additionalProperties = batchActionResult.additionalProperties.toMutableMap()
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1978,11 +1980,12 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [InnerResult].
+                 * Returns an immutable instance of [BatchActionResult].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): InnerResult = InnerResult(additionalProperties.toImmutable())
+                fun build(): BatchActionResult =
+                    BatchActionResult(additionalProperties.toImmutable())
             }
 
             private var validated: Boolean = false
@@ -1997,7 +2000,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): InnerResult = apply {
+            fun validate(): BatchActionResult = apply {
                 if (validated) {
                     return@apply
                 }
@@ -2028,14 +2031,16 @@ private constructor(
                     return true
                 }
 
-                return other is InnerResult && additionalProperties == other.additionalProperties
+                return other is BatchActionResult &&
+                    additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "InnerResult{additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "BatchActionResult{additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
