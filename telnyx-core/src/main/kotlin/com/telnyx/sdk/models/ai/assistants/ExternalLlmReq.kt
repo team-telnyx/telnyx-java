@@ -11,6 +11,7 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -24,6 +25,7 @@ private constructor(
     private val model: JsonField<String>,
     private val authenticationMethod: JsonField<AuthenticationMethod>,
     private val certificateRef: JsonField<String>,
+    private val extraHeaders: JsonField<ExtraHeaders>,
     private val forwardMetadata: JsonField<Boolean>,
     private val llmApiKeyRef: JsonField<String>,
     private val tokenRetrievalUrl: JsonField<String>,
@@ -40,6 +42,9 @@ private constructor(
         @JsonProperty("certificate_ref")
         @ExcludeMissing
         certificateRef: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("extra_headers")
+        @ExcludeMissing
+        extraHeaders: JsonField<ExtraHeaders> = JsonMissing.of(),
         @JsonProperty("forward_metadata")
         @ExcludeMissing
         forwardMetadata: JsonField<Boolean> = JsonMissing.of(),
@@ -54,6 +59,7 @@ private constructor(
         model,
         authenticationMethod,
         certificateRef,
+        extraHeaders,
         forwardMetadata,
         llmApiKeyRef,
         tokenRetrievalUrl,
@@ -93,6 +99,23 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun certificateRef(): Optional<String> = certificateRef.getOptional("certificate_ref")
+
+    /**
+     * Custom HTTP headers Telnyx sets on every request to the external LLM endpoint, in addition to
+     * the authentication header. Keys are header names, values are static strings. At most 32
+     * headers. Reserved names are rejected: accept-encoding, authorization, connection,
+     * content-encoding, content-length, content-type, cookie, expect, host, keep-alive,
+     * proxy-authenticate, proxy-authorization, proxy-connection, set-cookie, te, trailer,
+     * transfer-encoding, upgrade, x-host-rewrite, x-request-id, x-trace-id, and any x-telnyx-* or
+     * x-stainless-* header; '_' counts as '-' when names are compared. Names must be valid HTTP
+     * header names (RFC 7230 token, at most 128 characters) and must not repeat (case-insensitive).
+     * Values must be printable ASCII, at most 4096 characters, with no leading or trailing
+     * whitespace. Values are stored as plain text and returned when the assistant is retrieved.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun extraHeaders(): Optional<ExtraHeaders> = extraHeaders.getOptional("extra_headers")
 
     /**
      * When `true`, Telnyx forwards the assistant's dynamic variables to the external LLM endpoint
@@ -157,6 +180,15 @@ private constructor(
     fun _certificateRef(): JsonField<String> = certificateRef
 
     /**
+     * Returns the raw JSON value of [extraHeaders].
+     *
+     * Unlike [extraHeaders], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("extra_headers")
+    @ExcludeMissing
+    fun _extraHeaders(): JsonField<ExtraHeaders> = extraHeaders
+
+    /**
      * Returns the raw JSON value of [forwardMetadata].
      *
      * Unlike [forwardMetadata], this method doesn't throw if the JSON field has an unexpected type.
@@ -217,6 +249,7 @@ private constructor(
         private var model: JsonField<String>? = null
         private var authenticationMethod: JsonField<AuthenticationMethod> = JsonMissing.of()
         private var certificateRef: JsonField<String> = JsonMissing.of()
+        private var extraHeaders: JsonField<ExtraHeaders> = JsonMissing.of()
         private var forwardMetadata: JsonField<Boolean> = JsonMissing.of()
         private var llmApiKeyRef: JsonField<String> = JsonMissing.of()
         private var tokenRetrievalUrl: JsonField<String> = JsonMissing.of()
@@ -228,6 +261,7 @@ private constructor(
             model = externalLlmReq.model
             authenticationMethod = externalLlmReq.authenticationMethod
             certificateRef = externalLlmReq.certificateRef
+            extraHeaders = externalLlmReq.extraHeaders
             forwardMetadata = externalLlmReq.forwardMetadata
             llmApiKeyRef = externalLlmReq.llmApiKeyRef
             tokenRetrievalUrl = externalLlmReq.tokenRetrievalUrl
@@ -286,6 +320,37 @@ private constructor(
          */
         fun certificateRef(certificateRef: JsonField<String>) = apply {
             this.certificateRef = certificateRef
+        }
+
+        /**
+         * Custom HTTP headers Telnyx sets on every request to the external LLM endpoint, in
+         * addition to the authentication header. Keys are header names, values are static strings.
+         * At most 32 headers. Reserved names are rejected: accept-encoding, authorization,
+         * connection, content-encoding, content-length, content-type, cookie, expect, host,
+         * keep-alive, proxy-authenticate, proxy-authorization, proxy-connection, set-cookie, te,
+         * trailer, transfer-encoding, upgrade, x-host-rewrite, x-request-id, x-trace-id, and any
+         * x-telnyx-* or x-stainless-* header; '_' counts as '-' when names are compared. Names must
+         * be valid HTTP header names (RFC 7230 token, at most 128 characters) and must not repeat
+         * (case-insensitive). Values must be printable ASCII, at most 4096 characters, with no
+         * leading or trailing whitespace. Values are stored as plain text and returned when the
+         * assistant is retrieved.
+         */
+        fun extraHeaders(extraHeaders: ExtraHeaders?) =
+            extraHeaders(JsonField.ofNullable(extraHeaders))
+
+        /** Alias for calling [Builder.extraHeaders] with `extraHeaders.orElse(null)`. */
+        fun extraHeaders(extraHeaders: Optional<ExtraHeaders>) =
+            extraHeaders(extraHeaders.getOrNull())
+
+        /**
+         * Sets [Builder.extraHeaders] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.extraHeaders] with a well-typed [ExtraHeaders] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun extraHeaders(extraHeaders: JsonField<ExtraHeaders>) = apply {
+            this.extraHeaders = extraHeaders
         }
 
         /**
@@ -377,6 +442,7 @@ private constructor(
                 checkRequired("model", model),
                 authenticationMethod,
                 certificateRef,
+                extraHeaders,
                 forwardMetadata,
                 llmApiKeyRef,
                 tokenRetrievalUrl,
@@ -403,6 +469,7 @@ private constructor(
         model()
         authenticationMethod().ifPresent { it.validate() }
         certificateRef()
+        extraHeaders().ifPresent { it.validate() }
         forwardMetadata()
         llmApiKeyRef()
         tokenRetrievalUrl()
@@ -428,9 +495,130 @@ private constructor(
             (if (model.asKnown().isPresent) 1 else 0) +
             (authenticationMethod.asKnown().getOrNull()?.validity() ?: 0) +
             (if (certificateRef.asKnown().isPresent) 1 else 0) +
+            (extraHeaders.asKnown().getOrNull()?.validity() ?: 0) +
             (if (forwardMetadata.asKnown().isPresent) 1 else 0) +
             (if (llmApiKeyRef.asKnown().isPresent) 1 else 0) +
             (if (tokenRetrievalUrl.asKnown().isPresent) 1 else 0)
+
+    /**
+     * Custom HTTP headers Telnyx sets on every request to the external LLM endpoint, in addition to
+     * the authentication header. Keys are header names, values are static strings. At most 32
+     * headers. Reserved names are rejected: accept-encoding, authorization, connection,
+     * content-encoding, content-length, content-type, cookie, expect, host, keep-alive,
+     * proxy-authenticate, proxy-authorization, proxy-connection, set-cookie, te, trailer,
+     * transfer-encoding, upgrade, x-host-rewrite, x-request-id, x-trace-id, and any x-telnyx-* or
+     * x-stainless-* header; '_' counts as '-' when names are compared. Names must be valid HTTP
+     * header names (RFC 7230 token, at most 128 characters) and must not repeat (case-insensitive).
+     * Values must be printable ASCII, at most 4096 characters, with no leading or trailing
+     * whitespace. Values are stored as plain text and returned when the assistant is retrieved.
+     */
+    class ExtraHeaders
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [ExtraHeaders]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ExtraHeaders]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(extraHeaders: ExtraHeaders) = apply {
+                additionalProperties = extraHeaders.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ExtraHeaders].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ExtraHeaders = ExtraHeaders(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ExtraHeaders = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ExtraHeaders && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "ExtraHeaders{additionalProperties=$additionalProperties}"
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -442,6 +630,7 @@ private constructor(
             model == other.model &&
             authenticationMethod == other.authenticationMethod &&
             certificateRef == other.certificateRef &&
+            extraHeaders == other.extraHeaders &&
             forwardMetadata == other.forwardMetadata &&
             llmApiKeyRef == other.llmApiKeyRef &&
             tokenRetrievalUrl == other.tokenRetrievalUrl &&
@@ -454,6 +643,7 @@ private constructor(
             model,
             authenticationMethod,
             certificateRef,
+            extraHeaders,
             forwardMetadata,
             llmApiKeyRef,
             tokenRetrievalUrl,
@@ -464,5 +654,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ExternalLlmReq{baseUrl=$baseUrl, model=$model, authenticationMethod=$authenticationMethod, certificateRef=$certificateRef, forwardMetadata=$forwardMetadata, llmApiKeyRef=$llmApiKeyRef, tokenRetrievalUrl=$tokenRetrievalUrl, additionalProperties=$additionalProperties}"
+        "ExternalLlmReq{baseUrl=$baseUrl, model=$model, authenticationMethod=$authenticationMethod, certificateRef=$certificateRef, extraHeaders=$extraHeaders, forwardMetadata=$forwardMetadata, llmApiKeyRef=$llmApiKeyRef, tokenRetrievalUrl=$tokenRetrievalUrl, additionalProperties=$additionalProperties}"
 }

@@ -28,7 +28,7 @@ import kotlin.jvm.optionals.getOrNull
 class ActionSendSipInfoParams
 private constructor(
     private val callControlId: String?,
-    private val body: Body,
+    private val sipInfoBody: Body,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -41,7 +41,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun sipInfoBody(): String = body.sipInfoBody()
+    fun sipInfoBody(): String = sipInfoBody.sipInfoBody()
 
     /**
      * Content type of the INFO body. Must be MIME type compliant. There is a 1,400 bytes limit
@@ -49,7 +49,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun contentType(): String = body.contentType()
+    fun contentType(): String = sipInfoBody.contentType()
 
     /**
      * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded
@@ -58,7 +58,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun clientState(): Optional<String> = body.clientState()
+    fun clientState(): Optional<String> = sipInfoBody.clientState()
 
     /**
      * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same
@@ -67,37 +67,37 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun commandId(): Optional<String> = body.commandId()
+    fun commandId(): Optional<String> = sipInfoBody.commandId()
 
     /**
      * Returns the raw JSON value of [sipInfoBody].
      *
      * Unlike [sipInfoBody], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _sipInfoBody(): JsonField<String> = body._sipInfoBody()
+    fun _sipInfoBody(): JsonField<String> = this.sipInfoBody._sipInfoBody()
 
     /**
      * Returns the raw JSON value of [contentType].
      *
      * Unlike [contentType], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _contentType(): JsonField<String> = body._contentType()
+    fun _contentType(): JsonField<String> = sipInfoBody._contentType()
 
     /**
      * Returns the raw JSON value of [clientState].
      *
      * Unlike [clientState], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _clientState(): JsonField<String> = body._clientState()
+    fun _clientState(): JsonField<String> = sipInfoBody._clientState()
 
     /**
      * Returns the raw JSON value of [commandId].
      *
      * Unlike [commandId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _commandId(): JsonField<String> = body._commandId()
+    fun _commandId(): JsonField<String> = sipInfoBody._commandId()
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = sipInfoBody._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
@@ -125,7 +125,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var callControlId: String? = null
-        private var body: Body.Builder = Body.builder()
+        private var sipInfoBody: Body.Builder = Body.builder()
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -133,7 +133,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(actionSendSipInfoParams: ActionSendSipInfoParams) = apply {
             callControlId = actionSendSipInfoParams.callControlId
-            body = actionSendSipInfoParams.body.toBuilder()
+            sipInfoBody = actionSendSipInfoParams.sipInfoBody.toBuilder()
             additionalHeaders = actionSendSipInfoParams.additionalHeaders.toBuilder()
             additionalQueryParams = actionSendSipInfoParams.additionalQueryParams.toBuilder()
         }
@@ -154,10 +154,10 @@ private constructor(
          * - [clientState]
          * - [commandId]
          */
-        fun body(body: Body) = apply { this.body = body.toBuilder() }
+        fun sipInfoBody(sipInfoBody: Body) = apply { this.sipInfoBody = sipInfoBody.toBuilder() }
 
         /** Content of the SIP INFO */
-        fun sipInfoBody(sipInfoBody: String) = apply { body.sipInfoBody(sipInfoBody) }
+        fun sipInfoBody(sipInfoBody: String) = apply { this.sipInfoBody.sipInfoBody(sipInfoBody) }
 
         /**
          * Sets [Builder.sipInfoBody] to an arbitrary JSON value.
@@ -166,12 +166,14 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun sipInfoBody(sipInfoBody: JsonField<String>) = apply { body.sipInfoBody(sipInfoBody) }
+        fun sipInfoBody(sipInfoBody: JsonField<String>) = apply {
+            this.sipInfoBody.sipInfoBody(sipInfoBody)
+        }
 
         /**
          * Content type of the INFO body. Must be MIME type compliant. There is a 1,400 bytes limit
          */
-        fun contentType(contentType: String) = apply { body.contentType(contentType) }
+        fun contentType(contentType: String) = apply { sipInfoBody.contentType(contentType) }
 
         /**
          * Sets [Builder.contentType] to an arbitrary JSON value.
@@ -180,13 +182,15 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun contentType(contentType: JsonField<String>) = apply { body.contentType(contentType) }
+        fun contentType(contentType: JsonField<String>) = apply {
+            sipInfoBody.contentType(contentType)
+        }
 
         /**
          * Use this field to add state to every subsequent webhook. It must be a valid Base-64
          * encoded string.
          */
-        fun clientState(clientState: String) = apply { body.clientState(clientState) }
+        fun clientState(clientState: String) = apply { sipInfoBody.clientState(clientState) }
 
         /**
          * Sets [Builder.clientState] to an arbitrary JSON value.
@@ -195,13 +199,15 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun clientState(clientState: JsonField<String>) = apply { body.clientState(clientState) }
+        fun clientState(clientState: JsonField<String>) = apply {
+            sipInfoBody.clientState(clientState)
+        }
 
         /**
          * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same
          * `command_id` for the same `call_control_id`.
          */
-        fun commandId(commandId: String) = apply { body.commandId(commandId) }
+        fun commandId(commandId: String) = apply { sipInfoBody.commandId(commandId) }
 
         /**
          * Sets [Builder.commandId] to an arbitrary JSON value.
@@ -210,25 +216,27 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun commandId(commandId: JsonField<String>) = apply { body.commandId(commandId) }
+        fun commandId(commandId: JsonField<String>) = apply { sipInfoBody.commandId(commandId) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
+            sipInfoBody.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
+            sipInfoBody.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
+                sipInfoBody.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+        fun removeAdditionalBodyProperty(key: String) = apply {
+            sipInfoBody.removeAdditionalProperty(key)
+        }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
+            sipInfoBody.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
@@ -346,13 +354,13 @@ private constructor(
         fun build(): ActionSendSipInfoParams =
             ActionSendSipInfoParams(
                 callControlId,
-                body.build(),
+                sipInfoBody.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): Body = sipInfoBody
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -677,14 +685,14 @@ private constructor(
 
         return other is ActionSendSipInfoParams &&
             callControlId == other.callControlId &&
-            body == other.body &&
+            sipInfoBody == other.sipInfoBody &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(callControlId, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(callControlId, sipInfoBody, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ActionSendSipInfoParams{callControlId=$callControlId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ActionSendSipInfoParams{callControlId=$callControlId, sipInfoBody=$sipInfoBody, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

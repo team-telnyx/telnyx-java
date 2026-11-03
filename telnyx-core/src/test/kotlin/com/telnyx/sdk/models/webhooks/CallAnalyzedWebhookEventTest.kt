@@ -48,40 +48,40 @@ internal class CallAnalyzedWebhookEventTest {
                                         .build()
                                 )
                                 .cost(
-                                    CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                    CallAnalyzedWebhookEvent.Data.Payload.Cost.CallCostBreakdown
                                         .builder()
                                         .breakdown(
                                             listOf(
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.050000")
                                                     .product("ai-voice-assistant")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.003600")
                                                     .product("callcontrol-cdrs")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.000900")
                                                     .product("inference")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.000800")
                                                     .product("recording-cdrs")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.005000")
@@ -165,34 +165,40 @@ internal class CallAnalyzedWebhookEventTest {
                                     .build()
                             )
                             .cost(
-                                CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0.builder()
+                                CallAnalyzedWebhookEvent.Data.Payload.Cost.CallCostBreakdown
+                                    .builder()
                                     .breakdown(
                                         listOf(
-                                            CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                            CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                .CallCostBreakdown
                                                 .Breakdown
                                                 .builder()
                                                 .cost("0.050000")
                                                 .product("ai-voice-assistant")
                                                 .build(),
-                                            CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                            CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                .CallCostBreakdown
                                                 .Breakdown
                                                 .builder()
                                                 .cost("0.003600")
                                                 .product("callcontrol-cdrs")
                                                 .build(),
-                                            CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                            CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                .CallCostBreakdown
                                                 .Breakdown
                                                 .builder()
                                                 .cost("0.000900")
                                                 .product("inference")
                                                 .build(),
-                                            CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                            CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                .CallCostBreakdown
                                                 .Breakdown
                                                 .builder()
                                                 .cost("0.000800")
                                                 .product("recording-cdrs")
                                                 .build(),
-                                            CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                            CallAnalyzedWebhookEvent.Data.Payload.Cost
+                                                .CallCostBreakdown
                                                 .Breakdown
                                                 .builder()
                                                 .cost("0.005000")
@@ -277,40 +283,40 @@ internal class CallAnalyzedWebhookEventTest {
                                         .build()
                                 )
                                 .cost(
-                                    CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                    CallAnalyzedWebhookEvent.Data.Payload.Cost.CallCostBreakdown
                                         .builder()
                                         .breakdown(
                                             listOf(
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.050000")
                                                     .product("ai-voice-assistant")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.003600")
                                                     .product("callcontrol-cdrs")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.000900")
                                                     .product("inference")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.000800")
                                                     .product("recording-cdrs")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.005000")

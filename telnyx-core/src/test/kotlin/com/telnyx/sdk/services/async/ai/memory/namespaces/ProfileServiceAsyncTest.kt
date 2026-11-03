@@ -55,7 +55,7 @@ internal class ProfileServiceAsyncTest {
                     .profileId("profile_id")
                     .sessionId("session_id")
                     .body(
-                        ProfileIngestParams.Body.UnionMember0.builder()
+                        ProfileIngestParams.Body.IngestPayloadObject.builder()
                             .putAdditionalProperty("messages", JsonValue.from("bar"))
                             .build()
                     )

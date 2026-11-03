@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.ai.assistants
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -24,6 +25,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -208,6 +214,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -417,6 +428,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -601,6 +617,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -813,6 +834,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -997,6 +1023,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")

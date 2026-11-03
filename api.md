@@ -334,6 +334,7 @@ Methods:
 - <code title="get /ai/conversations">client.ai().conversations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/ConversationService.kt">list</a>(params)</code>
 - <code title="delete /ai/conversations/{conversation_id}">client.ai().conversations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/ConversationService.kt">delete</a>(params)</code>
 - <code title="post /ai/conversations/{conversation_id}/message">client.ai().conversations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/ConversationService.kt">addMessage</a>(params)</code>
+- <code title="delete /ai/conversations/{conversation_id}/conversations-insights/{insight_id}">client.ai().conversations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/ConversationService.kt">deleteDelete</a>(params)</code>
 - <code title="get /ai/conversations/{conversation_id}/conversations-insights">client.ai().conversations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/ConversationService.kt">retrieveConversationsInsights</a>(params)</code>
 
 ### InsightGroups

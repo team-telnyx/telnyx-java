@@ -1252,11 +1252,11 @@ private constructor(
 
             /**
              * Alias for calling [bankAccountNumber] with
-             * `BankAccountNumber.ofPayToolPrompts(payToolPrompts)`.
+             * `BankAccountNumber.ofPayToolPromptList(payToolPromptList)`.
              */
-            fun bankAccountNumberOfPayToolPrompts(
-                payToolPrompts: List<BankAccountNumber.PayToolPrompt>
-            ) = bankAccountNumber(BankAccountNumber.ofPayToolPrompts(payToolPrompts))
+            fun bankAccountNumberOfPayToolPromptList(
+                payToolPromptList: List<BankAccountNumber.PayToolPrompt>
+            ) = bankAccountNumber(BankAccountNumber.ofPayToolPromptList(payToolPromptList))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun bankRoutingNumber(bankRoutingNumber: BankRoutingNumber) =
@@ -1279,11 +1279,11 @@ private constructor(
 
             /**
              * Alias for calling [bankRoutingNumber] with
-             * `BankRoutingNumber.ofPayToolPrompts(payToolPrompts)`.
+             * `BankRoutingNumber.ofPayToolPromptList(payToolPromptList)`.
              */
-            fun bankRoutingNumberOfPayToolPrompts(
-                payToolPrompts: List<BankRoutingNumber.PayToolPrompt>
-            ) = bankRoutingNumber(BankRoutingNumber.ofPayToolPrompts(payToolPrompts))
+            fun bankRoutingNumberOfPayToolPromptList(
+                payToolPromptList: List<BankRoutingNumber.PayToolPrompt>
+            ) = bankRoutingNumber(BankRoutingNumber.ofPayToolPromptList(payToolPromptList))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun expirationDate(expirationDate: ExpirationDate) =
@@ -1305,10 +1305,11 @@ private constructor(
 
             /**
              * Alias for calling [expirationDate] with
-             * `ExpirationDate.ofPayToolPrompts(payToolPrompts)`.
+             * `ExpirationDate.ofPayToolPromptList(payToolPromptList)`.
              */
-            fun expirationDateOfPayToolPrompts(payToolPrompts: List<ExpirationDate.PayToolPrompt>) =
-                expirationDate(ExpirationDate.ofPayToolPrompts(payToolPrompts))
+            fun expirationDateOfPayToolPromptList(
+                payToolPromptList: List<ExpirationDate.PayToolPrompt>
+            ) = expirationDate(ExpirationDate.ofPayToolPromptList(payToolPromptList))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun paymentCardNumber(paymentCardNumber: PaymentCardNumber) =
@@ -1331,11 +1332,11 @@ private constructor(
 
             /**
              * Alias for calling [paymentCardNumber] with
-             * `PaymentCardNumber.ofPayToolPrompts(payToolPrompts)`.
+             * `PaymentCardNumber.ofPayToolPromptList(payToolPromptList)`.
              */
-            fun paymentCardNumberOfPayToolPrompts(
-                payToolPrompts: List<PaymentCardNumber.PayToolPrompt>
-            ) = paymentCardNumber(PaymentCardNumber.ofPayToolPrompts(payToolPrompts))
+            fun paymentCardNumberOfPayToolPromptList(
+                payToolPromptList: List<PaymentCardNumber.PayToolPrompt>
+            ) = paymentCardNumber(PaymentCardNumber.ofPayToolPromptList(payToolPromptList))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun postalCode(postalCode: PostalCode) = postalCode(JsonField.of(postalCode))
@@ -1355,10 +1356,11 @@ private constructor(
             fun postalCode(string: String) = postalCode(PostalCode.ofString(string))
 
             /**
-             * Alias for calling [postalCode] with `PostalCode.ofPayToolPrompts(payToolPrompts)`.
+             * Alias for calling [postalCode] with
+             * `PostalCode.ofPayToolPromptList(payToolPromptList)`.
              */
-            fun postalCodeOfPayToolPrompts(payToolPrompts: List<PostalCode.PayToolPrompt>) =
-                postalCode(PostalCode.ofPayToolPrompts(payToolPrompts))
+            fun postalCodeOfPayToolPromptList(payToolPromptList: List<PostalCode.PayToolPrompt>) =
+                postalCode(PostalCode.ofPayToolPromptList(payToolPromptList))
 
             /** A default prompt string or an ordered list of qualified prompts. */
             fun securityCode(securityCode: SecurityCode) = securityCode(JsonField.of(securityCode))
@@ -1379,10 +1381,11 @@ private constructor(
 
             /**
              * Alias for calling [securityCode] with
-             * `SecurityCode.ofPayToolPrompts(payToolPrompts)`.
+             * `SecurityCode.ofPayToolPromptList(payToolPromptList)`.
              */
-            fun securityCodeOfPayToolPrompts(payToolPrompts: List<SecurityCode.PayToolPrompt>) =
-                securityCode(SecurityCode.ofPayToolPrompts(payToolPrompts))
+            fun securityCodeOfPayToolPromptList(
+                payToolPromptList: List<SecurityCode.PayToolPrompt>
+            ) = securityCode(SecurityCode.ofPayToolPromptList(payToolPromptList))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1474,23 +1477,23 @@ private constructor(
         class BankAccountNumber
         private constructor(
             private val string: String? = null,
-            private val payToolPrompts: List<PayToolPrompt>? = null,
+            private val payToolPromptList: List<PayToolPrompt>? = null,
             private val _json: JsonValue? = null,
         ) {
 
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun payToolPrompts(): Optional<List<PayToolPrompt>> =
-                Optional.ofNullable(payToolPrompts)
+            fun payToolPromptList(): Optional<List<PayToolPrompt>> =
+                Optional.ofNullable(payToolPromptList)
 
             fun isString(): Boolean = string != null
 
-            fun isPayToolPrompts(): Boolean = payToolPrompts != null
+            fun isPayToolPromptList(): Boolean = payToolPromptList != null
 
             fun asString(): String = string.getOrThrow("string")
 
-            fun asPayToolPrompts(): List<PayToolPrompt> =
-                payToolPrompts.getOrThrow("payToolPrompts")
+            fun asPayToolPromptList(): List<PayToolPrompt> =
+                payToolPromptList.getOrThrow("payToolPromptList")
 
             fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1527,7 +1530,7 @@ private constructor(
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
-                    payToolPrompts != null -> visitor.visitPayToolPrompts(payToolPrompts)
+                    payToolPromptList != null -> visitor.visitPayToolPromptList(payToolPromptList)
                     else -> visitor.unknown(_json)
                 }
 
@@ -1552,8 +1555,10 @@ private constructor(
                     object : Visitor<Unit> {
                         override fun visitString(string: String) {}
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) {
-                            payToolPrompts.forEach { it.validate() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) {
+                            payToolPromptList.forEach { it.validate() }
                         }
                     }
                 )
@@ -1580,8 +1585,9 @@ private constructor(
                     object : Visitor<Int> {
                         override fun visitString(string: String) = 1
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                            payToolPrompts.sumOf { it.validity().toInt() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) = payToolPromptList.sumOf { it.validity().toInt() }
 
                         override fun unknown(json: JsonValue?) = 0
                     }
@@ -1594,15 +1600,16 @@ private constructor(
 
                 return other is BankAccountNumber &&
                     string == other.string &&
-                    payToolPrompts == other.payToolPrompts
+                    payToolPromptList == other.payToolPromptList
             }
 
-            override fun hashCode(): Int = Objects.hash(string, payToolPrompts)
+            override fun hashCode(): Int = Objects.hash(string, payToolPromptList)
 
             override fun toString(): String =
                 when {
                     string != null -> "BankAccountNumber{string=$string}"
-                    payToolPrompts != null -> "BankAccountNumber{payToolPrompts=$payToolPrompts}"
+                    payToolPromptList != null ->
+                        "BankAccountNumber{payToolPromptList=$payToolPromptList}"
                     _json != null -> "BankAccountNumber{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid BankAccountNumber")
                 }
@@ -1612,8 +1619,8 @@ private constructor(
                 @JvmStatic fun ofString(string: String) = BankAccountNumber(string = string)
 
                 @JvmStatic
-                fun ofPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                    BankAccountNumber(payToolPrompts = payToolPrompts.toImmutable())
+                fun ofPayToolPromptList(payToolPromptList: List<PayToolPrompt>) =
+                    BankAccountNumber(payToolPromptList = payToolPromptList.toImmutable())
             }
 
             /**
@@ -1624,7 +1631,7 @@ private constructor(
 
                 fun visitString(string: String): T
 
-                fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>): T
+                fun visitPayToolPromptList(payToolPromptList: List<PayToolPrompt>): T
 
                 /**
                  * Maps an unknown variant of [BankAccountNumber] to a value of type [T].
@@ -1653,7 +1660,7 @@ private constructor(
                                     BankAccountNumber(string = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<List<PayToolPrompt>>())?.let {
-                                    BankAccountNumber(payToolPrompts = it, _json = json)
+                                    BankAccountNumber(payToolPromptList = it, _json = json)
                                 },
                             )
                             .filterNotNull()
@@ -1682,7 +1689,8 @@ private constructor(
                 ) {
                     when {
                         value.string != null -> generator.writeObject(value.string)
-                        value.payToolPrompts != null -> generator.writeObject(value.payToolPrompts)
+                        value.payToolPromptList != null ->
+                            generator.writeObject(value.payToolPromptList)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid BankAccountNumber")
                     }
@@ -2387,23 +2395,23 @@ private constructor(
         class BankRoutingNumber
         private constructor(
             private val string: String? = null,
-            private val payToolPrompts: List<PayToolPrompt>? = null,
+            private val payToolPromptList: List<PayToolPrompt>? = null,
             private val _json: JsonValue? = null,
         ) {
 
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun payToolPrompts(): Optional<List<PayToolPrompt>> =
-                Optional.ofNullable(payToolPrompts)
+            fun payToolPromptList(): Optional<List<PayToolPrompt>> =
+                Optional.ofNullable(payToolPromptList)
 
             fun isString(): Boolean = string != null
 
-            fun isPayToolPrompts(): Boolean = payToolPrompts != null
+            fun isPayToolPromptList(): Boolean = payToolPromptList != null
 
             fun asString(): String = string.getOrThrow("string")
 
-            fun asPayToolPrompts(): List<PayToolPrompt> =
-                payToolPrompts.getOrThrow("payToolPrompts")
+            fun asPayToolPromptList(): List<PayToolPrompt> =
+                payToolPromptList.getOrThrow("payToolPromptList")
 
             fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -2440,7 +2448,7 @@ private constructor(
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
-                    payToolPrompts != null -> visitor.visitPayToolPrompts(payToolPrompts)
+                    payToolPromptList != null -> visitor.visitPayToolPromptList(payToolPromptList)
                     else -> visitor.unknown(_json)
                 }
 
@@ -2465,8 +2473,10 @@ private constructor(
                     object : Visitor<Unit> {
                         override fun visitString(string: String) {}
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) {
-                            payToolPrompts.forEach { it.validate() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) {
+                            payToolPromptList.forEach { it.validate() }
                         }
                     }
                 )
@@ -2493,8 +2503,9 @@ private constructor(
                     object : Visitor<Int> {
                         override fun visitString(string: String) = 1
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                            payToolPrompts.sumOf { it.validity().toInt() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) = payToolPromptList.sumOf { it.validity().toInt() }
 
                         override fun unknown(json: JsonValue?) = 0
                     }
@@ -2507,15 +2518,16 @@ private constructor(
 
                 return other is BankRoutingNumber &&
                     string == other.string &&
-                    payToolPrompts == other.payToolPrompts
+                    payToolPromptList == other.payToolPromptList
             }
 
-            override fun hashCode(): Int = Objects.hash(string, payToolPrompts)
+            override fun hashCode(): Int = Objects.hash(string, payToolPromptList)
 
             override fun toString(): String =
                 when {
                     string != null -> "BankRoutingNumber{string=$string}"
-                    payToolPrompts != null -> "BankRoutingNumber{payToolPrompts=$payToolPrompts}"
+                    payToolPromptList != null ->
+                        "BankRoutingNumber{payToolPromptList=$payToolPromptList}"
                     _json != null -> "BankRoutingNumber{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid BankRoutingNumber")
                 }
@@ -2525,8 +2537,8 @@ private constructor(
                 @JvmStatic fun ofString(string: String) = BankRoutingNumber(string = string)
 
                 @JvmStatic
-                fun ofPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                    BankRoutingNumber(payToolPrompts = payToolPrompts.toImmutable())
+                fun ofPayToolPromptList(payToolPromptList: List<PayToolPrompt>) =
+                    BankRoutingNumber(payToolPromptList = payToolPromptList.toImmutable())
             }
 
             /**
@@ -2537,7 +2549,7 @@ private constructor(
 
                 fun visitString(string: String): T
 
-                fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>): T
+                fun visitPayToolPromptList(payToolPromptList: List<PayToolPrompt>): T
 
                 /**
                  * Maps an unknown variant of [BankRoutingNumber] to a value of type [T].
@@ -2566,7 +2578,7 @@ private constructor(
                                     BankRoutingNumber(string = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<List<PayToolPrompt>>())?.let {
-                                    BankRoutingNumber(payToolPrompts = it, _json = json)
+                                    BankRoutingNumber(payToolPromptList = it, _json = json)
                                 },
                             )
                             .filterNotNull()
@@ -2595,7 +2607,8 @@ private constructor(
                 ) {
                     when {
                         value.string != null -> generator.writeObject(value.string)
-                        value.payToolPrompts != null -> generator.writeObject(value.payToolPrompts)
+                        value.payToolPromptList != null ->
+                            generator.writeObject(value.payToolPromptList)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid BankRoutingNumber")
                     }
@@ -3300,23 +3313,23 @@ private constructor(
         class ExpirationDate
         private constructor(
             private val string: String? = null,
-            private val payToolPrompts: List<PayToolPrompt>? = null,
+            private val payToolPromptList: List<PayToolPrompt>? = null,
             private val _json: JsonValue? = null,
         ) {
 
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun payToolPrompts(): Optional<List<PayToolPrompt>> =
-                Optional.ofNullable(payToolPrompts)
+            fun payToolPromptList(): Optional<List<PayToolPrompt>> =
+                Optional.ofNullable(payToolPromptList)
 
             fun isString(): Boolean = string != null
 
-            fun isPayToolPrompts(): Boolean = payToolPrompts != null
+            fun isPayToolPromptList(): Boolean = payToolPromptList != null
 
             fun asString(): String = string.getOrThrow("string")
 
-            fun asPayToolPrompts(): List<PayToolPrompt> =
-                payToolPrompts.getOrThrow("payToolPrompts")
+            fun asPayToolPromptList(): List<PayToolPrompt> =
+                payToolPromptList.getOrThrow("payToolPromptList")
 
             fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -3353,7 +3366,7 @@ private constructor(
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
-                    payToolPrompts != null -> visitor.visitPayToolPrompts(payToolPrompts)
+                    payToolPromptList != null -> visitor.visitPayToolPromptList(payToolPromptList)
                     else -> visitor.unknown(_json)
                 }
 
@@ -3378,8 +3391,10 @@ private constructor(
                     object : Visitor<Unit> {
                         override fun visitString(string: String) {}
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) {
-                            payToolPrompts.forEach { it.validate() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) {
+                            payToolPromptList.forEach { it.validate() }
                         }
                     }
                 )
@@ -3406,8 +3421,9 @@ private constructor(
                     object : Visitor<Int> {
                         override fun visitString(string: String) = 1
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                            payToolPrompts.sumOf { it.validity().toInt() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) = payToolPromptList.sumOf { it.validity().toInt() }
 
                         override fun unknown(json: JsonValue?) = 0
                     }
@@ -3420,15 +3436,16 @@ private constructor(
 
                 return other is ExpirationDate &&
                     string == other.string &&
-                    payToolPrompts == other.payToolPrompts
+                    payToolPromptList == other.payToolPromptList
             }
 
-            override fun hashCode(): Int = Objects.hash(string, payToolPrompts)
+            override fun hashCode(): Int = Objects.hash(string, payToolPromptList)
 
             override fun toString(): String =
                 when {
                     string != null -> "ExpirationDate{string=$string}"
-                    payToolPrompts != null -> "ExpirationDate{payToolPrompts=$payToolPrompts}"
+                    payToolPromptList != null ->
+                        "ExpirationDate{payToolPromptList=$payToolPromptList}"
                     _json != null -> "ExpirationDate{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid ExpirationDate")
                 }
@@ -3438,8 +3455,8 @@ private constructor(
                 @JvmStatic fun ofString(string: String) = ExpirationDate(string = string)
 
                 @JvmStatic
-                fun ofPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                    ExpirationDate(payToolPrompts = payToolPrompts.toImmutable())
+                fun ofPayToolPromptList(payToolPromptList: List<PayToolPrompt>) =
+                    ExpirationDate(payToolPromptList = payToolPromptList.toImmutable())
             }
 
             /**
@@ -3450,7 +3467,7 @@ private constructor(
 
                 fun visitString(string: String): T
 
-                fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>): T
+                fun visitPayToolPromptList(payToolPromptList: List<PayToolPrompt>): T
 
                 /**
                  * Maps an unknown variant of [ExpirationDate] to a value of type [T].
@@ -3478,7 +3495,7 @@ private constructor(
                                     ExpirationDate(string = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<List<PayToolPrompt>>())?.let {
-                                    ExpirationDate(payToolPrompts = it, _json = json)
+                                    ExpirationDate(payToolPromptList = it, _json = json)
                                 },
                             )
                             .filterNotNull()
@@ -3506,7 +3523,8 @@ private constructor(
                 ) {
                     when {
                         value.string != null -> generator.writeObject(value.string)
-                        value.payToolPrompts != null -> generator.writeObject(value.payToolPrompts)
+                        value.payToolPromptList != null ->
+                            generator.writeObject(value.payToolPromptList)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid ExpirationDate")
                     }
@@ -4211,23 +4229,23 @@ private constructor(
         class PaymentCardNumber
         private constructor(
             private val string: String? = null,
-            private val payToolPrompts: List<PayToolPrompt>? = null,
+            private val payToolPromptList: List<PayToolPrompt>? = null,
             private val _json: JsonValue? = null,
         ) {
 
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun payToolPrompts(): Optional<List<PayToolPrompt>> =
-                Optional.ofNullable(payToolPrompts)
+            fun payToolPromptList(): Optional<List<PayToolPrompt>> =
+                Optional.ofNullable(payToolPromptList)
 
             fun isString(): Boolean = string != null
 
-            fun isPayToolPrompts(): Boolean = payToolPrompts != null
+            fun isPayToolPromptList(): Boolean = payToolPromptList != null
 
             fun asString(): String = string.getOrThrow("string")
 
-            fun asPayToolPrompts(): List<PayToolPrompt> =
-                payToolPrompts.getOrThrow("payToolPrompts")
+            fun asPayToolPromptList(): List<PayToolPrompt> =
+                payToolPromptList.getOrThrow("payToolPromptList")
 
             fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -4264,7 +4282,7 @@ private constructor(
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
-                    payToolPrompts != null -> visitor.visitPayToolPrompts(payToolPrompts)
+                    payToolPromptList != null -> visitor.visitPayToolPromptList(payToolPromptList)
                     else -> visitor.unknown(_json)
                 }
 
@@ -4289,8 +4307,10 @@ private constructor(
                     object : Visitor<Unit> {
                         override fun visitString(string: String) {}
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) {
-                            payToolPrompts.forEach { it.validate() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) {
+                            payToolPromptList.forEach { it.validate() }
                         }
                     }
                 )
@@ -4317,8 +4337,9 @@ private constructor(
                     object : Visitor<Int> {
                         override fun visitString(string: String) = 1
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                            payToolPrompts.sumOf { it.validity().toInt() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) = payToolPromptList.sumOf { it.validity().toInt() }
 
                         override fun unknown(json: JsonValue?) = 0
                     }
@@ -4331,15 +4352,16 @@ private constructor(
 
                 return other is PaymentCardNumber &&
                     string == other.string &&
-                    payToolPrompts == other.payToolPrompts
+                    payToolPromptList == other.payToolPromptList
             }
 
-            override fun hashCode(): Int = Objects.hash(string, payToolPrompts)
+            override fun hashCode(): Int = Objects.hash(string, payToolPromptList)
 
             override fun toString(): String =
                 when {
                     string != null -> "PaymentCardNumber{string=$string}"
-                    payToolPrompts != null -> "PaymentCardNumber{payToolPrompts=$payToolPrompts}"
+                    payToolPromptList != null ->
+                        "PaymentCardNumber{payToolPromptList=$payToolPromptList}"
                     _json != null -> "PaymentCardNumber{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid PaymentCardNumber")
                 }
@@ -4349,8 +4371,8 @@ private constructor(
                 @JvmStatic fun ofString(string: String) = PaymentCardNumber(string = string)
 
                 @JvmStatic
-                fun ofPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                    PaymentCardNumber(payToolPrompts = payToolPrompts.toImmutable())
+                fun ofPayToolPromptList(payToolPromptList: List<PayToolPrompt>) =
+                    PaymentCardNumber(payToolPromptList = payToolPromptList.toImmutable())
             }
 
             /**
@@ -4361,7 +4383,7 @@ private constructor(
 
                 fun visitString(string: String): T
 
-                fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>): T
+                fun visitPayToolPromptList(payToolPromptList: List<PayToolPrompt>): T
 
                 /**
                  * Maps an unknown variant of [PaymentCardNumber] to a value of type [T].
@@ -4390,7 +4412,7 @@ private constructor(
                                     PaymentCardNumber(string = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<List<PayToolPrompt>>())?.let {
-                                    PaymentCardNumber(payToolPrompts = it, _json = json)
+                                    PaymentCardNumber(payToolPromptList = it, _json = json)
                                 },
                             )
                             .filterNotNull()
@@ -4419,7 +4441,8 @@ private constructor(
                 ) {
                     when {
                         value.string != null -> generator.writeObject(value.string)
-                        value.payToolPrompts != null -> generator.writeObject(value.payToolPrompts)
+                        value.payToolPromptList != null ->
+                            generator.writeObject(value.payToolPromptList)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid PaymentCardNumber")
                     }
@@ -5124,23 +5147,23 @@ private constructor(
         class PostalCode
         private constructor(
             private val string: String? = null,
-            private val payToolPrompts: List<PayToolPrompt>? = null,
+            private val payToolPromptList: List<PayToolPrompt>? = null,
             private val _json: JsonValue? = null,
         ) {
 
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun payToolPrompts(): Optional<List<PayToolPrompt>> =
-                Optional.ofNullable(payToolPrompts)
+            fun payToolPromptList(): Optional<List<PayToolPrompt>> =
+                Optional.ofNullable(payToolPromptList)
 
             fun isString(): Boolean = string != null
 
-            fun isPayToolPrompts(): Boolean = payToolPrompts != null
+            fun isPayToolPromptList(): Boolean = payToolPromptList != null
 
             fun asString(): String = string.getOrThrow("string")
 
-            fun asPayToolPrompts(): List<PayToolPrompt> =
-                payToolPrompts.getOrThrow("payToolPrompts")
+            fun asPayToolPromptList(): List<PayToolPrompt> =
+                payToolPromptList.getOrThrow("payToolPromptList")
 
             fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -5177,7 +5200,7 @@ private constructor(
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
-                    payToolPrompts != null -> visitor.visitPayToolPrompts(payToolPrompts)
+                    payToolPromptList != null -> visitor.visitPayToolPromptList(payToolPromptList)
                     else -> visitor.unknown(_json)
                 }
 
@@ -5202,8 +5225,10 @@ private constructor(
                     object : Visitor<Unit> {
                         override fun visitString(string: String) {}
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) {
-                            payToolPrompts.forEach { it.validate() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) {
+                            payToolPromptList.forEach { it.validate() }
                         }
                     }
                 )
@@ -5230,8 +5255,9 @@ private constructor(
                     object : Visitor<Int> {
                         override fun visitString(string: String) = 1
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                            payToolPrompts.sumOf { it.validity().toInt() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) = payToolPromptList.sumOf { it.validity().toInt() }
 
                         override fun unknown(json: JsonValue?) = 0
                     }
@@ -5244,15 +5270,15 @@ private constructor(
 
                 return other is PostalCode &&
                     string == other.string &&
-                    payToolPrompts == other.payToolPrompts
+                    payToolPromptList == other.payToolPromptList
             }
 
-            override fun hashCode(): Int = Objects.hash(string, payToolPrompts)
+            override fun hashCode(): Int = Objects.hash(string, payToolPromptList)
 
             override fun toString(): String =
                 when {
                     string != null -> "PostalCode{string=$string}"
-                    payToolPrompts != null -> "PostalCode{payToolPrompts=$payToolPrompts}"
+                    payToolPromptList != null -> "PostalCode{payToolPromptList=$payToolPromptList}"
                     _json != null -> "PostalCode{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid PostalCode")
                 }
@@ -5262,8 +5288,8 @@ private constructor(
                 @JvmStatic fun ofString(string: String) = PostalCode(string = string)
 
                 @JvmStatic
-                fun ofPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                    PostalCode(payToolPrompts = payToolPrompts.toImmutable())
+                fun ofPayToolPromptList(payToolPromptList: List<PayToolPrompt>) =
+                    PostalCode(payToolPromptList = payToolPromptList.toImmutable())
             }
 
             /**
@@ -5274,7 +5300,7 @@ private constructor(
 
                 fun visitString(string: String): T
 
-                fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>): T
+                fun visitPayToolPromptList(payToolPromptList: List<PayToolPrompt>): T
 
                 /**
                  * Maps an unknown variant of [PostalCode] to a value of type [T].
@@ -5302,7 +5328,7 @@ private constructor(
                                     PostalCode(string = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<List<PayToolPrompt>>())?.let {
-                                    PostalCode(payToolPrompts = it, _json = json)
+                                    PostalCode(payToolPromptList = it, _json = json)
                                 },
                             )
                             .filterNotNull()
@@ -5330,7 +5356,8 @@ private constructor(
                 ) {
                     when {
                         value.string != null -> generator.writeObject(value.string)
-                        value.payToolPrompts != null -> generator.writeObject(value.payToolPrompts)
+                        value.payToolPromptList != null ->
+                            generator.writeObject(value.payToolPromptList)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid PostalCode")
                     }
@@ -6035,23 +6062,23 @@ private constructor(
         class SecurityCode
         private constructor(
             private val string: String? = null,
-            private val payToolPrompts: List<PayToolPrompt>? = null,
+            private val payToolPromptList: List<PayToolPrompt>? = null,
             private val _json: JsonValue? = null,
         ) {
 
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun payToolPrompts(): Optional<List<PayToolPrompt>> =
-                Optional.ofNullable(payToolPrompts)
+            fun payToolPromptList(): Optional<List<PayToolPrompt>> =
+                Optional.ofNullable(payToolPromptList)
 
             fun isString(): Boolean = string != null
 
-            fun isPayToolPrompts(): Boolean = payToolPrompts != null
+            fun isPayToolPromptList(): Boolean = payToolPromptList != null
 
             fun asString(): String = string.getOrThrow("string")
 
-            fun asPayToolPrompts(): List<PayToolPrompt> =
-                payToolPrompts.getOrThrow("payToolPrompts")
+            fun asPayToolPromptList(): List<PayToolPrompt> =
+                payToolPromptList.getOrThrow("payToolPromptList")
 
             fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -6088,7 +6115,7 @@ private constructor(
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
-                    payToolPrompts != null -> visitor.visitPayToolPrompts(payToolPrompts)
+                    payToolPromptList != null -> visitor.visitPayToolPromptList(payToolPromptList)
                     else -> visitor.unknown(_json)
                 }
 
@@ -6113,8 +6140,10 @@ private constructor(
                     object : Visitor<Unit> {
                         override fun visitString(string: String) {}
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) {
-                            payToolPrompts.forEach { it.validate() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) {
+                            payToolPromptList.forEach { it.validate() }
                         }
                     }
                 )
@@ -6141,8 +6170,9 @@ private constructor(
                     object : Visitor<Int> {
                         override fun visitString(string: String) = 1
 
-                        override fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                            payToolPrompts.sumOf { it.validity().toInt() }
+                        override fun visitPayToolPromptList(
+                            payToolPromptList: List<PayToolPrompt>
+                        ) = payToolPromptList.sumOf { it.validity().toInt() }
 
                         override fun unknown(json: JsonValue?) = 0
                     }
@@ -6155,15 +6185,16 @@ private constructor(
 
                 return other is SecurityCode &&
                     string == other.string &&
-                    payToolPrompts == other.payToolPrompts
+                    payToolPromptList == other.payToolPromptList
             }
 
-            override fun hashCode(): Int = Objects.hash(string, payToolPrompts)
+            override fun hashCode(): Int = Objects.hash(string, payToolPromptList)
 
             override fun toString(): String =
                 when {
                     string != null -> "SecurityCode{string=$string}"
-                    payToolPrompts != null -> "SecurityCode{payToolPrompts=$payToolPrompts}"
+                    payToolPromptList != null ->
+                        "SecurityCode{payToolPromptList=$payToolPromptList}"
                     _json != null -> "SecurityCode{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid SecurityCode")
                 }
@@ -6173,8 +6204,8 @@ private constructor(
                 @JvmStatic fun ofString(string: String) = SecurityCode(string = string)
 
                 @JvmStatic
-                fun ofPayToolPrompts(payToolPrompts: List<PayToolPrompt>) =
-                    SecurityCode(payToolPrompts = payToolPrompts.toImmutable())
+                fun ofPayToolPromptList(payToolPromptList: List<PayToolPrompt>) =
+                    SecurityCode(payToolPromptList = payToolPromptList.toImmutable())
             }
 
             /**
@@ -6185,7 +6216,7 @@ private constructor(
 
                 fun visitString(string: String): T
 
-                fun visitPayToolPrompts(payToolPrompts: List<PayToolPrompt>): T
+                fun visitPayToolPromptList(payToolPromptList: List<PayToolPrompt>): T
 
                 /**
                  * Maps an unknown variant of [SecurityCode] to a value of type [T].
@@ -6213,7 +6244,7 @@ private constructor(
                                     SecurityCode(string = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<List<PayToolPrompt>>())?.let {
-                                    SecurityCode(payToolPrompts = it, _json = json)
+                                    SecurityCode(payToolPromptList = it, _json = json)
                                 },
                             )
                             .filterNotNull()
@@ -6241,7 +6272,8 @@ private constructor(
                 ) {
                     when {
                         value.string != null -> generator.writeObject(value.string)
-                        value.payToolPrompts != null -> generator.writeObject(value.payToolPrompts)
+                        value.payToolPromptList != null ->
+                            generator.writeObject(value.payToolPromptList)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid SecurityCode")
                     }

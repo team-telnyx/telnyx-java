@@ -1243,11 +1243,15 @@ private constructor(
                  */
                 fun cost(cost: JsonField<Cost>) = apply { this.cost = cost }
 
-                /** Alias for calling [cost] with `Cost.ofUnionMember0(unionMember0)`. */
-                fun cost(unionMember0: Cost.UnionMember0) = cost(Cost.ofUnionMember0(unionMember0))
+                /** Alias for calling [cost] with `Cost.ofCallCostBreakdown(callCostBreakdown)`. */
+                fun cost(callCostBreakdown: Cost.CallCostBreakdown) =
+                    cost(Cost.ofCallCostBreakdown(callCostBreakdown))
 
-                /** Alias for calling [cost] with `Cost.ofString(string)`. */
-                fun cost(string: String) = cost(Cost.ofString(string))
+                /**
+                 * Alias for calling [cost] with `Cost.ofCallCostUnavailable(callCostUnavailable)`.
+                 */
+                fun cost(callCostUnavailable: String) =
+                    cost(Cost.ofCallCostUnavailable(callCostUnavailable))
 
                 /** Duration of the conversation in seconds. */
                 fun durationSec(durationSec: Long) = durationSec(JsonField.of(durationSec))
@@ -1998,50 +2002,36 @@ private constructor(
             @JsonSerialize(using = Cost.Serializer::class)
             class Cost
             private constructor(
-                private val unionMember0: UnionMember0? = null,
-                private val string: String? = null,
+                private val callCostBreakdown: CallCostBreakdown? = null,
+                private val callCostUnavailable: String? = null,
                 private val _json: JsonValue? = null,
             ) {
 
-                /**
-                 * The session's cost breakdown from Session Analysis, covering every product billed
-                 * on the call: the AI Voice Assistant engine minutes (`ai-voice-assistant`), LLM
-                 * inference tokens (`inference`), and call-control, SIP trunking, and recording
-                 * lines. If cost data could not be retrieved after retries, this field carries the
-                 * placeholder string `No cost data available.` instead of an object.
-                 */
-                fun unionMember0(): Optional<UnionMember0> = Optional.ofNullable(unionMember0)
+                /** The itemized cost of the call. */
+                fun callCostBreakdown(): Optional<CallCostBreakdown> =
+                    Optional.ofNullable(callCostBreakdown)
 
                 /**
-                 * The session's cost breakdown from Session Analysis, covering every product billed
-                 * on the call: the AI Voice Assistant engine minutes (`ai-voice-assistant`), LLM
-                 * inference tokens (`inference`), and call-control, SIP trunking, and recording
-                 * lines. If cost data could not be retrieved after retries, this field carries the
-                 * placeholder string `No cost data available.` instead of an object.
+                 * The placeholder string `No cost data available.`, returned when cost data could
+                 * not be retrieved after retries.
                  */
-                fun string(): Optional<String> = Optional.ofNullable(string)
+                fun callCostUnavailable(): Optional<String> =
+                    Optional.ofNullable(callCostUnavailable)
 
-                fun isUnionMember0(): Boolean = unionMember0 != null
+                fun isCallCostBreakdown(): Boolean = callCostBreakdown != null
 
-                fun isString(): Boolean = string != null
+                fun isCallCostUnavailable(): Boolean = callCostUnavailable != null
+
+                /** The itemized cost of the call. */
+                fun asCallCostBreakdown(): CallCostBreakdown =
+                    callCostBreakdown.getOrThrow("callCostBreakdown")
 
                 /**
-                 * The session's cost breakdown from Session Analysis, covering every product billed
-                 * on the call: the AI Voice Assistant engine minutes (`ai-voice-assistant`), LLM
-                 * inference tokens (`inference`), and call-control, SIP trunking, and recording
-                 * lines. If cost data could not be retrieved after retries, this field carries the
-                 * placeholder string `No cost data available.` instead of an object.
+                 * The placeholder string `No cost data available.`, returned when cost data could
+                 * not be retrieved after retries.
                  */
-                fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
-
-                /**
-                 * The session's cost breakdown from Session Analysis, covering every product billed
-                 * on the call: the AI Voice Assistant engine minutes (`ai-voice-assistant`), LLM
-                 * inference tokens (`inference`), and call-control, SIP trunking, and recording
-                 * lines. If cost data could not be retrieved after retries, this field carries the
-                 * placeholder string `No cost data available.` instead of an object.
-                 */
-                fun asString(): String = string.getOrThrow("string")
+                fun asCallCostUnavailable(): String =
+                    callCostUnavailable.getOrThrow("callCostUnavailable")
 
                 fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -2058,8 +2048,8 @@ private constructor(
                  *
                  * Optional<String> result = cost.accept(new Cost.Visitor<Optional<String>>() {
                  *     @Override
-                 *     public Optional<String> visitUnionMember0(UnionMember0 unionMember0) {
-                 *         return Optional.of(unionMember0.toString());
+                 *     public Optional<String> visitCallCostBreakdown(CallCostBreakdown callCostBreakdown) {
+                 *         return Optional.of(callCostBreakdown.toString());
                  *     }
                  *
                  *     // ...
@@ -2077,8 +2067,10 @@ private constructor(
                  */
                 fun <T> accept(visitor: Visitor<T>): T =
                     when {
-                        unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
-                        string != null -> visitor.visitString(string)
+                        callCostBreakdown != null ->
+                            visitor.visitCallCostBreakdown(callCostBreakdown)
+                        callCostUnavailable != null ->
+                            visitor.visitCallCostUnavailable(callCostUnavailable)
                         else -> visitor.unknown(_json)
                     }
 
@@ -2101,11 +2093,13 @@ private constructor(
 
                     accept(
                         object : Visitor<Unit> {
-                            override fun visitUnionMember0(unionMember0: UnionMember0) {
-                                unionMember0.validate()
+                            override fun visitCallCostBreakdown(
+                                callCostBreakdown: CallCostBreakdown
+                            ) {
+                                callCostBreakdown.validate()
                             }
 
-                            override fun visitString(string: String) {}
+                            override fun visitCallCostUnavailable(callCostUnavailable: String) {}
                         }
                     )
                     validated = true
@@ -2129,10 +2123,11 @@ private constructor(
                 internal fun validity(): Int =
                     accept(
                         object : Visitor<Int> {
-                            override fun visitUnionMember0(unionMember0: UnionMember0) =
-                                unionMember0.validity()
+                            override fun visitCallCostBreakdown(
+                                callCostBreakdown: CallCostBreakdown
+                            ) = callCostBreakdown.validity()
 
-                            override fun visitString(string: String) = 1
+                            override fun visitCallCostUnavailable(callCostUnavailable: String) = 1
 
                             override fun unknown(json: JsonValue?) = 0
                         }
@@ -2144,43 +2139,35 @@ private constructor(
                     }
 
                     return other is Cost &&
-                        unionMember0 == other.unionMember0 &&
-                        string == other.string
+                        callCostBreakdown == other.callCostBreakdown &&
+                        callCostUnavailable == other.callCostUnavailable
                 }
 
-                override fun hashCode(): Int = Objects.hash(unionMember0, string)
+                override fun hashCode(): Int = Objects.hash(callCostBreakdown, callCostUnavailable)
 
                 override fun toString(): String =
                     when {
-                        unionMember0 != null -> "Cost{unionMember0=$unionMember0}"
-                        string != null -> "Cost{string=$string}"
+                        callCostBreakdown != null -> "Cost{callCostBreakdown=$callCostBreakdown}"
+                        callCostUnavailable != null ->
+                            "Cost{callCostUnavailable=$callCostUnavailable}"
                         _json != null -> "Cost{_unknown=$_json}"
                         else -> throw IllegalStateException("Invalid Cost")
                     }
 
                 companion object {
 
-                    /**
-                     * The session's cost breakdown from Session Analysis, covering every product
-                     * billed on the call: the AI Voice Assistant engine minutes
-                     * (`ai-voice-assistant`), LLM inference tokens (`inference`), and call-control,
-                     * SIP trunking, and recording lines. If cost data could not be retrieved after
-                     * retries, this field carries the placeholder string `No cost data available.`
-                     * instead of an object.
-                     */
+                    /** The itemized cost of the call. */
                     @JvmStatic
-                    fun ofUnionMember0(unionMember0: UnionMember0) =
-                        Cost(unionMember0 = unionMember0)
+                    fun ofCallCostBreakdown(callCostBreakdown: CallCostBreakdown) =
+                        Cost(callCostBreakdown = callCostBreakdown)
 
                     /**
-                     * The session's cost breakdown from Session Analysis, covering every product
-                     * billed on the call: the AI Voice Assistant engine minutes
-                     * (`ai-voice-assistant`), LLM inference tokens (`inference`), and call-control,
-                     * SIP trunking, and recording lines. If cost data could not be retrieved after
-                     * retries, this field carries the placeholder string `No cost data available.`
-                     * instead of an object.
+                     * The placeholder string `No cost data available.`, returned when cost data
+                     * could not be retrieved after retries.
                      */
-                    @JvmStatic fun ofString(string: String) = Cost(string = string)
+                    @JvmStatic
+                    fun ofCallCostUnavailable(callCostUnavailable: String) =
+                        Cost(callCostUnavailable = callCostUnavailable)
                 }
 
                 /**
@@ -2189,25 +2176,14 @@ private constructor(
                  */
                 interface Visitor<out T> {
 
-                    /**
-                     * The session's cost breakdown from Session Analysis, covering every product
-                     * billed on the call: the AI Voice Assistant engine minutes
-                     * (`ai-voice-assistant`), LLM inference tokens (`inference`), and call-control,
-                     * SIP trunking, and recording lines. If cost data could not be retrieved after
-                     * retries, this field carries the placeholder string `No cost data available.`
-                     * instead of an object.
-                     */
-                    fun visitUnionMember0(unionMember0: UnionMember0): T
+                    /** The itemized cost of the call. */
+                    fun visitCallCostBreakdown(callCostBreakdown: CallCostBreakdown): T
 
                     /**
-                     * The session's cost breakdown from Session Analysis, covering every product
-                     * billed on the call: the AI Voice Assistant engine minutes
-                     * (`ai-voice-assistant`), LLM inference tokens (`inference`), and call-control,
-                     * SIP trunking, and recording lines. If cost data could not be retrieved after
-                     * retries, this field carries the placeholder string `No cost data available.`
-                     * instead of an object.
+                     * The placeholder string `No cost data available.`, returned when cost data
+                     * could not be retrieved after retries.
                      */
-                    fun visitString(string: String): T
+                    fun visitCallCostUnavailable(callCostUnavailable: String): T
 
                     /**
                      * Maps an unknown variant of [Cost] to a value of type [T].
@@ -2231,11 +2207,11 @@ private constructor(
 
                         val bestMatches =
                             sequenceOf(
-                                    tryDeserialize(node, jacksonTypeRef<UnionMember0>())?.let {
-                                        Cost(unionMember0 = it, _json = json)
+                                    tryDeserialize(node, jacksonTypeRef<CallCostBreakdown>())?.let {
+                                        Cost(callCostBreakdown = it, _json = json)
                                     },
                                     tryDeserialize(node, jacksonTypeRef<String>())?.let {
-                                        Cost(string = it, _json = json)
+                                        Cost(callCostUnavailable = it, _json = json)
                                     },
                                 )
                                 .filterNotNull()
@@ -2263,22 +2239,18 @@ private constructor(
                         provider: SerializerProvider,
                     ) {
                         when {
-                            value.unionMember0 != null -> generator.writeObject(value.unionMember0)
-                            value.string != null -> generator.writeObject(value.string)
+                            value.callCostBreakdown != null ->
+                                generator.writeObject(value.callCostBreakdown)
+                            value.callCostUnavailable != null ->
+                                generator.writeObject(value.callCostUnavailable)
                             value._json != null -> generator.writeObject(value._json)
                             else -> throw IllegalStateException("Invalid Cost")
                         }
                     }
                 }
 
-                /**
-                 * The session's cost breakdown from Session Analysis, covering every product billed
-                 * on the call: the AI Voice Assistant engine minutes (`ai-voice-assistant`), LLM
-                 * inference tokens (`inference`), and call-control, SIP trunking, and recording
-                 * lines. If cost data could not be retrieved after retries, this field carries the
-                 * placeholder string `No cost data available.` instead of an object.
-                 */
-                class UnionMember0
+                /** The itemized cost of the call. */
+                class CallCostBreakdown
                 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val breakdown: JsonField<List<Breakdown>>,
@@ -2367,12 +2339,13 @@ private constructor(
                     companion object {
 
                         /**
-                         * Returns a mutable builder for constructing an instance of [UnionMember0].
+                         * Returns a mutable builder for constructing an instance of
+                         * [CallCostBreakdown].
                          */
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    /** A builder for [UnionMember0]. */
+                    /** A builder for [CallCostBreakdown]. */
                     class Builder internal constructor() {
 
                         private var breakdown: JsonField<MutableList<Breakdown>>? = null
@@ -2382,11 +2355,12 @@ private constructor(
                             mutableMapOf()
 
                         @JvmSynthetic
-                        internal fun from(unionMember0: UnionMember0) = apply {
-                            breakdown = unionMember0.breakdown.map { it.toMutableList() }
-                            currency = unionMember0.currency
-                            total = unionMember0.total
-                            additionalProperties = unionMember0.additionalProperties.toMutableMap()
+                        internal fun from(callCostBreakdown: CallCostBreakdown) = apply {
+                            breakdown = callCostBreakdown.breakdown.map { it.toMutableList() }
+                            currency = callCostBreakdown.currency
+                            total = callCostBreakdown.total
+                            additionalProperties =
+                                callCostBreakdown.additionalProperties.toMutableMap()
                         }
 
                         /** Cost lines grouped by product. */
@@ -2468,12 +2442,12 @@ private constructor(
                         }
 
                         /**
-                         * Returns an immutable instance of [UnionMember0].
+                         * Returns an immutable instance of [CallCostBreakdown].
                          *
                          * Further updates to this [Builder] will not mutate the returned instance.
                          */
-                        fun build(): UnionMember0 =
-                            UnionMember0(
+                        fun build(): CallCostBreakdown =
+                            CallCostBreakdown(
                                 (breakdown ?: JsonMissing.of()).map { it.toImmutable() },
                                 currency,
                                 total,
@@ -2493,7 +2467,7 @@ private constructor(
                      * @throws TelnyxInvalidDataException if any value type in this object doesn't
                      *   match its expected type.
                      */
-                    fun validate(): UnionMember0 = apply {
+                    fun validate(): CallCostBreakdown = apply {
                         if (validated) {
                             return@apply
                         }
@@ -2747,7 +2721,7 @@ private constructor(
                             return true
                         }
 
-                        return other is UnionMember0 &&
+                        return other is CallCostBreakdown &&
                             breakdown == other.breakdown &&
                             currency == other.currency &&
                             total == other.total &&
@@ -2761,7 +2735,7 @@ private constructor(
                     override fun hashCode(): Int = hashCode
 
                     override fun toString() =
-                        "UnionMember0{breakdown=$breakdown, currency=$currency, total=$total, additionalProperties=$additionalProperties}"
+                        "CallCostBreakdown{breakdown=$breakdown, currency=$currency, total=$total, additionalProperties=$additionalProperties}"
                 }
             }
 

@@ -54,6 +54,7 @@ internal class NumberLookupRetrieveResponseTest {
                         .enhancedCallerName(
                             NumberLookupRetrieveResponse.Data.EnhancedCallerName.builder()
                                 .callerName("Jane Doe")
+                                .entityType("Business")
                                 .errorCode(null)
                                 .build()
                         )
@@ -135,6 +136,7 @@ internal class NumberLookupRetrieveResponseTest {
                     .enhancedCallerName(
                         NumberLookupRetrieveResponse.Data.EnhancedCallerName.builder()
                             .callerName("Jane Doe")
+                            .entityType("Business")
                             .errorCode(null)
                             .build()
                     )
@@ -219,6 +221,7 @@ internal class NumberLookupRetrieveResponseTest {
                         .enhancedCallerName(
                             NumberLookupRetrieveResponse.Data.EnhancedCallerName.builder()
                                 .callerName("Jane Doe")
+                                .entityType("Business")
                                 .errorCode(null)
                                 .build()
                         )

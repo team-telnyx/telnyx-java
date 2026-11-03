@@ -110,6 +110,14 @@ internal class AssistantServiceTest {
                                             .model("model")
                                             .authenticationMethod(AuthenticationMethod.TOKEN)
                                             .certificateRef("certificate_ref")
+                                            .extraHeaders(
+                                                ExternalLlmReq.ExtraHeaders.builder()
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from(">Q0]"),
+                                                    )
+                                                    .build()
+                                            )
                                             .forwardMetadata(true)
                                             .llmApiKeyRef("llm_api_key_ref")
                                             .tokenRetrievalUrl("token_retrieval_url")
@@ -311,6 +319,14 @@ internal class AssistantServiceTest {
                                             .model("model")
                                             .authenticationMethod(AuthenticationMethod.TOKEN)
                                             .certificateRef("certificate_ref")
+                                            .extraHeaders(
+                                                ExternalLlmReq.ExtraHeaders.builder()
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from(">Q0]"),
+                                                    )
+                                                    .build()
+                                            )
                                             .forwardMetadata(true)
                                             .llmApiKeyRef("llm_api_key_ref")
                                             .tokenRetrievalUrl("token_retrieval_url")
@@ -536,6 +552,11 @@ internal class AssistantServiceTest {
                                     .model("model")
                                     .authenticationMethod(AuthenticationMethod.TOKEN)
                                     .certificateRef("certificate_ref")
+                                    .extraHeaders(
+                                        ExternalLlm.ExtraHeaders.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                            .build()
+                                    )
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
                                     .tokenRetrievalUrl("token_retrieval_url")
@@ -563,6 +584,11 @@ internal class AssistantServiceTest {
                             .model("model")
                             .authenticationMethod(AuthenticationMethod.TOKEN)
                             .certificateRef("certificate_ref")
+                            .extraHeaders(
+                                ExternalLlmReq.ExtraHeaders.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                    .build()
+                            )
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
                             .tokenRetrievalUrl("token_retrieval_url")
@@ -576,6 +602,11 @@ internal class AssistantServiceTest {
                                     .model("model")
                                     .authenticationMethod(AuthenticationMethod.TOKEN)
                                     .certificateRef("certificate_ref")
+                                    .extraHeaders(
+                                        ExternalLlmReq.ExtraHeaders.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                            .build()
+                                    )
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
                                     .tokenRetrievalUrl("token_retrieval_url")
@@ -991,6 +1022,14 @@ internal class AssistantServiceTest {
                                             .model("model")
                                             .authenticationMethod(AuthenticationMethod.TOKEN)
                                             .certificateRef("certificate_ref")
+                                            .extraHeaders(
+                                                ExternalLlmReq.ExtraHeaders.builder()
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from(">Q0]"),
+                                                    )
+                                                    .build()
+                                            )
                                             .forwardMetadata(true)
                                             .llmApiKeyRef("llm_api_key_ref")
                                             .tokenRetrievalUrl("token_retrieval_url")
@@ -1192,6 +1231,14 @@ internal class AssistantServiceTest {
                                             .model("model")
                                             .authenticationMethod(AuthenticationMethod.TOKEN)
                                             .certificateRef("certificate_ref")
+                                            .extraHeaders(
+                                                ExternalLlmReq.ExtraHeaders.builder()
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from(">Q0]"),
+                                                    )
+                                                    .build()
+                                            )
                                             .forwardMetadata(true)
                                             .llmApiKeyRef("llm_api_key_ref")
                                             .tokenRetrievalUrl("token_retrieval_url")
@@ -1417,6 +1464,11 @@ internal class AssistantServiceTest {
                                     .model("model")
                                     .authenticationMethod(AuthenticationMethod.TOKEN)
                                     .certificateRef("certificate_ref")
+                                    .extraHeaders(
+                                        ExternalLlm.ExtraHeaders.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                            .build()
+                                    )
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
                                     .tokenRetrievalUrl("token_retrieval_url")
@@ -1444,6 +1496,11 @@ internal class AssistantServiceTest {
                             .model("model")
                             .authenticationMethod(AuthenticationMethod.TOKEN)
                             .certificateRef("certificate_ref")
+                            .extraHeaders(
+                                ExternalLlmReq.ExtraHeaders.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                    .build()
+                            )
                             .forwardMetadata(true)
                             .llmApiKeyRef("llm_api_key_ref")
                             .tokenRetrievalUrl("token_retrieval_url")
@@ -1457,6 +1514,11 @@ internal class AssistantServiceTest {
                                     .model("model")
                                     .authenticationMethod(AuthenticationMethod.TOKEN)
                                     .certificateRef("certificate_ref")
+                                    .extraHeaders(
+                                        ExternalLlmReq.ExtraHeaders.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                            .build()
+                                    )
                                     .forwardMetadata(true)
                                     .llmApiKeyRef("llm_api_key_ref")
                                     .tokenRetrievalUrl("token_retrieval_url")
