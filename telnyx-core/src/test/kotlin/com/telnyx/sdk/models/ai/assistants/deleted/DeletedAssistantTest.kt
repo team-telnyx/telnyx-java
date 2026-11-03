@@ -276,7 +276,7 @@ internal class DeletedAssistantTest {
                                                 .value(
                                                     InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                         .UnionMember0
-                                                        .Value_
+                                                        .PredefinedMediaValue
                                                         .SILENCE
                                                 )
                                                 .volume(0.1)
@@ -503,7 +503,7 @@ internal class DeletedAssistantTest {
                                                 .value(
                                                     InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                         .UnionMember0
-                                                        .Value_
+                                                        .PredefinedMediaValue
                                                         .SILENCE
                                                 )
                                                 .volume(0.1)
@@ -912,7 +912,7 @@ internal class DeletedAssistantTest {
                                 )
                                 .value(
                                     InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
-                                        .Value_
+                                        .PredefinedMediaValue
                                         .SILENCE
                                 )
                                 .volume(0.1)
@@ -1185,7 +1185,7 @@ internal class DeletedAssistantTest {
                                             .value(
                                                 InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                     .UnionMember0
-                                                    .Value_
+                                                    .PredefinedMediaValue
                                                     .SILENCE
                                             )
                                             .volume(0.1)
@@ -1402,7 +1402,7 @@ internal class DeletedAssistantTest {
                                             .value(
                                                 InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                     .UnionMember0
-                                                    .Value_
+                                                    .PredefinedMediaValue
                                                     .SILENCE
                                             )
                                             .volume(0.1)
@@ -1827,7 +1827,8 @@ internal class DeletedAssistantTest {
                                     .PREDEFINED_MEDIA
                             )
                             .value(
-                                InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.Value_
+                                InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                    .PredefinedMediaValue
                                     .SILENCE
                             )
                             .volume(0.1)
@@ -2117,7 +2118,7 @@ internal class DeletedAssistantTest {
                                                 .value(
                                                     InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                         .UnionMember0
-                                                        .Value_
+                                                        .PredefinedMediaValue
                                                         .SILENCE
                                                 )
                                                 .volume(0.1)
@@ -2344,7 +2345,7 @@ internal class DeletedAssistantTest {
                                                 .value(
                                                     InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                         .UnionMember0
-                                                        .Value_
+                                                        .PredefinedMediaValue
                                                         .SILENCE
                                                 )
                                                 .volume(0.1)
@@ -2753,7 +2754,7 @@ internal class DeletedAssistantTest {
                                 )
                                 .value(
                                     InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
-                                        .Value_
+                                        .PredefinedMediaValue
                                         .SILENCE
                                 )
                                 .volume(0.1)

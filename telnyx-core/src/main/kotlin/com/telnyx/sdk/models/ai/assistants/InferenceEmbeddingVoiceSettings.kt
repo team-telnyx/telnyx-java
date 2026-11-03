@@ -1036,7 +1036,7 @@ private constructor(
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val type: JsonField<Type>,
-            private val value: JsonField<Value_>,
+            private val value: JsonField<PredefinedMediaValue>,
             private val volume: JsonField<Double>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -1044,7 +1044,9 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-                @JsonProperty("value") @ExcludeMissing value: JsonField<Value_> = JsonMissing.of(),
+                @JsonProperty("value")
+                @ExcludeMissing
+                value: JsonField<PredefinedMediaValue> = JsonMissing.of(),
                 @JsonProperty("volume") @ExcludeMissing volume: JsonField<Double> = JsonMissing.of(),
             ) : this(type, value, volume, mutableMapOf())
 
@@ -1064,7 +1066,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun value(): Value_ = value.getRequired("value")
+            fun value(): PredefinedMediaValue = value.getRequired("value")
 
             /**
              * Volume level for the predefined background audio. Supports values from 0.1 to 1.0 in
@@ -1087,7 +1089,9 @@ private constructor(
              *
              * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Value_> = value
+            @JsonProperty("value")
+            @ExcludeMissing
+            fun _value(): JsonField<PredefinedMediaValue> = value
 
             /**
              * Returns the raw JSON value of [volume].
@@ -1126,7 +1130,7 @@ private constructor(
             class Builder internal constructor() {
 
                 private var type: JsonField<Type>? = null
-                private var value: JsonField<Value_>? = null
+                private var value: JsonField<PredefinedMediaValue>? = null
                 private var volume: JsonField<Double> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1151,16 +1155,16 @@ private constructor(
                 fun type(type: JsonField<Type>) = apply { this.type = type }
 
                 /** The predefined media to use. `silence` disables background audio. */
-                fun value(value: Value_) = value(JsonField.of(value))
+                fun value(value: PredefinedMediaValue) = value(JsonField.of(value))
 
                 /**
                  * Sets [Builder.value] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.value] with a well-typed [Value_] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
+                 * You should usually call [Builder.value] with a well-typed [PredefinedMediaValue]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
-                fun value(value: JsonField<Value_>) = apply { this.value = value }
+                fun value(value: JsonField<PredefinedMediaValue>) = apply { this.value = value }
 
                 /**
                  * Volume level for the predefined background audio. Supports values from 0.1 to 1.0
@@ -1400,8 +1404,9 @@ private constructor(
             }
 
             /** The predefined media to use. `silence` disables background audio. */
-            class Value_ @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
+            class PredefinedMediaValue
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -1419,19 +1424,21 @@ private constructor(
 
                     @JvmField val OFFICE = of("office")
 
-                    @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
+                    @JvmStatic fun of(value: String) = PredefinedMediaValue(JsonField.of(value))
                 }
 
-                /** An enum containing [Value_]'s known values. */
+                /** An enum containing [PredefinedMediaValue]'s known values. */
                 enum class Known {
                     SILENCE,
                     OFFICE,
                 }
 
                 /**
-                 * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
+                 * An enum containing [PredefinedMediaValue]'s known values, as well as an
+                 * [_UNKNOWN] member.
                  *
-                 * An instance of [Value_] can contain an unknown value in a couple of cases:
+                 * An instance of [PredefinedMediaValue] can contain an unknown value in a couple of
+                 * cases:
                  * - It was deserialized from data that doesn't match any known member. For example,
                  *   if the SDK is on an older version than the API, then the API may respond with
                  *   new members that the SDK is unaware of.
@@ -1441,8 +1448,8 @@ private constructor(
                     SILENCE,
                     OFFICE,
                     /**
-                     * An enum member indicating that [Value_] was instantiated with an unknown
-                     * value.
+                     * An enum member indicating that [PredefinedMediaValue] was instantiated with
+                     * an unknown value.
                      */
                     _UNKNOWN,
                 }
@@ -1474,7 +1481,8 @@ private constructor(
                     when (this) {
                         SILENCE -> Known.SILENCE
                         OFFICE -> Known.OFFICE
-                        else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
+                        else ->
+                            throw TelnyxInvalidDataException("Unknown PredefinedMediaValue: $value")
                     }
 
                 /**
@@ -1503,7 +1511,7 @@ private constructor(
                  * @throws TelnyxInvalidDataException if any value type in this object doesn't match
                  *   its expected type.
                  */
-                fun validate(): Value_ = apply {
+                fun validate(): PredefinedMediaValue = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1533,7 +1541,7 @@ private constructor(
                         return true
                     }
 
-                    return other is Value_ && value == other.value
+                    return other is PredefinedMediaValue && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()

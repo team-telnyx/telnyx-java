@@ -249,7 +249,7 @@ internal class AssistantsListTest {
                                                             InferenceEmbeddingVoiceSettings
                                                                 .BackgroundAudio
                                                                 .UnionMember0
-                                                                .Value_
+                                                                .PredefinedMediaValue
                                                                 .SILENCE
                                                         )
                                                         .volume(0.1)
@@ -486,7 +486,7 @@ internal class AssistantsListTest {
                                                             InferenceEmbeddingVoiceSettings
                                                                 .BackgroundAudio
                                                                 .UnionMember0
-                                                                .Value_
+                                                                .PredefinedMediaValue
                                                                 .SILENCE
                                                         )
                                                         .volume(0.1)
@@ -925,7 +925,7 @@ internal class AssistantsListTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)
@@ -1223,7 +1223,7 @@ internal class AssistantsListTest {
                                                         InferenceEmbeddingVoiceSettings
                                                             .BackgroundAudio
                                                             .UnionMember0
-                                                            .Value_
+                                                            .PredefinedMediaValue
                                                             .SILENCE
                                                     )
                                                     .volume(0.1)
@@ -1457,7 +1457,7 @@ internal class AssistantsListTest {
                                                         InferenceEmbeddingVoiceSettings
                                                             .BackgroundAudio
                                                             .UnionMember0
-                                                            .Value_
+                                                            .PredefinedMediaValue
                                                             .SILENCE
                                                     )
                                                     .volume(0.1)
@@ -1875,7 +1875,7 @@ internal class AssistantsListTest {
                                     )
                                     .value(
                                         InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
-                                            .Value_
+                                            .PredefinedMediaValue
                                             .SILENCE
                                     )
                                     .volume(0.1)
@@ -2176,7 +2176,7 @@ internal class AssistantsListTest {
                                                             InferenceEmbeddingVoiceSettings
                                                                 .BackgroundAudio
                                                                 .UnionMember0
-                                                                .Value_
+                                                                .PredefinedMediaValue
                                                                 .SILENCE
                                                         )
                                                         .volume(0.1)
@@ -2413,7 +2413,7 @@ internal class AssistantsListTest {
                                                             InferenceEmbeddingVoiceSettings
                                                                 .BackgroundAudio
                                                                 .UnionMember0
-                                                                .Value_
+                                                                .PredefinedMediaValue
                                                                 .SILENCE
                                                         )
                                                         .volume(0.1)
@@ -2852,7 +2852,7 @@ internal class AssistantsListTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)

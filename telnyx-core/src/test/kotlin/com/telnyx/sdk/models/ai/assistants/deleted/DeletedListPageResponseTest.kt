@@ -285,7 +285,7 @@ internal class DeletedListPageResponseTest {
                                                             InferenceEmbeddingVoiceSettings
                                                                 .BackgroundAudio
                                                                 .UnionMember0
-                                                                .Value_
+                                                                .PredefinedMediaValue
                                                                 .SILENCE
                                                         )
                                                         .volume(0.1)
@@ -522,7 +522,7 @@ internal class DeletedListPageResponseTest {
                                                             InferenceEmbeddingVoiceSettings
                                                                 .BackgroundAudio
                                                                 .UnionMember0
-                                                                .Value_
+                                                                .PredefinedMediaValue
                                                                 .SILENCE
                                                         )
                                                         .volume(0.1)
@@ -961,7 +961,7 @@ internal class DeletedListPageResponseTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)
@@ -1269,7 +1269,7 @@ internal class DeletedListPageResponseTest {
                                                         InferenceEmbeddingVoiceSettings
                                                             .BackgroundAudio
                                                             .UnionMember0
-                                                            .Value_
+                                                            .PredefinedMediaValue
                                                             .SILENCE
                                                     )
                                                     .volume(0.1)
@@ -1503,7 +1503,7 @@ internal class DeletedListPageResponseTest {
                                                         InferenceEmbeddingVoiceSettings
                                                             .BackgroundAudio
                                                             .UnionMember0
-                                                            .Value_
+                                                            .PredefinedMediaValue
                                                             .SILENCE
                                                     )
                                                     .volume(0.1)
@@ -1921,7 +1921,7 @@ internal class DeletedListPageResponseTest {
                                     )
                                     .value(
                                         InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
-                                            .Value_
+                                            .PredefinedMediaValue
                                             .SILENCE
                                     )
                                     .volume(0.1)
@@ -2228,7 +2228,7 @@ internal class DeletedListPageResponseTest {
                                                             InferenceEmbeddingVoiceSettings
                                                                 .BackgroundAudio
                                                                 .UnionMember0
-                                                                .Value_
+                                                                .PredefinedMediaValue
                                                                 .SILENCE
                                                         )
                                                         .volume(0.1)
@@ -2465,7 +2465,7 @@ internal class DeletedListPageResponseTest {
                                                             InferenceEmbeddingVoiceSettings
                                                                 .BackgroundAudio
                                                                 .UnionMember0
-                                                                .Value_
+                                                                .PredefinedMediaValue
                                                                 .SILENCE
                                                         )
                                                         .volume(0.1)
@@ -2904,7 +2904,7 @@ internal class DeletedListPageResponseTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)

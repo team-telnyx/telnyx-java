@@ -250,7 +250,7 @@ internal class VersionUpdateParamsTest {
                                                         InferenceEmbeddingVoiceSettings
                                                             .BackgroundAudio
                                                             .UnionMember0
-                                                            .Value_
+                                                            .PredefinedMediaValue
                                                             .SILENCE
                                                     )
                                                     .volume(0.1)
@@ -460,7 +460,7 @@ internal class VersionUpdateParamsTest {
                                                         InferenceEmbeddingVoiceSettings
                                                             .BackgroundAudio
                                                             .UnionMember0
-                                                            .Value_
+                                                            .PredefinedMediaValue
                                                             .SILENCE
                                                     )
                                                     .volume(0.1)
@@ -873,7 +873,7 @@ internal class VersionUpdateParamsTest {
                                     )
                                     .value(
                                         InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
-                                            .Value_
+                                            .PredefinedMediaValue
                                             .SILENCE
                                     )
                                     .volume(0.1)
@@ -1162,7 +1162,7 @@ internal class VersionUpdateParamsTest {
                                                             InferenceEmbeddingVoiceSettings
                                                                 .BackgroundAudio
                                                                 .UnionMember0
-                                                                .Value_
+                                                                .PredefinedMediaValue
                                                                 .SILENCE
                                                         )
                                                         .volume(0.1)
@@ -1375,7 +1375,7 @@ internal class VersionUpdateParamsTest {
                                                             InferenceEmbeddingVoiceSettings
                                                                 .BackgroundAudio
                                                                 .UnionMember0
-                                                                .Value_
+                                                                .PredefinedMediaValue
                                                                 .SILENCE
                                                         )
                                                         .volume(0.1)
@@ -1809,7 +1809,7 @@ internal class VersionUpdateParamsTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)
@@ -2080,7 +2080,7 @@ internal class VersionUpdateParamsTest {
                                                         InferenceEmbeddingVoiceSettings
                                                             .BackgroundAudio
                                                             .UnionMember0
-                                                            .Value_
+                                                            .PredefinedMediaValue
                                                             .SILENCE
                                                     )
                                                     .volume(0.1)
@@ -2290,7 +2290,7 @@ internal class VersionUpdateParamsTest {
                                                         InferenceEmbeddingVoiceSettings
                                                             .BackgroundAudio
                                                             .UnionMember0
-                                                            .Value_
+                                                            .PredefinedMediaValue
                                                             .SILENCE
                                                     )
                                                     .volume(0.1)
@@ -2703,7 +2703,7 @@ internal class VersionUpdateParamsTest {
                                     )
                                     .value(
                                         InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
-                                            .Value_
+                                            .PredefinedMediaValue
                                             .SILENCE
                                     )
                                     .volume(0.1)

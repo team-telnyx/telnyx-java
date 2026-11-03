@@ -161,7 +161,7 @@ internal class FlowNodeReqTest {
                                 )
                                 .value(
                                     InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
-                                        .Value_
+                                        .PredefinedMediaValue
                                         .SILENCE
                                 )
                                 .volume(0.1)
@@ -342,7 +342,8 @@ internal class FlowNodeReqTest {
                                     .PREDEFINED_MEDIA
                             )
                             .value(
-                                InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.Value_
+                                InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                    .PredefinedMediaValue
                                     .SILENCE
                             )
                             .volume(0.1)
@@ -525,7 +526,7 @@ internal class FlowNodeReqTest {
                                 )
                                 .value(
                                     InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
-                                        .Value_
+                                        .PredefinedMediaValue
                                         .SILENCE
                                 )
                                 .volume(0.1)
