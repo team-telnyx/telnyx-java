@@ -17,7 +17,9 @@ internal class TextToSpeechGenerateSpeechParamsTest {
                     .audioFormat(TextToSpeechGenerateSpeechParams.Assemblyai.AudioFormat.MP3)
                     .language(TextToSpeechGenerateSpeechParams.Assemblyai.Language.EN)
                     .modelId(TextToSpeechGenerateSpeechParams.Assemblyai.ModelId.ASSEMBLYAI_TTS_1)
-                    .sampleRate(TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate._8000)
+                    .sampleRate(
+                        TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate.SAMPLE_RATE_8000
+                    )
                     .build()
             )
             .aws(
@@ -129,7 +131,9 @@ internal class TextToSpeechGenerateSpeechParamsTest {
                         .modelId(
                             TextToSpeechGenerateSpeechParams.Assemblyai.ModelId.ASSEMBLYAI_TTS_1
                         )
-                        .sampleRate(TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate._8000)
+                        .sampleRate(
+                            TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate.SAMPLE_RATE_8000
+                        )
                         .build()
                 )
                 .aws(
@@ -239,7 +243,9 @@ internal class TextToSpeechGenerateSpeechParamsTest {
                     .audioFormat(TextToSpeechGenerateSpeechParams.Assemblyai.AudioFormat.MP3)
                     .language(TextToSpeechGenerateSpeechParams.Assemblyai.Language.EN)
                     .modelId(TextToSpeechGenerateSpeechParams.Assemblyai.ModelId.ASSEMBLYAI_TTS_1)
-                    .sampleRate(TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate._8000)
+                    .sampleRate(
+                        TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate.SAMPLE_RATE_8000
+                    )
                     .build()
             )
         assertThat(body.aws())

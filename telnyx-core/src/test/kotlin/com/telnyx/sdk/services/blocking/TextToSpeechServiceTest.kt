@@ -32,7 +32,8 @@ internal class TextToSpeechServiceTest {
                                 TextToSpeechGenerateSpeechParams.Assemblyai.ModelId.ASSEMBLYAI_TTS_1
                             )
                             .sampleRate(
-                                TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate._8000
+                                TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate
+                                    .SAMPLE_RATE_8000
                             )
                             .build()
                     )
