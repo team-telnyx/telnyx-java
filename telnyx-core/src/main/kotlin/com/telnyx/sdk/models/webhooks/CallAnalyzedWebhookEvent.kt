@@ -1537,7 +1537,7 @@ private constructor(
             class ConversationInsight
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
-                private val conversationInsights: JsonField<List<InnerConversationInsight>>,
+                private val conversationInsights: JsonField<List<ConversationInsightResult>>,
                 private val status: JsonField<String>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
@@ -1546,7 +1546,7 @@ private constructor(
                 private constructor(
                     @JsonProperty("conversation_insights")
                     @ExcludeMissing
-                    conversationInsights: JsonField<List<InnerConversationInsight>> =
+                    conversationInsights: JsonField<List<ConversationInsightResult>> =
                         JsonMissing.of(),
                     @JsonProperty("status")
                     @ExcludeMissing
@@ -1559,7 +1559,7 @@ private constructor(
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
                  *   if the server responded with an unexpected value).
                  */
-                fun conversationInsights(): Optional<List<InnerConversationInsight>> =
+                fun conversationInsights(): Optional<List<ConversationInsightResult>> =
                     conversationInsights.getOptional("conversation_insights")
 
                 /**
@@ -1578,7 +1578,7 @@ private constructor(
                  */
                 @JsonProperty("conversation_insights")
                 @ExcludeMissing
-                fun _conversationInsights(): JsonField<List<InnerConversationInsight>> =
+                fun _conversationInsights(): JsonField<List<ConversationInsightResult>> =
                     conversationInsights
 
                 /**
@@ -1614,7 +1614,7 @@ private constructor(
                 class Builder internal constructor() {
 
                     private var conversationInsights:
-                        JsonField<MutableList<InnerConversationInsight>>? =
+                        JsonField<MutableList<ConversationInsightResult>>? =
                         null
                     private var status: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1630,7 +1630,7 @@ private constructor(
 
                     /** Generated insight results. */
                     fun conversationInsights(
-                        conversationInsights: List<InnerConversationInsight>?
+                        conversationInsights: List<ConversationInsightResult>?
                     ) = conversationInsights(JsonField.ofNullable(conversationInsights))
 
                     /**
@@ -1638,28 +1638,28 @@ private constructor(
                      * `conversationInsights.orElse(null)`.
                      */
                     fun conversationInsights(
-                        conversationInsights: Optional<List<InnerConversationInsight>>
+                        conversationInsights: Optional<List<ConversationInsightResult>>
                     ) = conversationInsights(conversationInsights.getOrNull())
 
                     /**
                      * Sets [Builder.conversationInsights] to an arbitrary JSON value.
                      *
                      * You should usually call [Builder.conversationInsights] with a well-typed
-                     * `List<InnerConversationInsight>` value instead. This method is primarily for
+                     * `List<ConversationInsightResult>` value instead. This method is primarily for
                      * setting the field to an undocumented or not yet supported value.
                      */
                     fun conversationInsights(
-                        conversationInsights: JsonField<List<InnerConversationInsight>>
+                        conversationInsights: JsonField<List<ConversationInsightResult>>
                     ) = apply {
                         this.conversationInsights = conversationInsights.map { it.toMutableList() }
                     }
 
                     /**
-                     * Adds a single [InnerConversationInsight] to [conversationInsights].
+                     * Adds a single [ConversationInsightResult] to [conversationInsights].
                      *
                      * @throws IllegalStateException if the field was previously set to a non-list.
                      */
-                    fun addConversationInsight(conversationInsight: InnerConversationInsight) =
+                    fun addConversationInsight(conversationInsight: ConversationInsightResult) =
                         apply {
                             conversationInsights =
                                 (conversationInsights ?: JsonField.of(mutableListOf())).also {
@@ -1755,7 +1755,7 @@ private constructor(
                     (conversationInsights.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
                         ?: 0) + (if (status.asKnown().isPresent) 1 else 0)
 
-                class InnerConversationInsight
+                class ConversationInsightResult
                 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val insightId: JsonField<String>,
@@ -1825,12 +1825,12 @@ private constructor(
 
                         /**
                          * Returns a mutable builder for constructing an instance of
-                         * [InnerConversationInsight].
+                         * [ConversationInsightResult].
                          */
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    /** A builder for [InnerConversationInsight]. */
+                    /** A builder for [ConversationInsightResult]. */
                     class Builder internal constructor() {
 
                         private var insightId: JsonField<String> = JsonMissing.of()
@@ -1839,12 +1839,12 @@ private constructor(
                             mutableMapOf()
 
                         @JvmSynthetic
-                        internal fun from(innerConversationInsight: InnerConversationInsight) =
+                        internal fun from(conversationInsightResult: ConversationInsightResult) =
                             apply {
-                                insightId = innerConversationInsight.insightId
-                                result = innerConversationInsight.result
+                                insightId = conversationInsightResult.insightId
+                                result = conversationInsightResult.result
                                 additionalProperties =
-                                    innerConversationInsight.additionalProperties.toMutableMap()
+                                    conversationInsightResult.additionalProperties.toMutableMap()
                             }
 
                         /** Identifier of the insight template the result was generated from. */
@@ -1896,12 +1896,12 @@ private constructor(
                         }
 
                         /**
-                         * Returns an immutable instance of [InnerConversationInsight].
+                         * Returns an immutable instance of [ConversationInsightResult].
                          *
                          * Further updates to this [Builder] will not mutate the returned instance.
                          */
-                        fun build(): InnerConversationInsight =
-                            InnerConversationInsight(
+                        fun build(): ConversationInsightResult =
+                            ConversationInsightResult(
                                 insightId,
                                 result,
                                 additionalProperties.toMutableMap(),
@@ -1920,7 +1920,7 @@ private constructor(
                      * @throws TelnyxInvalidDataException if any value type in this object doesn't
                      *   match its expected type.
                      */
-                    fun validate(): InnerConversationInsight = apply {
+                    fun validate(): ConversationInsightResult = apply {
                         if (validated) {
                             return@apply
                         }
@@ -1954,7 +1954,7 @@ private constructor(
                             return true
                         }
 
-                        return other is InnerConversationInsight &&
+                        return other is ConversationInsightResult &&
                             insightId == other.insightId &&
                             result == other.result &&
                             additionalProperties == other.additionalProperties
@@ -1967,7 +1967,7 @@ private constructor(
                     override fun hashCode(): Int = hashCode
 
                     override fun toString() =
-                        "InnerConversationInsight{insightId=$insightId, result=$result, additionalProperties=$additionalProperties}"
+                        "ConversationInsightResult{insightId=$insightId, result=$result, additionalProperties=$additionalProperties}"
                 }
 
                 override fun equals(other: Any?): Boolean {

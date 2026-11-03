@@ -976,7 +976,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                         .addConversationInsight(
                                             CallAnalyzedWebhookEvent.Data.Payload
                                                 .ConversationInsight
-                                                .InnerConversationInsight
+                                                .ConversationInsightResult
                                                 .builder()
                                                 .insightId("6c5018ff-25a2-5364-b6be-f53de3d493c6")
                                                 .result(
@@ -1188,7 +1188,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                             .addConversationInsight(
                                                 CallAnalyzedWebhookEvent.Data.Payload
                                                     .ConversationInsight
-                                                    .InnerConversationInsight
+                                                    .ConversationInsightResult
                                                     .builder()
                                                     .insightId(
                                                         "6c5018ff-25a2-5364-b6be-f53de3d493c6"
