@@ -307,6 +307,7 @@ internal class VersionServiceTest {
                                                             .build()
                                                     )
                                                     .expressiveMode(true)
+                                                    .language("language")
                                                     .languageBoost(
                                                         InferenceEmbeddingVoiceSettings
                                                             .LanguageBoost
@@ -538,6 +539,7 @@ internal class VersionServiceTest {
                                                             .build()
                                                     )
                                                     .expressiveMode(true)
+                                                    .language("language")
                                                     .languageBoost(
                                                         InferenceEmbeddingVoiceSettings
                                                             .LanguageBoost
@@ -987,6 +989,7 @@ internal class VersionServiceTest {
                                             .build()
                                     )
                                     .expressiveMode(true)
+                                    .language("language")
                                     .languageBoost(
                                         InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
                                     )

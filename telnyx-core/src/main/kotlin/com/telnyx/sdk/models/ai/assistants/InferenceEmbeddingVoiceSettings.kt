@@ -36,6 +36,7 @@ private constructor(
     private val apiKeyRef: JsonField<String>,
     private val backgroundAudio: JsonField<BackgroundAudio>,
     private val expressiveMode: JsonField<Boolean>,
+    private val language: JsonField<String>,
     private val languageBoost: JsonField<LanguageBoost>,
     private val similarityBoost: JsonField<Double>,
     private val speed: JsonField<Double>,
@@ -59,6 +60,7 @@ private constructor(
         @JsonProperty("expressive_mode")
         @ExcludeMissing
         expressiveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("language") @ExcludeMissing language: JsonField<String> = JsonMissing.of(),
         @JsonProperty("language_boost")
         @ExcludeMissing
         languageBoost: JsonField<LanguageBoost> = JsonMissing.of(),
@@ -84,6 +86,7 @@ private constructor(
         apiKeyRef,
         backgroundAudio,
         expressiveMode,
+        language,
         languageBoost,
         similarityBoost,
         speed,
@@ -145,6 +148,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun expressiveMode(): Optional<Boolean> = expressiveMode.getOptional("expressive_mode")
+
+    /**
+     * Two-letter ISO 639-1 code of the language the voice speaks, for example `es`. Only applicable
+     * to Soniox and AssemblyAI voices, which speak every language of their model. AssemblyAI
+     * accepts `en`, `es`, `de`, `fr`, `it`, and `pt`. When unset, the voice speaks English.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun language(): Optional<String> = language.getOptional("language")
 
     /**
      * Enhances recognition for specific languages and dialects during MiniMax TTS synthesis.
@@ -257,6 +270,13 @@ private constructor(
     fun _expressiveMode(): JsonField<Boolean> = expressiveMode
 
     /**
+     * Returns the raw JSON value of [language].
+     *
+     * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<String> = language
+
+    /**
      * Returns the raw JSON value of [languageBoost].
      *
      * Unlike [languageBoost], this method doesn't throw if the JSON field has an unexpected type.
@@ -353,6 +373,7 @@ private constructor(
         private var apiKeyRef: JsonField<String> = JsonMissing.of()
         private var backgroundAudio: JsonField<BackgroundAudio> = JsonMissing.of()
         private var expressiveMode: JsonField<Boolean> = JsonMissing.of()
+        private var language: JsonField<String> = JsonMissing.of()
         private var languageBoost: JsonField<LanguageBoost> = JsonMissing.of()
         private var similarityBoost: JsonField<Double> = JsonMissing.of()
         private var speed: JsonField<Double> = JsonMissing.of()
@@ -370,6 +391,7 @@ private constructor(
                 apiKeyRef = inferenceEmbeddingVoiceSettings.apiKeyRef
                 backgroundAudio = inferenceEmbeddingVoiceSettings.backgroundAudio
                 expressiveMode = inferenceEmbeddingVoiceSettings.expressiveMode
+                language = inferenceEmbeddingVoiceSettings.language
                 languageBoost = inferenceEmbeddingVoiceSettings.languageBoost
                 similarityBoost = inferenceEmbeddingVoiceSettings.similarityBoost
                 speed = inferenceEmbeddingVoiceSettings.speed
@@ -478,6 +500,25 @@ private constructor(
         fun expressiveMode(expressiveMode: JsonField<Boolean>) = apply {
             this.expressiveMode = expressiveMode
         }
+
+        /**
+         * Two-letter ISO 639-1 code of the language the voice speaks, for example `es`. Only
+         * applicable to Soniox and AssemblyAI voices, which speak every language of their model.
+         * AssemblyAI accepts `en`, `es`, `de`, `fr`, `it`, and `pt`. When unset, the voice speaks
+         * English.
+         */
+        fun language(language: String?) = language(JsonField.ofNullable(language))
+
+        /** Alias for calling [Builder.language] with `language.orElse(null)`. */
+        fun language(language: Optional<String>) = language(language.getOrNull())
+
+        /**
+         * Sets [Builder.language] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.language] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun language(language: JsonField<String>) = apply { this.language = language }
 
         /**
          * Enhances recognition for specific languages and dialects during MiniMax TTS synthesis.
@@ -668,6 +709,7 @@ private constructor(
                 apiKeyRef,
                 backgroundAudio,
                 expressiveMode,
+                language,
                 languageBoost,
                 similarityBoost,
                 speed,
@@ -699,6 +741,7 @@ private constructor(
         apiKeyRef()
         backgroundAudio().ifPresent { it.validate() }
         expressiveMode()
+        language()
         languageBoost().ifPresent { it.validate() }
         similarityBoost()
         speed()
@@ -729,6 +772,7 @@ private constructor(
             (if (apiKeyRef.asKnown().isPresent) 1 else 0) +
             (backgroundAudio.asKnown().getOrNull()?.validity() ?: 0) +
             (if (expressiveMode.asKnown().isPresent) 1 else 0) +
+            (if (language.asKnown().isPresent) 1 else 0) +
             (languageBoost.asKnown().getOrNull()?.validity() ?: 0) +
             (if (similarityBoost.asKnown().isPresent) 1 else 0) +
             (if (speed.asKnown().isPresent) 1 else 0) +
@@ -3708,6 +3752,7 @@ private constructor(
             apiKeyRef == other.apiKeyRef &&
             backgroundAudio == other.backgroundAudio &&
             expressiveMode == other.expressiveMode &&
+            language == other.language &&
             languageBoost == other.languageBoost &&
             similarityBoost == other.similarityBoost &&
             speed == other.speed &&
@@ -3725,6 +3770,7 @@ private constructor(
             apiKeyRef,
             backgroundAudio,
             expressiveMode,
+            language,
             languageBoost,
             similarityBoost,
             speed,
@@ -3740,5 +3786,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InferenceEmbeddingVoiceSettings{voice=$voice, apiKeyRef=$apiKeyRef, backgroundAudio=$backgroundAudio, expressiveMode=$expressiveMode, languageBoost=$languageBoost, similarityBoost=$similarityBoost, speed=$speed, style=$style, temperature=$temperature, toolCallAudio=$toolCallAudio, useSpeakerBoost=$useSpeakerBoost, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
+        "InferenceEmbeddingVoiceSettings{voice=$voice, apiKeyRef=$apiKeyRef, backgroundAudio=$backgroundAudio, expressiveMode=$expressiveMode, language=$language, languageBoost=$languageBoost, similarityBoost=$similarityBoost, speed=$speed, style=$style, temperature=$temperature, toolCallAudio=$toolCallAudio, useSpeakerBoost=$useSpeakerBoost, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
 }

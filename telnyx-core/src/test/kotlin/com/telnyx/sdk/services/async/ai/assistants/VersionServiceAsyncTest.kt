@@ -308,6 +308,7 @@ internal class VersionServiceAsyncTest {
                                                             .build()
                                                     )
                                                     .expressiveMode(true)
+                                                    .language("language")
                                                     .languageBoost(
                                                         InferenceEmbeddingVoiceSettings
                                                             .LanguageBoost
@@ -539,6 +540,7 @@ internal class VersionServiceAsyncTest {
                                                             .build()
                                                     )
                                                     .expressiveMode(true)
+                                                    .language("language")
                                                     .languageBoost(
                                                         InferenceEmbeddingVoiceSettings
                                                             .LanguageBoost
@@ -988,6 +990,7 @@ internal class VersionServiceAsyncTest {
                                             .build()
                                     )
                                     .expressiveMode(true)
+                                    .language("language")
                                     .languageBoost(
                                         InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
                                     )

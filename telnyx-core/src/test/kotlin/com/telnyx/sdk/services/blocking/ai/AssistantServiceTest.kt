@@ -273,6 +273,7 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .expressiveMode(true)
+                                            .language("language")
                                             .languageBoost(
                                                 InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
                                             )
@@ -482,6 +483,7 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .expressiveMode(true)
+                                            .language("language")
                                             .languageBoost(
                                                 InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
                                             )
@@ -891,6 +893,7 @@ internal class AssistantServiceTest {
                                     .build()
                             )
                             .expressiveMode(true)
+                            .language("language")
                             .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                             .similarityBoost(0.0)
                             .speed(0.0)
@@ -1185,6 +1188,7 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .expressiveMode(true)
+                                            .language("language")
                                             .languageBoost(
                                                 InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
                                             )
@@ -1394,6 +1398,7 @@ internal class AssistantServiceTest {
                                                     .build()
                                             )
                                             .expressiveMode(true)
+                                            .language("language")
                                             .languageBoost(
                                                 InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO
                                             )
@@ -1806,6 +1811,7 @@ internal class AssistantServiceTest {
                                     .build()
                             )
                             .expressiveMode(true)
+                            .language("language")
                             .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                             .similarityBoost(0.0)
                             .speed(0.0)
