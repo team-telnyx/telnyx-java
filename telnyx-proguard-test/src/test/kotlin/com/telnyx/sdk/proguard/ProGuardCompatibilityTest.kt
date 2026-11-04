@@ -254,6 +254,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.networkRoutes()).isNotNull()
         assertThat(client.payConnectors()).isNotNull()
         assertThat(client.tunnels()).isNotNull()
+        assertThat(client.userProfile()).isNotNull()
     }
 
     @Test

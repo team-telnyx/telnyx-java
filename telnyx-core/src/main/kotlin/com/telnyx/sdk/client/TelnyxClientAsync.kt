@@ -181,6 +181,7 @@ import com.telnyx.sdk.services.async.TunnelServiceAsync
 import com.telnyx.sdk.services.async.UacConnectionServiceAsync
 import com.telnyx.sdk.services.async.UsageReportServiceAsync
 import com.telnyx.sdk.services.async.UserAddressServiceAsync
+import com.telnyx.sdk.services.async.UserProfileServiceAsync
 import com.telnyx.sdk.services.async.UserTagServiceAsync
 import com.telnyx.sdk.services.async.VerificationServiceAsync
 import com.telnyx.sdk.services.async.VerifiedNumberServiceAsync
@@ -872,6 +873,9 @@ interface TelnyxClientAsync {
     /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
     fun tunnels(): TunnelServiceAsync
 
+    /** Read and update the authenticated user's profile and data locality. */
+    fun userProfile(): UserProfileServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1534,5 +1538,8 @@ interface TelnyxClientAsync {
 
         /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
         fun tunnels(): TunnelServiceAsync.WithRawResponse
+
+        /** Read and update the authenticated user's profile and data locality. */
+        fun userProfile(): UserProfileServiceAsync.WithRawResponse
     }
 }

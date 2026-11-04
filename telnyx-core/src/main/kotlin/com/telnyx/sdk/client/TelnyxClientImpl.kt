@@ -360,6 +360,8 @@ import com.telnyx.sdk.services.blocking.UsageReportService
 import com.telnyx.sdk.services.blocking.UsageReportServiceImpl
 import com.telnyx.sdk.services.blocking.UserAddressService
 import com.telnyx.sdk.services.blocking.UserAddressServiceImpl
+import com.telnyx.sdk.services.blocking.UserProfileService
+import com.telnyx.sdk.services.blocking.UserProfileServiceImpl
 import com.telnyx.sdk.services.blocking.UserTagService
 import com.telnyx.sdk.services.blocking.UserTagServiceImpl
 import com.telnyx.sdk.services.blocking.VerificationService
@@ -1146,6 +1148,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     private val tunnels: TunnelService by lazy { TunnelServiceImpl(clientOptionsWithUserAgent) }
 
+    private val userProfile: UserProfileService by lazy {
+        UserProfileServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1799,6 +1805,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
     override fun tunnels(): TunnelService = tunnels
+
+    /** Read and update the authenticated user's profile and data locality. */
+    override fun userProfile(): UserProfileService = userProfile
 
     override fun close() = clientOptions.close()
 
@@ -2616,6 +2625,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             TunnelServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val userProfile: UserProfileService.WithRawResponse by lazy {
+            UserProfileServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -3333,5 +3346,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
         override fun tunnels(): TunnelService.WithRawResponse = tunnels
+
+        /** Read and update the authenticated user's profile and data locality. */
+        override fun userProfile(): UserProfileService.WithRawResponse = userProfile
     }
 }
