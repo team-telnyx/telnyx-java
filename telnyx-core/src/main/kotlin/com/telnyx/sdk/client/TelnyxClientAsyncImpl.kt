@@ -14,6 +14,8 @@ import com.telnyx.sdk.services.async.AddressServiceAsync
 import com.telnyx.sdk.services.async.AddressServiceAsyncImpl
 import com.telnyx.sdk.services.async.AdvancedOrderServiceAsync
 import com.telnyx.sdk.services.async.AdvancedOrderServiceAsyncImpl
+import com.telnyx.sdk.services.async.AgentGatewayServiceAsync
+import com.telnyx.sdk.services.async.AgentGatewayServiceAsyncImpl
 import com.telnyx.sdk.services.async.AiServiceAsync
 import com.telnyx.sdk.services.async.AiServiceAsyncImpl
 import com.telnyx.sdk.services.async.AlphanumericSenderIdServiceAsync
@@ -1202,6 +1204,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         UserProfileServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val agentGateways: AgentGatewayServiceAsync by lazy {
+        AgentGatewayServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1875,6 +1881,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** Read and update the authenticated user's profile and data locality. */
     override fun userProfile(): UserProfileServiceAsync = userProfile
+
+    override fun agentGateways(): AgentGatewayServiceAsync = agentGateways
 
     override fun close() = clientOptions.close()
 
@@ -2722,6 +2730,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             UserProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val agentGateways: AgentGatewayServiceAsync.WithRawResponse by lazy {
+            AgentGatewayServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -3457,5 +3469,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         /** Read and update the authenticated user's profile and data locality. */
         override fun userProfile(): UserProfileServiceAsync.WithRawResponse = userProfile
+
+        override fun agentGateways(): AgentGatewayServiceAsync.WithRawResponse = agentGateways
     }
 }

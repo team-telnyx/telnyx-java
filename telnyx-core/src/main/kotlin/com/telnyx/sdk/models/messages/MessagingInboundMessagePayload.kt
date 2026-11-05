@@ -1818,8 +1818,9 @@ private constructor(
             /** Alias for calling [text] with `Text.ofString(string)`. */
             fun text(string: String) = text(Text.ofString(string))
 
-            /** Alias for calling [text] with `Text.ofInnerBody(innerBody)`. */
-            fun text(innerBody: Text.InnerBody) = text(Text.ofInnerBody(innerBody))
+            /** Alias for calling [text] with `Text.ofWhatsAppTextObject(whatsAppTextObject)`. */
+            fun text(whatsAppTextObject: Text.WhatsAppTextObject) =
+                text(Text.ofWhatsAppTextObject(whatsAppTextObject))
 
             /** Unix timestamp supplied by Meta. */
             fun timestamp(timestamp: String) = timestamp(JsonField.of(timestamp))
@@ -2895,21 +2896,23 @@ private constructor(
         class Text
         private constructor(
             private val string: String? = null,
-            private val innerBody: InnerBody? = null,
+            private val whatsAppTextObject: WhatsAppTextObject? = null,
             private val _json: JsonValue? = null,
         ) {
 
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun innerBody(): Optional<InnerBody> = Optional.ofNullable(innerBody)
+            fun whatsAppTextObject(): Optional<WhatsAppTextObject> =
+                Optional.ofNullable(whatsAppTextObject)
 
             fun isString(): Boolean = string != null
 
-            fun isInnerBody(): Boolean = innerBody != null
+            fun isWhatsAppTextObject(): Boolean = whatsAppTextObject != null
 
             fun asString(): String = string.getOrThrow("string")
 
-            fun asInnerBody(): InnerBody = innerBody.getOrThrow("innerBody")
+            fun asWhatsAppTextObject(): WhatsAppTextObject =
+                whatsAppTextObject.getOrThrow("whatsAppTextObject")
 
             fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -2946,7 +2949,8 @@ private constructor(
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
-                    innerBody != null -> visitor.visitInnerBody(innerBody)
+                    whatsAppTextObject != null ->
+                        visitor.visitWhatsAppTextObject(whatsAppTextObject)
                     else -> visitor.unknown(_json)
                 }
 
@@ -2971,8 +2975,10 @@ private constructor(
                     object : Visitor<Unit> {
                         override fun visitString(string: String) {}
 
-                        override fun visitInnerBody(innerBody: InnerBody) {
-                            innerBody.validate()
+                        override fun visitWhatsAppTextObject(
+                            whatsAppTextObject: WhatsAppTextObject
+                        ) {
+                            whatsAppTextObject.validate()
                         }
                     }
                 )
@@ -2999,7 +3005,9 @@ private constructor(
                     object : Visitor<Int> {
                         override fun visitString(string: String) = 1
 
-                        override fun visitInnerBody(innerBody: InnerBody) = innerBody.validity()
+                        override fun visitWhatsAppTextObject(
+                            whatsAppTextObject: WhatsAppTextObject
+                        ) = whatsAppTextObject.validity()
 
                         override fun unknown(json: JsonValue?) = 0
                     }
@@ -3010,15 +3018,17 @@ private constructor(
                     return true
                 }
 
-                return other is Text && string == other.string && innerBody == other.innerBody
+                return other is Text &&
+                    string == other.string &&
+                    whatsAppTextObject == other.whatsAppTextObject
             }
 
-            override fun hashCode(): Int = Objects.hash(string, innerBody)
+            override fun hashCode(): Int = Objects.hash(string, whatsAppTextObject)
 
             override fun toString(): String =
                 when {
                     string != null -> "Text{string=$string}"
-                    innerBody != null -> "Text{innerBody=$innerBody}"
+                    whatsAppTextObject != null -> "Text{whatsAppTextObject=$whatsAppTextObject}"
                     _json != null -> "Text{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid Text")
                 }
@@ -3027,7 +3037,9 @@ private constructor(
 
                 @JvmStatic fun ofString(string: String) = Text(string = string)
 
-                @JvmStatic fun ofInnerBody(innerBody: InnerBody) = Text(innerBody = innerBody)
+                @JvmStatic
+                fun ofWhatsAppTextObject(whatsAppTextObject: WhatsAppTextObject) =
+                    Text(whatsAppTextObject = whatsAppTextObject)
             }
 
             /**
@@ -3037,7 +3049,7 @@ private constructor(
 
                 fun visitString(string: String): T
 
-                fun visitInnerBody(innerBody: InnerBody): T
+                fun visitWhatsAppTextObject(whatsAppTextObject: WhatsAppTextObject): T
 
                 /**
                  * Maps an unknown variant of [Text] to a value of type [T].
@@ -3061,8 +3073,8 @@ private constructor(
 
                     val bestMatches =
                         sequenceOf(
-                                tryDeserialize(node, jacksonTypeRef<InnerBody>())?.let {
-                                    Text(innerBody = it, _json = json)
+                                tryDeserialize(node, jacksonTypeRef<WhatsAppTextObject>())?.let {
+                                    Text(whatsAppTextObject = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                     Text(string = it, _json = json)
@@ -3093,14 +3105,15 @@ private constructor(
                 ) {
                     when {
                         value.string != null -> generator.writeObject(value.string)
-                        value.innerBody != null -> generator.writeObject(value.innerBody)
+                        value.whatsAppTextObject != null ->
+                            generator.writeObject(value.whatsAppTextObject)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid Text")
                     }
                 }
             }
 
-            class InnerBody
+            class WhatsAppTextObject
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val body: JsonField<String>,
@@ -3140,20 +3153,24 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [InnerBody]. */
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [WhatsAppTextObject].
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [InnerBody]. */
+                /** A builder for [WhatsAppTextObject]. */
                 class Builder internal constructor() {
 
                     private var body: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(innerBody: InnerBody) = apply {
-                        body = innerBody.body
-                        additionalProperties = innerBody.additionalProperties.toMutableMap()
+                    internal fun from(whatsAppTextObject: WhatsAppTextObject) = apply {
+                        body = whatsAppTextObject.body
+                        additionalProperties =
+                            whatsAppTextObject.additionalProperties.toMutableMap()
                     }
 
                     fun body(body: String) = body(JsonField.of(body))
@@ -3190,11 +3207,12 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [InnerBody].
+                     * Returns an immutable instance of [WhatsAppTextObject].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): InnerBody = InnerBody(body, additionalProperties.toMutableMap())
+                    fun build(): WhatsAppTextObject =
+                        WhatsAppTextObject(body, additionalProperties.toMutableMap())
                 }
 
                 private var validated: Boolean = false
@@ -3209,7 +3227,7 @@ private constructor(
                  * @throws TelnyxInvalidDataException if any value type in this object doesn't match
                  *   its expected type.
                  */
-                fun validate(): InnerBody = apply {
+                fun validate(): WhatsAppTextObject = apply {
                     if (validated) {
                         return@apply
                     }
@@ -3240,7 +3258,7 @@ private constructor(
                         return true
                     }
 
-                    return other is InnerBody &&
+                    return other is WhatsAppTextObject &&
                         body == other.body &&
                         additionalProperties == other.additionalProperties
                 }
@@ -3250,7 +3268,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "InnerBody{body=$body, additionalProperties=$additionalProperties}"
+                    "WhatsAppTextObject{body=$body, additionalProperties=$additionalProperties}"
             }
         }
 

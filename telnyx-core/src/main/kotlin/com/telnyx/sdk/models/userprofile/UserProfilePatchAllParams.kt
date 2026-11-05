@@ -3641,23 +3641,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val _2 = of(2L)
+            @JvmField val FREQUENCY_2 = of(2L)
 
-            @JvmField val _4 = of(4L)
+            @JvmField val FREQUENCY_4 = of(4L)
 
-            @JvmField val _12 = of(12L)
+            @JvmField val FREQUENCY_12 = of(12L)
 
-            @JvmField val _24 = of(24L)
+            @JvmField val FREQUENCY_24 = of(24L)
 
             @JvmStatic fun of(value: Long) = LowBalanceNotificationFrequency(JsonField.of(value))
         }
 
         /** An enum containing [LowBalanceNotificationFrequency]'s known values. */
         enum class Known {
-            _2,
-            _4,
-            _12,
-            _24,
+            FREQUENCY_2,
+            FREQUENCY_4,
+            FREQUENCY_12,
+            FREQUENCY_24,
         }
 
         /**
@@ -3672,10 +3672,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            _2,
-            _4,
-            _12,
-            _24,
+            FREQUENCY_2,
+            FREQUENCY_4,
+            FREQUENCY_12,
+            FREQUENCY_24,
             /**
              * An enum member indicating that [LowBalanceNotificationFrequency] was instantiated
              * with an unknown value.
@@ -3692,10 +3692,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                _2 -> Value._2
-                _4 -> Value._4
-                _12 -> Value._12
-                _24 -> Value._24
+                FREQUENCY_2 -> Value.FREQUENCY_2
+                FREQUENCY_4 -> Value.FREQUENCY_4
+                FREQUENCY_12 -> Value.FREQUENCY_12
+                FREQUENCY_24 -> Value.FREQUENCY_24
                 else -> Value._UNKNOWN
             }
 
@@ -3710,10 +3710,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                _2 -> Known._2
-                _4 -> Known._4
-                _12 -> Known._12
-                _24 -> Known._24
+                FREQUENCY_2 -> Known.FREQUENCY_2
+                FREQUENCY_4 -> Known.FREQUENCY_4
+                FREQUENCY_12 -> Known.FREQUENCY_12
+                FREQUENCY_24 -> Known.FREQUENCY_24
                 else ->
                     throw TelnyxInvalidDataException(
                         "Unknown LowBalanceNotificationFrequency: $value"
@@ -3795,17 +3795,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val _0 = of(0L)
+            @JvmField val DARK = of(0L)
 
-            @JvmField val _1 = of(1L)
+            @JvmField val LIGHT = of(1L)
 
             @JvmStatic fun of(value: Long) = UiTheme(JsonField.of(value))
         }
 
         /** An enum containing [UiTheme]'s known values. */
         enum class Known {
-            _0,
-            _1,
+            DARK,
+            LIGHT,
         }
 
         /**
@@ -3818,8 +3818,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            _0,
-            _1,
+            DARK,
+            LIGHT,
             /** An enum member indicating that [UiTheme] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -3833,8 +3833,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                _0 -> Value._0
-                _1 -> Value._1
+                DARK -> Value.DARK
+                LIGHT -> Value.LIGHT
                 else -> Value._UNKNOWN
             }
 
@@ -3849,8 +3849,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                _0 -> Known._0
-                _1 -> Known._1
+                DARK -> Known.DARK
+                LIGHT -> Known.LIGHT
                 else -> throw TelnyxInvalidDataException("Unknown UiTheme: $value")
             }
 

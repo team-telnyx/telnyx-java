@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.ai.memory.namespaces.profiles.memories
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.ai.memory.namespaces.profiles.PageMeta
+import com.telnyx.sdk.models.ai.memory.namespaces.profiles.AgentMemoryPageMeta
 import com.telnyx.sdk.services.async.ai.memory.namespaces.profiles.MemoryServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -36,7 +36,7 @@ private constructor(
      *
      * @see MemoryListPageResponse.meta
      */
-    fun meta(): Optional<PageMeta> = response._meta().getOptional("meta")
+    fun meta(): Optional<AgentMemoryPageMeta> = response._meta().getOptional("meta")
 
     override fun items(): List<MemoryListResponse> = data()
 

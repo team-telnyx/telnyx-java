@@ -14,6 +14,8 @@ import com.telnyx.sdk.services.blocking.AddressService
 import com.telnyx.sdk.services.blocking.AddressServiceImpl
 import com.telnyx.sdk.services.blocking.AdvancedOrderService
 import com.telnyx.sdk.services.blocking.AdvancedOrderServiceImpl
+import com.telnyx.sdk.services.blocking.AgentGatewayService
+import com.telnyx.sdk.services.blocking.AgentGatewayServiceImpl
 import com.telnyx.sdk.services.blocking.AiService
 import com.telnyx.sdk.services.blocking.AiServiceImpl
 import com.telnyx.sdk.services.blocking.AlphanumericSenderIdService
@@ -1152,6 +1154,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         UserProfileServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val agentGateways: AgentGatewayService by lazy {
+        AgentGatewayServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1808,6 +1814,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** Read and update the authenticated user's profile and data locality. */
     override fun userProfile(): UserProfileService = userProfile
+
+    override fun agentGateways(): AgentGatewayService = agentGateways
 
     override fun close() = clientOptions.close()
 
@@ -2629,6 +2637,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             UserProfileServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val agentGateways: AgentGatewayService.WithRawResponse by lazy {
+            AgentGatewayServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -3349,5 +3361,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         /** Read and update the authenticated user's profile and data locality. */
         override fun userProfile(): UserProfileService.WithRawResponse = userProfile
+
+        override fun agentGateways(): AgentGatewayService.WithRawResponse = agentGateways
     }
 }

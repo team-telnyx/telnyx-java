@@ -15,12 +15,6 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/**
- * Where a listing's page sits in the whole.
- *
- * A page is a snapshot: the counts it reports and the order it is drawn in both move as writes
- * land, so paging through a busy namespace can repeat or miss an entry at a page boundary.
- */
 class PageMeta
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
@@ -50,7 +44,7 @@ private constructor(
     fun pageNumber(): Long = pageNumber.getRequired("page_number")
 
     /**
-     * How many results a page holds.
+     * Results per page.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -58,10 +52,7 @@ private constructor(
     fun pageSize(): Long = pageSize.getRequired("page_size")
 
     /**
-     * Pages that can be requested; 0 when nothing matched. Page until `page_number` reaches it
-     * rather than until a page comes back short: a page can hold fewer than `page_size` results
-     * without being the last. Capped at the deepest page served, so on a very large listing it
-     * covers fewer results than `total_results`.
+     * Pages that can be requested; 0 when nothing matched.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -69,7 +60,7 @@ private constructor(
     fun totalPages(): Long = totalPages.getRequired("total_pages")
 
     /**
-     * Results the request matched, including any past the deepest page.
+     * Results across every page.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -163,7 +154,7 @@ private constructor(
          */
         fun pageNumber(pageNumber: JsonField<Long>) = apply { this.pageNumber = pageNumber }
 
-        /** How many results a page holds. */
+        /** Results per page. */
         fun pageSize(pageSize: Long) = pageSize(JsonField.of(pageSize))
 
         /**
@@ -174,12 +165,7 @@ private constructor(
          */
         fun pageSize(pageSize: JsonField<Long>) = apply { this.pageSize = pageSize }
 
-        /**
-         * Pages that can be requested; 0 when nothing matched. Page until `page_number` reaches it
-         * rather than until a page comes back short: a page can hold fewer than `page_size` results
-         * without being the last. Capped at the deepest page served, so on a very large listing it
-         * covers fewer results than `total_results`.
-         */
+        /** Pages that can be requested; 0 when nothing matched. */
         fun totalPages(totalPages: Long) = totalPages(JsonField.of(totalPages))
 
         /**
@@ -190,7 +176,7 @@ private constructor(
          */
         fun totalPages(totalPages: JsonField<Long>) = apply { this.totalPages = totalPages }
 
-        /** Results the request matched, including any past the deepest page. */
+        /** Results across every page. */
         fun totalResults(totalResults: Long) = totalResults(JsonField.of(totalResults))
 
         /**

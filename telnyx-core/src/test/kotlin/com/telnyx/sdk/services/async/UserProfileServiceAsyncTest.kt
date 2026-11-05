@@ -46,7 +46,7 @@ internal class UserProfileServiceAsyncTest {
                     .gotFreeNumberAtSignup(false)
                     .lastName("Taylor")
                     .lowBalanceNotificationFrequency(
-                        UserProfilePatchAllParams.LowBalanceNotificationFrequency._12
+                        UserProfilePatchAllParams.LowBalanceNotificationFrequency.FREQUENCY_12
                     )
                     .lowBalanceThresholdAmount(10.0)
                     .notifyOnInvoiceAvailable(true)
@@ -65,7 +65,7 @@ internal class UserProfileServiceAsyncTest {
                     .primaryUseCase("configure sip trunks")
                     .role("account manager")
                     .state("IL")
-                    .uiTheme(UserProfilePatchAllParams.UiTheme._1)
+                    .uiTheme(UserProfilePatchAllParams.UiTheme.LIGHT)
                     .addUseCase("voice")
                     .userSubscriptionOptIn(false)
                     .zip("60601")

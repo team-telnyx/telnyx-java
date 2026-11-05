@@ -8,6 +8,7 @@ import com.telnyx.sdk.services.async.AccessIpRangeServiceAsync
 import com.telnyx.sdk.services.async.ActionServiceAsync
 import com.telnyx.sdk.services.async.AddressServiceAsync
 import com.telnyx.sdk.services.async.AdvancedOrderServiceAsync
+import com.telnyx.sdk.services.async.AgentGatewayServiceAsync
 import com.telnyx.sdk.services.async.AiServiceAsync
 import com.telnyx.sdk.services.async.AlphanumericSenderIdServiceAsync
 import com.telnyx.sdk.services.async.ArtifactDownloadServiceAsync
@@ -876,6 +877,8 @@ interface TelnyxClientAsync {
     /** Read and update the authenticated user's profile and data locality. */
     fun userProfile(): UserProfileServiceAsync
 
+    fun agentGateways(): AgentGatewayServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1541,5 +1544,7 @@ interface TelnyxClientAsync {
 
         /** Read and update the authenticated user's profile and data locality. */
         fun userProfile(): UserProfileServiceAsync.WithRawResponse
+
+        fun agentGateways(): AgentGatewayServiceAsync.WithRawResponse
     }
 }

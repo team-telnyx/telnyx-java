@@ -8,6 +8,7 @@ import com.telnyx.sdk.services.blocking.AccessIpRangeService
 import com.telnyx.sdk.services.blocking.ActionService
 import com.telnyx.sdk.services.blocking.AddressService
 import com.telnyx.sdk.services.blocking.AdvancedOrderService
+import com.telnyx.sdk.services.blocking.AgentGatewayService
 import com.telnyx.sdk.services.blocking.AiService
 import com.telnyx.sdk.services.blocking.AlphanumericSenderIdService
 import com.telnyx.sdk.services.blocking.ArtifactDownloadService
@@ -876,6 +877,8 @@ interface TelnyxClient {
     /** Read and update the authenticated user's profile and data locality. */
     fun userProfile(): UserProfileService
 
+    fun agentGateways(): AgentGatewayService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1538,5 +1541,7 @@ interface TelnyxClient {
 
         /** Read and update the authenticated user's profile and data locality. */
         fun userProfile(): UserProfileService.WithRawResponse
+
+        fun agentGateways(): AgentGatewayService.WithRawResponse
     }
 }

@@ -27,7 +27,7 @@ internal class UserProfilePatchAllParamsTest {
             .gotFreeNumberAtSignup(false)
             .lastName("Taylor")
             .lowBalanceNotificationFrequency(
-                UserProfilePatchAllParams.LowBalanceNotificationFrequency._12
+                UserProfilePatchAllParams.LowBalanceNotificationFrequency.FREQUENCY_12
             )
             .lowBalanceThresholdAmount(10.0)
             .notifyOnInvoiceAvailable(true)
@@ -46,7 +46,7 @@ internal class UserProfilePatchAllParamsTest {
             .primaryUseCase("configure sip trunks")
             .role("account manager")
             .state("IL")
-            .uiTheme(UserProfilePatchAllParams.UiTheme._1)
+            .uiTheme(UserProfilePatchAllParams.UiTheme.LIGHT)
             .addUseCase("voice")
             .userSubscriptionOptIn(false)
             .zip("60601")
@@ -73,7 +73,7 @@ internal class UserProfilePatchAllParamsTest {
                 .gotFreeNumberAtSignup(false)
                 .lastName("Taylor")
                 .lowBalanceNotificationFrequency(
-                    UserProfilePatchAllParams.LowBalanceNotificationFrequency._12
+                    UserProfilePatchAllParams.LowBalanceNotificationFrequency.FREQUENCY_12
                 )
                 .lowBalanceThresholdAmount(10.0)
                 .notifyOnInvoiceAvailable(true)
@@ -92,7 +92,7 @@ internal class UserProfilePatchAllParamsTest {
                 .primaryUseCase("configure sip trunks")
                 .role("account manager")
                 .state("IL")
-                .uiTheme(UserProfilePatchAllParams.UiTheme._1)
+                .uiTheme(UserProfilePatchAllParams.UiTheme.LIGHT)
                 .addUseCase("voice")
                 .userSubscriptionOptIn(false)
                 .zip("60601")
@@ -116,7 +116,7 @@ internal class UserProfilePatchAllParamsTest {
         assertThat(body.gotFreeNumberAtSignup()).contains(false)
         assertThat(body.lastName()).contains("Taylor")
         assertThat(body.lowBalanceNotificationFrequency())
-            .contains(UserProfilePatchAllParams.LowBalanceNotificationFrequency._12)
+            .contains(UserProfilePatchAllParams.LowBalanceNotificationFrequency.FREQUENCY_12)
         assertThat(body.lowBalanceThresholdAmount()).contains(10.0)
         assertThat(body.notifyOnInvoiceAvailable()).contains(true)
         assertThat(body.notifyOnInvoicePayment()).contains(false)
@@ -135,7 +135,7 @@ internal class UserProfilePatchAllParamsTest {
         assertThat(body.primaryUseCase()).contains("configure sip trunks")
         assertThat(body.role()).contains("account manager")
         assertThat(body.state()).contains("IL")
-        assertThat(body.uiTheme()).contains(UserProfilePatchAllParams.UiTheme._1)
+        assertThat(body.uiTheme()).contains(UserProfilePatchAllParams.UiTheme.LIGHT)
         assertThat(body.useCases().getOrNull()).containsExactly("voice")
         assertThat(body.userSubscriptionOptIn()).contains(false)
         assertThat(body.zip()).contains("60601")

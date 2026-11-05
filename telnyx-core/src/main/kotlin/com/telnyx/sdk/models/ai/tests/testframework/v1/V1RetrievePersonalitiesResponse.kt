@@ -835,10 +835,10 @@ private constructor(
 
         /**
          * Alias for calling [startSpeakingPlan] with
-         * `StartSpeakingPlan.ofUnionMember1(unionMember1)`.
+         * `StartSpeakingPlan.ofStartSpeakingPlanObject(startSpeakingPlanObject)`.
          */
-        fun startSpeakingPlan(unionMember1: StartSpeakingPlan.UnionMember1) =
-            startSpeakingPlan(StartSpeakingPlan.ofUnionMember1(unionMember1))
+        fun startSpeakingPlan(startSpeakingPlanObject: StartSpeakingPlan.StartSpeakingPlanObject) =
+            startSpeakingPlan(StartSpeakingPlan.ofStartSpeakingPlanObject(startSpeakingPlanObject))
 
         fun stopSpeakingPlan(stopSpeakingPlan: StopSpeakingPlan?) =
             stopSpeakingPlan(JsonField.ofNullable(stopSpeakingPlan))
@@ -1549,21 +1549,23 @@ private constructor(
     class StartSpeakingPlan
     private constructor(
         private val number: Double? = null,
-        private val unionMember1: UnionMember1? = null,
+        private val startSpeakingPlanObject: StartSpeakingPlanObject? = null,
         private val _json: JsonValue? = null,
     ) {
 
         fun number(): Optional<Double> = Optional.ofNullable(number)
 
-        fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
+        fun startSpeakingPlanObject(): Optional<StartSpeakingPlanObject> =
+            Optional.ofNullable(startSpeakingPlanObject)
 
         fun isNumber(): Boolean = number != null
 
-        fun isUnionMember1(): Boolean = unionMember1 != null
+        fun isStartSpeakingPlanObject(): Boolean = startSpeakingPlanObject != null
 
         fun asNumber(): Double = number.getOrThrow("number")
 
-        fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
+        fun asStartSpeakingPlanObject(): StartSpeakingPlanObject =
+            startSpeakingPlanObject.getOrThrow("startSpeakingPlanObject")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1599,7 +1601,8 @@ private constructor(
         fun <T> accept(visitor: Visitor<T>): T =
             when {
                 number != null -> visitor.visitNumber(number)
-                unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
+                startSpeakingPlanObject != null ->
+                    visitor.visitStartSpeakingPlanObject(startSpeakingPlanObject)
                 else -> visitor.unknown(_json)
             }
 
@@ -1623,8 +1626,10 @@ private constructor(
                 object : Visitor<Unit> {
                     override fun visitNumber(number: Double) {}
 
-                    override fun visitUnionMember1(unionMember1: UnionMember1) {
-                        unionMember1.validate()
+                    override fun visitStartSpeakingPlanObject(
+                        startSpeakingPlanObject: StartSpeakingPlanObject
+                    ) {
+                        startSpeakingPlanObject.validate()
                     }
                 }
             )
@@ -1651,8 +1656,9 @@ private constructor(
                 object : Visitor<Int> {
                     override fun visitNumber(number: Double) = 1
 
-                    override fun visitUnionMember1(unionMember1: UnionMember1) =
-                        unionMember1.validity()
+                    override fun visitStartSpeakingPlanObject(
+                        startSpeakingPlanObject: StartSpeakingPlanObject
+                    ) = startSpeakingPlanObject.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1665,15 +1671,16 @@ private constructor(
 
             return other is StartSpeakingPlan &&
                 number == other.number &&
-                unionMember1 == other.unionMember1
+                startSpeakingPlanObject == other.startSpeakingPlanObject
         }
 
-        override fun hashCode(): Int = Objects.hash(number, unionMember1)
+        override fun hashCode(): Int = Objects.hash(number, startSpeakingPlanObject)
 
         override fun toString(): String =
             when {
                 number != null -> "StartSpeakingPlan{number=$number}"
-                unionMember1 != null -> "StartSpeakingPlan{unionMember1=$unionMember1}"
+                startSpeakingPlanObject != null ->
+                    "StartSpeakingPlan{startSpeakingPlanObject=$startSpeakingPlanObject}"
                 _json != null -> "StartSpeakingPlan{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid StartSpeakingPlan")
             }
@@ -1683,8 +1690,8 @@ private constructor(
             @JvmStatic fun ofNumber(number: Double) = StartSpeakingPlan(number = number)
 
             @JvmStatic
-            fun ofUnionMember1(unionMember1: UnionMember1) =
-                StartSpeakingPlan(unionMember1 = unionMember1)
+            fun ofStartSpeakingPlanObject(startSpeakingPlanObject: StartSpeakingPlanObject) =
+                StartSpeakingPlan(startSpeakingPlanObject = startSpeakingPlanObject)
         }
 
         /**
@@ -1695,7 +1702,7 @@ private constructor(
 
             fun visitNumber(number: Double): T
 
-            fun visitUnionMember1(unionMember1: UnionMember1): T
+            fun visitStartSpeakingPlanObject(startSpeakingPlanObject: StartSpeakingPlanObject): T
 
             /**
              * Maps an unknown variant of [StartSpeakingPlan] to a value of type [T].
@@ -1720,8 +1727,8 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<UnionMember1>())?.let {
-                                StartSpeakingPlan(unionMember1 = it, _json = json)
+                            tryDeserialize(node, jacksonTypeRef<StartSpeakingPlanObject>())?.let {
+                                StartSpeakingPlan(startSpeakingPlanObject = it, _json = json)
                             },
                             tryDeserialize(node, jacksonTypeRef<Double>())?.let {
                                 StartSpeakingPlan(number = it, _json = json)
@@ -1752,14 +1759,15 @@ private constructor(
             ) {
                 when {
                     value.number != null -> generator.writeObject(value.number)
-                    value.unionMember1 != null -> generator.writeObject(value.unionMember1)
+                    value.startSpeakingPlanObject != null ->
+                        generator.writeObject(value.startSpeakingPlanObject)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid StartSpeakingPlan")
                 }
             }
         }
 
-        class UnionMember1
+        class StartSpeakingPlanObject
         @JsonCreator
         private constructor(
             @com.fasterxml.jackson.annotation.JsonValue
@@ -1774,18 +1782,22 @@ private constructor(
 
             companion object {
 
-                /** Returns a mutable builder for constructing an instance of [UnionMember1]. */
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [StartSpeakingPlanObject].
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [UnionMember1]. */
+            /** A builder for [StartSpeakingPlanObject]. */
             class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(unionMember1: UnionMember1) = apply {
-                    additionalProperties = unionMember1.additionalProperties.toMutableMap()
+                internal fun from(startSpeakingPlanObject: StartSpeakingPlanObject) = apply {
+                    additionalProperties =
+                        startSpeakingPlanObject.additionalProperties.toMutableMap()
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1811,11 +1823,12 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [UnionMember1].
+                 * Returns an immutable instance of [StartSpeakingPlanObject].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): UnionMember1 = UnionMember1(additionalProperties.toImmutable())
+                fun build(): StartSpeakingPlanObject =
+                    StartSpeakingPlanObject(additionalProperties.toImmutable())
             }
 
             private var validated: Boolean = false
@@ -1830,7 +1843,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnionMember1 = apply {
+            fun validate(): StartSpeakingPlanObject = apply {
                 if (validated) {
                     return@apply
                 }
@@ -1861,14 +1874,16 @@ private constructor(
                     return true
                 }
 
-                return other is UnionMember1 && additionalProperties == other.additionalProperties
+                return other is StartSpeakingPlanObject &&
+                    additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "UnionMember1{additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "StartSpeakingPlanObject{additionalProperties=$additionalProperties}"
         }
     }
 
