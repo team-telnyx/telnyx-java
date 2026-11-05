@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.agentgateways
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.agentgateways.policies.AgentGatewayPolicyGuardrails
 import com.telnyx.sdk.models.agentgateways.policies.AgentGatewayPolicyPipeline
+import com.telnyx.sdk.models.agentgateways.policies.AgentGatewayPolicyStep
 import com.telnyx.sdk.models.agentgateways.policies.PolicyCreateParams
 import com.telnyx.sdk.models.agentgateways.policies.PolicyDeleteParams
 import com.telnyx.sdk.models.agentgateways.policies.PolicyRetrieveParams
@@ -38,12 +39,12 @@ internal class PolicyServiceTest {
                         AgentGatewayPolicyPipeline.builder()
                             .hook(AgentGatewayPolicyPipeline.Hook.BEFORE_REQUEST)
                             .addStep(
-                                AgentGatewayPolicyPipeline.Step.builder()
+                                AgentGatewayPolicyStep.builder()
                                     .guardrail("guardrail")
                                     .message("message")
-                                    .onError(AgentGatewayPolicyPipeline.Step.OnError.NEXT)
-                                    .onFail(AgentGatewayPolicyPipeline.Step.OnFail.NEXT)
-                                    .onPass(AgentGatewayPolicyPipeline.Step.OnPass.NEXT)
+                                    .onError(AgentGatewayPolicyStep.OnError.NEXT)
+                                    .onFail(AgentGatewayPolicyStep.OnFail.NEXT)
+                                    .onPass(AgentGatewayPolicyStep.OnPass.NEXT)
                                     .passData(true)
                                     .build()
                             )
@@ -96,12 +97,12 @@ internal class PolicyServiceTest {
                         AgentGatewayPolicyPipeline.builder()
                             .hook(AgentGatewayPolicyPipeline.Hook.BEFORE_REQUEST)
                             .addStep(
-                                AgentGatewayPolicyPipeline.Step.builder()
+                                AgentGatewayPolicyStep.builder()
                                     .guardrail("guardrail")
                                     .message("message")
-                                    .onError(AgentGatewayPolicyPipeline.Step.OnError.NEXT)
-                                    .onFail(AgentGatewayPolicyPipeline.Step.OnFail.NEXT)
-                                    .onPass(AgentGatewayPolicyPipeline.Step.OnPass.NEXT)
+                                    .onError(AgentGatewayPolicyStep.OnError.NEXT)
+                                    .onFail(AgentGatewayPolicyStep.OnFail.NEXT)
+                                    .onPass(AgentGatewayPolicyStep.OnPass.NEXT)
                                     .passData(true)
                                     .build()
                             )
