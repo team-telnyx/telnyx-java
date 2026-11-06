@@ -27,15 +27,9 @@ internal class GuardrailServiceTest {
                     .type(GuardrailCreateParams.Type.CONTENT_FILTER)
                     .alwaysOn(true)
                     .settings(
-                        JsonValue.from(
-                            mapOf(
-                                "patterns" to
-                                    listOf(
-                                        mapOf("name" to "us_ssn", "action" to "mask"),
-                                        mapOf("name" to "email", "action" to "mask"),
-                                    )
-                            )
-                        )
+                        GuardrailCreateParams.Settings.builder()
+                            .putAdditionalProperty("patterns", JsonValue.from("bar"))
+                            .build()
                     )
                     .build()
             )
@@ -57,7 +51,11 @@ internal class GuardrailServiceTest {
                     .alwaysOn(true)
                     .addMode(GuardrailUpdateParams.Mode.BEFORE_REQUEST)
                     .name("name")
-                    .settings(JsonValue.from(mapOf<String, Any>()))
+                    .settings(
+                        GuardrailUpdateParams.Settings.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .build()
             )
 

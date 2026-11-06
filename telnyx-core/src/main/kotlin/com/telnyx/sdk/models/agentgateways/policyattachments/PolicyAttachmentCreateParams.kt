@@ -49,7 +49,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun default_(): Optional<Boolean> = body.default_()
+    fun isDefault(): Optional<Boolean> = body.isDefault()
 
     /**
      * The models whose requests the policy applies to, by name. A name can use `*` as a wildcard.
@@ -76,11 +76,11 @@ private constructor(
     fun _policy(): JsonField<String> = body._policy()
 
     /**
-     * Returns the raw JSON value of [default_].
+     * Returns the raw JSON value of [isDefault].
      *
-     * Unlike [default_], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [isDefault], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _default_(): JsonField<Boolean> = body._default_()
+    fun _isDefault(): JsonField<Boolean> = body._isDefault()
 
     /**
      * Returns the raw JSON value of [models].
@@ -147,7 +147,7 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [policy]
-         * - [default_]
+         * - [isDefault]
          * - [models]
          * - [priority]
          */
@@ -165,16 +165,16 @@ private constructor(
         fun policy(policy: JsonField<String>) = apply { body.policy(policy) }
 
         /** `true` applies the policy only to the requests no other attachment matches. */
-        fun default_(default_: Boolean) = apply { body.default_(default_) }
+        fun isDefault(isDefault: Boolean) = apply { body.isDefault(isDefault) }
 
         /**
-         * Sets [Builder.default_] to an arbitrary JSON value.
+         * Sets [Builder.isDefault] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.default_] with a well-typed [Boolean] value instead.
+         * You should usually call [Builder.isDefault] with a well-typed [Boolean] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun default_(default_: JsonField<Boolean>) = apply { body.default_(default_) }
+        fun isDefault(isDefault: JsonField<Boolean>) = apply { body.isDefault(isDefault) }
 
         /**
          * The models whose requests the policy applies to, by name. A name can use `*` as a
@@ -374,7 +374,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val policy: JsonField<String>,
-        private val default_: JsonField<Boolean>,
+        private val isDefault: JsonField<Boolean>,
         private val models: JsonField<List<String>>,
         private val priority: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -385,12 +385,12 @@ private constructor(
             @JsonProperty("policy") @ExcludeMissing policy: JsonField<String> = JsonMissing.of(),
             @JsonProperty("default")
             @ExcludeMissing
-            default_: JsonField<Boolean> = JsonMissing.of(),
+            isDefault: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("models")
             @ExcludeMissing
             models: JsonField<List<String>> = JsonMissing.of(),
             @JsonProperty("priority") @ExcludeMissing priority: JsonField<Long> = JsonMissing.of(),
-        ) : this(policy, default_, models, priority, mutableMapOf())
+        ) : this(policy, isDefault, models, priority, mutableMapOf())
 
         /**
          * The policy to apply, by name.
@@ -406,7 +406,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun default_(): Optional<Boolean> = default_.getOptional("default")
+        fun isDefault(): Optional<Boolean> = isDefault.getOptional("default")
 
         /**
          * The models whose requests the policy applies to, by name. A name can use `*` as a
@@ -433,11 +433,11 @@ private constructor(
         @JsonProperty("policy") @ExcludeMissing fun _policy(): JsonField<String> = policy
 
         /**
-         * Returns the raw JSON value of [default_].
+         * Returns the raw JSON value of [isDefault].
          *
-         * Unlike [default_], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [isDefault], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("default") @ExcludeMissing fun _default_(): JsonField<Boolean> = default_
+        @JsonProperty("default") @ExcludeMissing fun _isDefault(): JsonField<Boolean> = isDefault
 
         /**
          * Returns the raw JSON value of [models].
@@ -482,7 +482,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var policy: JsonField<String>? = null
-            private var default_: JsonField<Boolean> = JsonMissing.of()
+            private var isDefault: JsonField<Boolean> = JsonMissing.of()
             private var models: JsonField<MutableList<String>>? = null
             private var priority: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -490,7 +490,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 policy = body.policy
-                default_ = body.default_
+                isDefault = body.isDefault
                 models = body.models.map { it.toMutableList() }
                 priority = body.priority
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -509,16 +509,16 @@ private constructor(
             fun policy(policy: JsonField<String>) = apply { this.policy = policy }
 
             /** `true` applies the policy only to the requests no other attachment matches. */
-            fun default_(default_: Boolean) = default_(JsonField.of(default_))
+            fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
 
             /**
-             * Sets [Builder.default_] to an arbitrary JSON value.
+             * Sets [Builder.isDefault] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.default_] with a well-typed [Boolean] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.isDefault] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun default_(default_: JsonField<Boolean>) = apply { this.default_ = default_ }
+            fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
 
             /**
              * The models whose requests the policy applies to, by name. A name can use `*` as a
@@ -605,7 +605,7 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("policy", policy),
-                    default_,
+                    isDefault,
                     (models ?: JsonMissing.of()).map { it.toImmutable() },
                     priority,
                     additionalProperties.toMutableMap(),
@@ -629,7 +629,7 @@ private constructor(
             }
 
             policy()
-            default_()
+            isDefault()
             models()
             priority()
             validated = true
@@ -652,7 +652,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (policy.asKnown().isPresent) 1 else 0) +
-                (if (default_.asKnown().isPresent) 1 else 0) +
+                (if (isDefault.asKnown().isPresent) 1 else 0) +
                 (models.asKnown().getOrNull()?.size ?: 0) +
                 (if (priority.asKnown().isPresent) 1 else 0)
 
@@ -663,20 +663,20 @@ private constructor(
 
             return other is Body &&
                 policy == other.policy &&
-                default_ == other.default_ &&
+                isDefault == other.isDefault &&
                 models == other.models &&
                 priority == other.priority &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(policy, default_, models, priority, additionalProperties)
+            Objects.hash(policy, isDefault, models, priority, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{policy=$policy, default_=$default_, models=$models, priority=$priority, additionalProperties=$additionalProperties}"
+            "Body{policy=$policy, isDefault=$isDefault, models=$models, priority=$priority, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

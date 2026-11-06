@@ -17,7 +17,11 @@ internal class GuardrailUpdateParamsTest {
             .alwaysOn(true)
             .addMode(GuardrailUpdateParams.Mode.BEFORE_REQUEST)
             .name("name")
-            .settings(JsonValue.from(mapOf<String, Any>()))
+            .settings(
+                GuardrailUpdateParams.Settings.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
             .build()
     }
 
@@ -44,7 +48,11 @@ internal class GuardrailUpdateParamsTest {
                 .alwaysOn(true)
                 .addMode(GuardrailUpdateParams.Mode.BEFORE_REQUEST)
                 .name("name")
-                .settings(JsonValue.from(mapOf<String, Any>()))
+                .settings(
+                    GuardrailUpdateParams.Settings.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -53,7 +61,12 @@ internal class GuardrailUpdateParamsTest {
         assertThat(body.modes().getOrNull())
             .containsExactly(GuardrailUpdateParams.Mode.BEFORE_REQUEST)
         assertThat(body.name()).contains("name")
-        assertThat(body._settings()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body.settings())
+            .contains(
+                GuardrailUpdateParams.Settings.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
     }
 
     @Test

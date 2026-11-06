@@ -26,7 +26,7 @@ class AgentGatewayPolicyAttachment
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val default_: JsonField<Boolean>,
+    private val isDefault: JsonField<Boolean>,
     private val models: JsonField<List<String>>,
     private val policy: JsonField<String>,
     private val priority: JsonField<Long>,
@@ -40,14 +40,14 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("default") @ExcludeMissing default_: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("default") @ExcludeMissing isDefault: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("models") @ExcludeMissing models: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("policy") @ExcludeMissing policy: JsonField<String> = JsonMissing.of(),
         @JsonProperty("priority") @ExcludeMissing priority: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    ) : this(id, createdAt, default_, models, policy, priority, updatedAt, mutableMapOf())
+    ) : this(id, createdAt, isDefault, models, policy, priority, updatedAt, mutableMapOf())
 
     /**
      * The attachment's ID.
@@ -71,7 +71,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun default_(): Boolean = default_.getRequired("default")
+    fun isDefault(): Boolean = isDefault.getRequired("default")
 
     /**
      * The models whose requests the policy applies to, by name. A name can use `*` as a wildcard.
@@ -123,11 +123,11 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * Returns the raw JSON value of [default_].
+     * Returns the raw JSON value of [isDefault].
      *
-     * Unlike [default_], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [isDefault], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("default") @ExcludeMissing fun _default_(): JsonField<Boolean> = default_
+    @JsonProperty("default") @ExcludeMissing fun _isDefault(): JsonField<Boolean> = isDefault
 
     /**
      * Returns the raw JSON value of [models].
@@ -180,7 +180,7 @@ private constructor(
          * ```java
          * .id()
          * .createdAt()
-         * .default_()
+         * .isDefault()
          * .models()
          * .policy()
          * .priority()
@@ -195,7 +195,7 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
-        private var default_: JsonField<Boolean>? = null
+        private var isDefault: JsonField<Boolean>? = null
         private var models: JsonField<MutableList<String>>? = null
         private var policy: JsonField<String>? = null
         private var priority: JsonField<Long>? = null
@@ -206,7 +206,7 @@ private constructor(
         internal fun from(agentGatewayPolicyAttachment: AgentGatewayPolicyAttachment) = apply {
             id = agentGatewayPolicyAttachment.id
             createdAt = agentGatewayPolicyAttachment.createdAt
-            default_ = agentGatewayPolicyAttachment.default_
+            isDefault = agentGatewayPolicyAttachment.isDefault
             models = agentGatewayPolicyAttachment.models.map { it.toMutableList() }
             policy = agentGatewayPolicyAttachment.policy
             priority = agentGatewayPolicyAttachment.priority
@@ -241,16 +241,16 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** `true` applies the policy only to the requests no other attachment matches. */
-        fun default_(default_: Boolean) = default_(JsonField.of(default_))
+        fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
 
         /**
-         * Sets [Builder.default_] to an arbitrary JSON value.
+         * Sets [Builder.isDefault] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.default_] with a well-typed [Boolean] value instead.
+         * You should usually call [Builder.isDefault] with a well-typed [Boolean] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun default_(default_: JsonField<Boolean>) = apply { this.default_ = default_ }
+        fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
 
         /**
          * The models whose requests the policy applies to, by name. A name can use `*` as a
@@ -356,7 +356,7 @@ private constructor(
          * ```java
          * .id()
          * .createdAt()
-         * .default_()
+         * .isDefault()
          * .models()
          * .policy()
          * .priority()
@@ -369,7 +369,7 @@ private constructor(
             AgentGatewayPolicyAttachment(
                 checkRequired("id", id),
                 checkRequired("createdAt", createdAt),
-                checkRequired("default_", default_),
+                checkRequired("isDefault", isDefault),
                 checkRequired("models", models).map { it.toImmutable() },
                 checkRequired("policy", policy),
                 checkRequired("priority", priority),
@@ -395,7 +395,7 @@ private constructor(
 
         id()
         createdAt()
-        default_()
+        isDefault()
         models()
         policy()
         priority()
@@ -420,7 +420,7 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
-            (if (default_.asKnown().isPresent) 1 else 0) +
+            (if (isDefault.asKnown().isPresent) 1 else 0) +
             (models.asKnown().getOrNull()?.size ?: 0) +
             (if (policy.asKnown().isPresent) 1 else 0) +
             (if (priority.asKnown().isPresent) 1 else 0) +
@@ -434,7 +434,7 @@ private constructor(
         return other is AgentGatewayPolicyAttachment &&
             id == other.id &&
             createdAt == other.createdAt &&
-            default_ == other.default_ &&
+            isDefault == other.isDefault &&
             models == other.models &&
             policy == other.policy &&
             priority == other.priority &&
@@ -446,7 +446,7 @@ private constructor(
         Objects.hash(
             id,
             createdAt,
-            default_,
+            isDefault,
             models,
             policy,
             priority,
@@ -458,5 +458,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AgentGatewayPolicyAttachment{id=$id, createdAt=$createdAt, default_=$default_, models=$models, policy=$policy, priority=$priority, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "AgentGatewayPolicyAttachment{id=$id, createdAt=$createdAt, isDefault=$isDefault, models=$models, policy=$policy, priority=$priority, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

@@ -13,7 +13,7 @@ internal class PolicyAttachmentCreateParamsTest {
         PolicyAttachmentCreateParams.builder()
             .instanceId("32ce035d-3165-4031-b1a7-a7c0c259590a")
             .policy("strict")
-            .default_(true)
+            .isDefault(true)
             .addModel("GLM-5.3*")
             .priority(10L)
             .build()
@@ -38,7 +38,7 @@ internal class PolicyAttachmentCreateParamsTest {
             PolicyAttachmentCreateParams.builder()
                 .instanceId("32ce035d-3165-4031-b1a7-a7c0c259590a")
                 .policy("strict")
-                .default_(true)
+                .isDefault(true)
                 .addModel("GLM-5.3*")
                 .priority(10L)
                 .build()
@@ -46,7 +46,7 @@ internal class PolicyAttachmentCreateParamsTest {
         val body = params._body()
 
         assertThat(body.policy()).isEqualTo("strict")
-        assertThat(body.default_()).contains(true)
+        assertThat(body.isDefault()).contains(true)
         assertThat(body.models().getOrNull()).containsExactly("GLM-5.3*")
         assertThat(body.priority()).contains(10L)
     }

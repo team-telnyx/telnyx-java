@@ -21,7 +21,7 @@ internal class PolicyAttachmentServiceAsyncTest {
                 PolicyAttachmentCreateParams.builder()
                     .instanceId("32ce035d-3165-4031-b1a7-a7c0c259590a")
                     .policy("strict")
-                    .default_(true)
+                    .isDefault(true)
                     .addModel("GLM-5.3*")
                     .priority(10L)
                     .build()

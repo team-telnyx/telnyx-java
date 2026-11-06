@@ -24,6 +24,7 @@ import com.telnyx.sdk.services.async.BotSignupServiceAsync
 import com.telnyx.sdk.services.async.BrowserSessionServiceAsync
 import com.telnyx.sdk.services.async.BulkSimCardActionServiceAsync
 import com.telnyx.sdk.services.async.BundlePricingServiceAsync
+import com.telnyx.sdk.services.async.CalendarConnectionServiceAsync
 import com.telnyx.sdk.services.async.CallControlApplicationServiceAsync
 import com.telnyx.sdk.services.async.CallEventServiceAsync
 import com.telnyx.sdk.services.async.CallReasonServiceAsync
@@ -89,6 +90,7 @@ import com.telnyx.sdk.services.async.LlmTokenGatewayServiceAsync
 import com.telnyx.sdk.services.async.MachinePaymentServiceAsync
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
 import com.telnyx.sdk.services.async.MediaServiceAsync
+import com.telnyx.sdk.services.async.MeetingBotServiceAsync
 import com.telnyx.sdk.services.async.MeetingSessionServiceAsync
 import com.telnyx.sdk.services.async.MessageServiceAsync
 import com.telnyx.sdk.services.async.Messaging10dlcServiceAsync
@@ -879,6 +881,11 @@ interface TelnyxClientAsync {
 
     fun agentGateways(): AgentGatewayServiceAsync
 
+    /** Connect calendars and manage automatic meeting joins. */
+    fun calendarConnections(): CalendarConnectionServiceAsync
+
+    fun meetingBot(): MeetingBotServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1546,5 +1553,10 @@ interface TelnyxClientAsync {
         fun userProfile(): UserProfileServiceAsync.WithRawResponse
 
         fun agentGateways(): AgentGatewayServiceAsync.WithRawResponse
+
+        /** Connect calendars and manage automatic meeting joins. */
+        fun calendarConnections(): CalendarConnectionServiceAsync.WithRawResponse
+
+        fun meetingBot(): MeetingBotServiceAsync.WithRawResponse
     }
 }

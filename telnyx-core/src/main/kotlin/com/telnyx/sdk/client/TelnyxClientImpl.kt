@@ -46,6 +46,8 @@ import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BulkSimCardActionServiceImpl
 import com.telnyx.sdk.services.blocking.BundlePricingService
 import com.telnyx.sdk.services.blocking.BundlePricingServiceImpl
+import com.telnyx.sdk.services.blocking.CalendarConnectionService
+import com.telnyx.sdk.services.blocking.CalendarConnectionServiceImpl
 import com.telnyx.sdk.services.blocking.CallControlApplicationService
 import com.telnyx.sdk.services.blocking.CallControlApplicationServiceImpl
 import com.telnyx.sdk.services.blocking.CallEventService
@@ -176,6 +178,8 @@ import com.telnyx.sdk.services.blocking.ManagedAccountService
 import com.telnyx.sdk.services.blocking.ManagedAccountServiceImpl
 import com.telnyx.sdk.services.blocking.MediaService
 import com.telnyx.sdk.services.blocking.MediaServiceImpl
+import com.telnyx.sdk.services.blocking.MeetingBotService
+import com.telnyx.sdk.services.blocking.MeetingBotServiceImpl
 import com.telnyx.sdk.services.blocking.MeetingSessionService
 import com.telnyx.sdk.services.blocking.MeetingSessionServiceImpl
 import com.telnyx.sdk.services.blocking.MessageService
@@ -1158,6 +1162,14 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         AgentGatewayServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val calendarConnections: CalendarConnectionService by lazy {
+        CalendarConnectionServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val meetingBot: MeetingBotService by lazy {
+        MeetingBotServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1816,6 +1828,11 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun userProfile(): UserProfileService = userProfile
 
     override fun agentGateways(): AgentGatewayService = agentGateways
+
+    /** Connect calendars and manage automatic meeting joins. */
+    override fun calendarConnections(): CalendarConnectionService = calendarConnections
+
+    override fun meetingBot(): MeetingBotService = meetingBot
 
     override fun close() = clientOptions.close()
 
@@ -2641,6 +2658,14 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             AgentGatewayServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val calendarConnections: CalendarConnectionService.WithRawResponse by lazy {
+            CalendarConnectionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val meetingBot: MeetingBotService.WithRawResponse by lazy {
+            MeetingBotServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -3363,5 +3388,11 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun userProfile(): UserProfileService.WithRawResponse = userProfile
 
         override fun agentGateways(): AgentGatewayService.WithRawResponse = agentGateways
+
+        /** Connect calendars and manage automatic meeting joins. */
+        override fun calendarConnections(): CalendarConnectionService.WithRawResponse =
+            calendarConnections
+
+        override fun meetingBot(): MeetingBotService.WithRawResponse = meetingBot
     }
 }

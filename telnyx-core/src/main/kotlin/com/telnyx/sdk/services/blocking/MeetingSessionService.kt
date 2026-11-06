@@ -16,6 +16,8 @@ import com.telnyx.sdk.models.meetingsessions.MeetingSessionResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveParams
+import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveRecordingsParams
+import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveRecordingsResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptResponse
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionUpdateParams
@@ -44,15 +46,14 @@ interface MeetingSessionService {
     fun artifacts(): ArtifactService
 
     /**
-     * Creates a new meeting session. When an idempotency_key is supplied in the request body,
-     * replay lookup is scoped to the authenticated account and compares only the key; the request
-     * payload is not fingerprinted or compared. If a session with that key already exists for the
-     * account, the existing session is replayed (200); otherwise a new session is created (201).
-     * The session may enter asynchronous states (e.g. joining, waiting_for_admission) before
-     * becoming active. Optional `camera_image` input is write-only and applies only when no avatar
-     * or Assistant webpage output takes precedence. An ignored URL is not fetched. An effective URL
-     * source is resolved before bot creation; neither the source URL nor image bytes are persisted,
-     * returned, or logged. Treat signed URLs as credentials. With `assistant.avatar: true`, the
+     * Creates a meeting session and returns 201, or 200 for a replay. Use a unique
+     * `idempotency_key` per intended join and reuse the same key and request on retries. Reusing a
+     * key with a different join configuration or meeting URL can return 409 invalid_state. Always
+     * retry with the original request. The session can pass through joining and
+     * waiting_for_admission before active. Optional `camera_image` input is write-only and applies
+     * when no assistant avatar takes precedence. An ignored URL is not fetched. An effective URL
+     * source is resolved before bot creation; the source URL and image bytes are not returned in
+     * the session response. Treat signed URLs as credentials. With `assistant.avatar: true`, the
      * assistant is read before the bot is created: an assistant without a Telnyx avatar configured
      * is rejected with 400 `invalid_request` (message prefix `assistant_avatar_not_configured:`),
      * an unknown assistant with 400 `invalid_request` (prefix `assistant_not_found:`), and a failed
@@ -104,7 +105,10 @@ interface MeetingSessionService {
     /**
      * Updates mutable properties of a meeting session. Only sessions in the scheduled state can be
      * updated; any other state returns 409 with the invalid_state error code. All request fields
-     * are optional, and an empty object is a valid no-op update.
+     * are optional, and an empty object is a valid no-op update. Calendar-controlled Google Meet
+     * and Teams sessions return 409 calendar_managed; change the event instead. A conflicting
+     * pending edit returns 409 edit_in_progress. On a timeout or 503, read the session and retry
+     * the same changes.
      */
     fun update(id: String): MeetingSessionResponse = update(id, MeetingSessionUpdateParams.none())
 
@@ -135,7 +139,11 @@ interface MeetingSessionService {
     fun update(id: String, requestOptions: RequestOptions): MeetingSessionResponse =
         update(id, MeetingSessionUpdateParams.none(), requestOptions)
 
-    /** Returns a list of meeting sessions, optionally filtered by status. */
+    /**
+     * Returns a list of meeting sessions, optionally filtered by status. List items omit
+     * assistant.dynamic_variables and recording_export. Some items include
+     * remote_state_observed_at; retrieve the individual session for current state.
+     */
     fun list(): MeetingSessionListResponse = list(MeetingSessionListParams.none())
 
     /** @see list */
@@ -156,7 +164,9 @@ interface MeetingSessionService {
     /**
      * Stops a meeting session without deleting its persisted record. Scheduled bots are cancelled,
      * while bots that are joining or active are asked to leave. The persisted meeting session
-     * record remains available.
+     * record remains available. A successful response can report leaving while departure is
+     * pending. Poll until ended, failed, or admission_denied. Exported Storage objects are
+     * unaffected.
      */
     fun delete(id: String): MeetingSessionResponse = delete(id, MeetingSessionDeleteParams.none())
 
@@ -192,7 +202,9 @@ interface MeetingSessionService {
      * operation retains the Telnyx-local Meeting session, transcript segments, events, artifacts,
      * and usage records. It is separate from `DELETE /meeting_sessions/{id}`, which stops or
      * cancels participation without deleting the persisted session. A missing/foreign session
-     * returns 404; a deletion request whose outcome is unknown returns 502.
+     * returns 404; a deletion request whose outcome is unknown returns 502. Customer Storage
+     * exports do not support this operation (422 unsupported_capability); delete the exported
+     * object through Storage instead. Stopping a session does not delete an exported object.
      */
     fun deleteRecordingMedia(id: String): MeetingSessionDeleteRecordingMediaResponse =
         deleteRecordingMedia(id, MeetingSessionDeleteRecordingMediaParams.none())
@@ -274,10 +286,58 @@ interface MeetingSessionService {
         retrieveEvents(id, MeetingSessionRetrieveEventsParams.none(), requestOptions)
 
     /**
-     * Returns transcript segments ordered by ascending `seq`. Default `limit` is 100 and maximum is
-     * 1,000. Continue with `after=meta.next_after`. A long-poll timeout returns 200 with empty
-     * `data` and `meta.next_after: null`; retain the cursor supplied to that request because null
-     * is not a replacement cursor.
+     * Retrieve recording export status. Customer Storage exports include recording_export with the
+     * bucket, region, key and pending/exported/failed status, or null when no reference is
+     * available. The data array is empty for these exports. Download or share the object using the
+     * Storage API once its status is exported. Zoom recordings and existing Google Meet or Teams
+     * recordings held by the Meeting service continue returning temporary download links in data
+     * through this same endpoint and session ID. Those recordings do not require Storage setup or
+     * migration. Refresh this endpoint when a link expires. Select the download method from the
+     * returned fields, not the platform alone.
+     */
+    fun retrieveRecordings(id: String): MeetingSessionRetrieveRecordingsResponse =
+        retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none())
+
+    /** @see retrieveRecordings */
+    fun retrieveRecordings(
+        id: String,
+        params: MeetingSessionRetrieveRecordingsParams =
+            MeetingSessionRetrieveRecordingsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MeetingSessionRetrieveRecordingsResponse =
+        retrieveRecordings(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see retrieveRecordings */
+    fun retrieveRecordings(
+        id: String,
+        params: MeetingSessionRetrieveRecordingsParams =
+            MeetingSessionRetrieveRecordingsParams.none(),
+    ): MeetingSessionRetrieveRecordingsResponse =
+        retrieveRecordings(id, params, RequestOptions.none())
+
+    /** @see retrieveRecordings */
+    fun retrieveRecordings(
+        params: MeetingSessionRetrieveRecordingsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MeetingSessionRetrieveRecordingsResponse
+
+    /** @see retrieveRecordings */
+    fun retrieveRecordings(
+        params: MeetingSessionRetrieveRecordingsParams
+    ): MeetingSessionRetrieveRecordingsResponse = retrieveRecordings(params, RequestOptions.none())
+
+    /** @see retrieveRecordings */
+    fun retrieveRecordings(
+        id: String,
+        requestOptions: RequestOptions,
+    ): MeetingSessionRetrieveRecordingsResponse =
+        retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none(), requestOptions)
+
+    /**
+     * Returns transcript segments ordered by ascending seq. Default limit is 100, maximum 1000.
+     * Continue with after=meta.next_after. On an empty page, meta.next_after preserves a positive
+     * supplied after cursor, or is null when no positive cursor was supplied. wait_seconds holds an
+     * empty read for up to 25 seconds; a timeout still returns 200.
      */
     fun retrieveTranscript(id: String): MeetingSessionRetrieveTranscriptResponse =
         retrieveTranscript(id, MeetingSessionRetrieveTranscriptParams.none())
@@ -612,6 +672,57 @@ interface MeetingSessionService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<MeetingSessionRetrieveEventsResponse> =
             retrieveEvents(id, MeetingSessionRetrieveEventsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /meeting_sessions/{id}/recordings`, but is otherwise
+         * the same as [MeetingSessionService.retrieveRecordings].
+         */
+        @MustBeClosed
+        fun retrieveRecordings(
+            id: String
+        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> =
+            retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none())
+
+        /** @see retrieveRecordings */
+        @MustBeClosed
+        fun retrieveRecordings(
+            id: String,
+            params: MeetingSessionRetrieveRecordingsParams =
+                MeetingSessionRetrieveRecordingsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> =
+            retrieveRecordings(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see retrieveRecordings */
+        @MustBeClosed
+        fun retrieveRecordings(
+            id: String,
+            params: MeetingSessionRetrieveRecordingsParams =
+                MeetingSessionRetrieveRecordingsParams.none(),
+        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> =
+            retrieveRecordings(id, params, RequestOptions.none())
+
+        /** @see retrieveRecordings */
+        @MustBeClosed
+        fun retrieveRecordings(
+            params: MeetingSessionRetrieveRecordingsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse>
+
+        /** @see retrieveRecordings */
+        @MustBeClosed
+        fun retrieveRecordings(
+            params: MeetingSessionRetrieveRecordingsParams
+        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> =
+            retrieveRecordings(params, RequestOptions.none())
+
+        /** @see retrieveRecordings */
+        @MustBeClosed
+        fun retrieveRecordings(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<MeetingSessionRetrieveRecordingsResponse> =
+            retrieveRecordings(id, MeetingSessionRetrieveRecordingsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /meeting_sessions/{id}/transcript`, but is otherwise

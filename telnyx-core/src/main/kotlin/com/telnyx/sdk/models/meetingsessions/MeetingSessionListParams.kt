@@ -12,7 +12,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a list of meeting sessions, optionally filtered by status. */
+/**
+ * Returns a list of meeting sessions, optionally filtered by status. List items omit
+ * assistant.dynamic_variables and recording_export. Some items include remote_state_observed_at;
+ * retrieve the individual session for current state.
+ */
 class MeetingSessionListParams
 private constructor(
     private val status: Status?,

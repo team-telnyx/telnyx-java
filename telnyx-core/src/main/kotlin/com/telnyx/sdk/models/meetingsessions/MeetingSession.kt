@@ -14,6 +14,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.calendarconnections.MeetingSessionAssistant
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -21,16 +22,16 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Represents a meeting session. All serializer fields are present and required; nullable fields use
- * null when absent. No actor, provider-bot, idempotency, routing, key, or internal fields are
- * exposed.
+ * Represents a meeting session. Core serializer fields are required; platform-specific fields are
+ * optional. Nullable fields use null when absent. No actor, provider-bot, idempotency, routing,
+ * key, or internal fields are exposed.
  */
 class MeetingSession
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
-    private val assistant: JsonField<Assistant>,
+    private val assistant: JsonField<MeetingSessionAssistant>,
     private val assistantState: JsonField<AssistantState>,
     private val assistantStateChangedAt: JsonField<OffsetDateTime>,
     private val avatar: JsonField<Avatar>,
@@ -46,12 +47,14 @@ private constructor(
     private val meetingUrl: JsonField<String>,
     private val metadata: JsonField<Metadata>,
     private val platform: JsonField<Platform>,
-    private val provider: JsonField<String>,
+    private val provider: JsonValue,
     private val recording: JsonField<Boolean>,
     private val status: JsonField<Status>,
     private val statusDetail: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val webhookUrl: JsonField<String>,
+    private val recordingExport: JsonField<MeetingSessionRecordingExport>,
+    private val remoteStateObservedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -61,7 +64,7 @@ private constructor(
         @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("assistant")
         @ExcludeMissing
-        assistant: JsonField<Assistant> = JsonMissing.of(),
+        assistant: JsonField<MeetingSessionAssistant> = JsonMissing.of(),
         @JsonProperty("assistant_state")
         @ExcludeMissing
         assistantState: JsonField<AssistantState> = JsonMissing.of(),
@@ -97,7 +100,7 @@ private constructor(
         meetingUrl: JsonField<String> = JsonMissing.of(),
         @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("platform") @ExcludeMissing platform: JsonField<Platform> = JsonMissing.of(),
-        @JsonProperty("provider") @ExcludeMissing provider: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("provider") @ExcludeMissing provider: JsonValue = JsonMissing.of(),
         @JsonProperty("recording") @ExcludeMissing recording: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("status_detail")
@@ -109,6 +112,12 @@ private constructor(
         @JsonProperty("webhook_url")
         @ExcludeMissing
         webhookUrl: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("recording_export")
+        @ExcludeMissing
+        recordingExport: JsonField<MeetingSessionRecordingExport> = JsonMissing.of(),
+        @JsonProperty("remote_state_observed_at")
+        @ExcludeMissing
+        remoteStateObservedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     ) : this(
         id,
         accountId,
@@ -134,6 +143,8 @@ private constructor(
         statusDetail,
         updatedAt,
         webhookUrl,
+        recordingExport,
+        remoteStateObservedAt,
         mutableMapOf(),
     )
 
@@ -159,7 +170,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun assistant(): Optional<Assistant> = assistant.getOptional("assistant")
+    fun assistant(): Optional<MeetingSessionAssistant> = assistant.getOptional("assistant")
 
     /**
      * Current state of the assistant, or null if no assistant is attached.
@@ -238,7 +249,13 @@ private constructor(
     fun endedAt(): Optional<OffsetDateTime> = endedAt.getOptional("ended_at")
 
     /**
-     * Human-readable failure reason if the session failed, or null.
+     * A machine-readable lifecycle reason, or null. Values include left_on_request, meeting_ended,
+     * everyone_left, no_one_joined, silence_timeout, max_duration_reached, admission_timeout,
+     * admission_denied, removed_from_meeting, recording_permission_denied, meeting_not_found,
+     * meeting_not_started, meeting_access_denied, meeting_full, cancelled,
+     * cancelled_calendar_disconnected, cancelled_calendar_event_deleted,
+     * cancelled_calendar_superseded, cancelled_policy, internal_error, and other. Treat this
+     * vocabulary as extensible.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -287,12 +304,17 @@ private constructor(
     fun platform(): Platform = platform.getRequired("platform")
 
     /**
-     * Provider handling the meeting session.
+     * Always telnyx.
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * Expected to always return the following:
+     * ```java
+     * JsonValue.from("telnyx")
+     * ```
+     *
+     * However, this method can be useful for debugging and logging (e.g. if the server responded
+     * with an unexpected value).
      */
-    fun provider(): String = provider.getRequired("provider")
+    @JsonProperty("provider") @ExcludeMissing fun _provider(): JsonValue = provider
 
     /**
      * Whether the session is being recorded.
@@ -315,7 +337,13 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * Additional human-readable detail about the status, or null.
+     * A machine-readable lifecycle reason, or null. Values include left_on_request, meeting_ended,
+     * everyone_left, no_one_joined, silence_timeout, max_duration_reached, admission_timeout,
+     * admission_denied, removed_from_meeting, recording_permission_denied, meeting_not_found,
+     * meeting_not_started, meeting_access_denied, meeting_full, cancelled,
+     * cancelled_calendar_disconnected, cancelled_calendar_event_deleted,
+     * cancelled_calendar_superseded, cancelled_policy, internal_error, and other. Treat this
+     * vocabulary as extensible.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -339,6 +367,27 @@ private constructor(
     fun webhookUrl(): Optional<String> = webhookUrl.getOptional("webhook_url")
 
     /**
+     * Customer Storage recording reference. Pending is not downloadable; exported means upload was
+     * verified; failed is terminal. Download with ordinary Storage authorization. No presigned URL
+     * is returned.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordingExport(): Optional<MeetingSessionRecordingExport> =
+        recordingExport.getOptional("recording_export")
+
+    /**
+     * Optional observation time on session list items. Retrieve the individual session when current
+     * state is required.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun remoteStateObservedAt(): Optional<OffsetDateTime> =
+        remoteStateObservedAt.getOptional("remote_state_observed_at")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -357,7 +406,9 @@ private constructor(
      *
      * Unlike [assistant], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("assistant") @ExcludeMissing fun _assistant(): JsonField<Assistant> = assistant
+    @JsonProperty("assistant")
+    @ExcludeMissing
+    fun _assistant(): JsonField<MeetingSessionAssistant> = assistant
 
     /**
      * Returns the raw JSON value of [assistantState].
@@ -479,13 +530,6 @@ private constructor(
     @JsonProperty("platform") @ExcludeMissing fun _platform(): JsonField<Platform> = platform
 
     /**
-     * Returns the raw JSON value of [provider].
-     *
-     * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("provider") @ExcludeMissing fun _provider(): JsonField<String> = provider
-
-    /**
      * Returns the raw JSON value of [recording].
      *
      * Unlike [recording], this method doesn't throw if the JSON field has an unexpected type.
@@ -524,6 +568,25 @@ private constructor(
      */
     @JsonProperty("webhook_url") @ExcludeMissing fun _webhookUrl(): JsonField<String> = webhookUrl
 
+    /**
+     * Returns the raw JSON value of [recordingExport].
+     *
+     * Unlike [recordingExport], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("recording_export")
+    @ExcludeMissing
+    fun _recordingExport(): JsonField<MeetingSessionRecordingExport> = recordingExport
+
+    /**
+     * Returns the raw JSON value of [remoteStateObservedAt].
+     *
+     * Unlike [remoteStateObservedAt], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("remote_state_observed_at")
+    @ExcludeMissing
+    fun _remoteStateObservedAt(): JsonField<OffsetDateTime> = remoteStateObservedAt
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -561,7 +624,6 @@ private constructor(
          * .meetingUrl()
          * .metadata()
          * .platform()
-         * .provider()
          * .recording()
          * .status()
          * .statusDetail()
@@ -577,7 +639,7 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var accountId: JsonField<String>? = null
-        private var assistant: JsonField<Assistant>? = null
+        private var assistant: JsonField<MeetingSessionAssistant>? = null
         private var assistantState: JsonField<AssistantState>? = null
         private var assistantStateChangedAt: JsonField<OffsetDateTime>? = null
         private var avatar: JsonField<Avatar>? = null
@@ -593,12 +655,14 @@ private constructor(
         private var meetingUrl: JsonField<String>? = null
         private var metadata: JsonField<Metadata>? = null
         private var platform: JsonField<Platform>? = null
-        private var provider: JsonField<String>? = null
+        private var provider: JsonValue = JsonValue.from("telnyx")
         private var recording: JsonField<Boolean>? = null
         private var status: JsonField<Status>? = null
         private var statusDetail: JsonField<String>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var webhookUrl: JsonField<String>? = null
+        private var recordingExport: JsonField<MeetingSessionRecordingExport> = JsonMissing.of()
+        private var remoteStateObservedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -627,6 +691,8 @@ private constructor(
             statusDetail = meetingSession.statusDetail
             updatedAt = meetingSession.updatedAt
             webhookUrl = meetingSession.webhookUrl
+            recordingExport = meetingSession.recordingExport
+            remoteStateObservedAt = meetingSession.remoteStateObservedAt
             additionalProperties = meetingSession.additionalProperties.toMutableMap()
         }
 
@@ -654,19 +720,23 @@ private constructor(
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** Assistant configuration if an assistant is attached, otherwise null. */
-        fun assistant(assistant: Assistant?) = assistant(JsonField.ofNullable(assistant))
+        fun assistant(assistant: MeetingSessionAssistant?) =
+            assistant(JsonField.ofNullable(assistant))
 
         /** Alias for calling [Builder.assistant] with `assistant.orElse(null)`. */
-        fun assistant(assistant: Optional<Assistant>) = assistant(assistant.getOrNull())
+        fun assistant(assistant: Optional<MeetingSessionAssistant>) =
+            assistant(assistant.getOrNull())
 
         /**
          * Sets [Builder.assistant] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.assistant] with a well-typed [Assistant] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.assistant] with a well-typed [MeetingSessionAssistant]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun assistant(assistant: JsonField<Assistant>) = apply { this.assistant = assistant }
+        fun assistant(assistant: JsonField<MeetingSessionAssistant>) = apply {
+            this.assistant = assistant
+        }
 
         /** Current state of the assistant, or null if no assistant is attached. */
         fun assistantState(assistantState: AssistantState?) =
@@ -818,7 +888,15 @@ private constructor(
          */
         fun endedAt(endedAt: JsonField<OffsetDateTime>) = apply { this.endedAt = endedAt }
 
-        /** Human-readable failure reason if the session failed, or null. */
+        /**
+         * A machine-readable lifecycle reason, or null. Values include left_on_request,
+         * meeting_ended, everyone_left, no_one_joined, silence_timeout, max_duration_reached,
+         * admission_timeout, admission_denied, removed_from_meeting, recording_permission_denied,
+         * meeting_not_found, meeting_not_started, meeting_access_denied, meeting_full, cancelled,
+         * cancelled_calendar_disconnected, cancelled_calendar_event_deleted,
+         * cancelled_calendar_superseded, cancelled_policy, internal_error, and other. Treat this
+         * vocabulary as extensible.
+         */
         fun failureReason(failureReason: String?) =
             failureReason(JsonField.ofNullable(failureReason))
 
@@ -906,16 +984,19 @@ private constructor(
          */
         fun platform(platform: JsonField<Platform>) = apply { this.platform = platform }
 
-        /** Provider handling the meeting session. */
-        fun provider(provider: String) = provider(JsonField.of(provider))
-
         /**
-         * Sets [Builder.provider] to an arbitrary JSON value.
+         * Sets the field to an arbitrary JSON value.
          *
-         * You should usually call [Builder.provider] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * It is usually unnecessary to call this method because the field defaults to the
+         * following:
+         * ```java
+         * JsonValue.from("telnyx")
+         * ```
+         *
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun provider(provider: JsonField<String>) = apply { this.provider = provider }
+        fun provider(provider: JsonValue) = apply { this.provider = provider }
 
         /** Whether the session is being recorded. */
         fun recording(recording: Boolean) = recording(JsonField.of(recording))
@@ -946,7 +1027,15 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        /** Additional human-readable detail about the status, or null. */
+        /**
+         * A machine-readable lifecycle reason, or null. Values include left_on_request,
+         * meeting_ended, everyone_left, no_one_joined, silence_timeout, max_duration_reached,
+         * admission_timeout, admission_denied, removed_from_meeting, recording_permission_denied,
+         * meeting_not_found, meeting_not_started, meeting_access_denied, meeting_full, cancelled,
+         * cancelled_calendar_disconnected, cancelled_calendar_event_deleted,
+         * cancelled_calendar_superseded, cancelled_policy, internal_error, and other. Treat this
+         * vocabulary as extensible.
+         */
         fun statusDetail(statusDetail: String?) = statusDetail(JsonField.ofNullable(statusDetail))
 
         /** Alias for calling [Builder.statusDetail] with `statusDetail.orElse(null)`. */
@@ -989,6 +1078,47 @@ private constructor(
          * value.
          */
         fun webhookUrl(webhookUrl: JsonField<String>) = apply { this.webhookUrl = webhookUrl }
+
+        /**
+         * Customer Storage recording reference. Pending is not downloadable; exported means upload
+         * was verified; failed is terminal. Download with ordinary Storage authorization. No
+         * presigned URL is returned.
+         */
+        fun recordingExport(recordingExport: MeetingSessionRecordingExport?) =
+            recordingExport(JsonField.ofNullable(recordingExport))
+
+        /** Alias for calling [Builder.recordingExport] with `recordingExport.orElse(null)`. */
+        fun recordingExport(recordingExport: Optional<MeetingSessionRecordingExport>) =
+            recordingExport(recordingExport.getOrNull())
+
+        /**
+         * Sets [Builder.recordingExport] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordingExport] with a well-typed
+         * [MeetingSessionRecordingExport] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun recordingExport(recordingExport: JsonField<MeetingSessionRecordingExport>) = apply {
+            this.recordingExport = recordingExport
+        }
+
+        /**
+         * Optional observation time on session list items. Retrieve the individual session when
+         * current state is required.
+         */
+        fun remoteStateObservedAt(remoteStateObservedAt: OffsetDateTime) =
+            remoteStateObservedAt(JsonField.of(remoteStateObservedAt))
+
+        /**
+         * Sets [Builder.remoteStateObservedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.remoteStateObservedAt] with a well-typed
+         * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun remoteStateObservedAt(remoteStateObservedAt: JsonField<OffsetDateTime>) = apply {
+            this.remoteStateObservedAt = remoteStateObservedAt
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -1034,7 +1164,6 @@ private constructor(
          * .meetingUrl()
          * .metadata()
          * .platform()
-         * .provider()
          * .recording()
          * .status()
          * .statusDetail()
@@ -1064,12 +1193,14 @@ private constructor(
                 checkRequired("meetingUrl", meetingUrl),
                 checkRequired("metadata", metadata),
                 checkRequired("platform", platform),
-                checkRequired("provider", provider),
+                provider,
                 checkRequired("recording", recording),
                 checkRequired("status", status),
                 checkRequired("statusDetail", statusDetail),
                 checkRequired("updatedAt", updatedAt),
                 checkRequired("webhookUrl", webhookUrl),
+                recordingExport,
+                remoteStateObservedAt,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -1107,12 +1238,18 @@ private constructor(
         meetingUrl()
         metadata().validate()
         platform().validate()
-        provider()
+        _provider().let {
+            if (it != JsonValue.from("telnyx")) {
+                throw TelnyxInvalidDataException("'provider' is invalid, received $it")
+            }
+        }
         recording()
         status().validate()
         statusDetail()
         updatedAt()
         webhookUrl()
+        recordingExport().ifPresent { it.validate() }
+        remoteStateObservedAt()
         validated = true
     }
 
@@ -1149,575 +1286,14 @@ private constructor(
             (if (meetingUrl.asKnown().isPresent) 1 else 0) +
             (metadata.asKnown().getOrNull()?.validity() ?: 0) +
             (platform.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (provider.asKnown().isPresent) 1 else 0) +
+            provider.let { if (it == JsonValue.from("telnyx")) 1 else 0 } +
             (if (recording.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (if (statusDetail.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
-            (if (webhookUrl.asKnown().isPresent) 1 else 0)
-
-    /** Assistant configuration if an assistant is attached, otherwise null. */
-    class Assistant
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val id: JsonField<String>,
-        private val audioGate: JsonField<AudioGate>,
-        private val dynamicVariables: JsonField<DynamicVariables>,
-        private val leaveOnEnd: JsonField<Boolean>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("audio_gate")
-            @ExcludeMissing
-            audioGate: JsonField<AudioGate> = JsonMissing.of(),
-            @JsonProperty("dynamic_variables")
-            @ExcludeMissing
-            dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of(),
-            @JsonProperty("leave_on_end")
-            @ExcludeMissing
-            leaveOnEnd: JsonField<Boolean> = JsonMissing.of(),
-        ) : this(id, audioGate, dynamicVariables, leaveOnEnd, mutableMapOf())
-
-        /**
-         * Identifier of the assistant.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun id(): String = id.getRequired("id")
-
-        /**
-         * Audio gating strategy in force for the assistant call leg.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun audioGate(): AudioGate = audioGate.getRequired("audio_gate")
-
-        /**
-         * The dynamic variables in force for this session, or null when none were supplied.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun dynamicVariables(): Optional<DynamicVariables> =
-            dynamicVariables.getOptional("dynamic_variables")
-
-        /**
-         * Whether the bot leaves when the Assistant's conversation ends or fails.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun leaveOnEnd(): Boolean = leaveOnEnd.getRequired("leave_on_end")
-
-        /**
-         * Returns the raw JSON value of [id].
-         *
-         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-        /**
-         * Returns the raw JSON value of [audioGate].
-         *
-         * Unlike [audioGate], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("audio_gate")
-        @ExcludeMissing
-        fun _audioGate(): JsonField<AudioGate> = audioGate
-
-        /**
-         * Returns the raw JSON value of [dynamicVariables].
-         *
-         * Unlike [dynamicVariables], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("dynamic_variables")
-        @ExcludeMissing
-        fun _dynamicVariables(): JsonField<DynamicVariables> = dynamicVariables
-
-        /**
-         * Returns the raw JSON value of [leaveOnEnd].
-         *
-         * Unlike [leaveOnEnd], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("leave_on_end")
-        @ExcludeMissing
-        fun _leaveOnEnd(): JsonField<Boolean> = leaveOnEnd
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Assistant].
-             *
-             * The following fields are required:
-             * ```java
-             * .id()
-             * .audioGate()
-             * .dynamicVariables()
-             * .leaveOnEnd()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Assistant]. */
-        class Builder internal constructor() {
-
-            private var id: JsonField<String>? = null
-            private var audioGate: JsonField<AudioGate>? = null
-            private var dynamicVariables: JsonField<DynamicVariables>? = null
-            private var leaveOnEnd: JsonField<Boolean>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(assistant: Assistant) = apply {
-                id = assistant.id
-                audioGate = assistant.audioGate
-                dynamicVariables = assistant.dynamicVariables
-                leaveOnEnd = assistant.leaveOnEnd
-                additionalProperties = assistant.additionalProperties.toMutableMap()
-            }
-
-            /** Identifier of the assistant. */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /**
-             * Sets [Builder.id] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.id] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
-            /** Audio gating strategy in force for the assistant call leg. */
-            fun audioGate(audioGate: AudioGate) = audioGate(JsonField.of(audioGate))
-
-            /**
-             * Sets [Builder.audioGate] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.audioGate] with a well-typed [AudioGate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun audioGate(audioGate: JsonField<AudioGate>) = apply { this.audioGate = audioGate }
-
-            /** The dynamic variables in force for this session, or null when none were supplied. */
-            fun dynamicVariables(dynamicVariables: DynamicVariables?) =
-                dynamicVariables(JsonField.ofNullable(dynamicVariables))
-
-            /**
-             * Alias for calling [Builder.dynamicVariables] with `dynamicVariables.orElse(null)`.
-             */
-            fun dynamicVariables(dynamicVariables: Optional<DynamicVariables>) =
-                dynamicVariables(dynamicVariables.getOrNull())
-
-            /**
-             * Sets [Builder.dynamicVariables] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.dynamicVariables] with a well-typed
-             * [DynamicVariables] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
-             */
-            fun dynamicVariables(dynamicVariables: JsonField<DynamicVariables>) = apply {
-                this.dynamicVariables = dynamicVariables
-            }
-
-            /** Whether the bot leaves when the Assistant's conversation ends or fails. */
-            fun leaveOnEnd(leaveOnEnd: Boolean) = leaveOnEnd(JsonField.of(leaveOnEnd))
-
-            /**
-             * Sets [Builder.leaveOnEnd] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.leaveOnEnd] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun leaveOnEnd(leaveOnEnd: JsonField<Boolean>) = apply { this.leaveOnEnd = leaveOnEnd }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Assistant].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .id()
-             * .audioGate()
-             * .dynamicVariables()
-             * .leaveOnEnd()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Assistant =
-                Assistant(
-                    checkRequired("id", id),
-                    checkRequired("audioGate", audioGate),
-                    checkRequired("dynamicVariables", dynamicVariables),
-                    checkRequired("leaveOnEnd", leaveOnEnd),
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Assistant = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            audioGate().validate()
-            dynamicVariables().ifPresent { it.validate() }
-            leaveOnEnd()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (id.asKnown().isPresent) 1 else 0) +
-                (audioGate.asKnown().getOrNull()?.validity() ?: 0) +
-                (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (leaveOnEnd.asKnown().isPresent) 1 else 0)
-
-        /** Audio gating strategy in force for the assistant call leg. */
-        class AudioGate @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                @JvmField val HALF_DUPLEX = of("half_duplex")
-
-                @JvmField val FULL_DUPLEX = of("full_duplex")
-
-                @JvmStatic fun of(value: String) = AudioGate(JsonField.of(value))
-            }
-
-            /** An enum containing [AudioGate]'s known values. */
-            enum class Known {
-                HALF_DUPLEX,
-                FULL_DUPLEX,
-            }
-
-            /**
-             * An enum containing [AudioGate]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [AudioGate] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                HALF_DUPLEX,
-                FULL_DUPLEX,
-                /**
-                 * An enum member indicating that [AudioGate] was instantiated with an unknown
-                 * value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    HALF_DUPLEX -> Value.HALF_DUPLEX
-                    FULL_DUPLEX -> Value.FULL_DUPLEX
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    HALF_DUPLEX -> Known.HALF_DUPLEX
-                    FULL_DUPLEX -> Known.FULL_DUPLEX
-                    else -> throw TelnyxInvalidDataException("Unknown AudioGate: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): AudioGate = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is AudioGate && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        /** The dynamic variables in force for this session, or null when none were supplied. */
-        class DynamicVariables
-        @JsonCreator
-        private constructor(
-            @com.fasterxml.jackson.annotation.JsonValue
-            private val additionalProperties: Map<String, JsonValue>
-        ) {
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [DynamicVariables]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [DynamicVariables]. */
-            class Builder internal constructor() {
-
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(dynamicVariables: DynamicVariables) = apply {
-                    additionalProperties = dynamicVariables.additionalProperties.toMutableMap()
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [DynamicVariables].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): DynamicVariables = DynamicVariables(additionalProperties.toImmutable())
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
-             *   expected type.
-             */
-            fun validate(): DynamicVariables = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is DynamicVariables &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() = "DynamicVariables{additionalProperties=$additionalProperties}"
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Assistant &&
-                id == other.id &&
-                audioGate == other.audioGate &&
-                dynamicVariables == other.dynamicVariables &&
-                leaveOnEnd == other.leaveOnEnd &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(id, audioGate, dynamicVariables, leaveOnEnd, additionalProperties)
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Assistant{id=$id, audioGate=$audioGate, dynamicVariables=$dynamicVariables, leaveOnEnd=$leaveOnEnd, additionalProperties=$additionalProperties}"
-    }
+            (if (webhookUrl.asKnown().isPresent) 1 else 0) +
+            (recordingExport.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (remoteStateObservedAt.asKnown().isPresent) 1 else 0)
 
     /** Current state of the assistant, or null if no assistant is attached. */
     class AssistantState @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -2328,9 +1904,13 @@ private constructor(
     private constructor(
         private val bargeIn: JsonField<Boolean>,
         private val chatOnEnter: JsonField<String>,
+        private val deepfakeDetection: JsonField<DeepfakeDetection>,
         private val speakOnEnter: JsonField<String>,
         private val summarizeOnEnd: JsonField<Boolean>,
         private val voice: JsonField<String>,
+        private val leavePolicy: JsonField<MeetingSessionLeavePolicy>,
+        private val recording: JsonField<Boolean>,
+        private val recordingView: JsonField<RecordingView>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -2342,6 +1922,9 @@ private constructor(
             @JsonProperty("chat_on_enter")
             @ExcludeMissing
             chatOnEnter: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("deepfake_detection")
+            @ExcludeMissing
+            deepfakeDetection: JsonField<DeepfakeDetection> = JsonMissing.of(),
             @JsonProperty("speak_on_enter")
             @ExcludeMissing
             speakOnEnter: JsonField<String> = JsonMissing.of(),
@@ -2349,7 +1932,27 @@ private constructor(
             @ExcludeMissing
             summarizeOnEnd: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
-        ) : this(bargeIn, chatOnEnter, speakOnEnter, summarizeOnEnd, voice, mutableMapOf())
+            @JsonProperty("leave_policy")
+            @ExcludeMissing
+            leavePolicy: JsonField<MeetingSessionLeavePolicy> = JsonMissing.of(),
+            @JsonProperty("recording")
+            @ExcludeMissing
+            recording: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("recording_view")
+            @ExcludeMissing
+            recordingView: JsonField<RecordingView> = JsonMissing.of(),
+        ) : this(
+            bargeIn,
+            chatOnEnter,
+            deepfakeDetection,
+            speakOnEnter,
+            summarizeOnEnd,
+            voice,
+            leavePolicy,
+            recording,
+            recordingView,
+            mutableMapOf(),
+        )
 
         /**
          * When enabled, a human participant `speech_on` event interrupts and stops the current bot
@@ -2368,6 +1971,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun chatOnEnter(): Optional<String> = chatOnEnter.getOptional("chat_on_enter")
+
+        /**
+         * Detection settings. Enabling audio or video detection is currently unsupported.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun deepfakeDetection(): DeepfakeDetection =
+            deepfakeDetection.getRequired("deepfake_detection")
 
         /**
          * Text spoken on meeting entry, or null if not set.
@@ -2394,6 +2006,33 @@ private constructor(
         fun voice(): Optional<String> = voice.getOptional("voice")
 
         /**
+         * Automatic departure settings for Google Meet and Teams. Omitted fields use the default
+         * behavior. Set at creation; cannot be changed later. Zoom ignores this policy.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun leavePolicy(): Optional<MeetingSessionLeavePolicy> =
+            leavePolicy.getOptional("leave_policy")
+
+        /**
+         * Recording intent set at creation for Google Meet and Teams. Distinct from the top-level
+         * recording field, which reports current activity.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recording(): Optional<Boolean> = recording.getOptional("recording")
+
+        /**
+         * Non-default recording layout. Omitted for the default speaker_view layout.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordingView(): Optional<RecordingView> = recordingView.getOptional("recording_view")
+
+        /**
          * Returns the raw JSON value of [bargeIn].
          *
          * Unlike [bargeIn], this method doesn't throw if the JSON field has an unexpected type.
@@ -2408,6 +2047,16 @@ private constructor(
         @JsonProperty("chat_on_enter")
         @ExcludeMissing
         fun _chatOnEnter(): JsonField<String> = chatOnEnter
+
+        /**
+         * Returns the raw JSON value of [deepfakeDetection].
+         *
+         * Unlike [deepfakeDetection], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("deepfake_detection")
+        @ExcludeMissing
+        fun _deepfakeDetection(): JsonField<DeepfakeDetection> = deepfakeDetection
 
         /**
          * Returns the raw JSON value of [speakOnEnter].
@@ -2436,6 +2085,32 @@ private constructor(
          */
         @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<String> = voice
 
+        /**
+         * Returns the raw JSON value of [leavePolicy].
+         *
+         * Unlike [leavePolicy], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("leave_policy")
+        @ExcludeMissing
+        fun _leavePolicy(): JsonField<MeetingSessionLeavePolicy> = leavePolicy
+
+        /**
+         * Returns the raw JSON value of [recording].
+         *
+         * Unlike [recording], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("recording") @ExcludeMissing fun _recording(): JsonField<Boolean> = recording
+
+        /**
+         * Returns the raw JSON value of [recordingView].
+         *
+         * Unlike [recordingView], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("recording_view")
+        @ExcludeMissing
+        fun _recordingView(): JsonField<RecordingView> = recordingView
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -2457,6 +2132,7 @@ private constructor(
              * ```java
              * .bargeIn()
              * .chatOnEnter()
+             * .deepfakeDetection()
              * .speakOnEnter()
              * .summarizeOnEnd()
              * .voice()
@@ -2470,18 +2146,26 @@ private constructor(
 
             private var bargeIn: JsonField<Boolean>? = null
             private var chatOnEnter: JsonField<String>? = null
+            private var deepfakeDetection: JsonField<DeepfakeDetection>? = null
             private var speakOnEnter: JsonField<String>? = null
             private var summarizeOnEnd: JsonField<Boolean>? = null
             private var voice: JsonField<String>? = null
+            private var leavePolicy: JsonField<MeetingSessionLeavePolicy> = JsonMissing.of()
+            private var recording: JsonField<Boolean> = JsonMissing.of()
+            private var recordingView: JsonField<RecordingView> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(config: Config) = apply {
                 bargeIn = config.bargeIn
                 chatOnEnter = config.chatOnEnter
+                deepfakeDetection = config.deepfakeDetection
                 speakOnEnter = config.speakOnEnter
                 summarizeOnEnd = config.summarizeOnEnd
                 voice = config.voice
+                leavePolicy = config.leavePolicy
+                recording = config.recording
+                recordingView = config.recordingView
                 additionalProperties = config.additionalProperties.toMutableMap()
             }
 
@@ -2516,6 +2200,21 @@ private constructor(
              */
             fun chatOnEnter(chatOnEnter: JsonField<String>) = apply {
                 this.chatOnEnter = chatOnEnter
+            }
+
+            /** Detection settings. Enabling audio or video detection is currently unsupported. */
+            fun deepfakeDetection(deepfakeDetection: DeepfakeDetection) =
+                deepfakeDetection(JsonField.of(deepfakeDetection))
+
+            /**
+             * Sets [Builder.deepfakeDetection] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.deepfakeDetection] with a well-typed
+             * [DeepfakeDetection] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun deepfakeDetection(deepfakeDetection: JsonField<DeepfakeDetection>) = apply {
+                this.deepfakeDetection = deepfakeDetection
             }
 
             /** Text spoken on meeting entry, or null if not set. */
@@ -2567,6 +2266,54 @@ private constructor(
              */
             fun voice(voice: JsonField<String>) = apply { this.voice = voice }
 
+            /**
+             * Automatic departure settings for Google Meet and Teams. Omitted fields use the
+             * default behavior. Set at creation; cannot be changed later. Zoom ignores this policy.
+             */
+            fun leavePolicy(leavePolicy: MeetingSessionLeavePolicy) =
+                leavePolicy(JsonField.of(leavePolicy))
+
+            /**
+             * Sets [Builder.leavePolicy] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.leavePolicy] with a well-typed
+             * [MeetingSessionLeavePolicy] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun leavePolicy(leavePolicy: JsonField<MeetingSessionLeavePolicy>) = apply {
+                this.leavePolicy = leavePolicy
+            }
+
+            /**
+             * Recording intent set at creation for Google Meet and Teams. Distinct from the
+             * top-level recording field, which reports current activity.
+             */
+            fun recording(recording: Boolean) = recording(JsonField.of(recording))
+
+            /**
+             * Sets [Builder.recording] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recording] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recording(recording: JsonField<Boolean>) = apply { this.recording = recording }
+
+            /** Non-default recording layout. Omitted for the default speaker_view layout. */
+            fun recordingView(recordingView: RecordingView) =
+                recordingView(JsonField.of(recordingView))
+
+            /**
+             * Sets [Builder.recordingView] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordingView] with a well-typed [RecordingView]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun recordingView(recordingView: JsonField<RecordingView>) = apply {
+                this.recordingView = recordingView
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -2595,6 +2342,7 @@ private constructor(
              * ```java
              * .bargeIn()
              * .chatOnEnter()
+             * .deepfakeDetection()
              * .speakOnEnter()
              * .summarizeOnEnd()
              * .voice()
@@ -2606,9 +2354,13 @@ private constructor(
                 Config(
                     checkRequired("bargeIn", bargeIn),
                     checkRequired("chatOnEnter", chatOnEnter),
+                    checkRequired("deepfakeDetection", deepfakeDetection),
                     checkRequired("speakOnEnter", speakOnEnter),
                     checkRequired("summarizeOnEnd", summarizeOnEnd),
                     checkRequired("voice", voice),
+                    leavePolicy,
+                    recording,
+                    recordingView,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -2631,9 +2383,13 @@ private constructor(
 
             bargeIn()
             chatOnEnter()
+            deepfakeDetection().validate()
             speakOnEnter()
             summarizeOnEnd()
             voice()
+            leavePolicy().ifPresent { it.validate() }
+            recording()
+            recordingView().ifPresent { it.validate() }
             validated = true
         }
 
@@ -2655,9 +2411,363 @@ private constructor(
         internal fun validity(): Int =
             (if (bargeIn.asKnown().isPresent) 1 else 0) +
                 (if (chatOnEnter.asKnown().isPresent) 1 else 0) +
+                (deepfakeDetection.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (speakOnEnter.asKnown().isPresent) 1 else 0) +
                 (if (summarizeOnEnd.asKnown().isPresent) 1 else 0) +
-                (if (voice.asKnown().isPresent) 1 else 0)
+                (if (voice.asKnown().isPresent) 1 else 0) +
+                (leavePolicy.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (recording.asKnown().isPresent) 1 else 0) +
+                (recordingView.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** Detection settings. Enabling audio or video detection is currently unsupported. */
+        class DeepfakeDetection
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val audio: JsonField<Boolean>,
+            private val video: JsonField<Boolean>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("audio") @ExcludeMissing audio: JsonField<Boolean> = JsonMissing.of(),
+                @JsonProperty("video") @ExcludeMissing video: JsonField<Boolean> = JsonMissing.of(),
+            ) : this(audio, video, mutableMapOf())
+
+            /**
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun audio(): Boolean = audio.getRequired("audio")
+
+            /**
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun video(): Boolean = video.getRequired("video")
+
+            /**
+             * Returns the raw JSON value of [audio].
+             *
+             * Unlike [audio], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("audio") @ExcludeMissing fun _audio(): JsonField<Boolean> = audio
+
+            /**
+             * Returns the raw JSON value of [video].
+             *
+             * Unlike [video], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("video") @ExcludeMissing fun _video(): JsonField<Boolean> = video
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [DeepfakeDetection].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .audio()
+                 * .video()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [DeepfakeDetection]. */
+            class Builder internal constructor() {
+
+                private var audio: JsonField<Boolean>? = null
+                private var video: JsonField<Boolean>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(deepfakeDetection: DeepfakeDetection) = apply {
+                    audio = deepfakeDetection.audio
+                    video = deepfakeDetection.video
+                    additionalProperties = deepfakeDetection.additionalProperties.toMutableMap()
+                }
+
+                fun audio(audio: Boolean) = audio(JsonField.of(audio))
+
+                /**
+                 * Sets [Builder.audio] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.audio] with a well-typed [Boolean] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun audio(audio: JsonField<Boolean>) = apply { this.audio = audio }
+
+                fun video(video: Boolean) = video(JsonField.of(video))
+
+                /**
+                 * Sets [Builder.video] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.video] with a well-typed [Boolean] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun video(video: JsonField<Boolean>) = apply { this.video = video }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [DeepfakeDetection].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .audio()
+                 * .video()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): DeepfakeDetection =
+                    DeepfakeDetection(
+                        checkRequired("audio", audio),
+                        checkRequired("video", video),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): DeepfakeDetection = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                audio()
+                video()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (audio.asKnown().isPresent) 1 else 0) +
+                    (if (video.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is DeepfakeDetection &&
+                    audio == other.audio &&
+                    video == other.video &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(audio, video, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "DeepfakeDetection{audio=$audio, video=$video, additionalProperties=$additionalProperties}"
+        }
+
+        /** Non-default recording layout. Omitted for the default speaker_view layout. */
+        class RecordingView @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val GALLERY_VIEW = of("gallery_view")
+
+                @JvmField val SPEAKER_VIEW_NO_SIDEBAR = of("speaker_view_no_sidebar")
+
+                @JvmStatic fun of(value: String) = RecordingView(JsonField.of(value))
+            }
+
+            /** An enum containing [RecordingView]'s known values. */
+            enum class Known {
+                GALLERY_VIEW,
+                SPEAKER_VIEW_NO_SIDEBAR,
+            }
+
+            /**
+             * An enum containing [RecordingView]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [RecordingView] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                GALLERY_VIEW,
+                SPEAKER_VIEW_NO_SIDEBAR,
+                /**
+                 * An enum member indicating that [RecordingView] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    GALLERY_VIEW -> Value.GALLERY_VIEW
+                    SPEAKER_VIEW_NO_SIDEBAR -> Value.SPEAKER_VIEW_NO_SIDEBAR
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    GALLERY_VIEW -> Known.GALLERY_VIEW
+                    SPEAKER_VIEW_NO_SIDEBAR -> Known.SPEAKER_VIEW_NO_SIDEBAR
+                    else -> throw TelnyxInvalidDataException("Unknown RecordingView: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): RecordingView = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is RecordingView && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -2667,9 +2777,13 @@ private constructor(
             return other is Config &&
                 bargeIn == other.bargeIn &&
                 chatOnEnter == other.chatOnEnter &&
+                deepfakeDetection == other.deepfakeDetection &&
                 speakOnEnter == other.speakOnEnter &&
                 summarizeOnEnd == other.summarizeOnEnd &&
                 voice == other.voice &&
+                leavePolicy == other.leavePolicy &&
+                recording == other.recording &&
+                recordingView == other.recordingView &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -2677,9 +2791,13 @@ private constructor(
             Objects.hash(
                 bargeIn,
                 chatOnEnter,
+                deepfakeDetection,
                 speakOnEnter,
                 summarizeOnEnd,
                 voice,
+                leavePolicy,
+                recording,
+                recordingView,
                 additionalProperties,
             )
         }
@@ -2687,7 +2805,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Config{bargeIn=$bargeIn, chatOnEnter=$chatOnEnter, speakOnEnter=$speakOnEnter, summarizeOnEnd=$summarizeOnEnd, voice=$voice, additionalProperties=$additionalProperties}"
+            "Config{bargeIn=$bargeIn, chatOnEnter=$chatOnEnter, deepfakeDetection=$deepfakeDetection, speakOnEnter=$speakOnEnter, summarizeOnEnd=$summarizeOnEnd, voice=$voice, leavePolicy=$leavePolicy, recording=$recording, recordingView=$recordingView, additionalProperties=$additionalProperties}"
     }
 
     /** Arbitrary key-value metadata attached to the session. */
@@ -3159,6 +3277,8 @@ private constructor(
             statusDetail == other.statusDetail &&
             updatedAt == other.updatedAt &&
             webhookUrl == other.webhookUrl &&
+            recordingExport == other.recordingExport &&
+            remoteStateObservedAt == other.remoteStateObservedAt &&
             additionalProperties == other.additionalProperties
     }
 
@@ -3188,6 +3308,8 @@ private constructor(
             statusDetail,
             updatedAt,
             webhookUrl,
+            recordingExport,
+            remoteStateObservedAt,
             additionalProperties,
         )
     }
@@ -3195,5 +3317,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MeetingSession{id=$id, accountId=$accountId, assistant=$assistant, assistantState=$assistantState, assistantStateChangedAt=$assistantStateChangedAt, avatar=$avatar, avatarState=$avatarState, avatarStateChangedAt=$avatarStateChangedAt, botName=$botName, config=$config, createdAt=$createdAt, endedAt=$endedAt, failureReason=$failureReason, joinAt=$joinAt, joinedAt=$joinedAt, meetingUrl=$meetingUrl, metadata=$metadata, platform=$platform, provider=$provider, recording=$recording, status=$status, statusDetail=$statusDetail, updatedAt=$updatedAt, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "MeetingSession{id=$id, accountId=$accountId, assistant=$assistant, assistantState=$assistantState, assistantStateChangedAt=$assistantStateChangedAt, avatar=$avatar, avatarState=$avatarState, avatarStateChangedAt=$avatarStateChangedAt, botName=$botName, config=$config, createdAt=$createdAt, endedAt=$endedAt, failureReason=$failureReason, joinAt=$joinAt, joinedAt=$joinedAt, meetingUrl=$meetingUrl, metadata=$metadata, platform=$platform, provider=$provider, recording=$recording, status=$status, statusDetail=$statusDetail, updatedAt=$updatedAt, webhookUrl=$webhookUrl, recordingExport=$recordingExport, remoteStateObservedAt=$remoteStateObservedAt, additionalProperties=$additionalProperties}"
 }

@@ -3305,6 +3305,7 @@ Methods:
 - <code title="delete /meeting_sessions/{id}">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">delete</a>(params)</code>
 - <code title="delete /meeting_sessions/{id}/recording_media">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">deleteRecordingMedia</a>(params)</code>
 - <code title="get /meeting_sessions/{id}/events">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveEvents</a>(params)</code>
+- <code title="get /meeting_sessions/{id}/recordings">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveRecordings</a>(params)</code>
 - <code title="get /meeting_sessions/{id}/transcript">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveTranscript</a>(params)</code>
 
 ## Actions
@@ -3626,3 +3627,28 @@ Methods:
 
 - <code title="put /agent_gateways/{instance_id}/teams/{team_id}/tool_permissions">client.agentGateways().teams().toolPermissions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/teams/ToolPermissionService.kt">create</a>(params)</code>
 - <code title="get /agent_gateways/{instance_id}/teams/{team_id}/tool_permissions">client.agentGateways().teams().toolPermissions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/teams/ToolPermissionService.kt">list</a>(params)</code>
+
+# CalendarConnections
+
+Methods:
+
+- <code title="post /calendar_connections">client.calendarConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/CalendarConnectionService.kt">create</a>(params)</code>
+- <code title="get /calendar_connections/{id}">client.calendarConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/CalendarConnectionService.kt">retrieve</a>(params)</code>
+- <code title="patch /calendar_connections/{id}">client.calendarConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/CalendarConnectionService.kt">update</a>(params)</code>
+- <code title="get /calendar_connections">client.calendarConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/CalendarConnectionService.kt">list</a>()</code>
+- <code title="delete /calendar_connections/{id}">client.calendarConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/CalendarConnectionService.kt">delete</a>(params)</code>
+
+## Meetings
+
+Methods:
+
+- <code title="patch /calendar_connections/{id}/meetings/{meeting_id}">client.calendarConnections().meetings().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/calendarconnections/MeetingService.kt">update</a>(params)</code>
+- <code title="get /calendar_connections/{id}/meetings">client.calendarConnections().meetings().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/calendarconnections/MeetingService.kt">list</a>(params)</code>
+
+# MeetingBot
+
+## Calendar
+
+Methods:
+
+- <code title="get /meeting_bot/calendar/oauth_callback">client.meetingBot().calendar().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/meetingbot/CalendarService.kt">retrieveOAuthCallback</a>(params)</code>

@@ -17,15 +17,9 @@ internal class GuardrailCreateParamsTest {
             .type(GuardrailCreateParams.Type.CONTENT_FILTER)
             .alwaysOn(true)
             .settings(
-                JsonValue.from(
-                    mapOf(
-                        "patterns" to
-                            listOf(
-                                mapOf("name" to "us_ssn", "action" to "mask"),
-                                mapOf("name" to "email", "action" to "mask"),
-                            )
-                    )
-                )
+                GuardrailCreateParams.Settings.builder()
+                    .putAdditionalProperty("patterns", JsonValue.from("bar"))
+                    .build()
             )
             .build()
     }
@@ -55,15 +49,9 @@ internal class GuardrailCreateParamsTest {
                 .type(GuardrailCreateParams.Type.CONTENT_FILTER)
                 .alwaysOn(true)
                 .settings(
-                    JsonValue.from(
-                        mapOf(
-                            "patterns" to
-                                listOf(
-                                    mapOf("name" to "us_ssn", "action" to "mask"),
-                                    mapOf("name" to "email", "action" to "mask"),
-                                )
-                        )
-                    )
+                    GuardrailCreateParams.Settings.builder()
+                        .putAdditionalProperty("patterns", JsonValue.from("bar"))
+                        .build()
                 )
                 .build()
 
@@ -73,17 +61,11 @@ internal class GuardrailCreateParamsTest {
         assertThat(body.name()).isEqualTo("mask-pii")
         assertThat(body.type()).isEqualTo(GuardrailCreateParams.Type.CONTENT_FILTER)
         assertThat(body.alwaysOn()).contains(true)
-        assertThat(body._settings())
-            .isEqualTo(
-                JsonValue.from(
-                    mapOf(
-                        "patterns" to
-                            listOf(
-                                mapOf("name" to "us_ssn", "action" to "mask"),
-                                mapOf("name" to "email", "action" to "mask"),
-                            )
-                    )
-                )
+        assertThat(body.settings())
+            .contains(
+                GuardrailCreateParams.Settings.builder()
+                    .putAdditionalProperty("patterns", JsonValue.from("bar"))
+                    .build()
             )
     }
 

@@ -24,6 +24,7 @@ import com.telnyx.sdk.services.blocking.BotSignupService
 import com.telnyx.sdk.services.blocking.BrowserSessionService
 import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BundlePricingService
+import com.telnyx.sdk.services.blocking.CalendarConnectionService
 import com.telnyx.sdk.services.blocking.CallControlApplicationService
 import com.telnyx.sdk.services.blocking.CallEventService
 import com.telnyx.sdk.services.blocking.CallReasonService
@@ -89,6 +90,7 @@ import com.telnyx.sdk.services.blocking.LlmTokenGatewayService
 import com.telnyx.sdk.services.blocking.MachinePaymentService
 import com.telnyx.sdk.services.blocking.ManagedAccountService
 import com.telnyx.sdk.services.blocking.MediaService
+import com.telnyx.sdk.services.blocking.MeetingBotService
 import com.telnyx.sdk.services.blocking.MeetingSessionService
 import com.telnyx.sdk.services.blocking.MessageService
 import com.telnyx.sdk.services.blocking.Messaging10dlcService
@@ -879,6 +881,11 @@ interface TelnyxClient {
 
     fun agentGateways(): AgentGatewayService
 
+    /** Connect calendars and manage automatic meeting joins. */
+    fun calendarConnections(): CalendarConnectionService
+
+    fun meetingBot(): MeetingBotService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1543,5 +1550,10 @@ interface TelnyxClient {
         fun userProfile(): UserProfileService.WithRawResponse
 
         fun agentGateways(): AgentGatewayService.WithRawResponse
+
+        /** Connect calendars and manage automatic meeting joins. */
+        fun calendarConnections(): CalendarConnectionService.WithRawResponse
+
+        fun meetingBot(): MeetingBotService.WithRawResponse
     }
 }

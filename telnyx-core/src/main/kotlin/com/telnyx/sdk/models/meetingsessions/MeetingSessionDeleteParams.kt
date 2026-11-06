@@ -13,7 +13,8 @@ import kotlin.jvm.optionals.getOrNull
 /**
  * Stops a meeting session without deleting its persisted record. Scheduled bots are cancelled,
  * while bots that are joining or active are asked to leave. The persisted meeting session record
- * remains available.
+ * remains available. A successful response can report leaving while departure is pending. Poll
+ * until ended, failed, or admission_denied. Exported Storage objects are unaffected.
  */
 class MeetingSessionDeleteParams
 private constructor(

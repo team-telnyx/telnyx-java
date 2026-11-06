@@ -84,12 +84,10 @@ private constructor(
      * with `secret_access_key`, or `role_name`. `azure_content_safety`: `api_key`, `endpoint`,
      * `severity` (0 to 7). Provider secrets are write-only.
      *
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```java
-     * MyClass myObject = guardrailCreateParams.settings().convert(MyClass.class);
-     * ```
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun _settings(): JsonValue = body._settings()
+    fun settings(): Optional<Settings> = body.settings()
 
     /**
      * Returns the raw JSON value of [modes].
@@ -118,6 +116,13 @@ private constructor(
      * Unlike [alwaysOn], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _alwaysOn(): JsonField<Boolean> = body._alwaysOn()
+
+    /**
+     * Returns the raw JSON value of [settings].
+     *
+     * Unlike [settings], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _settings(): JsonField<Settings> = body._settings()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -251,7 +256,16 @@ private constructor(
          * `azure_content_safety`: `api_key`, `endpoint`, `severity` (0 to 7). Provider secrets are
          * write-only.
          */
-        fun settings(settings: JsonValue) = apply { body.settings(settings) }
+        fun settings(settings: Settings) = apply { body.settings(settings) }
+
+        /**
+         * Sets [Builder.settings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.settings] with a well-typed [Settings] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun settings(settings: JsonField<Settings>) = apply { body.settings(settings) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -413,7 +427,7 @@ private constructor(
         private val name: JsonField<String>,
         private val type: JsonField<Type>,
         private val alwaysOn: JsonField<Boolean>,
-        private val settings: JsonValue,
+        private val settings: JsonField<Settings>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -425,7 +439,9 @@ private constructor(
             @JsonProperty("always_on")
             @ExcludeMissing
             alwaysOn: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("settings") @ExcludeMissing settings: JsonValue = JsonMissing.of(),
+            @JsonProperty("settings")
+            @ExcludeMissing
+            settings: JsonField<Settings> = JsonMissing.of(),
         ) : this(modes, name, type, alwaysOn, settings, mutableMapOf())
 
         /**
@@ -476,12 +492,10 @@ private constructor(
          * `azure_content_safety`: `api_key`, `endpoint`, `severity` (0 to 7). Provider secrets are
          * write-only.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = body.settings().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("settings") @ExcludeMissing fun _settings(): JsonValue = settings
+        fun settings(): Optional<Settings> = settings.getOptional("settings")
 
         /**
          * Returns the raw JSON value of [modes].
@@ -510,6 +524,13 @@ private constructor(
          * Unlike [alwaysOn], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("always_on") @ExcludeMissing fun _alwaysOn(): JsonField<Boolean> = alwaysOn
+
+        /**
+         * Returns the raw JSON value of [settings].
+         *
+         * Unlike [settings], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("settings") @ExcludeMissing fun _settings(): JsonField<Settings> = settings
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -545,7 +566,7 @@ private constructor(
             private var name: JsonField<String>? = null
             private var type: JsonField<Type>? = null
             private var alwaysOn: JsonField<Boolean> = JsonMissing.of()
-            private var settings: JsonValue = JsonMissing.of()
+            private var settings: JsonField<Settings> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -638,7 +659,16 @@ private constructor(
              * `secret_access_key`, or `role_name`. `azure_content_safety`: `api_key`, `endpoint`,
              * `severity` (0 to 7). Provider secrets are write-only.
              */
-            fun settings(settings: JsonValue) = apply { this.settings = settings }
+            fun settings(settings: Settings) = settings(JsonField.of(settings))
+
+            /**
+             * Sets [Builder.settings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.settings] with a well-typed [Settings] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun settings(settings: JsonField<Settings>) = apply { this.settings = settings }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -704,6 +734,7 @@ private constructor(
             name()
             type().validate()
             alwaysOn()
+            settings().ifPresent { it.validate() }
             validated = true
         }
 
@@ -726,7 +757,8 @@ private constructor(
             (modes.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (type.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (alwaysOn.asKnown().isPresent) 1 else 0)
+                (if (alwaysOn.asKnown().isPresent) 1 else 0) +
+                (settings.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1085,6 +1117,128 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /**
+     * The type's settings. `content_filter`: `patterns` (prebuilt patterns by `name`, such as
+     * `us_ssn` or `email`), `regexes` (each a `name`, which tags masked matches, and a `pattern`),
+     * `keywords` (each a `keyword`), and `categories` (each a `name`), each entry with an `action`
+     * of `block` or `mask`. `tool_permission`: `rules` (`id`, `tool_name`, `tool_type`, `decision`,
+     * `argument_patterns`), a `default` decision, and `on_denied` (`block` or `rewrite`).
+     * `model_judge`: a `model` on the instance and weighted `criteria` (`name`, `description`,
+     * `weight`, the weights summing to 100). `custom_code`: `code` defining
+     * `apply_guardrail(inputs, request_data, input_type)`. `lakera`: `api_key`, `project_id`,
+     * `api_base`. `presidio`: `analyzer_url`, `anonymizer_url`, `entities` (entity name to `block`
+     * or `mask`), `language`. `bedrock`: `guardrail_id`, `version`, `region`, and `access_key_id`
+     * with `secret_access_key`, or `role_name`. `azure_content_safety`: `api_key`, `endpoint`,
+     * `severity` (0 to 7). Provider secrets are write-only.
+     */
+    class Settings
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Settings]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Settings]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(settings: Settings) = apply {
+                additionalProperties = settings.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Settings].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Settings = Settings(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Settings = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Settings && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Settings{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
