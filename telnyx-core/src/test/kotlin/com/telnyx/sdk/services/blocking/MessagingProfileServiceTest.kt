@@ -34,7 +34,10 @@ internal class MessagingProfileServiceTest {
                     .dailySpendLimitEnabled(true)
                     .enabled(true)
                     .features(
-                        MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
+                        MessagingProfileFeatures.builder()
+                            .aiOptOutDetectionEnabled(true)
+                            .autoChunkLongMessages(true)
+                            .build()
                     )
                     .healthWebhookUrl("health_webhook_url")
                     .mm7Metadata(
@@ -104,7 +107,10 @@ internal class MessagingProfileServiceTest {
                     .dailySpendLimitEnabled(true)
                     .enabled(true)
                     .features(
-                        MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
+                        MessagingProfileFeatures.builder()
+                            .aiOptOutDetectionEnabled(true)
+                            .autoChunkLongMessages(true)
+                            .build()
                     )
                     .mm7Metadata(
                         Mm7Metadata.builder()

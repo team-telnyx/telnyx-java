@@ -5,7 +5,7 @@ package com.telnyx.sdk.models.ai.memory.namespaces.profiles.sources
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.ai.collections.sources.Source
-import com.telnyx.sdk.models.ai.memory.namespaces.profiles.PageMeta
+import com.telnyx.sdk.models.ai.memory.namespaces.profiles.AgentMemoryPageMeta
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -25,7 +25,7 @@ internal class SourceListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    PageMeta.builder()
+                    AgentMemoryPageMeta.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
@@ -46,7 +46,7 @@ internal class SourceListPageResponseTest {
             )
         assertThat(sourceListPageResponse.meta())
             .isEqualTo(
-                PageMeta.builder()
+                AgentMemoryPageMeta.builder()
                     .pageNumber(0L)
                     .pageSize(0L)
                     .totalPages(0L)
@@ -70,7 +70,7 @@ internal class SourceListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    PageMeta.builder()
+                    AgentMemoryPageMeta.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)

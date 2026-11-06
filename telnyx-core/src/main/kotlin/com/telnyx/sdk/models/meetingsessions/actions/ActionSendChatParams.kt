@@ -19,7 +19,14 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Sends a chat message into a meeting session. */
+/**
+ * Send chat as the bot in an active meeting. Returns 202 with data.accepted=true. Google Meet and
+ * Teams confirm sending before success; 502 chat_not_sent means not sent, while
+ * chat_delivery_unknown means delivery may have occurred. Inspect chat and chat.sent events before
+ * retrying an uncertain send. Each request is a new message and is not idempotent. Google Meet and
+ * Teams allow at most 1000 chat requests per session, including an entrance message; exceeding this
+ * returns 409 invalid_state.
+ */
 class ActionSendChatParams
 private constructor(
     private val id: String?,
@@ -31,7 +38,9 @@ private constructor(
     fun id(): Optional<String> = Optional.ofNullable(id)
 
     /**
-     * Chat message text to send in the meeting.
+     * Message text, 1–4000 characters. On Google Meet and Teams, also at most 4096 UTF-8 bytes and
+     * nonblank; control characters other than tab and line breaks are rejected. CRLF is normalized
+     * to LF.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -99,7 +108,11 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** Chat message text to send in the meeting. */
+        /**
+         * Message text, 1–4000 characters. On Google Meet and Teams, also at most 4096 UTF-8 bytes
+         * and nonblank; control characters other than tab and line breaks are rejected. CRLF is
+         * normalized to LF.
+         */
         fun text(text: String) = apply { body.text(text) }
 
         /**
@@ -274,7 +287,9 @@ private constructor(
         ) : this(text, mutableMapOf())
 
         /**
-         * Chat message text to send in the meeting.
+         * Message text, 1–4000 characters. On Google Meet and Teams, also at most 4096 UTF-8 bytes
+         * and nonblank; control characters other than tab and line breaks are rejected. CRLF is
+         * normalized to LF.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -325,7 +340,11 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** Chat message text to send in the meeting. */
+            /**
+             * Message text, 1–4000 characters. On Google Meet and Teams, also at most 4096 UTF-8
+             * bytes and nonblank; control characters other than tab and line breaks are rejected.
+             * CRLF is normalized to LF.
+             */
             fun text(text: String) = text(JsonField.of(text))
 
             /**

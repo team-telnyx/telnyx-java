@@ -18,14 +18,14 @@ private constructor(
     private val service: HostedSignupService,
     private val params: HostedSignupListParams,
     private val response: HostedSignupListPageResponse,
-) : Page<HostedSignupListResponse> {
+) : Page<WhatsappHostedSignup> {
 
     /**
      * Delegates to [HostedSignupListPageResponse], but gracefully handles missing data.
      *
      * @see HostedSignupListPageResponse.data
      */
-    fun data(): List<HostedSignupListResponse> =
+    fun data(): List<WhatsappHostedSignup> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<HostedSignupListResponse> = data()
+    override fun items(): List<WhatsappHostedSignup> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -64,7 +64,7 @@ private constructor(
 
     override fun nextPage(): HostedSignupListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<HostedSignupListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<WhatsappHostedSignup> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): HostedSignupListParams = params

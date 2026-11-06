@@ -27,7 +27,7 @@ internal class TokenGroupServiceTest {
                     .addAllowedModel("GLM-5.3-Flash")
                     .name("support-backend")
                     .blocked(true)
-                    .budgetDuration(BudgetDuration._1D)
+                    .budgetDuration(BudgetDuration.BUDGET_DURATION_1_D)
                     .cacheTtl(1L)
                     .fallbacks(
                         TokenGroupCreateParams.Fallbacks.builder()
@@ -104,7 +104,7 @@ internal class TokenGroupServiceTest {
                     .addAllowedModel("Kimi-K3")
                     .addAllowedModel("GLM-5.3-Flash")
                     .blocked(true)
-                    .budgetDuration(BudgetDuration._1D)
+                    .budgetDuration(BudgetDuration.BUDGET_DURATION_1_D)
                     .cacheTtl(1L)
                     .fallbacks(
                         TokenGroupUpdateParams.Fallbacks.builder()

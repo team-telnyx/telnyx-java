@@ -265,12 +265,19 @@ private constructor(
         fun relativeTs(): Optional<Double> = relativeTs.getOptional("relative_ts")
 
         /**
+         * Monotonic transcript append cursor. This is separate from the event-history cursor and
+         * does not establish conversational turn order.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun seq(): Long = seq.getRequired("seq")
 
         /**
+         * Recorded participant or bot label, or null when unavailable. Labels are attribution, not
+         * verified identity. Segments from concurrent speakers can finalize in a different order
+         * from the conversation.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -440,6 +447,10 @@ private constructor(
              */
             fun relativeTs(relativeTs: JsonField<Double>) = apply { this.relativeTs = relativeTs }
 
+            /**
+             * Monotonic transcript append cursor. This is separate from the event-history cursor
+             * and does not establish conversational turn order.
+             */
             fun seq(seq: Long) = seq(JsonField.of(seq))
 
             /**
@@ -451,6 +462,11 @@ private constructor(
              */
             fun seq(seq: JsonField<Long>) = apply { this.seq = seq }
 
+            /**
+             * Recorded participant or bot label, or null when unavailable. Labels are attribution,
+             * not verified identity. Segments from concurrent speakers can finalize in a different
+             * order from the conversation.
+             */
             fun speakerLabel(speakerLabel: String?) =
                 speakerLabel(JsonField.ofNullable(speakerLabel))
 

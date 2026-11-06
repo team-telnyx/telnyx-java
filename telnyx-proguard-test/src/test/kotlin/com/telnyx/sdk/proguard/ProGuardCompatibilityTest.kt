@@ -248,13 +248,16 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.llmTokenGateway()).isNotNull()
         assertThat(client.sipRegistrationStatus()).isNotNull()
         assertThat(client.dialMetrics()).isNotNull()
-        assertThat(client.ttsIntegrations()).isNotNull()
         assertThat(client.tailscaleSubnetRouters()).isNotNull()
         assertThat(client.artifactDownloads()).isNotNull()
         assertThat(client.email()).isNotNull()
         assertThat(client.networkRoutes()).isNotNull()
         assertThat(client.payConnectors()).isNotNull()
         assertThat(client.tunnels()).isNotNull()
+        assertThat(client.userProfile()).isNotNull()
+        assertThat(client.agentGateways()).isNotNull()
+        assertThat(client.calendarConnections()).isNotNull()
+        assertThat(client.meetingBot()).isNotNull()
     }
 
     @Test

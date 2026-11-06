@@ -8,6 +8,7 @@ import com.telnyx.sdk.services.async.AccessIpRangeServiceAsync
 import com.telnyx.sdk.services.async.ActionServiceAsync
 import com.telnyx.sdk.services.async.AddressServiceAsync
 import com.telnyx.sdk.services.async.AdvancedOrderServiceAsync
+import com.telnyx.sdk.services.async.AgentGatewayServiceAsync
 import com.telnyx.sdk.services.async.AiServiceAsync
 import com.telnyx.sdk.services.async.AlphanumericSenderIdServiceAsync
 import com.telnyx.sdk.services.async.ArtifactDownloadServiceAsync
@@ -23,6 +24,7 @@ import com.telnyx.sdk.services.async.BotSignupServiceAsync
 import com.telnyx.sdk.services.async.BrowserSessionServiceAsync
 import com.telnyx.sdk.services.async.BulkSimCardActionServiceAsync
 import com.telnyx.sdk.services.async.BundlePricingServiceAsync
+import com.telnyx.sdk.services.async.CalendarConnectionServiceAsync
 import com.telnyx.sdk.services.async.CallControlApplicationServiceAsync
 import com.telnyx.sdk.services.async.CallEventServiceAsync
 import com.telnyx.sdk.services.async.CallReasonServiceAsync
@@ -88,6 +90,7 @@ import com.telnyx.sdk.services.async.LlmTokenGatewayServiceAsync
 import com.telnyx.sdk.services.async.MachinePaymentServiceAsync
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
 import com.telnyx.sdk.services.async.MediaServiceAsync
+import com.telnyx.sdk.services.async.MeetingBotServiceAsync
 import com.telnyx.sdk.services.async.MeetingSessionServiceAsync
 import com.telnyx.sdk.services.async.MessageServiceAsync
 import com.telnyx.sdk.services.async.Messaging10dlcServiceAsync
@@ -177,11 +180,11 @@ import com.telnyx.sdk.services.async.TexmlApplicationServiceAsync
 import com.telnyx.sdk.services.async.TexmlServiceAsync
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsync
 import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsync
-import com.telnyx.sdk.services.async.TtsIntegrationServiceAsync
 import com.telnyx.sdk.services.async.TunnelServiceAsync
 import com.telnyx.sdk.services.async.UacConnectionServiceAsync
 import com.telnyx.sdk.services.async.UsageReportServiceAsync
 import com.telnyx.sdk.services.async.UserAddressServiceAsync
+import com.telnyx.sdk.services.async.UserProfileServiceAsync
 import com.telnyx.sdk.services.async.UserTagServiceAsync
 import com.telnyx.sdk.services.async.VerificationServiceAsync
 import com.telnyx.sdk.services.async.VerifiedNumberServiceAsync
@@ -856,8 +859,6 @@ interface TelnyxClientAsync {
     /** Call information */
     fun dialMetrics(): DialMetricServiceAsync
 
-    fun ttsIntegrations(): TtsIntegrationServiceAsync
-
     /** Tailscale Subnet Router operations */
     fun tailscaleSubnetRouters(): TailscaleSubnetRouterServiceAsync
 
@@ -874,6 +875,16 @@ interface TelnyxClientAsync {
 
     /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
     fun tunnels(): TunnelServiceAsync
+
+    /** Read and update the authenticated user's profile and data locality. */
+    fun userProfile(): UserProfileServiceAsync
+
+    fun agentGateways(): AgentGatewayServiceAsync
+
+    /** Connect calendars and manage automatic meeting joins. */
+    fun calendarConnections(): CalendarConnectionServiceAsync
+
+    fun meetingBot(): MeetingBotServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1521,8 +1532,6 @@ interface TelnyxClientAsync {
         /** Call information */
         fun dialMetrics(): DialMetricServiceAsync.WithRawResponse
 
-        fun ttsIntegrations(): TtsIntegrationServiceAsync.WithRawResponse
-
         /** Tailscale Subnet Router operations */
         fun tailscaleSubnetRouters(): TailscaleSubnetRouterServiceAsync.WithRawResponse
 
@@ -1539,5 +1548,15 @@ interface TelnyxClientAsync {
 
         /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
         fun tunnels(): TunnelServiceAsync.WithRawResponse
+
+        /** Read and update the authenticated user's profile and data locality. */
+        fun userProfile(): UserProfileServiceAsync.WithRawResponse
+
+        fun agentGateways(): AgentGatewayServiceAsync.WithRawResponse
+
+        /** Connect calendars and manage automatic meeting joins. */
+        fun calendarConnections(): CalendarConnectionServiceAsync.WithRawResponse
+
+        fun meetingBot(): MeetingBotServiceAsync.WithRawResponse
     }
 }

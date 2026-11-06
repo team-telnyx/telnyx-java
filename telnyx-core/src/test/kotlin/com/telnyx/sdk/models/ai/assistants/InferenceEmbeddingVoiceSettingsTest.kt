@@ -22,13 +22,15 @@ internal class InferenceEmbeddingVoiceSettingsTest {
                                 .PREDEFINED_MEDIA
                         )
                         .value(
-                            InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.Value_
+                            InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                .PredefinedMediaValue
                                 .SILENCE
                         )
                         .volume(0.1)
                         .build()
                 )
                 .expressiveMode(true)
+                .language("language")
                 .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                 .similarityBoost(0.0)
                 .speed(0.0)
@@ -61,7 +63,8 @@ internal class InferenceEmbeddingVoiceSettingsTest {
                                 .PREDEFINED_MEDIA
                         )
                         .value(
-                            InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.Value_
+                            InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                .PredefinedMediaValue
                                 .SILENCE
                         )
                         .volume(0.1)
@@ -69,6 +72,7 @@ internal class InferenceEmbeddingVoiceSettingsTest {
                 )
             )
         assertThat(inferenceEmbeddingVoiceSettings.expressiveMode()).contains(true)
+        assertThat(inferenceEmbeddingVoiceSettings.language()).contains("language")
         assertThat(inferenceEmbeddingVoiceSettings.languageBoost())
             .contains(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
         assertThat(inferenceEmbeddingVoiceSettings.similarityBoost()).contains(0.0)
@@ -108,13 +112,15 @@ internal class InferenceEmbeddingVoiceSettingsTest {
                                 .PREDEFINED_MEDIA
                         )
                         .value(
-                            InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0.Value_
+                            InferenceEmbeddingVoiceSettings.BackgroundAudio.UnionMember0
+                                .PredefinedMediaValue
                                 .SILENCE
                         )
                         .volume(0.1)
                         .build()
                 )
                 .expressiveMode(true)
+                .language("language")
                 .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                 .similarityBoost(0.0)
                 .speed(0.0)

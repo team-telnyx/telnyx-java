@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.ai.assistants
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -24,6 +25,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -40,12 +46,10 @@ internal class ConversationFlowReqTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -69,11 +73,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -98,11 +99,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -168,13 +166,14 @@ internal class ConversationFlowReqTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)
                                         .build()
                                 )
                                 .expressiveMode(true)
+                                .language("language")
                                 .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                                 .similarityBoost(0.0)
                                 .speed(0.0)
@@ -216,6 +215,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -232,12 +236,10 @@ internal class ConversationFlowReqTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -261,11 +263,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -290,11 +289,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -360,13 +356,14 @@ internal class ConversationFlowReqTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)
                                         .build()
                                 )
                                 .expressiveMode(true)
+                                .language("language")
                                 .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                                 .similarityBoost(0.0)
                                 .speed(0.0)
@@ -433,6 +430,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -449,12 +451,10 @@ internal class ConversationFlowReqTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -478,11 +478,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -507,11 +504,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -577,13 +571,14 @@ internal class ConversationFlowReqTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)
                                         .build()
                                 )
                                 .expressiveMode(true)
+                                .language("language")
                                 .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                                 .similarityBoost(0.0)
                                 .speed(0.0)
@@ -625,6 +620,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -641,12 +641,10 @@ internal class ConversationFlowReqTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -670,11 +668,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -699,11 +694,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -769,13 +761,14 @@ internal class ConversationFlowReqTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)
                                         .build()
                                 )
                                 .expressiveMode(true)
+                                .language("language")
                                 .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                                 .similarityBoost(0.0)
                                 .speed(0.0)
@@ -845,6 +838,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -861,12 +859,10 @@ internal class ConversationFlowReqTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -890,11 +886,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -919,11 +912,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -989,13 +979,14 @@ internal class ConversationFlowReqTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)
                                         .build()
                                 )
                                 .expressiveMode(true)
+                                .language("language")
                                 .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                                 .similarityBoost(0.0)
                                 .speed(0.0)
@@ -1037,6 +1028,11 @@ internal class ConversationFlowReqTest {
                                 .model("model")
                                 .authenticationMethod(AuthenticationMethod.TOKEN)
                                 .certificateRef("certificate_ref")
+                                .extraHeaders(
+                                    ExternalLlmReq.ExtraHeaders.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                                        .build()
+                                )
                                 .forwardMetadata(true)
                                 .llmApiKeyRef("llm_api_key_ref")
                                 .tokenRetrievalUrl("token_retrieval_url")
@@ -1053,12 +1049,10 @@ internal class ConversationFlowReqTest {
                             TranscriptionSettings.builder()
                                 .apiKeyRef("api_key_ref")
                                 .challenger(
-                                    TranscriptionSettings.Challenger.builder()
-                                        .model(
-                                            TranscriptionSettings.Challenger.Model.DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionChallenger.builder()
+                                        .model(TranscriptionChallenger.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
-                                        .rule(TranscriptionSettings.Challenger.Rule.BEST_TURN)
+                                        .rule(TranscriptionChallenger.Rule.BEST_TURN)
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
                                                 .context("context")
@@ -1082,11 +1076,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .DEEPGRAM_NOVA_3
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.DEEPGRAM_NOVA_3)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -1111,11 +1102,8 @@ internal class ConversationFlowReqTest {
                                         .build()
                                 )
                                 .addFallbackModel(
-                                    TranscriptionSettings.FallbackModel.builder()
-                                        .model(
-                                            TranscriptionSettings.FallbackModel.Model
-                                                .SONIOX_STT_RT_V5
-                                        )
+                                    TranscriptionFallbackModel.builder()
+                                        .model(TranscriptionFallbackModel.Model.SONIOX_STT_RT_V5)
                                         .language("en")
                                         .settings(
                                             TranscriptionSettingsConfig.builder()
@@ -1181,13 +1169,14 @@ internal class ConversationFlowReqTest {
                                         .value(
                                             InferenceEmbeddingVoiceSettings.BackgroundAudio
                                                 .UnionMember0
-                                                .Value_
+                                                .PredefinedMediaValue
                                                 .SILENCE
                                         )
                                         .volume(0.1)
                                         .build()
                                 )
                                 .expressiveMode(true)
+                                .language("language")
                                 .languageBoost(InferenceEmbeddingVoiceSettings.LanguageBoost.AUTO)
                                 .similarityBoost(0.0)
                                 .speed(0.0)

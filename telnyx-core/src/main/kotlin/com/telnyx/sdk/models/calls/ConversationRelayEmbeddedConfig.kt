@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.InworldVoiceSettings
 import com.telnyx.sdk.models.MinimaxVoiceSettings
 import com.telnyx.sdk.models.ResembleVoiceSettings
 import com.telnyx.sdk.models.XaiVoiceSettings
+import com.telnyx.sdk.models.calls.actions.AssemblyAiVoiceSettings
 import com.telnyx.sdk.models.calls.actions.AwsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.ConversationRelayInterruptible
 import com.telnyx.sdk.models.calls.actions.ConversationRelayTranscriptionEngineConfig
@@ -855,6 +856,10 @@ private constructor(
         fun voiceSettings(soniox: SonioxVoiceSettings) =
             voiceSettings(VoiceSettings.ofSoniox(soniox))
 
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofAssemblyai(assemblyai)`. */
+        fun voiceSettings(assemblyai: AssemblyAiVoiceSettings) =
+            voiceSettings(VoiceSettings.ofAssemblyai(assemblyai))
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -1403,6 +1408,7 @@ private constructor(
         private val inworld: InworldVoiceSettings? = null,
         private val xai: XaiVoiceSettings? = null,
         private val soniox: SonioxVoiceSettings? = null,
+        private val assemblyai: AssemblyAiVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -1424,6 +1430,8 @@ private constructor(
 
         fun soniox(): Optional<SonioxVoiceSettings> = Optional.ofNullable(soniox)
 
+        fun assemblyai(): Optional<AssemblyAiVoiceSettings> = Optional.ofNullable(assemblyai)
+
         fun isElevenlabs(): Boolean = elevenlabs != null
 
         fun isTelnyx(): Boolean = telnyx != null
@@ -1442,6 +1450,8 @@ private constructor(
 
         fun isSoniox(): Boolean = soniox != null
 
+        fun isAssemblyai(): Boolean = assemblyai != null
+
         fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
 
         fun asTelnyx(): TelnyxVoiceSettings = telnyx.getOrThrow("telnyx")
@@ -1459,6 +1469,8 @@ private constructor(
         fun asXai(): XaiVoiceSettings = xai.getOrThrow("xai")
 
         fun asSoniox(): SonioxVoiceSettings = soniox.getOrThrow("soniox")
+
+        fun asAssemblyai(): AssemblyAiVoiceSettings = assemblyai.getOrThrow("assemblyai")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1502,6 +1514,7 @@ private constructor(
                 inworld != null -> visitor.visitInworld(inworld)
                 xai != null -> visitor.visitXai(xai)
                 soniox != null -> visitor.visitSoniox(soniox)
+                assemblyai != null -> visitor.visitAssemblyai(assemblyai)
                 else -> visitor.unknown(_json)
             }
 
@@ -1558,6 +1571,10 @@ private constructor(
                     override fun visitSoniox(soniox: SonioxVoiceSettings) {
                         soniox.validate()
                     }
+
+                    override fun visitAssemblyai(assemblyai: AssemblyAiVoiceSettings) {
+                        assemblyai.validate()
+                    }
                 }
             )
             validated = true
@@ -1601,6 +1618,9 @@ private constructor(
 
                     override fun visitSoniox(soniox: SonioxVoiceSettings) = soniox.validity()
 
+                    override fun visitAssemblyai(assemblyai: AssemblyAiVoiceSettings) =
+                        assemblyai.validity()
+
                     override fun unknown(json: JsonValue?) = 0
                 }
             )
@@ -1619,11 +1639,23 @@ private constructor(
                 resemble == other.resemble &&
                 inworld == other.inworld &&
                 xai == other.xai &&
-                soniox == other.soniox
+                soniox == other.soniox &&
+                assemblyai == other.assemblyai
         }
 
         override fun hashCode(): Int =
-            Objects.hash(elevenlabs, telnyx, aws, minimax, azure, resemble, inworld, xai, soniox)
+            Objects.hash(
+                elevenlabs,
+                telnyx,
+                aws,
+                minimax,
+                azure,
+                resemble,
+                inworld,
+                xai,
+                soniox,
+                assemblyai,
+            )
 
         override fun toString(): String =
             when {
@@ -1636,6 +1668,7 @@ private constructor(
                 inworld != null -> "VoiceSettings{inworld=$inworld}"
                 xai != null -> "VoiceSettings{xai=$xai}"
                 soniox != null -> "VoiceSettings{soniox=$soniox}"
+                assemblyai != null -> "VoiceSettings{assemblyai=$assemblyai}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid VoiceSettings")
             }
@@ -1664,6 +1697,10 @@ private constructor(
             @JvmStatic fun ofXai(xai: XaiVoiceSettings) = VoiceSettings(xai = xai)
 
             @JvmStatic fun ofSoniox(soniox: SonioxVoiceSettings) = VoiceSettings(soniox = soniox)
+
+            @JvmStatic
+            fun ofAssemblyai(assemblyai: AssemblyAiVoiceSettings) =
+                VoiceSettings(assemblyai = assemblyai)
         }
 
         /**
@@ -1689,6 +1726,8 @@ private constructor(
             fun visitXai(xai: XaiVoiceSettings): T
 
             fun visitSoniox(soniox: SonioxVoiceSettings): T
+
+            fun visitAssemblyai(assemblyai: AssemblyAiVoiceSettings): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -1757,6 +1796,11 @@ private constructor(
                             VoiceSettings(soniox = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
+                    "assemblyai" -> {
+                        return tryDeserialize(node, jacksonTypeRef<AssemblyAiVoiceSettings>())
+                            ?.let { VoiceSettings(assemblyai = it, _json = json) }
+                            ?: VoiceSettings(_json = json)
+                    }
                 }
 
                 return VoiceSettings(_json = json)
@@ -1780,6 +1824,7 @@ private constructor(
                     value.inworld != null -> generator.writeObject(value.inworld)
                     value.xai != null -> generator.writeObject(value.xai)
                     value.soniox != null -> generator.writeObject(value.soniox)
+                    value.assemblyai != null -> generator.writeObject(value.assemblyai)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }

@@ -26,6 +26,7 @@ private constructor(
     private val id: JsonField<String>,
     private val body: JsonField<Body>,
     private val cc: JsonField<List<Cc>>,
+    private val childMessageId: JsonField<String>,
     private val completedAt: JsonField<OffsetDateTime>,
     private val cost: JsonField<Cost>,
     private val costBreakdown: JsonField<CostBreakdown>,
@@ -37,6 +38,7 @@ private constructor(
     private val messagingProfileId: JsonField<String>,
     private val numChars: JsonField<Long>,
     private val organizationId: JsonField<String>,
+    private val parentMessageId: JsonField<String>,
     private val parts: JsonField<Long>,
     private val receivedAt: JsonField<OffsetDateTime>,
     private val recordType: JsonField<RecordType>,
@@ -64,6 +66,9 @@ private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("body") @ExcludeMissing body: JsonField<Body> = JsonMissing.of(),
         @JsonProperty("cc") @ExcludeMissing cc: JsonField<List<Cc>> = JsonMissing.of(),
+        @JsonProperty("child_message_id")
+        @ExcludeMissing
+        childMessageId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("completed_at")
         @ExcludeMissing
         completedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -87,6 +92,9 @@ private constructor(
         @JsonProperty("organization_id")
         @ExcludeMissing
         organizationId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("parent_message_id")
+        @ExcludeMissing
+        parentMessageId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("parts") @ExcludeMissing parts: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("received_at")
         @ExcludeMissing
@@ -136,6 +144,7 @@ private constructor(
         id,
         body,
         cc,
+        childMessageId,
         completedAt,
         cost,
         costBreakdown,
@@ -147,6 +156,7 @@ private constructor(
         messagingProfileId,
         numChars,
         organizationId,
+        parentMessageId,
         parts,
         receivedAt,
         recordType,
@@ -191,6 +201,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun cc(): Optional<List<Cc>> = cc.getOptional("cc")
+
+    /**
+     * Identifies the next chunk when server-side SMS chunking (`auto_chunk_long_messages` on the
+     * messaging profile) split this message. Always present; null on non-chunked messages and on
+     * the final chunk.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun childMessageId(): Optional<String> = childMessageId.getOptional("child_message_id")
 
     /**
      * ISO 8601 formatted date indicating when the message was finalized.
@@ -276,6 +296,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun organizationId(): Optional<String> = organizationId.getOptional("organization_id")
+
+    /**
+     * Identifies the original request's message when server-side SMS chunking
+     * (`auto_chunk_long_messages` on the messaging profile) split it into chunks. The first chunk's
+     * ID is the original request's message ID. Always present; null when this message is not part
+     * of a chunked send.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun parentMessageId(): Optional<String> = parentMessageId.getOptional("parent_message_id")
 
     /**
      * Number of parts into which the message's body must be split.
@@ -461,6 +492,15 @@ private constructor(
     @JsonProperty("cc") @ExcludeMissing fun _cc(): JsonField<List<Cc>> = cc
 
     /**
+     * Returns the raw JSON value of [childMessageId].
+     *
+     * Unlike [childMessageId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("child_message_id")
+    @ExcludeMissing
+    fun _childMessageId(): JsonField<String> = childMessageId
+
+    /**
      * Returns the raw JSON value of [completedAt].
      *
      * Unlike [completedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -547,6 +587,15 @@ private constructor(
     @JsonProperty("organization_id")
     @ExcludeMissing
     fun _organizationId(): JsonField<String> = organizationId
+
+    /**
+     * Returns the raw JSON value of [parentMessageId].
+     *
+     * Unlike [parentMessageId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("parent_message_id")
+    @ExcludeMissing
+    fun _parentMessageId(): JsonField<String> = parentMessageId
 
     /**
      * Returns the raw JSON value of [parts].
@@ -730,6 +779,7 @@ private constructor(
         private var id: JsonField<String> = JsonMissing.of()
         private var body: JsonField<Body> = JsonMissing.of()
         private var cc: JsonField<MutableList<Cc>>? = null
+        private var childMessageId: JsonField<String> = JsonMissing.of()
         private var completedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var cost: JsonField<Cost> = JsonMissing.of()
         private var costBreakdown: JsonField<CostBreakdown> = JsonMissing.of()
@@ -741,6 +791,7 @@ private constructor(
         private var messagingProfileId: JsonField<String> = JsonMissing.of()
         private var numChars: JsonField<Long> = JsonMissing.of()
         private var organizationId: JsonField<String> = JsonMissing.of()
+        private var parentMessageId: JsonField<String> = JsonMissing.of()
         private var parts: JsonField<Long> = JsonMissing.of()
         private var receivedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var recordType: JsonField<RecordType> = JsonMissing.of()
@@ -768,6 +819,7 @@ private constructor(
                 id = messagingOutboundMessagePayload.id
                 body = messagingOutboundMessagePayload.body
                 cc = messagingOutboundMessagePayload.cc.map { it.toMutableList() }
+                childMessageId = messagingOutboundMessagePayload.childMessageId
                 completedAt = messagingOutboundMessagePayload.completedAt
                 cost = messagingOutboundMessagePayload.cost
                 costBreakdown = messagingOutboundMessagePayload.costBreakdown
@@ -779,6 +831,7 @@ private constructor(
                 messagingProfileId = messagingOutboundMessagePayload.messagingProfileId
                 numChars = messagingOutboundMessagePayload.numChars
                 organizationId = messagingOutboundMessagePayload.organizationId
+                parentMessageId = messagingOutboundMessagePayload.parentMessageId
                 parts = messagingOutboundMessagePayload.parts
                 receivedAt = messagingOutboundMessagePayload.receivedAt
                 recordType = messagingOutboundMessagePayload.recordType
@@ -845,6 +898,29 @@ private constructor(
         fun addCc(cc: Cc) = apply {
             this.cc =
                 (this.cc ?: JsonField.of(mutableListOf())).also { checkKnown("cc", it).add(cc) }
+        }
+
+        /**
+         * Identifies the next chunk when server-side SMS chunking (`auto_chunk_long_messages` on
+         * the messaging profile) split this message. Always present; null on non-chunked messages
+         * and on the final chunk.
+         */
+        fun childMessageId(childMessageId: String?) =
+            childMessageId(JsonField.ofNullable(childMessageId))
+
+        /** Alias for calling [Builder.childMessageId] with `childMessageId.orElse(null)`. */
+        fun childMessageId(childMessageId: Optional<String>) =
+            childMessageId(childMessageId.getOrNull())
+
+        /**
+         * Sets [Builder.childMessageId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.childMessageId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun childMessageId(childMessageId: JsonField<String>) = apply {
+            this.childMessageId = childMessageId
         }
 
         /** ISO 8601 formatted date indicating when the message was finalized. */
@@ -1026,6 +1102,30 @@ private constructor(
          */
         fun organizationId(organizationId: JsonField<String>) = apply {
             this.organizationId = organizationId
+        }
+
+        /**
+         * Identifies the original request's message when server-side SMS chunking
+         * (`auto_chunk_long_messages` on the messaging profile) split it into chunks. The first
+         * chunk's ID is the original request's message ID. Always present; null when this message
+         * is not part of a chunked send.
+         */
+        fun parentMessageId(parentMessageId: String?) =
+            parentMessageId(JsonField.ofNullable(parentMessageId))
+
+        /** Alias for calling [Builder.parentMessageId] with `parentMessageId.orElse(null)`. */
+        fun parentMessageId(parentMessageId: Optional<String>) =
+            parentMessageId(parentMessageId.getOrNull())
+
+        /**
+         * Sets [Builder.parentMessageId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.parentMessageId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun parentMessageId(parentMessageId: JsonField<String>) = apply {
+            this.parentMessageId = parentMessageId
         }
 
         /** Number of parts into which the message's body must be split. */
@@ -1381,6 +1481,7 @@ private constructor(
                 id,
                 body,
                 (cc ?: JsonMissing.of()).map { it.toImmutable() },
+                childMessageId,
                 completedAt,
                 cost,
                 costBreakdown,
@@ -1392,6 +1493,7 @@ private constructor(
                 messagingProfileId,
                 numChars,
                 organizationId,
+                parentMessageId,
                 parts,
                 receivedAt,
                 recordType,
@@ -1433,6 +1535,7 @@ private constructor(
         id()
         body().ifPresent { it.validate() }
         cc().ifPresent { it.forEach { it.validate() } }
+        childMessageId()
         completedAt()
         cost().ifPresent { it.validate() }
         costBreakdown().ifPresent { it.validate() }
@@ -1444,6 +1547,7 @@ private constructor(
         messagingProfileId()
         numChars()
         organizationId()
+        parentMessageId()
         parts()
         receivedAt()
         recordType().ifPresent { it.validate() }
@@ -1484,6 +1588,7 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (body.asKnown().getOrNull()?.validity() ?: 0) +
             (cc.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (childMessageId.asKnown().isPresent) 1 else 0) +
             (if (completedAt.asKnown().isPresent) 1 else 0) +
             (cost.asKnown().getOrNull()?.validity() ?: 0) +
             (costBreakdown.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1495,6 +1600,7 @@ private constructor(
             (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
             (if (numChars.asKnown().isPresent) 1 else 0) +
             (if (organizationId.asKnown().isPresent) 1 else 0) +
+            (if (parentMessageId.asKnown().isPresent) 1 else 0) +
             (if (parts.asKnown().isPresent) 1 else 0) +
             (if (receivedAt.asKnown().isPresent) 1 else 0) +
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -4821,6 +4927,7 @@ private constructor(
             id == other.id &&
             body == other.body &&
             cc == other.cc &&
+            childMessageId == other.childMessageId &&
             completedAt == other.completedAt &&
             cost == other.cost &&
             costBreakdown == other.costBreakdown &&
@@ -4832,6 +4939,7 @@ private constructor(
             messagingProfileId == other.messagingProfileId &&
             numChars == other.numChars &&
             organizationId == other.organizationId &&
+            parentMessageId == other.parentMessageId &&
             parts == other.parts &&
             receivedAt == other.receivedAt &&
             recordType == other.recordType &&
@@ -4859,6 +4967,7 @@ private constructor(
             id,
             body,
             cc,
+            childMessageId,
             completedAt,
             cost,
             costBreakdown,
@@ -4870,6 +4979,7 @@ private constructor(
             messagingProfileId,
             numChars,
             organizationId,
+            parentMessageId,
             parts,
             receivedAt,
             recordType,
@@ -4896,5 +5006,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingOutboundMessagePayload{id=$id, body=$body, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, numChars=$numChars, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, templateId=$templateId, templateName=$templateName, text=$text, to=$to, type=$type, validUntil=$validUntil, waitSeconds=$waitSeconds, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "MessagingOutboundMessagePayload{id=$id, body=$body, cc=$cc, childMessageId=$childMessageId, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, numChars=$numChars, organizationId=$organizationId, parentMessageId=$parentMessageId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, templateId=$templateId, templateName=$templateName, text=$text, to=$to, type=$type, validUntil=$validUntil, waitSeconds=$waitSeconds, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.emailevents.EmailEventListPageAsync
 import com.telnyx.sdk.models.emailevents.EmailEventListParams
-import com.telnyx.sdk.models.emailevents.EmailEventListResponse
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsParams
 import com.telnyx.sdk.models.emailevents.EmailEventRetrieveStatsResponse
 import java.util.concurrent.CompletableFuture
@@ -42,21 +42,21 @@ interface EmailEventServiceAsync {
      * failed renders email.failed in polling while its webhook retains email.bounced, both with
      * canonical email.failed.
      */
-    fun list(): CompletableFuture<EmailEventListResponse> = list(EmailEventListParams.none())
+    fun list(): CompletableFuture<EmailEventListPageAsync> = list(EmailEventListParams.none())
 
     /** @see list */
     fun list(
         params: EmailEventListParams = EmailEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailEventListResponse>
+    ): CompletableFuture<EmailEventListPageAsync>
 
     /** @see list */
     fun list(
         params: EmailEventListParams = EmailEventListParams.none()
-    ): CompletableFuture<EmailEventListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<EmailEventListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<EmailEventListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<EmailEventListPageAsync> =
         list(EmailEventListParams.none(), requestOptions)
 
     /**
@@ -103,25 +103,25 @@ interface EmailEventServiceAsync {
          * Returns a raw HTTP response for `get /email_events`, but is otherwise the same as
          * [EmailEventServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<EmailEventListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<EmailEventListPageAsync>> =
             list(EmailEventListParams.none())
 
         /** @see list */
         fun list(
             params: EmailEventListParams = EmailEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailEventListResponse>>
+        ): CompletableFuture<HttpResponseFor<EmailEventListPageAsync>>
 
         /** @see list */
         fun list(
             params: EmailEventListParams = EmailEventListParams.none()
-        ): CompletableFuture<HttpResponseFor<EmailEventListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailEventListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<EmailEventListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EmailEventListPageAsync>> =
             list(EmailEventListParams.none(), requestOptions)
 
         /**

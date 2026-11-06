@@ -21,6 +21,9 @@ internal class SessionStatusChangedWebhookEventTest {
                         .sessionId("mtgsess_9b2f...")
                         .status("status")
                         .statusDetail("status_detail")
+                        .previousStatus(
+                            SessionStatusChangedWebhookEvent.Data.PreviousStatus.SCHEDULED
+                        )
                         .build()
                 )
                 .event(SessionStatusChangedWebhookEvent.Event.SESSION_STATUS_CHANGED)
@@ -36,6 +39,7 @@ internal class SessionStatusChangedWebhookEventTest {
                     .sessionId("mtgsess_9b2f...")
                     .status("status")
                     .statusDetail("status_detail")
+                    .previousStatus(SessionStatusChangedWebhookEvent.Data.PreviousStatus.SCHEDULED)
                     .build()
             )
         assertThat(sessionStatusChangedWebhookEvent.event())
@@ -57,6 +61,9 @@ internal class SessionStatusChangedWebhookEventTest {
                         .sessionId("mtgsess_9b2f...")
                         .status("status")
                         .statusDetail("status_detail")
+                        .previousStatus(
+                            SessionStatusChangedWebhookEvent.Data.PreviousStatus.SCHEDULED
+                        )
                         .build()
                 )
                 .event(SessionStatusChangedWebhookEvent.Event.SESSION_STATUS_CHANGED)

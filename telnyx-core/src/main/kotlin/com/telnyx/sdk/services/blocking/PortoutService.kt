@@ -77,7 +77,10 @@ interface PortoutService {
     fun retrieve(id: String, requestOptions: RequestOptions): PortoutRetrieveResponse =
         retrieve(id, PortoutRetrieveParams.none(), requestOptions)
 
-    /** Returns the portout requests according to filters */
+    /**
+     * Returns the portout requests according to filters. Carrier Port Out API available. Please
+     * contact porting@telnyx.com.
+     */
     fun list(): PortoutListPage = list(PortoutListParams.none())
 
     /** @see list */
