@@ -15,7 +15,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns the portout requests according to filters */
+/**
+ * Returns the portout requests according to filters. Carrier Port Out API available. Please contact
+ * porting@telnyx.com.
+ */
 class PortoutListParams
 private constructor(
     private val filter: Filter?,

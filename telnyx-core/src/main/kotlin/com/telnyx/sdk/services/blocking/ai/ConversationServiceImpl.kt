@@ -20,6 +20,7 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.conversations.Conversation
 import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageParams
 import com.telnyx.sdk.models.ai.conversations.ConversationCreateParams
+import com.telnyx.sdk.models.ai.conversations.ConversationDeleteDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListResponse
@@ -113,6 +114,14 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
     override fun addMessage(params: ConversationAddMessageParams, requestOptions: RequestOptions) {
         // post /ai/conversations/{conversation_id}/message
         withRawResponse().addMessage(params, requestOptions)
+    }
+
+    override fun deleteDelete(
+        params: ConversationDeleteDeleteParams,
+        requestOptions: RequestOptions,
+    ) {
+        // delete /ai/conversations/{conversation_id}/conversations-insights/{insight_id}
+        withRawResponse().deleteDelete(params, requestOptions)
     }
 
     override fun retrieveConversationsInsights(
@@ -325,6 +334,36 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { addMessageHandler.handle(it) }
+            }
+        }
+
+        private val deleteDeleteHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteDelete(
+            params: ConversationDeleteDeleteParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("insightId", params.insightId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "ai",
+                        "conversations",
+                        params._pathParam(0),
+                        "conversations-insights",
+                        params._pathParam(1),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { deleteDeleteHandler.handle(it) }
             }
         }
 

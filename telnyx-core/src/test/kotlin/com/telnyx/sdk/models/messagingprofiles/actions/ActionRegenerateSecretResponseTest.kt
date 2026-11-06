@@ -31,6 +31,7 @@ internal class ActionRegenerateSecretResponseTest {
                         .features(
                             MessagingProfileFeatures.builder()
                                 .aiOptOutDetectionEnabled(true)
+                                .autoChunkLongMessages(true)
                                 .build()
                         )
                         .healthWebhookUrl(null)
@@ -88,7 +89,10 @@ internal class ActionRegenerateSecretResponseTest {
                     .dailySpendLimitEnabled(false)
                     .enabled(true)
                     .features(
-                        MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build()
+                        MessagingProfileFeatures.builder()
+                            .aiOptOutDetectionEnabled(true)
+                            .autoChunkLongMessages(true)
+                            .build()
                     )
                     .healthWebhookUrl(null)
                     .mm7Metadata(
@@ -151,6 +155,7 @@ internal class ActionRegenerateSecretResponseTest {
                         .features(
                             MessagingProfileFeatures.builder()
                                 .aiOptOutDetectionEnabled(true)
+                                .autoChunkLongMessages(true)
                                 .build()
                         )
                         .healthWebhookUrl(null)

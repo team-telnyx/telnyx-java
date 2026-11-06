@@ -23,6 +23,7 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.conversations.Conversation
 import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageParams
 import com.telnyx.sdk.models.ai.conversations.ConversationCreateParams
+import com.telnyx.sdk.models.ai.conversations.ConversationDeleteDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListResponse
@@ -122,6 +123,13 @@ class ConversationServiceAsyncImpl internal constructor(private val clientOption
     ): CompletableFuture<Void?> =
         // post /ai/conversations/{conversation_id}/message
         withRawResponse().addMessage(params, requestOptions).mapCancellable { null }
+
+    override fun deleteDelete(
+        params: ConversationDeleteDeleteParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /ai/conversations/{conversation_id}/conversations-insights/{insight_id}
+        withRawResponse().deleteDelete(params, requestOptions).mapCancellable { null }
 
     override fun retrieveConversationsInsights(
         params: ConversationRetrieveConversationsInsightsParams,
@@ -364,6 +372,41 @@ class ConversationServiceAsyncImpl internal constructor(private val clientOption
                 .mapCancellable { response ->
                     errorHandler.handle(response).parseable {
                         response.use { addMessageHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val deleteDeleteHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteDelete(
+            params: ConversationDeleteDeleteParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("insightId", params.insightId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "ai",
+                        "conversations",
+                        params._pathParam(0),
+                        "conversations-insights",
+                        params._pathParam(1),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .composeCancellableAsync {
+                    clientOptions.httpClient.executeAsync(it, requestOptions).ownResponse()
+                }
+                .mapCancellable { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteDeleteHandler.handle(it) }
                     }
                 }
         }

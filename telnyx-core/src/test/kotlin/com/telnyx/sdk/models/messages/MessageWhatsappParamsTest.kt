@@ -208,7 +208,20 @@ internal class MessageWhatsappParamsTest {
                                                     .Parameters
                                                     .FlowActionPayload
                                                     .builder()
-                                                    .data(JsonValue.from(mapOf<String, Any>()))
+                                                    .data(
+                                                        MessageWhatsappParams.WhatsappMessage
+                                                            .Interactive
+                                                            .Action
+                                                            .Parameters
+                                                            .FlowActionPayload
+                                                            .Data
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "foo",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
+                                                    )
                                                     .screen("screen")
                                                     .build()
                                             )
@@ -340,7 +353,18 @@ internal class MessageWhatsappParamsTest {
                                                     .Action
                                                     .builder()
                                                     .flowActionData(
-                                                        JsonValue.from(mapOf<String, Any>())
+                                                        MessageWhatsappParams.WhatsappMessage
+                                                            .Template
+                                                            .Component
+                                                            .Parameter
+                                                            .Action
+                                                            .FlowActionData
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "foo",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
                                                     )
                                                     .flowToken("flow_token")
                                                     .build()
@@ -614,7 +638,20 @@ internal class MessageWhatsappParamsTest {
                                                         .Parameters
                                                         .FlowActionPayload
                                                         .builder()
-                                                        .data(JsonValue.from(mapOf<String, Any>()))
+                                                        .data(
+                                                            MessageWhatsappParams.WhatsappMessage
+                                                                .Interactive
+                                                                .Action
+                                                                .Parameters
+                                                                .FlowActionPayload
+                                                                .Data
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "foo",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .build()
+                                                        )
                                                         .screen("screen")
                                                         .build()
                                                 )
@@ -757,7 +794,18 @@ internal class MessageWhatsappParamsTest {
                                                         .Action
                                                         .builder()
                                                         .flowActionData(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            MessageWhatsappParams.WhatsappMessage
+                                                                .Template
+                                                                .Component
+                                                                .Parameter
+                                                                .Action
+                                                                .FlowActionData
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "foo",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .build()
                                                         )
                                                         .flowToken("flow_token")
                                                         .build()
@@ -1055,7 +1103,20 @@ internal class MessageWhatsappParamsTest {
                                                         .Parameters
                                                         .FlowActionPayload
                                                         .builder()
-                                                        .data(JsonValue.from(mapOf<String, Any>()))
+                                                        .data(
+                                                            MessageWhatsappParams.WhatsappMessage
+                                                                .Interactive
+                                                                .Action
+                                                                .Parameters
+                                                                .FlowActionPayload
+                                                                .Data
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "foo",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .build()
+                                                        )
                                                         .screen("screen")
                                                         .build()
                                                 )
@@ -1198,7 +1259,18 @@ internal class MessageWhatsappParamsTest {
                                                         .Action
                                                         .builder()
                                                         .flowActionData(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            MessageWhatsappParams.WhatsappMessage
+                                                                .Template
+                                                                .Component
+                                                                .Parameter
+                                                                .Action
+                                                                .FlowActionData
+                                                                .builder()
+                                                                .putAdditionalProperty(
+                                                                    "foo",
+                                                                    JsonValue.from("bar"),
+                                                                )
+                                                                .build()
                                                         )
                                                         .flowToken("flow_token")
                                                         .build()
@@ -1457,7 +1529,20 @@ internal class MessageWhatsappParamsTest {
                                                     .Parameters
                                                     .FlowActionPayload
                                                     .builder()
-                                                    .data(JsonValue.from(mapOf<String, Any>()))
+                                                    .data(
+                                                        MessageWhatsappParams.WhatsappMessage
+                                                            .Interactive
+                                                            .Action
+                                                            .Parameters
+                                                            .FlowActionPayload
+                                                            .Data
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "foo",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
+                                                    )
                                                     .screen("screen")
                                                     .build()
                                             )
@@ -1589,7 +1674,18 @@ internal class MessageWhatsappParamsTest {
                                                     .Action
                                                     .builder()
                                                     .flowActionData(
-                                                        JsonValue.from(mapOf<String, Any>())
+                                                        MessageWhatsappParams.WhatsappMessage
+                                                            .Template
+                                                            .Component
+                                                            .Parameter
+                                                            .Action
+                                                            .FlowActionData
+                                                            .builder()
+                                                            .putAdditionalProperty(
+                                                                "foo",
+                                                                JsonValue.from("bar"),
+                                                            )
+                                                            .build()
                                                     )
                                                     .flowToken("flow_token")
                                                     .build()

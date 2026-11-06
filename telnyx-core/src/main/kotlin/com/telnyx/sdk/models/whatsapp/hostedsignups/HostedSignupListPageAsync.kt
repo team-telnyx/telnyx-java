@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: HostedSignupListParams,
     private val response: HostedSignupListPageResponse,
-) : PageAsync<HostedSignupListResponse> {
+) : PageAsync<WhatsappHostedSignup> {
 
     /**
      * Delegates to [HostedSignupListPageResponse], but gracefully handles missing data.
      *
      * @see HostedSignupListPageResponse.data
      */
-    fun data(): List<HostedSignupListResponse> =
+    fun data(): List<WhatsappHostedSignup> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<HostedSignupListResponse> = data()
+    override fun items(): List<WhatsappHostedSignup> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -68,7 +68,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<HostedSignupListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<HostedSignupListResponse> =
+    fun autoPager(): AutoPagerAsync<WhatsappHostedSignup> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

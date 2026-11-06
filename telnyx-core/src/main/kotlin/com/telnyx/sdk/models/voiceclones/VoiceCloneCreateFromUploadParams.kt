@@ -3266,15 +3266,12 @@ private constructor(
 
                     @JvmField val TELNYX = of("telnyx")
 
-                    @JvmField val TELNYX_2 = of("Telnyx")
-
                     @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
                 }
 
                 /** An enum containing [Provider]'s known values. */
                 enum class Known {
-                    TELNYX,
-                    TELNYX_2,
+                    TELNYX
                 }
 
                 /**
@@ -3288,7 +3285,6 @@ private constructor(
                  */
                 enum class Value {
                     TELNYX,
-                    TELNYX_2,
                     /**
                      * An enum member indicating that [Provider] was instantiated with an unknown
                      * value.
@@ -3306,7 +3302,6 @@ private constructor(
                 fun value(): Value =
                     when (this) {
                         TELNYX -> Value.TELNYX
-                        TELNYX_2 -> Value.TELNYX_2
                         else -> Value._UNKNOWN
                     }
 
@@ -3322,7 +3317,6 @@ private constructor(
                 fun known(): Known =
                     when (this) {
                         TELNYX -> Known.TELNYX
-                        TELNYX_2 -> Known.TELNYX_2
                         else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
                     }
 
@@ -5044,15 +5038,12 @@ private constructor(
 
                     @JvmField val RESEMBLE = of("resemble")
 
-                    @JvmField val RESEMBLE_2 = of("Resemble")
-
                     @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
                 }
 
                 /** An enum containing [Provider]'s known values. */
                 enum class Known {
-                    RESEMBLE,
-                    RESEMBLE_2,
+                    RESEMBLE
                 }
 
                 /**
@@ -5066,7 +5057,6 @@ private constructor(
                  */
                 enum class Value {
                     RESEMBLE,
-                    RESEMBLE_2,
                     /**
                      * An enum member indicating that [Provider] was instantiated with an unknown
                      * value.
@@ -5084,7 +5074,6 @@ private constructor(
                 fun value(): Value =
                     when (this) {
                         RESEMBLE -> Value.RESEMBLE
-                        RESEMBLE_2 -> Value.RESEMBLE_2
                         else -> Value._UNKNOWN
                     }
 
@@ -5100,7 +5089,6 @@ private constructor(
                 fun known(): Known =
                     when (this) {
                         RESEMBLE -> Known.RESEMBLE
-                        RESEMBLE_2 -> Known.RESEMBLE_2
                         else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
                     }
 

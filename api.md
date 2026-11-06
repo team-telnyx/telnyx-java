@@ -334,6 +334,7 @@ Methods:
 - <code title="get /ai/conversations">client.ai().conversations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/ConversationService.kt">list</a>(params)</code>
 - <code title="delete /ai/conversations/{conversation_id}">client.ai().conversations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/ConversationService.kt">delete</a>(params)</code>
 - <code title="post /ai/conversations/{conversation_id}/message">client.ai().conversations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/ConversationService.kt">addMessage</a>(params)</code>
+- <code title="delete /ai/conversations/{conversation_id}/conversations-insights/{insight_id}">client.ai().conversations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/ConversationService.kt">deleteDelete</a>(params)</code>
 - <code title="get /ai/conversations/{conversation_id}/conversations-insights">client.ai().conversations().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/ConversationService.kt">retrieveConversationsInsights</a>(params)</code>
 
 ### InsightGroups
@@ -2261,6 +2262,7 @@ Methods:
 - <code title="get /telephony_credentials">client.telephonyCredentials().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TelephonyCredentialService.kt">list</a>(params)</code>
 - <code title="delete /telephony_credentials/{id}">client.telephonyCredentials().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TelephonyCredentialService.kt">delete</a>(params)</code>
 - <code title="post /telephony_credentials/{id}/token">client.telephonyCredentials().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TelephonyCredentialService.kt">createToken</a>(params)</code>
+- <code title="get /telephony_credentials/{id}/token_material">client.telephonyCredentials().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/TelephonyCredentialService.kt">retrieveTokenMaterial</a>(params)</code>
 
 # Texml
 
@@ -3303,6 +3305,7 @@ Methods:
 - <code title="delete /meeting_sessions/{id}">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">delete</a>(params)</code>
 - <code title="delete /meeting_sessions/{id}/recording_media">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">deleteRecordingMedia</a>(params)</code>
 - <code title="get /meeting_sessions/{id}/events">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveEvents</a>(params)</code>
+- <code title="get /meeting_sessions/{id}/recordings">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveRecordings</a>(params)</code>
 - <code title="get /meeting_sessions/{id}/transcript">client.meetingSessions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MeetingSessionService.kt">retrieveTranscript</a>(params)</code>
 
 ## Actions
@@ -3529,3 +3532,123 @@ Methods:
 Methods:
 
 - <code title="post /tunnels/{id}/actions/rotate_token">client.tunnels().actions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/tunnels/ActionService.kt">rotateToken</a>(params)</code>
+
+# UserProfile
+
+Methods:
+
+- <code title="get /user_profile">client.userProfile().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/UserProfileService.kt">list</a>()</code>
+- <code title="patch /user_profile">client.userProfile().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/UserProfileService.kt">patchAll</a>(params)</code>
+
+# AgentGateways
+
+Methods:
+
+- <code title="post /agent_gateways">client.agentGateways().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/AgentGatewayService.kt">create</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}">client.agentGateways().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/AgentGatewayService.kt">retrieve</a>(params)</code>
+- <code title="get /agent_gateways">client.agentGateways().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/AgentGatewayService.kt">list</a>(params)</code>
+- <code title="delete /agent_gateways/{instance_id}">client.agentGateways().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/AgentGatewayService.kt">delete</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/models">client.agentGateways().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/AgentGatewayService.kt">retrieveModels</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/spend_logs">client.agentGateways().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/AgentGatewayService.kt">retrieveSpendLogs</a>(params)</code>
+
+## Apis
+
+Methods:
+
+- <code title="post /agent_gateways/{instance_id}/apis">client.agentGateways().apis().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/ApiService.kt">create</a>(params)</code>
+- <code title="patch /agent_gateways/{instance_id}/apis/{api_id}">client.agentGateways().apis().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/ApiService.kt">update</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/apis">client.agentGateways().apis().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/ApiService.kt">list</a>(params)</code>
+- <code title="delete /agent_gateways/{instance_id}/apis/{api_id}">client.agentGateways().apis().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/ApiService.kt">delete</a>(params)</code>
+
+## Guardrails
+
+Methods:
+
+- <code title="post /agent_gateways/{instance_id}/guardrails">client.agentGateways().guardrails().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/GuardrailService.kt">create</a>(params)</code>
+- <code title="patch /agent_gateways/{instance_id}/guardrails/{guardrail_id}">client.agentGateways().guardrails().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/GuardrailService.kt">update</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/guardrails">client.agentGateways().guardrails().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/GuardrailService.kt">list</a>(params)</code>
+- <code title="delete /agent_gateways/{instance_id}/guardrails/{guardrail_id}">client.agentGateways().guardrails().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/GuardrailService.kt">delete</a>(params)</code>
+
+## Keys
+
+Methods:
+
+- <code title="post /agent_gateways/{instance_id}/keys">client.agentGateways().keys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/KeyService.kt">create</a>(params)</code>
+- <code title="patch /agent_gateways/{instance_id}/keys/{key_id}">client.agentGateways().keys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/KeyService.kt">update</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/keys">client.agentGateways().keys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/KeyService.kt">list</a>(params)</code>
+- <code title="delete /agent_gateways/{instance_id}/keys/{key_id}">client.agentGateways().keys().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/KeyService.kt">delete</a>(params)</code>
+
+### ToolPermissions
+
+Methods:
+
+- <code title="put /agent_gateways/{instance_id}/keys/{key_id}/tool_permissions">client.agentGateways().keys().toolPermissions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/keys/ToolPermissionService.kt">create</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/keys/{key_id}/tool_permissions">client.agentGateways().keys().toolPermissions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/keys/ToolPermissionService.kt">list</a>(params)</code>
+
+## McpServers
+
+Methods:
+
+- <code title="post /agent_gateways/{instance_id}/mcp_servers">client.agentGateways().mcpServers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/McpServerService.kt">create</a>(params)</code>
+- <code title="patch /agent_gateways/{instance_id}/mcp_servers/{server_id}">client.agentGateways().mcpServers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/McpServerService.kt">update</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/mcp_servers">client.agentGateways().mcpServers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/McpServerService.kt">list</a>(params)</code>
+- <code title="delete /agent_gateways/{instance_id}/mcp_servers/{server_id}">client.agentGateways().mcpServers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/McpServerService.kt">delete</a>(params)</code>
+
+## Policies
+
+Methods:
+
+- <code title="post /agent_gateways/{instance_id}/policies">client.agentGateways().policies().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/PolicyService.kt">create</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/policies/{name}">client.agentGateways().policies().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/PolicyService.kt">retrieve</a>(params)</code>
+- <code title="patch /agent_gateways/{instance_id}/policies/{name}">client.agentGateways().policies().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/PolicyService.kt">update</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/policies">client.agentGateways().policies().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/PolicyService.kt">list</a>(params)</code>
+- <code title="delete /agent_gateways/{instance_id}/policies/{name}">client.agentGateways().policies().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/PolicyService.kt">delete</a>(params)</code>
+
+## PolicyAttachments
+
+Methods:
+
+- <code title="post /agent_gateways/{instance_id}/policy_attachments">client.agentGateways().policyAttachments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/PolicyAttachmentService.kt">create</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/policy_attachments">client.agentGateways().policyAttachments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/PolicyAttachmentService.kt">list</a>(params)</code>
+- <code title="delete /agent_gateways/{instance_id}/policy_attachments/{attachment_id}">client.agentGateways().policyAttachments().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/PolicyAttachmentService.kt">delete</a>(params)</code>
+
+## Teams
+
+Methods:
+
+- <code title="post /agent_gateways/{instance_id}/teams">client.agentGateways().teams().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/TeamService.kt">create</a>(params)</code>
+- <code title="patch /agent_gateways/{instance_id}/teams/{team_id}">client.agentGateways().teams().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/TeamService.kt">update</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/teams">client.agentGateways().teams().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/TeamService.kt">list</a>(params)</code>
+- <code title="delete /agent_gateways/{instance_id}/teams/{team_id}">client.agentGateways().teams().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/TeamService.kt">delete</a>(params)</code>
+
+### ToolPermissions
+
+Methods:
+
+- <code title="put /agent_gateways/{instance_id}/teams/{team_id}/tool_permissions">client.agentGateways().teams().toolPermissions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/teams/ToolPermissionService.kt">create</a>(params)</code>
+- <code title="get /agent_gateways/{instance_id}/teams/{team_id}/tool_permissions">client.agentGateways().teams().toolPermissions().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/agentgateways/teams/ToolPermissionService.kt">list</a>(params)</code>
+
+# CalendarConnections
+
+Methods:
+
+- <code title="post /calendar_connections">client.calendarConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/CalendarConnectionService.kt">create</a>(params)</code>
+- <code title="get /calendar_connections/{id}">client.calendarConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/CalendarConnectionService.kt">retrieve</a>(params)</code>
+- <code title="patch /calendar_connections/{id}">client.calendarConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/CalendarConnectionService.kt">update</a>(params)</code>
+- <code title="get /calendar_connections">client.calendarConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/CalendarConnectionService.kt">list</a>()</code>
+- <code title="delete /calendar_connections/{id}">client.calendarConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/CalendarConnectionService.kt">delete</a>(params)</code>
+
+## Meetings
+
+Methods:
+
+- <code title="patch /calendar_connections/{id}/meetings/{meeting_id}">client.calendarConnections().meetings().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/calendarconnections/MeetingService.kt">update</a>(params)</code>
+- <code title="get /calendar_connections/{id}/meetings">client.calendarConnections().meetings().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/calendarconnections/MeetingService.kt">list</a>(params)</code>
+
+# MeetingBot
+
+## Calendar
+
+Methods:
+
+- <code title="get /meeting_bot/calendar/oauth_callback">client.meetingBot().calendar().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/meetingbot/CalendarService.kt">retrieveOAuthCallback</a>(params)</code>

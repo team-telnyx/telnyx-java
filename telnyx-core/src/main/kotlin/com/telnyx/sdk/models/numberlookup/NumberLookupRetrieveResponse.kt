@@ -2357,6 +2357,7 @@ private constructor(
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val callerName: JsonField<String>,
+            private val entityType: JsonField<String>,
             private val errorCode: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -2366,10 +2367,13 @@ private constructor(
                 @JsonProperty("caller_name")
                 @ExcludeMissing
                 callerName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("entity_type")
+                @ExcludeMissing
+                entityType: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("error_code")
                 @ExcludeMissing
                 errorCode: JsonField<String> = JsonMissing.of(),
-            ) : this(callerName, errorCode, mutableMapOf())
+            ) : this(callerName, entityType, errorCode, mutableMapOf())
 
             /**
              * The name associated with the phone number.
@@ -2378,6 +2382,15 @@ private constructor(
              *   the server responded with an unexpected value).
              */
             fun callerName(): Optional<String> = callerName.getOptional("caller_name")
+
+            /**
+             * The entity type of the phone number's owner, from the enhanced caller name data
+             * source — `Person` or `Business`. Null when not available.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun entityType(): Optional<String> = entityType.getOptional("entity_type")
 
             /**
              * A lookup-specific error code if the enhanced caller name could not be resolved;
@@ -2397,6 +2410,16 @@ private constructor(
             @JsonProperty("caller_name")
             @ExcludeMissing
             fun _callerName(): JsonField<String> = callerName
+
+            /**
+             * Returns the raw JSON value of [entityType].
+             *
+             * Unlike [entityType], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("entity_type")
+            @ExcludeMissing
+            fun _entityType(): JsonField<String> = entityType
 
             /**
              * Returns the raw JSON value of [errorCode].
@@ -2432,12 +2455,14 @@ private constructor(
             class Builder internal constructor() {
 
                 private var callerName: JsonField<String> = JsonMissing.of()
+                private var entityType: JsonField<String> = JsonMissing.of()
                 private var errorCode: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(enhancedCallerName: EnhancedCallerName) = apply {
                     callerName = enhancedCallerName.callerName
+                    entityType = enhancedCallerName.entityType
                     errorCode = enhancedCallerName.errorCode
                     additionalProperties = enhancedCallerName.additionalProperties.toMutableMap()
                 }
@@ -2457,6 +2482,26 @@ private constructor(
                  */
                 fun callerName(callerName: JsonField<String>) = apply {
                     this.callerName = callerName
+                }
+
+                /**
+                 * The entity type of the phone number's owner, from the enhanced caller name data
+                 * source — `Person` or `Business`. Null when not available.
+                 */
+                fun entityType(entityType: String?) = entityType(JsonField.ofNullable(entityType))
+
+                /** Alias for calling [Builder.entityType] with `entityType.orElse(null)`. */
+                fun entityType(entityType: Optional<String>) = entityType(entityType.getOrNull())
+
+                /**
+                 * Sets [Builder.entityType] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.entityType] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun entityType(entityType: JsonField<String>) = apply {
+                    this.entityType = entityType
                 }
 
                 /**
@@ -2505,7 +2550,12 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
                 fun build(): EnhancedCallerName =
-                    EnhancedCallerName(callerName, errorCode, additionalProperties.toMutableMap())
+                    EnhancedCallerName(
+                        callerName,
+                        entityType,
+                        errorCode,
+                        additionalProperties.toMutableMap(),
+                    )
             }
 
             private var validated: Boolean = false
@@ -2526,6 +2576,7 @@ private constructor(
                 }
 
                 callerName()
+                entityType()
                 errorCode()
                 validated = true
             }
@@ -2547,6 +2598,7 @@ private constructor(
             @JvmSynthetic
             internal fun validity(): Int =
                 (if (callerName.asKnown().isPresent) 1 else 0) +
+                    (if (entityType.asKnown().isPresent) 1 else 0) +
                     (if (errorCode.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
@@ -2556,18 +2608,19 @@ private constructor(
 
                 return other is EnhancedCallerName &&
                     callerName == other.callerName &&
+                    entityType == other.entityType &&
                     errorCode == other.errorCode &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(callerName, errorCode, additionalProperties)
+                Objects.hash(callerName, entityType, errorCode, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "EnhancedCallerName{callerName=$callerName, errorCode=$errorCode, additionalProperties=$additionalProperties}"
+                "EnhancedCallerName{callerName=$callerName, entityType=$entityType, errorCode=$errorCode, additionalProperties=$additionalProperties}"
         }
 
         /**

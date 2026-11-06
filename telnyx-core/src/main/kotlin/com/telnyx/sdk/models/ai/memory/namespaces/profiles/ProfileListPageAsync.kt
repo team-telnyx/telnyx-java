@@ -35,7 +35,7 @@ private constructor(
      *
      * @see ProfileListPageResponse.meta
      */
-    fun meta(): Optional<PageMeta> = response._meta().getOptional("meta")
+    fun meta(): Optional<AgentMemoryPageMeta> = response._meta().getOptional("meta")
 
     override fun items(): List<ProfileListResponse> = data()
 

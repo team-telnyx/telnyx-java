@@ -15,7 +15,9 @@ import kotlin.jvm.optionals.getOrNull
  * retains the Telnyx-local Meeting session, transcript segments, events, artifacts, and usage
  * records. It is separate from `DELETE /meeting_sessions/{id}`, which stops or cancels
  * participation without deleting the persisted session. A missing/foreign session returns 404; a
- * deletion request whose outcome is unknown returns 502.
+ * deletion request whose outcome is unknown returns 502. Customer Storage exports do not support
+ * this operation (422 unsupported_capability); delete the exported object through Storage instead.
+ * Stopping a session does not delete an exported object.
  */
 class MeetingSessionDeleteRecordingMediaParams
 private constructor(

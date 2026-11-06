@@ -6,6 +6,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageParams
 import com.telnyx.sdk.models.ai.conversations.ConversationCreateParams
+import com.telnyx.sdk.models.ai.conversations.ConversationDeleteDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListParams
 import com.telnyx.sdk.models.ai.conversations.ConversationUpdateParams
 import java.time.OffsetDateTime
@@ -131,6 +132,20 @@ internal class ConversationServiceTest {
                         .build()
                 )
                 .toolChoice("string")
+                .build()
+        )
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun deleteDelete() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val conversationService = client.ai().conversations()
+
+        conversationService.deleteDelete(
+            ConversationDeleteDeleteParams.builder()
+                .conversationId("conversation_id")
+                .insightId("insight_id")
                 .build()
         )
     }

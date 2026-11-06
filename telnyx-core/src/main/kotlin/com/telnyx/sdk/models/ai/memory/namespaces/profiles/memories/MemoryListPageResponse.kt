@@ -14,7 +14,7 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.ai.memory.namespaces.profiles.PageMeta
+import com.telnyx.sdk.models.ai.memory.namespaces.profiles.AgentMemoryPageMeta
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -23,7 +23,7 @@ class MemoryListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<MemoryListResponse>>,
-    private val meta: JsonField<PageMeta>,
+    private val meta: JsonField<AgentMemoryPageMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -32,7 +32,9 @@ private constructor(
         @JsonProperty("data")
         @ExcludeMissing
         data: JsonField<List<MemoryListResponse>> = JsonMissing.of(),
-        @JsonProperty("meta") @ExcludeMissing meta: JsonField<PageMeta> = JsonMissing.of(),
+        @JsonProperty("meta")
+        @ExcludeMissing
+        meta: JsonField<AgentMemoryPageMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
     /**
@@ -50,7 +52,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun meta(): PageMeta = meta.getRequired("meta")
+    fun meta(): AgentMemoryPageMeta = meta.getRequired("meta")
 
     /**
      * Returns the raw JSON value of [data].
@@ -64,7 +66,7 @@ private constructor(
      *
      * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<PageMeta> = meta
+    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<AgentMemoryPageMeta> = meta
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -96,7 +98,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<MemoryListResponse>>? = null
-        private var meta: JsonField<PageMeta>? = null
+        private var meta: JsonField<AgentMemoryPageMeta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -138,15 +140,16 @@ private constructor(
          * writes land, so paging through a busy namespace can repeat or miss an entry at a page
          * boundary.
          */
-        fun meta(meta: PageMeta) = meta(JsonField.of(meta))
+        fun meta(meta: AgentMemoryPageMeta) = meta(JsonField.of(meta))
 
         /**
          * Sets [Builder.meta] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.meta] with a well-typed [PageMeta] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.meta] with a well-typed [AgentMemoryPageMeta] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun meta(meta: JsonField<PageMeta>) = apply { this.meta = meta }
+        fun meta(meta: JsonField<AgentMemoryPageMeta>) = apply { this.meta = meta }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

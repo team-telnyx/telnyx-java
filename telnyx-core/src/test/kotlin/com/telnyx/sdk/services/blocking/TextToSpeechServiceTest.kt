@@ -21,6 +21,22 @@ internal class TextToSpeechServiceTest {
         val response =
             textToSpeechService.generateSpeech(
                 TextToSpeechGenerateSpeechParams.builder()
+                    .assemblyai(
+                        TextToSpeechGenerateSpeechParams.Assemblyai.builder()
+                            .voiceId("aai-jane")
+                            .audioFormat(
+                                TextToSpeechGenerateSpeechParams.Assemblyai.AudioFormat.MP3
+                            )
+                            .language(TextToSpeechGenerateSpeechParams.Assemblyai.Language.EN)
+                            .modelId(
+                                TextToSpeechGenerateSpeechParams.Assemblyai.ModelId.ASSEMBLYAI_TTS_1
+                            )
+                            .sampleRate(
+                                TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate
+                                    .SAMPLE_RATE_8000
+                            )
+                            .build()
+                    )
                     .aws(
                         TextToSpeechGenerateSpeechParams.Aws.builder()
                             .languageCode("string")
@@ -86,7 +102,9 @@ internal class TextToSpeechServiceTest {
                             .language("en")
                             .modelId(TextToSpeechGenerateSpeechParams.Soniox.ModelId.TTS_RT_V2)
                             .reduceSilence(true)
-                            .sampleRate(TextToSpeechGenerateSpeechParams.Soniox.SampleRate._8000)
+                            .sampleRate(
+                                TextToSpeechGenerateSpeechParams.Soniox.SampleRate.SAMPLE_RATE_8000
+                            )
                             .speed(1.0f)
                             .build()
                     )

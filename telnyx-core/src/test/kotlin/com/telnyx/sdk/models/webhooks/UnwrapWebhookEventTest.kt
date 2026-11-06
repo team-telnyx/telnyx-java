@@ -148,6 +148,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -359,6 +361,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -572,6 +576,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -758,6 +764,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -904,6 +912,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -969,7 +979,7 @@ internal class UnwrapWebhookEventTest {
                                         .addConversationInsight(
                                             CallAnalyzedWebhookEvent.Data.Payload
                                                 .ConversationInsight
-                                                .InnerConversationInsight
+                                                .ConversationInsightResult
                                                 .builder()
                                                 .insightId("6c5018ff-25a2-5364-b6be-f53de3d493c6")
                                                 .result(
@@ -981,40 +991,40 @@ internal class UnwrapWebhookEventTest {
                                         .build()
                                 )
                                 .cost(
-                                    CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                    CallAnalyzedWebhookEvent.Data.Payload.Cost.CallCostBreakdown
                                         .builder()
                                         .breakdown(
                                             listOf(
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.050000")
                                                     .product("ai-voice-assistant")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.003600")
                                                     .product("callcontrol-cdrs")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.000900")
                                                     .product("inference")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.000800")
                                                     .product("recording-cdrs")
                                                     .build(),
                                                 CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                    .UnionMember0
+                                                    .CallCostBreakdown
                                                     .Breakdown
                                                     .builder()
                                                     .cost("0.005000")
@@ -1143,6 +1153,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -1180,7 +1192,7 @@ internal class UnwrapWebhookEventTest {
                                             .addConversationInsight(
                                                 CallAnalyzedWebhookEvent.Data.Payload
                                                     .ConversationInsight
-                                                    .InnerConversationInsight
+                                                    .ConversationInsightResult
                                                     .builder()
                                                     .insightId(
                                                         "6c5018ff-25a2-5364-b6be-f53de3d493c6"
@@ -1194,40 +1206,40 @@ internal class UnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .cost(
-                                        CallAnalyzedWebhookEvent.Data.Payload.Cost.UnionMember0
+                                        CallAnalyzedWebhookEvent.Data.Payload.Cost.CallCostBreakdown
                                             .builder()
                                             .breakdown(
                                                 listOf(
                                                     CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                        .UnionMember0
+                                                        .CallCostBreakdown
                                                         .Breakdown
                                                         .builder()
                                                         .cost("0.050000")
                                                         .product("ai-voice-assistant")
                                                         .build(),
                                                     CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                        .UnionMember0
+                                                        .CallCostBreakdown
                                                         .Breakdown
                                                         .builder()
                                                         .cost("0.003600")
                                                         .product("callcontrol-cdrs")
                                                         .build(),
                                                     CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                        .UnionMember0
+                                                        .CallCostBreakdown
                                                         .Breakdown
                                                         .builder()
                                                         .cost("0.000900")
                                                         .product("inference")
                                                         .build(),
                                                     CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                        .UnionMember0
+                                                        .CallCostBreakdown
                                                         .Breakdown
                                                         .builder()
                                                         .cost("0.000800")
                                                         .product("recording-cdrs")
                                                         .build(),
                                                     CallAnalyzedWebhookEvent.Data.Payload.Cost
-                                                        .UnionMember0
+                                                        .CallCostBreakdown
                                                         .Breakdown
                                                         .builder()
                                                         .cost("0.005000")
@@ -1416,6 +1428,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -1598,6 +1612,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -1765,6 +1781,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -2004,6 +2022,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -2257,6 +2277,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -2444,6 +2466,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -2644,6 +2668,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -2833,6 +2859,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -3003,6 +3031,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -3167,6 +3197,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -3323,6 +3355,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -3477,6 +3511,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -3629,6 +3665,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -3784,6 +3822,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -3984,6 +4024,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -4190,6 +4232,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -4373,6 +4417,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -4564,6 +4610,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -4723,6 +4771,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -4882,6 +4932,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -5055,6 +5107,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -5228,6 +5282,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -5395,6 +5451,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -5563,6 +5621,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -5750,6 +5810,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -5964,6 +6026,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -6154,6 +6218,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -6314,6 +6380,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -6468,6 +6536,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -6635,6 +6705,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -6813,6 +6885,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -6981,6 +7055,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -7137,6 +7213,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -7293,6 +7371,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -7445,6 +7525,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -7592,6 +7674,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -7739,6 +7823,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -7889,6 +7975,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -8040,6 +8128,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -8200,6 +8290,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -8359,6 +8451,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -8507,6 +8601,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -8658,6 +8754,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -8799,6 +8897,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -8939,6 +9039,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -9092,6 +9194,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -9239,6 +9343,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -9391,6 +9497,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -9547,6 +9655,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -9711,6 +9821,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -9879,6 +9991,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -10043,6 +10157,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -10207,6 +10323,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -10361,6 +10479,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -10509,6 +10629,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -10680,6 +10802,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -10849,6 +10973,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -10991,6 +11117,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -11055,6 +11183,7 @@ internal class UnwrapWebhookEventTest {
                                         .status(OutboundMessagePayload.Cc.Status.QUEUED)
                                         .build()
                                 )
+                                .childMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .completedAt(null)
                                 .cost(
                                     OutboundMessagePayload.Cost.builder()
@@ -11121,6 +11250,7 @@ internal class UnwrapWebhookEventTest {
                                 .messagingProfileId("4000eba1-a0c0-4563-9925-b25e842a7cb6")
                                 .numChars(13L)
                                 .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
+                                .parentMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .parts(1L)
                                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                                 .recordType(OutboundMessagePayload.RecordType.MESSAGE)
@@ -11238,6 +11368,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -11272,6 +11404,7 @@ internal class UnwrapWebhookEventTest {
                                             .status(OutboundMessagePayload.Cc.Status.QUEUED)
                                             .build()
                                     )
+                                    .childMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .completedAt(null)
                                     .cost(
                                         OutboundMessagePayload.Cost.builder()
@@ -11341,6 +11474,7 @@ internal class UnwrapWebhookEventTest {
                                     .messagingProfileId("4000eba1-a0c0-4563-9925-b25e842a7cb6")
                                     .numChars(13L)
                                     .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
+                                    .parentMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .parts(1L)
                                     .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                                     .recordType(OutboundMessagePayload.RecordType.MESSAGE)
@@ -11505,6 +11639,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -11677,6 +11813,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -11847,6 +11985,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -12015,6 +12155,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -12183,6 +12325,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -12359,6 +12503,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -12592,7 +12738,7 @@ internal class UnwrapWebhookEventTest {
                                 .tcrCampaignId("TCPA3X7")
                                 .tcrCampaignRegistered("REGISTERED")
                                 .text("Hello, World!")
-                                .toOfUnnamedSchemaWithArrayParent0s(
+                                .toOfUnionMember0(
                                     listOf(
                                         MessagingInboundMessagePayload.To
                                             .UnnamedSchemaWithArrayParent0
@@ -12705,6 +12851,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -12893,7 +13041,7 @@ internal class UnwrapWebhookEventTest {
                                     .tcrCampaignId("TCPA3X7")
                                     .tcrCampaignRegistered("REGISTERED")
                                     .text("Hello, World!")
-                                    .toOfUnnamedSchemaWithArrayParent0s(
+                                    .toOfUnionMember0(
                                         listOf(
                                             MessagingInboundMessagePayload.To
                                                 .UnnamedSchemaWithArrayParent0
@@ -13107,6 +13255,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -13358,6 +13508,8 @@ internal class UnwrapWebhookEventTest {
             .contains(numberReputationExternalVerificationStatusChanged)
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -13557,6 +13709,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged())
             .contains(numberReputationNumberFlagged)
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -13753,6 +13907,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved())
             .contains(numberReputationNumberRemoved)
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -13810,6 +13966,290 @@ internal class UnwrapWebhookEventTest {
                             .deliveredTo("https://example.com/webhooks/telnyx")
                             .build()
                     )
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unwrapWebhookEvent))
+    }
+
+    @Test
+    fun ofRecordingExportFailed() {
+        val recordingExportFailed =
+            RecordingExportFailedWebhookEvent.builder()
+                .id("whdel_9f2c...")
+                .data(
+                    RecordingExportFailedWebhookEvent.Data.builder()
+                        .bucket("bucket")
+                        .key("key")
+                        .reason(RecordingExportFailedWebhookEvent.Data.Reason.INVALID_TARGET)
+                        .region("region")
+                        .sessionId("session_id")
+                        .build()
+                )
+                .event(RecordingExportFailedWebhookEvent.Event.RECORDING_EXPORT_FAILED)
+                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .version("1")
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofRecordingExportFailed(recordingExportFailed)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnalyzed()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationStartFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumCallScreeningDetected()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
+        assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).contains(recordingExportFailed)
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappWabaAdded()).isEmpty
+    }
+
+    @Test
+    fun ofRecordingExportFailedRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofRecordingExportFailed(
+                RecordingExportFailedWebhookEvent.builder()
+                    .id("whdel_9f2c...")
+                    .data(
+                        RecordingExportFailedWebhookEvent.Data.builder()
+                            .bucket("bucket")
+                            .key("key")
+                            .reason(RecordingExportFailedWebhookEvent.Data.Reason.INVALID_TARGET)
+                            .region("region")
+                            .sessionId("session_id")
+                            .build()
+                    )
+                    .event(RecordingExportFailedWebhookEvent.Event.RECORDING_EXPORT_FAILED)
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .version("1")
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(jsonMapper.writeValueAsString(roundtrippedUnwrapWebhookEvent))
+            .isEqualTo(jsonMapper.writeValueAsString(unwrapWebhookEvent))
+    }
+
+    @Test
+    fun ofRecordingExported() {
+        val recordingExported =
+            RecordingExportedWebhookEvent.builder()
+                .id("whdel_9f2c...")
+                .data(
+                    RecordingExportedWebhookEvent.Data.builder()
+                        .bucket("bucket")
+                        .bytes(1L)
+                        .key("key")
+                        .region("region")
+                        .sessionId("session_id")
+                        .sha256("ecc2efdd09bd231a9ad9bd2aada37aa7ccc3d38a03cc25beb6c28aa0aaa316be")
+                        .build()
+                )
+                .event(RecordingExportedWebhookEvent.Event.RECORDING_EXPORTED)
+                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .version("1")
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofRecordingExported(recordingExported)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.artifactFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnalyzed()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationStartFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionError()).isEmpty
+        assertThat(unwrapWebhookEvent.callDeepfakeDetectionResult()).isEmpty
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callHold()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumCallScreeningDetected()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callPaymentProgress()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callUnhold()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.hostedNumberOrderEvent()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
+        assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).contains(recordingExported)
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappAccountUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappMessageEcho()).isEmpty
+        assertThat(unwrapWebhookEvent.whatsappWabaAdded()).isEmpty
+    }
+
+    @Test
+    fun ofRecordingExportedRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofRecordingExported(
+                RecordingExportedWebhookEvent.builder()
+                    .id("whdel_9f2c...")
+                    .data(
+                        RecordingExportedWebhookEvent.Data.builder()
+                            .bucket("bucket")
+                            .bytes(1L)
+                            .key("key")
+                            .region("region")
+                            .sessionId("session_id")
+                            .sha256(
+                                "ecc2efdd09bd231a9ad9bd2aada37aa7ccc3d38a03cc25beb6c28aa0aaa316be"
+                            )
+                            .build()
+                    )
+                    .event(RecordingExportedWebhookEvent.Event.RECORDING_EXPORTED)
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .version("1")
                     .build()
             )
 
@@ -13916,6 +14356,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).contains(replacedLinkClick)
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -13964,6 +14406,9 @@ internal class UnwrapWebhookEventTest {
                         .sessionId("mtgsess_9b2f...")
                         .status("status")
                         .statusDetail("status_detail")
+                        .previousStatus(
+                            SessionStatusChangedWebhookEvent.Data.PreviousStatus.SCHEDULED
+                        )
                         .build()
                 )
                 .event(SessionStatusChangedWebhookEvent.Event.SESSION_STATUS_CHANGED)
@@ -14049,6 +14494,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).contains(sessionStatusChanged)
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -14071,6 +14518,9 @@ internal class UnwrapWebhookEventTest {
                             .sessionId("mtgsess_9b2f...")
                             .status("status")
                             .statusDetail("status_detail")
+                            .previousStatus(
+                                SessionStatusChangedWebhookEvent.Data.PreviousStatus.SCHEDULED
+                            )
                             .build()
                     )
                     .event(SessionStatusChangedWebhookEvent.Event.SESSION_STATUS_CHANGED)
@@ -14185,6 +14635,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).contains(transcriptCompleted)
@@ -14340,6 +14792,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -14500,6 +14954,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -14697,6 +15153,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty
@@ -14901,6 +15359,8 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.numberReputationExternalVerificationStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberFlagged()).isEmpty
         assertThat(unwrapWebhookEvent.numberReputationNumberRemoved()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExportFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.recordingExported()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
         assertThat(unwrapWebhookEvent.sessionStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.transcriptCompleted()).isEmpty

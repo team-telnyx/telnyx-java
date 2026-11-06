@@ -22,7 +22,12 @@ internal class MessagingMessagingProfileTest {
                 .dailySpendLimit("100.00")
                 .dailySpendLimitEnabled(false)
                 .enabled(true)
-                .features(MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build())
+                .features(
+                    MessagingProfileFeatures.builder()
+                        .aiOptOutDetectionEnabled(true)
+                        .autoChunkLongMessages(true)
+                        .build()
+                )
                 .healthWebhookUrl(null)
                 .mm7Metadata(
                     Mm7Metadata.builder()
@@ -75,7 +80,12 @@ internal class MessagingMessagingProfileTest {
         assertThat(messagingMessagingProfile.dailySpendLimitEnabled()).contains(false)
         assertThat(messagingMessagingProfile.enabled()).contains(true)
         assertThat(messagingMessagingProfile.features())
-            .contains(MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build())
+            .contains(
+                MessagingProfileFeatures.builder()
+                    .aiOptOutDetectionEnabled(true)
+                    .autoChunkLongMessages(true)
+                    .build()
+            )
         assertThat(messagingMessagingProfile.healthWebhookUrl()).isEmpty
         assertThat(messagingMessagingProfile.mm7Metadata())
             .contains(
@@ -138,7 +148,12 @@ internal class MessagingMessagingProfileTest {
                 .dailySpendLimit("100.00")
                 .dailySpendLimitEnabled(false)
                 .enabled(true)
-                .features(MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build())
+                .features(
+                    MessagingProfileFeatures.builder()
+                        .aiOptOutDetectionEnabled(true)
+                        .autoChunkLongMessages(true)
+                        .build()
+                )
                 .healthWebhookUrl(null)
                 .mm7Metadata(
                     Mm7Metadata.builder()

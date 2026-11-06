@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.ai.assistants
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -17,6 +18,11 @@ internal class ExternalLlmReqTest {
                 .model("model")
                 .authenticationMethod(AuthenticationMethod.TOKEN)
                 .certificateRef("certificate_ref")
+                .extraHeaders(
+                    ExternalLlmReq.ExtraHeaders.builder()
+                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                        .build()
+                )
                 .forwardMetadata(true)
                 .llmApiKeyRef("llm_api_key_ref")
                 .tokenRetrievalUrl("token_retrieval_url")
@@ -26,6 +32,12 @@ internal class ExternalLlmReqTest {
         assertThat(externalLlmReq.model()).isEqualTo("model")
         assertThat(externalLlmReq.authenticationMethod()).contains(AuthenticationMethod.TOKEN)
         assertThat(externalLlmReq.certificateRef()).contains("certificate_ref")
+        assertThat(externalLlmReq.extraHeaders())
+            .contains(
+                ExternalLlmReq.ExtraHeaders.builder()
+                    .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                    .build()
+            )
         assertThat(externalLlmReq.forwardMetadata()).contains(true)
         assertThat(externalLlmReq.llmApiKeyRef()).contains("llm_api_key_ref")
         assertThat(externalLlmReq.tokenRetrievalUrl()).contains("token_retrieval_url")
@@ -40,6 +52,11 @@ internal class ExternalLlmReqTest {
                 .model("model")
                 .authenticationMethod(AuthenticationMethod.TOKEN)
                 .certificateRef("certificate_ref")
+                .extraHeaders(
+                    ExternalLlmReq.ExtraHeaders.builder()
+                        .putAdditionalProperty("foo", JsonValue.from(">Q0]"))
+                        .build()
+                )
                 .forwardMetadata(true)
                 .llmApiKeyRef("llm_api_key_ref")
                 .tokenRetrievalUrl("token_retrieval_url")
