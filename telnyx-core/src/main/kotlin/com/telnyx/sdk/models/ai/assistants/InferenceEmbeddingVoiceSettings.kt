@@ -152,7 +152,8 @@ private constructor(
     /**
      * Two-letter ISO 639-1 code of the language the voice speaks, for example `es`. Only applicable
      * to Soniox and AssemblyAI voices, which speak every language of their model. AssemblyAI
-     * accepts `en`, `es`, `de`, `fr`, `it`, and `pt`. When unset, the voice speaks English.
+     * accepts `en`, `es`, `de`, `fr`, `it`, and `pt`, as a literal code: a dynamic variable is
+     * rejected. When unset, the voice speaks English.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -504,8 +505,8 @@ private constructor(
         /**
          * Two-letter ISO 639-1 code of the language the voice speaks, for example `es`. Only
          * applicable to Soniox and AssemblyAI voices, which speak every language of their model.
-         * AssemblyAI accepts `en`, `es`, `de`, `fr`, `it`, and `pt`. When unset, the voice speaks
-         * English.
+         * AssemblyAI accepts `en`, `es`, `de`, `fr`, `it`, and `pt`, as a literal code: a dynamic
+         * variable is rejected. When unset, the voice speaks English.
          */
         fun language(language: String?) = language(JsonField.ofNullable(language))
 
