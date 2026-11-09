@@ -115,6 +115,8 @@ private constructor(
         null,
     private val numberReputationNumberFlagged: NumberReputationNumberFlaggedWebhookEvent? = null,
     private val numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent? = null,
+    private val recordingExportFailed: RecordingExportFailedWebhookEvent? = null,
+    private val recordingExported: RecordingExportedWebhookEvent? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
     private val sessionStatusChanged: SessionStatusChangedWebhookEvent? = null,
     private val transcriptCompleted: TranscriptCompletedWebhookEvent? = null,
@@ -342,6 +344,12 @@ private constructor(
     fun numberReputationNumberRemoved(): Optional<NumberReputationNumberRemovedWebhookEvent> =
         Optional.ofNullable(numberReputationNumberRemoved)
 
+    fun recordingExportFailed(): Optional<RecordingExportFailedWebhookEvent> =
+        Optional.ofNullable(recordingExportFailed)
+
+    fun recordingExported(): Optional<RecordingExportedWebhookEvent> =
+        Optional.ofNullable(recordingExported)
+
     fun replacedLinkClick(): Optional<ReplacedLinkClickWebhookEvent> =
         Optional.ofNullable(replacedLinkClick)
 
@@ -516,6 +524,10 @@ private constructor(
     fun isNumberReputationNumberFlagged(): Boolean = numberReputationNumberFlagged != null
 
     fun isNumberReputationNumberRemoved(): Boolean = numberReputationNumberRemoved != null
+
+    fun isRecordingExportFailed(): Boolean = recordingExportFailed != null
+
+    fun isRecordingExported(): Boolean = recordingExported != null
 
     fun isReplacedLinkClick(): Boolean = replacedLinkClick != null
 
@@ -746,6 +758,12 @@ private constructor(
     fun asNumberReputationNumberRemoved(): NumberReputationNumberRemovedWebhookEvent =
         numberReputationNumberRemoved.getOrThrow("numberReputationNumberRemoved")
 
+    fun asRecordingExportFailed(): RecordingExportFailedWebhookEvent =
+        recordingExportFailed.getOrThrow("recordingExportFailed")
+
+    fun asRecordingExported(): RecordingExportedWebhookEvent =
+        recordingExported.getOrThrow("recordingExported")
+
     fun asReplacedLinkClick(): ReplacedLinkClickWebhookEvent =
         replacedLinkClick.getOrThrow("replacedLinkClick")
 
@@ -912,6 +930,9 @@ private constructor(
                 visitor.visitNumberReputationNumberFlagged(numberReputationNumberFlagged)
             numberReputationNumberRemoved != null ->
                 visitor.visitNumberReputationNumberRemoved(numberReputationNumberRemoved)
+            recordingExportFailed != null ->
+                visitor.visitRecordingExportFailed(recordingExportFailed)
+            recordingExported != null -> visitor.visitRecordingExported(recordingExported)
             replacedLinkClick != null -> visitor.visitReplacedLinkClick(replacedLinkClick)
             sessionStatusChanged != null -> visitor.visitSessionStatusChanged(sessionStatusChanged)
             transcriptCompleted != null -> visitor.visitTranscriptCompleted(transcriptCompleted)
@@ -1343,6 +1364,18 @@ private constructor(
                     numberReputationNumberRemoved.validate()
                 }
 
+                override fun visitRecordingExportFailed(
+                    recordingExportFailed: RecordingExportFailedWebhookEvent
+                ) {
+                    recordingExportFailed.validate()
+                }
+
+                override fun visitRecordingExported(
+                    recordingExported: RecordingExportedWebhookEvent
+                ) {
+                    recordingExported.validate()
+                }
+
                 override fun visitReplacedLinkClick(
                     replacedLinkClick: ReplacedLinkClickWebhookEvent
                 ) {
@@ -1677,6 +1710,14 @@ private constructor(
                     numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent
                 ) = numberReputationNumberRemoved.validity()
 
+                override fun visitRecordingExportFailed(
+                    recordingExportFailed: RecordingExportFailedWebhookEvent
+                ) = recordingExportFailed.validity()
+
+                override fun visitRecordingExported(
+                    recordingExported: RecordingExportedWebhookEvent
+                ) = recordingExported.validity()
+
                 override fun visitReplacedLinkClick(
                     replacedLinkClick: ReplacedLinkClickWebhookEvent
                 ) = replacedLinkClick.validity()
@@ -1791,6 +1832,8 @@ private constructor(
                 other.numberReputationExternalVerificationStatusChanged &&
             numberReputationNumberFlagged == other.numberReputationNumberFlagged &&
             numberReputationNumberRemoved == other.numberReputationNumberRemoved &&
+            recordingExportFailed == other.recordingExportFailed &&
+            recordingExported == other.recordingExported &&
             replacedLinkClick == other.replacedLinkClick &&
             sessionStatusChanged == other.sessionStatusChanged &&
             transcriptCompleted == other.transcriptCompleted &&
@@ -1878,6 +1921,8 @@ private constructor(
             numberReputationExternalVerificationStatusChanged,
             numberReputationNumberFlagged,
             numberReputationNumberRemoved,
+            recordingExportFailed,
+            recordingExported,
             replacedLinkClick,
             sessionStatusChanged,
             transcriptCompleted,
@@ -2019,6 +2064,10 @@ private constructor(
                 "UnsafeUnwrapWebhookEvent{numberReputationNumberFlagged=$numberReputationNumberFlagged}"
             numberReputationNumberRemoved != null ->
                 "UnsafeUnwrapWebhookEvent{numberReputationNumberRemoved=$numberReputationNumberRemoved}"
+            recordingExportFailed != null ->
+                "UnsafeUnwrapWebhookEvent{recordingExportFailed=$recordingExportFailed}"
+            recordingExported != null ->
+                "UnsafeUnwrapWebhookEvent{recordingExported=$recordingExported}"
             replacedLinkClick != null ->
                 "UnsafeUnwrapWebhookEvent{replacedLinkClick=$replacedLinkClick}"
             sessionStatusChanged != null ->
@@ -2407,6 +2456,14 @@ private constructor(
         ) = UnsafeUnwrapWebhookEvent(numberReputationNumberRemoved = numberReputationNumberRemoved)
 
         @JvmStatic
+        fun ofRecordingExportFailed(recordingExportFailed: RecordingExportFailedWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(recordingExportFailed = recordingExportFailed)
+
+        @JvmStatic
+        fun ofRecordingExported(recordingExported: RecordingExportedWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(recordingExported = recordingExported)
+
+        @JvmStatic
         fun ofReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent) =
             UnsafeUnwrapWebhookEvent(replacedLinkClick = replacedLinkClick)
 
@@ -2652,6 +2709,10 @@ private constructor(
         fun visitNumberReputationNumberRemoved(
             numberReputationNumberRemoved: NumberReputationNumberRemovedWebhookEvent
         ): T
+
+        fun visitRecordingExportFailed(recordingExportFailed: RecordingExportFailedWebhookEvent): T
+
+        fun visitRecordingExported(recordingExported: RecordingExportedWebhookEvent): T
 
         fun visitReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent): T
 
@@ -3100,6 +3161,13 @@ private constructor(
                                     _json = json,
                                 )
                             },
+                        tryDeserialize(node, jacksonTypeRef<RecordingExportFailedWebhookEvent>())
+                            ?.let {
+                                UnsafeUnwrapWebhookEvent(recordingExportFailed = it, _json = json)
+                            },
+                        tryDeserialize(node, jacksonTypeRef<RecordingExportedWebhookEvent>())?.let {
+                            UnsafeUnwrapWebhookEvent(recordingExported = it, _json = json)
+                        },
                         tryDeserialize(node, jacksonTypeRef<ReplacedLinkClickWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(replacedLinkClick = it, _json = json)
                         },
@@ -3263,6 +3331,9 @@ private constructor(
                     generator.writeObject(value.numberReputationNumberFlagged)
                 value.numberReputationNumberRemoved != null ->
                     generator.writeObject(value.numberReputationNumberRemoved)
+                value.recordingExportFailed != null ->
+                    generator.writeObject(value.recordingExportFailed)
+                value.recordingExported != null -> generator.writeObject(value.recordingExported)
                 value.replacedLinkClick != null -> generator.writeObject(value.replacedLinkClick)
                 value.sessionStatusChanged != null ->
                     generator.writeObject(value.sessionStatusChanged)

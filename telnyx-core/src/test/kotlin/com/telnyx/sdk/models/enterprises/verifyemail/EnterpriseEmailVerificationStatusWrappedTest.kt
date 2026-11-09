@@ -15,13 +15,10 @@ internal class EnterpriseEmailVerificationStatusWrappedTest {
         val enterpriseEmailVerificationStatusWrapped =
             EnterpriseEmailVerificationStatusWrapped.builder()
                 .data(
-                    EnterpriseEmailVerificationStatusWrapped.Data.builder()
+                    EnterpriseEmailVerificationStatus.builder()
                         .emailVerified(false)
-                        .recordType(
-                            EnterpriseEmailVerificationStatusWrapped.Data.RecordType
-                                .EMAIL_VERIFICATION
-                        )
-                        .status(EnterpriseEmailVerificationStatusWrapped.Data.Status.SENT)
+                        .recordType(EnterpriseEmailVerificationStatus.RecordType.EMAIL_VERIFICATION)
+                        .status(EnterpriseEmailVerificationStatus.Status.SENT)
                         .expiresAt(OffsetDateTime.parse("2026-07-30T17:15:00Z"))
                         .sendsRemainingToday(9L)
                         .build()
@@ -30,12 +27,10 @@ internal class EnterpriseEmailVerificationStatusWrappedTest {
 
         assertThat(enterpriseEmailVerificationStatusWrapped.data())
             .isEqualTo(
-                EnterpriseEmailVerificationStatusWrapped.Data.builder()
+                EnterpriseEmailVerificationStatus.builder()
                     .emailVerified(false)
-                    .recordType(
-                        EnterpriseEmailVerificationStatusWrapped.Data.RecordType.EMAIL_VERIFICATION
-                    )
-                    .status(EnterpriseEmailVerificationStatusWrapped.Data.Status.SENT)
+                    .recordType(EnterpriseEmailVerificationStatus.RecordType.EMAIL_VERIFICATION)
+                    .status(EnterpriseEmailVerificationStatus.Status.SENT)
                     .expiresAt(OffsetDateTime.parse("2026-07-30T17:15:00Z"))
                     .sendsRemainingToday(9L)
                     .build()
@@ -48,13 +43,10 @@ internal class EnterpriseEmailVerificationStatusWrappedTest {
         val enterpriseEmailVerificationStatusWrapped =
             EnterpriseEmailVerificationStatusWrapped.builder()
                 .data(
-                    EnterpriseEmailVerificationStatusWrapped.Data.builder()
+                    EnterpriseEmailVerificationStatus.builder()
                         .emailVerified(false)
-                        .recordType(
-                            EnterpriseEmailVerificationStatusWrapped.Data.RecordType
-                                .EMAIL_VERIFICATION
-                        )
-                        .status(EnterpriseEmailVerificationStatusWrapped.Data.Status.SENT)
+                        .recordType(EnterpriseEmailVerificationStatus.RecordType.EMAIL_VERIFICATION)
+                        .status(EnterpriseEmailVerificationStatus.Status.SENT)
                         .expiresAt(OffsetDateTime.parse("2026-07-30T17:15:00Z"))
                         .sendsRemainingToday(9L)
                         .build()

@@ -26,6 +26,7 @@ internal class OutboundMessagePayloadTest {
                         .status(OutboundMessagePayload.Cc.Status.QUEUED)
                         .build()
                 )
+                .childMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .completedAt(null)
                 .cost(
                     OutboundMessagePayload.Cost.builder().amount("0.0051").currency("USD").build()
@@ -88,6 +89,7 @@ internal class OutboundMessagePayloadTest {
                 .messagingProfileId("4000eba1-a0c0-4563-9925-b25e842a7cb6")
                 .numChars(13L)
                 .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
+                .parentMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .parts(1L)
                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(OutboundMessagePayload.RecordType.MESSAGE)
@@ -128,6 +130,8 @@ internal class OutboundMessagePayloadTest {
                     .status(OutboundMessagePayload.Cc.Status.QUEUED)
                     .build()
             )
+        assertThat(outboundMessagePayload.childMessageId())
+            .contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(outboundMessagePayload.completedAt()).isEmpty
         assertThat(outboundMessagePayload.cost())
             .contains(
@@ -198,6 +202,8 @@ internal class OutboundMessagePayloadTest {
         assertThat(outboundMessagePayload.numChars()).contains(13L)
         assertThat(outboundMessagePayload.organizationId())
             .contains("b448f9cc-a842-4784-98e9-03c1a5872950")
+        assertThat(outboundMessagePayload.parentMessageId())
+            .contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(outboundMessagePayload.parts()).contains(1L)
         assertThat(outboundMessagePayload.receivedAt())
             .contains(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
@@ -245,6 +251,7 @@ internal class OutboundMessagePayloadTest {
                         .status(OutboundMessagePayload.Cc.Status.QUEUED)
                         .build()
                 )
+                .childMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .completedAt(null)
                 .cost(
                     OutboundMessagePayload.Cost.builder().amount("0.0051").currency("USD").build()
@@ -307,6 +314,7 @@ internal class OutboundMessagePayloadTest {
                 .messagingProfileId("4000eba1-a0c0-4563-9925-b25e842a7cb6")
                 .numChars(13L)
                 .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
+                .parentMessageId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .parts(1L)
                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(OutboundMessagePayload.RecordType.MESSAGE)

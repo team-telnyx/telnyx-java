@@ -20,7 +20,7 @@ internal class GenericPayConnectorConfigTest {
             GenericPayConnectorConfig.BasicAuthenticationAlsoTheValidationDefault.builder()
                 .password("P")
                 .username("P")
-                .token(JsonValue.from(mapOf<String, Any>()))
+                .token("token")
                 .authType(
                     GenericPayConnectorConfig.BasicAuthenticationAlsoTheValidationDefault.AuthType
                         .BASIC
@@ -48,7 +48,7 @@ internal class GenericPayConnectorConfigTest {
                 GenericPayConnectorConfig.BasicAuthenticationAlsoTheValidationDefault.builder()
                     .password("P")
                     .username("P")
-                    .token(JsonValue.from(mapOf<String, Any>()))
+                    .token("token")
                     .authType(
                         GenericPayConnectorConfig.BasicAuthenticationAlsoTheValidationDefault
                             .AuthType
@@ -75,9 +75,9 @@ internal class GenericPayConnectorConfigTest {
             GenericPayConnectorConfig.BearerAuthentication.builder()
                 .token("P")
                 .endpointUrl("https://processor.example.com/pay")
-                .password(JsonValue.from(mapOf<String, Any>()))
+                .password("password")
                 .timeout(1L)
-                .username(JsonValue.from(mapOf<String, Any>()))
+                .username("username")
                 .build()
 
         val genericPayConnectorConfig =
@@ -96,9 +96,9 @@ internal class GenericPayConnectorConfigTest {
                 GenericPayConnectorConfig.BearerAuthentication.builder()
                     .token("P")
                     .endpointUrl("https://processor.example.com/pay")
-                    .password(JsonValue.from(mapOf<String, Any>()))
+                    .password("password")
                     .timeout(1L)
-                    .username(JsonValue.from(mapOf<String, Any>()))
+                    .username("username")
                     .build()
             )
 
@@ -116,11 +116,11 @@ internal class GenericPayConnectorConfigTest {
     fun ofNoProcessorAuthentication() {
         val noProcessorAuthentication =
             GenericPayConnectorConfig.NoProcessorAuthentication.builder()
-                .token(JsonValue.from(mapOf<String, Any>()))
+                .token("token")
                 .endpointUrl("https://processor.example.com/pay")
-                .password(JsonValue.from(mapOf<String, Any>()))
+                .password("password")
                 .timeout(1L)
-                .username(JsonValue.from(mapOf<String, Any>()))
+                .username("username")
                 .build()
 
         val genericPayConnectorConfig =
@@ -138,11 +138,11 @@ internal class GenericPayConnectorConfigTest {
         val genericPayConnectorConfig =
             GenericPayConnectorConfig.ofNoProcessorAuthentication(
                 GenericPayConnectorConfig.NoProcessorAuthentication.builder()
-                    .token(JsonValue.from(mapOf<String, Any>()))
+                    .token("token")
                     .endpointUrl("https://processor.example.com/pay")
-                    .password(JsonValue.from(mapOf<String, Any>()))
+                    .password("password")
                     .timeout(1L)
-                    .username(JsonValue.from(mapOf<String, Any>()))
+                    .username("username")
                     .build()
             )
 

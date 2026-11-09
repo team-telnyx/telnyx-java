@@ -34,19 +34,18 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Creates a new meeting session. When an idempotency_key is supplied in the request body, replay
- * lookup is scoped to the authenticated account and compares only the key; the request payload is
- * not fingerprinted or compared. If a session with that key already exists for the account, the
- * existing session is replayed (200); otherwise a new session is created (201). The session may
- * enter asynchronous states (e.g. joining, waiting_for_admission) before becoming active. Optional
- * `camera_image` input is write-only and applies only when no avatar or Assistant webpage output
- * takes precedence. An ignored URL is not fetched. An effective URL source is resolved before bot
- * creation; neither the source URL nor image bytes are persisted, returned, or logged. Treat signed
- * URLs as credentials. With `assistant.avatar: true`, the assistant is read before the bot is
- * created: an assistant without a Telnyx avatar configured is rejected with 400 `invalid_request`
- * (message prefix `assistant_avatar_not_configured:`), an unknown assistant with 400
- * `invalid_request` (prefix `assistant_not_found:`), and a failed lookup with 503
- * `assistant_lookup_unavailable`; no bot is created in any of these cases.
+ * Creates a meeting session and returns 201, or 200 for a replay. Use a unique `idempotency_key`
+ * per intended join and reuse the same key and request on retries. Reusing a key with a different
+ * join configuration or meeting URL can return 409 invalid_state. Always retry with the original
+ * request. The session can pass through joining and waiting_for_admission before active. Optional
+ * `camera_image` input is write-only and applies when no assistant avatar takes precedence. An
+ * ignored URL is not fetched. An effective URL source is resolved before bot creation; the source
+ * URL and image bytes are not returned in the session response. Treat signed URLs as credentials.
+ * With `assistant.avatar: true`, the assistant is read before the bot is created: an assistant
+ * without a Telnyx avatar configured is rejected with 400 `invalid_request` (message prefix
+ * `assistant_avatar_not_configured:`), an unknown assistant with 400 `invalid_request` (prefix
+ * `assistant_not_found:`), and a failed lookup with 503 `assistant_lookup_unavailable`; no bot is
+ * created in any of these cases.
  */
 class MeetingSessionCreateParams
 private constructor(
@@ -64,9 +63,8 @@ private constructor(
     fun meetingUrl(): String = body.meetingUrl()
 
     /**
-     * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the Meeting service
-     * connects it to the meeting directly. The Call Control connection, caller ID and loopback SIP
-     * URI previously required here have been removed and are now rejected as unknown fields.
+     * Attach a Telnyx AI Assistant owned by the authenticated account. Supply its ID and optional
+     * conversation settings. Unknown fields are rejected.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -92,11 +90,12 @@ private constructor(
     fun botName(): Optional<String> = body.botName()
 
     /**
-     * Write-only static camera-tile image for this session, not a native account or participant
-     * profile photo. Supply exactly one JPEG source. When effective, the image is used as the bot's
-     * static camera/video output; presentation varies by meeting platform and recording
-     * configuration and is not guaranteed in recordings. An effective Avatar or Assistant webpage
-     * output takes precedence, so this input is ignored and a URL source is not fetched.
+     * Not supported for Google Meet and Teams joins (422 unsupported_capability). Write-only static
+     * camera-tile image for this session, not an account or participant profile photo. Supply
+     * exactly one JPEG source. When effective, the image is used as the bot's static camera/video
+     * output; presentation varies by meeting platform and recording configuration and is not
+     * guaranteed in recordings. An attached assistant or avatar takes precedence, so this input is
+     * ignored and a URL source is not fetched.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -107,7 +106,9 @@ private constructor(
      * A message the bot posts to the meeting's chat as soon as it becomes active — typically a
      * recording disclosure. Delivered at most once. Independent of `speak_on_enter`: both may be
      * set, and the chat message posts first because it does not wait for text-to-speech or avatar
-     * startup. Rejected with 422 `unsupported_capability` on platforms without meeting chat.
+     * startup. Rejected with 422 `unsupported_capability` on platforms without meeting chat. For
+     * Google Meet and Teams, text must be nonblank, at most 4096 UTF-8 bytes, with no control
+     * characters except tabs and line breaks. Counts toward the 1000-chat-request session limit.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -115,9 +116,9 @@ private constructor(
     fun chatOnEnter(): Optional<String> = body.chatOnEnter()
 
     /**
-     * Client-supplied idempotency key to safely retry creation requests without duplicating
-     * sessions. Lookup is scoped to the authenticated account and compares the key only; the
-     * request payload is not fingerprinted or compared.
+     * Use a unique key per intended join and reuse the same key and request on retries. Reusing a
+     * key with a different join configuration or meeting URL can return 409 invalid_state. Always
+     * retry with the original request.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -125,13 +126,23 @@ private constructor(
     fun idempotencyKey(): Optional<String> = body.idempotencyKey()
 
     /**
-     * ISO-8601 timestamp in the future at which the bot should join. If omitted, the bot joins
-     * immediately.
+     * Future ISO-8601 join timestamp including timezone. Google Meet and Teams accept dates at most
+     * three years ahead. Omit for an immediate join. Assistant sessions created through this
+     * endpoint must join immediately.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun joinAt(): Optional<OffsetDateTime> = body.joinAt()
+
+    /**
+     * Automatic departure settings for Google Meet and Teams. Omitted fields use the default
+     * behavior. Set at creation; cannot be changed later. Zoom ignores this policy.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun leavePolicy(): Optional<MeetingSessionLeavePolicy> = body.leavePolicy()
 
     /**
      * Arbitrary key-value metadata attached to the session. The serialized JSON representation must
@@ -143,11 +154,39 @@ private constructor(
     fun metadata(): Optional<Metadata> = body.metadata()
 
     /**
-     * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
-     * attached**: the value is accepted and echoed back on the session, but the assistant owns the
-     * voice and the line is never delivered, with no event reporting the omission. Use
-     * `chat_on_enter` to announce an assistant-backed bot. Rejected with 400 `invalid_request` when
-     * `assistant.avatar` is `true`.
+     * Google Meet and Teams only. Defaults to true when recording_export is supplied and false
+     * otherwise. True requires recording_export.bucket; false cannot be combined with
+     * recording_export. Fixed at creation, with no pause/resume action. Zoom rejects recording,
+     * recording_view, and recording_export with 422 unsupported_capability; omit these fields for
+     * Zoom.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recording(): Optional<Boolean> = body.recording()
+
+    /**
+     * Customer-owned Telnyx Storage destination for recording exports. Uses the authenticated
+     * organization and user; do not supply credentials, region, organization ID or object key.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordingExport(): Optional<MeetingSessionRecordingDestination> = body.recordingExport()
+
+    /**
+     * Recording layout for Google Meet and Teams. Defaults to speaker_view. Accepted at creation
+     * only; does not enable recording by itself.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordingView(): Optional<RecordingView> = body.recordingView()
+
+    /**
+     * Text the bot speaks after joining. Available for sessions without a digital avatar. With an
+     * AI Assistant, the greeting waits until the assistant is connected. Rejected with 400
+     * invalid_request when assistant.avatar is true.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -164,7 +203,8 @@ private constructor(
 
     /**
      * Session-default voice identifier used for `speak_on_enter` and ordinary speak actions. A
-     * voice supplied on an individual speak action overrides this default for that utterance.
+     * voice supplied on an individual speak action overrides this default for that utterance. With
+     * an assistant attached, its conversational voice remains configured on the assistant.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -238,11 +278,39 @@ private constructor(
     fun _joinAt(): JsonField<OffsetDateTime> = body._joinAt()
 
     /**
+     * Returns the raw JSON value of [leavePolicy].
+     *
+     * Unlike [leavePolicy], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _leavePolicy(): JsonField<MeetingSessionLeavePolicy> = body._leavePolicy()
+
+    /**
      * Returns the raw JSON value of [metadata].
      *
      * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _metadata(): JsonField<Metadata> = body._metadata()
+
+    /**
+     * Returns the raw JSON value of [recording].
+     *
+     * Unlike [recording], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _recording(): JsonField<Boolean> = body._recording()
+
+    /**
+     * Returns the raw JSON value of [recordingExport].
+     *
+     * Unlike [recordingExport], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _recordingExport(): JsonField<MeetingSessionRecordingDestination> = body._recordingExport()
+
+    /**
+     * Returns the raw JSON value of [recordingView].
+     *
+     * Unlike [recordingView], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _recordingView(): JsonField<RecordingView> = body._recordingView()
 
     /**
      * Returns the raw JSON value of [speakOnEnter].
@@ -337,10 +405,8 @@ private constructor(
         fun meetingUrl(meetingUrl: JsonField<String>) = apply { body.meetingUrl(meetingUrl) }
 
         /**
-         * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the Meeting
-         * service connects it to the meeting directly. The Call Control connection, caller ID and
-         * loopback SIP URI previously required here have been removed and are now rejected as
-         * unknown fields.
+         * Attach a Telnyx AI Assistant owned by the authenticated account. Supply its ID and
+         * optional conversation settings. Unknown fields are rejected.
          */
         fun assistant(assistant: Assistant) = apply { body.assistant(assistant) }
 
@@ -380,12 +446,12 @@ private constructor(
         fun botName(botName: JsonField<String>) = apply { body.botName(botName) }
 
         /**
-         * Write-only static camera-tile image for this session, not a native account or participant
-         * profile photo. Supply exactly one JPEG source. When effective, the image is used as the
-         * bot's static camera/video output; presentation varies by meeting platform and recording
-         * configuration and is not guaranteed in recordings. An effective Avatar or Assistant
-         * webpage output takes precedence, so this input is ignored and a URL source is not
-         * fetched.
+         * Not supported for Google Meet and Teams joins (422 unsupported_capability). Write-only
+         * static camera-tile image for this session, not an account or participant profile photo.
+         * Supply exactly one JPEG source. When effective, the image is used as the bot's static
+         * camera/video output; presentation varies by meeting platform and recording configuration
+         * and is not guaranteed in recordings. An attached assistant or avatar takes precedence, so
+         * this input is ignored and a URL source is not fetched.
          */
         fun cameraImage(cameraImage: CameraImage) = apply { body.cameraImage(cameraImage) }
 
@@ -421,7 +487,9 @@ private constructor(
          * recording disclosure. Delivered at most once. Independent of `speak_on_enter`: both may
          * be set, and the chat message posts first because it does not wait for text-to-speech or
          * avatar startup. Rejected with 422 `unsupported_capability` on platforms without meeting
-         * chat.
+         * chat. For Google Meet and Teams, text must be nonblank, at most 4096 UTF-8 bytes, with no
+         * control characters except tabs and line breaks. Counts toward the 1000-chat-request
+         * session limit.
          */
         fun chatOnEnter(chatOnEnter: String) = apply { body.chatOnEnter(chatOnEnter) }
 
@@ -435,9 +503,9 @@ private constructor(
         fun chatOnEnter(chatOnEnter: JsonField<String>) = apply { body.chatOnEnter(chatOnEnter) }
 
         /**
-         * Client-supplied idempotency key to safely retry creation requests without duplicating
-         * sessions. Lookup is scoped to the authenticated account and compares the key only; the
-         * request payload is not fingerprinted or compared.
+         * Use a unique key per intended join and reuse the same key and request on retries. Reusing
+         * a key with a different join configuration or meeting URL can return 409 invalid_state.
+         * Always retry with the original request.
          */
         fun idempotencyKey(idempotencyKey: String) = apply { body.idempotencyKey(idempotencyKey) }
 
@@ -453,8 +521,9 @@ private constructor(
         }
 
         /**
-         * ISO-8601 timestamp in the future at which the bot should join. If omitted, the bot joins
-         * immediately.
+         * Future ISO-8601 join timestamp including timezone. Google Meet and Teams accept dates at
+         * most three years ahead. Omit for an immediate join. Assistant sessions created through
+         * this endpoint must join immediately.
          */
         fun joinAt(joinAt: OffsetDateTime) = apply { body.joinAt(joinAt) }
 
@@ -466,6 +535,25 @@ private constructor(
          * supported value.
          */
         fun joinAt(joinAt: JsonField<OffsetDateTime>) = apply { body.joinAt(joinAt) }
+
+        /**
+         * Automatic departure settings for Google Meet and Teams. Omitted fields use the default
+         * behavior. Set at creation; cannot be changed later. Zoom ignores this policy.
+         */
+        fun leavePolicy(leavePolicy: MeetingSessionLeavePolicy) = apply {
+            body.leavePolicy(leavePolicy)
+        }
+
+        /**
+         * Sets [Builder.leavePolicy] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.leavePolicy] with a well-typed
+         * [MeetingSessionLeavePolicy] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun leavePolicy(leavePolicy: JsonField<MeetingSessionLeavePolicy>) = apply {
+            body.leavePolicy(leavePolicy)
+        }
 
         /**
          * Arbitrary key-value metadata attached to the session. The serialized JSON representation
@@ -483,11 +571,66 @@ private constructor(
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         /**
-         * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
-         * attached**: the value is accepted and echoed back on the session, but the assistant owns
-         * the voice and the line is never delivered, with no event reporting the omission. Use
-         * `chat_on_enter` to announce an assistant-backed bot. Rejected with 400 `invalid_request`
-         * when `assistant.avatar` is `true`.
+         * Google Meet and Teams only. Defaults to true when recording_export is supplied and false
+         * otherwise. True requires recording_export.bucket; false cannot be combined with
+         * recording_export. Fixed at creation, with no pause/resume action. Zoom rejects recording,
+         * recording_view, and recording_export with 422 unsupported_capability; omit these fields
+         * for Zoom.
+         */
+        fun recording(recording: Boolean) = apply { body.recording(recording) }
+
+        /**
+         * Sets [Builder.recording] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recording] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun recording(recording: JsonField<Boolean>) = apply { body.recording(recording) }
+
+        /**
+         * Customer-owned Telnyx Storage destination for recording exports. Uses the authenticated
+         * organization and user; do not supply credentials, region, organization ID or object key.
+         */
+        fun recordingExport(recordingExport: MeetingSessionRecordingDestination) = apply {
+            body.recordingExport(recordingExport)
+        }
+
+        /**
+         * Sets [Builder.recordingExport] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordingExport] with a well-typed
+         * [MeetingSessionRecordingDestination] value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
+         */
+        fun recordingExport(recordingExport: JsonField<MeetingSessionRecordingDestination>) =
+            apply {
+                body.recordingExport(recordingExport)
+            }
+
+        /**
+         * Recording layout for Google Meet and Teams. Defaults to speaker_view. Accepted at
+         * creation only; does not enable recording by itself.
+         */
+        fun recordingView(recordingView: RecordingView) = apply {
+            body.recordingView(recordingView)
+        }
+
+        /**
+         * Sets [Builder.recordingView] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordingView] with a well-typed [RecordingView] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recordingView(recordingView: JsonField<RecordingView>) = apply {
+            body.recordingView(recordingView)
+        }
+
+        /**
+         * Text the bot speaks after joining. Available for sessions without a digital avatar. With
+         * an AI Assistant, the greeting waits until the assistant is connected. Rejected with 400
+         * invalid_request when assistant.avatar is true.
          */
         fun speakOnEnter(speakOnEnter: String) = apply { body.speakOnEnter(speakOnEnter) }
 
@@ -519,6 +662,7 @@ private constructor(
         /**
          * Session-default voice identifier used for `speak_on_enter` and ordinary speak actions. A
          * voice supplied on an individual speak action overrides this default for that utterance.
+         * With an assistant attached, its conversational voice remains configured on the assistant.
          */
         fun voice(voice: String) = apply { body.voice(voice) }
 
@@ -701,10 +845,13 @@ private constructor(
      *   through its avatar.
      * - The `assistant` options, including `avatar`, take effect at session creation and cannot be
      *   modified later.
-     * - A digital avatar or Assistant webpage output takes precedence over `camera_image`; the
-     *   static image is ignored and a URL source is not fetched.
-     * - The former top-level `avatar` object (bring-your-own-key avatar) has been removed and is
-     *   rejected with 400 `invalid_request`; use `assistant.avatar` instead.
+     * - An avatar takes precedence over `camera_image`; ordinary assistant sessions can use a
+     *   static camera image.
+     *
+     * Google Meet and Teams recording requires a recording_export destination. Use join_at to
+     * schedule a meeting, or omit it to join now. Zoom recordings are enabled automatically; Zoom
+     * does not support recording, recording_view or recording_export, and ignores leave_policy.
+     * Digital avatars require avatar support.
      */
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -717,7 +864,11 @@ private constructor(
         private val chatOnEnter: JsonField<String>,
         private val idempotencyKey: JsonField<String>,
         private val joinAt: JsonField<OffsetDateTime>,
+        private val leavePolicy: JsonField<MeetingSessionLeavePolicy>,
         private val metadata: JsonField<Metadata>,
+        private val recording: JsonField<Boolean>,
+        private val recordingExport: JsonField<MeetingSessionRecordingDestination>,
+        private val recordingView: JsonField<RecordingView>,
         private val speakOnEnter: JsonField<String>,
         private val summarizeOnEnd: JsonField<Boolean>,
         private val voice: JsonField<String>,
@@ -749,9 +900,21 @@ private constructor(
             @JsonProperty("join_at")
             @ExcludeMissing
             joinAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("leave_policy")
+            @ExcludeMissing
+            leavePolicy: JsonField<MeetingSessionLeavePolicy> = JsonMissing.of(),
             @JsonProperty("metadata")
             @ExcludeMissing
             metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("recording")
+            @ExcludeMissing
+            recording: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("recording_export")
+            @ExcludeMissing
+            recordingExport: JsonField<MeetingSessionRecordingDestination> = JsonMissing.of(),
+            @JsonProperty("recording_view")
+            @ExcludeMissing
+            recordingView: JsonField<RecordingView> = JsonMissing.of(),
             @JsonProperty("speak_on_enter")
             @ExcludeMissing
             speakOnEnter: JsonField<String> = JsonMissing.of(),
@@ -771,7 +934,11 @@ private constructor(
             chatOnEnter,
             idempotencyKey,
             joinAt,
+            leavePolicy,
             metadata,
+            recording,
+            recordingExport,
+            recordingView,
             speakOnEnter,
             summarizeOnEnd,
             voice,
@@ -788,10 +955,8 @@ private constructor(
         fun meetingUrl(): String = meetingUrl.getRequired("meeting_url")
 
         /**
-         * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the Meeting
-         * service connects it to the meeting directly. The Call Control connection, caller ID and
-         * loopback SIP URI previously required here have been removed and are now rejected as
-         * unknown fields.
+         * Attach a Telnyx AI Assistant owned by the authenticated account. Supply its ID and
+         * optional conversation settings. Unknown fields are rejected.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -817,12 +982,12 @@ private constructor(
         fun botName(): Optional<String> = botName.getOptional("bot_name")
 
         /**
-         * Write-only static camera-tile image for this session, not a native account or participant
-         * profile photo. Supply exactly one JPEG source. When effective, the image is used as the
-         * bot's static camera/video output; presentation varies by meeting platform and recording
-         * configuration and is not guaranteed in recordings. An effective Avatar or Assistant
-         * webpage output takes precedence, so this input is ignored and a URL source is not
-         * fetched.
+         * Not supported for Google Meet and Teams joins (422 unsupported_capability). Write-only
+         * static camera-tile image for this session, not an account or participant profile photo.
+         * Supply exactly one JPEG source. When effective, the image is used as the bot's static
+         * camera/video output; presentation varies by meeting platform and recording configuration
+         * and is not guaranteed in recordings. An attached assistant or avatar takes precedence, so
+         * this input is ignored and a URL source is not fetched.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -834,7 +999,9 @@ private constructor(
          * recording disclosure. Delivered at most once. Independent of `speak_on_enter`: both may
          * be set, and the chat message posts first because it does not wait for text-to-speech or
          * avatar startup. Rejected with 422 `unsupported_capability` on platforms without meeting
-         * chat.
+         * chat. For Google Meet and Teams, text must be nonblank, at most 4096 UTF-8 bytes, with no
+         * control characters except tabs and line breaks. Counts toward the 1000-chat-request
+         * session limit.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -842,9 +1009,9 @@ private constructor(
         fun chatOnEnter(): Optional<String> = chatOnEnter.getOptional("chat_on_enter")
 
         /**
-         * Client-supplied idempotency key to safely retry creation requests without duplicating
-         * sessions. Lookup is scoped to the authenticated account and compares the key only; the
-         * request payload is not fingerprinted or compared.
+         * Use a unique key per intended join and reuse the same key and request on retries. Reusing
+         * a key with a different join configuration or meeting URL can return 409 invalid_state.
+         * Always retry with the original request.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -852,13 +1019,24 @@ private constructor(
         fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
         /**
-         * ISO-8601 timestamp in the future at which the bot should join. If omitted, the bot joins
-         * immediately.
+         * Future ISO-8601 join timestamp including timezone. Google Meet and Teams accept dates at
+         * most three years ahead. Omit for an immediate join. Assistant sessions created through
+         * this endpoint must join immediately.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun joinAt(): Optional<OffsetDateTime> = joinAt.getOptional("join_at")
+
+        /**
+         * Automatic departure settings for Google Meet and Teams. Omitted fields use the default
+         * behavior. Set at creation; cannot be changed later. Zoom ignores this policy.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun leavePolicy(): Optional<MeetingSessionLeavePolicy> =
+            leavePolicy.getOptional("leave_policy")
 
         /**
          * Arbitrary key-value metadata attached to the session. The serialized JSON representation
@@ -870,11 +1048,40 @@ private constructor(
         fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
 
         /**
-         * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
-         * attached**: the value is accepted and echoed back on the session, but the assistant owns
-         * the voice and the line is never delivered, with no event reporting the omission. Use
-         * `chat_on_enter` to announce an assistant-backed bot. Rejected with 400 `invalid_request`
-         * when `assistant.avatar` is `true`.
+         * Google Meet and Teams only. Defaults to true when recording_export is supplied and false
+         * otherwise. True requires recording_export.bucket; false cannot be combined with
+         * recording_export. Fixed at creation, with no pause/resume action. Zoom rejects recording,
+         * recording_view, and recording_export with 422 unsupported_capability; omit these fields
+         * for Zoom.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recording(): Optional<Boolean> = recording.getOptional("recording")
+
+        /**
+         * Customer-owned Telnyx Storage destination for recording exports. Uses the authenticated
+         * organization and user; do not supply credentials, region, organization ID or object key.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordingExport(): Optional<MeetingSessionRecordingDestination> =
+            recordingExport.getOptional("recording_export")
+
+        /**
+         * Recording layout for Google Meet and Teams. Defaults to speaker_view. Accepted at
+         * creation only; does not enable recording by itself.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordingView(): Optional<RecordingView> = recordingView.getOptional("recording_view")
+
+        /**
+         * Text the bot speaks after joining. Available for sessions without a digital avatar. With
+         * an AI Assistant, the greeting waits until the assistant is connected. Rejected with 400
+         * invalid_request when assistant.avatar is true.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -892,6 +1099,7 @@ private constructor(
         /**
          * Session-default voice identifier used for `speak_on_enter` and ordinary speak actions. A
          * voice supplied on an individual speak action overrides this default for that utterance.
+         * With an assistant attached, its conversational voice remains configured on the assistant.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -976,11 +1184,47 @@ private constructor(
         @JsonProperty("join_at") @ExcludeMissing fun _joinAt(): JsonField<OffsetDateTime> = joinAt
 
         /**
+         * Returns the raw JSON value of [leavePolicy].
+         *
+         * Unlike [leavePolicy], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("leave_policy")
+        @ExcludeMissing
+        fun _leavePolicy(): JsonField<MeetingSessionLeavePolicy> = leavePolicy
+
+        /**
          * Returns the raw JSON value of [metadata].
          *
          * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        /**
+         * Returns the raw JSON value of [recording].
+         *
+         * Unlike [recording], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("recording") @ExcludeMissing fun _recording(): JsonField<Boolean> = recording
+
+        /**
+         * Returns the raw JSON value of [recordingExport].
+         *
+         * Unlike [recordingExport], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("recording_export")
+        @ExcludeMissing
+        fun _recordingExport(): JsonField<MeetingSessionRecordingDestination> = recordingExport
+
+        /**
+         * Returns the raw JSON value of [recordingView].
+         *
+         * Unlike [recordingView], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("recording_view")
+        @ExcludeMissing
+        fun _recordingView(): JsonField<RecordingView> = recordingView
 
         /**
          * Returns the raw JSON value of [speakOnEnter].
@@ -1054,7 +1298,12 @@ private constructor(
             private var chatOnEnter: JsonField<String> = JsonMissing.of()
             private var idempotencyKey: JsonField<String> = JsonMissing.of()
             private var joinAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var leavePolicy: JsonField<MeetingSessionLeavePolicy> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var recording: JsonField<Boolean> = JsonMissing.of()
+            private var recordingExport: JsonField<MeetingSessionRecordingDestination> =
+                JsonMissing.of()
+            private var recordingView: JsonField<RecordingView> = JsonMissing.of()
             private var speakOnEnter: JsonField<String> = JsonMissing.of()
             private var summarizeOnEnd: JsonField<Boolean> = JsonMissing.of()
             private var voice: JsonField<String> = JsonMissing.of()
@@ -1071,7 +1320,11 @@ private constructor(
                 chatOnEnter = body.chatOnEnter
                 idempotencyKey = body.idempotencyKey
                 joinAt = body.joinAt
+                leavePolicy = body.leavePolicy
                 metadata = body.metadata
+                recording = body.recording
+                recordingExport = body.recordingExport
+                recordingView = body.recordingView
                 speakOnEnter = body.speakOnEnter
                 summarizeOnEnd = body.summarizeOnEnd
                 voice = body.voice
@@ -1092,10 +1345,8 @@ private constructor(
             fun meetingUrl(meetingUrl: JsonField<String>) = apply { this.meetingUrl = meetingUrl }
 
             /**
-             * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the Meeting
-             * service connects it to the meeting directly. The Call Control connection, caller ID
-             * and loopback SIP URI previously required here have been removed and are now rejected
-             * as unknown fields.
+             * Attach a Telnyx AI Assistant owned by the authenticated account. Supply its ID and
+             * optional conversation settings. Unknown fields are rejected.
              */
             fun assistant(assistant: Assistant) = assistant(JsonField.of(assistant))
 
@@ -1137,12 +1388,12 @@ private constructor(
             fun botName(botName: JsonField<String>) = apply { this.botName = botName }
 
             /**
-             * Write-only static camera-tile image for this session, not a native account or
-             * participant profile photo. Supply exactly one JPEG source. When effective, the image
-             * is used as the bot's static camera/video output; presentation varies by meeting
-             * platform and recording configuration and is not guaranteed in recordings. An
-             * effective Avatar or Assistant webpage output takes precedence, so this input is
-             * ignored and a URL source is not fetched.
+             * Not supported for Google Meet and Teams joins (422 unsupported_capability).
+             * Write-only static camera-tile image for this session, not an account or participant
+             * profile photo. Supply exactly one JPEG source. When effective, the image is used as
+             * the bot's static camera/video output; presentation varies by meeting platform and
+             * recording configuration and is not guaranteed in recordings. An attached assistant or
+             * avatar takes precedence, so this input is ignored and a URL source is not fetched.
              */
             fun cameraImage(cameraImage: CameraImage) = cameraImage(JsonField.of(cameraImage))
 
@@ -1189,7 +1440,9 @@ private constructor(
              * typically a recording disclosure. Delivered at most once. Independent of
              * `speak_on_enter`: both may be set, and the chat message posts first because it does
              * not wait for text-to-speech or avatar startup. Rejected with 422
-             * `unsupported_capability` on platforms without meeting chat.
+             * `unsupported_capability` on platforms without meeting chat. For Google Meet and
+             * Teams, text must be nonblank, at most 4096 UTF-8 bytes, with no control characters
+             * except tabs and line breaks. Counts toward the 1000-chat-request session limit.
              */
             fun chatOnEnter(chatOnEnter: String) = chatOnEnter(JsonField.of(chatOnEnter))
 
@@ -1205,9 +1458,9 @@ private constructor(
             }
 
             /**
-             * Client-supplied idempotency key to safely retry creation requests without duplicating
-             * sessions. Lookup is scoped to the authenticated account and compares the key only;
-             * the request payload is not fingerprinted or compared.
+             * Use a unique key per intended join and reuse the same key and request on retries.
+             * Reusing a key with a different join configuration or meeting URL can return 409
+             * invalid_state. Always retry with the original request.
              */
             fun idempotencyKey(idempotencyKey: String) =
                 idempotencyKey(JsonField.of(idempotencyKey))
@@ -1224,8 +1477,9 @@ private constructor(
             }
 
             /**
-             * ISO-8601 timestamp in the future at which the bot should join. If omitted, the bot
-             * joins immediately.
+             * Future ISO-8601 join timestamp including timezone. Google Meet and Teams accept dates
+             * at most three years ahead. Omit for an immediate join. Assistant sessions created
+             * through this endpoint must join immediately.
              */
             fun joinAt(joinAt: OffsetDateTime) = joinAt(JsonField.of(joinAt))
 
@@ -1237,6 +1491,24 @@ private constructor(
              * supported value.
              */
             fun joinAt(joinAt: JsonField<OffsetDateTime>) = apply { this.joinAt = joinAt }
+
+            /**
+             * Automatic departure settings for Google Meet and Teams. Omitted fields use the
+             * default behavior. Set at creation; cannot be changed later. Zoom ignores this policy.
+             */
+            fun leavePolicy(leavePolicy: MeetingSessionLeavePolicy) =
+                leavePolicy(JsonField.of(leavePolicy))
+
+            /**
+             * Sets [Builder.leavePolicy] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.leavePolicy] with a well-typed
+             * [MeetingSessionLeavePolicy] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun leavePolicy(leavePolicy: JsonField<MeetingSessionLeavePolicy>) = apply {
+                this.leavePolicy = leavePolicy
+            }
 
             /**
              * Arbitrary key-value metadata attached to the session. The serialized JSON
@@ -1254,11 +1526,65 @@ private constructor(
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /**
-             * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant` is
-             * attached**: the value is accepted and echoed back on the session, but the assistant
-             * owns the voice and the line is never delivered, with no event reporting the omission.
-             * Use `chat_on_enter` to announce an assistant-backed bot. Rejected with 400
-             * `invalid_request` when `assistant.avatar` is `true`.
+             * Google Meet and Teams only. Defaults to true when recording_export is supplied and
+             * false otherwise. True requires recording_export.bucket; false cannot be combined with
+             * recording_export. Fixed at creation, with no pause/resume action. Zoom rejects
+             * recording, recording_view, and recording_export with 422 unsupported_capability; omit
+             * these fields for Zoom.
+             */
+            fun recording(recording: Boolean) = recording(JsonField.of(recording))
+
+            /**
+             * Sets [Builder.recording] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recording] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recording(recording: JsonField<Boolean>) = apply { this.recording = recording }
+
+            /**
+             * Customer-owned Telnyx Storage destination for recording exports. Uses the
+             * authenticated organization and user; do not supply credentials, region, organization
+             * ID or object key.
+             */
+            fun recordingExport(recordingExport: MeetingSessionRecordingDestination) =
+                recordingExport(JsonField.of(recordingExport))
+
+            /**
+             * Sets [Builder.recordingExport] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordingExport] with a well-typed
+             * [MeetingSessionRecordingDestination] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun recordingExport(recordingExport: JsonField<MeetingSessionRecordingDestination>) =
+                apply {
+                    this.recordingExport = recordingExport
+                }
+
+            /**
+             * Recording layout for Google Meet and Teams. Defaults to speaker_view. Accepted at
+             * creation only; does not enable recording by itself.
+             */
+            fun recordingView(recordingView: RecordingView) =
+                recordingView(JsonField.of(recordingView))
+
+            /**
+             * Sets [Builder.recordingView] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordingView] with a well-typed [RecordingView]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun recordingView(recordingView: JsonField<RecordingView>) = apply {
+                this.recordingView = recordingView
+            }
+
+            /**
+             * Text the bot speaks after joining. Available for sessions without a digital avatar.
+             * With an AI Assistant, the greeting waits until the assistant is connected. Rejected
+             * with 400 invalid_request when assistant.avatar is true.
              */
             fun speakOnEnter(speakOnEnter: String) = speakOnEnter(JsonField.of(speakOnEnter))
 
@@ -1291,7 +1617,8 @@ private constructor(
             /**
              * Session-default voice identifier used for `speak_on_enter` and ordinary speak
              * actions. A voice supplied on an individual speak action overrides this default for
-             * that utterance.
+             * that utterance. With an assistant attached, its conversational voice remains
+             * configured on the assistant.
              */
             fun voice(voice: String) = voice(JsonField.of(voice))
 
@@ -1361,7 +1688,11 @@ private constructor(
                     chatOnEnter,
                     idempotencyKey,
                     joinAt,
+                    leavePolicy,
                     metadata,
+                    recording,
+                    recordingExport,
+                    recordingView,
                     speakOnEnter,
                     summarizeOnEnd,
                     voice,
@@ -1394,7 +1725,11 @@ private constructor(
             chatOnEnter()
             idempotencyKey()
             joinAt()
+            leavePolicy().ifPresent { it.validate() }
             metadata().ifPresent { it.validate() }
+            recording()
+            recordingExport().ifPresent { it.validate() }
+            recordingView().ifPresent { it.validate() }
             speakOnEnter()
             summarizeOnEnd()
             voice()
@@ -1426,7 +1761,11 @@ private constructor(
                 (if (chatOnEnter.asKnown().isPresent) 1 else 0) +
                 (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
                 (if (joinAt.asKnown().isPresent) 1 else 0) +
+                (leavePolicy.asKnown().getOrNull()?.validity() ?: 0) +
                 (metadata.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (recording.asKnown().isPresent) 1 else 0) +
+                (recordingExport.asKnown().getOrNull()?.validity() ?: 0) +
+                (recordingView.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (speakOnEnter.asKnown().isPresent) 1 else 0) +
                 (if (summarizeOnEnd.asKnown().isPresent) 1 else 0) +
                 (if (voice.asKnown().isPresent) 1 else 0) +
@@ -1446,7 +1785,11 @@ private constructor(
                 chatOnEnter == other.chatOnEnter &&
                 idempotencyKey == other.idempotencyKey &&
                 joinAt == other.joinAt &&
+                leavePolicy == other.leavePolicy &&
                 metadata == other.metadata &&
+                recording == other.recording &&
+                recordingExport == other.recordingExport &&
+                recordingView == other.recordingView &&
                 speakOnEnter == other.speakOnEnter &&
                 summarizeOnEnd == other.summarizeOnEnd &&
                 voice == other.voice &&
@@ -1464,7 +1807,11 @@ private constructor(
                 chatOnEnter,
                 idempotencyKey,
                 joinAt,
+                leavePolicy,
                 metadata,
+                recording,
+                recordingExport,
+                recordingView,
                 speakOnEnter,
                 summarizeOnEnd,
                 voice,
@@ -1476,13 +1823,12 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{meetingUrl=$meetingUrl, assistant=$assistant, bargeIn=$bargeIn, botName=$botName, cameraImage=$cameraImage, chatOnEnter=$chatOnEnter, idempotencyKey=$idempotencyKey, joinAt=$joinAt, metadata=$metadata, speakOnEnter=$speakOnEnter, summarizeOnEnd=$summarizeOnEnd, voice=$voice, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{meetingUrl=$meetingUrl, assistant=$assistant, bargeIn=$bargeIn, botName=$botName, cameraImage=$cameraImage, chatOnEnter=$chatOnEnter, idempotencyKey=$idempotencyKey, joinAt=$joinAt, leavePolicy=$leavePolicy, metadata=$metadata, recording=$recording, recordingExport=$recordingExport, recordingView=$recordingView, speakOnEnter=$speakOnEnter, summarizeOnEnd=$summarizeOnEnd, voice=$voice, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     /**
-     * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the Meeting service
-     * connects it to the meeting directly. The Call Control connection, caller ID and loopback SIP
-     * URI previously required here have been removed and are now rejected as unknown fields.
+     * Attach a Telnyx AI Assistant owned by the authenticated account. Supply its ID and optional
+     * conversation settings. Unknown fields are rejected.
      */
     class Assistant
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -1519,12 +1865,9 @@ private constructor(
         fun id(): String = id.getRequired("id")
 
         /**
-         * Audio gating strategy for the assistant call leg. `half_duplex` (default) sends the
-         * assistant a single mixed meeting stream and mutes it while the assistant speaks, so the
-         * assistant cannot hear itself and cannot be interrupted. `full_duplex` sends a separate
-         * stream per participant, which allows barge-in and removes self-hearing, and COSTS
-         * SIGNIFICANTLY MORE: per-participant streams multiply the per-minute cost by the number of
-         * participants.
+         * Use half_duplex (default) to pause listening while the assistant speaks, or full_duplex
+         * to allow participants to interrupt. Full-duplex pricing depends on participant audio
+         * usage; see the Meeting pricing guide.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1536,11 +1879,10 @@ private constructor(
          * [AI Assistant avatars](/docs/inference/ai-assistants/avatars)) as the bot's camera,
          * lip-synced to the assistant's own speech. The request carries no avatar ID or key: the
          * assistant is read at creation and the request is rejected with 400 `invalid_request` if
-         * it has no Telnyx avatar configured. Supported on Google Meet, Zoom, Microsoft Teams and
-         * Webex; other platforms return 422 `unsupported_capability`. REST-only. Not echoed back on
-         * `assistant`; the session's top-level `avatar` and `avatar_state` fields report it
-         * instead. If the avatar fails, the session continues voice-only and `avatar_state` becomes
-         * `degraded`.
+         * it has no Telnyx avatar configured. Available for Google Meet, Zoom, and Teams sessions.
+         * REST-only. Not echoed back on `assistant`; the session's top-level `avatar` and
+         * `avatar_state` fields report it instead. If the avatar fails, the session continues
+         * voice-only and `avatar_state` becomes `degraded`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1555,8 +1897,7 @@ private constructor(
          * At most 63 entries; keys 1-128 characters; values must be strings. The map is budgeted in
          * aggregate at 1,047,552 bytes (1023 KiB) rather than capped per value. `streaming_audio`,
          * `ai_assistant_streaming_audio` and `meeting_session_id` are reserved and rejected with
-         * `400 invalid_request` -- they toggle provider infrastructure or are set by the service
-         * rather than fill a prompt template.
+         * `400 invalid_request`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1565,10 +1906,8 @@ private constructor(
             dynamicVariables.getOptional("dynamic_variables")
 
         /**
-         * Leave the meeting when the Assistant's conversation reaches a terminal state -- `ended`
-         * **or** `failed`. Off by default, which leaves the bot in the meeting after the Assistant
-         * stops. Fires once: a second terminal transition does not leave twice, and a leave the
-         * provider refuses is logged without changing how the session settles.
+         * Leave when the assistant conversation ends or fails. Defaults to false. Other
+         * leave-policy rules and explicit leave requests still apply.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1675,12 +2014,9 @@ private constructor(
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /**
-             * Audio gating strategy for the assistant call leg. `half_duplex` (default) sends the
-             * assistant a single mixed meeting stream and mutes it while the assistant speaks, so
-             * the assistant cannot hear itself and cannot be interrupted. `full_duplex` sends a
-             * separate stream per participant, which allows barge-in and removes self-hearing, and
-             * COSTS SIGNIFICANTLY MORE: per-participant streams multiply the per-minute cost by the
-             * number of participants.
+             * Use half_duplex (default) to pause listening while the assistant speaks, or
+             * full_duplex to allow participants to interrupt. Full-duplex pricing depends on
+             * participant audio usage; see the Meeting pricing guide.
              */
             fun audioGate(audioGate: AudioGate) = audioGate(JsonField.of(audioGate))
 
@@ -1698,11 +2034,10 @@ private constructor(
              * [AI Assistant avatars](/docs/inference/ai-assistants/avatars)) as the bot's camera,
              * lip-synced to the assistant's own speech. The request carries no avatar ID or key:
              * the assistant is read at creation and the request is rejected with 400
-             * `invalid_request` if it has no Telnyx avatar configured. Supported on Google Meet,
-             * Zoom, Microsoft Teams and Webex; other platforms return 422 `unsupported_capability`.
-             * REST-only. Not echoed back on `assistant`; the session's top-level `avatar` and
-             * `avatar_state` fields report it instead. If the avatar fails, the session continues
-             * voice-only and `avatar_state` becomes `degraded`.
+             * `invalid_request` if it has no Telnyx avatar configured. Available for Google Meet,
+             * Zoom, and Teams sessions. REST-only. Not echoed back on `assistant`; the session's
+             * top-level `avatar` and `avatar_state` fields report it instead. If the avatar fails,
+             * the session continues voice-only and `avatar_state` becomes `degraded`.
              */
             fun avatar(avatar: Boolean) = avatar(JsonField.of(avatar))
 
@@ -1723,8 +2058,7 @@ private constructor(
              * conversation. At most 63 entries; keys 1-128 characters; values must be strings. The
              * map is budgeted in aggregate at 1,047,552 bytes (1023 KiB) rather than capped per
              * value. `streaming_audio`, `ai_assistant_streaming_audio` and `meeting_session_id` are
-             * reserved and rejected with `400 invalid_request` -- they toggle provider
-             * infrastructure or are set by the service rather than fill a prompt template.
+             * reserved and rejected with `400 invalid_request`.
              */
             fun dynamicVariables(dynamicVariables: DynamicVariables) =
                 dynamicVariables(JsonField.of(dynamicVariables))
@@ -1741,10 +2075,8 @@ private constructor(
             }
 
             /**
-             * Leave the meeting when the Assistant's conversation reaches a terminal state --
-             * `ended` **or** `failed`. Off by default, which leaves the bot in the meeting after
-             * the Assistant stops. Fires once: a second terminal transition does not leave twice,
-             * and a leave the provider refuses is logged without changing how the session settles.
+             * Leave when the assistant conversation ends or fails. Defaults to false. Other
+             * leave-policy rules and explicit leave requests still apply.
              */
             fun leaveOnEnd(leaveOnEnd: Boolean) = leaveOnEnd(JsonField.of(leaveOnEnd))
 
@@ -1846,12 +2178,9 @@ private constructor(
                 (if (leaveOnEnd.asKnown().isPresent) 1 else 0)
 
         /**
-         * Audio gating strategy for the assistant call leg. `half_duplex` (default) sends the
-         * assistant a single mixed meeting stream and mutes it while the assistant speaks, so the
-         * assistant cannot hear itself and cannot be interrupted. `full_duplex` sends a separate
-         * stream per participant, which allows barge-in and removes self-hearing, and COSTS
-         * SIGNIFICANTLY MORE: per-participant streams multiply the per-minute cost by the number of
-         * participants.
+         * Use half_duplex (default) to pause listening while the assistant speaks, or full_duplex
+         * to allow participants to interrupt. Full-duplex pricing depends on participant audio
+         * usage; see the Meeting pricing guide.
          */
         class AudioGate @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
@@ -2002,8 +2331,7 @@ private constructor(
          * At most 63 entries; keys 1-128 characters; values must be strings. The map is budgeted in
          * aggregate at 1,047,552 bytes (1023 KiB) rather than capped per value. `streaming_audio`,
          * `ai_assistant_streaming_audio` and `meeting_session_id` are reserved and rejected with
-         * `400 invalid_request` -- they toggle provider infrastructure or are set by the service
-         * rather than fill a prompt template.
+         * `400 invalid_request`.
          */
         class DynamicVariables
         @JsonCreator
@@ -2143,11 +2471,12 @@ private constructor(
     }
 
     /**
-     * Write-only static camera-tile image for this session, not a native account or participant
-     * profile photo. Supply exactly one JPEG source. When effective, the image is used as the bot's
-     * static camera/video output; presentation varies by meeting platform and recording
-     * configuration and is not guaranteed in recordings. An effective Avatar or Assistant webpage
-     * output takes precedence, so this input is ignored and a URL source is not fetched.
+     * Not supported for Google Meet and Teams joins (422 unsupported_capability). Write-only static
+     * camera-tile image for this session, not an account or participant profile photo. Supply
+     * exactly one JPEG source. When effective, the image is used as the bot's static camera/video
+     * output; presentation varies by meeting platform and recording configuration and is not
+     * guaranteed in recordings. An attached assistant or avatar takes precedence, so this input is
+     * ignored and a URL source is not fetched.
      */
     @JsonDeserialize(using = CameraImage.Deserializer::class)
     @JsonSerialize(using = CameraImage.Serializer::class)
@@ -2440,7 +2769,7 @@ private constructor(
              * the URL-safe alphabet are rejected. The encoded value is limited to 1,835,008
              * characters and the decoded JPEG to 1,363,148 bytes. The JPEG is limited to 4,096
              * pixels per dimension, 4 megapixels, and 128 MB of decoder memory. The image bytes are
-             * not persisted, returned, or logged.
+             * not returned in the session response.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -2519,7 +2848,7 @@ private constructor(
                  * and the URL-safe alphabet are rejected. The encoded value is limited to 1,835,008
                  * characters and the decoded JPEG to 1,363,148 bytes. The JPEG is limited to 4,096
                  * pixels per dimension, 4 megapixels, and 128 MB of decoder memory. The image bytes
-                 * are not persisted, returned, or logged.
+                 * are not returned in the session response.
                  */
                 fun base64Data(base64Data: String) = base64Data(JsonField.of(base64Data))
 
@@ -2690,7 +3019,7 @@ private constructor(
              * network destinations, a five-second timeout, no redirects, a 2xx image/jpeg response
              * with identity or no content encoding, and a 1,363,148-byte limit enforced against
              * both declared and streamed content. The service resolves the URL before bot creation
-             * and does not persist, return, or log the URL or image bytes.
+             * and does not return the URL or image bytes in the session response.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -2769,8 +3098,8 @@ private constructor(
                  * limited to public network destinations, a five-second timeout, no redirects, a
                  * 2xx image/jpeg response with identity or no content encoding, and a
                  * 1,363,148-byte limit enforced against both declared and streamed content. The
-                 * service resolves the URL before bot creation and does not persist, return, or log
-                 * the URL or image bytes.
+                 * service resolves the URL before bot creation and does not return the URL or image
+                 * bytes in the session response.
                  */
                 fun url(url: String) = url(JsonField.of(url))
 
@@ -3000,6 +3329,154 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Recording layout for Google Meet and Teams. Defaults to speaker_view. Accepted at creation
+     * only; does not enable recording by itself.
+     */
+    class RecordingView @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val SPEAKER_VIEW = of("speaker_view")
+
+            @JvmField val GALLERY_VIEW = of("gallery_view")
+
+            @JvmField val SPEAKER_VIEW_NO_SIDEBAR = of("speaker_view_no_sidebar")
+
+            @JvmStatic fun of(value: String) = RecordingView(JsonField.of(value))
+        }
+
+        /** An enum containing [RecordingView]'s known values. */
+        enum class Known {
+            SPEAKER_VIEW,
+            GALLERY_VIEW,
+            SPEAKER_VIEW_NO_SIDEBAR,
+        }
+
+        /**
+         * An enum containing [RecordingView]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [RecordingView] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            SPEAKER_VIEW,
+            GALLERY_VIEW,
+            SPEAKER_VIEW_NO_SIDEBAR,
+            /**
+             * An enum member indicating that [RecordingView] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                SPEAKER_VIEW -> Value.SPEAKER_VIEW
+                GALLERY_VIEW -> Value.GALLERY_VIEW
+                SPEAKER_VIEW_NO_SIDEBAR -> Value.SPEAKER_VIEW_NO_SIDEBAR
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                SPEAKER_VIEW -> Known.SPEAKER_VIEW
+                GALLERY_VIEW -> Known.GALLERY_VIEW
+                SPEAKER_VIEW_NO_SIDEBAR -> Known.SPEAKER_VIEW_NO_SIDEBAR
+                else -> throw TelnyxInvalidDataException("Unknown RecordingView: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): RecordingView = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RecordingView && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

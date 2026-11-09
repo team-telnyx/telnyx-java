@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class CommentCreateParams
 private constructor(
     private val id: String?,
-    private val body: Body,
+    private val commentBody: Body,
     private val additionalHeaders: com.telnyx.sdk.core.http.Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -33,16 +33,16 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun commentBody(): Optional<String> = body.commentBody()
+    fun commentBody(): Optional<String> = commentBody.commentBody()
 
     /**
      * Returns the raw JSON value of [commentBody].
      *
      * Unlike [commentBody], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _commentBody(): JsonField<String> = body._commentBody()
+    fun _commentBody(): JsonField<String> = this.commentBody._commentBody()
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = commentBody._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): com.telnyx.sdk.core.http.Headers = additionalHeaders
@@ -64,7 +64,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: Body.Builder = Body.builder()
+        private var commentBody: Body.Builder = Body.builder()
         private var additionalHeaders: com.telnyx.sdk.core.http.Headers.Builder =
             com.telnyx.sdk.core.http.Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -72,7 +72,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(commentCreateParams: CommentCreateParams) = apply {
             id = commentCreateParams.id
-            body = commentCreateParams.body.toBuilder()
+            commentBody = commentCreateParams.commentBody.toBuilder()
             additionalHeaders = commentCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = commentCreateParams.additionalQueryParams.toBuilder()
         }
@@ -89,9 +89,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [commentBody]
          */
-        fun body(body: Body) = apply { this.body = body.toBuilder() }
+        fun commentBody(commentBody: Body) = apply { this.commentBody = commentBody.toBuilder() }
 
-        fun commentBody(commentBody: String) = apply { body.commentBody(commentBody) }
+        fun commentBody(commentBody: String) = apply { this.commentBody.commentBody(commentBody) }
 
         /**
          * Sets [Builder.commentBody] to an arbitrary JSON value.
@@ -100,25 +100,29 @@ private constructor(
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun commentBody(commentBody: JsonField<String>) = apply { body.commentBody(commentBody) }
+        fun commentBody(commentBody: JsonField<String>) = apply {
+            this.commentBody.commentBody(commentBody)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
+            commentBody.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
+            commentBody.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
+                commentBody.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+        fun removeAdditionalBodyProperty(key: String) = apply {
+            commentBody.removeAdditionalProperty(key)
+        }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
+            commentBody.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: com.telnyx.sdk.core.http.Headers) = apply {
@@ -228,13 +232,13 @@ private constructor(
         fun build(): CommentCreateParams =
             CommentCreateParams(
                 id,
-                body.build(),
+                commentBody.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): Body = commentBody
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -402,13 +406,14 @@ private constructor(
 
         return other is CommentCreateParams &&
             id == other.id &&
-            body == other.body &&
+            commentBody == other.commentBody &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(id, body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(id, commentBody, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "CommentCreateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CommentCreateParams{id=$id, commentBody=$commentBody, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

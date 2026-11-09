@@ -14,6 +14,8 @@ import com.telnyx.sdk.services.blocking.AddressService
 import com.telnyx.sdk.services.blocking.AddressServiceImpl
 import com.telnyx.sdk.services.blocking.AdvancedOrderService
 import com.telnyx.sdk.services.blocking.AdvancedOrderServiceImpl
+import com.telnyx.sdk.services.blocking.AgentGatewayService
+import com.telnyx.sdk.services.blocking.AgentGatewayServiceImpl
 import com.telnyx.sdk.services.blocking.AiService
 import com.telnyx.sdk.services.blocking.AiServiceImpl
 import com.telnyx.sdk.services.blocking.AlphanumericSenderIdService
@@ -44,6 +46,8 @@ import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BulkSimCardActionServiceImpl
 import com.telnyx.sdk.services.blocking.BundlePricingService
 import com.telnyx.sdk.services.blocking.BundlePricingServiceImpl
+import com.telnyx.sdk.services.blocking.CalendarConnectionService
+import com.telnyx.sdk.services.blocking.CalendarConnectionServiceImpl
 import com.telnyx.sdk.services.blocking.CallControlApplicationService
 import com.telnyx.sdk.services.blocking.CallControlApplicationServiceImpl
 import com.telnyx.sdk.services.blocking.CallEventService
@@ -174,6 +178,8 @@ import com.telnyx.sdk.services.blocking.ManagedAccountService
 import com.telnyx.sdk.services.blocking.ManagedAccountServiceImpl
 import com.telnyx.sdk.services.blocking.MediaService
 import com.telnyx.sdk.services.blocking.MediaServiceImpl
+import com.telnyx.sdk.services.blocking.MeetingBotService
+import com.telnyx.sdk.services.blocking.MeetingBotServiceImpl
 import com.telnyx.sdk.services.blocking.MeetingSessionService
 import com.telnyx.sdk.services.blocking.MeetingSessionServiceImpl
 import com.telnyx.sdk.services.blocking.MessageService
@@ -352,8 +358,6 @@ import com.telnyx.sdk.services.blocking.TextToSpeechService
 import com.telnyx.sdk.services.blocking.TextToSpeechServiceImpl
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileServiceImpl
-import com.telnyx.sdk.services.blocking.TtsIntegrationService
-import com.telnyx.sdk.services.blocking.TtsIntegrationServiceImpl
 import com.telnyx.sdk.services.blocking.TunnelService
 import com.telnyx.sdk.services.blocking.TunnelServiceImpl
 import com.telnyx.sdk.services.blocking.UacConnectionService
@@ -362,6 +366,8 @@ import com.telnyx.sdk.services.blocking.UsageReportService
 import com.telnyx.sdk.services.blocking.UsageReportServiceImpl
 import com.telnyx.sdk.services.blocking.UserAddressService
 import com.telnyx.sdk.services.blocking.UserAddressServiceImpl
+import com.telnyx.sdk.services.blocking.UserProfileService
+import com.telnyx.sdk.services.blocking.UserProfileServiceImpl
 import com.telnyx.sdk.services.blocking.UserTagService
 import com.telnyx.sdk.services.blocking.UserTagServiceImpl
 import com.telnyx.sdk.services.blocking.VerificationService
@@ -1128,10 +1134,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         DialMetricServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val ttsIntegrations: TtsIntegrationService by lazy {
-        TtsIntegrationServiceImpl(clientOptionsWithUserAgent)
-    }
-
     private val tailscaleSubnetRouters: TailscaleSubnetRouterService by lazy {
         TailscaleSubnetRouterServiceImpl(clientOptionsWithUserAgent)
     }
@@ -1151,6 +1153,22 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     }
 
     private val tunnels: TunnelService by lazy { TunnelServiceImpl(clientOptionsWithUserAgent) }
+
+    private val userProfile: UserProfileService by lazy {
+        UserProfileServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val agentGateways: AgentGatewayService by lazy {
+        AgentGatewayServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val calendarConnections: CalendarConnectionService by lazy {
+        CalendarConnectionServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val meetingBot: MeetingBotService by lazy {
+        MeetingBotServiceImpl(clientOptionsWithUserAgent)
+    }
 
     override fun async(): TelnyxClientAsync = async
 
@@ -1789,8 +1807,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     /** Call information */
     override fun dialMetrics(): DialMetricService = dialMetrics
 
-    override fun ttsIntegrations(): TtsIntegrationService = ttsIntegrations
-
     /** Tailscale Subnet Router operations */
     override fun tailscaleSubnetRouters(): TailscaleSubnetRouterService = tailscaleSubnetRouters
 
@@ -1807,6 +1823,16 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
     override fun tunnels(): TunnelService = tunnels
+
+    /** Read and update the authenticated user's profile and data locality. */
+    override fun userProfile(): UserProfileService = userProfile
+
+    override fun agentGateways(): AgentGatewayService = agentGateways
+
+    /** Connect calendars and manage automatic meeting joins. */
+    override fun calendarConnections(): CalendarConnectionService = calendarConnections
+
+    override fun meetingBot(): MeetingBotService = meetingBot
 
     override fun close() = clientOptions.close()
 
@@ -2600,10 +2626,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             DialMetricServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val ttsIntegrations: TtsIntegrationService.WithRawResponse by lazy {
-            TtsIntegrationServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val tailscaleSubnetRouters: TailscaleSubnetRouterService.WithRawResponse by lazy {
             TailscaleSubnetRouterServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2626,6 +2648,22 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         private val tunnels: TunnelService.WithRawResponse by lazy {
             TunnelServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val userProfile: UserProfileService.WithRawResponse by lazy {
+            UserProfileServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val agentGateways: AgentGatewayService.WithRawResponse by lazy {
+            AgentGatewayServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val calendarConnections: CalendarConnectionService.WithRawResponse by lazy {
+            CalendarConnectionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val meetingBot: MeetingBotService.WithRawResponse by lazy {
+            MeetingBotServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -3327,8 +3365,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         /** Call information */
         override fun dialMetrics(): DialMetricService.WithRawResponse = dialMetrics
 
-        override fun ttsIntegrations(): TtsIntegrationService.WithRawResponse = ttsIntegrations
-
         /** Tailscale Subnet Router operations */
         override fun tailscaleSubnetRouters(): TailscaleSubnetRouterService.WithRawResponse =
             tailscaleSubnetRouters
@@ -3347,5 +3383,16 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
         override fun tunnels(): TunnelService.WithRawResponse = tunnels
+
+        /** Read and update the authenticated user's profile and data locality. */
+        override fun userProfile(): UserProfileService.WithRawResponse = userProfile
+
+        override fun agentGateways(): AgentGatewayService.WithRawResponse = agentGateways
+
+        /** Connect calendars and manage automatic meeting joins. */
+        override fun calendarConnections(): CalendarConnectionService.WithRawResponse =
+            calendarConnections
+
+        override fun meetingBot(): MeetingBotService.WithRawResponse = meetingBot
     }
 }

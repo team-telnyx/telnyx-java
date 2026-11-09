@@ -897,7 +897,7 @@ private constructor(
 
             companion object {
 
-                @JvmField val minus_START_TIME = of("-start_time")
+                @JvmField val MINUS_START_TIME = of("-start_time")
 
                 @JvmField val START_TIME = of("start_time")
 
@@ -906,7 +906,7 @@ private constructor(
 
             /** An enum containing [Sort]'s known values. */
             enum class Known {
-                minus_START_TIME,
+                MINUS_START_TIME,
                 START_TIME,
             }
 
@@ -920,7 +920,7 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                minus_START_TIME,
+                MINUS_START_TIME,
                 START_TIME,
                 /** An enum member indicating that [Sort] was instantiated with an unknown value. */
                 _UNKNOWN,
@@ -935,7 +935,7 @@ private constructor(
              */
             fun value(): Value =
                 when (this) {
-                    minus_START_TIME -> Value.minus_START_TIME
+                    MINUS_START_TIME -> Value.MINUS_START_TIME
                     START_TIME -> Value.START_TIME
                     else -> Value._UNKNOWN
                 }
@@ -951,7 +951,7 @@ private constructor(
              */
             fun known(): Known =
                 when (this) {
-                    minus_START_TIME -> Known.minus_START_TIME
+                    MINUS_START_TIME -> Known.MINUS_START_TIME
                     START_TIME -> Known.START_TIME
                     else -> throw TelnyxInvalidDataException("Unknown Sort: $value")
                 }

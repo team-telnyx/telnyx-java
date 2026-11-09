@@ -6645,7 +6645,7 @@ private constructor(
                     class FlowActionPayload
                     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
-                        private val data: JsonValue,
+                        private val data: JsonField<Data>,
                         private val screen: JsonField<String>,
                         private val additionalProperties: MutableMap<String, JsonValue>,
                     ) {
@@ -6654,7 +6654,7 @@ private constructor(
                         private constructor(
                             @JsonProperty("data")
                             @ExcludeMissing
-                            data: JsonValue = JsonMissing.of(),
+                            data: JsonField<Data> = JsonMissing.of(),
                             @JsonProperty("screen")
                             @ExcludeMissing
                             screen: JsonField<String> = JsonMissing.of(),
@@ -6663,13 +6663,10 @@ private constructor(
                         /**
                          * input data for the first screen. Must be a non-empty object when provided
                          *
-                         * This arbitrary value can be deserialized into a custom type using the
-                         * `convert` method:
-                         * ```java
-                         * MyClass myObject = flowActionPayload.data().convert(MyClass.class);
-                         * ```
+                         * @throws TelnyxInvalidDataException if the JSON field has an unexpected
+                         *   type (e.g. if the server responded with an unexpected value).
                          */
-                        @JsonProperty("data") @ExcludeMissing fun _data(): JsonValue = data
+                        fun data(): Optional<Data> = data.getOptional("data")
 
                         /**
                          * ID of the first screen to show
@@ -6678,6 +6675,14 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun screen(): Optional<String> = screen.getOptional("screen")
+
+                        /**
+                         * Returns the raw JSON value of [data].
+                         *
+                         * Unlike [data], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
+                        @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<Data> = data
 
                         /**
                          * Returns the raw JSON value of [screen].
@@ -6713,7 +6718,7 @@ private constructor(
                         /** A builder for [FlowActionPayload]. */
                         class Builder internal constructor() {
 
-                            private var data: JsonValue = JsonMissing.of()
+                            private var data: JsonField<Data> = JsonMissing.of()
                             private var screen: JsonField<String> = JsonMissing.of()
                             private var additionalProperties: MutableMap<String, JsonValue> =
                                 mutableMapOf()
@@ -6730,7 +6735,16 @@ private constructor(
                              * input data for the first screen. Must be a non-empty object when
                              * provided
                              */
-                            fun data(data: JsonValue) = apply { this.data = data }
+                            fun data(data: Data) = data(JsonField.of(data))
+
+                            /**
+                             * Sets [Builder.data] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.data] with a well-typed [Data] value
+                             * instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
+                            fun data(data: JsonField<Data>) = apply { this.data = data }
 
                             /** ID of the first screen to show */
                             fun screen(screen: String) = screen(JsonField.of(screen))
@@ -6793,6 +6807,7 @@ private constructor(
                                 return@apply
                             }
 
+                            data().ifPresent { it.validate() }
                             screen()
                             validated = true
                         }
@@ -6812,7 +6827,134 @@ private constructor(
                          * Used for best match union deserialization.
                          */
                         @JvmSynthetic
-                        internal fun validity(): Int = (if (screen.asKnown().isPresent) 1 else 0)
+                        internal fun validity(): Int =
+                            (data.asKnown().getOrNull()?.validity() ?: 0) +
+                                (if (screen.asKnown().isPresent) 1 else 0)
+
+                        /**
+                         * input data for the first screen. Must be a non-empty object when provided
+                         */
+                        class Data
+                        @JsonCreator
+                        private constructor(
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            private val additionalProperties: Map<String, JsonValue>
+                        ) {
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                additionalProperties
+
+                            fun toBuilder() = Builder().from(this)
+
+                            companion object {
+
+                                /**
+                                 * Returns a mutable builder for constructing an instance of [Data].
+                                 */
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            /** A builder for [Data]. */
+                            class Builder internal constructor() {
+
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(data: Data) = apply {
+                                    additionalProperties = data.additionalProperties.toMutableMap()
+                                }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun removeAdditionalProperty(key: String) = apply {
+                                    additionalProperties.remove(key)
+                                }
+
+                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                    keys.forEach(::removeAdditionalProperty)
+                                }
+
+                                /**
+                                 * Returns an immutable instance of [Data].
+                                 *
+                                 * Further updates to this [Builder] will not mutate the returned
+                                 * instance.
+                                 */
+                                fun build(): Data = Data(additionalProperties.toImmutable())
+                            }
+
+                            private var validated: Boolean = false
+
+                            /**
+                             * Validates that the types of all values in this object match their
+                             * expected types recursively.
+                             *
+                             * This method is _not_ forwards compatible with new types from the API
+                             * for existing fields.
+                             *
+                             * @throws TelnyxInvalidDataException if any value type in this object
+                             *   doesn't match its expected type.
+                             */
+                            fun validate(): Data = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: TelnyxInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            @JvmSynthetic
+                            internal fun validity(): Int =
+                                additionalProperties.count { (_, value) ->
+                                    !value.isNull() && !value.isMissing()
+                                }
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is Data &&
+                                    additionalProperties == other.additionalProperties
+                            }
+
+                            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                            override fun hashCode(): Int = hashCode
+
+                            override fun toString() =
+                                "Data{additionalProperties=$additionalProperties}"
+                        }
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -9544,7 +9686,7 @@ private constructor(
                     class Action
                     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
-                        private val flowActionData: JsonValue,
+                        private val flowActionData: JsonField<FlowActionData>,
                         private val flowToken: JsonField<String>,
                         private val additionalProperties: MutableMap<String, JsonValue>,
                     ) {
@@ -9553,7 +9695,7 @@ private constructor(
                         private constructor(
                             @JsonProperty("flow_action_data")
                             @ExcludeMissing
-                            flowActionData: JsonValue = JsonMissing.of(),
+                            flowActionData: JsonField<FlowActionData> = JsonMissing.of(),
                             @JsonProperty("flow_token")
                             @ExcludeMissing
                             flowToken: JsonField<String> = JsonMissing.of(),
@@ -9562,15 +9704,11 @@ private constructor(
                         /**
                          * input data for the first screen of the flow
                          *
-                         * This arbitrary value can be deserialized into a custom type using the
-                         * `convert` method:
-                         * ```java
-                         * MyClass myObject = action.flowActionData().convert(MyClass.class);
-                         * ```
+                         * @throws TelnyxInvalidDataException if the JSON field has an unexpected
+                         *   type (e.g. if the server responded with an unexpected value).
                          */
-                        @JsonProperty("flow_action_data")
-                        @ExcludeMissing
-                        fun _flowActionData(): JsonValue = flowActionData
+                        fun flowActionData(): Optional<FlowActionData> =
+                            flowActionData.getOptional("flow_action_data")
 
                         /**
                          * business-generated identifier for the flow session. Returned in the flow
@@ -9580,6 +9718,16 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun flowToken(): Optional<String> = flowToken.getOptional("flow_token")
+
+                        /**
+                         * Returns the raw JSON value of [flowActionData].
+                         *
+                         * Unlike [flowActionData], this method doesn't throw if the JSON field has
+                         * an unexpected type.
+                         */
+                        @JsonProperty("flow_action_data")
+                        @ExcludeMissing
+                        fun _flowActionData(): JsonField<FlowActionData> = flowActionData
 
                         /**
                          * Returns the raw JSON value of [flowToken].
@@ -9614,7 +9762,7 @@ private constructor(
                         /** A builder for [Action]. */
                         class Builder internal constructor() {
 
-                            private var flowActionData: JsonValue = JsonMissing.of()
+                            private var flowActionData: JsonField<FlowActionData> = JsonMissing.of()
                             private var flowToken: JsonField<String> = JsonMissing.of()
                             private var additionalProperties: MutableMap<String, JsonValue> =
                                 mutableMapOf()
@@ -9627,7 +9775,17 @@ private constructor(
                             }
 
                             /** input data for the first screen of the flow */
-                            fun flowActionData(flowActionData: JsonValue) = apply {
+                            fun flowActionData(flowActionData: FlowActionData) =
+                                flowActionData(JsonField.of(flowActionData))
+
+                            /**
+                             * Sets [Builder.flowActionData] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.flowActionData] with a well-typed
+                             * [FlowActionData] value instead. This method is primarily for setting
+                             * the field to an undocumented or not yet supported value.
+                             */
+                            fun flowActionData(flowActionData: JsonField<FlowActionData>) = apply {
                                 this.flowActionData = flowActionData
                             }
 
@@ -9701,6 +9859,7 @@ private constructor(
                                 return@apply
                             }
 
+                            flowActionData().ifPresent { it.validate() }
                             flowToken()
                             validated = true
                         }
@@ -9720,7 +9879,135 @@ private constructor(
                          * Used for best match union deserialization.
                          */
                         @JvmSynthetic
-                        internal fun validity(): Int = (if (flowToken.asKnown().isPresent) 1 else 0)
+                        internal fun validity(): Int =
+                            (flowActionData.asKnown().getOrNull()?.validity() ?: 0) +
+                                (if (flowToken.asKnown().isPresent) 1 else 0)
+
+                        /** input data for the first screen of the flow */
+                        class FlowActionData
+                        @JsonCreator
+                        private constructor(
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            private val additionalProperties: Map<String, JsonValue>
+                        ) {
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                additionalProperties
+
+                            fun toBuilder() = Builder().from(this)
+
+                            companion object {
+
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [FlowActionData].
+                                 */
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            /** A builder for [FlowActionData]. */
+                            class Builder internal constructor() {
+
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(flowActionData: FlowActionData) = apply {
+                                    additionalProperties =
+                                        flowActionData.additionalProperties.toMutableMap()
+                                }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun removeAdditionalProperty(key: String) = apply {
+                                    additionalProperties.remove(key)
+                                }
+
+                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                    keys.forEach(::removeAdditionalProperty)
+                                }
+
+                                /**
+                                 * Returns an immutable instance of [FlowActionData].
+                                 *
+                                 * Further updates to this [Builder] will not mutate the returned
+                                 * instance.
+                                 */
+                                fun build(): FlowActionData =
+                                    FlowActionData(additionalProperties.toImmutable())
+                            }
+
+                            private var validated: Boolean = false
+
+                            /**
+                             * Validates that the types of all values in this object match their
+                             * expected types recursively.
+                             *
+                             * This method is _not_ forwards compatible with new types from the API
+                             * for existing fields.
+                             *
+                             * @throws TelnyxInvalidDataException if any value type in this object
+                             *   doesn't match its expected type.
+                             */
+                            fun validate(): FlowActionData = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: TelnyxInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            @JvmSynthetic
+                            internal fun validity(): Int =
+                                additionalProperties.count { (_, value) ->
+                                    !value.isNull() && !value.isMissing()
+                                }
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is FlowActionData &&
+                                    additionalProperties == other.additionalProperties
+                            }
+
+                            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                            override fun hashCode(): Int = hashCode
+
+                            override fun toString() =
+                                "FlowActionData{additionalProperties=$additionalProperties}"
+                        }
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {

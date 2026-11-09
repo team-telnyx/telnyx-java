@@ -236,6 +236,8 @@ private constructor(
 
             @JvmField val SONIOX = of("soniox")
 
+            @JvmField val ASSEMBLYAI = of("assemblyai")
+
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
 
@@ -250,6 +252,7 @@ private constructor(
             XAI,
             HUMAIN,
             SONIOX,
+            ASSEMBLYAI,
         }
 
         /**
@@ -271,6 +274,7 @@ private constructor(
             XAI,
             HUMAIN,
             SONIOX,
+            ASSEMBLYAI,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -293,6 +297,7 @@ private constructor(
                 XAI -> Value.XAI
                 HUMAIN -> Value.HUMAIN
                 SONIOX -> Value.SONIOX
+                ASSEMBLYAI -> Value.ASSEMBLYAI
                 else -> Value._UNKNOWN
             }
 
@@ -316,6 +321,7 @@ private constructor(
                 XAI -> Known.XAI
                 HUMAIN -> Known.HUMAIN
                 SONIOX -> Known.SONIOX
+                ASSEMBLYAI -> Known.ASSEMBLYAI
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 

@@ -20,20 +20,20 @@ class BudgetDuration @JsonCreator private constructor(private val value: JsonFie
 
     companion object {
 
-        @JvmField val _1D = of("1d")
+        @JvmField val BUDGET_DURATION_1_D = of("1d")
 
-        @JvmField val _7D = of("7d")
+        @JvmField val BUDGET_DURATION_7_D = of("7d")
 
-        @JvmField val _30D = of("30d")
+        @JvmField val BUDGET_DURATION_30_D = of("30d")
 
         @JvmStatic fun of(value: String) = BudgetDuration(JsonField.of(value))
     }
 
     /** An enum containing [BudgetDuration]'s known values. */
     enum class Known {
-        _1D,
-        _7D,
-        _30D,
+        BUDGET_DURATION_1_D,
+        BUDGET_DURATION_7_D,
+        BUDGET_DURATION_30_D,
     }
 
     /**
@@ -46,9 +46,9 @@ class BudgetDuration @JsonCreator private constructor(private val value: JsonFie
      * - It was constructed with an arbitrary value using the [of] method.
      */
     enum class Value {
-        _1D,
-        _7D,
-        _30D,
+        BUDGET_DURATION_1_D,
+        BUDGET_DURATION_7_D,
+        BUDGET_DURATION_30_D,
         /**
          * An enum member indicating that [BudgetDuration] was instantiated with an unknown value.
          */
@@ -64,9 +64,9 @@ class BudgetDuration @JsonCreator private constructor(private val value: JsonFie
      */
     fun value(): Value =
         when (this) {
-            _1D -> Value._1D
-            _7D -> Value._7D
-            _30D -> Value._30D
+            BUDGET_DURATION_1_D -> Value.BUDGET_DURATION_1_D
+            BUDGET_DURATION_7_D -> Value.BUDGET_DURATION_7_D
+            BUDGET_DURATION_30_D -> Value.BUDGET_DURATION_30_D
             else -> Value._UNKNOWN
         }
 
@@ -80,9 +80,9 @@ class BudgetDuration @JsonCreator private constructor(private val value: JsonFie
      */
     fun known(): Known =
         when (this) {
-            _1D -> Known._1D
-            _7D -> Known._7D
-            _30D -> Known._30D
+            BUDGET_DURATION_1_D -> Known.BUDGET_DURATION_1_D
+            BUDGET_DURATION_7_D -> Known.BUDGET_DURATION_7_D
+            BUDGET_DURATION_30_D -> Known.BUDGET_DURATION_30_D
             else -> throw TelnyxInvalidDataException("Unknown BudgetDuration: $value")
         }
 

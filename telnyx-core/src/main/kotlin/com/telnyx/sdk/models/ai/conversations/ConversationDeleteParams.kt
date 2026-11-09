@@ -10,7 +10,12 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a specific conversation by its ID. */
+/**
+ * Delete a specific conversation by its ID. Permanently deletes the conversation and its associated
+ * data: the conversation's messages, its insight generation results, any conversation memories, and
+ * its webhook request logs. Recordings are not deleted — recordings are managed separately through
+ * the /v2/recordings endpoints. This action cannot be undone.
+ */
 class ConversationDeleteParams
 private constructor(
     private val conversationId: String?,

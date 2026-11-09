@@ -47,7 +47,7 @@ internal class PhoneNumbersJobTest {
                         .build()
                 )
                 .addPendingOperation(
-                    PhoneNumbersJob.PendingOperation.builder()
+                    PhoneNumbersJobPendingOperation.builder()
                         .id("2637816387126861837")
                         .phoneNumber("+19705555099")
                         .build()
@@ -75,13 +75,13 @@ internal class PhoneNumbersJobTest {
                 .recordType("phone_numbers_job")
                 .status(PhoneNumbersJob.Status.PENDING)
                 .addSuccessfulOperation(
-                    PhoneNumbersJob.SuccessfulOperation.builder()
+                    PhoneNumbersJobSuccessfulOperation.builder()
                         .id("2637816387126861836")
                         .phoneNumber("+19705555098")
                         .build()
                 )
                 .addSuccessfulOperation(
-                    PhoneNumbersJob.SuccessfulOperation.builder()
+                    PhoneNumbersJobSuccessfulOperation.builder()
                         .id("33081887126861836")
                         .phoneNumber("+19715555098")
                         .build()
@@ -120,7 +120,7 @@ internal class PhoneNumbersJobTest {
             )
         assertThat(phoneNumbersJob.pendingOperations().getOrNull())
             .containsExactly(
-                PhoneNumbersJob.PendingOperation.builder()
+                PhoneNumbersJobPendingOperation.builder()
                     .id("2637816387126861837")
                     .phoneNumber("+19705555099")
                     .build()
@@ -142,11 +142,11 @@ internal class PhoneNumbersJobTest {
         assertThat(phoneNumbersJob.status()).contains(PhoneNumbersJob.Status.PENDING)
         assertThat(phoneNumbersJob.successfulOperations().getOrNull())
             .containsExactly(
-                PhoneNumbersJob.SuccessfulOperation.builder()
+                PhoneNumbersJobSuccessfulOperation.builder()
                     .id("2637816387126861836")
                     .phoneNumber("+19705555098")
                     .build(),
-                PhoneNumbersJob.SuccessfulOperation.builder()
+                PhoneNumbersJobSuccessfulOperation.builder()
                     .id("33081887126861836")
                     .phoneNumber("+19715555098")
                     .build(),
@@ -190,7 +190,7 @@ internal class PhoneNumbersJobTest {
                         .build()
                 )
                 .addPendingOperation(
-                    PhoneNumbersJob.PendingOperation.builder()
+                    PhoneNumbersJobPendingOperation.builder()
                         .id("2637816387126861837")
                         .phoneNumber("+19705555099")
                         .build()
@@ -218,13 +218,13 @@ internal class PhoneNumbersJobTest {
                 .recordType("phone_numbers_job")
                 .status(PhoneNumbersJob.Status.PENDING)
                 .addSuccessfulOperation(
-                    PhoneNumbersJob.SuccessfulOperation.builder()
+                    PhoneNumbersJobSuccessfulOperation.builder()
                         .id("2637816387126861836")
                         .phoneNumber("+19705555098")
                         .build()
                 )
                 .addSuccessfulOperation(
-                    PhoneNumbersJob.SuccessfulOperation.builder()
+                    PhoneNumbersJobSuccessfulOperation.builder()
                         .id("33081887126861836")
                         .phoneNumber("+19715555098")
                         .build()

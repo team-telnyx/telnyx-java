@@ -18,7 +18,7 @@ internal class SourceRetrieveResponseTest {
                     SourceRetrieveResponse.Data.builder()
                         .id("id")
                         .content(
-                            SourceRetrieveResponse.Data.Content.UnionMember0.builder()
+                            SourceRetrieveResponse.Data.Content.SourceContentObject.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -35,7 +35,7 @@ internal class SourceRetrieveResponseTest {
                 SourceRetrieveResponse.Data.builder()
                     .id("id")
                     .content(
-                        SourceRetrieveResponse.Data.Content.UnionMember0.builder()
+                        SourceRetrieveResponse.Data.Content.SourceContentObject.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -56,7 +56,7 @@ internal class SourceRetrieveResponseTest {
                     SourceRetrieveResponse.Data.builder()
                         .id("id")
                         .content(
-                            SourceRetrieveResponse.Data.Content.UnionMember0.builder()
+                            SourceRetrieveResponse.Data.Content.SourceContentObject.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

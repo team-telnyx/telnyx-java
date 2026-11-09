@@ -1062,7 +1062,7 @@ private constructor(
 
             @JvmField val CIDR = of("cidr")
 
-            @JvmField val minus_CIDR = of("-cidr")
+            @JvmField val MINUS_CIDR = of("-cidr")
 
             @JvmField val STATUS = of("status")
 
@@ -1078,7 +1078,7 @@ private constructor(
         /** An enum containing [Sort]'s known values. */
         enum class Known {
             CIDR,
-            minus_CIDR,
+            MINUS_CIDR,
             STATUS,
             STATUS_DESC,
             CREATED_AT,
@@ -1096,7 +1096,7 @@ private constructor(
          */
         enum class Value {
             CIDR,
-            minus_CIDR,
+            MINUS_CIDR,
             STATUS,
             STATUS_DESC,
             CREATED_AT,
@@ -1115,7 +1115,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 CIDR -> Value.CIDR
-                minus_CIDR -> Value.minus_CIDR
+                MINUS_CIDR -> Value.MINUS_CIDR
                 STATUS -> Value.STATUS
                 STATUS_DESC -> Value.STATUS_DESC
                 CREATED_AT -> Value.CREATED_AT
@@ -1135,7 +1135,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 CIDR -> Known.CIDR
-                minus_CIDR -> Known.minus_CIDR
+                MINUS_CIDR -> Known.MINUS_CIDR
                 STATUS -> Known.STATUS
                 STATUS_DESC -> Known.STATUS_DESC
                 CREATED_AT -> Known.CREATED_AT

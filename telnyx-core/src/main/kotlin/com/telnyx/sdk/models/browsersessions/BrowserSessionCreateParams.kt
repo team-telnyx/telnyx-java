@@ -54,12 +54,10 @@ private constructor(
     /**
      * Arbitrary key-value metadata.
      *
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```java
-     * MyClass myObject = browserSessionCreateParams.metadata().convert(MyClass.class);
-     * ```
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun _metadata(): JsonValue = body._metadata()
+    fun metadata(): Optional<Metadata> = body.metadata()
 
     /**
      * Returns the raw JSON value of [policy].
@@ -81,6 +79,13 @@ private constructor(
      * Unlike [limits], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _limits(): JsonField<Limits> = body._limits()
+
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _metadata(): JsonField<Metadata> = body._metadata()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -171,7 +176,16 @@ private constructor(
         fun limits(limits: JsonField<Limits>) = apply { body.limits(limits) }
 
         /** Arbitrary key-value metadata. */
-        fun metadata(metadata: JsonValue) = apply { body.metadata(metadata) }
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -323,7 +337,7 @@ private constructor(
         private val policy: JsonField<Policy>,
         private val idempotencyKey: JsonField<String>,
         private val limits: JsonField<Limits>,
-        private val metadata: JsonValue,
+        private val metadata: JsonField<Metadata>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -334,7 +348,9 @@ private constructor(
             @ExcludeMissing
             idempotencyKey: JsonField<String> = JsonMissing.of(),
             @JsonProperty("limits") @ExcludeMissing limits: JsonField<Limits> = JsonMissing.of(),
-            @JsonProperty("metadata") @ExcludeMissing metadata: JsonValue = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
         ) : this(policy, idempotencyKey, limits, metadata, mutableMapOf())
 
         /**
@@ -362,12 +378,10 @@ private constructor(
         /**
          * Arbitrary key-value metadata.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = body.metadata().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonValue = metadata
+        fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
 
         /**
          * Returns the raw JSON value of [policy].
@@ -392,6 +406,13 @@ private constructor(
          * Unlike [limits], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("limits") @ExcludeMissing fun _limits(): JsonField<Limits> = limits
+
+        /**
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -424,7 +445,7 @@ private constructor(
             private var policy: JsonField<Policy>? = null
             private var idempotencyKey: JsonField<String> = JsonMissing.of()
             private var limits: JsonField<Limits> = JsonMissing.of()
-            private var metadata: JsonValue = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -478,7 +499,16 @@ private constructor(
             fun limits(limits: JsonField<Limits>) = apply { this.limits = limits }
 
             /** Arbitrary key-value metadata. */
-            fun metadata(metadata: JsonValue) = apply { this.metadata = metadata }
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -540,6 +570,7 @@ private constructor(
             policy().validate()
             idempotencyKey()
             limits().ifPresent { it.validate() }
+            metadata().ifPresent { it.validate() }
             validated = true
         }
 
@@ -561,7 +592,8 @@ private constructor(
         internal fun validity(): Int =
             (policy.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
-                (limits.asKnown().getOrNull()?.validity() ?: 0)
+                (limits.asKnown().getOrNull()?.validity() ?: 0) +
+                (metadata.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -975,6 +1007,115 @@ private constructor(
 
         override fun toString() =
             "Limits{idleTimeoutS=$idleTimeoutS, lifetimeS=$lifetimeS, additionalProperties=$additionalProperties}"
+    }
+
+    /** Arbitrary key-value metadata. */
+    class Metadata
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties = metadata.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

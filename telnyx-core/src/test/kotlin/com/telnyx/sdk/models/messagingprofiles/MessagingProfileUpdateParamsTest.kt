@@ -20,7 +20,12 @@ internal class MessagingProfileUpdateParamsTest {
             .dailySpendLimit("269125115713")
             .dailySpendLimitEnabled(true)
             .enabled(true)
-            .features(MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build())
+            .features(
+                MessagingProfileFeatures.builder()
+                    .aiOptOutDetectionEnabled(true)
+                    .autoChunkLongMessages(true)
+                    .build()
+            )
             .mm7Metadata(
                 Mm7Metadata.builder()
                     .mm7FailoverWebhookUrl("https://backup.example.com/hooks")
@@ -85,7 +90,12 @@ internal class MessagingProfileUpdateParamsTest {
                 .dailySpendLimit("269125115713")
                 .dailySpendLimitEnabled(true)
                 .enabled(true)
-                .features(MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build())
+                .features(
+                    MessagingProfileFeatures.builder()
+                        .aiOptOutDetectionEnabled(true)
+                        .autoChunkLongMessages(true)
+                        .build()
+                )
                 .mm7Metadata(
                     Mm7Metadata.builder()
                         .mm7FailoverWebhookUrl("https://backup.example.com/hooks")
@@ -136,7 +146,12 @@ internal class MessagingProfileUpdateParamsTest {
         assertThat(body.dailySpendLimitEnabled()).contains(true)
         assertThat(body.enabled()).contains(true)
         assertThat(body.features())
-            .contains(MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build())
+            .contains(
+                MessagingProfileFeatures.builder()
+                    .aiOptOutDetectionEnabled(true)
+                    .autoChunkLongMessages(true)
+                    .build()
+            )
         assertThat(body.mm7Metadata())
             .contains(
                 Mm7Metadata.builder()

@@ -142,7 +142,9 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    @Deprecated("deprecated")
+    @Deprecated(
+        "Ignored. Configure AssemblyAI turn detection with min_turn_silence and max_turn_silence instead."
+    )
     fun endOfTurnConfidenceThreshold(): Optional<Double> =
         endOfTurnConfidenceThreshold.getOptional("end_of_turn_confidence_threshold")
 
@@ -299,7 +301,9 @@ private constructor(
      * Unlike [endOfTurnConfidenceThreshold], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
-    @Deprecated("deprecated")
+    @Deprecated(
+        "Ignored. Configure AssemblyAI turn detection with min_turn_silence and max_turn_silence instead."
+    )
     @JsonProperty("end_of_turn_confidence_threshold")
     @ExcludeMissing
     fun _endOfTurnConfidenceThreshold(): JsonField<Double> = endOfTurnConfidenceThreshold
@@ -529,7 +533,9 @@ private constructor(
          * Deprecated and ignored. Accepted for backwards compatibility. AssemblyAI turn detection
          * is configured with min_turn_silence and max_turn_silence.
          */
-        @Deprecated("deprecated")
+        @Deprecated(
+            "Ignored. Configure AssemblyAI turn detection with min_turn_silence and max_turn_silence instead."
+        )
         fun endOfTurnConfidenceThreshold(endOfTurnConfidenceThreshold: Double) =
             endOfTurnConfidenceThreshold(JsonField.of(endOfTurnConfidenceThreshold))
 
@@ -540,7 +546,9 @@ private constructor(
          * value instead. This method is primarily for setting the field to an undocumented or not
          * yet supported value.
          */
-        @Deprecated("deprecated")
+        @Deprecated(
+            "Ignored. Configure AssemblyAI turn detection with min_turn_silence and max_turn_silence instead."
+        )
         fun endOfTurnConfidenceThreshold(endOfTurnConfidenceThreshold: JsonField<Double>) = apply {
             this.endOfTurnConfidenceThreshold = endOfTurnConfidenceThreshold
         }

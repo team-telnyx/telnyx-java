@@ -11,6 +11,17 @@ internal class TextToSpeechGenerateSpeechParamsTest {
     @Test
     fun create() {
         TextToSpeechGenerateSpeechParams.builder()
+            .assemblyai(
+                TextToSpeechGenerateSpeechParams.Assemblyai.builder()
+                    .voiceId("aai-jane")
+                    .audioFormat(TextToSpeechGenerateSpeechParams.Assemblyai.AudioFormat.MP3)
+                    .language(TextToSpeechGenerateSpeechParams.Assemblyai.Language.EN)
+                    .modelId(TextToSpeechGenerateSpeechParams.Assemblyai.ModelId.ASSEMBLYAI_TTS_1)
+                    .sampleRate(
+                        TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate.SAMPLE_RATE_8000
+                    )
+                    .build()
+            )
             .aws(
                 TextToSpeechGenerateSpeechParams.Aws.builder()
                     .languageCode("string")
@@ -76,7 +87,7 @@ internal class TextToSpeechGenerateSpeechParamsTest {
                     .language("en")
                     .modelId(TextToSpeechGenerateSpeechParams.Soniox.ModelId.TTS_RT_V2)
                     .reduceSilence(true)
-                    .sampleRate(TextToSpeechGenerateSpeechParams.Soniox.SampleRate._8000)
+                    .sampleRate(TextToSpeechGenerateSpeechParams.Soniox.SampleRate.SAMPLE_RATE_8000)
                     .speed(1.0f)
                     .build()
             )
@@ -112,6 +123,19 @@ internal class TextToSpeechGenerateSpeechParamsTest {
     fun body() {
         val params =
             TextToSpeechGenerateSpeechParams.builder()
+                .assemblyai(
+                    TextToSpeechGenerateSpeechParams.Assemblyai.builder()
+                        .voiceId("aai-jane")
+                        .audioFormat(TextToSpeechGenerateSpeechParams.Assemblyai.AudioFormat.MP3)
+                        .language(TextToSpeechGenerateSpeechParams.Assemblyai.Language.EN)
+                        .modelId(
+                            TextToSpeechGenerateSpeechParams.Assemblyai.ModelId.ASSEMBLYAI_TTS_1
+                        )
+                        .sampleRate(
+                            TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate.SAMPLE_RATE_8000
+                        )
+                        .build()
+                )
                 .aws(
                     TextToSpeechGenerateSpeechParams.Aws.builder()
                         .languageCode("string")
@@ -177,7 +201,9 @@ internal class TextToSpeechGenerateSpeechParamsTest {
                         .language("en")
                         .modelId(TextToSpeechGenerateSpeechParams.Soniox.ModelId.TTS_RT_V2)
                         .reduceSilence(true)
-                        .sampleRate(TextToSpeechGenerateSpeechParams.Soniox.SampleRate._8000)
+                        .sampleRate(
+                            TextToSpeechGenerateSpeechParams.Soniox.SampleRate.SAMPLE_RATE_8000
+                        )
                         .speed(1.0f)
                         .build()
                 )
@@ -210,6 +236,18 @@ internal class TextToSpeechGenerateSpeechParamsTest {
 
         val body = params._body()
 
+        assertThat(body.assemblyai())
+            .contains(
+                TextToSpeechGenerateSpeechParams.Assemblyai.builder()
+                    .voiceId("aai-jane")
+                    .audioFormat(TextToSpeechGenerateSpeechParams.Assemblyai.AudioFormat.MP3)
+                    .language(TextToSpeechGenerateSpeechParams.Assemblyai.Language.EN)
+                    .modelId(TextToSpeechGenerateSpeechParams.Assemblyai.ModelId.ASSEMBLYAI_TTS_1)
+                    .sampleRate(
+                        TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate.SAMPLE_RATE_8000
+                    )
+                    .build()
+            )
         assertThat(body.aws())
             .contains(
                 TextToSpeechGenerateSpeechParams.Aws.builder()
@@ -283,7 +321,7 @@ internal class TextToSpeechGenerateSpeechParamsTest {
                     .language("en")
                     .modelId(TextToSpeechGenerateSpeechParams.Soniox.ModelId.TTS_RT_V2)
                     .reduceSilence(true)
-                    .sampleRate(TextToSpeechGenerateSpeechParams.Soniox.SampleRate._8000)
+                    .sampleRate(TextToSpeechGenerateSpeechParams.Soniox.SampleRate.SAMPLE_RATE_8000)
                     .speed(1.0f)
                     .build()
             )

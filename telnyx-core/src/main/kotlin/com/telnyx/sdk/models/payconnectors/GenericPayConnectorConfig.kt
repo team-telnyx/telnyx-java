@@ -335,7 +335,7 @@ private constructor(
     private constructor(
         private val password: JsonField<String>,
         private val username: JsonField<String>,
-        private val token: JsonValue,
+        private val token: JsonField<String>,
         private val authType: JsonField<AuthType>,
         private val endpointUrl: JsonField<String>,
         private val timeout: JsonField<Long>,
@@ -350,7 +350,7 @@ private constructor(
             @JsonProperty("username")
             @ExcludeMissing
             username: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("token") @ExcludeMissing token: JsonValue = JsonMissing.of(),
+            @JsonProperty("token") @ExcludeMissing token: JsonField<String> = JsonMissing.of(),
             @JsonProperty("auth_type")
             @ExcludeMissing
             authType: JsonField<AuthType> = JsonMissing.of(),
@@ -380,12 +380,10 @@ private constructor(
          * Nonblank string required for bearer authentication. Write-only; omitted from responses.
          * Re-send when replacing a bearer-auth config.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = basicAuthenticationAlsoTheValidationDefault.token().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("token") @ExcludeMissing fun _token(): JsonValue = token
+        fun token(): Optional<String> = token.getOptional("token")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -423,6 +421,13 @@ private constructor(
          * Unlike [username], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("username") @ExcludeMissing fun _username(): JsonField<String> = username
+
+        /**
+         * Returns the raw JSON value of [token].
+         *
+         * Unlike [token], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("token") @ExcludeMissing fun _token(): JsonField<String> = token
 
         /**
          * Returns the raw JSON value of [authType].
@@ -479,7 +484,7 @@ private constructor(
 
             private var password: JsonField<String>? = null
             private var username: JsonField<String>? = null
-            private var token: JsonValue = JsonMissing.of()
+            private var token: JsonField<String> = JsonMissing.of()
             private var authType: JsonField<AuthType> = JsonMissing.of()
             private var endpointUrl: JsonField<String> = JsonMissing.of()
             private var timeout: JsonField<Long> = JsonMissing.of()
@@ -528,7 +533,16 @@ private constructor(
              * Nonblank string required for bearer authentication. Write-only; omitted from
              * responses. Re-send when replacing a bearer-auth config.
              */
-            fun token(token: JsonValue) = apply { this.token = token }
+            fun token(token: String) = token(JsonField.of(token))
+
+            /**
+             * Sets [Builder.token] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.token] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun token(token: JsonField<String>) = apply { this.token = token }
 
             fun authType(authType: AuthType) = authType(JsonField.of(authType))
 
@@ -645,6 +659,7 @@ private constructor(
 
             password()
             username()
+            token()
             authType().ifPresent { it.validate() }
             endpointUrl()
             timeout()
@@ -669,6 +684,7 @@ private constructor(
         internal fun validity(): Int =
             (if (password.asKnown().isPresent) 1 else 0) +
                 (if (username.asKnown().isPresent) 1 else 0) +
+                (if (token.asKnown().isPresent) 1 else 0) +
                 (authType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (endpointUrl.asKnown().isPresent) 1 else 0) +
                 (if (timeout.asKnown().isPresent) 1 else 0)
@@ -846,9 +862,9 @@ private constructor(
         private val token: JsonField<String>,
         private val authType: JsonValue,
         private val endpointUrl: JsonField<String>,
-        private val password: JsonValue,
+        private val password: JsonField<String>,
         private val timeout: JsonField<Long>,
-        private val username: JsonValue,
+        private val username: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -859,9 +875,11 @@ private constructor(
             @JsonProperty("endpoint_url")
             @ExcludeMissing
             endpointUrl: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("password") @ExcludeMissing password: JsonValue = JsonMissing.of(),
+            @JsonProperty("password")
+            @ExcludeMissing
+            password: JsonField<String> = JsonMissing.of(),
             @JsonProperty("timeout") @ExcludeMissing timeout: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("username") @ExcludeMissing username: JsonValue = JsonMissing.of(),
+            @JsonProperty("username") @ExcludeMissing username: JsonField<String> = JsonMissing.of(),
         ) : this(token, authType, endpointUrl, password, timeout, username, mutableMapOf())
 
         /**
@@ -895,12 +913,10 @@ private constructor(
          * Nonblank string required for basic authentication. Write-only; omitted from responses.
          * Re-send when replacing a basic-auth config.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = bearerAuthentication.password().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("password") @ExcludeMissing fun _password(): JsonValue = password
+        fun password(): Optional<String> = password.getOptional("password")
 
         /**
          * Processor HTTP timeout in milliseconds. Omitted or null uses 10000; null is removed
@@ -914,12 +930,10 @@ private constructor(
         /**
          * Nonblank string required for basic authentication. Returned in connector responses.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = bearerAuthentication.username().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("username") @ExcludeMissing fun _username(): JsonValue = username
+        fun username(): Optional<String> = username.getOptional("username")
 
         /**
          * Returns the raw JSON value of [token].
@@ -938,11 +952,25 @@ private constructor(
         fun _endpointUrl(): JsonField<String> = endpointUrl
 
         /**
+         * Returns the raw JSON value of [password].
+         *
+         * Unlike [password], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("password") @ExcludeMissing fun _password(): JsonField<String> = password
+
+        /**
          * Returns the raw JSON value of [timeout].
          *
          * Unlike [timeout], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("timeout") @ExcludeMissing fun _timeout(): JsonField<Long> = timeout
+
+        /**
+         * Returns the raw JSON value of [username].
+         *
+         * Unlike [username], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("username") @ExcludeMissing fun _username(): JsonField<String> = username
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -975,9 +1003,9 @@ private constructor(
             private var token: JsonField<String>? = null
             private var authType: JsonValue = JsonValue.from("bearer")
             private var endpointUrl: JsonField<String> = JsonMissing.of()
-            private var password: JsonValue = JsonMissing.of()
+            private var password: JsonField<String> = JsonMissing.of()
             private var timeout: JsonField<Long> = JsonMissing.of()
-            private var username: JsonValue = JsonMissing.of()
+            private var username: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1038,7 +1066,16 @@ private constructor(
              * Nonblank string required for basic authentication. Write-only; omitted from
              * responses. Re-send when replacing a basic-auth config.
              */
-            fun password(password: JsonValue) = apply { this.password = password }
+            fun password(password: String) = password(JsonField.of(password))
+
+            /**
+             * Sets [Builder.password] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.password] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun password(password: JsonField<String>) = apply { this.password = password }
 
             /**
              * Processor HTTP timeout in milliseconds. Omitted or null uses 10000; null is removed
@@ -1068,7 +1105,16 @@ private constructor(
             /**
              * Nonblank string required for basic authentication. Returned in connector responses.
              */
-            fun username(username: JsonValue) = apply { this.username = username }
+            fun username(username: String) = username(JsonField.of(username))
+
+            /**
+             * Sets [Builder.username] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.username] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun username(username: JsonField<String>) = apply { this.username = username }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1136,7 +1182,9 @@ private constructor(
                 }
             }
             endpointUrl()
+            password()
             timeout()
+            username()
             validated = true
         }
 
@@ -1159,7 +1207,9 @@ private constructor(
             (if (token.asKnown().isPresent) 1 else 0) +
                 authType.let { if (it == JsonValue.from("bearer")) 1 else 0 } +
                 (if (endpointUrl.asKnown().isPresent) 1 else 0) +
-                (if (timeout.asKnown().isPresent) 1 else 0)
+                (if (password.asKnown().isPresent) 1 else 0) +
+                (if (timeout.asKnown().isPresent) 1 else 0) +
+                (if (username.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1198,24 +1248,26 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val authType: JsonValue,
-        private val token: JsonValue,
+        private val token: JsonField<String>,
         private val endpointUrl: JsonField<String>,
-        private val password: JsonValue,
+        private val password: JsonField<String>,
         private val timeout: JsonField<Long>,
-        private val username: JsonValue,
+        private val username: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("auth_type") @ExcludeMissing authType: JsonValue = JsonMissing.of(),
-            @JsonProperty("token") @ExcludeMissing token: JsonValue = JsonMissing.of(),
+            @JsonProperty("token") @ExcludeMissing token: JsonField<String> = JsonMissing.of(),
             @JsonProperty("endpoint_url")
             @ExcludeMissing
             endpointUrl: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("password") @ExcludeMissing password: JsonValue = JsonMissing.of(),
+            @JsonProperty("password")
+            @ExcludeMissing
+            password: JsonField<String> = JsonMissing.of(),
             @JsonProperty("timeout") @ExcludeMissing timeout: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("username") @ExcludeMissing username: JsonValue = JsonMissing.of(),
+            @JsonProperty("username") @ExcludeMissing username: JsonField<String> = JsonMissing.of(),
         ) : this(authType, token, endpointUrl, password, timeout, username, mutableMapOf())
 
         /**
@@ -1233,12 +1285,10 @@ private constructor(
          * Nonblank string required for bearer authentication. Write-only; omitted from responses.
          * Re-send when replacing a bearer-auth config.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = noProcessorAuthentication.token().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("token") @ExcludeMissing fun _token(): JsonValue = token
+        fun token(): Optional<String> = token.getOptional("token")
 
         /**
          * HTTP or HTTPS processor URL with a host. Use HTTPS to protect payment data in transit.
@@ -1252,12 +1302,10 @@ private constructor(
          * Nonblank string required for basic authentication. Write-only; omitted from responses.
          * Re-send when replacing a basic-auth config.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = noProcessorAuthentication.password().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("password") @ExcludeMissing fun _password(): JsonValue = password
+        fun password(): Optional<String> = password.getOptional("password")
 
         /**
          * Processor HTTP timeout in milliseconds. Omitted or null uses 10000; null is removed
@@ -1271,12 +1319,17 @@ private constructor(
         /**
          * Nonblank string required for basic authentication. Returned in connector responses.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = noProcessorAuthentication.username().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("username") @ExcludeMissing fun _username(): JsonValue = username
+        fun username(): Optional<String> = username.getOptional("username")
+
+        /**
+         * Returns the raw JSON value of [token].
+         *
+         * Unlike [token], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("token") @ExcludeMissing fun _token(): JsonField<String> = token
 
         /**
          * Returns the raw JSON value of [endpointUrl].
@@ -1288,11 +1341,25 @@ private constructor(
         fun _endpointUrl(): JsonField<String> = endpointUrl
 
         /**
+         * Returns the raw JSON value of [password].
+         *
+         * Unlike [password], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("password") @ExcludeMissing fun _password(): JsonField<String> = password
+
+        /**
          * Returns the raw JSON value of [timeout].
          *
          * Unlike [timeout], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("timeout") @ExcludeMissing fun _timeout(): JsonField<Long> = timeout
+
+        /**
+         * Returns the raw JSON value of [username].
+         *
+         * Unlike [username], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("username") @ExcludeMissing fun _username(): JsonField<String> = username
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1319,11 +1386,11 @@ private constructor(
         class Builder internal constructor() {
 
             private var authType: JsonValue = JsonValue.from("none")
-            private var token: JsonValue = JsonMissing.of()
+            private var token: JsonField<String> = JsonMissing.of()
             private var endpointUrl: JsonField<String> = JsonMissing.of()
-            private var password: JsonValue = JsonMissing.of()
+            private var password: JsonField<String> = JsonMissing.of()
             private var timeout: JsonField<Long> = JsonMissing.of()
-            private var username: JsonValue = JsonMissing.of()
+            private var username: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1355,7 +1422,16 @@ private constructor(
              * Nonblank string required for bearer authentication. Write-only; omitted from
              * responses. Re-send when replacing a bearer-auth config.
              */
-            fun token(token: JsonValue) = apply { this.token = token }
+            fun token(token: String) = token(JsonField.of(token))
+
+            /**
+             * Sets [Builder.token] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.token] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun token(token: JsonField<String>) = apply { this.token = token }
 
             /**
              * HTTP or HTTPS processor URL with a host. Use HTTPS to protect payment data in
@@ -1378,7 +1454,16 @@ private constructor(
              * Nonblank string required for basic authentication. Write-only; omitted from
              * responses. Re-send when replacing a basic-auth config.
              */
-            fun password(password: JsonValue) = apply { this.password = password }
+            fun password(password: String) = password(JsonField.of(password))
+
+            /**
+             * Sets [Builder.password] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.password] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun password(password: JsonField<String>) = apply { this.password = password }
 
             /**
              * Processor HTTP timeout in milliseconds. Omitted or null uses 10000; null is removed
@@ -1408,7 +1493,16 @@ private constructor(
             /**
              * Nonblank string required for basic authentication. Returned in connector responses.
              */
-            fun username(username: JsonValue) = apply { this.username = username }
+            fun username(username: String) = username(JsonField.of(username))
+
+            /**
+             * Sets [Builder.username] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.username] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun username(username: JsonField<String>) = apply { this.username = username }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1467,8 +1561,11 @@ private constructor(
                     throw TelnyxInvalidDataException("'authType' is invalid, received $it")
                 }
             }
+            token()
             endpointUrl()
+            password()
             timeout()
+            username()
             validated = true
         }
 
@@ -1489,8 +1586,11 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             authType.let { if (it == JsonValue.from("none")) 1 else 0 } +
+                (if (token.asKnown().isPresent) 1 else 0) +
                 (if (endpointUrl.asKnown().isPresent) 1 else 0) +
-                (if (timeout.asKnown().isPresent) 1 else 0)
+                (if (password.asKnown().isPresent) 1 else 0) +
+                (if (timeout.asKnown().isPresent) 1 else 0) +
+                (if (username.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

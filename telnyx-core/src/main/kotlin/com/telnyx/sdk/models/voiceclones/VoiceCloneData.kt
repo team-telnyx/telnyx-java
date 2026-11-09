@@ -1076,6 +1076,8 @@ private constructor(
 
             @JvmField val MINIMAX = of("minimax")
 
+            @JvmField val RESEMBLE = of("resemble")
+
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
 
@@ -1083,6 +1085,7 @@ private constructor(
         enum class Known {
             TELNYX,
             MINIMAX,
+            RESEMBLE,
         }
 
         /**
@@ -1097,6 +1100,7 @@ private constructor(
         enum class Value {
             TELNYX,
             MINIMAX,
+            RESEMBLE,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1112,6 +1116,7 @@ private constructor(
             when (this) {
                 TELNYX -> Value.TELNYX
                 MINIMAX -> Value.MINIMAX
+                RESEMBLE -> Value.RESEMBLE
                 else -> Value._UNKNOWN
             }
 
@@ -1128,6 +1133,7 @@ private constructor(
             when (this) {
                 TELNYX -> Known.TELNYX
                 MINIMAX -> Known.MINIMAX
+                RESEMBLE -> Known.RESEMBLE
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 

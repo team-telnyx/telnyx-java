@@ -5,7 +5,9 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionCreateParams
+import com.telnyx.sdk.models.meetingsessions.MeetingSessionLeavePolicy
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionListParams
+import com.telnyx.sdk.models.meetingsessions.MeetingSessionRecordingDestination
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveEventsParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionRetrieveTranscriptParams
 import com.telnyx.sdk.models.meetingsessions.MeetingSessionUpdateParams
@@ -27,8 +29,8 @@ internal class MeetingSessionServiceTest {
                     .meetingUrl("https://zoom.us/j/1234567890")
                     .assistant(
                         MeetingSessionCreateParams.Assistant.builder()
-                            .id("asst_fake-uuid-1234")
-                            .audioGate(MeetingSessionCreateParams.Assistant.AudioGate.FULL_DUPLEX)
+                            .id("x")
+                            .audioGate(MeetingSessionCreateParams.Assistant.AudioGate.HALF_DUPLEX)
                             .avatar(true)
                             .dynamicVariables(
                                 MeetingSessionCreateParams.Assistant.DynamicVariables.builder()
@@ -49,13 +51,32 @@ internal class MeetingSessionServiceTest {
                             .build()
                     )
                     .chatOnEnter("x")
-                    .idempotencyKey("x")
+                    .idempotencyKey("weekly-planning-2026-11-10")
                     .joinAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .leavePolicy(
+                        MeetingSessionLeavePolicy.builder()
+                            .aloneSeconds(300L)
+                            .addBotNameKeyword("x")
+                            .hostWaitSeconds(1L)
+                            .lobbyWaitSeconds(1L)
+                            .maxDurationSeconds(7200L)
+                            .silenceGraceSeconds(1L)
+                            .silenceSeconds(1L)
+                            .build()
+                    )
                     .metadata(
                         MeetingSessionCreateParams.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
+                    .recording(true)
+                    .recordingExport(
+                        MeetingSessionRecordingDestination.builder()
+                            .bucket("meeting-recordings")
+                            .prefix("weekly-planning")
+                            .build()
+                    )
+                    .recordingView(MeetingSessionCreateParams.RecordingView.SPEAKER_VIEW)
                     .speakOnEnter("x")
                     .summarizeOnEnd(true)
                     .voice("x")
@@ -152,6 +173,18 @@ internal class MeetingSessionServiceTest {
                     .limit(1L)
                     .build()
             )
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveRecordings() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val meetingSessionService = client.meetingSessions()
+
+        val response =
+            meetingSessionService.retrieveRecordings("mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890")
 
         response.validate()
     }

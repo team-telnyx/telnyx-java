@@ -17,7 +17,12 @@ internal class MessagingProfileCreateParamsTest {
             .dailySpendLimit("269125115713")
             .dailySpendLimitEnabled(true)
             .enabled(true)
-            .features(MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build())
+            .features(
+                MessagingProfileFeatures.builder()
+                    .aiOptOutDetectionEnabled(true)
+                    .autoChunkLongMessages(true)
+                    .build()
+            )
             .healthWebhookUrl("health_webhook_url")
             .mm7Metadata(
                 Mm7Metadata.builder()
@@ -64,7 +69,12 @@ internal class MessagingProfileCreateParamsTest {
                 .dailySpendLimit("269125115713")
                 .dailySpendLimitEnabled(true)
                 .enabled(true)
-                .features(MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build())
+                .features(
+                    MessagingProfileFeatures.builder()
+                        .aiOptOutDetectionEnabled(true)
+                        .autoChunkLongMessages(true)
+                        .build()
+                )
                 .healthWebhookUrl("health_webhook_url")
                 .mm7Metadata(
                     Mm7Metadata.builder()
@@ -110,7 +120,12 @@ internal class MessagingProfileCreateParamsTest {
         assertThat(body.dailySpendLimitEnabled()).contains(true)
         assertThat(body.enabled()).contains(true)
         assertThat(body.features())
-            .contains(MessagingProfileFeatures.builder().aiOptOutDetectionEnabled(true).build())
+            .contains(
+                MessagingProfileFeatures.builder()
+                    .aiOptOutDetectionEnabled(true)
+                    .autoChunkLongMessages(true)
+                    .build()
+            )
         assertThat(body.healthWebhookUrl()).contains("health_webhook_url")
         assertThat(body.mm7Metadata())
             .contains(

@@ -9,6 +9,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.Conversation
 import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageParams
 import com.telnyx.sdk.models.ai.conversations.ConversationCreateParams
+import com.telnyx.sdk.models.ai.conversations.ConversationDeleteDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListResponse
@@ -170,7 +171,12 @@ interface ConversationServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<ConversationListResponse> =
         list(ConversationListParams.none(), requestOptions)
 
-    /** Delete a specific conversation by its ID. */
+    /**
+     * Delete a specific conversation by its ID. Permanently deletes the conversation and its
+     * associated data: the conversation's messages, its insight generation results, any
+     * conversation memories, and its webhook request logs. Recordings are not deleted — recordings
+     * are managed separately through the /v2/recordings endpoints. This action cannot be undone.
+     */
     fun delete(conversationId: String): CompletableFuture<Void?> =
         delete(conversationId, ConversationDeleteParams.none())
 
@@ -226,6 +232,36 @@ interface ConversationServiceAsync {
     /** @see addMessage */
     fun addMessage(
         params: ConversationAddMessageParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /**
+     * Delete one insight generation request for a conversation. Generation results are stored per
+     * conversation and per insight template; deleting a request permanently removes the stored
+     * result but does not stop insight generation from running again. To remove every insight
+     * result for the conversation, delete the conversation itself. A successful delete returns an
+     * empty response.
+     */
+    fun deleteDelete(
+        insightId: String,
+        params: ConversationDeleteDeleteParams,
+    ): CompletableFuture<Void?> = deleteDelete(insightId, params, RequestOptions.none())
+
+    /** @see deleteDelete */
+    fun deleteDelete(
+        insightId: String,
+        params: ConversationDeleteDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        deleteDelete(params.toBuilder().insightId(insightId).build(), requestOptions)
+
+    /** @see deleteDelete */
+    fun deleteDelete(params: ConversationDeleteDeleteParams): CompletableFuture<Void?> =
+        deleteDelete(params, RequestOptions.none())
+
+    /** @see deleteDelete */
+    fun deleteDelete(
+        params: ConversationDeleteDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
@@ -506,6 +542,34 @@ interface ConversationServiceAsync {
         /** @see addMessage */
         fun addMessage(
             params: ConversationAddMessageParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /**
+         * Returns a raw HTTP response for `delete
+         * /ai/conversations/{conversation_id}/conversations-insights/{insight_id}`, but is
+         * otherwise the same as [ConversationServiceAsync.deleteDelete].
+         */
+        fun deleteDelete(
+            insightId: String,
+            params: ConversationDeleteDeleteParams,
+        ): CompletableFuture<HttpResponse> = deleteDelete(insightId, params, RequestOptions.none())
+
+        /** @see deleteDelete */
+        fun deleteDelete(
+            insightId: String,
+            params: ConversationDeleteDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            deleteDelete(params.toBuilder().insightId(insightId).build(), requestOptions)
+
+        /** @see deleteDelete */
+        fun deleteDelete(params: ConversationDeleteDeleteParams): CompletableFuture<HttpResponse> =
+            deleteDelete(params, RequestOptions.none())
+
+        /** @see deleteDelete */
+        fun deleteDelete(
+            params: ConversationDeleteDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 

@@ -16,7 +16,7 @@ internal class ProfileIngestParamsTest {
             .profileId("profile_id")
             .sessionId("session_id")
             .body(
-                ProfileIngestParams.Body.UnionMember0.builder()
+                ProfileIngestParams.Body.IngestPayloadObject.builder()
                     .putAdditionalProperty("messages", JsonValue.from("bar"))
                     .build()
             )
@@ -30,7 +30,7 @@ internal class ProfileIngestParamsTest {
                 .namespace("namespace")
                 .profileId("profile_id")
                 .body(
-                    ProfileIngestParams.Body.UnionMember0.builder()
+                    ProfileIngestParams.Body.IngestPayloadObject.builder()
                         .putAdditionalProperty("messages", JsonValue.from("bar"))
                         .build()
                 )
@@ -50,7 +50,7 @@ internal class ProfileIngestParamsTest {
                 .profileId("profile_id")
                 .sessionId("session_id")
                 .body(
-                    ProfileIngestParams.Body.UnionMember0.builder()
+                    ProfileIngestParams.Body.IngestPayloadObject.builder()
                         .putAdditionalProperty("messages", JsonValue.from("bar"))
                         .build()
                 )
@@ -69,7 +69,7 @@ internal class ProfileIngestParamsTest {
                 .namespace("namespace")
                 .profileId("profile_id")
                 .body(
-                    ProfileIngestParams.Body.UnionMember0.builder()
+                    ProfileIngestParams.Body.IngestPayloadObject.builder()
                         .putAdditionalProperty("messages", JsonValue.from("bar"))
                         .build()
                 )
@@ -88,7 +88,7 @@ internal class ProfileIngestParamsTest {
                 .profileId("profile_id")
                 .sessionId("session_id")
                 .body(
-                    ProfileIngestParams.Body.UnionMember0.builder()
+                    ProfileIngestParams.Body.IngestPayloadObject.builder()
                         .putAdditionalProperty("messages", JsonValue.from("bar"))
                         .build()
                 )
@@ -98,8 +98,8 @@ internal class ProfileIngestParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                ProfileIngestParams.Body.ofUnionMember0(
-                    ProfileIngestParams.Body.UnionMember0.builder()
+                ProfileIngestParams.Body.ofIngestPayloadObject(
+                    ProfileIngestParams.Body.IngestPayloadObject.builder()
                         .putAdditionalProperty("messages", JsonValue.from("bar"))
                         .build()
                 )
@@ -113,7 +113,7 @@ internal class ProfileIngestParamsTest {
                 .namespace("namespace")
                 .profileId("profile_id")
                 .body(
-                    ProfileIngestParams.Body.UnionMember0.builder()
+                    ProfileIngestParams.Body.IngestPayloadObject.builder()
                         .putAdditionalProperty("messages", JsonValue.from("bar"))
                         .build()
                 )
@@ -123,8 +123,8 @@ internal class ProfileIngestParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                ProfileIngestParams.Body.ofUnionMember0(
-                    ProfileIngestParams.Body.UnionMember0.builder()
+                ProfileIngestParams.Body.ofIngestPayloadObject(
+                    ProfileIngestParams.Body.IngestPayloadObject.builder()
                         .putAdditionalProperty("messages", JsonValue.from("bar"))
                         .build()
                 )

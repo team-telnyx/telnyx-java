@@ -29,9 +29,9 @@ private constructor(
     ) : this(data, mutableMapOf())
 
     /**
-     * Represents a meeting session. All serializer fields are present and required; nullable fields
-     * use null when absent. No actor, provider-bot, idempotency, routing, key, or internal fields
-     * are exposed.
+     * Represents a meeting session. Core serializer fields are required; platform-specific fields
+     * are optional. Nullable fields use null when absent. No actor, provider-bot, idempotency,
+     * routing, key, or internal fields are exposed.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -83,9 +83,9 @@ private constructor(
         }
 
         /**
-         * Represents a meeting session. All serializer fields are present and required; nullable
-         * fields use null when absent. No actor, provider-bot, idempotency, routing, key, or
-         * internal fields are exposed.
+         * Represents a meeting session. Core serializer fields are required; platform-specific
+         * fields are optional. Nullable fields use null when absent. No actor, provider-bot,
+         * idempotency, routing, key, or internal fields are exposed.
          */
         fun data(data: MeetingSession) = data(JsonField.of(data))
 

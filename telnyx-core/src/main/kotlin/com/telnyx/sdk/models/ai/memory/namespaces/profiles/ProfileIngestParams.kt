@@ -129,8 +129,9 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body }
 
-        /** Alias for calling [body] with `Body.ofUnionMember0(unionMember0)`. */
-        fun body(unionMember0: Body.UnionMember0) = body(Body.ofUnionMember0(unionMember0))
+        /** Alias for calling [body] with `Body.ofIngestPayloadObject(ingestPayloadObject)`. */
+        fun body(ingestPayloadObject: Body.IngestPayloadObject) =
+            body(Body.ofIngestPayloadObject(ingestPayloadObject))
 
         /** Alias for calling [body] with `Body.ofUnionMember1(unionMember1)`. */
         fun body(unionMember1: Body.UnionMember1) = body(Body.ofUnionMember1(unionMember1))
@@ -286,20 +287,22 @@ private constructor(
     @JsonSerialize(using = Body.Serializer::class)
     class Body
     private constructor(
-        private val unionMember0: UnionMember0? = null,
+        private val ingestPayloadObject: IngestPayloadObject? = null,
         private val unionMember1: UnionMember1? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun unionMember0(): Optional<UnionMember0> = Optional.ofNullable(unionMember0)
+        fun ingestPayloadObject(): Optional<IngestPayloadObject> =
+            Optional.ofNullable(ingestPayloadObject)
 
         fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
 
-        fun isUnionMember0(): Boolean = unionMember0 != null
+        fun isIngestPayloadObject(): Boolean = ingestPayloadObject != null
 
         fun isUnionMember1(): Boolean = unionMember1 != null
 
-        fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
+        fun asIngestPayloadObject(): IngestPayloadObject =
+            ingestPayloadObject.getOrThrow("ingestPayloadObject")
 
         fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
 
@@ -317,8 +320,8 @@ private constructor(
          *
          * Optional<String> result = body.accept(new Body.Visitor<Optional<String>>() {
          *     @Override
-         *     public Optional<String> visitUnionMember0(UnionMember0 unionMember0) {
-         *         return Optional.of(unionMember0.toString());
+         *     public Optional<String> visitIngestPayloadObject(IngestPayloadObject ingestPayloadObject) {
+         *         return Optional.of(ingestPayloadObject.toString());
          *     }
          *
          *     // ...
@@ -336,7 +339,7 @@ private constructor(
          */
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
+                ingestPayloadObject != null -> visitor.visitIngestPayloadObject(ingestPayloadObject)
                 unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
                 else -> visitor.unknown(_json)
             }
@@ -359,8 +362,10 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitUnionMember0(unionMember0: UnionMember0) {
-                        unionMember0.validate()
+                    override fun visitIngestPayloadObject(
+                        ingestPayloadObject: IngestPayloadObject
+                    ) {
+                        ingestPayloadObject.validate()
                     }
 
                     override fun visitUnionMember1(unionMember1: UnionMember1) {
@@ -389,8 +394,9 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitUnionMember0(unionMember0: UnionMember0) =
-                        unionMember0.validity()
+                    override fun visitIngestPayloadObject(
+                        ingestPayloadObject: IngestPayloadObject
+                    ) = ingestPayloadObject.validity()
 
                     override fun visitUnionMember1(unionMember1: UnionMember1) =
                         unionMember1.validity()
@@ -405,15 +411,15 @@ private constructor(
             }
 
             return other is Body &&
-                unionMember0 == other.unionMember0 &&
+                ingestPayloadObject == other.ingestPayloadObject &&
                 unionMember1 == other.unionMember1
         }
 
-        override fun hashCode(): Int = Objects.hash(unionMember0, unionMember1)
+        override fun hashCode(): Int = Objects.hash(ingestPayloadObject, unionMember1)
 
         override fun toString(): String =
             when {
-                unionMember0 != null -> "Body{unionMember0=$unionMember0}"
+                ingestPayloadObject != null -> "Body{ingestPayloadObject=$ingestPayloadObject}"
                 unionMember1 != null -> "Body{unionMember1=$unionMember1}"
                 _json != null -> "Body{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Body")
@@ -422,7 +428,8 @@ private constructor(
         companion object {
 
             @JvmStatic
-            fun ofUnionMember0(unionMember0: UnionMember0) = Body(unionMember0 = unionMember0)
+            fun ofIngestPayloadObject(ingestPayloadObject: IngestPayloadObject) =
+                Body(ingestPayloadObject = ingestPayloadObject)
 
             @JvmStatic
             fun ofUnionMember1(unionMember1: UnionMember1) = Body(unionMember1 = unionMember1)
@@ -431,7 +438,7 @@ private constructor(
         /** An interface that defines how to map each variant of [Body] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitUnionMember0(unionMember0: UnionMember0): T
+            fun visitIngestPayloadObject(ingestPayloadObject: IngestPayloadObject): T
 
             fun visitUnionMember1(unionMember1: UnionMember1): T
 
@@ -456,8 +463,8 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<UnionMember0>())?.let {
-                                Body(unionMember0 = it, _json = json)
+                            tryDeserialize(node, jacksonTypeRef<IngestPayloadObject>())?.let {
+                                Body(ingestPayloadObject = it, _json = json)
                             },
                             tryDeserialize(node, jacksonTypeRef<UnionMember1>())?.let {
                                 Body(unionMember1 = it, _json = json)
@@ -487,7 +494,8 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.unionMember0 != null -> generator.writeObject(value.unionMember0)
+                    value.ingestPayloadObject != null ->
+                        generator.writeObject(value.ingestPayloadObject)
                     value.unionMember1 != null -> generator.writeObject(value.unionMember1)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Body")
@@ -495,7 +503,7 @@ private constructor(
             }
         }
 
-        class UnionMember0
+        class IngestPayloadObject
         @JsonCreator
         private constructor(
             @com.fasterxml.jackson.annotation.JsonValue
@@ -510,18 +518,20 @@ private constructor(
 
             companion object {
 
-                /** Returns a mutable builder for constructing an instance of [UnionMember0]. */
+                /**
+                 * Returns a mutable builder for constructing an instance of [IngestPayloadObject].
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [UnionMember0]. */
+            /** A builder for [IngestPayloadObject]. */
             class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(unionMember0: UnionMember0) = apply {
-                    additionalProperties = unionMember0.additionalProperties.toMutableMap()
+                internal fun from(ingestPayloadObject: IngestPayloadObject) = apply {
+                    additionalProperties = ingestPayloadObject.additionalProperties.toMutableMap()
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -547,11 +557,12 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [UnionMember0].
+                 * Returns an immutable instance of [IngestPayloadObject].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): UnionMember0 = UnionMember0(additionalProperties.toImmutable())
+                fun build(): IngestPayloadObject =
+                    IngestPayloadObject(additionalProperties.toImmutable())
             }
 
             private var validated: Boolean = false
@@ -566,7 +577,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
              *   expected type.
              */
-            fun validate(): UnionMember0 = apply {
+            fun validate(): IngestPayloadObject = apply {
                 if (validated) {
                     return@apply
                 }
@@ -597,50 +608,57 @@ private constructor(
                     return true
                 }
 
-                return other is UnionMember0 && additionalProperties == other.additionalProperties
+                return other is IngestPayloadObject &&
+                    additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "UnionMember0{additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "IngestPayloadObject{additionalProperties=$additionalProperties}"
         }
 
         @JsonDeserialize(using = UnionMember1.Deserializer::class)
         @JsonSerialize(using = UnionMember1.Serializer::class)
         class UnionMember1
         private constructor(
-            private val jsonValues: List<JsonValue>? = null,
-            private val string: String? = null,
-            private val number: Double? = null,
-            private val bool: Boolean? = null,
+            private val ingestPayloadValue: List<JsonValue>? = null,
+            private val ingestPayloadValue2: String? = null,
+            private val ingestPayloadValue3: Double? = null,
+            private val ingestPayloadValue4: Boolean? = null,
             private val _json: JsonValue? = null,
         ) {
 
-            fun jsonValues(): Optional<List<JsonValue>> = Optional.ofNullable(jsonValues)
+            fun ingestPayloadValue(): Optional<List<JsonValue>> =
+                Optional.ofNullable(ingestPayloadValue)
 
-            fun string(): Optional<String> = Optional.ofNullable(string)
+            fun ingestPayloadValue2(): Optional<String> = Optional.ofNullable(ingestPayloadValue2)
 
-            fun number(): Optional<Double> = Optional.ofNullable(number)
+            fun ingestPayloadValue3(): Optional<Double> = Optional.ofNullable(ingestPayloadValue3)
 
-            fun bool(): Optional<Boolean> = Optional.ofNullable(bool)
+            fun ingestPayloadValue4(): Optional<Boolean> = Optional.ofNullable(ingestPayloadValue4)
 
-            fun isJsonValues(): Boolean = jsonValues != null
+            fun isIngestPayloadValue(): Boolean = ingestPayloadValue != null
 
-            fun isString(): Boolean = string != null
+            fun isIngestPayloadValue2(): Boolean = ingestPayloadValue2 != null
 
-            fun isNumber(): Boolean = number != null
+            fun isIngestPayloadValue3(): Boolean = ingestPayloadValue3 != null
 
-            fun isBool(): Boolean = bool != null
+            fun isIngestPayloadValue4(): Boolean = ingestPayloadValue4 != null
 
-            fun asJsonValues(): List<JsonValue> = jsonValues.getOrThrow("jsonValues")
+            fun asIngestPayloadValue(): List<JsonValue> =
+                ingestPayloadValue.getOrThrow("ingestPayloadValue")
 
-            fun asString(): String = string.getOrThrow("string")
+            fun asIngestPayloadValue2(): String =
+                ingestPayloadValue2.getOrThrow("ingestPayloadValue2")
 
-            fun asNumber(): Double = number.getOrThrow("number")
+            fun asIngestPayloadValue3(): Double =
+                ingestPayloadValue3.getOrThrow("ingestPayloadValue3")
 
-            fun asBool(): Boolean = bool.getOrThrow("bool")
+            fun asIngestPayloadValue4(): Boolean =
+                ingestPayloadValue4.getOrThrow("ingestPayloadValue4")
 
             fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -657,8 +675,8 @@ private constructor(
              *
              * Optional<String> result = unionMember1.accept(new UnionMember1.Visitor<Optional<String>>() {
              *     @Override
-             *     public Optional<String> visitJsonValues(List<JsonValue> jsonValues) {
-             *         return Optional.of(jsonValues.toString());
+             *     public Optional<String> visitIngestPayloadValue(List<JsonValue> ingestPayloadValue) {
+             *         return Optional.of(ingestPayloadValue.toString());
              *     }
              *
              *     // ...
@@ -676,10 +694,14 @@ private constructor(
              */
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
-                    jsonValues != null -> visitor.visitJsonValues(jsonValues)
-                    string != null -> visitor.visitString(string)
-                    number != null -> visitor.visitNumber(number)
-                    bool != null -> visitor.visitBool(bool)
+                    ingestPayloadValue != null ->
+                        visitor.visitIngestPayloadValue(ingestPayloadValue)
+                    ingestPayloadValue2 != null ->
+                        visitor.visitIngestPayloadValue2(ingestPayloadValue2)
+                    ingestPayloadValue3 != null ->
+                        visitor.visitIngestPayloadValue3(ingestPayloadValue3)
+                    ingestPayloadValue4 != null ->
+                        visitor.visitIngestPayloadValue4(ingestPayloadValue4)
                     else -> visitor.unknown(_json)
                 }
 
@@ -702,13 +724,13 @@ private constructor(
 
                 accept(
                     object : Visitor<Unit> {
-                        override fun visitJsonValues(jsonValues: List<JsonValue>) {}
+                        override fun visitIngestPayloadValue(ingestPayloadValue: List<JsonValue>) {}
 
-                        override fun visitString(string: String) {}
+                        override fun visitIngestPayloadValue2(ingestPayloadValue2: String) {}
 
-                        override fun visitNumber(number: Double) {}
+                        override fun visitIngestPayloadValue3(ingestPayloadValue3: Double) {}
 
-                        override fun visitBool(bool: Boolean) {}
+                        override fun visitIngestPayloadValue4(ingestPayloadValue4: Boolean) {}
                     }
                 )
                 validated = true
@@ -732,13 +754,14 @@ private constructor(
             internal fun validity(): Int =
                 accept(
                     object : Visitor<Int> {
-                        override fun visitJsonValues(jsonValues: List<JsonValue>) = jsonValues.size
+                        override fun visitIngestPayloadValue(ingestPayloadValue: List<JsonValue>) =
+                            ingestPayloadValue.size
 
-                        override fun visitString(string: String) = 1
+                        override fun visitIngestPayloadValue2(ingestPayloadValue2: String) = 1
 
-                        override fun visitNumber(number: Double) = 1
+                        override fun visitIngestPayloadValue3(ingestPayloadValue3: Double) = 1
 
-                        override fun visitBool(bool: Boolean) = 1
+                        override fun visitIngestPayloadValue4(ingestPayloadValue4: Boolean) = 1
 
                         override fun unknown(json: JsonValue?) = 0
                     }
@@ -750,20 +773,30 @@ private constructor(
                 }
 
                 return other is UnionMember1 &&
-                    jsonValues == other.jsonValues &&
-                    string == other.string &&
-                    number == other.number &&
-                    bool == other.bool
+                    ingestPayloadValue == other.ingestPayloadValue &&
+                    ingestPayloadValue2 == other.ingestPayloadValue2 &&
+                    ingestPayloadValue3 == other.ingestPayloadValue3 &&
+                    ingestPayloadValue4 == other.ingestPayloadValue4
             }
 
-            override fun hashCode(): Int = Objects.hash(jsonValues, string, number, bool)
+            override fun hashCode(): Int =
+                Objects.hash(
+                    ingestPayloadValue,
+                    ingestPayloadValue2,
+                    ingestPayloadValue3,
+                    ingestPayloadValue4,
+                )
 
             override fun toString(): String =
                 when {
-                    jsonValues != null -> "UnionMember1{jsonValues=$jsonValues}"
-                    string != null -> "UnionMember1{string=$string}"
-                    number != null -> "UnionMember1{number=$number}"
-                    bool != null -> "UnionMember1{bool=$bool}"
+                    ingestPayloadValue != null ->
+                        "UnionMember1{ingestPayloadValue=$ingestPayloadValue}"
+                    ingestPayloadValue2 != null ->
+                        "UnionMember1{ingestPayloadValue2=$ingestPayloadValue2}"
+                    ingestPayloadValue3 != null ->
+                        "UnionMember1{ingestPayloadValue3=$ingestPayloadValue3}"
+                    ingestPayloadValue4 != null ->
+                        "UnionMember1{ingestPayloadValue4=$ingestPayloadValue4}"
                     _json != null -> "UnionMember1{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid UnionMember1")
                 }
@@ -771,14 +804,20 @@ private constructor(
             companion object {
 
                 @JvmStatic
-                fun ofJsonValues(jsonValues: List<JsonValue>) =
-                    UnionMember1(jsonValues = jsonValues.toImmutable())
+                fun ofIngestPayloadValue(ingestPayloadValue: List<JsonValue>) =
+                    UnionMember1(ingestPayloadValue = ingestPayloadValue.toImmutable())
 
-                @JvmStatic fun ofString(string: String) = UnionMember1(string = string)
+                @JvmStatic
+                fun ofIngestPayloadValue2(ingestPayloadValue2: String) =
+                    UnionMember1(ingestPayloadValue2 = ingestPayloadValue2)
 
-                @JvmStatic fun ofNumber(number: Double) = UnionMember1(number = number)
+                @JvmStatic
+                fun ofIngestPayloadValue3(ingestPayloadValue3: Double) =
+                    UnionMember1(ingestPayloadValue3 = ingestPayloadValue3)
 
-                @JvmStatic fun ofBool(bool: Boolean) = UnionMember1(bool = bool)
+                @JvmStatic
+                fun ofIngestPayloadValue4(ingestPayloadValue4: Boolean) =
+                    UnionMember1(ingestPayloadValue4 = ingestPayloadValue4)
             }
 
             /**
@@ -787,13 +826,13 @@ private constructor(
              */
             interface Visitor<out T> {
 
-                fun visitJsonValues(jsonValues: List<JsonValue>): T
+                fun visitIngestPayloadValue(ingestPayloadValue: List<JsonValue>): T
 
-                fun visitString(string: String): T
+                fun visitIngestPayloadValue2(ingestPayloadValue2: String): T
 
-                fun visitNumber(number: Double): T
+                fun visitIngestPayloadValue3(ingestPayloadValue3: Double): T
 
-                fun visitBool(bool: Boolean): T
+                fun visitIngestPayloadValue4(ingestPayloadValue4: Boolean): T
 
                 /**
                  * Maps an unknown variant of [UnionMember1] to a value of type [T].
@@ -818,16 +857,16 @@ private constructor(
                     val bestMatches =
                         sequenceOf(
                                 tryDeserialize(node, jacksonTypeRef<String>())?.let {
-                                    UnionMember1(string = it, _json = json)
+                                    UnionMember1(ingestPayloadValue2 = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<List<JsonValue>>())?.let {
-                                    UnionMember1(jsonValues = it, _json = json)
+                                    UnionMember1(ingestPayloadValue = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<Double>())?.let {
-                                    UnionMember1(number = it, _json = json)
+                                    UnionMember1(ingestPayloadValue3 = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<Boolean>())?.let {
-                                    UnionMember1(bool = it, _json = json)
+                                    UnionMember1(ingestPayloadValue4 = it, _json = json)
                                 },
                             )
                             .filterNotNull()
@@ -854,10 +893,14 @@ private constructor(
                     provider: SerializerProvider,
                 ) {
                     when {
-                        value.jsonValues != null -> generator.writeObject(value.jsonValues)
-                        value.string != null -> generator.writeObject(value.string)
-                        value.number != null -> generator.writeObject(value.number)
-                        value.bool != null -> generator.writeObject(value.bool)
+                        value.ingestPayloadValue != null ->
+                            generator.writeObject(value.ingestPayloadValue)
+                        value.ingestPayloadValue2 != null ->
+                            generator.writeObject(value.ingestPayloadValue2)
+                        value.ingestPayloadValue3 != null ->
+                            generator.writeObject(value.ingestPayloadValue3)
+                        value.ingestPayloadValue4 != null ->
+                            generator.writeObject(value.ingestPayloadValue4)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid UnionMember1")
                     }

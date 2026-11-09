@@ -17,7 +17,7 @@ internal class ProfileListPageResponseTest {
                     ProfileListResponse.builder().memoryCount(0L).profileId("profile_id").build()
                 )
                 .meta(
-                    PageMeta.builder()
+                    AgentMemoryPageMeta.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
@@ -32,7 +32,7 @@ internal class ProfileListPageResponseTest {
             )
         assertThat(profileListPageResponse.meta())
             .isEqualTo(
-                PageMeta.builder()
+                AgentMemoryPageMeta.builder()
                     .pageNumber(0L)
                     .pageSize(0L)
                     .totalPages(0L)
@@ -50,7 +50,7 @@ internal class ProfileListPageResponseTest {
                     ProfileListResponse.builder().memoryCount(0L).profileId("profile_id").build()
                 )
                 .meta(
-                    PageMeta.builder()
+                    AgentMemoryPageMeta.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)

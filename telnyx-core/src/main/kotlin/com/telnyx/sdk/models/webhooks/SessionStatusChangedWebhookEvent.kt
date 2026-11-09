@@ -326,6 +326,7 @@ private constructor(
         private val sessionId: JsonField<String>,
         private val status: JsonField<String>,
         private val statusDetail: JsonField<String>,
+        private val previousStatus: JsonField<PreviousStatus>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -341,7 +342,10 @@ private constructor(
             @JsonProperty("status_detail")
             @ExcludeMissing
             statusDetail: JsonField<String> = JsonMissing.of(),
-        ) : this(recording, sessionId, status, statusDetail, mutableMapOf())
+            @JsonProperty("previous_status")
+            @ExcludeMissing
+            previousStatus: JsonField<PreviousStatus> = JsonMissing.of(),
+        ) : this(recording, sessionId, status, statusDetail, previousStatus, mutableMapOf())
 
         /**
          * Whether the session is recording at this lifecycle edge.
@@ -376,6 +380,15 @@ private constructor(
         fun statusDetail(): Optional<String> = statusDetail.getOptional("status_detail")
 
         /**
+         * Previous lifecycle status, when supplied.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun previousStatus(): Optional<PreviousStatus> =
+            previousStatus.getOptional("previous_status")
+
+        /**
          * Returns the raw JSON value of [recording].
          *
          * Unlike [recording], this method doesn't throw if the JSON field has an unexpected type.
@@ -405,6 +418,16 @@ private constructor(
         @JsonProperty("status_detail")
         @ExcludeMissing
         fun _statusDetail(): JsonField<String> = statusDetail
+
+        /**
+         * Returns the raw JSON value of [previousStatus].
+         *
+         * Unlike [previousStatus], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("previous_status")
+        @ExcludeMissing
+        fun _previousStatus(): JsonField<PreviousStatus> = previousStatus
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -441,6 +464,7 @@ private constructor(
             private var sessionId: JsonField<String>? = null
             private var status: JsonField<String>? = null
             private var statusDetail: JsonField<String>? = null
+            private var previousStatus: JsonField<PreviousStatus> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -449,6 +473,7 @@ private constructor(
                 sessionId = data.sessionId
                 status = data.status
                 statusDetail = data.statusDetail
+                previousStatus = data.previousStatus
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
@@ -507,6 +532,21 @@ private constructor(
                 this.statusDetail = statusDetail
             }
 
+            /** Previous lifecycle status, when supplied. */
+            fun previousStatus(previousStatus: PreviousStatus) =
+                previousStatus(JsonField.of(previousStatus))
+
+            /**
+             * Sets [Builder.previousStatus] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.previousStatus] with a well-typed [PreviousStatus]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun previousStatus(previousStatus: JsonField<PreviousStatus>) = apply {
+                this.previousStatus = previousStatus
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -547,6 +587,7 @@ private constructor(
                     checkRequired("sessionId", sessionId),
                     checkRequired("status", status),
                     checkRequired("statusDetail", statusDetail),
+                    previousStatus,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -571,6 +612,7 @@ private constructor(
             sessionId()
             status()
             statusDetail()
+            previousStatus().ifPresent { it.validate() }
             validated = true
         }
 
@@ -593,7 +635,187 @@ private constructor(
             (if (recording.asKnown().isPresent) 1 else 0) +
                 (if (sessionId.asKnown().isPresent) 1 else 0) +
                 (if (status.asKnown().isPresent) 1 else 0) +
-                (if (statusDetail.asKnown().isPresent) 1 else 0)
+                (if (statusDetail.asKnown().isPresent) 1 else 0) +
+                (previousStatus.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** Previous lifecycle status, when supplied. */
+        class PreviousStatus
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val SCHEDULED = of("scheduled")
+
+                @JvmField val JOINING = of("joining")
+
+                @JvmField val WAITING_FOR_ADMISSION = of("waiting_for_admission")
+
+                @JvmField val ACTIVE = of("active")
+
+                @JvmField val LEAVING = of("leaving")
+
+                @JvmField val ENDED = of("ended")
+
+                @JvmField val FAILED = of("failed")
+
+                @JvmField val ADMISSION_DENIED = of("admission_denied")
+
+                @JvmStatic fun of(value: String) = PreviousStatus(JsonField.of(value))
+            }
+
+            /** An enum containing [PreviousStatus]'s known values. */
+            enum class Known {
+                SCHEDULED,
+                JOINING,
+                WAITING_FOR_ADMISSION,
+                ACTIVE,
+                LEAVING,
+                ENDED,
+                FAILED,
+                ADMISSION_DENIED,
+            }
+
+            /**
+             * An enum containing [PreviousStatus]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [PreviousStatus] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                SCHEDULED,
+                JOINING,
+                WAITING_FOR_ADMISSION,
+                ACTIVE,
+                LEAVING,
+                ENDED,
+                FAILED,
+                ADMISSION_DENIED,
+                /**
+                 * An enum member indicating that [PreviousStatus] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    SCHEDULED -> Value.SCHEDULED
+                    JOINING -> Value.JOINING
+                    WAITING_FOR_ADMISSION -> Value.WAITING_FOR_ADMISSION
+                    ACTIVE -> Value.ACTIVE
+                    LEAVING -> Value.LEAVING
+                    ENDED -> Value.ENDED
+                    FAILED -> Value.FAILED
+                    ADMISSION_DENIED -> Value.ADMISSION_DENIED
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    SCHEDULED -> Known.SCHEDULED
+                    JOINING -> Known.JOINING
+                    WAITING_FOR_ADMISSION -> Known.WAITING_FOR_ADMISSION
+                    ACTIVE -> Known.ACTIVE
+                    LEAVING -> Known.LEAVING
+                    ENDED -> Known.ENDED
+                    FAILED -> Known.FAILED
+                    ADMISSION_DENIED -> Known.ADMISSION_DENIED
+                    else -> throw TelnyxInvalidDataException("Unknown PreviousStatus: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): PreviousStatus = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is PreviousStatus && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -605,17 +827,25 @@ private constructor(
                 sessionId == other.sessionId &&
                 status == other.status &&
                 statusDetail == other.statusDetail &&
+                previousStatus == other.previousStatus &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(recording, sessionId, status, statusDetail, additionalProperties)
+            Objects.hash(
+                recording,
+                sessionId,
+                status,
+                statusDetail,
+                previousStatus,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{recording=$recording, sessionId=$sessionId, status=$status, statusDetail=$statusDetail, additionalProperties=$additionalProperties}"
+            "Data{recording=$recording, sessionId=$sessionId, status=$status, statusDetail=$statusDetail, previousStatus=$previousStatus, additionalProperties=$additionalProperties}"
     }
 
     /** Event type. */

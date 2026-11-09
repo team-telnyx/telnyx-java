@@ -8,6 +8,7 @@ import com.telnyx.sdk.services.blocking.AccessIpRangeService
 import com.telnyx.sdk.services.blocking.ActionService
 import com.telnyx.sdk.services.blocking.AddressService
 import com.telnyx.sdk.services.blocking.AdvancedOrderService
+import com.telnyx.sdk.services.blocking.AgentGatewayService
 import com.telnyx.sdk.services.blocking.AiService
 import com.telnyx.sdk.services.blocking.AlphanumericSenderIdService
 import com.telnyx.sdk.services.blocking.ArtifactDownloadService
@@ -23,6 +24,7 @@ import com.telnyx.sdk.services.blocking.BotSignupService
 import com.telnyx.sdk.services.blocking.BrowserSessionService
 import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BundlePricingService
+import com.telnyx.sdk.services.blocking.CalendarConnectionService
 import com.telnyx.sdk.services.blocking.CallControlApplicationService
 import com.telnyx.sdk.services.blocking.CallEventService
 import com.telnyx.sdk.services.blocking.CallReasonService
@@ -88,6 +90,7 @@ import com.telnyx.sdk.services.blocking.LlmTokenGatewayService
 import com.telnyx.sdk.services.blocking.MachinePaymentService
 import com.telnyx.sdk.services.blocking.ManagedAccountService
 import com.telnyx.sdk.services.blocking.MediaService
+import com.telnyx.sdk.services.blocking.MeetingBotService
 import com.telnyx.sdk.services.blocking.MeetingSessionService
 import com.telnyx.sdk.services.blocking.MessageService
 import com.telnyx.sdk.services.blocking.Messaging10dlcService
@@ -177,11 +180,11 @@ import com.telnyx.sdk.services.blocking.TexmlApplicationService
 import com.telnyx.sdk.services.blocking.TexmlService
 import com.telnyx.sdk.services.blocking.TextToSpeechService
 import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
-import com.telnyx.sdk.services.blocking.TtsIntegrationService
 import com.telnyx.sdk.services.blocking.TunnelService
 import com.telnyx.sdk.services.blocking.UacConnectionService
 import com.telnyx.sdk.services.blocking.UsageReportService
 import com.telnyx.sdk.services.blocking.UserAddressService
+import com.telnyx.sdk.services.blocking.UserProfileService
 import com.telnyx.sdk.services.blocking.UserTagService
 import com.telnyx.sdk.services.blocking.VerificationService
 import com.telnyx.sdk.services.blocking.VerifiedNumberService
@@ -856,8 +859,6 @@ interface TelnyxClient {
     /** Call information */
     fun dialMetrics(): DialMetricService
 
-    fun ttsIntegrations(): TtsIntegrationService
-
     /** Tailscale Subnet Router operations */
     fun tailscaleSubnetRouters(): TailscaleSubnetRouterService
 
@@ -874,6 +875,16 @@ interface TelnyxClient {
 
     /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
     fun tunnels(): TunnelService
+
+    /** Read and update the authenticated user's profile and data locality. */
+    fun userProfile(): UserProfileService
+
+    fun agentGateways(): AgentGatewayService
+
+    /** Connect calendars and manage automatic meeting joins. */
+    fun calendarConnections(): CalendarConnectionService
+
+    fun meetingBot(): MeetingBotService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1518,8 +1529,6 @@ interface TelnyxClient {
         /** Call information */
         fun dialMetrics(): DialMetricService.WithRawResponse
 
-        fun ttsIntegrations(): TtsIntegrationService.WithRawResponse
-
         /** Tailscale Subnet Router operations */
         fun tailscaleSubnetRouters(): TailscaleSubnetRouterService.WithRawResponse
 
@@ -1536,5 +1545,15 @@ interface TelnyxClient {
 
         /** Tunnels connect a Network to hosts behind a tunnel process within the user's network. */
         fun tunnels(): TunnelService.WithRawResponse
+
+        /** Read and update the authenticated user's profile and data locality. */
+        fun userProfile(): UserProfileService.WithRawResponse
+
+        fun agentGateways(): AgentGatewayService.WithRawResponse
+
+        /** Connect calendars and manage automatic meeting joins. */
+        fun calendarConnections(): CalendarConnectionService.WithRawResponse
+
+        fun meetingBot(): MeetingBotService.WithRawResponse
     }
 }

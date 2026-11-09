@@ -232,12 +232,11 @@ private constructor(
      * are clamped to the model's max_completion_tokens metadata when that ceiling is set (see GET
      * /v2/ai/openai/models). An omitted limit on an excluded model remains unset even when metadata
      * declares a ceiling. Input and output together must fit the model's context window. Set an
-     * explicit limit when a bounded generation budget is required. For current Telnyx-hosted
-     * models, omitted or null limits default to 8192 for `zai-org/GLM-5.3`, `zai-org/GLM-5.3-Flash`
-     * and `deepseek-ai/DeepSeek-V4.1-Flash`. The hosted exclusions are `moonshotai/Kimi-K3`,
-     * `moonshotai/Kimi-K2.6`, `moonshotai/Kimi-K2.5`, `zai-org/GLM-5.2`, `zai-org/GLM-5.1-FP8`,
-     * `MiniMaxAI/MiniMax-M3-MXFP8`, `MiniMaxAI/MiniMax-M2.7`, `Qwen/Qwen3.8-27B`,
-     * `Qwen/Qwen3-235B-A22B`, `deepseek-ai/DeepSeek-V4-Flash-0731`,
+     * explicit limit when a bounded generation budget is required. For example, omitted or null
+     * limits default to 8192 for `zai-org/GLM-5.3` and `zai-org/GLM-5.3-Flash`. Hosted exclusions
+     * include `moonshotai/Kimi-K3`, `moonshotai/Kimi-K2.6`, `moonshotai/Kimi-K2.5`,
+     * `zai-org/GLM-5.2`, `zai-org/GLM-5.1-FP8`, `MiniMaxAI/MiniMax-M3-MXFP8`,
+     * `MiniMaxAI/MiniMax-M2.7`, `Qwen/Qwen3.8-27B`, `Qwen/Qwen3-235B-A22B`,
      * `meta-llama/Llama-3.3-70B-Instruct`, `meta-llama/Meta-Llama-3.1-70B-Instruct`,
      * `meta-llama/Meta-Llama-3.1-8B-Instruct` and `google/gemma-2b-it`. Legacy external and
      * fine-tuned model IDs can also bypass the default; model discovery reports completion
@@ -860,17 +859,15 @@ private constructor(
          * ceiling is set (see GET /v2/ai/openai/models). An omitted limit on an excluded model
          * remains unset even when metadata declares a ceiling. Input and output together must fit
          * the model's context window. Set an explicit limit when a bounded generation budget is
-         * required. For current Telnyx-hosted models, omitted or null limits default to 8192 for
-         * `zai-org/GLM-5.3`, `zai-org/GLM-5.3-Flash` and `deepseek-ai/DeepSeek-V4.1-Flash`. The
-         * hosted exclusions are `moonshotai/Kimi-K3`, `moonshotai/Kimi-K2.6`,
-         * `moonshotai/Kimi-K2.5`, `zai-org/GLM-5.2`, `zai-org/GLM-5.1-FP8`,
+         * required. For example, omitted or null limits default to 8192 for `zai-org/GLM-5.3` and
+         * `zai-org/GLM-5.3-Flash`. Hosted exclusions include `moonshotai/Kimi-K3`,
+         * `moonshotai/Kimi-K2.6`, `moonshotai/Kimi-K2.5`, `zai-org/GLM-5.2`, `zai-org/GLM-5.1-FP8`,
          * `MiniMaxAI/MiniMax-M3-MXFP8`, `MiniMaxAI/MiniMax-M2.7`, `Qwen/Qwen3.8-27B`,
-         * `Qwen/Qwen3-235B-A22B`, `deepseek-ai/DeepSeek-V4-Flash-0731`,
-         * `meta-llama/Llama-3.3-70B-Instruct`, `meta-llama/Meta-Llama-3.1-70B-Instruct`,
-         * `meta-llama/Meta-Llama-3.1-8B-Instruct` and `google/gemma-2b-it`. Legacy external and
-         * fine-tuned model IDs can also bypass the default; model discovery reports completion
-         * ceilings, not whether this default applies. Set an explicit limit for predictable
-         * behavior across models.
+         * `Qwen/Qwen3-235B-A22B`, `meta-llama/Llama-3.3-70B-Instruct`,
+         * `meta-llama/Meta-Llama-3.1-70B-Instruct`, `meta-llama/Meta-Llama-3.1-8B-Instruct` and
+         * `google/gemma-2b-it`. Legacy external and fine-tuned model IDs can also bypass the
+         * default; model discovery reports completion ceilings, not whether this default applies.
+         * Set an explicit limit for predictable behavior across models.
          */
         fun maxTokens(maxTokens: Long?) = maxTokens(JsonField.ofNullable(maxTokens))
 

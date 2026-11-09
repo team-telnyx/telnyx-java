@@ -379,9 +379,12 @@ private constructor(
              */
             fun content(content: JsonField<Content>) = apply { this.content = content }
 
-            /** Alias for calling [content] with `Content.ofUnionMember0(unionMember0)`. */
-            fun content(unionMember0: Content.UnionMember0) =
-                content(Content.ofUnionMember0(unionMember0))
+            /**
+             * Alias for calling [content] with
+             * `Content.ofSourceContentObject(sourceContentObject)`.
+             */
+            fun content(sourceContentObject: Content.SourceContentObject) =
+                content(Content.ofSourceContentObject(sourceContentObject))
 
             /** Alias for calling [content] with `Content.ofUnionMember1(unionMember1)`. */
             fun content(unionMember1: Content.UnionMember1) =
@@ -550,20 +553,22 @@ private constructor(
         @JsonSerialize(using = Content.Serializer::class)
         class Content
         private constructor(
-            private val unionMember0: UnionMember0? = null,
+            private val sourceContentObject: SourceContentObject? = null,
             private val unionMember1: UnionMember1? = null,
             private val _json: JsonValue? = null,
         ) {
 
-            fun unionMember0(): Optional<UnionMember0> = Optional.ofNullable(unionMember0)
+            fun sourceContentObject(): Optional<SourceContentObject> =
+                Optional.ofNullable(sourceContentObject)
 
             fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
 
-            fun isUnionMember0(): Boolean = unionMember0 != null
+            fun isSourceContentObject(): Boolean = sourceContentObject != null
 
             fun isUnionMember1(): Boolean = unionMember1 != null
 
-            fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
+            fun asSourceContentObject(): SourceContentObject =
+                sourceContentObject.getOrThrow("sourceContentObject")
 
             fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
 
@@ -582,8 +587,8 @@ private constructor(
              *
              * Optional<String> result = content.accept(new Content.Visitor<Optional<String>>() {
              *     @Override
-             *     public Optional<String> visitUnionMember0(UnionMember0 unionMember0) {
-             *         return Optional.of(unionMember0.toString());
+             *     public Optional<String> visitSourceContentObject(SourceContentObject sourceContentObject) {
+             *         return Optional.of(sourceContentObject.toString());
              *     }
              *
              *     // ...
@@ -601,7 +606,8 @@ private constructor(
              */
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
-                    unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
+                    sourceContentObject != null ->
+                        visitor.visitSourceContentObject(sourceContentObject)
                     unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
                     else -> visitor.unknown(_json)
                 }
@@ -625,8 +631,10 @@ private constructor(
 
                 accept(
                     object : Visitor<Unit> {
-                        override fun visitUnionMember0(unionMember0: UnionMember0) {
-                            unionMember0.validate()
+                        override fun visitSourceContentObject(
+                            sourceContentObject: SourceContentObject
+                        ) {
+                            sourceContentObject.validate()
                         }
 
                         override fun visitUnionMember1(unionMember1: UnionMember1) {
@@ -655,8 +663,9 @@ private constructor(
             internal fun validity(): Int =
                 accept(
                     object : Visitor<Int> {
-                        override fun visitUnionMember0(unionMember0: UnionMember0) =
-                            unionMember0.validity()
+                        override fun visitSourceContentObject(
+                            sourceContentObject: SourceContentObject
+                        ) = sourceContentObject.validity()
 
                         override fun visitUnionMember1(unionMember1: UnionMember1) =
                             unionMember1.validity()
@@ -671,15 +680,16 @@ private constructor(
                 }
 
                 return other is Content &&
-                    unionMember0 == other.unionMember0 &&
+                    sourceContentObject == other.sourceContentObject &&
                     unionMember1 == other.unionMember1
             }
 
-            override fun hashCode(): Int = Objects.hash(unionMember0, unionMember1)
+            override fun hashCode(): Int = Objects.hash(sourceContentObject, unionMember1)
 
             override fun toString(): String =
                 when {
-                    unionMember0 != null -> "Content{unionMember0=$unionMember0}"
+                    sourceContentObject != null ->
+                        "Content{sourceContentObject=$sourceContentObject}"
                     unionMember1 != null -> "Content{unionMember1=$unionMember1}"
                     _json != null -> "Content{_unknown=$_json}"
                     else -> throw IllegalStateException("Invalid Content")
@@ -688,8 +698,8 @@ private constructor(
             companion object {
 
                 @JvmStatic
-                fun ofUnionMember0(unionMember0: UnionMember0) =
-                    Content(unionMember0 = unionMember0)
+                fun ofSourceContentObject(sourceContentObject: SourceContentObject) =
+                    Content(sourceContentObject = sourceContentObject)
 
                 @JvmStatic
                 fun ofUnionMember1(unionMember1: UnionMember1) =
@@ -702,7 +712,7 @@ private constructor(
              */
             interface Visitor<out T> {
 
-                fun visitUnionMember0(unionMember0: UnionMember0): T
+                fun visitSourceContentObject(sourceContentObject: SourceContentObject): T
 
                 fun visitUnionMember1(unionMember1: UnionMember1): T
 
@@ -728,8 +738,8 @@ private constructor(
 
                     val bestMatches =
                         sequenceOf(
-                                tryDeserialize(node, jacksonTypeRef<UnionMember0>())?.let {
-                                    Content(unionMember0 = it, _json = json)
+                                tryDeserialize(node, jacksonTypeRef<SourceContentObject>())?.let {
+                                    Content(sourceContentObject = it, _json = json)
                                 },
                                 tryDeserialize(node, jacksonTypeRef<UnionMember1>())?.let {
                                     Content(unionMember1 = it, _json = json)
@@ -759,7 +769,8 @@ private constructor(
                     provider: SerializerProvider,
                 ) {
                     when {
-                        value.unionMember0 != null -> generator.writeObject(value.unionMember0)
+                        value.sourceContentObject != null ->
+                            generator.writeObject(value.sourceContentObject)
                         value.unionMember1 != null -> generator.writeObject(value.unionMember1)
                         value._json != null -> generator.writeObject(value._json)
                         else -> throw IllegalStateException("Invalid Content")
@@ -767,7 +778,7 @@ private constructor(
                 }
             }
 
-            class UnionMember0
+            class SourceContentObject
             @JsonCreator
             private constructor(
                 @com.fasterxml.jackson.annotation.JsonValue
@@ -782,18 +793,22 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [UnionMember0]. */
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [SourceContentObject].
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [UnionMember0]. */
+                /** A builder for [SourceContentObject]. */
                 class Builder internal constructor() {
 
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(unionMember0: UnionMember0) = apply {
-                        additionalProperties = unionMember0.additionalProperties.toMutableMap()
+                    internal fun from(sourceContentObject: SourceContentObject) = apply {
+                        additionalProperties =
+                            sourceContentObject.additionalProperties.toMutableMap()
                     }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -819,11 +834,12 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [UnionMember0].
+                     * Returns an immutable instance of [SourceContentObject].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): UnionMember0 = UnionMember0(additionalProperties.toImmutable())
+                    fun build(): SourceContentObject =
+                        SourceContentObject(additionalProperties.toImmutable())
                 }
 
                 private var validated: Boolean = false
@@ -838,7 +854,7 @@ private constructor(
                  * @throws TelnyxInvalidDataException if any value type in this object doesn't match
                  *   its expected type.
                  */
-                fun validate(): UnionMember0 = apply {
+                fun validate(): SourceContentObject = apply {
                     if (validated) {
                         return@apply
                     }
@@ -871,7 +887,7 @@ private constructor(
                         return true
                     }
 
-                    return other is UnionMember0 &&
+                    return other is SourceContentObject &&
                         additionalProperties == other.additionalProperties
                 }
 
@@ -879,43 +895,52 @@ private constructor(
 
                 override fun hashCode(): Int = hashCode
 
-                override fun toString() = "UnionMember0{additionalProperties=$additionalProperties}"
+                override fun toString() =
+                    "SourceContentObject{additionalProperties=$additionalProperties}"
             }
 
             @JsonDeserialize(using = UnionMember1.Deserializer::class)
             @JsonSerialize(using = UnionMember1.Serializer::class)
             class UnionMember1
             private constructor(
-                private val jsonValues: List<JsonValue>? = null,
-                private val string: String? = null,
-                private val number: Double? = null,
-                private val bool: Boolean? = null,
+                private val sourceContentValue: List<JsonValue>? = null,
+                private val sourceContentValue2: String? = null,
+                private val sourceContentValue3: Double? = null,
+                private val sourceContentValue4: Boolean? = null,
                 private val _json: JsonValue? = null,
             ) {
 
-                fun jsonValues(): Optional<List<JsonValue>> = Optional.ofNullable(jsonValues)
+                fun sourceContentValue(): Optional<List<JsonValue>> =
+                    Optional.ofNullable(sourceContentValue)
 
-                fun string(): Optional<String> = Optional.ofNullable(string)
+                fun sourceContentValue2(): Optional<String> =
+                    Optional.ofNullable(sourceContentValue2)
 
-                fun number(): Optional<Double> = Optional.ofNullable(number)
+                fun sourceContentValue3(): Optional<Double> =
+                    Optional.ofNullable(sourceContentValue3)
 
-                fun bool(): Optional<Boolean> = Optional.ofNullable(bool)
+                fun sourceContentValue4(): Optional<Boolean> =
+                    Optional.ofNullable(sourceContentValue4)
 
-                fun isJsonValues(): Boolean = jsonValues != null
+                fun isSourceContentValue(): Boolean = sourceContentValue != null
 
-                fun isString(): Boolean = string != null
+                fun isSourceContentValue2(): Boolean = sourceContentValue2 != null
 
-                fun isNumber(): Boolean = number != null
+                fun isSourceContentValue3(): Boolean = sourceContentValue3 != null
 
-                fun isBool(): Boolean = bool != null
+                fun isSourceContentValue4(): Boolean = sourceContentValue4 != null
 
-                fun asJsonValues(): List<JsonValue> = jsonValues.getOrThrow("jsonValues")
+                fun asSourceContentValue(): List<JsonValue> =
+                    sourceContentValue.getOrThrow("sourceContentValue")
 
-                fun asString(): String = string.getOrThrow("string")
+                fun asSourceContentValue2(): String =
+                    sourceContentValue2.getOrThrow("sourceContentValue2")
 
-                fun asNumber(): Double = number.getOrThrow("number")
+                fun asSourceContentValue3(): Double =
+                    sourceContentValue3.getOrThrow("sourceContentValue3")
 
-                fun asBool(): Boolean = bool.getOrThrow("bool")
+                fun asSourceContentValue4(): Boolean =
+                    sourceContentValue4.getOrThrow("sourceContentValue4")
 
                 fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -932,8 +957,8 @@ private constructor(
                  *
                  * Optional<String> result = unionMember1.accept(new UnionMember1.Visitor<Optional<String>>() {
                  *     @Override
-                 *     public Optional<String> visitJsonValues(List<JsonValue> jsonValues) {
-                 *         return Optional.of(jsonValues.toString());
+                 *     public Optional<String> visitSourceContentValue(List<JsonValue> sourceContentValue) {
+                 *         return Optional.of(sourceContentValue.toString());
                  *     }
                  *
                  *     // ...
@@ -951,10 +976,14 @@ private constructor(
                  */
                 fun <T> accept(visitor: Visitor<T>): T =
                     when {
-                        jsonValues != null -> visitor.visitJsonValues(jsonValues)
-                        string != null -> visitor.visitString(string)
-                        number != null -> visitor.visitNumber(number)
-                        bool != null -> visitor.visitBool(bool)
+                        sourceContentValue != null ->
+                            visitor.visitSourceContentValue(sourceContentValue)
+                        sourceContentValue2 != null ->
+                            visitor.visitSourceContentValue2(sourceContentValue2)
+                        sourceContentValue3 != null ->
+                            visitor.visitSourceContentValue3(sourceContentValue3)
+                        sourceContentValue4 != null ->
+                            visitor.visitSourceContentValue4(sourceContentValue4)
                         else -> visitor.unknown(_json)
                     }
 
@@ -977,13 +1006,15 @@ private constructor(
 
                     accept(
                         object : Visitor<Unit> {
-                            override fun visitJsonValues(jsonValues: List<JsonValue>) {}
+                            override fun visitSourceContentValue(
+                                sourceContentValue: List<JsonValue>
+                            ) {}
 
-                            override fun visitString(string: String) {}
+                            override fun visitSourceContentValue2(sourceContentValue2: String) {}
 
-                            override fun visitNumber(number: Double) {}
+                            override fun visitSourceContentValue3(sourceContentValue3: Double) {}
 
-                            override fun visitBool(bool: Boolean) {}
+                            override fun visitSourceContentValue4(sourceContentValue4: Boolean) {}
                         }
                     )
                     validated = true
@@ -1007,14 +1038,15 @@ private constructor(
                 internal fun validity(): Int =
                     accept(
                         object : Visitor<Int> {
-                            override fun visitJsonValues(jsonValues: List<JsonValue>) =
-                                jsonValues.size
+                            override fun visitSourceContentValue(
+                                sourceContentValue: List<JsonValue>
+                            ) = sourceContentValue.size
 
-                            override fun visitString(string: String) = 1
+                            override fun visitSourceContentValue2(sourceContentValue2: String) = 1
 
-                            override fun visitNumber(number: Double) = 1
+                            override fun visitSourceContentValue3(sourceContentValue3: Double) = 1
 
-                            override fun visitBool(bool: Boolean) = 1
+                            override fun visitSourceContentValue4(sourceContentValue4: Boolean) = 1
 
                             override fun unknown(json: JsonValue?) = 0
                         }
@@ -1026,20 +1058,30 @@ private constructor(
                     }
 
                     return other is UnionMember1 &&
-                        jsonValues == other.jsonValues &&
-                        string == other.string &&
-                        number == other.number &&
-                        bool == other.bool
+                        sourceContentValue == other.sourceContentValue &&
+                        sourceContentValue2 == other.sourceContentValue2 &&
+                        sourceContentValue3 == other.sourceContentValue3 &&
+                        sourceContentValue4 == other.sourceContentValue4
                 }
 
-                override fun hashCode(): Int = Objects.hash(jsonValues, string, number, bool)
+                override fun hashCode(): Int =
+                    Objects.hash(
+                        sourceContentValue,
+                        sourceContentValue2,
+                        sourceContentValue3,
+                        sourceContentValue4,
+                    )
 
                 override fun toString(): String =
                     when {
-                        jsonValues != null -> "UnionMember1{jsonValues=$jsonValues}"
-                        string != null -> "UnionMember1{string=$string}"
-                        number != null -> "UnionMember1{number=$number}"
-                        bool != null -> "UnionMember1{bool=$bool}"
+                        sourceContentValue != null ->
+                            "UnionMember1{sourceContentValue=$sourceContentValue}"
+                        sourceContentValue2 != null ->
+                            "UnionMember1{sourceContentValue2=$sourceContentValue2}"
+                        sourceContentValue3 != null ->
+                            "UnionMember1{sourceContentValue3=$sourceContentValue3}"
+                        sourceContentValue4 != null ->
+                            "UnionMember1{sourceContentValue4=$sourceContentValue4}"
                         _json != null -> "UnionMember1{_unknown=$_json}"
                         else -> throw IllegalStateException("Invalid UnionMember1")
                     }
@@ -1047,14 +1089,20 @@ private constructor(
                 companion object {
 
                     @JvmStatic
-                    fun ofJsonValues(jsonValues: List<JsonValue>) =
-                        UnionMember1(jsonValues = jsonValues.toImmutable())
+                    fun ofSourceContentValue(sourceContentValue: List<JsonValue>) =
+                        UnionMember1(sourceContentValue = sourceContentValue.toImmutable())
 
-                    @JvmStatic fun ofString(string: String) = UnionMember1(string = string)
+                    @JvmStatic
+                    fun ofSourceContentValue2(sourceContentValue2: String) =
+                        UnionMember1(sourceContentValue2 = sourceContentValue2)
 
-                    @JvmStatic fun ofNumber(number: Double) = UnionMember1(number = number)
+                    @JvmStatic
+                    fun ofSourceContentValue3(sourceContentValue3: Double) =
+                        UnionMember1(sourceContentValue3 = sourceContentValue3)
 
-                    @JvmStatic fun ofBool(bool: Boolean) = UnionMember1(bool = bool)
+                    @JvmStatic
+                    fun ofSourceContentValue4(sourceContentValue4: Boolean) =
+                        UnionMember1(sourceContentValue4 = sourceContentValue4)
                 }
 
                 /**
@@ -1063,13 +1111,13 @@ private constructor(
                  */
                 interface Visitor<out T> {
 
-                    fun visitJsonValues(jsonValues: List<JsonValue>): T
+                    fun visitSourceContentValue(sourceContentValue: List<JsonValue>): T
 
-                    fun visitString(string: String): T
+                    fun visitSourceContentValue2(sourceContentValue2: String): T
 
-                    fun visitNumber(number: Double): T
+                    fun visitSourceContentValue3(sourceContentValue3: Double): T
 
-                    fun visitBool(bool: Boolean): T
+                    fun visitSourceContentValue4(sourceContentValue4: Boolean): T
 
                     /**
                      * Maps an unknown variant of [UnionMember1] to a value of type [T].
@@ -1094,16 +1142,16 @@ private constructor(
                         val bestMatches =
                             sequenceOf(
                                     tryDeserialize(node, jacksonTypeRef<String>())?.let {
-                                        UnionMember1(string = it, _json = json)
+                                        UnionMember1(sourceContentValue2 = it, _json = json)
                                     },
                                     tryDeserialize(node, jacksonTypeRef<List<JsonValue>>())?.let {
-                                        UnionMember1(jsonValues = it, _json = json)
+                                        UnionMember1(sourceContentValue = it, _json = json)
                                     },
                                     tryDeserialize(node, jacksonTypeRef<Double>())?.let {
-                                        UnionMember1(number = it, _json = json)
+                                        UnionMember1(sourceContentValue3 = it, _json = json)
                                     },
                                     tryDeserialize(node, jacksonTypeRef<Boolean>())?.let {
-                                        UnionMember1(bool = it, _json = json)
+                                        UnionMember1(sourceContentValue4 = it, _json = json)
                                     },
                                 )
                                 .filterNotNull()
@@ -1131,10 +1179,14 @@ private constructor(
                         provider: SerializerProvider,
                     ) {
                         when {
-                            value.jsonValues != null -> generator.writeObject(value.jsonValues)
-                            value.string != null -> generator.writeObject(value.string)
-                            value.number != null -> generator.writeObject(value.number)
-                            value.bool != null -> generator.writeObject(value.bool)
+                            value.sourceContentValue != null ->
+                                generator.writeObject(value.sourceContentValue)
+                            value.sourceContentValue2 != null ->
+                                generator.writeObject(value.sourceContentValue2)
+                            value.sourceContentValue3 != null ->
+                                generator.writeObject(value.sourceContentValue3)
+                            value.sourceContentValue4 != null ->
+                                generator.writeObject(value.sourceContentValue4)
                             value._json != null -> generator.writeObject(value._json)
                             else -> throw IllegalStateException("Invalid UnionMember1")
                         }

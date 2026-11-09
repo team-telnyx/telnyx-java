@@ -104,4 +104,16 @@ internal class TelephonyCredentialServiceAsyncTest {
 
         val response = responseFuture.get()
     }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveTokenMaterial() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val telephonyCredentialServiceAsync = client.telephonyCredentials()
+
+        val responseFuture = telephonyCredentialServiceAsync.retrieveTokenMaterial("id")
+
+        val response = responseFuture.get()
+        response.validate()
+    }
 }
