@@ -64,6 +64,8 @@ internal class ActionTransferParamsTest {
             .recordCustomFileName("my_recording_file_name")
             .recordFormat(ActionTransferParams.RecordFormat.WAV)
             .recordMaxLength(1000)
+            .addRecordRedaction(ActionTransferParams.RecordRedaction.PCI)
+            .addRecordRedaction(ActionTransferParams.RecordRedaction.PII)
             .recordTimeoutSecs(100)
             .recordTrack(ActionTransferParams.RecordTrack.OUTBOUND)
             .recordTrim(ActionTransferParams.RecordTrim.TRIM_SILENCE)
@@ -180,6 +182,8 @@ internal class ActionTransferParamsTest {
                 .recordCustomFileName("my_recording_file_name")
                 .recordFormat(ActionTransferParams.RecordFormat.WAV)
                 .recordMaxLength(1000)
+                .addRecordRedaction(ActionTransferParams.RecordRedaction.PCI)
+                .addRecordRedaction(ActionTransferParams.RecordRedaction.PII)
                 .recordTimeoutSecs(100)
                 .recordTrack(ActionTransferParams.RecordTrack.OUTBOUND)
                 .recordTrim(ActionTransferParams.RecordTrim.TRIM_SILENCE)
@@ -283,6 +287,11 @@ internal class ActionTransferParamsTest {
         assertThat(body.recordCustomFileName()).contains("my_recording_file_name")
         assertThat(body.recordFormat()).contains(ActionTransferParams.RecordFormat.WAV)
         assertThat(body.recordMaxLength()).contains(1000)
+        assertThat(body.recordRedaction().getOrNull())
+            .containsExactly(
+                ActionTransferParams.RecordRedaction.PCI,
+                ActionTransferParams.RecordRedaction.PII,
+            )
         assertThat(body.recordTimeoutSecs()).contains(100)
         assertThat(body.recordTrack()).contains(ActionTransferParams.RecordTrack.OUTBOUND)
         assertThat(body.recordTrim()).contains(ActionTransferParams.RecordTrim.TRIM_SILENCE)

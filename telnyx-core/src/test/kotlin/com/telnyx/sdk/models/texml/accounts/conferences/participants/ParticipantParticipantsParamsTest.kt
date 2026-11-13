@@ -23,6 +23,7 @@ internal class ParticipantParticipantsParamsTest {
             .cancelPlaybackOnMachineDetection(false)
             .coaching(false)
             .conferenceRecord(ParticipantParticipantsParams.ConferenceRecord.RECORD_FROM_START)
+            .conferenceRecordingRedaction("pci,pii")
             .conferenceRecordingStatusCallback(
                 "https://example.com/conference_recording_status_callback"
             )
@@ -117,6 +118,7 @@ internal class ParticipantParticipantsParamsTest {
                 .cancelPlaybackOnMachineDetection(false)
                 .coaching(false)
                 .conferenceRecord(ParticipantParticipantsParams.ConferenceRecord.RECORD_FROM_START)
+                .conferenceRecordingRedaction("pci,pii")
                 .conferenceRecordingStatusCallback(
                     "https://example.com/conference_recording_status_callback"
                 )
@@ -195,6 +197,7 @@ internal class ParticipantParticipantsParamsTest {
         assertThat(body.coaching()).contains(false)
         assertThat(body.conferenceRecord())
             .contains(ParticipantParticipantsParams.ConferenceRecord.RECORD_FROM_START)
+        assertThat(body.conferenceRecordingRedaction()).contains("pci,pii")
         assertThat(body.conferenceRecordingStatusCallback())
             .contains("https://example.com/conference_recording_status_callback")
         assertThat(body.conferenceRecordingStatusCallbackEvent())

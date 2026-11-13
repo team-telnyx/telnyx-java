@@ -103,9 +103,9 @@ private constructor(
     )
 
     /**
-     * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. A comma-separated list of terms to
-     * boost for recognition during transcription, for staff names, building names, or other
-     * domain-specific vocabulary. This field may be templated with
+     * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. A
+     * comma-separated list of terms to boost for recognition during transcription, for staff names,
+     * building names, or other domain-specific vocabulary. This field may be templated with
      * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
      * using mustache syntax (e.g. `Telnyx,{{customer_name}},VoIP`). Variables are resolved at call
      * time before the value is sent to Soniox.
@@ -126,8 +126,8 @@ private constructor(
     fun eagerEotThreshold(): Optional<Double> = eagerEotThreshold.getOptional("eager_eot_threshold")
 
     /**
-     * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. When true, Soniox emits
-     * end-of-utterance events at the cadence configured by `max_endpoint_delay_ms`.
+     * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. When true,
+     * Soniox emits end-of-utterance events at the cadence configured by `max_endpoint_delay_ms`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -167,8 +167,8 @@ private constructor(
     fun eotTimeoutMs(): Optional<Long> = eotTimeoutMs.getOptional("eot_timeout_ms")
 
     /**
-     * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. When true, Soniox streams interim
-     * (non-final) results in addition to finalized transcripts.
+     * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. When true,
+     * Soniox streams interim (non-final) results in addition to finalized transcripts.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -192,9 +192,9 @@ private constructor(
     fun keyterm(): Optional<String> = keyterm.getOptional("keyterm")
 
     /**
-     * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. A list of ISO 639-1 language codes
-     * (e.g. `["nl", "fr"]`) to pin recognition to multiple languages at once, overriding the single
-     * hint derived from `language`.
+     * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. A list of ISO
+     * 639-1 language codes (e.g. `["nl", "fr"]`) to pin recognition to multiple languages at once,
+     * overriding the single hint derived from `language`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -202,9 +202,9 @@ private constructor(
     fun languageHints(): Optional<List<String>> = languageHints.getOptional("language_hints")
 
     /**
-     * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. Maximum silence (in milliseconds)
-     * before Soniox emits an end-of-utterance event. Only honored when `enable_endpoint_detection`
-     * is true.
+     * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. Maximum silence
+     * (in milliseconds) before Soniox emits an end-of-utterance event. Only honored when
+     * `enable_endpoint_detection` is true.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -475,9 +475,10 @@ private constructor(
         }
 
         /**
-         * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. A comma-separated list of terms
-         * to boost for recognition during transcription, for staff names, building names, or other
-         * domain-specific vocabulary. This field may be templated with
+         * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. A
+         * comma-separated list of terms to boost for recognition during transcription, for staff
+         * names, building names, or other domain-specific vocabulary. This field may be templated
+         * with
          * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
          * using mustache syntax (e.g. `Telnyx,{{customer_name}},VoIP`). Variables are resolved at
          * call time before the value is sent to Soniox.
@@ -512,8 +513,9 @@ private constructor(
         }
 
         /**
-         * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. When true, Soniox emits
-         * end-of-utterance events at the cadence configured by `max_endpoint_delay_ms`.
+         * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. When true,
+         * Soniox emits end-of-utterance events at the cadence configured by
+         * `max_endpoint_delay_ms`.
          */
         fun enableEndpointDetection(enableEndpointDetection: Boolean) =
             enableEndpointDetection(JsonField.of(enableEndpointDetection))
@@ -586,8 +588,8 @@ private constructor(
         fun eotTimeoutMs(eotTimeoutMs: JsonField<Long>) = apply { this.eotTimeoutMs = eotTimeoutMs }
 
         /**
-         * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. When true, Soniox streams
-         * interim (non-final) results in addition to finalized transcripts.
+         * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. When true,
+         * Soniox streams interim (non-final) results in addition to finalized transcripts.
          */
         fun interimResults(interimResults: Boolean) = interimResults(JsonField.of(interimResults))
 
@@ -624,9 +626,9 @@ private constructor(
         fun keyterm(keyterm: JsonField<String>) = apply { this.keyterm = keyterm }
 
         /**
-         * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. A list of ISO 639-1 language
-         * codes (e.g. `["nl", "fr"]`) to pin recognition to multiple languages at once, overriding
-         * the single hint derived from `language`.
+         * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. A list of
+         * ISO 639-1 language codes (e.g. `["nl", "fr"]`) to pin recognition to multiple languages
+         * at once, overriding the single hint derived from `language`.
          */
         fun languageHints(languageHints: List<String>) = languageHints(JsonField.of(languageHints))
 
@@ -654,9 +656,9 @@ private constructor(
         }
 
         /**
-         * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. Maximum silence (in
-         * milliseconds) before Soniox emits an end-of-utterance event. Only honored when
-         * `enable_endpoint_detection` is true.
+         * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. Maximum
+         * silence (in milliseconds) before Soniox emits an end-of-utterance event. Only honored
+         * when `enable_endpoint_detection` is true.
          */
         fun maxEndpointDelayMs(maxEndpointDelayMs: Long) =
             maxEndpointDelayMs(JsonField.of(maxEndpointDelayMs))

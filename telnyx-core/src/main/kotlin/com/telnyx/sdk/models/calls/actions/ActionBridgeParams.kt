@@ -12,8 +12,10 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -162,6 +164,18 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun recordMaxLength(): Optional<Int> = body.recordMaxLength()
+
+    /**
+     * Applies to the recording started with `record`. Silences spoken details of the given kinds in
+     * the recording: `pci` (card number, expiry date, security code), `pii` (personal details such
+     * as names, phone numbers, addresses and other identifying numbers) and `phi` (health details
+     * such as medications, doses and conditions). Redaction works on English speech only. Redacted
+     * recordings are charged at the Deepgram speech-to-text rate.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordRedaction(): Optional<List<RecordRedaction>> = body.recordRedaction()
 
     /**
      * The number of seconds that Telnyx will wait for the recording to be stopped if silence is
@@ -322,6 +336,13 @@ private constructor(
      * Unlike [recordMaxLength], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _recordMaxLength(): JsonField<Int> = body._recordMaxLength()
+
+    /**
+     * Returns the raw JSON value of [recordRedaction].
+     *
+     * Unlike [recordRedaction], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _recordRedaction(): JsonField<List<RecordRedaction>> = body._recordRedaction()
 
     /**
      * Returns the raw JSON value of [recordTimeoutSecs].
@@ -665,6 +686,37 @@ private constructor(
         }
 
         /**
+         * Applies to the recording started with `record`. Silences spoken details of the given
+         * kinds in the recording: `pci` (card number, expiry date, security code), `pii` (personal
+         * details such as names, phone numbers, addresses and other identifying numbers) and `phi`
+         * (health details such as medications, doses and conditions). Redaction works on English
+         * speech only. Redacted recordings are charged at the Deepgram speech-to-text rate.
+         */
+        fun recordRedaction(recordRedaction: List<RecordRedaction>) = apply {
+            body.recordRedaction(recordRedaction)
+        }
+
+        /**
+         * Sets [Builder.recordRedaction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordRedaction] with a well-typed
+         * `List<RecordRedaction>` value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun recordRedaction(recordRedaction: JsonField<List<RecordRedaction>>) = apply {
+            body.recordRedaction(recordRedaction)
+        }
+
+        /**
+         * Adds a single [RecordRedaction] to [Builder.recordRedaction].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addRecordRedaction(recordRedaction: RecordRedaction) = apply {
+            body.addRecordRedaction(recordRedaction)
+        }
+
+        /**
          * The number of seconds that Telnyx will wait for the recording to be stopped if silence is
          * detected when `record` is specified. The timer only starts when the speech is detected.
          * Please note that call transcription is used to detect silence and the related charge will
@@ -936,6 +988,7 @@ private constructor(
         private val recordCustomFileName: JsonField<String>,
         private val recordFormat: JsonField<RecordFormat>,
         private val recordMaxLength: JsonField<Int>,
+        private val recordRedaction: JsonField<List<RecordRedaction>>,
         private val recordTimeoutSecs: JsonField<Int>,
         private val recordTrack: JsonField<RecordTrack>,
         private val recordTrim: JsonField<RecordTrim>,
@@ -985,6 +1038,9 @@ private constructor(
             @JsonProperty("record_max_length")
             @ExcludeMissing
             recordMaxLength: JsonField<Int> = JsonMissing.of(),
+            @JsonProperty("record_redaction")
+            @ExcludeMissing
+            recordRedaction: JsonField<List<RecordRedaction>> = JsonMissing.of(),
             @JsonProperty("record_timeout_secs")
             @ExcludeMissing
             recordTimeoutSecs: JsonField<Int> = JsonMissing.of(),
@@ -1018,6 +1074,7 @@ private constructor(
             recordCustomFileName,
             recordFormat,
             recordMaxLength,
+            recordRedaction,
             recordTimeoutSecs,
             recordTrack,
             recordTrim,
@@ -1157,6 +1214,19 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun recordMaxLength(): Optional<Int> = recordMaxLength.getOptional("record_max_length")
+
+        /**
+         * Applies to the recording started with `record`. Silences spoken details of the given
+         * kinds in the recording: `pci` (card number, expiry date, security code), `pii` (personal
+         * details such as names, phone numbers, addresses and other identifying numbers) and `phi`
+         * (health details such as medications, doses and conditions). Redaction works on English
+         * speech only. Redacted recordings are charged at the Deepgram speech-to-text rate.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordRedaction(): Optional<List<RecordRedaction>> =
+            recordRedaction.getOptional("record_redaction")
 
         /**
          * The number of seconds that Telnyx will wait for the recording to be stopped if silence is
@@ -1346,6 +1416,16 @@ private constructor(
         fun _recordMaxLength(): JsonField<Int> = recordMaxLength
 
         /**
+         * Returns the raw JSON value of [recordRedaction].
+         *
+         * Unlike [recordRedaction], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("record_redaction")
+        @ExcludeMissing
+        fun _recordRedaction(): JsonField<List<RecordRedaction>> = recordRedaction
+
+        /**
          * Returns the raw JSON value of [recordTimeoutSecs].
          *
          * Unlike [recordTimeoutSecs], this method doesn't throw if the JSON field has an unexpected
@@ -1441,6 +1521,7 @@ private constructor(
             private var recordCustomFileName: JsonField<String> = JsonMissing.of()
             private var recordFormat: JsonField<RecordFormat> = JsonMissing.of()
             private var recordMaxLength: JsonField<Int> = JsonMissing.of()
+            private var recordRedaction: JsonField<MutableList<RecordRedaction>>? = null
             private var recordTimeoutSecs: JsonField<Int> = JsonMissing.of()
             private var recordTrack: JsonField<RecordTrack> = JsonMissing.of()
             private var recordTrim: JsonField<RecordTrim> = JsonMissing.of()
@@ -1465,6 +1546,7 @@ private constructor(
                 recordCustomFileName = body.recordCustomFileName
                 recordFormat = body.recordFormat
                 recordMaxLength = body.recordMaxLength
+                recordRedaction = body.recordRedaction.map { it.toMutableList() }
                 recordTimeoutSecs = body.recordTimeoutSecs
                 recordTrack = body.recordTrack
                 recordTrim = body.recordTrim
@@ -1710,6 +1792,40 @@ private constructor(
             }
 
             /**
+             * Applies to the recording started with `record`. Silences spoken details of the given
+             * kinds in the recording: `pci` (card number, expiry date, security code), `pii`
+             * (personal details such as names, phone numbers, addresses and other identifying
+             * numbers) and `phi` (health details such as medications, doses and conditions).
+             * Redaction works on English speech only. Redacted recordings are charged at the
+             * Deepgram speech-to-text rate.
+             */
+            fun recordRedaction(recordRedaction: List<RecordRedaction>) =
+                recordRedaction(JsonField.of(recordRedaction))
+
+            /**
+             * Sets [Builder.recordRedaction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordRedaction] with a well-typed
+             * `List<RecordRedaction>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun recordRedaction(recordRedaction: JsonField<List<RecordRedaction>>) = apply {
+                this.recordRedaction = recordRedaction.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [RecordRedaction] to [Builder.recordRedaction].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addRecordRedaction(recordRedaction: RecordRedaction) = apply {
+                this.recordRedaction =
+                    (this.recordRedaction ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("recordRedaction", it).add(recordRedaction)
+                    }
+            }
+
+            /**
              * The number of seconds that Telnyx will wait for the recording to be stopped if
              * silence is detected when `record` is specified. The timer only starts when the speech
              * is detected. Please note that call transcription is used to detect silence and the
@@ -1863,6 +1979,7 @@ private constructor(
                     recordCustomFileName,
                     recordFormat,
                     recordMaxLength,
+                    (recordRedaction ?: JsonMissing.of()).map { it.toImmutable() },
                     recordTimeoutSecs,
                     recordTrack,
                     recordTrim,
@@ -1903,6 +2020,7 @@ private constructor(
             recordCustomFileName()
             recordFormat().ifPresent { it.validate() }
             recordMaxLength()
+            recordRedaction().ifPresent { it.forEach { it.validate() } }
             recordTimeoutSecs()
             recordTrack().ifPresent { it.validate() }
             recordTrim().ifPresent { it.validate() }
@@ -1942,6 +2060,7 @@ private constructor(
                 (if (recordCustomFileName.asKnown().isPresent) 1 else 0) +
                 (recordFormat.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (recordMaxLength.asKnown().isPresent) 1 else 0) +
+                (recordRedaction.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (recordTimeoutSecs.asKnown().isPresent) 1 else 0) +
                 (recordTrack.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordTrim.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1969,6 +2088,7 @@ private constructor(
                 recordCustomFileName == other.recordCustomFileName &&
                 recordFormat == other.recordFormat &&
                 recordMaxLength == other.recordMaxLength &&
+                recordRedaction == other.recordRedaction &&
                 recordTimeoutSecs == other.recordTimeoutSecs &&
                 recordTrack == other.recordTrack &&
                 recordTrim == other.recordTrim &&
@@ -1994,6 +2114,7 @@ private constructor(
                 recordCustomFileName,
                 recordFormat,
                 recordMaxLength,
+                recordRedaction,
                 recordTimeoutSecs,
                 recordTrack,
                 recordTrim,
@@ -2007,7 +2128,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{callControlId=$callControlId, clientState=$clientState, commandId=$commandId, holdAfterUnbridge=$holdAfterUnbridge, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, playRingtone=$playRingtone, preventDoubleBridge=$preventDoubleBridge, queue=$queue, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, ringtone=$ringtone, videoRoomContext=$videoRoomContext, videoRoomId=$videoRoomId, additionalProperties=$additionalProperties}"
+            "Body{callControlId=$callControlId, clientState=$clientState, commandId=$commandId, holdAfterUnbridge=$holdAfterUnbridge, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, playRingtone=$playRingtone, preventDoubleBridge=$preventDoubleBridge, queue=$queue, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordRedaction=$recordRedaction, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, ringtone=$ringtone, videoRoomContext=$videoRoomContext, videoRoomId=$videoRoomId, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2559,6 +2680,150 @@ private constructor(
             }
 
             return other is RecordFormat && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    class RecordRedaction @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val PCI = of("pci")
+
+            @JvmField val PII = of("pii")
+
+            @JvmField val PHI = of("phi")
+
+            @JvmStatic fun of(value: String) = RecordRedaction(JsonField.of(value))
+        }
+
+        /** An enum containing [RecordRedaction]'s known values. */
+        enum class Known {
+            PCI,
+            PII,
+            PHI,
+        }
+
+        /**
+         * An enum containing [RecordRedaction]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [RecordRedaction] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PCI,
+            PII,
+            PHI,
+            /**
+             * An enum member indicating that [RecordRedaction] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PCI -> Value.PCI
+                PII -> Value.PII
+                PHI -> Value.PHI
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                PCI -> Known.PCI
+                PII -> Known.PII
+                PHI -> Known.PHI
+                else -> throw TelnyxInvalidDataException("Unknown RecordRedaction: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): RecordRedaction = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RecordRedaction && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

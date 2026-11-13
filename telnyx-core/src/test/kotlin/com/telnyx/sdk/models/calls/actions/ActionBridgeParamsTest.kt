@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.calls.actions
 
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -25,6 +26,8 @@ internal class ActionBridgeParamsTest {
             .recordCustomFileName("my_recording_file_name")
             .recordFormat(ActionBridgeParams.RecordFormat.WAV)
             .recordMaxLength(1000)
+            .addRecordRedaction(ActionBridgeParams.RecordRedaction.PCI)
+            .addRecordRedaction(ActionBridgeParams.RecordRedaction.PII)
             .recordTimeoutSecs(100)
             .recordTrack(ActionBridgeParams.RecordTrack.OUTBOUND)
             .recordTrim(ActionBridgeParams.RecordTrim.TRIM_SILENCE)
@@ -66,6 +69,8 @@ internal class ActionBridgeParamsTest {
                 .recordCustomFileName("my_recording_file_name")
                 .recordFormat(ActionBridgeParams.RecordFormat.WAV)
                 .recordMaxLength(1000)
+                .addRecordRedaction(ActionBridgeParams.RecordRedaction.PCI)
+                .addRecordRedaction(ActionBridgeParams.RecordRedaction.PII)
                 .recordTimeoutSecs(100)
                 .recordTrack(ActionBridgeParams.RecordTrack.OUTBOUND)
                 .recordTrim(ActionBridgeParams.RecordTrim.TRIM_SILENCE)
@@ -91,6 +96,11 @@ internal class ActionBridgeParamsTest {
         assertThat(body.recordCustomFileName()).contains("my_recording_file_name")
         assertThat(body.recordFormat()).contains(ActionBridgeParams.RecordFormat.WAV)
         assertThat(body.recordMaxLength()).contains(1000)
+        assertThat(body.recordRedaction().getOrNull())
+            .containsExactly(
+                ActionBridgeParams.RecordRedaction.PCI,
+                ActionBridgeParams.RecordRedaction.PII,
+            )
         assertThat(body.recordTimeoutSecs()).contains(100)
         assertThat(body.recordTrack()).contains(ActionBridgeParams.RecordTrack.OUTBOUND)
         assertThat(body.recordTrim()).contains(ActionBridgeParams.RecordTrim.TRIM_SILENCE)

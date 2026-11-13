@@ -15,9 +15,21 @@ internal class PortingOrderStatusTest {
         val portingOrderStatus =
             PortingOrderStatus.builder()
                 .addDetail(
-                    PortingOrdersExceptionType.builder()
-                        .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
+                    PortingOrderStatus.Detail.builder()
+                        .code(PortingOrderStatus.Detail.Code.ENTITY_NAME_MISMATCH)
                         .description("Entity name does not match that on the CSR")
+                        .remediation(
+                            PortingOrderStatus.Detail.Remediation.builder()
+                                .action(
+                                    PortingOrderStatus.Detail.Remediation.Action.UPDATE_ORDER_FIELDS
+                                )
+                                .addField("end_user.location.postal_code")
+                                .requiredDocument(
+                                    PortingOrderStatus.Detail.Remediation.RequiredDocument.LOA
+                                )
+                                .retryable(true)
+                                .build()
+                        )
                         .build()
                 )
                 .value(PortingOrderStatus.PortingOrderStatusValue.PORTED)
@@ -25,9 +37,21 @@ internal class PortingOrderStatusTest {
 
         assertThat(portingOrderStatus.details().getOrNull())
             .containsExactly(
-                PortingOrdersExceptionType.builder()
-                    .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
+                PortingOrderStatus.Detail.builder()
+                    .code(PortingOrderStatus.Detail.Code.ENTITY_NAME_MISMATCH)
                     .description("Entity name does not match that on the CSR")
+                    .remediation(
+                        PortingOrderStatus.Detail.Remediation.builder()
+                            .action(
+                                PortingOrderStatus.Detail.Remediation.Action.UPDATE_ORDER_FIELDS
+                            )
+                            .addField("end_user.location.postal_code")
+                            .requiredDocument(
+                                PortingOrderStatus.Detail.Remediation.RequiredDocument.LOA
+                            )
+                            .retryable(true)
+                            .build()
+                    )
                     .build()
             )
         assertThat(portingOrderStatus.value())
@@ -40,9 +64,21 @@ internal class PortingOrderStatusTest {
         val portingOrderStatus =
             PortingOrderStatus.builder()
                 .addDetail(
-                    PortingOrdersExceptionType.builder()
-                        .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
+                    PortingOrderStatus.Detail.builder()
+                        .code(PortingOrderStatus.Detail.Code.ENTITY_NAME_MISMATCH)
                         .description("Entity name does not match that on the CSR")
+                        .remediation(
+                            PortingOrderStatus.Detail.Remediation.builder()
+                                .action(
+                                    PortingOrderStatus.Detail.Remediation.Action.UPDATE_ORDER_FIELDS
+                                )
+                                .addField("end_user.location.postal_code")
+                                .requiredDocument(
+                                    PortingOrderStatus.Detail.Remediation.RequiredDocument.LOA
+                                )
+                                .retryable(true)
+                                .build()
+                        )
                         .build()
                 )
                 .value(PortingOrderStatus.PortingOrderStatusValue.PORTED)

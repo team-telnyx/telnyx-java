@@ -526,6 +526,7 @@ private constructor(
             private val preferredCodecs: JsonField<String>,
             private val record: JsonField<Boolean>,
             private val recordingChannels: JsonField<RecordingChannels>,
+            private val recordingRedaction: JsonField<String>,
             private val recordingStatusCallback: JsonField<String>,
             private val recordingStatusCallbackEvent: JsonField<String>,
             private val recordingStatusCallbackMethod: JsonField<RecordingStatusCallbackMethod>,
@@ -538,6 +539,14 @@ private constructor(
             private val statusCallback: JsonField<String>,
             private val statusCallbackEvent: JsonField<String>,
             private val statusCallbackMethod: JsonField<StatusCallbackMethod>,
+            private val streamAuthToken: JsonField<String>,
+            private val streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>,
+            private val streamBidirectionalMode: JsonField<StreamBidirectionalMode>,
+            private val streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>,
+            private val streamCodec: JsonField<StreamCodec>,
+            private val streamEstablishBeforeCallOriginate: JsonField<Boolean>,
+            private val streamTrack: JsonField<StreamTrack>,
+            private val streamUrl: JsonField<String>,
             private val superviseCallSid: JsonField<String>,
             private val supervisingRole: JsonField<SupervisingRole>,
             private val texml: JsonField<String>,
@@ -649,6 +658,9 @@ private constructor(
                 @JsonProperty("RecordingChannels")
                 @ExcludeMissing
                 recordingChannels: JsonField<RecordingChannels> = JsonMissing.of(),
+                @JsonProperty("RecordingRedaction")
+                @ExcludeMissing
+                recordingRedaction: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("RecordingStatusCallback")
                 @ExcludeMissing
                 recordingStatusCallback: JsonField<String> = JsonMissing.of(),
@@ -686,6 +698,31 @@ private constructor(
                 @JsonProperty("StatusCallbackMethod")
                 @ExcludeMissing
                 statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of(),
+                @JsonProperty("StreamAuthToken")
+                @ExcludeMissing
+                streamAuthToken: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("StreamBidirectionalCodec")
+                @ExcludeMissing
+                streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> = JsonMissing.of(),
+                @JsonProperty("StreamBidirectionalMode")
+                @ExcludeMissing
+                streamBidirectionalMode: JsonField<StreamBidirectionalMode> = JsonMissing.of(),
+                @JsonProperty("StreamBidirectionalSamplingRate")
+                @ExcludeMissing
+                streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate> =
+                    JsonMissing.of(),
+                @JsonProperty("StreamCodec")
+                @ExcludeMissing
+                streamCodec: JsonField<StreamCodec> = JsonMissing.of(),
+                @JsonProperty("StreamEstablishBeforeCallOriginate")
+                @ExcludeMissing
+                streamEstablishBeforeCallOriginate: JsonField<Boolean> = JsonMissing.of(),
+                @JsonProperty("StreamTrack")
+                @ExcludeMissing
+                streamTrack: JsonField<StreamTrack> = JsonMissing.of(),
+                @JsonProperty("StreamUrl")
+                @ExcludeMissing
+                streamUrl: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("SuperviseCallSid")
                 @ExcludeMissing
                 superviseCallSid: JsonField<String> = JsonMissing.of(),
@@ -738,6 +775,7 @@ private constructor(
                 preferredCodecs,
                 record,
                 recordingChannels,
+                recordingRedaction,
                 recordingStatusCallback,
                 recordingStatusCallbackEvent,
                 recordingStatusCallbackMethod,
@@ -750,6 +788,14 @@ private constructor(
                 statusCallback,
                 statusCallbackEvent,
                 statusCallbackMethod,
+                streamAuthToken,
+                streamBidirectionalCodec,
+                streamBidirectionalMode,
+                streamBidirectionalSamplingRate,
+                streamCodec,
+                streamEstablishBeforeCallOriginate,
+                streamTrack,
+                streamUrl,
                 superviseCallSid,
                 supervisingRole,
                 texml,
@@ -1098,6 +1144,20 @@ private constructor(
                 recordingChannels.getOptional("RecordingChannels")
 
             /**
+             * Silences spoken details of the given kinds in the recording: one or more of `pci`
+             * (card number, expiry date, security code), `pii` (personal details such as names,
+             * phone numbers, addresses and other identifying numbers) and `phi` (health details
+             * such as medications, doses and conditions), separated by commas, for example
+             * `pci,pii`. Redaction works on English speech only. Redacted recordings are charged at
+             * the Deepgram speech-to-text rate.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun recordingRedaction(): Optional<String> =
+                recordingRedaction.getOptional("RecordingRedaction")
+
+            /**
              * The URL the recording callbacks will be sent to.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -1206,6 +1266,87 @@ private constructor(
              */
             fun statusCallbackMethod(): Optional<StatusCallbackMethod> =
                 statusCallbackMethod.getOptional("StatusCallbackMethod")
+
+            /**
+             * An authentication token for the WebSocket server. It is sent as the
+             * `x-telnyx-streaming-auth-token` header of the WebSocket handshake and repeated as
+             * `connected.x-telnyx-streaming-auth-token` in the `connected` event. Maximum length is
+             * 4000 characters. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamAuthToken(): Optional<String> = streamAuthToken.getOptional("StreamAuthToken")
+
+            /**
+             * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+             * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamBidirectionalCodec(): Optional<StreamBidirectionalCodec> =
+                streamBidirectionalCodec.getOptional("StreamBidirectionalCodec")
+
+            /**
+             * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+             * `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamBidirectionalMode(): Optional<StreamBidirectionalMode> =
+                streamBidirectionalMode.getOptional("StreamBidirectionalMode")
+
+            /**
+             * Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamBidirectionalSamplingRate(): Optional<StreamBidirectionalSamplingRate> =
+                streamBidirectionalSamplingRate.getOptional("StreamBidirectionalSamplingRate")
+
+            /**
+             * Specifies the codec to be used for the streamed audio. When set to `default` or when
+             * transcoding is not possible, the codec from the call will be used. Requires
+             * `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamCodec(): Optional<StreamCodec> = streamCodec.getOptional("StreamCodec")
+
+            /**
+             * Establishes the WebSocket connection before the destination is dialed, so no audio is
+             * missed while the connection is set up. If the WebSocket connection can't be
+             * established, the call is not placed and the request fails with a `422` error.
+             * `StreamUrl` is required when this is `true`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamEstablishBeforeCallOriginate(): Optional<Boolean> =
+                streamEstablishBeforeCallOriginate.getOptional("StreamEstablishBeforeCallOriginate")
+
+            /**
+             * Specifies which track should be streamed. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamTrack(): Optional<StreamTrack> = streamTrack.getOptional("StreamTrack")
+
+            /**
+             * The destination WebSocket address where the call's media stream is delivered, for
+             * example `wss://www.example.com/websocket`. When set, a media stream is started on the
+             * outbound call. Required when any other `Stream*` parameter is set. Can't be combined
+             * with `SuperviseCallSid`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamUrl(): Optional<String> = streamUrl.getOptional("StreamUrl")
 
             /**
              * The call control ID of the existing call to supervise. When provided, the created leg
@@ -1614,6 +1755,16 @@ private constructor(
             fun _recordingChannels(): JsonField<RecordingChannels> = recordingChannels
 
             /**
+             * Returns the raw JSON value of [recordingRedaction].
+             *
+             * Unlike [recordingRedaction], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("RecordingRedaction")
+            @ExcludeMissing
+            fun _recordingRedaction(): JsonField<String> = recordingRedaction
+
+            /**
              * Returns the raw JSON value of [recordingStatusCallback].
              *
              * Unlike [recordingStatusCallback], this method doesn't throw if the JSON field has an
@@ -1733,6 +1884,90 @@ private constructor(
             @JsonProperty("StatusCallbackMethod")
             @ExcludeMissing
             fun _statusCallbackMethod(): JsonField<StatusCallbackMethod> = statusCallbackMethod
+
+            /**
+             * Returns the raw JSON value of [streamAuthToken].
+             *
+             * Unlike [streamAuthToken], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("StreamAuthToken")
+            @ExcludeMissing
+            fun _streamAuthToken(): JsonField<String> = streamAuthToken
+
+            /**
+             * Returns the raw JSON value of [streamBidirectionalCodec].
+             *
+             * Unlike [streamBidirectionalCodec], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("StreamBidirectionalCodec")
+            @ExcludeMissing
+            fun _streamBidirectionalCodec(): JsonField<StreamBidirectionalCodec> =
+                streamBidirectionalCodec
+
+            /**
+             * Returns the raw JSON value of [streamBidirectionalMode].
+             *
+             * Unlike [streamBidirectionalMode], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("StreamBidirectionalMode")
+            @ExcludeMissing
+            fun _streamBidirectionalMode(): JsonField<StreamBidirectionalMode> =
+                streamBidirectionalMode
+
+            /**
+             * Returns the raw JSON value of [streamBidirectionalSamplingRate].
+             *
+             * Unlike [streamBidirectionalSamplingRate], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("StreamBidirectionalSamplingRate")
+            @ExcludeMissing
+            fun _streamBidirectionalSamplingRate(): JsonField<StreamBidirectionalSamplingRate> =
+                streamBidirectionalSamplingRate
+
+            /**
+             * Returns the raw JSON value of [streamCodec].
+             *
+             * Unlike [streamCodec], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("StreamCodec")
+            @ExcludeMissing
+            fun _streamCodec(): JsonField<StreamCodec> = streamCodec
+
+            /**
+             * Returns the raw JSON value of [streamEstablishBeforeCallOriginate].
+             *
+             * Unlike [streamEstablishBeforeCallOriginate], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("StreamEstablishBeforeCallOriginate")
+            @ExcludeMissing
+            fun _streamEstablishBeforeCallOriginate(): JsonField<Boolean> =
+                streamEstablishBeforeCallOriginate
+
+            /**
+             * Returns the raw JSON value of [streamTrack].
+             *
+             * Unlike [streamTrack], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("StreamTrack")
+            @ExcludeMissing
+            fun _streamTrack(): JsonField<StreamTrack> = streamTrack
+
+            /**
+             * Returns the raw JSON value of [streamUrl].
+             *
+             * Unlike [streamUrl], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("StreamUrl")
+            @ExcludeMissing
+            fun _streamUrl(): JsonField<String> = streamUrl
 
             /**
              * Returns the raw JSON value of [superviseCallSid].
@@ -1868,6 +2103,7 @@ private constructor(
                 private var preferredCodecs: JsonField<String> = JsonMissing.of()
                 private var record: JsonField<Boolean> = JsonMissing.of()
                 private var recordingChannels: JsonField<RecordingChannels> = JsonMissing.of()
+                private var recordingRedaction: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallback: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackMethod:
@@ -1882,6 +2118,19 @@ private constructor(
                 private var statusCallback: JsonField<String> = JsonMissing.of()
                 private var statusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of()
+                private var streamAuthToken: JsonField<String> = JsonMissing.of()
+                private var streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> =
+                    JsonMissing.of()
+                private var streamBidirectionalMode: JsonField<StreamBidirectionalMode> =
+                    JsonMissing.of()
+                private var streamBidirectionalSamplingRate:
+                    JsonField<StreamBidirectionalSamplingRate> =
+                    JsonMissing.of()
+                private var streamCodec: JsonField<StreamCodec> = JsonMissing.of()
+                private var streamEstablishBeforeCallOriginate: JsonField<Boolean> =
+                    JsonMissing.of()
+                private var streamTrack: JsonField<StreamTrack> = JsonMissing.of()
+                private var streamUrl: JsonField<String> = JsonMissing.of()
                 private var superviseCallSid: JsonField<String> = JsonMissing.of()
                 private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
                 private var texml: JsonField<String> = JsonMissing.of()
@@ -1931,6 +2180,7 @@ private constructor(
                     preferredCodecs = withUrl.preferredCodecs
                     record = withUrl.record
                     recordingChannels = withUrl.recordingChannels
+                    recordingRedaction = withUrl.recordingRedaction
                     recordingStatusCallback = withUrl.recordingStatusCallback
                     recordingStatusCallbackEvent = withUrl.recordingStatusCallbackEvent
                     recordingStatusCallbackMethod = withUrl.recordingStatusCallbackMethod
@@ -1943,6 +2193,14 @@ private constructor(
                     statusCallback = withUrl.statusCallback
                     statusCallbackEvent = withUrl.statusCallbackEvent
                     statusCallbackMethod = withUrl.statusCallbackMethod
+                    streamAuthToken = withUrl.streamAuthToken
+                    streamBidirectionalCodec = withUrl.streamBidirectionalCodec
+                    streamBidirectionalMode = withUrl.streamBidirectionalMode
+                    streamBidirectionalSamplingRate = withUrl.streamBidirectionalSamplingRate
+                    streamCodec = withUrl.streamCodec
+                    streamEstablishBeforeCallOriginate = withUrl.streamEstablishBeforeCallOriginate
+                    streamTrack = withUrl.streamTrack
+                    streamUrl = withUrl.streamUrl
                     superviseCallSid = withUrl.superviseCallSid
                     supervisingRole = withUrl.supervisingRole
                     texml = withUrl.texml
@@ -2584,6 +2842,28 @@ private constructor(
                     this.recordingChannels = recordingChannels
                 }
 
+                /**
+                 * Silences spoken details of the given kinds in the recording: one or more of `pci`
+                 * (card number, expiry date, security code), `pii` (personal details such as names,
+                 * phone numbers, addresses and other identifying numbers) and `phi` (health details
+                 * such as medications, doses and conditions), separated by commas, for example
+                 * `pci,pii`. Redaction works on English speech only. Redacted recordings are
+                 * charged at the Deepgram speech-to-text rate.
+                 */
+                fun recordingRedaction(recordingRedaction: String) =
+                    recordingRedaction(JsonField.of(recordingRedaction))
+
+                /**
+                 * Sets [Builder.recordingRedaction] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.recordingRedaction] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun recordingRedaction(recordingRedaction: JsonField<String>) = apply {
+                    this.recordingRedaction = recordingRedaction
+                }
+
                 /** The URL the recording callbacks will be sent to. */
                 fun recordingStatusCallback(recordingStatusCallback: String) =
                     recordingStatusCallback(JsonField.of(recordingStatusCallback))
@@ -2777,6 +3057,153 @@ private constructor(
                     apply {
                         this.statusCallbackMethod = statusCallbackMethod
                     }
+
+                /**
+                 * An authentication token for the WebSocket server. It is sent as the
+                 * `x-telnyx-streaming-auth-token` header of the WebSocket handshake and repeated as
+                 * `connected.x-telnyx-streaming-auth-token` in the `connected` event. Maximum
+                 * length is 4000 characters. Requires `StreamUrl`.
+                 */
+                fun streamAuthToken(streamAuthToken: String) =
+                    streamAuthToken(JsonField.of(streamAuthToken))
+
+                /**
+                 * Sets [Builder.streamAuthToken] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamAuthToken] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun streamAuthToken(streamAuthToken: JsonField<String>) = apply {
+                    this.streamAuthToken = streamAuthToken
+                }
+
+                /**
+                 * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+                 * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+                 */
+                fun streamBidirectionalCodec(streamBidirectionalCodec: StreamBidirectionalCodec) =
+                    streamBidirectionalCodec(JsonField.of(streamBidirectionalCodec))
+
+                /**
+                 * Sets [Builder.streamBidirectionalCodec] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamBidirectionalCodec] with a well-typed
+                 * [StreamBidirectionalCodec] value instead. This method is primarily for setting
+                 * the field to an undocumented or not yet supported value.
+                 */
+                fun streamBidirectionalCodec(
+                    streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>
+                ) = apply { this.streamBidirectionalCodec = streamBidirectionalCodec }
+
+                /**
+                 * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+                 * `StreamUrl`.
+                 */
+                fun streamBidirectionalMode(streamBidirectionalMode: StreamBidirectionalMode) =
+                    streamBidirectionalMode(JsonField.of(streamBidirectionalMode))
+
+                /**
+                 * Sets [Builder.streamBidirectionalMode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamBidirectionalMode] with a well-typed
+                 * [StreamBidirectionalMode] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun streamBidirectionalMode(
+                    streamBidirectionalMode: JsonField<StreamBidirectionalMode>
+                ) = apply { this.streamBidirectionalMode = streamBidirectionalMode }
+
+                /** Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`. */
+                fun streamBidirectionalSamplingRate(
+                    streamBidirectionalSamplingRate: StreamBidirectionalSamplingRate
+                ) = streamBidirectionalSamplingRate(JsonField.of(streamBidirectionalSamplingRate))
+
+                /**
+                 * Sets [Builder.streamBidirectionalSamplingRate] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamBidirectionalSamplingRate] with a
+                 * well-typed [StreamBidirectionalSamplingRate] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
+                 */
+                fun streamBidirectionalSamplingRate(
+                    streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>
+                ) = apply { this.streamBidirectionalSamplingRate = streamBidirectionalSamplingRate }
+
+                /**
+                 * Specifies the codec to be used for the streamed audio. When set to `default` or
+                 * when transcoding is not possible, the codec from the call will be used. Requires
+                 * `StreamUrl`.
+                 */
+                fun streamCodec(streamCodec: StreamCodec) = streamCodec(JsonField.of(streamCodec))
+
+                /**
+                 * Sets [Builder.streamCodec] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamCodec] with a well-typed [StreamCodec]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun streamCodec(streamCodec: JsonField<StreamCodec>) = apply {
+                    this.streamCodec = streamCodec
+                }
+
+                /**
+                 * Establishes the WebSocket connection before the destination is dialed, so no
+                 * audio is missed while the connection is set up. If the WebSocket connection can't
+                 * be established, the call is not placed and the request fails with a `422` error.
+                 * `StreamUrl` is required when this is `true`.
+                 */
+                fun streamEstablishBeforeCallOriginate(
+                    streamEstablishBeforeCallOriginate: Boolean
+                ) =
+                    streamEstablishBeforeCallOriginate(
+                        JsonField.of(streamEstablishBeforeCallOriginate)
+                    )
+
+                /**
+                 * Sets [Builder.streamEstablishBeforeCallOriginate] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamEstablishBeforeCallOriginate] with a
+                 * well-typed [Boolean] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun streamEstablishBeforeCallOriginate(
+                    streamEstablishBeforeCallOriginate: JsonField<Boolean>
+                ) = apply {
+                    this.streamEstablishBeforeCallOriginate = streamEstablishBeforeCallOriginate
+                }
+
+                /** Specifies which track should be streamed. Requires `StreamUrl`. */
+                fun streamTrack(streamTrack: StreamTrack) = streamTrack(JsonField.of(streamTrack))
+
+                /**
+                 * Sets [Builder.streamTrack] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamTrack] with a well-typed [StreamTrack]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun streamTrack(streamTrack: JsonField<StreamTrack>) = apply {
+                    this.streamTrack = streamTrack
+                }
+
+                /**
+                 * The destination WebSocket address where the call's media stream is delivered, for
+                 * example `wss://www.example.com/websocket`. When set, a media stream is started on
+                 * the outbound call. Required when any other `Stream*` parameter is set. Can't be
+                 * combined with `SuperviseCallSid`.
+                 */
+                fun streamUrl(streamUrl: String) = streamUrl(JsonField.of(streamUrl))
+
+                /**
+                 * Sets [Builder.streamUrl] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamUrl] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun streamUrl(streamUrl: JsonField<String>) = apply { this.streamUrl = streamUrl }
 
                 /**
                  * The call control ID of the existing call to supervise. When provided, the created
@@ -2977,6 +3404,7 @@ private constructor(
                         preferredCodecs,
                         record,
                         recordingChannels,
+                        recordingRedaction,
                         recordingStatusCallback,
                         recordingStatusCallbackEvent,
                         recordingStatusCallbackMethod,
@@ -2989,6 +3417,14 @@ private constructor(
                         statusCallback,
                         statusCallbackEvent,
                         statusCallbackMethod,
+                        streamAuthToken,
+                        streamBidirectionalCodec,
+                        streamBidirectionalMode,
+                        streamBidirectionalSamplingRate,
+                        streamCodec,
+                        streamEstablishBeforeCallOriginate,
+                        streamTrack,
+                        streamUrl,
                         superviseCallSid,
                         supervisingRole,
                         texml,
@@ -3051,6 +3487,7 @@ private constructor(
                 preferredCodecs()
                 record()
                 recordingChannels().ifPresent { it.validate() }
+                recordingRedaction()
                 recordingStatusCallback()
                 recordingStatusCallbackEvent()
                 recordingStatusCallbackMethod().ifPresent { it.validate() }
@@ -3063,6 +3500,14 @@ private constructor(
                 statusCallback()
                 statusCallbackEvent()
                 statusCallbackMethod().ifPresent { it.validate() }
+                streamAuthToken()
+                streamBidirectionalCodec().ifPresent { it.validate() }
+                streamBidirectionalMode().ifPresent { it.validate() }
+                streamBidirectionalSamplingRate().ifPresent { it.validate() }
+                streamCodec().ifPresent { it.validate() }
+                streamEstablishBeforeCallOriginate()
+                streamTrack().ifPresent { it.validate() }
+                streamUrl()
                 superviseCallSid()
                 supervisingRole().ifPresent { it.validate() }
                 texml()
@@ -3123,6 +3568,7 @@ private constructor(
                     (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
                     (if (record.asKnown().isPresent) 1 else 0) +
                     (recordingChannels.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (recordingRedaction.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallback.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (recordingStatusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
@@ -3135,6 +3581,14 @@ private constructor(
                     (if (statusCallback.asKnown().isPresent) 1 else 0) +
                     (if (statusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (statusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (streamAuthToken.asKnown().isPresent) 1 else 0) +
+                    (streamBidirectionalCodec.asKnown().getOrNull()?.validity() ?: 0) +
+                    (streamBidirectionalMode.asKnown().getOrNull()?.validity() ?: 0) +
+                    (streamBidirectionalSamplingRate.asKnown().getOrNull()?.validity() ?: 0) +
+                    (streamCodec.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (streamEstablishBeforeCallOriginate.asKnown().isPresent) 1 else 0) +
+                    (streamTrack.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (streamUrl.asKnown().isPresent) 1 else 0) +
                     (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
                     (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (texml.asKnown().isPresent) 1 else 0) +
@@ -5178,6 +5632,822 @@ private constructor(
             }
 
             /**
+             * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+             * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+             */
+            class StreamBidirectionalCodec
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val PCMU = of("PCMU")
+
+                    @JvmField val PCMA = of("PCMA")
+
+                    @JvmField val G722 = of("G722")
+
+                    @JvmField val OPUS = of("OPUS")
+
+                    @JvmField val AMR_WB = of("AMR-WB")
+
+                    @JvmField val L16 = of("L16")
+
+                    @JvmStatic fun of(value: String) = StreamBidirectionalCodec(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamBidirectionalCodec]'s known values. */
+                enum class Known {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                }
+
+                /**
+                 * An enum containing [StreamBidirectionalCodec]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamBidirectionalCodec] can contain an unknown value in a
+                 * couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                    /**
+                     * An enum member indicating that [StreamBidirectionalCodec] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        PCMU -> Value.PCMU
+                        PCMA -> Value.PCMA
+                        G722 -> Value.G722
+                        OPUS -> Value.OPUS
+                        AMR_WB -> Value.AMR_WB
+                        L16 -> Value.L16
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        PCMU -> Known.PCMU
+                        PCMA -> Known.PCMA
+                        G722 -> Known.G722
+                        OPUS -> Known.OPUS
+                        AMR_WB -> Known.AMR_WB
+                        L16 -> Known.L16
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown StreamBidirectionalCodec: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamBidirectionalCodec = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamBidirectionalCodec && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+             * `StreamUrl`.
+             */
+            class StreamBidirectionalMode
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val MP3 = of("mp3")
+
+                    @JvmField val RTP = of("rtp")
+
+                    @JvmStatic fun of(value: String) = StreamBidirectionalMode(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamBidirectionalMode]'s known values. */
+                enum class Known {
+                    MP3,
+                    RTP,
+                }
+
+                /**
+                 * An enum containing [StreamBidirectionalMode]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamBidirectionalMode] can contain an unknown value in a couple
+                 * of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    MP3,
+                    RTP,
+                    /**
+                     * An enum member indicating that [StreamBidirectionalMode] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        MP3 -> Value.MP3
+                        RTP -> Value.RTP
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        MP3 -> Known.MP3
+                        RTP -> Known.RTP
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown StreamBidirectionalMode: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamBidirectionalMode = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamBidirectionalMode && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`. */
+            class StreamBidirectionalSamplingRate
+            @JsonCreator
+            private constructor(private val value: JsonField<Long>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<Long> = value
+
+                companion object {
+
+                    @JvmField val _8000 = of(8000L)
+
+                    @JvmField val _16000 = of(16000L)
+
+                    @JvmField val _22050 = of(22050L)
+
+                    @JvmField val _24000 = of(24000L)
+
+                    @JvmField val _48000 = of(48000L)
+
+                    @JvmStatic
+                    fun of(value: Long) = StreamBidirectionalSamplingRate(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamBidirectionalSamplingRate]'s known values. */
+                enum class Known {
+                    _8000,
+                    _16000,
+                    _22050,
+                    _24000,
+                    _48000,
+                }
+
+                /**
+                 * An enum containing [StreamBidirectionalSamplingRate]'s known values, as well as
+                 * an [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamBidirectionalSamplingRate] can contain an unknown value in
+                 * a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    _8000,
+                    _16000,
+                    _22050,
+                    _24000,
+                    _48000,
+                    /**
+                     * An enum member indicating that [StreamBidirectionalSamplingRate] was
+                     * instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        _8000 -> Value._8000
+                        _16000 -> Value._16000
+                        _22050 -> Value._22050
+                        _24000 -> Value._24000
+                        _48000 -> Value._48000
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        _8000 -> Known._8000
+                        _16000 -> Known._16000
+                        _22050 -> Known._22050
+                        _24000 -> Known._24000
+                        _48000 -> Known._48000
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown StreamBidirectionalSamplingRate: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asLong(): Long =
+                    _value().asNumber().getOrNull()?.let {
+                        if (it.toDouble() % 1 == 0.0) it.toLong() else null
+                    } ?: throw TelnyxInvalidDataException("Value is not a Long")
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamBidirectionalSamplingRate = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamBidirectionalSamplingRate && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * Specifies the codec to be used for the streamed audio. When set to `default` or when
+             * transcoding is not possible, the codec from the call will be used. Requires
+             * `StreamUrl`.
+             */
+            class StreamCodec
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val PCMU = of("PCMU")
+
+                    @JvmField val PCMA = of("PCMA")
+
+                    @JvmField val G722 = of("G722")
+
+                    @JvmField val OPUS = of("OPUS")
+
+                    @JvmField val AMR_WB = of("AMR-WB")
+
+                    @JvmField val L16 = of("L16")
+
+                    @JvmField val DEFAULT = of("default")
+
+                    @JvmStatic fun of(value: String) = StreamCodec(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamCodec]'s known values. */
+                enum class Known {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                    DEFAULT,
+                }
+
+                /**
+                 * An enum containing [StreamCodec]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamCodec] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                    DEFAULT,
+                    /**
+                     * An enum member indicating that [StreamCodec] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        PCMU -> Value.PCMU
+                        PCMA -> Value.PCMA
+                        G722 -> Value.G722
+                        OPUS -> Value.OPUS
+                        AMR_WB -> Value.AMR_WB
+                        L16 -> Value.L16
+                        DEFAULT -> Value.DEFAULT
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        PCMU -> Known.PCMU
+                        PCMA -> Known.PCMA
+                        G722 -> Known.G722
+                        OPUS -> Known.OPUS
+                        AMR_WB -> Known.AMR_WB
+                        L16 -> Known.L16
+                        DEFAULT -> Known.DEFAULT
+                        else -> throw TelnyxInvalidDataException("Unknown StreamCodec: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamCodec = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamCodec && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** Specifies which track should be streamed. Requires `StreamUrl`. */
+            class StreamTrack
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val INBOUND_TRACK = of("inbound_track")
+
+                    @JvmField val OUTBOUND_TRACK = of("outbound_track")
+
+                    @JvmField val BOTH_TRACKS = of("both_tracks")
+
+                    @JvmStatic fun of(value: String) = StreamTrack(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamTrack]'s known values. */
+                enum class Known {
+                    INBOUND_TRACK,
+                    OUTBOUND_TRACK,
+                    BOTH_TRACKS,
+                }
+
+                /**
+                 * An enum containing [StreamTrack]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamTrack] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    INBOUND_TRACK,
+                    OUTBOUND_TRACK,
+                    BOTH_TRACKS,
+                    /**
+                     * An enum member indicating that [StreamTrack] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        INBOUND_TRACK -> Value.INBOUND_TRACK
+                        OUTBOUND_TRACK -> Value.OUTBOUND_TRACK
+                        BOTH_TRACKS -> Value.BOTH_TRACKS
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        INBOUND_TRACK -> Known.INBOUND_TRACK
+                        OUTBOUND_TRACK -> Known.OUTBOUND_TRACK
+                        BOTH_TRACKS -> Known.BOTH_TRACKS
+                        else -> throw TelnyxInvalidDataException("Unknown StreamTrack: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamTrack = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamTrack && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
              * The supervising role for the new leg. Determines the audio behavior: barge (hear both
              * sides), whisper (only hear supervisor), monitor (hear both sides but supervisor
              * muted). Default: barge
@@ -5666,6 +6936,7 @@ private constructor(
                     preferredCodecs == other.preferredCodecs &&
                     record == other.record &&
                     recordingChannels == other.recordingChannels &&
+                    recordingRedaction == other.recordingRedaction &&
                     recordingStatusCallback == other.recordingStatusCallback &&
                     recordingStatusCallbackEvent == other.recordingStatusCallbackEvent &&
                     recordingStatusCallbackMethod == other.recordingStatusCallbackMethod &&
@@ -5678,6 +6949,15 @@ private constructor(
                     statusCallback == other.statusCallback &&
                     statusCallbackEvent == other.statusCallbackEvent &&
                     statusCallbackMethod == other.statusCallbackMethod &&
+                    streamAuthToken == other.streamAuthToken &&
+                    streamBidirectionalCodec == other.streamBidirectionalCodec &&
+                    streamBidirectionalMode == other.streamBidirectionalMode &&
+                    streamBidirectionalSamplingRate == other.streamBidirectionalSamplingRate &&
+                    streamCodec == other.streamCodec &&
+                    streamEstablishBeforeCallOriginate ==
+                        other.streamEstablishBeforeCallOriginate &&
+                    streamTrack == other.streamTrack &&
+                    streamUrl == other.streamUrl &&
                     superviseCallSid == other.superviseCallSid &&
                     supervisingRole == other.supervisingRole &&
                     texml == other.texml &&
@@ -5724,6 +7004,7 @@ private constructor(
                     preferredCodecs,
                     record,
                     recordingChannels,
+                    recordingRedaction,
                     recordingStatusCallback,
                     recordingStatusCallbackEvent,
                     recordingStatusCallbackMethod,
@@ -5736,6 +7017,14 @@ private constructor(
                     statusCallback,
                     statusCallbackEvent,
                     statusCallbackMethod,
+                    streamAuthToken,
+                    streamBidirectionalCodec,
+                    streamBidirectionalMode,
+                    streamBidirectionalSamplingRate,
+                    streamCodec,
+                    streamEstablishBeforeCallOriginate,
+                    streamTrack,
+                    streamUrl,
                     superviseCallSid,
                     supervisingRole,
                     texml,
@@ -5751,7 +7040,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WithUrl{url=$url, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "WithUrl{url=$url, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingRedaction=$recordingRedaction, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
 
         class WithTeXml
@@ -5790,6 +7079,7 @@ private constructor(
             private val preferredCodecs: JsonField<String>,
             private val record: JsonField<Boolean>,
             private val recordingChannels: JsonField<RecordingChannels>,
+            private val recordingRedaction: JsonField<String>,
             private val recordingStatusCallback: JsonField<String>,
             private val recordingStatusCallbackEvent: JsonField<String>,
             private val recordingStatusCallbackMethod: JsonField<RecordingStatusCallbackMethod>,
@@ -5802,6 +7092,14 @@ private constructor(
             private val statusCallback: JsonField<String>,
             private val statusCallbackEvent: JsonField<String>,
             private val statusCallbackMethod: JsonField<StatusCallbackMethod>,
+            private val streamAuthToken: JsonField<String>,
+            private val streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>,
+            private val streamBidirectionalMode: JsonField<StreamBidirectionalMode>,
+            private val streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>,
+            private val streamCodec: JsonField<StreamCodec>,
+            private val streamEstablishBeforeCallOriginate: JsonField<Boolean>,
+            private val streamTrack: JsonField<StreamTrack>,
+            private val streamUrl: JsonField<String>,
             private val superviseCallSid: JsonField<String>,
             private val supervisingRole: JsonField<SupervisingRole>,
             private val timeLimit: JsonField<Long>,
@@ -5913,6 +7211,9 @@ private constructor(
                 @JsonProperty("RecordingChannels")
                 @ExcludeMissing
                 recordingChannels: JsonField<RecordingChannels> = JsonMissing.of(),
+                @JsonProperty("RecordingRedaction")
+                @ExcludeMissing
+                recordingRedaction: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("RecordingStatusCallback")
                 @ExcludeMissing
                 recordingStatusCallback: JsonField<String> = JsonMissing.of(),
@@ -5950,6 +7251,31 @@ private constructor(
                 @JsonProperty("StatusCallbackMethod")
                 @ExcludeMissing
                 statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of(),
+                @JsonProperty("StreamAuthToken")
+                @ExcludeMissing
+                streamAuthToken: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("StreamBidirectionalCodec")
+                @ExcludeMissing
+                streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> = JsonMissing.of(),
+                @JsonProperty("StreamBidirectionalMode")
+                @ExcludeMissing
+                streamBidirectionalMode: JsonField<StreamBidirectionalMode> = JsonMissing.of(),
+                @JsonProperty("StreamBidirectionalSamplingRate")
+                @ExcludeMissing
+                streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate> =
+                    JsonMissing.of(),
+                @JsonProperty("StreamCodec")
+                @ExcludeMissing
+                streamCodec: JsonField<StreamCodec> = JsonMissing.of(),
+                @JsonProperty("StreamEstablishBeforeCallOriginate")
+                @ExcludeMissing
+                streamEstablishBeforeCallOriginate: JsonField<Boolean> = JsonMissing.of(),
+                @JsonProperty("StreamTrack")
+                @ExcludeMissing
+                streamTrack: JsonField<StreamTrack> = JsonMissing.of(),
+                @JsonProperty("StreamUrl")
+                @ExcludeMissing
+                streamUrl: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("SuperviseCallSid")
                 @ExcludeMissing
                 superviseCallSid: JsonField<String> = JsonMissing.of(),
@@ -6002,6 +7328,7 @@ private constructor(
                 preferredCodecs,
                 record,
                 recordingChannels,
+                recordingRedaction,
                 recordingStatusCallback,
                 recordingStatusCallbackEvent,
                 recordingStatusCallbackMethod,
@@ -6014,6 +7341,14 @@ private constructor(
                 statusCallback,
                 statusCallbackEvent,
                 statusCallbackMethod,
+                streamAuthToken,
+                streamBidirectionalCodec,
+                streamBidirectionalMode,
+                streamBidirectionalSamplingRate,
+                streamCodec,
+                streamEstablishBeforeCallOriginate,
+                streamTrack,
+                streamUrl,
                 superviseCallSid,
                 supervisingRole,
                 timeLimit,
@@ -6363,6 +7698,20 @@ private constructor(
                 recordingChannels.getOptional("RecordingChannels")
 
             /**
+             * Silences spoken details of the given kinds in the recording: one or more of `pci`
+             * (card number, expiry date, security code), `pii` (personal details such as names,
+             * phone numbers, addresses and other identifying numbers) and `phi` (health details
+             * such as medications, doses and conditions), separated by commas, for example
+             * `pci,pii`. Redaction works on English speech only. Redacted recordings are charged at
+             * the Deepgram speech-to-text rate.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun recordingRedaction(): Optional<String> =
+                recordingRedaction.getOptional("RecordingRedaction")
+
+            /**
              * The URL the recording callbacks will be sent to.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -6471,6 +7820,87 @@ private constructor(
              */
             fun statusCallbackMethod(): Optional<StatusCallbackMethod> =
                 statusCallbackMethod.getOptional("StatusCallbackMethod")
+
+            /**
+             * An authentication token for the WebSocket server. It is sent as the
+             * `x-telnyx-streaming-auth-token` header of the WebSocket handshake and repeated as
+             * `connected.x-telnyx-streaming-auth-token` in the `connected` event. Maximum length is
+             * 4000 characters. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamAuthToken(): Optional<String> = streamAuthToken.getOptional("StreamAuthToken")
+
+            /**
+             * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+             * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamBidirectionalCodec(): Optional<StreamBidirectionalCodec> =
+                streamBidirectionalCodec.getOptional("StreamBidirectionalCodec")
+
+            /**
+             * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+             * `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamBidirectionalMode(): Optional<StreamBidirectionalMode> =
+                streamBidirectionalMode.getOptional("StreamBidirectionalMode")
+
+            /**
+             * Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamBidirectionalSamplingRate(): Optional<StreamBidirectionalSamplingRate> =
+                streamBidirectionalSamplingRate.getOptional("StreamBidirectionalSamplingRate")
+
+            /**
+             * Specifies the codec to be used for the streamed audio. When set to `default` or when
+             * transcoding is not possible, the codec from the call will be used. Requires
+             * `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamCodec(): Optional<StreamCodec> = streamCodec.getOptional("StreamCodec")
+
+            /**
+             * Establishes the WebSocket connection before the destination is dialed, so no audio is
+             * missed while the connection is set up. If the WebSocket connection can't be
+             * established, the call is not placed and the request fails with a `422` error.
+             * `StreamUrl` is required when this is `true`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamEstablishBeforeCallOriginate(): Optional<Boolean> =
+                streamEstablishBeforeCallOriginate.getOptional("StreamEstablishBeforeCallOriginate")
+
+            /**
+             * Specifies which track should be streamed. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamTrack(): Optional<StreamTrack> = streamTrack.getOptional("StreamTrack")
+
+            /**
+             * The destination WebSocket address where the call's media stream is delivered, for
+             * example `wss://www.example.com/websocket`. When set, a media stream is started on the
+             * outbound call. Required when any other `Stream*` parameter is set. Can't be combined
+             * with `SuperviseCallSid`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamUrl(): Optional<String> = streamUrl.getOptional("StreamUrl")
 
             /**
              * The call control ID of the existing call to supervise. When provided, the created leg
@@ -6879,6 +8309,16 @@ private constructor(
             fun _recordingChannels(): JsonField<RecordingChannels> = recordingChannels
 
             /**
+             * Returns the raw JSON value of [recordingRedaction].
+             *
+             * Unlike [recordingRedaction], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("RecordingRedaction")
+            @ExcludeMissing
+            fun _recordingRedaction(): JsonField<String> = recordingRedaction
+
+            /**
              * Returns the raw JSON value of [recordingStatusCallback].
              *
              * Unlike [recordingStatusCallback], this method doesn't throw if the JSON field has an
@@ -6998,6 +8438,90 @@ private constructor(
             @JsonProperty("StatusCallbackMethod")
             @ExcludeMissing
             fun _statusCallbackMethod(): JsonField<StatusCallbackMethod> = statusCallbackMethod
+
+            /**
+             * Returns the raw JSON value of [streamAuthToken].
+             *
+             * Unlike [streamAuthToken], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("StreamAuthToken")
+            @ExcludeMissing
+            fun _streamAuthToken(): JsonField<String> = streamAuthToken
+
+            /**
+             * Returns the raw JSON value of [streamBidirectionalCodec].
+             *
+             * Unlike [streamBidirectionalCodec], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("StreamBidirectionalCodec")
+            @ExcludeMissing
+            fun _streamBidirectionalCodec(): JsonField<StreamBidirectionalCodec> =
+                streamBidirectionalCodec
+
+            /**
+             * Returns the raw JSON value of [streamBidirectionalMode].
+             *
+             * Unlike [streamBidirectionalMode], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("StreamBidirectionalMode")
+            @ExcludeMissing
+            fun _streamBidirectionalMode(): JsonField<StreamBidirectionalMode> =
+                streamBidirectionalMode
+
+            /**
+             * Returns the raw JSON value of [streamBidirectionalSamplingRate].
+             *
+             * Unlike [streamBidirectionalSamplingRate], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("StreamBidirectionalSamplingRate")
+            @ExcludeMissing
+            fun _streamBidirectionalSamplingRate(): JsonField<StreamBidirectionalSamplingRate> =
+                streamBidirectionalSamplingRate
+
+            /**
+             * Returns the raw JSON value of [streamCodec].
+             *
+             * Unlike [streamCodec], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("StreamCodec")
+            @ExcludeMissing
+            fun _streamCodec(): JsonField<StreamCodec> = streamCodec
+
+            /**
+             * Returns the raw JSON value of [streamEstablishBeforeCallOriginate].
+             *
+             * Unlike [streamEstablishBeforeCallOriginate], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("StreamEstablishBeforeCallOriginate")
+            @ExcludeMissing
+            fun _streamEstablishBeforeCallOriginate(): JsonField<Boolean> =
+                streamEstablishBeforeCallOriginate
+
+            /**
+             * Returns the raw JSON value of [streamTrack].
+             *
+             * Unlike [streamTrack], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("StreamTrack")
+            @ExcludeMissing
+            fun _streamTrack(): JsonField<StreamTrack> = streamTrack
+
+            /**
+             * Returns the raw JSON value of [streamUrl].
+             *
+             * Unlike [streamUrl], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("StreamUrl")
+            @ExcludeMissing
+            fun _streamUrl(): JsonField<String> = streamUrl
 
             /**
              * Returns the raw JSON value of [superviseCallSid].
@@ -7133,6 +8657,7 @@ private constructor(
                 private var preferredCodecs: JsonField<String> = JsonMissing.of()
                 private var record: JsonField<Boolean> = JsonMissing.of()
                 private var recordingChannels: JsonField<RecordingChannels> = JsonMissing.of()
+                private var recordingRedaction: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallback: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackMethod:
@@ -7147,6 +8672,19 @@ private constructor(
                 private var statusCallback: JsonField<String> = JsonMissing.of()
                 private var statusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of()
+                private var streamAuthToken: JsonField<String> = JsonMissing.of()
+                private var streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> =
+                    JsonMissing.of()
+                private var streamBidirectionalMode: JsonField<StreamBidirectionalMode> =
+                    JsonMissing.of()
+                private var streamBidirectionalSamplingRate:
+                    JsonField<StreamBidirectionalSamplingRate> =
+                    JsonMissing.of()
+                private var streamCodec: JsonField<StreamCodec> = JsonMissing.of()
+                private var streamEstablishBeforeCallOriginate: JsonField<Boolean> =
+                    JsonMissing.of()
+                private var streamTrack: JsonField<StreamTrack> = JsonMissing.of()
+                private var streamUrl: JsonField<String> = JsonMissing.of()
                 private var superviseCallSid: JsonField<String> = JsonMissing.of()
                 private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
                 private var timeLimit: JsonField<Long> = JsonMissing.of()
@@ -7198,6 +8736,7 @@ private constructor(
                     preferredCodecs = withTeXml.preferredCodecs
                     record = withTeXml.record
                     recordingChannels = withTeXml.recordingChannels
+                    recordingRedaction = withTeXml.recordingRedaction
                     recordingStatusCallback = withTeXml.recordingStatusCallback
                     recordingStatusCallbackEvent = withTeXml.recordingStatusCallbackEvent
                     recordingStatusCallbackMethod = withTeXml.recordingStatusCallbackMethod
@@ -7210,6 +8749,15 @@ private constructor(
                     statusCallback = withTeXml.statusCallback
                     statusCallbackEvent = withTeXml.statusCallbackEvent
                     statusCallbackMethod = withTeXml.statusCallbackMethod
+                    streamAuthToken = withTeXml.streamAuthToken
+                    streamBidirectionalCodec = withTeXml.streamBidirectionalCodec
+                    streamBidirectionalMode = withTeXml.streamBidirectionalMode
+                    streamBidirectionalSamplingRate = withTeXml.streamBidirectionalSamplingRate
+                    streamCodec = withTeXml.streamCodec
+                    streamEstablishBeforeCallOriginate =
+                        withTeXml.streamEstablishBeforeCallOriginate
+                    streamTrack = withTeXml.streamTrack
+                    streamUrl = withTeXml.streamUrl
                     superviseCallSid = withTeXml.superviseCallSid
                     supervisingRole = withTeXml.supervisingRole
                     timeLimit = withTeXml.timeLimit
@@ -7854,6 +9402,28 @@ private constructor(
                     this.recordingChannels = recordingChannels
                 }
 
+                /**
+                 * Silences spoken details of the given kinds in the recording: one or more of `pci`
+                 * (card number, expiry date, security code), `pii` (personal details such as names,
+                 * phone numbers, addresses and other identifying numbers) and `phi` (health details
+                 * such as medications, doses and conditions), separated by commas, for example
+                 * `pci,pii`. Redaction works on English speech only. Redacted recordings are
+                 * charged at the Deepgram speech-to-text rate.
+                 */
+                fun recordingRedaction(recordingRedaction: String) =
+                    recordingRedaction(JsonField.of(recordingRedaction))
+
+                /**
+                 * Sets [Builder.recordingRedaction] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.recordingRedaction] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun recordingRedaction(recordingRedaction: JsonField<String>) = apply {
+                    this.recordingRedaction = recordingRedaction
+                }
+
                 /** The URL the recording callbacks will be sent to. */
                 fun recordingStatusCallback(recordingStatusCallback: String) =
                     recordingStatusCallback(JsonField.of(recordingStatusCallback))
@@ -8047,6 +9617,153 @@ private constructor(
                     apply {
                         this.statusCallbackMethod = statusCallbackMethod
                     }
+
+                /**
+                 * An authentication token for the WebSocket server. It is sent as the
+                 * `x-telnyx-streaming-auth-token` header of the WebSocket handshake and repeated as
+                 * `connected.x-telnyx-streaming-auth-token` in the `connected` event. Maximum
+                 * length is 4000 characters. Requires `StreamUrl`.
+                 */
+                fun streamAuthToken(streamAuthToken: String) =
+                    streamAuthToken(JsonField.of(streamAuthToken))
+
+                /**
+                 * Sets [Builder.streamAuthToken] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamAuthToken] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun streamAuthToken(streamAuthToken: JsonField<String>) = apply {
+                    this.streamAuthToken = streamAuthToken
+                }
+
+                /**
+                 * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+                 * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+                 */
+                fun streamBidirectionalCodec(streamBidirectionalCodec: StreamBidirectionalCodec) =
+                    streamBidirectionalCodec(JsonField.of(streamBidirectionalCodec))
+
+                /**
+                 * Sets [Builder.streamBidirectionalCodec] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamBidirectionalCodec] with a well-typed
+                 * [StreamBidirectionalCodec] value instead. This method is primarily for setting
+                 * the field to an undocumented or not yet supported value.
+                 */
+                fun streamBidirectionalCodec(
+                    streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>
+                ) = apply { this.streamBidirectionalCodec = streamBidirectionalCodec }
+
+                /**
+                 * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+                 * `StreamUrl`.
+                 */
+                fun streamBidirectionalMode(streamBidirectionalMode: StreamBidirectionalMode) =
+                    streamBidirectionalMode(JsonField.of(streamBidirectionalMode))
+
+                /**
+                 * Sets [Builder.streamBidirectionalMode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamBidirectionalMode] with a well-typed
+                 * [StreamBidirectionalMode] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun streamBidirectionalMode(
+                    streamBidirectionalMode: JsonField<StreamBidirectionalMode>
+                ) = apply { this.streamBidirectionalMode = streamBidirectionalMode }
+
+                /** Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`. */
+                fun streamBidirectionalSamplingRate(
+                    streamBidirectionalSamplingRate: StreamBidirectionalSamplingRate
+                ) = streamBidirectionalSamplingRate(JsonField.of(streamBidirectionalSamplingRate))
+
+                /**
+                 * Sets [Builder.streamBidirectionalSamplingRate] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamBidirectionalSamplingRate] with a
+                 * well-typed [StreamBidirectionalSamplingRate] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
+                 */
+                fun streamBidirectionalSamplingRate(
+                    streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>
+                ) = apply { this.streamBidirectionalSamplingRate = streamBidirectionalSamplingRate }
+
+                /**
+                 * Specifies the codec to be used for the streamed audio. When set to `default` or
+                 * when transcoding is not possible, the codec from the call will be used. Requires
+                 * `StreamUrl`.
+                 */
+                fun streamCodec(streamCodec: StreamCodec) = streamCodec(JsonField.of(streamCodec))
+
+                /**
+                 * Sets [Builder.streamCodec] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamCodec] with a well-typed [StreamCodec]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun streamCodec(streamCodec: JsonField<StreamCodec>) = apply {
+                    this.streamCodec = streamCodec
+                }
+
+                /**
+                 * Establishes the WebSocket connection before the destination is dialed, so no
+                 * audio is missed while the connection is set up. If the WebSocket connection can't
+                 * be established, the call is not placed and the request fails with a `422` error.
+                 * `StreamUrl` is required when this is `true`.
+                 */
+                fun streamEstablishBeforeCallOriginate(
+                    streamEstablishBeforeCallOriginate: Boolean
+                ) =
+                    streamEstablishBeforeCallOriginate(
+                        JsonField.of(streamEstablishBeforeCallOriginate)
+                    )
+
+                /**
+                 * Sets [Builder.streamEstablishBeforeCallOriginate] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamEstablishBeforeCallOriginate] with a
+                 * well-typed [Boolean] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun streamEstablishBeforeCallOriginate(
+                    streamEstablishBeforeCallOriginate: JsonField<Boolean>
+                ) = apply {
+                    this.streamEstablishBeforeCallOriginate = streamEstablishBeforeCallOriginate
+                }
+
+                /** Specifies which track should be streamed. Requires `StreamUrl`. */
+                fun streamTrack(streamTrack: StreamTrack) = streamTrack(JsonField.of(streamTrack))
+
+                /**
+                 * Sets [Builder.streamTrack] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamTrack] with a well-typed [StreamTrack]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun streamTrack(streamTrack: JsonField<StreamTrack>) = apply {
+                    this.streamTrack = streamTrack
+                }
+
+                /**
+                 * The destination WebSocket address where the call's media stream is delivered, for
+                 * example `wss://www.example.com/websocket`. When set, a media stream is started on
+                 * the outbound call. Required when any other `Stream*` parameter is set. Can't be
+                 * combined with `SuperviseCallSid`.
+                 */
+                fun streamUrl(streamUrl: String) = streamUrl(JsonField.of(streamUrl))
+
+                /**
+                 * Sets [Builder.streamUrl] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamUrl] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun streamUrl(streamUrl: JsonField<String>) = apply { this.streamUrl = streamUrl }
 
                 /**
                  * The call control ID of the existing call to supervise. When provided, the created
@@ -8247,6 +9964,7 @@ private constructor(
                         preferredCodecs,
                         record,
                         recordingChannels,
+                        recordingRedaction,
                         recordingStatusCallback,
                         recordingStatusCallbackEvent,
                         recordingStatusCallbackMethod,
@@ -8259,6 +9977,14 @@ private constructor(
                         statusCallback,
                         statusCallbackEvent,
                         statusCallbackMethod,
+                        streamAuthToken,
+                        streamBidirectionalCodec,
+                        streamBidirectionalMode,
+                        streamBidirectionalSamplingRate,
+                        streamCodec,
+                        streamEstablishBeforeCallOriginate,
+                        streamTrack,
+                        streamUrl,
                         superviseCallSid,
                         supervisingRole,
                         timeLimit,
@@ -8321,6 +10047,7 @@ private constructor(
                 preferredCodecs()
                 record()
                 recordingChannels().ifPresent { it.validate() }
+                recordingRedaction()
                 recordingStatusCallback()
                 recordingStatusCallbackEvent()
                 recordingStatusCallbackMethod().ifPresent { it.validate() }
@@ -8333,6 +10060,14 @@ private constructor(
                 statusCallback()
                 statusCallbackEvent()
                 statusCallbackMethod().ifPresent { it.validate() }
+                streamAuthToken()
+                streamBidirectionalCodec().ifPresent { it.validate() }
+                streamBidirectionalMode().ifPresent { it.validate() }
+                streamBidirectionalSamplingRate().ifPresent { it.validate() }
+                streamCodec().ifPresent { it.validate() }
+                streamEstablishBeforeCallOriginate()
+                streamTrack().ifPresent { it.validate() }
+                streamUrl()
                 superviseCallSid()
                 supervisingRole().ifPresent { it.validate() }
                 timeLimit()
@@ -8393,6 +10128,7 @@ private constructor(
                     (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
                     (if (record.asKnown().isPresent) 1 else 0) +
                     (recordingChannels.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (recordingRedaction.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallback.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (recordingStatusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
@@ -8405,6 +10141,14 @@ private constructor(
                     (if (statusCallback.asKnown().isPresent) 1 else 0) +
                     (if (statusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (statusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (streamAuthToken.asKnown().isPresent) 1 else 0) +
+                    (streamBidirectionalCodec.asKnown().getOrNull()?.validity() ?: 0) +
+                    (streamBidirectionalMode.asKnown().getOrNull()?.validity() ?: 0) +
+                    (streamBidirectionalSamplingRate.asKnown().getOrNull()?.validity() ?: 0) +
+                    (streamCodec.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (streamEstablishBeforeCallOriginate.asKnown().isPresent) 1 else 0) +
+                    (streamTrack.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (streamUrl.asKnown().isPresent) 1 else 0) +
                     (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
                     (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (timeLimit.asKnown().isPresent) 1 else 0) +
@@ -10448,6 +12192,822 @@ private constructor(
             }
 
             /**
+             * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+             * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+             */
+            class StreamBidirectionalCodec
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val PCMU = of("PCMU")
+
+                    @JvmField val PCMA = of("PCMA")
+
+                    @JvmField val G722 = of("G722")
+
+                    @JvmField val OPUS = of("OPUS")
+
+                    @JvmField val AMR_WB = of("AMR-WB")
+
+                    @JvmField val L16 = of("L16")
+
+                    @JvmStatic fun of(value: String) = StreamBidirectionalCodec(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamBidirectionalCodec]'s known values. */
+                enum class Known {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                }
+
+                /**
+                 * An enum containing [StreamBidirectionalCodec]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamBidirectionalCodec] can contain an unknown value in a
+                 * couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                    /**
+                     * An enum member indicating that [StreamBidirectionalCodec] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        PCMU -> Value.PCMU
+                        PCMA -> Value.PCMA
+                        G722 -> Value.G722
+                        OPUS -> Value.OPUS
+                        AMR_WB -> Value.AMR_WB
+                        L16 -> Value.L16
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        PCMU -> Known.PCMU
+                        PCMA -> Known.PCMA
+                        G722 -> Known.G722
+                        OPUS -> Known.OPUS
+                        AMR_WB -> Known.AMR_WB
+                        L16 -> Known.L16
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown StreamBidirectionalCodec: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamBidirectionalCodec = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamBidirectionalCodec && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+             * `StreamUrl`.
+             */
+            class StreamBidirectionalMode
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val MP3 = of("mp3")
+
+                    @JvmField val RTP = of("rtp")
+
+                    @JvmStatic fun of(value: String) = StreamBidirectionalMode(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamBidirectionalMode]'s known values. */
+                enum class Known {
+                    MP3,
+                    RTP,
+                }
+
+                /**
+                 * An enum containing [StreamBidirectionalMode]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamBidirectionalMode] can contain an unknown value in a couple
+                 * of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    MP3,
+                    RTP,
+                    /**
+                     * An enum member indicating that [StreamBidirectionalMode] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        MP3 -> Value.MP3
+                        RTP -> Value.RTP
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        MP3 -> Known.MP3
+                        RTP -> Known.RTP
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown StreamBidirectionalMode: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamBidirectionalMode = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamBidirectionalMode && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`. */
+            class StreamBidirectionalSamplingRate
+            @JsonCreator
+            private constructor(private val value: JsonField<Long>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<Long> = value
+
+                companion object {
+
+                    @JvmField val _8000 = of(8000L)
+
+                    @JvmField val _16000 = of(16000L)
+
+                    @JvmField val _22050 = of(22050L)
+
+                    @JvmField val _24000 = of(24000L)
+
+                    @JvmField val _48000 = of(48000L)
+
+                    @JvmStatic
+                    fun of(value: Long) = StreamBidirectionalSamplingRate(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamBidirectionalSamplingRate]'s known values. */
+                enum class Known {
+                    _8000,
+                    _16000,
+                    _22050,
+                    _24000,
+                    _48000,
+                }
+
+                /**
+                 * An enum containing [StreamBidirectionalSamplingRate]'s known values, as well as
+                 * an [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamBidirectionalSamplingRate] can contain an unknown value in
+                 * a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    _8000,
+                    _16000,
+                    _22050,
+                    _24000,
+                    _48000,
+                    /**
+                     * An enum member indicating that [StreamBidirectionalSamplingRate] was
+                     * instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        _8000 -> Value._8000
+                        _16000 -> Value._16000
+                        _22050 -> Value._22050
+                        _24000 -> Value._24000
+                        _48000 -> Value._48000
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        _8000 -> Known._8000
+                        _16000 -> Known._16000
+                        _22050 -> Known._22050
+                        _24000 -> Known._24000
+                        _48000 -> Known._48000
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown StreamBidirectionalSamplingRate: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asLong(): Long =
+                    _value().asNumber().getOrNull()?.let {
+                        if (it.toDouble() % 1 == 0.0) it.toLong() else null
+                    } ?: throw TelnyxInvalidDataException("Value is not a Long")
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamBidirectionalSamplingRate = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamBidirectionalSamplingRate && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * Specifies the codec to be used for the streamed audio. When set to `default` or when
+             * transcoding is not possible, the codec from the call will be used. Requires
+             * `StreamUrl`.
+             */
+            class StreamCodec
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val PCMU = of("PCMU")
+
+                    @JvmField val PCMA = of("PCMA")
+
+                    @JvmField val G722 = of("G722")
+
+                    @JvmField val OPUS = of("OPUS")
+
+                    @JvmField val AMR_WB = of("AMR-WB")
+
+                    @JvmField val L16 = of("L16")
+
+                    @JvmField val DEFAULT = of("default")
+
+                    @JvmStatic fun of(value: String) = StreamCodec(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamCodec]'s known values. */
+                enum class Known {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                    DEFAULT,
+                }
+
+                /**
+                 * An enum containing [StreamCodec]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamCodec] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                    DEFAULT,
+                    /**
+                     * An enum member indicating that [StreamCodec] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        PCMU -> Value.PCMU
+                        PCMA -> Value.PCMA
+                        G722 -> Value.G722
+                        OPUS -> Value.OPUS
+                        AMR_WB -> Value.AMR_WB
+                        L16 -> Value.L16
+                        DEFAULT -> Value.DEFAULT
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        PCMU -> Known.PCMU
+                        PCMA -> Known.PCMA
+                        G722 -> Known.G722
+                        OPUS -> Known.OPUS
+                        AMR_WB -> Known.AMR_WB
+                        L16 -> Known.L16
+                        DEFAULT -> Known.DEFAULT
+                        else -> throw TelnyxInvalidDataException("Unknown StreamCodec: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamCodec = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamCodec && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** Specifies which track should be streamed. Requires `StreamUrl`. */
+            class StreamTrack
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val INBOUND_TRACK = of("inbound_track")
+
+                    @JvmField val OUTBOUND_TRACK = of("outbound_track")
+
+                    @JvmField val BOTH_TRACKS = of("both_tracks")
+
+                    @JvmStatic fun of(value: String) = StreamTrack(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamTrack]'s known values. */
+                enum class Known {
+                    INBOUND_TRACK,
+                    OUTBOUND_TRACK,
+                    BOTH_TRACKS,
+                }
+
+                /**
+                 * An enum containing [StreamTrack]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamTrack] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    INBOUND_TRACK,
+                    OUTBOUND_TRACK,
+                    BOTH_TRACKS,
+                    /**
+                     * An enum member indicating that [StreamTrack] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        INBOUND_TRACK -> Value.INBOUND_TRACK
+                        OUTBOUND_TRACK -> Value.OUTBOUND_TRACK
+                        BOTH_TRACKS -> Value.BOTH_TRACKS
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        INBOUND_TRACK -> Known.INBOUND_TRACK
+                        OUTBOUND_TRACK -> Known.OUTBOUND_TRACK
+                        BOTH_TRACKS -> Known.BOTH_TRACKS
+                        else -> throw TelnyxInvalidDataException("Unknown StreamTrack: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamTrack = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamTrack && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
              * The supervising role for the new leg. Determines the audio behavior: barge (hear both
              * sides), whisper (only hear supervisor), monitor (hear both sides but supervisor
              * muted). Default: barge
@@ -10936,6 +13496,7 @@ private constructor(
                     preferredCodecs == other.preferredCodecs &&
                     record == other.record &&
                     recordingChannels == other.recordingChannels &&
+                    recordingRedaction == other.recordingRedaction &&
                     recordingStatusCallback == other.recordingStatusCallback &&
                     recordingStatusCallbackEvent == other.recordingStatusCallbackEvent &&
                     recordingStatusCallbackMethod == other.recordingStatusCallbackMethod &&
@@ -10948,6 +13509,15 @@ private constructor(
                     statusCallback == other.statusCallback &&
                     statusCallbackEvent == other.statusCallbackEvent &&
                     statusCallbackMethod == other.statusCallbackMethod &&
+                    streamAuthToken == other.streamAuthToken &&
+                    streamBidirectionalCodec == other.streamBidirectionalCodec &&
+                    streamBidirectionalMode == other.streamBidirectionalMode &&
+                    streamBidirectionalSamplingRate == other.streamBidirectionalSamplingRate &&
+                    streamCodec == other.streamCodec &&
+                    streamEstablishBeforeCallOriginate ==
+                        other.streamEstablishBeforeCallOriginate &&
+                    streamTrack == other.streamTrack &&
+                    streamUrl == other.streamUrl &&
                     superviseCallSid == other.superviseCallSid &&
                     supervisingRole == other.supervisingRole &&
                     timeLimit == other.timeLimit &&
@@ -10994,6 +13564,7 @@ private constructor(
                     preferredCodecs,
                     record,
                     recordingChannels,
+                    recordingRedaction,
                     recordingStatusCallback,
                     recordingStatusCallbackEvent,
                     recordingStatusCallbackMethod,
@@ -11006,6 +13577,14 @@ private constructor(
                     statusCallback,
                     statusCallbackEvent,
                     statusCallbackMethod,
+                    streamAuthToken,
+                    streamBidirectionalCodec,
+                    streamBidirectionalMode,
+                    streamBidirectionalSamplingRate,
+                    streamCodec,
+                    streamEstablishBeforeCallOriginate,
+                    streamTrack,
+                    streamUrl,
                     superviseCallSid,
                     supervisingRole,
                     timeLimit,
@@ -11021,7 +13600,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WithTeXml{texml=$texml, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "WithTeXml{texml=$texml, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingRedaction=$recordingRedaction, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
 
         class ApplicationDefault
@@ -11059,6 +13638,7 @@ private constructor(
             private val preferredCodecs: JsonField<String>,
             private val record: JsonField<Boolean>,
             private val recordingChannels: JsonField<RecordingChannels>,
+            private val recordingRedaction: JsonField<String>,
             private val recordingStatusCallback: JsonField<String>,
             private val recordingStatusCallbackEvent: JsonField<String>,
             private val recordingStatusCallbackMethod: JsonField<RecordingStatusCallbackMethod>,
@@ -11071,6 +13651,14 @@ private constructor(
             private val statusCallback: JsonField<String>,
             private val statusCallbackEvent: JsonField<String>,
             private val statusCallbackMethod: JsonField<StatusCallbackMethod>,
+            private val streamAuthToken: JsonField<String>,
+            private val streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>,
+            private val streamBidirectionalMode: JsonField<StreamBidirectionalMode>,
+            private val streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>,
+            private val streamCodec: JsonField<StreamCodec>,
+            private val streamEstablishBeforeCallOriginate: JsonField<Boolean>,
+            private val streamTrack: JsonField<StreamTrack>,
+            private val streamUrl: JsonField<String>,
             private val superviseCallSid: JsonField<String>,
             private val supervisingRole: JsonField<SupervisingRole>,
             private val texml: JsonField<String>,
@@ -11182,6 +13770,9 @@ private constructor(
                 @JsonProperty("RecordingChannels")
                 @ExcludeMissing
                 recordingChannels: JsonField<RecordingChannels> = JsonMissing.of(),
+                @JsonProperty("RecordingRedaction")
+                @ExcludeMissing
+                recordingRedaction: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("RecordingStatusCallback")
                 @ExcludeMissing
                 recordingStatusCallback: JsonField<String> = JsonMissing.of(),
@@ -11219,6 +13810,31 @@ private constructor(
                 @JsonProperty("StatusCallbackMethod")
                 @ExcludeMissing
                 statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of(),
+                @JsonProperty("StreamAuthToken")
+                @ExcludeMissing
+                streamAuthToken: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("StreamBidirectionalCodec")
+                @ExcludeMissing
+                streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> = JsonMissing.of(),
+                @JsonProperty("StreamBidirectionalMode")
+                @ExcludeMissing
+                streamBidirectionalMode: JsonField<StreamBidirectionalMode> = JsonMissing.of(),
+                @JsonProperty("StreamBidirectionalSamplingRate")
+                @ExcludeMissing
+                streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate> =
+                    JsonMissing.of(),
+                @JsonProperty("StreamCodec")
+                @ExcludeMissing
+                streamCodec: JsonField<StreamCodec> = JsonMissing.of(),
+                @JsonProperty("StreamEstablishBeforeCallOriginate")
+                @ExcludeMissing
+                streamEstablishBeforeCallOriginate: JsonField<Boolean> = JsonMissing.of(),
+                @JsonProperty("StreamTrack")
+                @ExcludeMissing
+                streamTrack: JsonField<StreamTrack> = JsonMissing.of(),
+                @JsonProperty("StreamUrl")
+                @ExcludeMissing
+                streamUrl: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("SuperviseCallSid")
                 @ExcludeMissing
                 superviseCallSid: JsonField<String> = JsonMissing.of(),
@@ -11271,6 +13887,7 @@ private constructor(
                 preferredCodecs,
                 record,
                 recordingChannels,
+                recordingRedaction,
                 recordingStatusCallback,
                 recordingStatusCallbackEvent,
                 recordingStatusCallbackMethod,
@@ -11283,6 +13900,14 @@ private constructor(
                 statusCallback,
                 statusCallbackEvent,
                 statusCallbackMethod,
+                streamAuthToken,
+                streamBidirectionalCodec,
+                streamBidirectionalMode,
+                streamBidirectionalSamplingRate,
+                streamCodec,
+                streamEstablishBeforeCallOriginate,
+                streamTrack,
+                streamUrl,
                 superviseCallSid,
                 supervisingRole,
                 texml,
@@ -11623,6 +14248,20 @@ private constructor(
                 recordingChannels.getOptional("RecordingChannels")
 
             /**
+             * Silences spoken details of the given kinds in the recording: one or more of `pci`
+             * (card number, expiry date, security code), `pii` (personal details such as names,
+             * phone numbers, addresses and other identifying numbers) and `phi` (health details
+             * such as medications, doses and conditions), separated by commas, for example
+             * `pci,pii`. Redaction works on English speech only. Redacted recordings are charged at
+             * the Deepgram speech-to-text rate.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun recordingRedaction(): Optional<String> =
+                recordingRedaction.getOptional("RecordingRedaction")
+
+            /**
              * The URL the recording callbacks will be sent to.
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -11731,6 +14370,87 @@ private constructor(
              */
             fun statusCallbackMethod(): Optional<StatusCallbackMethod> =
                 statusCallbackMethod.getOptional("StatusCallbackMethod")
+
+            /**
+             * An authentication token for the WebSocket server. It is sent as the
+             * `x-telnyx-streaming-auth-token` header of the WebSocket handshake and repeated as
+             * `connected.x-telnyx-streaming-auth-token` in the `connected` event. Maximum length is
+             * 4000 characters. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamAuthToken(): Optional<String> = streamAuthToken.getOptional("StreamAuthToken")
+
+            /**
+             * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+             * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamBidirectionalCodec(): Optional<StreamBidirectionalCodec> =
+                streamBidirectionalCodec.getOptional("StreamBidirectionalCodec")
+
+            /**
+             * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+             * `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamBidirectionalMode(): Optional<StreamBidirectionalMode> =
+                streamBidirectionalMode.getOptional("StreamBidirectionalMode")
+
+            /**
+             * Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamBidirectionalSamplingRate(): Optional<StreamBidirectionalSamplingRate> =
+                streamBidirectionalSamplingRate.getOptional("StreamBidirectionalSamplingRate")
+
+            /**
+             * Specifies the codec to be used for the streamed audio. When set to `default` or when
+             * transcoding is not possible, the codec from the call will be used. Requires
+             * `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamCodec(): Optional<StreamCodec> = streamCodec.getOptional("StreamCodec")
+
+            /**
+             * Establishes the WebSocket connection before the destination is dialed, so no audio is
+             * missed while the connection is set up. If the WebSocket connection can't be
+             * established, the call is not placed and the request fails with a `422` error.
+             * `StreamUrl` is required when this is `true`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamEstablishBeforeCallOriginate(): Optional<Boolean> =
+                streamEstablishBeforeCallOriginate.getOptional("StreamEstablishBeforeCallOriginate")
+
+            /**
+             * Specifies which track should be streamed. Requires `StreamUrl`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamTrack(): Optional<StreamTrack> = streamTrack.getOptional("StreamTrack")
+
+            /**
+             * The destination WebSocket address where the call's media stream is delivered, for
+             * example `wss://www.example.com/websocket`. When set, a media stream is started on the
+             * outbound call. Required when any other `Stream*` parameter is set. Can't be combined
+             * with `SuperviseCallSid`.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun streamUrl(): Optional<String> = streamUrl.getOptional("StreamUrl")
 
             /**
              * The call control ID of the existing call to supervise. When provided, the created leg
@@ -12138,6 +14858,16 @@ private constructor(
             fun _recordingChannels(): JsonField<RecordingChannels> = recordingChannels
 
             /**
+             * Returns the raw JSON value of [recordingRedaction].
+             *
+             * Unlike [recordingRedaction], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("RecordingRedaction")
+            @ExcludeMissing
+            fun _recordingRedaction(): JsonField<String> = recordingRedaction
+
+            /**
              * Returns the raw JSON value of [recordingStatusCallback].
              *
              * Unlike [recordingStatusCallback], this method doesn't throw if the JSON field has an
@@ -12257,6 +14987,90 @@ private constructor(
             @JsonProperty("StatusCallbackMethod")
             @ExcludeMissing
             fun _statusCallbackMethod(): JsonField<StatusCallbackMethod> = statusCallbackMethod
+
+            /**
+             * Returns the raw JSON value of [streamAuthToken].
+             *
+             * Unlike [streamAuthToken], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("StreamAuthToken")
+            @ExcludeMissing
+            fun _streamAuthToken(): JsonField<String> = streamAuthToken
+
+            /**
+             * Returns the raw JSON value of [streamBidirectionalCodec].
+             *
+             * Unlike [streamBidirectionalCodec], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("StreamBidirectionalCodec")
+            @ExcludeMissing
+            fun _streamBidirectionalCodec(): JsonField<StreamBidirectionalCodec> =
+                streamBidirectionalCodec
+
+            /**
+             * Returns the raw JSON value of [streamBidirectionalMode].
+             *
+             * Unlike [streamBidirectionalMode], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("StreamBidirectionalMode")
+            @ExcludeMissing
+            fun _streamBidirectionalMode(): JsonField<StreamBidirectionalMode> =
+                streamBidirectionalMode
+
+            /**
+             * Returns the raw JSON value of [streamBidirectionalSamplingRate].
+             *
+             * Unlike [streamBidirectionalSamplingRate], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("StreamBidirectionalSamplingRate")
+            @ExcludeMissing
+            fun _streamBidirectionalSamplingRate(): JsonField<StreamBidirectionalSamplingRate> =
+                streamBidirectionalSamplingRate
+
+            /**
+             * Returns the raw JSON value of [streamCodec].
+             *
+             * Unlike [streamCodec], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("StreamCodec")
+            @ExcludeMissing
+            fun _streamCodec(): JsonField<StreamCodec> = streamCodec
+
+            /**
+             * Returns the raw JSON value of [streamEstablishBeforeCallOriginate].
+             *
+             * Unlike [streamEstablishBeforeCallOriginate], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("StreamEstablishBeforeCallOriginate")
+            @ExcludeMissing
+            fun _streamEstablishBeforeCallOriginate(): JsonField<Boolean> =
+                streamEstablishBeforeCallOriginate
+
+            /**
+             * Returns the raw JSON value of [streamTrack].
+             *
+             * Unlike [streamTrack], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("StreamTrack")
+            @ExcludeMissing
+            fun _streamTrack(): JsonField<StreamTrack> = streamTrack
+
+            /**
+             * Returns the raw JSON value of [streamUrl].
+             *
+             * Unlike [streamUrl], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("StreamUrl")
+            @ExcludeMissing
+            fun _streamUrl(): JsonField<String> = streamUrl
 
             /**
              * Returns the raw JSON value of [superviseCallSid].
@@ -12393,6 +15207,7 @@ private constructor(
                 private var preferredCodecs: JsonField<String> = JsonMissing.of()
                 private var record: JsonField<Boolean> = JsonMissing.of()
                 private var recordingChannels: JsonField<RecordingChannels> = JsonMissing.of()
+                private var recordingRedaction: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallback: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackMethod:
@@ -12407,6 +15222,19 @@ private constructor(
                 private var statusCallback: JsonField<String> = JsonMissing.of()
                 private var statusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of()
+                private var streamAuthToken: JsonField<String> = JsonMissing.of()
+                private var streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> =
+                    JsonMissing.of()
+                private var streamBidirectionalMode: JsonField<StreamBidirectionalMode> =
+                    JsonMissing.of()
+                private var streamBidirectionalSamplingRate:
+                    JsonField<StreamBidirectionalSamplingRate> =
+                    JsonMissing.of()
+                private var streamCodec: JsonField<StreamCodec> = JsonMissing.of()
+                private var streamEstablishBeforeCallOriginate: JsonField<Boolean> =
+                    JsonMissing.of()
+                private var streamTrack: JsonField<StreamTrack> = JsonMissing.of()
+                private var streamUrl: JsonField<String> = JsonMissing.of()
                 private var superviseCallSid: JsonField<String> = JsonMissing.of()
                 private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
                 private var texml: JsonField<String> = JsonMissing.of()
@@ -12466,6 +15294,7 @@ private constructor(
                     preferredCodecs = applicationDefault.preferredCodecs
                     record = applicationDefault.record
                     recordingChannels = applicationDefault.recordingChannels
+                    recordingRedaction = applicationDefault.recordingRedaction
                     recordingStatusCallback = applicationDefault.recordingStatusCallback
                     recordingStatusCallbackEvent = applicationDefault.recordingStatusCallbackEvent
                     recordingStatusCallbackMethod = applicationDefault.recordingStatusCallbackMethod
@@ -12478,6 +15307,16 @@ private constructor(
                     statusCallback = applicationDefault.statusCallback
                     statusCallbackEvent = applicationDefault.statusCallbackEvent
                     statusCallbackMethod = applicationDefault.statusCallbackMethod
+                    streamAuthToken = applicationDefault.streamAuthToken
+                    streamBidirectionalCodec = applicationDefault.streamBidirectionalCodec
+                    streamBidirectionalMode = applicationDefault.streamBidirectionalMode
+                    streamBidirectionalSamplingRate =
+                        applicationDefault.streamBidirectionalSamplingRate
+                    streamCodec = applicationDefault.streamCodec
+                    streamEstablishBeforeCallOriginate =
+                        applicationDefault.streamEstablishBeforeCallOriginate
+                    streamTrack = applicationDefault.streamTrack
+                    streamUrl = applicationDefault.streamUrl
                     superviseCallSid = applicationDefault.superviseCallSid
                     supervisingRole = applicationDefault.supervisingRole
                     texml = applicationDefault.texml
@@ -13108,6 +15947,28 @@ private constructor(
                     this.recordingChannels = recordingChannels
                 }
 
+                /**
+                 * Silences spoken details of the given kinds in the recording: one or more of `pci`
+                 * (card number, expiry date, security code), `pii` (personal details such as names,
+                 * phone numbers, addresses and other identifying numbers) and `phi` (health details
+                 * such as medications, doses and conditions), separated by commas, for example
+                 * `pci,pii`. Redaction works on English speech only. Redacted recordings are
+                 * charged at the Deepgram speech-to-text rate.
+                 */
+                fun recordingRedaction(recordingRedaction: String) =
+                    recordingRedaction(JsonField.of(recordingRedaction))
+
+                /**
+                 * Sets [Builder.recordingRedaction] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.recordingRedaction] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun recordingRedaction(recordingRedaction: JsonField<String>) = apply {
+                    this.recordingRedaction = recordingRedaction
+                }
+
                 /** The URL the recording callbacks will be sent to. */
                 fun recordingStatusCallback(recordingStatusCallback: String) =
                     recordingStatusCallback(JsonField.of(recordingStatusCallback))
@@ -13301,6 +16162,153 @@ private constructor(
                     apply {
                         this.statusCallbackMethod = statusCallbackMethod
                     }
+
+                /**
+                 * An authentication token for the WebSocket server. It is sent as the
+                 * `x-telnyx-streaming-auth-token` header of the WebSocket handshake and repeated as
+                 * `connected.x-telnyx-streaming-auth-token` in the `connected` event. Maximum
+                 * length is 4000 characters. Requires `StreamUrl`.
+                 */
+                fun streamAuthToken(streamAuthToken: String) =
+                    streamAuthToken(JsonField.of(streamAuthToken))
+
+                /**
+                 * Sets [Builder.streamAuthToken] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamAuthToken] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun streamAuthToken(streamAuthToken: JsonField<String>) = apply {
+                    this.streamAuthToken = streamAuthToken
+                }
+
+                /**
+                 * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+                 * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+                 */
+                fun streamBidirectionalCodec(streamBidirectionalCodec: StreamBidirectionalCodec) =
+                    streamBidirectionalCodec(JsonField.of(streamBidirectionalCodec))
+
+                /**
+                 * Sets [Builder.streamBidirectionalCodec] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamBidirectionalCodec] with a well-typed
+                 * [StreamBidirectionalCodec] value instead. This method is primarily for setting
+                 * the field to an undocumented or not yet supported value.
+                 */
+                fun streamBidirectionalCodec(
+                    streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>
+                ) = apply { this.streamBidirectionalCodec = streamBidirectionalCodec }
+
+                /**
+                 * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+                 * `StreamUrl`.
+                 */
+                fun streamBidirectionalMode(streamBidirectionalMode: StreamBidirectionalMode) =
+                    streamBidirectionalMode(JsonField.of(streamBidirectionalMode))
+
+                /**
+                 * Sets [Builder.streamBidirectionalMode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamBidirectionalMode] with a well-typed
+                 * [StreamBidirectionalMode] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun streamBidirectionalMode(
+                    streamBidirectionalMode: JsonField<StreamBidirectionalMode>
+                ) = apply { this.streamBidirectionalMode = streamBidirectionalMode }
+
+                /** Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`. */
+                fun streamBidirectionalSamplingRate(
+                    streamBidirectionalSamplingRate: StreamBidirectionalSamplingRate
+                ) = streamBidirectionalSamplingRate(JsonField.of(streamBidirectionalSamplingRate))
+
+                /**
+                 * Sets [Builder.streamBidirectionalSamplingRate] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamBidirectionalSamplingRate] with a
+                 * well-typed [StreamBidirectionalSamplingRate] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
+                 */
+                fun streamBidirectionalSamplingRate(
+                    streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>
+                ) = apply { this.streamBidirectionalSamplingRate = streamBidirectionalSamplingRate }
+
+                /**
+                 * Specifies the codec to be used for the streamed audio. When set to `default` or
+                 * when transcoding is not possible, the codec from the call will be used. Requires
+                 * `StreamUrl`.
+                 */
+                fun streamCodec(streamCodec: StreamCodec) = streamCodec(JsonField.of(streamCodec))
+
+                /**
+                 * Sets [Builder.streamCodec] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamCodec] with a well-typed [StreamCodec]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun streamCodec(streamCodec: JsonField<StreamCodec>) = apply {
+                    this.streamCodec = streamCodec
+                }
+
+                /**
+                 * Establishes the WebSocket connection before the destination is dialed, so no
+                 * audio is missed while the connection is set up. If the WebSocket connection can't
+                 * be established, the call is not placed and the request fails with a `422` error.
+                 * `StreamUrl` is required when this is `true`.
+                 */
+                fun streamEstablishBeforeCallOriginate(
+                    streamEstablishBeforeCallOriginate: Boolean
+                ) =
+                    streamEstablishBeforeCallOriginate(
+                        JsonField.of(streamEstablishBeforeCallOriginate)
+                    )
+
+                /**
+                 * Sets [Builder.streamEstablishBeforeCallOriginate] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamEstablishBeforeCallOriginate] with a
+                 * well-typed [Boolean] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun streamEstablishBeforeCallOriginate(
+                    streamEstablishBeforeCallOriginate: JsonField<Boolean>
+                ) = apply {
+                    this.streamEstablishBeforeCallOriginate = streamEstablishBeforeCallOriginate
+                }
+
+                /** Specifies which track should be streamed. Requires `StreamUrl`. */
+                fun streamTrack(streamTrack: StreamTrack) = streamTrack(JsonField.of(streamTrack))
+
+                /**
+                 * Sets [Builder.streamTrack] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamTrack] with a well-typed [StreamTrack]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun streamTrack(streamTrack: JsonField<StreamTrack>) = apply {
+                    this.streamTrack = streamTrack
+                }
+
+                /**
+                 * The destination WebSocket address where the call's media stream is delivered, for
+                 * example `wss://www.example.com/websocket`. When set, a media stream is started on
+                 * the outbound call. Required when any other `Stream*` parameter is set. Can't be
+                 * combined with `SuperviseCallSid`.
+                 */
+                fun streamUrl(streamUrl: String) = streamUrl(JsonField.of(streamUrl))
+
+                /**
+                 * Sets [Builder.streamUrl] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.streamUrl] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun streamUrl(streamUrl: JsonField<String>) = apply { this.streamUrl = streamUrl }
 
                 /**
                  * The call control ID of the existing call to supervise. When provided, the created
@@ -13507,6 +16515,7 @@ private constructor(
                         preferredCodecs,
                         record,
                         recordingChannels,
+                        recordingRedaction,
                         recordingStatusCallback,
                         recordingStatusCallbackEvent,
                         recordingStatusCallbackMethod,
@@ -13519,6 +16528,14 @@ private constructor(
                         statusCallback,
                         statusCallbackEvent,
                         statusCallbackMethod,
+                        streamAuthToken,
+                        streamBidirectionalCodec,
+                        streamBidirectionalMode,
+                        streamBidirectionalSamplingRate,
+                        streamCodec,
+                        streamEstablishBeforeCallOriginate,
+                        streamTrack,
+                        streamUrl,
                         superviseCallSid,
                         supervisingRole,
                         texml,
@@ -13581,6 +16598,7 @@ private constructor(
                 preferredCodecs()
                 record()
                 recordingChannels().ifPresent { it.validate() }
+                recordingRedaction()
                 recordingStatusCallback()
                 recordingStatusCallbackEvent()
                 recordingStatusCallbackMethod().ifPresent { it.validate() }
@@ -13593,6 +16611,14 @@ private constructor(
                 statusCallback()
                 statusCallbackEvent()
                 statusCallbackMethod().ifPresent { it.validate() }
+                streamAuthToken()
+                streamBidirectionalCodec().ifPresent { it.validate() }
+                streamBidirectionalMode().ifPresent { it.validate() }
+                streamBidirectionalSamplingRate().ifPresent { it.validate() }
+                streamCodec().ifPresent { it.validate() }
+                streamEstablishBeforeCallOriginate()
+                streamTrack().ifPresent { it.validate() }
+                streamUrl()
                 superviseCallSid()
                 supervisingRole().ifPresent { it.validate() }
                 texml()
@@ -13653,6 +16679,7 @@ private constructor(
                     (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
                     (if (record.asKnown().isPresent) 1 else 0) +
                     (recordingChannels.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (recordingRedaction.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallback.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (recordingStatusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
@@ -13665,6 +16692,14 @@ private constructor(
                     (if (statusCallback.asKnown().isPresent) 1 else 0) +
                     (if (statusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (statusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (streamAuthToken.asKnown().isPresent) 1 else 0) +
+                    (streamBidirectionalCodec.asKnown().getOrNull()?.validity() ?: 0) +
+                    (streamBidirectionalMode.asKnown().getOrNull()?.validity() ?: 0) +
+                    (streamBidirectionalSamplingRate.asKnown().getOrNull()?.validity() ?: 0) +
+                    (streamCodec.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (streamEstablishBeforeCallOriginate.asKnown().isPresent) 1 else 0) +
+                    (streamTrack.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (streamUrl.asKnown().isPresent) 1 else 0) +
                     (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
                     (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (texml.asKnown().isPresent) 1 else 0) +
@@ -15709,6 +18744,822 @@ private constructor(
             }
 
             /**
+             * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+             * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+             */
+            class StreamBidirectionalCodec
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val PCMU = of("PCMU")
+
+                    @JvmField val PCMA = of("PCMA")
+
+                    @JvmField val G722 = of("G722")
+
+                    @JvmField val OPUS = of("OPUS")
+
+                    @JvmField val AMR_WB = of("AMR-WB")
+
+                    @JvmField val L16 = of("L16")
+
+                    @JvmStatic fun of(value: String) = StreamBidirectionalCodec(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamBidirectionalCodec]'s known values. */
+                enum class Known {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                }
+
+                /**
+                 * An enum containing [StreamBidirectionalCodec]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamBidirectionalCodec] can contain an unknown value in a
+                 * couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                    /**
+                     * An enum member indicating that [StreamBidirectionalCodec] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        PCMU -> Value.PCMU
+                        PCMA -> Value.PCMA
+                        G722 -> Value.G722
+                        OPUS -> Value.OPUS
+                        AMR_WB -> Value.AMR_WB
+                        L16 -> Value.L16
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        PCMU -> Known.PCMU
+                        PCMA -> Known.PCMA
+                        G722 -> Known.G722
+                        OPUS -> Known.OPUS
+                        AMR_WB -> Known.AMR_WB
+                        L16 -> Known.L16
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown StreamBidirectionalCodec: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamBidirectionalCodec = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamBidirectionalCodec && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+             * `StreamUrl`.
+             */
+            class StreamBidirectionalMode
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val MP3 = of("mp3")
+
+                    @JvmField val RTP = of("rtp")
+
+                    @JvmStatic fun of(value: String) = StreamBidirectionalMode(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamBidirectionalMode]'s known values. */
+                enum class Known {
+                    MP3,
+                    RTP,
+                }
+
+                /**
+                 * An enum containing [StreamBidirectionalMode]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamBidirectionalMode] can contain an unknown value in a couple
+                 * of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    MP3,
+                    RTP,
+                    /**
+                     * An enum member indicating that [StreamBidirectionalMode] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        MP3 -> Value.MP3
+                        RTP -> Value.RTP
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        MP3 -> Known.MP3
+                        RTP -> Known.RTP
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown StreamBidirectionalMode: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamBidirectionalMode = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamBidirectionalMode && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`. */
+            class StreamBidirectionalSamplingRate
+            @JsonCreator
+            private constructor(private val value: JsonField<Long>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<Long> = value
+
+                companion object {
+
+                    @JvmField val _8000 = of(8000L)
+
+                    @JvmField val _16000 = of(16000L)
+
+                    @JvmField val _22050 = of(22050L)
+
+                    @JvmField val _24000 = of(24000L)
+
+                    @JvmField val _48000 = of(48000L)
+
+                    @JvmStatic
+                    fun of(value: Long) = StreamBidirectionalSamplingRate(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamBidirectionalSamplingRate]'s known values. */
+                enum class Known {
+                    _8000,
+                    _16000,
+                    _22050,
+                    _24000,
+                    _48000,
+                }
+
+                /**
+                 * An enum containing [StreamBidirectionalSamplingRate]'s known values, as well as
+                 * an [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamBidirectionalSamplingRate] can contain an unknown value in
+                 * a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    _8000,
+                    _16000,
+                    _22050,
+                    _24000,
+                    _48000,
+                    /**
+                     * An enum member indicating that [StreamBidirectionalSamplingRate] was
+                     * instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        _8000 -> Value._8000
+                        _16000 -> Value._16000
+                        _22050 -> Value._22050
+                        _24000 -> Value._24000
+                        _48000 -> Value._48000
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        _8000 -> Known._8000
+                        _16000 -> Known._16000
+                        _22050 -> Known._22050
+                        _24000 -> Known._24000
+                        _48000 -> Known._48000
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown StreamBidirectionalSamplingRate: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asLong(): Long =
+                    _value().asNumber().getOrNull()?.let {
+                        if (it.toDouble() % 1 == 0.0) it.toLong() else null
+                    } ?: throw TelnyxInvalidDataException("Value is not a Long")
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamBidirectionalSamplingRate = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamBidirectionalSamplingRate && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * Specifies the codec to be used for the streamed audio. When set to `default` or when
+             * transcoding is not possible, the codec from the call will be used. Requires
+             * `StreamUrl`.
+             */
+            class StreamCodec
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val PCMU = of("PCMU")
+
+                    @JvmField val PCMA = of("PCMA")
+
+                    @JvmField val G722 = of("G722")
+
+                    @JvmField val OPUS = of("OPUS")
+
+                    @JvmField val AMR_WB = of("AMR-WB")
+
+                    @JvmField val L16 = of("L16")
+
+                    @JvmField val DEFAULT = of("default")
+
+                    @JvmStatic fun of(value: String) = StreamCodec(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamCodec]'s known values. */
+                enum class Known {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                    DEFAULT,
+                }
+
+                /**
+                 * An enum containing [StreamCodec]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamCodec] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    PCMU,
+                    PCMA,
+                    G722,
+                    OPUS,
+                    AMR_WB,
+                    L16,
+                    DEFAULT,
+                    /**
+                     * An enum member indicating that [StreamCodec] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        PCMU -> Value.PCMU
+                        PCMA -> Value.PCMA
+                        G722 -> Value.G722
+                        OPUS -> Value.OPUS
+                        AMR_WB -> Value.AMR_WB
+                        L16 -> Value.L16
+                        DEFAULT -> Value.DEFAULT
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        PCMU -> Known.PCMU
+                        PCMA -> Known.PCMA
+                        G722 -> Known.G722
+                        OPUS -> Known.OPUS
+                        AMR_WB -> Known.AMR_WB
+                        L16 -> Known.L16
+                        DEFAULT -> Known.DEFAULT
+                        else -> throw TelnyxInvalidDataException("Unknown StreamCodec: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamCodec = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamCodec && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** Specifies which track should be streamed. Requires `StreamUrl`. */
+            class StreamTrack
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val INBOUND_TRACK = of("inbound_track")
+
+                    @JvmField val OUTBOUND_TRACK = of("outbound_track")
+
+                    @JvmField val BOTH_TRACKS = of("both_tracks")
+
+                    @JvmStatic fun of(value: String) = StreamTrack(JsonField.of(value))
+                }
+
+                /** An enum containing [StreamTrack]'s known values. */
+                enum class Known {
+                    INBOUND_TRACK,
+                    OUTBOUND_TRACK,
+                    BOTH_TRACKS,
+                }
+
+                /**
+                 * An enum containing [StreamTrack]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [StreamTrack] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    INBOUND_TRACK,
+                    OUTBOUND_TRACK,
+                    BOTH_TRACKS,
+                    /**
+                     * An enum member indicating that [StreamTrack] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        INBOUND_TRACK -> Value.INBOUND_TRACK
+                        OUTBOUND_TRACK -> Value.OUTBOUND_TRACK
+                        BOTH_TRACKS -> Value.BOTH_TRACKS
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        INBOUND_TRACK -> Known.INBOUND_TRACK
+                        OUTBOUND_TRACK -> Known.OUTBOUND_TRACK
+                        BOTH_TRACKS -> Known.BOTH_TRACKS
+                        else -> throw TelnyxInvalidDataException("Unknown StreamTrack: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws TelnyxInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
+                fun validate(): StreamTrack = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is StreamTrack && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
              * The supervising role for the new leg. Determines the audio behavior: barge (hear both
              * sides), whisper (only hear supervisor), monitor (hear both sides but supervisor
              * muted). Default: barge
@@ -16196,6 +20047,7 @@ private constructor(
                     preferredCodecs == other.preferredCodecs &&
                     record == other.record &&
                     recordingChannels == other.recordingChannels &&
+                    recordingRedaction == other.recordingRedaction &&
                     recordingStatusCallback == other.recordingStatusCallback &&
                     recordingStatusCallbackEvent == other.recordingStatusCallbackEvent &&
                     recordingStatusCallbackMethod == other.recordingStatusCallbackMethod &&
@@ -16208,6 +20060,15 @@ private constructor(
                     statusCallback == other.statusCallback &&
                     statusCallbackEvent == other.statusCallbackEvent &&
                     statusCallbackMethod == other.statusCallbackMethod &&
+                    streamAuthToken == other.streamAuthToken &&
+                    streamBidirectionalCodec == other.streamBidirectionalCodec &&
+                    streamBidirectionalMode == other.streamBidirectionalMode &&
+                    streamBidirectionalSamplingRate == other.streamBidirectionalSamplingRate &&
+                    streamCodec == other.streamCodec &&
+                    streamEstablishBeforeCallOriginate ==
+                        other.streamEstablishBeforeCallOriginate &&
+                    streamTrack == other.streamTrack &&
+                    streamUrl == other.streamUrl &&
                     superviseCallSid == other.superviseCallSid &&
                     supervisingRole == other.supervisingRole &&
                     texml == other.texml &&
@@ -16254,6 +20115,7 @@ private constructor(
                     preferredCodecs,
                     record,
                     recordingChannels,
+                    recordingRedaction,
                     recordingStatusCallback,
                     recordingStatusCallbackEvent,
                     recordingStatusCallbackMethod,
@@ -16266,6 +20128,14 @@ private constructor(
                     statusCallback,
                     statusCallbackEvent,
                     statusCallbackMethod,
+                    streamAuthToken,
+                    streamBidirectionalCodec,
+                    streamBidirectionalMode,
+                    streamBidirectionalSamplingRate,
+                    streamCodec,
+                    streamEstablishBeforeCallOriginate,
+                    streamTrack,
+                    streamUrl,
                     superviseCallSid,
                     supervisingRole,
                     texml,
@@ -16282,7 +20152,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "ApplicationDefault{applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "ApplicationDefault{applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingRedaction=$recordingRedaction, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
     }
 

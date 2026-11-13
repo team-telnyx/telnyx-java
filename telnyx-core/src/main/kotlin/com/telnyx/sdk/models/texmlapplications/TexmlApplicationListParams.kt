@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
@@ -252,9 +253,51 @@ private constructor(
         QueryParams.builder()
             .apply {
                 filter?.let {
-                    it.friendlyName().ifPresent { put("filter[friendly_name]", it) }
+                    it.friendlyName().ifPresent {
+                        it.accept(
+                            object : Filter.FriendlyName.Visitor<Unit> {
+                                override fun visitString(string: String) {
+                                    put("filter[friendly_name]", string)
+                                }
+
+                                override fun visitUnionMember1(
+                                    unionMember1: Filter.FriendlyName.UnionMember1
+                                ) {
+                                    unionMember1.contains().ifPresent {
+                                        put("filter[friendly_name][contains]", it)
+                                    }
+                                    unionMember1.eq().ifPresent {
+                                        put("filter[friendly_name][eq]", it)
+                                    }
+                                    unionMember1._additionalProperties().keys().forEach { key ->
+                                        unionMember1._additionalProperties().values(key).forEach {
+                                            value ->
+                                            put("filter[friendly_name][$key]", value)
+                                        }
+                                    }
+                                }
+                            }
+                        )
+                    }
                     it.outboundVoiceProfileId().ifPresent {
-                        put("filter[outbound_voice_profile_id]", it)
+                        it.accept(
+                            object : Filter.OutboundVoiceProfileId.Visitor<Unit> {
+                                override fun visitString(string: String) {
+                                    put("filter[outbound_voice_profile_id]", string)
+                                }
+
+                                override fun visitEq(eq: Filter.OutboundVoiceProfileId.Eq) {
+                                    eq.eq().ifPresent {
+                                        put("filter[outbound_voice_profile_id][eq]", it)
+                                    }
+                                    eq._additionalProperties().keys().forEach { key ->
+                                        eq._additionalProperties().values(key).forEach { value ->
+                                            put("filter[outbound_voice_profile_id][$key]", value)
+                                        }
+                                    }
+                                }
+                            }
+                        )
                     }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
@@ -275,19 +318,23 @@ private constructor(
      */
     class Filter
     private constructor(
-        private val friendlyName: String?,
-        private val outboundVoiceProfileId: String?,
+        private val friendlyName: FriendlyName?,
+        private val outboundVoiceProfileId: OutboundVoiceProfileId?,
         private val additionalProperties: QueryParams,
     ) {
 
         /**
-         * If present, applications with <code>friendly_name</code> containing the given value will
-         * be returned. Matching is not case-sensitive. Requires at least three characters.
+         * If present, applications with <code>friendly_name</code> exactly matching the given value
+         * will be returned. Matching is case-sensitive.
          */
-        fun friendlyName(): Optional<String> = Optional.ofNullable(friendlyName)
+        fun friendlyName(): Optional<FriendlyName> = Optional.ofNullable(friendlyName)
 
-        /** Identifies the associated outbound voice profile. */
-        fun outboundVoiceProfileId(): Optional<String> = Optional.ofNullable(outboundVoiceProfileId)
+        /**
+         * If present, only applications associated with the given outbound voice profile will be
+         * returned. Matching is exact.
+         */
+        fun outboundVoiceProfileId(): Optional<OutboundVoiceProfileId> =
+            Optional.ofNullable(outboundVoiceProfileId)
 
         /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
@@ -303,8 +350,8 @@ private constructor(
         /** A builder for [Filter]. */
         class Builder internal constructor() {
 
-            private var friendlyName: String? = null
-            private var outboundVoiceProfileId: String? = null
+            private var friendlyName: FriendlyName? = null
+            private var outboundVoiceProfileId: OutboundVoiceProfileId? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -315,17 +362,31 @@ private constructor(
             }
 
             /**
-             * If present, applications with <code>friendly_name</code> containing the given value
-             * will be returned. Matching is not case-sensitive. Requires at least three characters.
+             * If present, applications with <code>friendly_name</code> exactly matching the given
+             * value will be returned. Matching is case-sensitive.
              */
-            fun friendlyName(friendlyName: String?) = apply { this.friendlyName = friendlyName }
+            fun friendlyName(friendlyName: FriendlyName?) = apply {
+                this.friendlyName = friendlyName
+            }
 
             /** Alias for calling [Builder.friendlyName] with `friendlyName.orElse(null)`. */
-            fun friendlyName(friendlyName: Optional<String>) =
+            fun friendlyName(friendlyName: Optional<FriendlyName>) =
                 friendlyName(friendlyName.getOrNull())
 
-            /** Identifies the associated outbound voice profile. */
-            fun outboundVoiceProfileId(outboundVoiceProfileId: String?) = apply {
+            /** Alias for calling [friendlyName] with `FriendlyName.ofString(string)`. */
+            fun friendlyName(string: String) = friendlyName(FriendlyName.ofString(string))
+
+            /**
+             * Alias for calling [friendlyName] with `FriendlyName.ofUnionMember1(unionMember1)`.
+             */
+            fun friendlyName(unionMember1: FriendlyName.UnionMember1) =
+                friendlyName(FriendlyName.ofUnionMember1(unionMember1))
+
+            /**
+             * If present, only applications associated with the given outbound voice profile will
+             * be returned. Matching is exact.
+             */
+            fun outboundVoiceProfileId(outboundVoiceProfileId: OutboundVoiceProfileId?) = apply {
                 this.outboundVoiceProfileId = outboundVoiceProfileId
             }
 
@@ -333,8 +394,21 @@ private constructor(
              * Alias for calling [Builder.outboundVoiceProfileId] with
              * `outboundVoiceProfileId.orElse(null)`.
              */
-            fun outboundVoiceProfileId(outboundVoiceProfileId: Optional<String>) =
+            fun outboundVoiceProfileId(outboundVoiceProfileId: Optional<OutboundVoiceProfileId>) =
                 outboundVoiceProfileId(outboundVoiceProfileId.getOrNull())
+
+            /**
+             * Alias for calling [outboundVoiceProfileId] with
+             * `OutboundVoiceProfileId.ofString(string)`.
+             */
+            fun outboundVoiceProfileId(string: String) =
+                outboundVoiceProfileId(OutboundVoiceProfileId.ofString(string))
+
+            /**
+             * Alias for calling [outboundVoiceProfileId] with `OutboundVoiceProfileId.ofEq(eq)`.
+             */
+            fun outboundVoiceProfileId(eq: OutboundVoiceProfileId.Eq) =
+                outboundVoiceProfileId(OutboundVoiceProfileId.ofEq(eq))
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -392,6 +466,428 @@ private constructor(
              */
             fun build(): Filter =
                 Filter(friendlyName, outboundVoiceProfileId, additionalProperties.build())
+        }
+
+        /**
+         * If present, applications with <code>friendly_name</code> exactly matching the given value
+         * will be returned. Matching is case-sensitive.
+         */
+        class FriendlyName
+        private constructor(
+            private val string: String? = null,
+            private val unionMember1: UnionMember1? = null,
+        ) {
+
+            /**
+             * If present, applications with <code>friendly_name</code> exactly matching the given
+             * value will be returned. Matching is case-sensitive.
+             */
+            fun string(): Optional<String> = Optional.ofNullable(string)
+
+            fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
+
+            fun isString(): Boolean = string != null
+
+            fun isUnionMember1(): Boolean = unionMember1 != null
+
+            /**
+             * If present, applications with <code>friendly_name</code> exactly matching the given
+             * value will be returned. Matching is case-sensitive.
+             */
+            fun asString(): String = string.getOrThrow("string")
+
+            fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
+
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             */
+            fun <T> accept(visitor: Visitor<T>): T =
+                when {
+                    string != null -> visitor.visitString(string)
+                    unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
+                    else -> throw IllegalStateException("Invalid FriendlyName")
+                }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is FriendlyName &&
+                    string == other.string &&
+                    unionMember1 == other.unionMember1
+            }
+
+            override fun hashCode(): Int = Objects.hash(string, unionMember1)
+
+            override fun toString(): String =
+                when {
+                    string != null -> "FriendlyName{string=$string}"
+                    unionMember1 != null -> "FriendlyName{unionMember1=$unionMember1}"
+                    else -> throw IllegalStateException("Invalid FriendlyName")
+                }
+
+            companion object {
+
+                /**
+                 * If present, applications with <code>friendly_name</code> exactly matching the
+                 * given value will be returned. Matching is case-sensitive.
+                 */
+                @JvmStatic fun ofString(string: String) = FriendlyName(string = string)
+
+                @JvmStatic
+                fun ofUnionMember1(unionMember1: UnionMember1) =
+                    FriendlyName(unionMember1 = unionMember1)
+            }
+
+            /**
+             * An interface that defines how to map each variant of [FriendlyName] to a value of
+             * type [T].
+             */
+            interface Visitor<out T> {
+
+                /**
+                 * If present, applications with <code>friendly_name</code> exactly matching the
+                 * given value will be returned. Matching is case-sensitive.
+                 */
+                fun visitString(string: String): T
+
+                fun visitUnionMember1(unionMember1: UnionMember1): T
+            }
+
+            class UnionMember1
+            private constructor(
+                private val contains: String?,
+                private val eq: String?,
+                private val additionalProperties: QueryParams,
+            ) {
+
+                /**
+                 * If present, applications with <code>friendly_name</code> containing the given
+                 * value will be returned. Matching is not case-sensitive.
+                 */
+                fun contains(): Optional<String> = Optional.ofNullable(contains)
+
+                /** Exact match for friendly_name. Matching is case-sensitive. */
+                fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+                /** Query params to send with the request. */
+                fun _additionalProperties(): QueryParams = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [UnionMember1]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [UnionMember1]. */
+                class Builder internal constructor() {
+
+                    private var contains: String? = null
+                    private var eq: String? = null
+                    private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+                    @JvmSynthetic
+                    internal fun from(unionMember1: UnionMember1) = apply {
+                        contains = unionMember1.contains
+                        eq = unionMember1.eq
+                        additionalProperties = unionMember1.additionalProperties.toBuilder()
+                    }
+
+                    /**
+                     * If present, applications with <code>friendly_name</code> containing the given
+                     * value will be returned. Matching is not case-sensitive.
+                     */
+                    fun contains(contains: String?) = apply { this.contains = contains }
+
+                    /** Alias for calling [Builder.contains] with `contains.orElse(null)`. */
+                    fun contains(contains: Optional<String>) = contains(contains.getOrNull())
+
+                    /** Exact match for friendly_name. Matching is case-sensitive. */
+                    fun eq(eq: String?) = apply { this.eq = eq }
+
+                    /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
+                    fun eq(eq: Optional<String>) = eq(eq.getOrNull())
+
+                    fun additionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                        apply {
+                            this.additionalProperties.clear()
+                            putAllAdditionalProperties(additionalProperties)
+                        }
+
+                    fun putAdditionalProperty(key: String, value: String) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.put(key, values)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    fun putAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                    fun replaceAdditionalProperties(key: String, value: String) = apply {
+                        additionalProperties.replace(key, value)
+                    }
+
+                    fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.replace(key, values)
+                    }
+
+                    fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.replaceAll(additionalProperties)
+                    }
+
+                    fun replaceAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                    fun removeAdditionalProperties(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        additionalProperties.removeAll(keys)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [UnionMember1].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): UnionMember1 =
+                        UnionMember1(contains, eq, additionalProperties.build())
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is UnionMember1 &&
+                        contains == other.contains &&
+                        eq == other.eq &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(contains, eq, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "UnionMember1{contains=$contains, eq=$eq, additionalProperties=$additionalProperties}"
+            }
+        }
+
+        /**
+         * If present, only applications associated with the given outbound voice profile will be
+         * returned. Matching is exact.
+         */
+        class OutboundVoiceProfileId
+        private constructor(private val string: String? = null, private val eq: Eq? = null) {
+
+            /**
+             * If present, only applications associated with the given outbound voice profile will
+             * be returned. Matching is exact.
+             */
+            fun string(): Optional<String> = Optional.ofNullable(string)
+
+            fun eq(): Optional<Eq> = Optional.ofNullable(eq)
+
+            fun isString(): Boolean = string != null
+
+            fun isEq(): Boolean = eq != null
+
+            /**
+             * If present, only applications associated with the given outbound voice profile will
+             * be returned. Matching is exact.
+             */
+            fun asString(): String = string.getOrThrow("string")
+
+            fun asEq(): Eq = eq.getOrThrow("eq")
+
+            /**
+             * Maps this instance's current variant to a value of type [T] using the given
+             * [visitor].
+             */
+            fun <T> accept(visitor: Visitor<T>): T =
+                when {
+                    string != null -> visitor.visitString(string)
+                    eq != null -> visitor.visitEq(eq)
+                    else -> throw IllegalStateException("Invalid OutboundVoiceProfileId")
+                }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is OutboundVoiceProfileId && string == other.string && eq == other.eq
+            }
+
+            override fun hashCode(): Int = Objects.hash(string, eq)
+
+            override fun toString(): String =
+                when {
+                    string != null -> "OutboundVoiceProfileId{string=$string}"
+                    eq != null -> "OutboundVoiceProfileId{eq=$eq}"
+                    else -> throw IllegalStateException("Invalid OutboundVoiceProfileId")
+                }
+
+            companion object {
+
+                /**
+                 * If present, only applications associated with the given outbound voice profile
+                 * will be returned. Matching is exact.
+                 */
+                @JvmStatic fun ofString(string: String) = OutboundVoiceProfileId(string = string)
+
+                @JvmStatic fun ofEq(eq: Eq) = OutboundVoiceProfileId(eq = eq)
+            }
+
+            /**
+             * An interface that defines how to map each variant of [OutboundVoiceProfileId] to a
+             * value of type [T].
+             */
+            interface Visitor<out T> {
+
+                /**
+                 * If present, only applications associated with the given outbound voice profile
+                 * will be returned. Matching is exact.
+                 */
+                fun visitString(string: String): T
+
+                fun visitEq(eq: Eq): T
+            }
+
+            class Eq
+            private constructor(
+                private val eq: String?,
+                private val additionalProperties: QueryParams,
+            ) {
+
+                /** Exact match for the associated outbound voice profile. */
+                fun eq(): Optional<String> = Optional.ofNullable(eq)
+
+                /** Query params to send with the request. */
+                fun _additionalProperties(): QueryParams = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Eq]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Eq]. */
+                class Builder internal constructor() {
+
+                    private var eq: String? = null
+                    private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+                    @JvmSynthetic
+                    internal fun from(eq: Eq) = apply {
+                        this.eq = eq.eq
+                        additionalProperties = eq.additionalProperties.toBuilder()
+                    }
+
+                    /** Exact match for the associated outbound voice profile. */
+                    fun eq(eq: String?) = apply { this.eq = eq }
+
+                    /** Alias for calling [Builder.eq] with `eq.orElse(null)`. */
+                    fun eq(eq: Optional<String>) = eq(eq.getOrNull())
+
+                    fun additionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                        apply {
+                            this.additionalProperties.clear()
+                            putAllAdditionalProperties(additionalProperties)
+                        }
+
+                    fun putAdditionalProperty(key: String, value: String) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.put(key, values)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    fun putAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                    fun replaceAdditionalProperties(key: String, value: String) = apply {
+                        additionalProperties.replace(key, value)
+                    }
+
+                    fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                        additionalProperties.replace(key, values)
+                    }
+
+                    fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                        this.additionalProperties.replaceAll(additionalProperties)
+                    }
+
+                    fun replaceAllAdditionalProperties(
+                        additionalProperties: Map<String, Iterable<String>>
+                    ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                    fun removeAdditionalProperties(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        additionalProperties.removeAll(keys)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Eq].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Eq = Eq(eq, additionalProperties.build())
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Eq &&
+                        eq == other.eq &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(eq, additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Eq{eq=$eq, additionalProperties=$additionalProperties}"
+            }
         }
 
         override fun equals(other: Any?): Boolean {

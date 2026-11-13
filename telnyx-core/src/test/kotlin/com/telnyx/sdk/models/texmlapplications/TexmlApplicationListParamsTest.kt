@@ -13,7 +13,7 @@ internal class TexmlApplicationListParamsTest {
         TexmlApplicationListParams.builder()
             .filter(
                 TexmlApplicationListParams.Filter.builder()
-                    .friendlyName("friendly_name")
+                    .friendlyName("string")
                     .outboundVoiceProfileId("1293384261075731499")
                     .build()
             )
@@ -29,7 +29,7 @@ internal class TexmlApplicationListParamsTest {
             TexmlApplicationListParams.builder()
                 .filter(
                     TexmlApplicationListParams.Filter.builder()
-                        .friendlyName("friendly_name")
+                        .friendlyName("string")
                         .outboundVoiceProfileId("1293384261075731499")
                         .build()
                 )
@@ -43,7 +43,7 @@ internal class TexmlApplicationListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("filter[friendly_name]", "friendly_name")
+                    .put("filter[friendly_name]", "string")
                     .put("filter[outbound_voice_profile_id]", "1293384261075731499")
                     .put("page[number]", "0")
                     .put("page[size]", "0")

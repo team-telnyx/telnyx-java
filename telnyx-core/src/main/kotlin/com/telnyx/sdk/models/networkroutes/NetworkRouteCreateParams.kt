@@ -22,7 +22,8 @@ import kotlin.jvm.optionals.getOrNull
 /**
  * Adds a route to a Network. Traffic on the Network to an address in `cidr` goes via `next_hop`.
  * With a tunnel as the next hop, functions on the Network reach the CIDR through the tunnel without
- * a redeploy. A Network holds each CIDR once.
+ * a redeploy. With a WireGuard peer as the next hop, the peer routes the CIDR as a subnet router. A
+ * Network holds each CIDR once.
  */
 class NetworkRouteCreateParams
 private constructor(
@@ -32,10 +33,10 @@ private constructor(
 ) : Params {
 
     /**
-     * The IPv4 subnet to route, such as a subnet behind the tunnel. It must be a canonical CIDR.
-     * Default, loopback, link-local, multicast, and shared address space (`100.64.0.0/10`) ranges
-     * are rejected. So are ranges that overlap the Tailscale Subnet Router ranges,
-     * `172.27.254.0/24` and `198.18.0.0/20`, or a subnet already on the Network.
+     * The IPv4 subnet to route, such as a subnet behind a tunnel or a WireGuard peer. It must be a
+     * canonical CIDR. Default, loopback, link-local, multicast, and shared address space
+     * (`100.64.0.0/10`) ranges are rejected. So are ranges that overlap the Tailscale Subnet Router
+     * ranges, `172.27.254.0/24` and `198.18.0.0/20`, or a subnet already on the Network.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -131,8 +132,8 @@ private constructor(
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
         /**
-         * The IPv4 subnet to route, such as a subnet behind the tunnel. It must be a canonical
-         * CIDR. Default, loopback, link-local, multicast, and shared address space
+         * The IPv4 subnet to route, such as a subnet behind a tunnel or a WireGuard peer. It must
+         * be a canonical CIDR. Default, loopback, link-local, multicast, and shared address space
          * (`100.64.0.0/10`) ranges are rejected. So are ranges that overlap the Tailscale Subnet
          * Router ranges, `172.27.254.0/24` and `198.18.0.0/20`, or a subnet already on the Network.
          */
@@ -334,8 +335,8 @@ private constructor(
         ) : this(cidr, networkId, nextHop, mutableMapOf())
 
         /**
-         * The IPv4 subnet to route, such as a subnet behind the tunnel. It must be a canonical
-         * CIDR. Default, loopback, link-local, multicast, and shared address space
+         * The IPv4 subnet to route, such as a subnet behind a tunnel or a WireGuard peer. It must
+         * be a canonical CIDR. Default, loopback, link-local, multicast, and shared address space
          * (`100.64.0.0/10`) ranges are rejected. So are ranges that overlap the Tailscale Subnet
          * Router ranges, `172.27.254.0/24` and `198.18.0.0/20`, or a subnet already on the Network.
          *
@@ -425,11 +426,11 @@ private constructor(
             }
 
             /**
-             * The IPv4 subnet to route, such as a subnet behind the tunnel. It must be a canonical
-             * CIDR. Default, loopback, link-local, multicast, and shared address space
-             * (`100.64.0.0/10`) ranges are rejected. So are ranges that overlap the Tailscale
-             * Subnet Router ranges, `172.27.254.0/24` and `198.18.0.0/20`, or a subnet already on
-             * the Network.
+             * The IPv4 subnet to route, such as a subnet behind a tunnel or a WireGuard peer. It
+             * must be a canonical CIDR. Default, loopback, link-local, multicast, and shared
+             * address space (`100.64.0.0/10`) ranges are rejected. So are ranges that overlap the
+             * Tailscale Subnet Router ranges, `172.27.254.0/24` and `198.18.0.0/20`, or a subnet
+             * already on the Network.
              */
             fun cidr(cidr: String) = cidr(JsonField.of(cidr))
 
@@ -588,7 +589,7 @@ private constructor(
         ) : this(id, type, mutableMapOf())
 
         /**
-         * The id of the tunnel.
+         * The id of the tunnel, or of a WireGuard peer on the Network's WireGuard Interface.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -657,7 +658,9 @@ private constructor(
                 additionalProperties = nextHop.additionalProperties.toMutableMap()
             }
 
-            /** The id of the tunnel. */
+            /**
+             * The id of the tunnel, or of a WireGuard peer on the Network's WireGuard Interface.
+             */
             fun id(id: String) = id(JsonField.of(id))
 
             /**
@@ -777,12 +780,15 @@ private constructor(
 
                 @JvmField val TUNNEL = of("tunnel")
 
+                @JvmField val WIREGUARD_PEER = of("wireguard_peer")
+
                 @JvmStatic fun of(value: String) = Type(JsonField.of(value))
             }
 
             /** An enum containing [Type]'s known values. */
             enum class Known {
-                TUNNEL
+                TUNNEL,
+                WIREGUARD_PEER,
             }
 
             /**
@@ -796,6 +802,7 @@ private constructor(
              */
             enum class Value {
                 TUNNEL,
+                WIREGUARD_PEER,
                 /** An enum member indicating that [Type] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
@@ -810,6 +817,7 @@ private constructor(
             fun value(): Value =
                 when (this) {
                     TUNNEL -> Value.TUNNEL
+                    WIREGUARD_PEER -> Value.WIREGUARD_PEER
                     else -> Value._UNKNOWN
                 }
 
@@ -825,6 +833,7 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     TUNNEL -> Known.TUNNEL
+                    WIREGUARD_PEER -> Known.WIREGUARD_PEER
                     else -> throw TelnyxInvalidDataException("Unknown Type: $value")
                 }
 

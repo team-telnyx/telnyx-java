@@ -38,8 +38,6 @@ import com.telnyx.sdk.services.blocking.ai.ConversationService
 import com.telnyx.sdk.services.blocking.ai.ConversationServiceImpl
 import com.telnyx.sdk.services.blocking.ai.EmbeddingService
 import com.telnyx.sdk.services.blocking.ai.EmbeddingServiceImpl
-import com.telnyx.sdk.services.blocking.ai.FineTuningService
-import com.telnyx.sdk.services.blocking.ai.FineTuningServiceImpl
 import com.telnyx.sdk.services.blocking.ai.IntegrationService
 import com.telnyx.sdk.services.blocking.ai.IntegrationServiceImpl
 import com.telnyx.sdk.services.blocking.ai.KnowledgeService
@@ -81,8 +79,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     }
 
     private val embeddings: EmbeddingService by lazy { EmbeddingServiceImpl(clientOptions) }
-
-    private val fineTuning: FineTuningService by lazy { FineTuningServiceImpl(clientOptions) }
 
     private val integrations: IntegrationService by lazy { IntegrationServiceImpl(clientOptions) }
 
@@ -132,8 +128,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
     /** Embed documents and perform text searches */
     override fun embeddings(): EmbeddingService = embeddings
-
-    override fun fineTuning(): FineTuningService = fineTuning
 
     override fun integrations(): IntegrationService = integrations
 
@@ -205,10 +199,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
         private val embeddings: EmbeddingService.WithRawResponse by lazy {
             EmbeddingServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val fineTuning: FineTuningService.WithRawResponse by lazy {
-            FineTuningServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val integrations: IntegrationService.WithRawResponse by lazy {
@@ -283,8 +273,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
         /** Embed documents and perform text searches */
         override fun embeddings(): EmbeddingService.WithRawResponse = embeddings
-
-        override fun fineTuning(): FineTuningService.WithRawResponse = fineTuning
 
         override fun integrations(): IntegrationService.WithRawResponse = integrations
 

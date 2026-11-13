@@ -42,7 +42,7 @@ private constructor(
      * other fallbacks: `deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
      * `assemblyai/universal-3-6-pro` (or its legacy aliases `assemblyai/universal-3-5-pro` and
      * `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`,
-     * `humain/realtime`, or `reson8/turns`.
+     * `soniox/stt-rt-v6`, `humain/realtime`, or `reson8/turns`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -139,7 +139,7 @@ private constructor(
          * other fallbacks: `deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
          * `assemblyai/universal-3-6-pro` (or its legacy aliases `assemblyai/universal-3-5-pro` and
          * `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`,
-         * `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
+         * `soniox/stt-rt-v5`, `soniox/stt-rt-v6`, `humain/realtime`, or `reson8/turns`.
          */
         fun model(model: Model) = model(JsonField.of(model))
 
@@ -278,7 +278,7 @@ private constructor(
      * other fallbacks: `deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
      * `assemblyai/universal-3-6-pro` (or its legacy aliases `assemblyai/universal-3-5-pro` and
      * `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`,
-     * `humain/realtime`, or `reson8/turns`.
+     * `soniox/stt-rt-v6`, `humain/realtime`, or `reson8/turns`.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -312,6 +312,8 @@ private constructor(
 
             @JvmField val SONIOX_STT_RT_V5 = of("soniox/stt-rt-v5")
 
+            @JvmField val SONIOX_STT_RT_V6 = of("soniox/stt-rt-v6")
+
             @JvmField val HUMAIN_REALTIME = of("humain/realtime")
 
             @JvmField val RESON8_TURNS = of("reson8/turns")
@@ -330,6 +332,7 @@ private constructor(
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
             SONIOX_STT_RT_V5,
+            SONIOX_STT_RT_V6,
             HUMAIN_REALTIME,
             RESON8_TURNS,
         }
@@ -353,6 +356,7 @@ private constructor(
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
             SONIOX_STT_RT_V5,
+            SONIOX_STT_RT_V6,
             HUMAIN_REALTIME,
             RESON8_TURNS,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
@@ -377,6 +381,7 @@ private constructor(
                 XAI_GROK_STT -> Value.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 SONIOX_STT_RT_V5 -> Value.SONIOX_STT_RT_V5
+                SONIOX_STT_RT_V6 -> Value.SONIOX_STT_RT_V6
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
                 RESON8_TURNS -> Value.RESON8_TURNS
                 else -> Value._UNKNOWN
@@ -402,6 +407,7 @@ private constructor(
                 XAI_GROK_STT -> Known.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 SONIOX_STT_RT_V5 -> Known.SONIOX_STT_RT_V5
+                SONIOX_STT_RT_V6 -> Known.SONIOX_STT_RT_V6
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME
                 RESON8_TURNS -> Known.RESON8_TURNS
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")

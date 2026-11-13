@@ -42,8 +42,8 @@ private constructor(
      * selected transcription `model`. For `deepgram/flux`, supported values are: `auto` (Telnyx
      * language detection controls the language hint), `multi` (no language hint), and
      * language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For
-     * `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect; ISO 639-1
-     * codes (e.g. `en`, `es`) bias detection toward that language. For
+     * `soniox/stt-rt-v4` and `soniox/stt-rt-v6`, `auto` omits the language hint and lets Soniox
+     * auto-detect; ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language. For
      * `assemblyai/universal-3-6-pro` (and its legacy aliases `assemblyai/universal-3-5-pro` and
      * `assemblyai/universal-streaming`), `auto` (or unset) enables native multilingual
      * code-switching; language codes (`en`, `es`, `de`, `fr`, `pt`, `it`, `tr`, `nl`, `sv`, `no`,
@@ -79,8 +79,8 @@ private constructor(
      *   `assemblyai/universal-streaming` are still accepted and run the same Universal-3.6 Pro
      *   model.
      * - `xai/grok-stt` for live streaming transcription.
-     * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic language
-     *   detection.
+     * - `soniox/stt-rt-v4` and `soniox/stt-rt-v6` for live streaming multilingual transcription
+     *   with automatic language detection.
      * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
      * - `omi-health/omi-med-stt-v1` for English-only medical transcription (Parakeet-based).
      * - `humain/realtime` for live streaming transcription with native Arabic and Arabic/English
@@ -153,19 +153,19 @@ private constructor(
          * the selected transcription `model`. For `deepgram/flux`, supported values are: `auto`
          * (Telnyx language detection controls the language hint), `multi` (no language hint), and
          * language-specific hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
-         * For `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect; ISO
-         * 639-1 codes (e.g. `en`, `es`) bias detection toward that language. For
-         * `assemblyai/universal-3-6-pro` (and its legacy aliases `assemblyai/universal-3-5-pro` and
-         * `assemblyai/universal-streaming`), `auto` (or unset) enables native multilingual
-         * code-switching; language codes (`en`, `es`, `de`, `fr`, `pt`, `it`, `tr`, `nl`, `sv`,
-         * `no`, `da`, `fi`, `hi`, `vi`, `ar`, `he`, `ja`, `zh`, `ur`, `ru`, `ko`, `ca`, `gl`, `ro`,
-         * `et`, `fa`, `yue`, `af`, `mr`, `zu`, `xh`, `nn`) bias the session to that language. For
-         * `humain/realtime`, supported values are `ar`, `en`, `codeswitch` (Arabic/English
-         * code-switching), and `auto` (resolves server-side to code-switching). Unlike other
-         * models, `humain/realtime` does not fall back to `auto` when `language` is omitted —
-         * omitting it applies `en` instead. For `reson8/turns`, supported values are `auto` (or
-         * unset) for automatic language detection, and the language codes `nl`, `en`, `fr`, `fy`,
-         * `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language. For
+         * For `soniox/stt-rt-v4` and `soniox/stt-rt-v6`, `auto` omits the language hint and lets
+         * Soniox auto-detect; ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that
+         * language. For `assemblyai/universal-3-6-pro` (and its legacy aliases
+         * `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming`), `auto` (or unset)
+         * enables native multilingual code-switching; language codes (`en`, `es`, `de`, `fr`, `pt`,
+         * `it`, `tr`, `nl`, `sv`, `no`, `da`, `fi`, `hi`, `vi`, `ar`, `he`, `ja`, `zh`, `ur`, `ru`,
+         * `ko`, `ca`, `gl`, `ro`, `et`, `fa`, `yue`, `af`, `mr`, `zu`, `xh`, `nn`) bias the session
+         * to that language. For `humain/realtime`, supported values are `ar`, `en`, `codeswitch`
+         * (Arabic/English code-switching), and `auto` (resolves server-side to code-switching).
+         * Unlike other models, `humain/realtime` does not fall back to `auto` when `language` is
+         * omitted — omitting it applies `en` instead. For `reson8/turns`, supported values are
+         * `auto` (or unset) for automatic language detection, and the language codes `nl`, `en`,
+         * `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language. For
          * `cohere/ar-stt`, supported values are `ar` and `en`; unlike other models, this model does
          * not auto-detect and defaults to `ar` when `language` is omitted. For
          * `speechmatics/linden-1`, there is no auto-detect; set a code from Speechmatics' Realtime
@@ -196,8 +196,8 @@ private constructor(
          *   `assemblyai/universal-streaming` are still accepted and run the same Universal-3.6 Pro
          *   model.
          * - `xai/grok-stt` for live streaming transcription.
-         * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic
-         *   language detection.
+         * - `soniox/stt-rt-v4` and `soniox/stt-rt-v6` for live streaming multilingual transcription
+         *   with automatic language detection.
          * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
          * - `omi-health/omi-med-stt-v1` for English-only medical transcription (Parakeet-based).
          * - `humain/realtime` for live streaming transcription with native Arabic and
@@ -302,8 +302,8 @@ private constructor(
      *   `assemblyai/universal-streaming` are still accepted and run the same Universal-3.6 Pro
      *   model.
      * - `xai/grok-stt` for live streaming transcription.
-     * - `soniox/stt-rt-v4` for live streaming multilingual transcription with automatic language
-     *   detection.
+     * - `soniox/stt-rt-v4` and `soniox/stt-rt-v6` for live streaming multilingual transcription
+     *   with automatic language detection.
      * - `nvidia/parakeet-v3` for multilingual transcription with automatic language detection.
      * - `omi-health/omi-med-stt-v1` for English-only medical transcription (Parakeet-based).
      * - `humain/realtime` for live streaming transcription with native Arabic and Arabic/English
@@ -357,6 +357,8 @@ private constructor(
 
             @JvmField val SONIOX_STT_RT_V4 = of("soniox/stt-rt-v4")
 
+            @JvmField val SONIOX_STT_RT_V6 = of("soniox/stt-rt-v6")
+
             @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
             @JvmField val OMI_HEALTH_OMI_MED_STT_V1 = of("omi-health/omi-med-stt-v1")
@@ -394,6 +396,7 @@ private constructor(
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
+            SONIOX_STT_RT_V6,
             NVIDIA_PARAKEET_V3,
             OMI_HEALTH_OMI_MED_STT_V1,
             HUMAIN_REALTIME,
@@ -428,6 +431,7 @@ private constructor(
             ASSEMBLYAI_UNIVERSAL_STREAMING,
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
+            SONIOX_STT_RT_V6,
             NVIDIA_PARAKEET_V3,
             OMI_HEALTH_OMI_MED_STT_V1,
             HUMAIN_REALTIME,
@@ -463,6 +467,7 @@ private constructor(
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Value.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Value.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
+                SONIOX_STT_RT_V6 -> Value.SONIOX_STT_RT_V6
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 OMI_HEALTH_OMI_MED_STT_V1 -> Value.OMI_HEALTH_OMI_MED_STT_V1
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
@@ -499,6 +504,7 @@ private constructor(
                 ASSEMBLYAI_UNIVERSAL_STREAMING -> Known.ASSEMBLYAI_UNIVERSAL_STREAMING
                 XAI_GROK_STT -> Known.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
+                SONIOX_STT_RT_V6 -> Known.SONIOX_STT_RT_V6
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 OMI_HEALTH_OMI_MED_STT_V1 -> Known.OMI_HEALTH_OMI_MED_STT_V1
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME

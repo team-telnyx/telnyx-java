@@ -57,21 +57,21 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePhoneNumb
         params: MobilePhoneNumberRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MobilePhoneNumberRetrieveResponse> =
-        // get /v2/mobile_phone_numbers/{id}
+        // get /mobile_phone_numbers/{id}
         withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: MobilePhoneNumberUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MobilePhoneNumberUpdateResponse> =
-        // patch /v2/mobile_phone_numbers/{id}
+        // patch /mobile_phone_numbers/{id}
         withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: MobilePhoneNumberListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MobilePhoneNumberListPageAsync> =
-        // get /v2/mobile_phone_numbers
+        // get /mobile_phone_numbers
         withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -107,7 +107,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePhoneNumb
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "mobile_phone_numbers", params._pathParam(0))
+                    .addPathSegments("mobile_phone_numbers", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -142,7 +142,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePhoneNumb
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "mobile_phone_numbers", params._pathParam(0))
+                    .addPathSegments("mobile_phone_numbers", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -175,7 +175,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePhoneNumb
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "mobile_phone_numbers")
+                    .addPathSegments("mobile_phone_numbers")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

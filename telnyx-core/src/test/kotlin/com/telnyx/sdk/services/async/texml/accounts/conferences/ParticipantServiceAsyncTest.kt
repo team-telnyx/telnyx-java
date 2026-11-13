@@ -105,6 +105,7 @@ internal class ParticipantServiceAsyncTest {
                     .conferenceRecord(
                         ParticipantParticipantsParams.ConferenceRecord.RECORD_FROM_START
                     )
+                    .conferenceRecordingRedaction("pci,pii")
                     .conferenceRecordingStatusCallback(
                         "https://example.com/conference_recording_status_callback"
                     )
