@@ -809,6 +809,8 @@ private constructor(
 
             @JvmField val SONIOX_STT_RT_V4 = of("soniox/stt-rt-v4")
 
+            @JvmField val SONIOX_STT_RT_V6 = of("soniox/stt-rt-v6")
+
             @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
             @JvmField val OMI_HEALTH_OMI_MED_STT_V1 = of("omi-health/omi-med-stt-v1")
@@ -841,6 +843,7 @@ private constructor(
             SPEECHMATICS_STANDARD,
             SPEECHMATICS_LINDEN_1,
             SONIOX_STT_RT_V4,
+            SONIOX_STT_RT_V6,
             NVIDIA_PARAKEET_V3,
             OMI_HEALTH_OMI_MED_STT_V1,
             HUMAIN_REALTIME,
@@ -875,6 +878,7 @@ private constructor(
             SPEECHMATICS_STANDARD,
             SPEECHMATICS_LINDEN_1,
             SONIOX_STT_RT_V4,
+            SONIOX_STT_RT_V6,
             NVIDIA_PARAKEET_V3,
             OMI_HEALTH_OMI_MED_STT_V1,
             HUMAIN_REALTIME,
@@ -910,6 +914,7 @@ private constructor(
                 SPEECHMATICS_STANDARD -> Value.SPEECHMATICS_STANDARD
                 SPEECHMATICS_LINDEN_1 -> Value.SPEECHMATICS_LINDEN_1
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
+                SONIOX_STT_RT_V6 -> Value.SONIOX_STT_RT_V6
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 OMI_HEALTH_OMI_MED_STT_V1 -> Value.OMI_HEALTH_OMI_MED_STT_V1
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
@@ -946,6 +951,7 @@ private constructor(
                 SPEECHMATICS_STANDARD -> Known.SPEECHMATICS_STANDARD
                 SPEECHMATICS_LINDEN_1 -> Known.SPEECHMATICS_LINDEN_1
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
+                SONIOX_STT_RT_V6 -> Known.SONIOX_STT_RT_V6
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 OMI_HEALTH_OMI_MED_STT_V1 -> Known.OMI_HEALTH_OMI_MED_STT_V1
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME

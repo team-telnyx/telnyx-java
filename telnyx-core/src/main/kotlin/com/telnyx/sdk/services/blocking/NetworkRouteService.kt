@@ -34,7 +34,8 @@ interface NetworkRouteService {
     /**
      * Adds a route to a Network. Traffic on the Network to an address in `cidr` goes via
      * `next_hop`. With a tunnel as the next hop, functions on the Network reach the CIDR through
-     * the tunnel without a redeploy. A Network holds each CIDR once.
+     * the tunnel without a redeploy. With a WireGuard peer as the next hop, the peer routes the
+     * CIDR as a subnet router. A Network holds each CIDR once.
      */
     fun create(params: NetworkRouteCreateParams): NetworkRouteCreateResponse =
         create(params, RequestOptions.none())

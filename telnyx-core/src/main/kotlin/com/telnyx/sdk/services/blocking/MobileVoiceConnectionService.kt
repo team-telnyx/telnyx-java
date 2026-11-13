@@ -189,7 +189,7 @@ interface MobileVoiceConnectionService {
         ): MobileVoiceConnectionService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /v2/mobile_voice_connections`, but is otherwise the
+         * Returns a raw HTTP response for `post /mobile_voice_connections`, but is otherwise the
          * same as [MobileVoiceConnectionService.create].
          */
         @MustBeClosed
@@ -218,7 +218,7 @@ interface MobileVoiceConnectionService {
             create(MobileVoiceConnectionCreateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /v2/mobile_voice_connections/{id}`, but is otherwise
+         * Returns a raw HTTP response for `get /mobile_voice_connections/{id}`, but is otherwise
          * the same as [MobileVoiceConnectionService.retrieve].
          */
         @MustBeClosed
@@ -266,8 +266,8 @@ interface MobileVoiceConnectionService {
             retrieve(id, MobileVoiceConnectionRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /v2/mobile_voice_connections/{id}`, but is
-         * otherwise the same as [MobileVoiceConnectionService.update].
+         * Returns a raw HTTP response for `patch /mobile_voice_connections/{id}`, but is otherwise
+         * the same as [MobileVoiceConnectionService.update].
          */
         @MustBeClosed
         fun update(id: String): HttpResponseFor<MobileVoiceConnectionUpdateResponse> =
@@ -313,7 +313,7 @@ interface MobileVoiceConnectionService {
             update(id, MobileVoiceConnectionUpdateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /v2/mobile_voice_connections`, but is otherwise the
+         * Returns a raw HTTP response for `get /mobile_voice_connections`, but is otherwise the
          * same as [MobileVoiceConnectionService.list].
          */
         @MustBeClosed
@@ -339,8 +339,8 @@ interface MobileVoiceConnectionService {
             list(MobileVoiceConnectionListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /v2/mobile_voice_connections/{id}`, but is
-         * otherwise the same as [MobileVoiceConnectionService.delete].
+         * Returns a raw HTTP response for `delete /mobile_voice_connections/{id}`, but is otherwise
+         * the same as [MobileVoiceConnectionService.delete].
          */
         @MustBeClosed
         fun delete(id: String): HttpResponseFor<MobileVoiceConnectionDeleteResponse> =

@@ -55,7 +55,7 @@ interface PaymentService {
         fun autoRechargePrefs(): AutoRechargePrefService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /v2/payment/stored_payment_transactions`, but is
+         * Returns a raw HTTP response for `post /payment/stored_payment_transactions`, but is
          * otherwise the same as [PaymentService.createStoredPaymentTransaction].
          */
         @MustBeClosed

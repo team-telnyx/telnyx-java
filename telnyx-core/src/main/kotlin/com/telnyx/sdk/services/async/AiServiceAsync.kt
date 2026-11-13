@@ -18,7 +18,6 @@ import com.telnyx.sdk.services.async.ai.ClusterServiceAsync
 import com.telnyx.sdk.services.async.ai.CollectionServiceAsync
 import com.telnyx.sdk.services.async.ai.ConversationServiceAsync
 import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsync
-import com.telnyx.sdk.services.async.ai.FineTuningServiceAsync
 import com.telnyx.sdk.services.async.ai.IntegrationServiceAsync
 import com.telnyx.sdk.services.async.ai.KnowledgeServiceAsync
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsync
@@ -66,8 +65,6 @@ interface AiServiceAsync {
 
     /** Embed documents and perform text searches */
     fun embeddings(): EmbeddingServiceAsync
-
-    fun fineTuning(): FineTuningServiceAsync
 
     fun integrations(): IntegrationServiceAsync
 
@@ -200,8 +197,6 @@ interface AiServiceAsync {
 
         /** Embed documents and perform text searches */
         fun embeddings(): EmbeddingServiceAsync.WithRawResponse
-
-        fun fineTuning(): FineTuningServiceAsync.WithRawResponse
 
         fun integrations(): IntegrationServiceAsync.WithRawResponse
 

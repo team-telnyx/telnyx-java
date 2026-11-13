@@ -21,22 +21,6 @@ internal class TextToSpeechServiceAsyncTest {
         val responseFuture =
             textToSpeechServiceAsync.generateSpeech(
                 TextToSpeechGenerateSpeechParams.builder()
-                    .assemblyai(
-                        TextToSpeechGenerateSpeechParams.Assemblyai.builder()
-                            .voiceId("aai-jane")
-                            .audioFormat(
-                                TextToSpeechGenerateSpeechParams.Assemblyai.AudioFormat.MP3
-                            )
-                            .language(TextToSpeechGenerateSpeechParams.Assemblyai.Language.EN)
-                            .modelId(
-                                TextToSpeechGenerateSpeechParams.Assemblyai.ModelId.ASSEMBLYAI_TTS_1
-                            )
-                            .sampleRate(
-                                TextToSpeechGenerateSpeechParams.Assemblyai.SampleRate
-                                    .SAMPLE_RATE_8000
-                            )
-                            .build()
-                    )
                     .aws(
                         TextToSpeechGenerateSpeechParams.Aws.builder()
                             .languageCode("string")

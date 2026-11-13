@@ -8,9 +8,9 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 
 /**
- * The type of Telnyx data attached as a source. `bucket` requires an additional `bucket_id`. Only
- * `voice` is searchable today; `meeting_bot`, `message`, and `bucket` attach but are not yet
- * searchable (Coming soon).
+ * The type of Telnyx data attached as a source. `bucket` requires an additional `bucket_id`.
+ * `voice`, `meeting_bot`, `message`, `email`, and `whatsapp` are searchable today; `bucket`
+ * attaches but is not yet searchable (Coming soon).
  */
 class SourceType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -33,6 +33,10 @@ class SourceType @JsonCreator private constructor(private val value: JsonField<S
 
         @JvmField val BUCKET = of("bucket")
 
+        @JvmField val EMAIL = of("email")
+
+        @JvmField val WHATSAPP = of("whatsapp")
+
         @JvmStatic fun of(value: String) = SourceType(JsonField.of(value))
     }
 
@@ -42,6 +46,8 @@ class SourceType @JsonCreator private constructor(private val value: JsonField<S
         MEETING_BOT,
         MESSAGE,
         BUCKET,
+        EMAIL,
+        WHATSAPP,
     }
 
     /**
@@ -58,6 +64,8 @@ class SourceType @JsonCreator private constructor(private val value: JsonField<S
         MEETING_BOT,
         MESSAGE,
         BUCKET,
+        EMAIL,
+        WHATSAPP,
         /** An enum member indicating that [SourceType] was instantiated with an unknown value. */
         _UNKNOWN,
     }
@@ -75,6 +83,8 @@ class SourceType @JsonCreator private constructor(private val value: JsonField<S
             MEETING_BOT -> Value.MEETING_BOT
             MESSAGE -> Value.MESSAGE
             BUCKET -> Value.BUCKET
+            EMAIL -> Value.EMAIL
+            WHATSAPP -> Value.WHATSAPP
             else -> Value._UNKNOWN
         }
 
@@ -92,6 +102,8 @@ class SourceType @JsonCreator private constructor(private val value: JsonField<S
             MEETING_BOT -> Known.MEETING_BOT
             MESSAGE -> Known.MESSAGE
             BUCKET -> Known.BUCKET
+            EMAIL -> Known.EMAIL
+            WHATSAPP -> Known.WHATSAPP
             else -> throw TelnyxInvalidDataException("Unknown SourceType: $value")
         }
 

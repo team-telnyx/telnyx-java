@@ -144,7 +144,7 @@ interface MobilePhoneNumberServiceAsync {
         fun messaging(): MessagingServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /v2/mobile_phone_numbers/{id}`, but is otherwise the
+         * Returns a raw HTTP response for `get /mobile_phone_numbers/{id}`, but is otherwise the
          * same as [MobilePhoneNumberServiceAsync.retrieve].
          */
         fun retrieve(
@@ -187,8 +187,8 @@ interface MobilePhoneNumberServiceAsync {
             retrieve(id, MobilePhoneNumberRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /v2/mobile_phone_numbers/{id}`, but is otherwise
-         * the same as [MobilePhoneNumberServiceAsync.update].
+         * Returns a raw HTTP response for `patch /mobile_phone_numbers/{id}`, but is otherwise the
+         * same as [MobilePhoneNumberServiceAsync.update].
          */
         fun update(
             id: String
@@ -230,8 +230,8 @@ interface MobilePhoneNumberServiceAsync {
             update(id, MobilePhoneNumberUpdateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /v2/mobile_phone_numbers`, but is otherwise the same
-         * as [MobilePhoneNumberServiceAsync.list].
+         * Returns a raw HTTP response for `get /mobile_phone_numbers`, but is otherwise the same as
+         * [MobilePhoneNumberServiceAsync.list].
          */
         fun list(): CompletableFuture<HttpResponseFor<MobilePhoneNumberListPageAsync>> =
             list(MobilePhoneNumberListParams.none())

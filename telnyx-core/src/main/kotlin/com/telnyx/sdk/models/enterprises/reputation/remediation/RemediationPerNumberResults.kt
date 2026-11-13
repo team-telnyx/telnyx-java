@@ -53,30 +53,46 @@ private constructor(
     ) : this(ineligible, notFlagged, refused, remediated, requiresReview, mutableMapOf())
 
     /**
+     * Numbers the reputation partner did not re-review because it had already reviewed them within
+     * the previous 60 days (already reviewed). The cooldown is measured from the partner's most
+     * recent review, not the API submission date. This array identifies the numbers but does not
+     * include their last-review or re-eligibility dates.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun ineligible(): Optional<List<String>> = ineligible.getOptional("ineligible")
 
     /**
+     * The reputation partner reported no prior spam label for the number (no prior spam label).
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun notFlagged(): Optional<List<String>> = notFlagged.getOptional("not_flagged")
 
     /**
+     * The reputation partner reviewed the number and declined the redress request (redress
+     * declined); the number remains flagged.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun refused(): Optional<List<String>> = refused.getOptional("refused")
 
     /**
+     * The reputation partner approved redress (redress approved) or reported that the number had
+     * already been redressed recently (already recently redressed). This does not guarantee removal
+     * from every spam list.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun remediated(): Optional<List<String>> = remediated.getOptional("remediated")
 
     /**
+     * The number needs further review, or the partner response did not match a recognized outcome.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -165,6 +181,12 @@ private constructor(
             additionalProperties = remediationPerNumberResults.additionalProperties.toMutableMap()
         }
 
+        /**
+         * Numbers the reputation partner did not re-review because it had already reviewed them
+         * within the previous 60 days (already reviewed). The cooldown is measured from the
+         * partner's most recent review, not the API submission date. This array identifies the
+         * numbers but does not include their last-review or re-eligibility dates.
+         */
         fun ineligible(ineligible: List<String>) = ineligible(JsonField.of(ineligible))
 
         /**
@@ -190,6 +212,9 @@ private constructor(
                 }
         }
 
+        /**
+         * The reputation partner reported no prior spam label for the number (no prior spam label).
+         */
         fun notFlagged(notFlagged: List<String>) = notFlagged(JsonField.of(notFlagged))
 
         /**
@@ -215,6 +240,10 @@ private constructor(
                 }
         }
 
+        /**
+         * The reputation partner reviewed the number and declined the redress request (redress
+         * declined); the number remains flagged.
+         */
         fun refused(refused: List<String>) = refused(JsonField.of(refused))
 
         /**
@@ -240,6 +269,11 @@ private constructor(
                 }
         }
 
+        /**
+         * The reputation partner approved redress (redress approved) or reported that the number
+         * had already been redressed recently (already recently redressed). This does not guarantee
+         * removal from every spam list.
+         */
         fun remediated(remediated: List<String>) = remediated(JsonField.of(remediated))
 
         /**
@@ -265,6 +299,10 @@ private constructor(
                 }
         }
 
+        /**
+         * The number needs further review, or the partner response did not match a recognized
+         * outcome.
+         */
         fun requiresReview(requiresReview: List<String>) =
             requiresReview(JsonField.of(requiresReview))
 

@@ -47,10 +47,10 @@ private constructor(
      * both streaming (`deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
      * `assemblyai/universal-3-6-pro` or its legacy aliases `assemblyai/universal-3-5-pro` and
      * `assemblyai/universal-streaming`, `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`,
-     * `humain/realtime`, `reson8/turns`) or both non-streaming (`azure/fast`, `nvidia/parakeet-v3`,
-     * `omi-health/omi-med-stt-v1`, `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
-     * `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can be the same model as
-     * `transcription.model` on a different `language`.
+     * `soniox/stt-rt-v6`, `humain/realtime`, `reson8/turns`) or both non-streaming (`azure/fast`,
+     * `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`, `cohere/ar-stt`,
+     * `distil-whisper/distil-large-v2`, `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can
+     * be the same model as `transcription.model` on a different `language`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -179,8 +179,8 @@ private constructor(
          * both streaming (`deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
          * `assemblyai/universal-3-6-pro` or its legacy aliases `assemblyai/universal-3-5-pro` and
          * `assemblyai/universal-streaming`, `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`,
-         * `humain/realtime`, `reson8/turns`) or both non-streaming (`azure/fast`,
-         * `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`, `cohere/ar-stt`,
+         * `soniox/stt-rt-v6`, `humain/realtime`, `reson8/turns`) or both non-streaming
+         * (`azure/fast`, `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`, `cohere/ar-stt`,
          * `distil-whisper/distil-large-v2`, `openai/whisper-large-v3-turbo`, `telnyx/basira`). It
          * can be the same model as `transcription.model` on a different `language`.
          */
@@ -353,10 +353,10 @@ private constructor(
      * both streaming (`deepgram/flux`, `deepgram/nova-3`, `deepgram/nova-2`,
      * `assemblyai/universal-3-6-pro` or its legacy aliases `assemblyai/universal-3-5-pro` and
      * `assemblyai/universal-streaming`, `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`,
-     * `humain/realtime`, `reson8/turns`) or both non-streaming (`azure/fast`, `nvidia/parakeet-v3`,
-     * `omi-health/omi-med-stt-v1`, `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
-     * `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can be the same model as
-     * `transcription.model` on a different `language`.
+     * `soniox/stt-rt-v6`, `humain/realtime`, `reson8/turns`) or both non-streaming (`azure/fast`,
+     * `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`, `cohere/ar-stt`,
+     * `distil-whisper/distil-large-v2`, `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can
+     * be the same model as `transcription.model` on a different `language`.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -392,6 +392,8 @@ private constructor(
 
             @JvmField val SONIOX_STT_RT_V5 = of("soniox/stt-rt-v5")
 
+            @JvmField val SONIOX_STT_RT_V6 = of("soniox/stt-rt-v6")
+
             @JvmField val NVIDIA_PARAKEET_V3 = of("nvidia/parakeet-v3")
 
             @JvmField val OMI_HEALTH_OMI_MED_STT_V1 = of("omi-health/omi-med-stt-v1")
@@ -423,6 +425,7 @@ private constructor(
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
             SONIOX_STT_RT_V5,
+            SONIOX_STT_RT_V6,
             NVIDIA_PARAKEET_V3,
             OMI_HEALTH_OMI_MED_STT_V1,
             HUMAIN_REALTIME,
@@ -453,6 +456,7 @@ private constructor(
             XAI_GROK_STT,
             SONIOX_STT_RT_V4,
             SONIOX_STT_RT_V5,
+            SONIOX_STT_RT_V6,
             NVIDIA_PARAKEET_V3,
             OMI_HEALTH_OMI_MED_STT_V1,
             HUMAIN_REALTIME,
@@ -484,6 +488,7 @@ private constructor(
                 XAI_GROK_STT -> Value.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
                 SONIOX_STT_RT_V5 -> Value.SONIOX_STT_RT_V5
+                SONIOX_STT_RT_V6 -> Value.SONIOX_STT_RT_V6
                 NVIDIA_PARAKEET_V3 -> Value.NVIDIA_PARAKEET_V3
                 OMI_HEALTH_OMI_MED_STT_V1 -> Value.OMI_HEALTH_OMI_MED_STT_V1
                 HUMAIN_REALTIME -> Value.HUMAIN_REALTIME
@@ -516,6 +521,7 @@ private constructor(
                 XAI_GROK_STT -> Known.XAI_GROK_STT
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
                 SONIOX_STT_RT_V5 -> Known.SONIOX_STT_RT_V5
+                SONIOX_STT_RT_V6 -> Known.SONIOX_STT_RT_V6
                 NVIDIA_PARAKEET_V3 -> Known.NVIDIA_PARAKEET_V3
                 OMI_HEALTH_OMI_MED_STT_V1 -> Known.OMI_HEALTH_OMI_MED_STT_V1
                 HUMAIN_REALTIME -> Known.HUMAIN_REALTIME

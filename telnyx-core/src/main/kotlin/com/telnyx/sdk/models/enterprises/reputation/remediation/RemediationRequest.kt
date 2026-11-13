@@ -122,7 +122,8 @@ private constructor(
     fun phoneNumbersCount(): Long = phoneNumbersCount.getRequired("phone_numbers_count")
 
     /**
-     * Numbers rejected before submission (e.g. cooldown).
+     * Number of phone numbers the reputation partner did not re-review because it had reviewed them
+     * within the previous 60 days.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -422,7 +423,10 @@ private constructor(
             this.phoneNumbersCount = phoneNumbersCount
         }
 
-        /** Numbers rejected before submission (e.g. cooldown). */
+        /**
+         * Number of phone numbers the reputation partner did not re-review because it had reviewed
+         * them within the previous 60 days.
+         */
         fun phoneNumbersIneligible(phoneNumbersIneligible: Long) =
             phoneNumbersIneligible(JsonField.of(phoneNumbersIneligible))
 

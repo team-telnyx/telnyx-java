@@ -71,6 +71,20 @@ internal class CallCallsParamsTest {
                     .statusCallback("https://www.example.com/statuscallback-listener")
                     .statusCallbackEvent("initiated answered")
                     .statusCallbackMethod(CallCallsParams.Body.WithUrl.StatusCallbackMethod.GET)
+                    .streamAuthToken("your-auth-token")
+                    .streamBidirectionalCodec(
+                        CallCallsParams.Body.WithUrl.StreamBidirectionalCodec.G722
+                    )
+                    .streamBidirectionalMode(
+                        CallCallsParams.Body.WithUrl.StreamBidirectionalMode.RTP
+                    )
+                    .streamBidirectionalSamplingRate(
+                        CallCallsParams.Body.WithUrl.StreamBidirectionalSamplingRate._16000
+                    )
+                    .streamCodec(CallCallsParams.Body.WithUrl.StreamCodec.PCMA)
+                    .streamEstablishBeforeCallOriginate(true)
+                    .streamTrack(CallCallsParams.Body.WithUrl.StreamTrack.BOTH_TRACKS)
+                    .streamUrl("wss://www.example.com/websocket")
                     .superviseCallSid("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                     .supervisingRole(CallCallsParams.Body.WithUrl.SupervisingRole.MONITOR)
                     .texml("Texml")
@@ -166,6 +180,20 @@ internal class CallCallsParamsTest {
                         .statusCallback("https://www.example.com/statuscallback-listener")
                         .statusCallbackEvent("initiated answered")
                         .statusCallbackMethod(CallCallsParams.Body.WithUrl.StatusCallbackMethod.GET)
+                        .streamAuthToken("your-auth-token")
+                        .streamBidirectionalCodec(
+                            CallCallsParams.Body.WithUrl.StreamBidirectionalCodec.G722
+                        )
+                        .streamBidirectionalMode(
+                            CallCallsParams.Body.WithUrl.StreamBidirectionalMode.RTP
+                        )
+                        .streamBidirectionalSamplingRate(
+                            CallCallsParams.Body.WithUrl.StreamBidirectionalSamplingRate._16000
+                        )
+                        .streamCodec(CallCallsParams.Body.WithUrl.StreamCodec.PCMA)
+                        .streamEstablishBeforeCallOriginate(true)
+                        .streamTrack(CallCallsParams.Body.WithUrl.StreamTrack.BOTH_TRACKS)
+                        .streamUrl("wss://www.example.com/websocket")
                         .superviseCallSid(
                             "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                         )
@@ -244,6 +272,20 @@ internal class CallCallsParamsTest {
                         .statusCallback("https://www.example.com/statuscallback-listener")
                         .statusCallbackEvent("initiated answered")
                         .statusCallbackMethod(CallCallsParams.Body.WithUrl.StatusCallbackMethod.GET)
+                        .streamAuthToken("your-auth-token")
+                        .streamBidirectionalCodec(
+                            CallCallsParams.Body.WithUrl.StreamBidirectionalCodec.G722
+                        )
+                        .streamBidirectionalMode(
+                            CallCallsParams.Body.WithUrl.StreamBidirectionalMode.RTP
+                        )
+                        .streamBidirectionalSamplingRate(
+                            CallCallsParams.Body.WithUrl.StreamBidirectionalSamplingRate._16000
+                        )
+                        .streamCodec(CallCallsParams.Body.WithUrl.StreamCodec.PCMA)
+                        .streamEstablishBeforeCallOriginate(true)
+                        .streamTrack(CallCallsParams.Body.WithUrl.StreamTrack.BOTH_TRACKS)
+                        .streamUrl("wss://www.example.com/websocket")
                         .superviseCallSid(
                             "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                         )

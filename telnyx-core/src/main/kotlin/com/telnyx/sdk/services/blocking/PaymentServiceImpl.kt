@@ -45,7 +45,7 @@ class PaymentServiceImpl internal constructor(private val clientOptions: ClientO
         params: PaymentCreateStoredPaymentTransactionParams,
         requestOptions: RequestOptions,
     ): PaymentCreateStoredPaymentTransactionResponse =
-        // post /v2/payment/stored_payment_transactions
+        // post /payment/stored_payment_transactions
         withRawResponse().createStoredPaymentTransaction(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -81,7 +81,7 @@ class PaymentServiceImpl internal constructor(private val clientOptions: ClientO
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "payment", "stored_payment_transactions")
+                    .addPathSegments("payment", "stored_payment_transactions")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

@@ -131,7 +131,7 @@ interface MobilePhoneNumberService {
         fun messaging(): MessagingService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /v2/mobile_phone_numbers/{id}`, but is otherwise the
+         * Returns a raw HTTP response for `get /mobile_phone_numbers/{id}`, but is otherwise the
          * same as [MobilePhoneNumberService.retrieve].
          */
         @MustBeClosed
@@ -178,8 +178,8 @@ interface MobilePhoneNumberService {
             retrieve(id, MobilePhoneNumberRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /v2/mobile_phone_numbers/{id}`, but is otherwise
-         * the same as [MobilePhoneNumberService.update].
+         * Returns a raw HTTP response for `patch /mobile_phone_numbers/{id}`, but is otherwise the
+         * same as [MobilePhoneNumberService.update].
          */
         @MustBeClosed
         fun update(id: String): HttpResponseFor<MobilePhoneNumberUpdateResponse> =
@@ -224,8 +224,8 @@ interface MobilePhoneNumberService {
             update(id, MobilePhoneNumberUpdateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /v2/mobile_phone_numbers`, but is otherwise the same
-         * as [MobilePhoneNumberService.list].
+         * Returns a raw HTTP response for `get /mobile_phone_numbers`, but is otherwise the same as
+         * [MobilePhoneNumberService.list].
          */
         @MustBeClosed
         fun list(): HttpResponseFor<MobilePhoneNumberListPage> =
