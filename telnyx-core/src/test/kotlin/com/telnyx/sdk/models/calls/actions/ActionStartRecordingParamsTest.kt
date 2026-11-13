@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.calls.actions
 
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -19,6 +20,8 @@ internal class ActionStartRecordingParamsTest {
             .maxLength(0)
             .playBeep(true)
             .recordingTrack(ActionStartRecordingParams.RecordingTrack.OUTBOUND)
+            .addRedaction(ActionStartRecordingParams.Redaction.PCI)
+            .addRedaction(ActionStartRecordingParams.Redaction.PII)
             .timeoutSecs(0)
             .transcription(true)
             .transcriptionEngine(ActionStartRecordingParams.TranscriptionEngine.B)
@@ -58,6 +61,8 @@ internal class ActionStartRecordingParamsTest {
                 .maxLength(0)
                 .playBeep(true)
                 .recordingTrack(ActionStartRecordingParams.RecordingTrack.OUTBOUND)
+                .addRedaction(ActionStartRecordingParams.Redaction.PCI)
+                .addRedaction(ActionStartRecordingParams.Redaction.PII)
                 .timeoutSecs(0)
                 .transcription(true)
                 .transcriptionEngine(ActionStartRecordingParams.TranscriptionEngine.B)
@@ -80,6 +85,11 @@ internal class ActionStartRecordingParamsTest {
         assertThat(body.playBeep()).contains(true)
         assertThat(body.recordingTrack())
             .contains(ActionStartRecordingParams.RecordingTrack.OUTBOUND)
+        assertThat(body.redaction().getOrNull())
+            .containsExactly(
+                ActionStartRecordingParams.Redaction.PCI,
+                ActionStartRecordingParams.Redaction.PII,
+            )
         assertThat(body.timeoutSecs()).contains(0)
         assertThat(body.transcription()).contains(true)
         assertThat(body.transcriptionEngine())

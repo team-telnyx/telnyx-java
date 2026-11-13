@@ -23,6 +23,7 @@ internal class RecordingsJsonServiceTest {
                     .callSid("call_sid")
                     .playBeep(false)
                     .recordingChannels(RecordingsJsonRecordingsJsonParams.RecordingChannels.SINGLE)
+                    .recordingRedaction("pci,pii")
                     .recordingStatusCallback("http://webhook.com/callback")
                     .recordingStatusCallbackEvent("in-progress completed absent")
                     .recordingStatusCallbackMethod(

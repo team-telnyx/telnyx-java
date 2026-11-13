@@ -14,6 +14,7 @@ internal class RecordingsJsonRecordingsJsonParamsTest {
             .callSid("call_sid")
             .playBeep(false)
             .recordingChannels(RecordingsJsonRecordingsJsonParams.RecordingChannels.SINGLE)
+            .recordingRedaction("pci,pii")
             .recordingStatusCallback("http://webhook.com/callback")
             .recordingStatusCallbackEvent("in-progress completed absent")
             .recordingStatusCallbackMethod(
@@ -46,6 +47,7 @@ internal class RecordingsJsonRecordingsJsonParamsTest {
                 .callSid("call_sid")
                 .playBeep(false)
                 .recordingChannels(RecordingsJsonRecordingsJsonParams.RecordingChannels.SINGLE)
+                .recordingRedaction("pci,pii")
                 .recordingStatusCallback("http://webhook.com/callback")
                 .recordingStatusCallbackEvent("in-progress completed absent")
                 .recordingStatusCallbackMethod(
@@ -60,6 +62,7 @@ internal class RecordingsJsonRecordingsJsonParamsTest {
         assertThat(body.playBeep()).contains(false)
         assertThat(body.recordingChannels())
             .contains(RecordingsJsonRecordingsJsonParams.RecordingChannels.SINGLE)
+        assertThat(body.recordingRedaction()).contains("pci,pii")
         assertThat(body.recordingStatusCallback()).contains("http://webhook.com/callback")
         assertThat(body.recordingStatusCallbackEvent()).contains("in-progress completed absent")
         assertThat(body.recordingStatusCallbackMethod())

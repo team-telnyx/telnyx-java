@@ -123,6 +123,7 @@ internal class CallServiceTest {
                             .preferredCodecs("PCMA,PCMU")
                             .record(false)
                             .recordingChannels(CallCallsParams.Body.WithUrl.RecordingChannels.DUAL)
+                            .recordingRedaction("pci,pii")
                             .recordingStatusCallback(
                                 "https://example.com/recording_status_callback"
                             )

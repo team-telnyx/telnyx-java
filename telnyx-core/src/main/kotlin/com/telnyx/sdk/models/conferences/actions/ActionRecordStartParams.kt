@@ -12,8 +12,10 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -82,6 +84,18 @@ private constructor(
     fun playBeep(): Optional<Boolean> = body.playBeep()
 
     /**
+     * Silences spoken details of the given kinds in the recording: `pci` (card number, expiry date,
+     * security code), `pii` (personal details such as names, phone numbers, addresses and other
+     * identifying numbers) and `phi` (health details such as medications, doses and conditions).
+     * Redaction works on English speech only. Redacted recordings are charged at the Deepgram
+     * speech-to-text rate.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun redaction(): Optional<List<Redaction>> = body.redaction()
+
+    /**
      * Region where the conference data is located. Defaults to the region defined in user's data
      * locality settings (Europe or US).
      *
@@ -133,6 +147,13 @@ private constructor(
      * Unlike [playBeep], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _playBeep(): JsonField<Boolean> = body._playBeep()
+
+    /**
+     * Returns the raw JSON value of [redaction].
+     *
+     * Unlike [redaction], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _redaction(): JsonField<List<Redaction>> = body._redaction()
 
     /**
      * Returns the raw JSON value of [region].
@@ -279,6 +300,31 @@ private constructor(
          * value.
          */
         fun playBeep(playBeep: JsonField<Boolean>) = apply { body.playBeep(playBeep) }
+
+        /**
+         * Silences spoken details of the given kinds in the recording: `pci` (card number, expiry
+         * date, security code), `pii` (personal details such as names, phone numbers, addresses and
+         * other identifying numbers) and `phi` (health details such as medications, doses and
+         * conditions). Redaction works on English speech only. Redacted recordings are charged at
+         * the Deepgram speech-to-text rate.
+         */
+        fun redaction(redaction: List<Redaction>) = apply { body.redaction(redaction) }
+
+        /**
+         * Sets [Builder.redaction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.redaction] with a well-typed `List<Redaction>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun redaction(redaction: JsonField<List<Redaction>>) = apply { body.redaction(redaction) }
+
+        /**
+         * Adds a single [Redaction] to [Builder.redaction].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addRedaction(redaction: Redaction) = apply { body.addRedaction(redaction) }
 
         /**
          * Region where the conference data is located. Defaults to the region defined in user's
@@ -468,6 +514,7 @@ private constructor(
         private val commandId: JsonField<String>,
         private val customFileName: JsonField<String>,
         private val playBeep: JsonField<Boolean>,
+        private val redaction: JsonField<List<Redaction>>,
         private val region: JsonField<ConferenceRegion>,
         private val trim: JsonField<Trim>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -488,6 +535,9 @@ private constructor(
             @JsonProperty("play_beep")
             @ExcludeMissing
             playBeep: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("redaction")
+            @ExcludeMissing
+            redaction: JsonField<List<Redaction>> = JsonMissing.of(),
             @JsonProperty("region")
             @ExcludeMissing
             region: JsonField<ConferenceRegion> = JsonMissing.of(),
@@ -498,6 +548,7 @@ private constructor(
             commandId,
             customFileName,
             playBeep,
+            redaction,
             region,
             trim,
             mutableMapOf(),
@@ -546,6 +597,18 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun playBeep(): Optional<Boolean> = playBeep.getOptional("play_beep")
+
+        /**
+         * Silences spoken details of the given kinds in the recording: `pci` (card number, expiry
+         * date, security code), `pii` (personal details such as names, phone numbers, addresses and
+         * other identifying numbers) and `phi` (health details such as medications, doses and
+         * conditions). Redaction works on English speech only. Redacted recordings are charged at
+         * the Deepgram speech-to-text rate.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun redaction(): Optional<List<Redaction>> = redaction.getOptional("redaction")
 
         /**
          * Region where the conference data is located. Defaults to the region defined in user's
@@ -604,6 +667,15 @@ private constructor(
         @JsonProperty("play_beep") @ExcludeMissing fun _playBeep(): JsonField<Boolean> = playBeep
 
         /**
+         * Returns the raw JSON value of [redaction].
+         *
+         * Unlike [redaction], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("redaction")
+        @ExcludeMissing
+        fun _redaction(): JsonField<List<Redaction>> = redaction
+
+        /**
          * Returns the raw JSON value of [region].
          *
          * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
@@ -650,6 +722,7 @@ private constructor(
             private var commandId: JsonField<String> = JsonMissing.of()
             private var customFileName: JsonField<String> = JsonMissing.of()
             private var playBeep: JsonField<Boolean> = JsonMissing.of()
+            private var redaction: JsonField<MutableList<Redaction>>? = null
             private var region: JsonField<ConferenceRegion> = JsonMissing.of()
             private var trim: JsonField<Trim> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -661,6 +734,7 @@ private constructor(
                 commandId = body.commandId
                 customFileName = body.customFileName
                 playBeep = body.playBeep
+                redaction = body.redaction.map { it.toMutableList() }
                 region = body.region
                 trim = body.trim
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -742,6 +816,38 @@ private constructor(
             fun playBeep(playBeep: JsonField<Boolean>) = apply { this.playBeep = playBeep }
 
             /**
+             * Silences spoken details of the given kinds in the recording: `pci` (card number,
+             * expiry date, security code), `pii` (personal details such as names, phone numbers,
+             * addresses and other identifying numbers) and `phi` (health details such as
+             * medications, doses and conditions). Redaction works on English speech only. Redacted
+             * recordings are charged at the Deepgram speech-to-text rate.
+             */
+            fun redaction(redaction: List<Redaction>) = redaction(JsonField.of(redaction))
+
+            /**
+             * Sets [Builder.redaction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.redaction] with a well-typed `List<Redaction>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun redaction(redaction: JsonField<List<Redaction>>) = apply {
+                this.redaction = redaction.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Redaction] to [Builder.redaction].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addRedaction(redaction: Redaction) = apply {
+                this.redaction =
+                    (this.redaction ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("redaction", it).add(redaction)
+                    }
+            }
+
+            /**
              * Region where the conference data is located. Defaults to the region defined in user's
              * data locality settings (Europe or US).
              */
@@ -809,6 +915,7 @@ private constructor(
                     commandId,
                     customFileName,
                     playBeep,
+                    (redaction ?: JsonMissing.of()).map { it.toImmutable() },
                     region,
                     trim,
                     additionalProperties.toMutableMap(),
@@ -836,6 +943,7 @@ private constructor(
             commandId()
             customFileName()
             playBeep()
+            redaction().ifPresent { it.forEach { it.validate() } }
             region().ifPresent { it.validate() }
             trim().ifPresent { it.validate() }
             validated = true
@@ -862,6 +970,7 @@ private constructor(
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (if (customFileName.asKnown().isPresent) 1 else 0) +
                 (if (playBeep.asKnown().isPresent) 1 else 0) +
+                (redaction.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (region.asKnown().getOrNull()?.validity() ?: 0) +
                 (trim.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -876,6 +985,7 @@ private constructor(
                 commandId == other.commandId &&
                 customFileName == other.customFileName &&
                 playBeep == other.playBeep &&
+                redaction == other.redaction &&
                 region == other.region &&
                 trim == other.trim &&
                 additionalProperties == other.additionalProperties
@@ -888,6 +998,7 @@ private constructor(
                 commandId,
                 customFileName,
                 playBeep,
+                redaction,
                 region,
                 trim,
                 additionalProperties,
@@ -897,7 +1008,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{format=$format, channels=$channels, commandId=$commandId, customFileName=$customFileName, playBeep=$playBeep, region=$region, trim=$trim, additionalProperties=$additionalProperties}"
+            "Body{format=$format, channels=$channels, commandId=$commandId, customFileName=$customFileName, playBeep=$playBeep, redaction=$redaction, region=$region, trim=$trim, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1169,6 +1280,148 @@ private constructor(
             }
 
             return other is Channels && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    class Redaction @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val PCI = of("pci")
+
+            @JvmField val PII = of("pii")
+
+            @JvmField val PHI = of("phi")
+
+            @JvmStatic fun of(value: String) = Redaction(JsonField.of(value))
+        }
+
+        /** An enum containing [Redaction]'s known values. */
+        enum class Known {
+            PCI,
+            PII,
+            PHI,
+        }
+
+        /**
+         * An enum containing [Redaction]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Redaction] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PCI,
+            PII,
+            PHI,
+            /**
+             * An enum member indicating that [Redaction] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PCI -> Value.PCI
+                PII -> Value.PII
+                PHI -> Value.PHI
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                PCI -> Known.PCI
+                PII -> Known.PII
+                PHI -> Known.PHI
+                else -> throw TelnyxInvalidDataException("Unknown Redaction: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Redaction = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Redaction && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

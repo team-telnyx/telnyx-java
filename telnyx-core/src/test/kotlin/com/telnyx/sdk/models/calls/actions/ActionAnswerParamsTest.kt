@@ -214,6 +214,8 @@ internal class ActionAnswerParamsTest {
             .recordCustomFileName("my_recording_file_name")
             .recordFormat(ActionAnswerParams.RecordFormat.WAV)
             .recordMaxLength(1000)
+            .addRecordRedaction(ActionAnswerParams.RecordRedaction.PCI)
+            .addRecordRedaction(ActionAnswerParams.RecordRedaction.PII)
             .recordTimeoutSecs(100)
             .recordTrack(ActionAnswerParams.RecordTrack.OUTBOUND)
             .recordTrim(ActionAnswerParams.RecordTrim.TRIM_SILENCE)
@@ -498,6 +500,8 @@ internal class ActionAnswerParamsTest {
                 .recordCustomFileName("my_recording_file_name")
                 .recordFormat(ActionAnswerParams.RecordFormat.WAV)
                 .recordMaxLength(1000)
+                .addRecordRedaction(ActionAnswerParams.RecordRedaction.PCI)
+                .addRecordRedaction(ActionAnswerParams.RecordRedaction.PII)
                 .recordTimeoutSecs(100)
                 .recordTrack(ActionAnswerParams.RecordTrack.OUTBOUND)
                 .recordTrim(ActionAnswerParams.RecordTrim.TRIM_SILENCE)
@@ -772,6 +776,11 @@ internal class ActionAnswerParamsTest {
         assertThat(body.recordCustomFileName()).contains("my_recording_file_name")
         assertThat(body.recordFormat()).contains(ActionAnswerParams.RecordFormat.WAV)
         assertThat(body.recordMaxLength()).contains(1000)
+        assertThat(body.recordRedaction().getOrNull())
+            .containsExactly(
+                ActionAnswerParams.RecordRedaction.PCI,
+                ActionAnswerParams.RecordRedaction.PII,
+            )
         assertThat(body.recordTimeoutSecs()).contains(100)
         assertThat(body.recordTrack()).contains(ActionAnswerParams.RecordTrack.OUTBOUND)
         assertThat(body.recordTrim()).contains(ActionAnswerParams.RecordTrim.TRIM_SILENCE)

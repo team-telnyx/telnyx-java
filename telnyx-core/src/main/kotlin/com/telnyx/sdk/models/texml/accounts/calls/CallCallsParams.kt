@@ -526,6 +526,7 @@ private constructor(
             private val preferredCodecs: JsonField<String>,
             private val record: JsonField<Boolean>,
             private val recordingChannels: JsonField<RecordingChannels>,
+            private val recordingRedaction: JsonField<String>,
             private val recordingStatusCallback: JsonField<String>,
             private val recordingStatusCallbackEvent: JsonField<String>,
             private val recordingStatusCallbackMethod: JsonField<RecordingStatusCallbackMethod>,
@@ -657,6 +658,9 @@ private constructor(
                 @JsonProperty("RecordingChannels")
                 @ExcludeMissing
                 recordingChannels: JsonField<RecordingChannels> = JsonMissing.of(),
+                @JsonProperty("RecordingRedaction")
+                @ExcludeMissing
+                recordingRedaction: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("RecordingStatusCallback")
                 @ExcludeMissing
                 recordingStatusCallback: JsonField<String> = JsonMissing.of(),
@@ -771,6 +775,7 @@ private constructor(
                 preferredCodecs,
                 record,
                 recordingChannels,
+                recordingRedaction,
                 recordingStatusCallback,
                 recordingStatusCallbackEvent,
                 recordingStatusCallbackMethod,
@@ -1137,6 +1142,20 @@ private constructor(
              */
             fun recordingChannels(): Optional<RecordingChannels> =
                 recordingChannels.getOptional("RecordingChannels")
+
+            /**
+             * Silences spoken details of the given kinds in the recording: one or more of `pci`
+             * (card number, expiry date, security code), `pii` (personal details such as names,
+             * phone numbers, addresses and other identifying numbers) and `phi` (health details
+             * such as medications, doses and conditions), separated by commas, for example
+             * `pci,pii`. Redaction works on English speech only. Redacted recordings are charged at
+             * the Deepgram speech-to-text rate.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun recordingRedaction(): Optional<String> =
+                recordingRedaction.getOptional("RecordingRedaction")
 
             /**
              * The URL the recording callbacks will be sent to.
@@ -1736,6 +1755,16 @@ private constructor(
             fun _recordingChannels(): JsonField<RecordingChannels> = recordingChannels
 
             /**
+             * Returns the raw JSON value of [recordingRedaction].
+             *
+             * Unlike [recordingRedaction], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("RecordingRedaction")
+            @ExcludeMissing
+            fun _recordingRedaction(): JsonField<String> = recordingRedaction
+
+            /**
              * Returns the raw JSON value of [recordingStatusCallback].
              *
              * Unlike [recordingStatusCallback], this method doesn't throw if the JSON field has an
@@ -2074,6 +2103,7 @@ private constructor(
                 private var preferredCodecs: JsonField<String> = JsonMissing.of()
                 private var record: JsonField<Boolean> = JsonMissing.of()
                 private var recordingChannels: JsonField<RecordingChannels> = JsonMissing.of()
+                private var recordingRedaction: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallback: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackMethod:
@@ -2150,6 +2180,7 @@ private constructor(
                     preferredCodecs = withUrl.preferredCodecs
                     record = withUrl.record
                     recordingChannels = withUrl.recordingChannels
+                    recordingRedaction = withUrl.recordingRedaction
                     recordingStatusCallback = withUrl.recordingStatusCallback
                     recordingStatusCallbackEvent = withUrl.recordingStatusCallbackEvent
                     recordingStatusCallbackMethod = withUrl.recordingStatusCallbackMethod
@@ -2811,6 +2842,28 @@ private constructor(
                     this.recordingChannels = recordingChannels
                 }
 
+                /**
+                 * Silences spoken details of the given kinds in the recording: one or more of `pci`
+                 * (card number, expiry date, security code), `pii` (personal details such as names,
+                 * phone numbers, addresses and other identifying numbers) and `phi` (health details
+                 * such as medications, doses and conditions), separated by commas, for example
+                 * `pci,pii`. Redaction works on English speech only. Redacted recordings are
+                 * charged at the Deepgram speech-to-text rate.
+                 */
+                fun recordingRedaction(recordingRedaction: String) =
+                    recordingRedaction(JsonField.of(recordingRedaction))
+
+                /**
+                 * Sets [Builder.recordingRedaction] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.recordingRedaction] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun recordingRedaction(recordingRedaction: JsonField<String>) = apply {
+                    this.recordingRedaction = recordingRedaction
+                }
+
                 /** The URL the recording callbacks will be sent to. */
                 fun recordingStatusCallback(recordingStatusCallback: String) =
                     recordingStatusCallback(JsonField.of(recordingStatusCallback))
@@ -3351,6 +3404,7 @@ private constructor(
                         preferredCodecs,
                         record,
                         recordingChannels,
+                        recordingRedaction,
                         recordingStatusCallback,
                         recordingStatusCallbackEvent,
                         recordingStatusCallbackMethod,
@@ -3433,6 +3487,7 @@ private constructor(
                 preferredCodecs()
                 record()
                 recordingChannels().ifPresent { it.validate() }
+                recordingRedaction()
                 recordingStatusCallback()
                 recordingStatusCallbackEvent()
                 recordingStatusCallbackMethod().ifPresent { it.validate() }
@@ -3513,6 +3568,7 @@ private constructor(
                     (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
                     (if (record.asKnown().isPresent) 1 else 0) +
                     (recordingChannels.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (recordingRedaction.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallback.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (recordingStatusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
@@ -6880,6 +6936,7 @@ private constructor(
                     preferredCodecs == other.preferredCodecs &&
                     record == other.record &&
                     recordingChannels == other.recordingChannels &&
+                    recordingRedaction == other.recordingRedaction &&
                     recordingStatusCallback == other.recordingStatusCallback &&
                     recordingStatusCallbackEvent == other.recordingStatusCallbackEvent &&
                     recordingStatusCallbackMethod == other.recordingStatusCallbackMethod &&
@@ -6947,6 +7004,7 @@ private constructor(
                     preferredCodecs,
                     record,
                     recordingChannels,
+                    recordingRedaction,
                     recordingStatusCallback,
                     recordingStatusCallbackEvent,
                     recordingStatusCallbackMethod,
@@ -6982,7 +7040,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WithUrl{url=$url, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "WithUrl{url=$url, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingRedaction=$recordingRedaction, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
 
         class WithTeXml
@@ -7021,6 +7079,7 @@ private constructor(
             private val preferredCodecs: JsonField<String>,
             private val record: JsonField<Boolean>,
             private val recordingChannels: JsonField<RecordingChannels>,
+            private val recordingRedaction: JsonField<String>,
             private val recordingStatusCallback: JsonField<String>,
             private val recordingStatusCallbackEvent: JsonField<String>,
             private val recordingStatusCallbackMethod: JsonField<RecordingStatusCallbackMethod>,
@@ -7152,6 +7211,9 @@ private constructor(
                 @JsonProperty("RecordingChannels")
                 @ExcludeMissing
                 recordingChannels: JsonField<RecordingChannels> = JsonMissing.of(),
+                @JsonProperty("RecordingRedaction")
+                @ExcludeMissing
+                recordingRedaction: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("RecordingStatusCallback")
                 @ExcludeMissing
                 recordingStatusCallback: JsonField<String> = JsonMissing.of(),
@@ -7266,6 +7328,7 @@ private constructor(
                 preferredCodecs,
                 record,
                 recordingChannels,
+                recordingRedaction,
                 recordingStatusCallback,
                 recordingStatusCallbackEvent,
                 recordingStatusCallbackMethod,
@@ -7633,6 +7696,20 @@ private constructor(
              */
             fun recordingChannels(): Optional<RecordingChannels> =
                 recordingChannels.getOptional("RecordingChannels")
+
+            /**
+             * Silences spoken details of the given kinds in the recording: one or more of `pci`
+             * (card number, expiry date, security code), `pii` (personal details such as names,
+             * phone numbers, addresses and other identifying numbers) and `phi` (health details
+             * such as medications, doses and conditions), separated by commas, for example
+             * `pci,pii`. Redaction works on English speech only. Redacted recordings are charged at
+             * the Deepgram speech-to-text rate.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun recordingRedaction(): Optional<String> =
+                recordingRedaction.getOptional("RecordingRedaction")
 
             /**
              * The URL the recording callbacks will be sent to.
@@ -8232,6 +8309,16 @@ private constructor(
             fun _recordingChannels(): JsonField<RecordingChannels> = recordingChannels
 
             /**
+             * Returns the raw JSON value of [recordingRedaction].
+             *
+             * Unlike [recordingRedaction], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("RecordingRedaction")
+            @ExcludeMissing
+            fun _recordingRedaction(): JsonField<String> = recordingRedaction
+
+            /**
              * Returns the raw JSON value of [recordingStatusCallback].
              *
              * Unlike [recordingStatusCallback], this method doesn't throw if the JSON field has an
@@ -8570,6 +8657,7 @@ private constructor(
                 private var preferredCodecs: JsonField<String> = JsonMissing.of()
                 private var record: JsonField<Boolean> = JsonMissing.of()
                 private var recordingChannels: JsonField<RecordingChannels> = JsonMissing.of()
+                private var recordingRedaction: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallback: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackMethod:
@@ -8648,6 +8736,7 @@ private constructor(
                     preferredCodecs = withTeXml.preferredCodecs
                     record = withTeXml.record
                     recordingChannels = withTeXml.recordingChannels
+                    recordingRedaction = withTeXml.recordingRedaction
                     recordingStatusCallback = withTeXml.recordingStatusCallback
                     recordingStatusCallbackEvent = withTeXml.recordingStatusCallbackEvent
                     recordingStatusCallbackMethod = withTeXml.recordingStatusCallbackMethod
@@ -9313,6 +9402,28 @@ private constructor(
                     this.recordingChannels = recordingChannels
                 }
 
+                /**
+                 * Silences spoken details of the given kinds in the recording: one or more of `pci`
+                 * (card number, expiry date, security code), `pii` (personal details such as names,
+                 * phone numbers, addresses and other identifying numbers) and `phi` (health details
+                 * such as medications, doses and conditions), separated by commas, for example
+                 * `pci,pii`. Redaction works on English speech only. Redacted recordings are
+                 * charged at the Deepgram speech-to-text rate.
+                 */
+                fun recordingRedaction(recordingRedaction: String) =
+                    recordingRedaction(JsonField.of(recordingRedaction))
+
+                /**
+                 * Sets [Builder.recordingRedaction] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.recordingRedaction] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun recordingRedaction(recordingRedaction: JsonField<String>) = apply {
+                    this.recordingRedaction = recordingRedaction
+                }
+
                 /** The URL the recording callbacks will be sent to. */
                 fun recordingStatusCallback(recordingStatusCallback: String) =
                     recordingStatusCallback(JsonField.of(recordingStatusCallback))
@@ -9853,6 +9964,7 @@ private constructor(
                         preferredCodecs,
                         record,
                         recordingChannels,
+                        recordingRedaction,
                         recordingStatusCallback,
                         recordingStatusCallbackEvent,
                         recordingStatusCallbackMethod,
@@ -9935,6 +10047,7 @@ private constructor(
                 preferredCodecs()
                 record()
                 recordingChannels().ifPresent { it.validate() }
+                recordingRedaction()
                 recordingStatusCallback()
                 recordingStatusCallbackEvent()
                 recordingStatusCallbackMethod().ifPresent { it.validate() }
@@ -10015,6 +10128,7 @@ private constructor(
                     (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
                     (if (record.asKnown().isPresent) 1 else 0) +
                     (recordingChannels.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (recordingRedaction.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallback.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (recordingStatusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
@@ -13382,6 +13496,7 @@ private constructor(
                     preferredCodecs == other.preferredCodecs &&
                     record == other.record &&
                     recordingChannels == other.recordingChannels &&
+                    recordingRedaction == other.recordingRedaction &&
                     recordingStatusCallback == other.recordingStatusCallback &&
                     recordingStatusCallbackEvent == other.recordingStatusCallbackEvent &&
                     recordingStatusCallbackMethod == other.recordingStatusCallbackMethod &&
@@ -13449,6 +13564,7 @@ private constructor(
                     preferredCodecs,
                     record,
                     recordingChannels,
+                    recordingRedaction,
                     recordingStatusCallback,
                     recordingStatusCallbackEvent,
                     recordingStatusCallbackMethod,
@@ -13484,7 +13600,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WithTeXml{texml=$texml, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "WithTeXml{texml=$texml, applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingRedaction=$recordingRedaction, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
 
         class ApplicationDefault
@@ -13522,6 +13638,7 @@ private constructor(
             private val preferredCodecs: JsonField<String>,
             private val record: JsonField<Boolean>,
             private val recordingChannels: JsonField<RecordingChannels>,
+            private val recordingRedaction: JsonField<String>,
             private val recordingStatusCallback: JsonField<String>,
             private val recordingStatusCallbackEvent: JsonField<String>,
             private val recordingStatusCallbackMethod: JsonField<RecordingStatusCallbackMethod>,
@@ -13653,6 +13770,9 @@ private constructor(
                 @JsonProperty("RecordingChannels")
                 @ExcludeMissing
                 recordingChannels: JsonField<RecordingChannels> = JsonMissing.of(),
+                @JsonProperty("RecordingRedaction")
+                @ExcludeMissing
+                recordingRedaction: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("RecordingStatusCallback")
                 @ExcludeMissing
                 recordingStatusCallback: JsonField<String> = JsonMissing.of(),
@@ -13767,6 +13887,7 @@ private constructor(
                 preferredCodecs,
                 record,
                 recordingChannels,
+                recordingRedaction,
                 recordingStatusCallback,
                 recordingStatusCallbackEvent,
                 recordingStatusCallbackMethod,
@@ -14125,6 +14246,20 @@ private constructor(
              */
             fun recordingChannels(): Optional<RecordingChannels> =
                 recordingChannels.getOptional("RecordingChannels")
+
+            /**
+             * Silences spoken details of the given kinds in the recording: one or more of `pci`
+             * (card number, expiry date, security code), `pii` (personal details such as names,
+             * phone numbers, addresses and other identifying numbers) and `phi` (health details
+             * such as medications, doses and conditions), separated by commas, for example
+             * `pci,pii`. Redaction works on English speech only. Redacted recordings are charged at
+             * the Deepgram speech-to-text rate.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun recordingRedaction(): Optional<String> =
+                recordingRedaction.getOptional("RecordingRedaction")
 
             /**
              * The URL the recording callbacks will be sent to.
@@ -14723,6 +14858,16 @@ private constructor(
             fun _recordingChannels(): JsonField<RecordingChannels> = recordingChannels
 
             /**
+             * Returns the raw JSON value of [recordingRedaction].
+             *
+             * Unlike [recordingRedaction], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("RecordingRedaction")
+            @ExcludeMissing
+            fun _recordingRedaction(): JsonField<String> = recordingRedaction
+
+            /**
              * Returns the raw JSON value of [recordingStatusCallback].
              *
              * Unlike [recordingStatusCallback], this method doesn't throw if the JSON field has an
@@ -15062,6 +15207,7 @@ private constructor(
                 private var preferredCodecs: JsonField<String> = JsonMissing.of()
                 private var record: JsonField<Boolean> = JsonMissing.of()
                 private var recordingChannels: JsonField<RecordingChannels> = JsonMissing.of()
+                private var recordingRedaction: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallback: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackEvent: JsonField<String> = JsonMissing.of()
                 private var recordingStatusCallbackMethod:
@@ -15148,6 +15294,7 @@ private constructor(
                     preferredCodecs = applicationDefault.preferredCodecs
                     record = applicationDefault.record
                     recordingChannels = applicationDefault.recordingChannels
+                    recordingRedaction = applicationDefault.recordingRedaction
                     recordingStatusCallback = applicationDefault.recordingStatusCallback
                     recordingStatusCallbackEvent = applicationDefault.recordingStatusCallbackEvent
                     recordingStatusCallbackMethod = applicationDefault.recordingStatusCallbackMethod
@@ -15800,6 +15947,28 @@ private constructor(
                     this.recordingChannels = recordingChannels
                 }
 
+                /**
+                 * Silences spoken details of the given kinds in the recording: one or more of `pci`
+                 * (card number, expiry date, security code), `pii` (personal details such as names,
+                 * phone numbers, addresses and other identifying numbers) and `phi` (health details
+                 * such as medications, doses and conditions), separated by commas, for example
+                 * `pci,pii`. Redaction works on English speech only. Redacted recordings are
+                 * charged at the Deepgram speech-to-text rate.
+                 */
+                fun recordingRedaction(recordingRedaction: String) =
+                    recordingRedaction(JsonField.of(recordingRedaction))
+
+                /**
+                 * Sets [Builder.recordingRedaction] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.recordingRedaction] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun recordingRedaction(recordingRedaction: JsonField<String>) = apply {
+                    this.recordingRedaction = recordingRedaction
+                }
+
                 /** The URL the recording callbacks will be sent to. */
                 fun recordingStatusCallback(recordingStatusCallback: String) =
                     recordingStatusCallback(JsonField.of(recordingStatusCallback))
@@ -16346,6 +16515,7 @@ private constructor(
                         preferredCodecs,
                         record,
                         recordingChannels,
+                        recordingRedaction,
                         recordingStatusCallback,
                         recordingStatusCallbackEvent,
                         recordingStatusCallbackMethod,
@@ -16428,6 +16598,7 @@ private constructor(
                 preferredCodecs()
                 record()
                 recordingChannels().ifPresent { it.validate() }
+                recordingRedaction()
                 recordingStatusCallback()
                 recordingStatusCallbackEvent()
                 recordingStatusCallbackMethod().ifPresent { it.validate() }
@@ -16508,6 +16679,7 @@ private constructor(
                     (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
                     (if (record.asKnown().isPresent) 1 else 0) +
                     (recordingChannels.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (recordingRedaction.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallback.asKnown().isPresent) 1 else 0) +
                     (if (recordingStatusCallbackEvent.asKnown().isPresent) 1 else 0) +
                     (recordingStatusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
@@ -19875,6 +20047,7 @@ private constructor(
                     preferredCodecs == other.preferredCodecs &&
                     record == other.record &&
                     recordingChannels == other.recordingChannels &&
+                    recordingRedaction == other.recordingRedaction &&
                     recordingStatusCallback == other.recordingStatusCallback &&
                     recordingStatusCallbackEvent == other.recordingStatusCallbackEvent &&
                     recordingStatusCallbackMethod == other.recordingStatusCallbackMethod &&
@@ -19942,6 +20115,7 @@ private constructor(
                     preferredCodecs,
                     record,
                     recordingChannels,
+                    recordingRedaction,
                     recordingStatusCallback,
                     recordingStatusCallbackEvent,
                     recordingStatusCallbackMethod,
@@ -19978,7 +20152,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "ApplicationDefault{applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+                "ApplicationDefault{applicationSid=$applicationSid, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, deepfakeDetection=$deepfakeDetection, deepfakeDetectionCallbackMethod=$deepfakeDetectionCallbackMethod, deepfakeDetectionCallbackUrl=$deepfakeDetectionCallbackUrl, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, from=$from, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionPromptEndTimeout=$machineDetectionPromptEndTimeout, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingRedaction=$recordingRedaction, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
         }
     }
 
