@@ -318,7 +318,8 @@ private constructor(
         fun recordId(): Optional<String> = recordId.getOptional("record_id")
 
         /**
-         * The source record kind this chunk came from (e.g. `voice`, `meeting_bot`, `message`).
+         * The source record kind this chunk came from (e.g. `voice`, `meeting_bot`, `message`,
+         * `email`, `whatsapp`).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -604,7 +605,8 @@ private constructor(
             fun recordId(recordId: JsonField<String>) = apply { this.recordId = recordId }
 
             /**
-             * The source record kind this chunk came from (e.g. `voice`, `meeting_bot`, `message`).
+             * The source record kind this chunk came from (e.g. `voice`, `meeting_bot`, `message`,
+             * `email`, `whatsapp`).
              */
             fun recordType(recordType: String) = recordType(JsonField.of(recordType))
 

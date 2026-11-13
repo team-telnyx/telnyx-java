@@ -49,7 +49,7 @@ class PaymentServiceAsyncImpl internal constructor(private val clientOptions: Cl
         params: PaymentCreateStoredPaymentTransactionParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PaymentCreateStoredPaymentTransactionResponse> =
-        // post /v2/payment/stored_payment_transactions
+        // post /payment/stored_payment_transactions
         withRawResponse().createStoredPaymentTransaction(params, requestOptions).mapCancellable {
             it.parse()
         }
@@ -87,7 +87,7 @@ class PaymentServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "payment", "stored_payment_transactions")
+                    .addPathSegments("payment", "stored_payment_transactions")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

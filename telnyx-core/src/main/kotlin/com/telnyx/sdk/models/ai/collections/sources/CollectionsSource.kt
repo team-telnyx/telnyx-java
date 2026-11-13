@@ -74,8 +74,8 @@ private constructor(
 
     /**
      * The type of Telnyx data attached as a source. `bucket` requires an additional `bucket_id`.
-     * Only `voice` is searchable today; `meeting_bot`, `message`, and `bucket` attach but are not
-     * yet searchable (Coming soon).
+     * `voice`, `meeting_bot`, `message`, `email`, and `whatsapp` are searchable today; `bucket`
+     * attaches but is not yet searchable (Coming soon).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -222,8 +222,8 @@ private constructor(
 
         /**
          * The type of Telnyx data attached as a source. `bucket` requires an additional
-         * `bucket_id`. Only `voice` is searchable today; `meeting_bot`, `message`, and `bucket`
-         * attach but are not yet searchable (Coming soon).
+         * `bucket_id`. `voice`, `meeting_bot`, `message`, `email`, and `whatsapp` are searchable
+         * today; `bucket` attaches but is not yet searchable (Coming soon).
          */
         fun sourceType(sourceType: SourceType) = sourceType(JsonField.of(sourceType))
 

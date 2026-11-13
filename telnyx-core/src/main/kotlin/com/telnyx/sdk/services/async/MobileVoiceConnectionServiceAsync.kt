@@ -209,7 +209,7 @@ interface MobileVoiceConnectionServiceAsync {
         ): MobileVoiceConnectionServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /v2/mobile_voice_connections`, but is otherwise the
+         * Returns a raw HTTP response for `post /mobile_voice_connections`, but is otherwise the
          * same as [MobileVoiceConnectionServiceAsync.create].
          */
         fun create(): CompletableFuture<HttpResponseFor<MobileVoiceConnectionCreateResponse>> =
@@ -234,7 +234,7 @@ interface MobileVoiceConnectionServiceAsync {
             create(MobileVoiceConnectionCreateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /v2/mobile_voice_connections/{id}`, but is otherwise
+         * Returns a raw HTTP response for `get /mobile_voice_connections/{id}`, but is otherwise
          * the same as [MobileVoiceConnectionServiceAsync.retrieve].
          */
         fun retrieve(
@@ -278,8 +278,8 @@ interface MobileVoiceConnectionServiceAsync {
             retrieve(id, MobileVoiceConnectionRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /v2/mobile_voice_connections/{id}`, but is
-         * otherwise the same as [MobileVoiceConnectionServiceAsync.update].
+         * Returns a raw HTTP response for `patch /mobile_voice_connections/{id}`, but is otherwise
+         * the same as [MobileVoiceConnectionServiceAsync.update].
          */
         fun update(
             id: String
@@ -321,7 +321,7 @@ interface MobileVoiceConnectionServiceAsync {
             update(id, MobileVoiceConnectionUpdateParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /v2/mobile_voice_connections`, but is otherwise the
+         * Returns a raw HTTP response for `get /mobile_voice_connections`, but is otherwise the
          * same as [MobileVoiceConnectionServiceAsync.list].
          */
         fun list(): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListPageAsync>> =
@@ -346,8 +346,8 @@ interface MobileVoiceConnectionServiceAsync {
             list(MobileVoiceConnectionListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /v2/mobile_voice_connections/{id}`, but is
-         * otherwise the same as [MobileVoiceConnectionServiceAsync.delete].
+         * Returns a raw HTTP response for `delete /mobile_voice_connections/{id}`, but is otherwise
+         * the same as [MobileVoiceConnectionServiceAsync.delete].
          */
         fun delete(
             id: String

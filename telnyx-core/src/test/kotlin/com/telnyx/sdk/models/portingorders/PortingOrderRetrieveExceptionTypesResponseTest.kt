@@ -19,6 +19,19 @@ internal class PortingOrderRetrieveExceptionTypesResponseTest {
                     PortingOrdersExceptionType.builder()
                         .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
                         .description("Entity name does not match that on the CSR")
+                        .remediation(
+                            PortingOrdersExceptionType.Remediation.builder()
+                                .action(
+                                    PortingOrdersExceptionType.Remediation.Action
+                                        .UPDATE_ORDER_FIELDS
+                                )
+                                .addField("end_user.location.postal_code")
+                                .requiredDocument(
+                                    PortingOrdersExceptionType.Remediation.RequiredDocument.LOA
+                                )
+                                .retryable(true)
+                                .build()
+                        )
                         .build()
                 )
                 .build()
@@ -28,6 +41,18 @@ internal class PortingOrderRetrieveExceptionTypesResponseTest {
                 PortingOrdersExceptionType.builder()
                     .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
                     .description("Entity name does not match that on the CSR")
+                    .remediation(
+                        PortingOrdersExceptionType.Remediation.builder()
+                            .action(
+                                PortingOrdersExceptionType.Remediation.Action.UPDATE_ORDER_FIELDS
+                            )
+                            .addField("end_user.location.postal_code")
+                            .requiredDocument(
+                                PortingOrdersExceptionType.Remediation.RequiredDocument.LOA
+                            )
+                            .retryable(true)
+                            .build()
+                    )
                     .build()
             )
     }
@@ -41,6 +66,19 @@ internal class PortingOrderRetrieveExceptionTypesResponseTest {
                     PortingOrdersExceptionType.builder()
                         .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
                         .description("Entity name does not match that on the CSR")
+                        .remediation(
+                            PortingOrdersExceptionType.Remediation.builder()
+                                .action(
+                                    PortingOrdersExceptionType.Remediation.Action
+                                        .UPDATE_ORDER_FIELDS
+                                )
+                                .addField("end_user.location.postal_code")
+                                .requiredDocument(
+                                    PortingOrdersExceptionType.Remediation.RequiredDocument.LOA
+                                )
+                                .retryable(true)
+                                .build()
+                        )
                         .build()
                 )
                 .build()

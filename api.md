@@ -394,17 +394,6 @@ Methods:
 - <code title="get /ai/embeddings/buckets">client.ai().embeddings().buckets().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/embeddings/BucketService.kt">list</a>()</code>
 - <code title="delete /ai/embeddings/buckets/{bucket_name}">client.ai().embeddings().buckets().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/embeddings/BucketService.kt">delete</a>(params)</code>
 
-## FineTuning
-
-### Jobs
-
-Methods:
-
-- <code title="post /ai/fine_tuning/jobs">client.ai().fineTuning().jobs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/finetuning/JobService.kt">create</a>(params)</code>
-- <code title="get /ai/fine_tuning/jobs/{job_id}">client.ai().fineTuning().jobs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/finetuning/JobService.kt">retrieve</a>(params)</code>
-- <code title="get /ai/fine_tuning/jobs">client.ai().fineTuning().jobs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/finetuning/JobService.kt">list</a>()</code>
-- <code title="post /ai/fine_tuning/jobs/{job_id}/cancel">client.ai().fineTuning().jobs().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/ai/finetuning/JobService.kt">cancel</a>(params)</code>
-
 ## Integrations
 
 Methods:
@@ -1554,7 +1543,7 @@ Methods:
 
 Methods:
 
-- <code title="post /v2/payment/stored_payment_transactions">client.payment().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/PaymentService.kt">createStoredPaymentTransaction</a>(params)</code>
+- <code title="post /payment/stored_payment_transactions">client.payment().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/PaymentService.kt">createStoredPaymentTransaction</a>(params)</code>
 
 ## AutoRechargePrefs
 
@@ -2556,9 +2545,9 @@ Methods:
 
 Methods:
 
-- <code title="get /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobilePhoneNumberService.kt">retrieve</a>(params)</code>
-- <code title="patch /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobilePhoneNumberService.kt">update</a>(params)</code>
-- <code title="get /v2/mobile_phone_numbers">client.mobilePhoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobilePhoneNumberService.kt">list</a>(params)</code>
+- <code title="get /mobile_phone_numbers/{id}">client.mobilePhoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobilePhoneNumberService.kt">retrieve</a>(params)</code>
+- <code title="patch /mobile_phone_numbers/{id}">client.mobilePhoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobilePhoneNumberService.kt">update</a>(params)</code>
+- <code title="get /mobile_phone_numbers">client.mobilePhoneNumbers().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobilePhoneNumberService.kt">list</a>(params)</code>
 
 ## Messaging
 
@@ -2571,11 +2560,11 @@ Methods:
 
 Methods:
 
-- <code title="post /v2/mobile_voice_connections">client.mobileVoiceConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobileVoiceConnectionService.kt">create</a>(params)</code>
-- <code title="get /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobileVoiceConnectionService.kt">retrieve</a>(params)</code>
-- <code title="patch /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobileVoiceConnectionService.kt">update</a>(params)</code>
-- <code title="get /v2/mobile_voice_connections">client.mobileVoiceConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobileVoiceConnectionService.kt">list</a>(params)</code>
-- <code title="delete /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobileVoiceConnectionService.kt">delete</a>(params)</code>
+- <code title="post /mobile_voice_connections">client.mobileVoiceConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobileVoiceConnectionService.kt">create</a>(params)</code>
+- <code title="get /mobile_voice_connections/{id}">client.mobileVoiceConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobileVoiceConnectionService.kt">retrieve</a>(params)</code>
+- <code title="patch /mobile_voice_connections/{id}">client.mobileVoiceConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobileVoiceConnectionService.kt">update</a>(params)</code>
+- <code title="get /mobile_voice_connections">client.mobileVoiceConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobileVoiceConnectionService.kt">list</a>(params)</code>
+- <code title="delete /mobile_voice_connections/{id}">client.mobileVoiceConnections().<a href="./telnyx-core/src/main/kotlin/com/telnyx/sdk/services/blocking/MobileVoiceConnectionService.kt">delete</a>(params)</code>
 
 # Messaging10dlc
 

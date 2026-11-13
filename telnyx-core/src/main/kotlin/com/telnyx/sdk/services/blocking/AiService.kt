@@ -19,7 +19,6 @@ import com.telnyx.sdk.services.blocking.ai.ClusterService
 import com.telnyx.sdk.services.blocking.ai.CollectionService
 import com.telnyx.sdk.services.blocking.ai.ConversationService
 import com.telnyx.sdk.services.blocking.ai.EmbeddingService
-import com.telnyx.sdk.services.blocking.ai.FineTuningService
 import com.telnyx.sdk.services.blocking.ai.IntegrationService
 import com.telnyx.sdk.services.blocking.ai.KnowledgeService
 import com.telnyx.sdk.services.blocking.ai.McpServerService
@@ -66,8 +65,6 @@ interface AiService {
 
     /** Embed documents and perform text searches */
     fun embeddings(): EmbeddingService
-
-    fun fineTuning(): FineTuningService
 
     fun integrations(): IntegrationService
 
@@ -200,8 +197,6 @@ interface AiService {
 
         /** Embed documents and perform text searches */
         fun embeddings(): EmbeddingService.WithRawResponse
-
-        fun fineTuning(): FineTuningService.WithRawResponse
 
         fun integrations(): IntegrationService.WithRawResponse
 

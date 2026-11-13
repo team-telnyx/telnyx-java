@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.portingorders
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.PortingOrderStatus
-import com.telnyx.sdk.models.PortingOrdersExceptionType
 import com.telnyx.sdk.models.portingphonenumbers.PortingOrderActivationStatus
 import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumber
 import java.time.OffsetDateTime
@@ -118,9 +117,24 @@ internal class PortingOrderUpdateResponseTest {
                         .status(
                             PortingOrderStatus.builder()
                                 .addDetail(
-                                    PortingOrdersExceptionType.builder()
-                                        .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
+                                    PortingOrderStatus.Detail.builder()
+                                        .code(PortingOrderStatus.Detail.Code.ENTITY_NAME_MISMATCH)
                                         .description("Entity name does not match that on the CSR")
+                                        .remediation(
+                                            PortingOrderStatus.Detail.Remediation.builder()
+                                                .action(
+                                                    PortingOrderStatus.Detail.Remediation.Action
+                                                        .UPDATE_ORDER_FIELDS
+                                                )
+                                                .addField("end_user.location.postal_code")
+                                                .requiredDocument(
+                                                    PortingOrderStatus.Detail.Remediation
+                                                        .RequiredDocument
+                                                        .LOA
+                                                )
+                                                .retryable(true)
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .value(PortingOrderStatus.PortingOrderStatusValue.DRAFT)
@@ -244,9 +258,24 @@ internal class PortingOrderUpdateResponseTest {
                     .status(
                         PortingOrderStatus.builder()
                             .addDetail(
-                                PortingOrdersExceptionType.builder()
-                                    .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
+                                PortingOrderStatus.Detail.builder()
+                                    .code(PortingOrderStatus.Detail.Code.ENTITY_NAME_MISMATCH)
                                     .description("Entity name does not match that on the CSR")
+                                    .remediation(
+                                        PortingOrderStatus.Detail.Remediation.builder()
+                                            .action(
+                                                PortingOrderStatus.Detail.Remediation.Action
+                                                    .UPDATE_ORDER_FIELDS
+                                            )
+                                            .addField("end_user.location.postal_code")
+                                            .requiredDocument(
+                                                PortingOrderStatus.Detail.Remediation
+                                                    .RequiredDocument
+                                                    .LOA
+                                            )
+                                            .retryable(true)
+                                            .build()
+                                    )
                                     .build()
                             )
                             .value(PortingOrderStatus.PortingOrderStatusValue.DRAFT)
@@ -379,9 +408,24 @@ internal class PortingOrderUpdateResponseTest {
                         .status(
                             PortingOrderStatus.builder()
                                 .addDetail(
-                                    PortingOrdersExceptionType.builder()
-                                        .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
+                                    PortingOrderStatus.Detail.builder()
+                                        .code(PortingOrderStatus.Detail.Code.ENTITY_NAME_MISMATCH)
                                         .description("Entity name does not match that on the CSR")
+                                        .remediation(
+                                            PortingOrderStatus.Detail.Remediation.builder()
+                                                .action(
+                                                    PortingOrderStatus.Detail.Remediation.Action
+                                                        .UPDATE_ORDER_FIELDS
+                                                )
+                                                .addField("end_user.location.postal_code")
+                                                .requiredDocument(
+                                                    PortingOrderStatus.Detail.Remediation
+                                                        .RequiredDocument
+                                                        .LOA
+                                                )
+                                                .retryable(true)
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .value(PortingOrderStatus.PortingOrderStatusValue.DRAFT)

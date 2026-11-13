@@ -12,8 +12,10 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -111,6 +113,18 @@ private constructor(
     fun recordingTrack(): Optional<RecordingTrack> = body.recordingTrack()
 
     /**
+     * Silences spoken details of the given kinds in the recording: `pci` (card number, expiry date,
+     * security code), `pii` (personal details such as names, phone numbers, addresses and other
+     * identifying numbers) and `phi` (health details such as medications, doses and conditions).
+     * Redaction works on English speech only. Redacted recordings are charged at the Deepgram
+     * speech-to-text rate.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun redaction(): Optional<List<Redaction>> = body.redaction()
+
+    /**
      * The number of seconds that Telnyx will wait for the recording to be stopped if silence is
      * detected. The timer only starts when the speech is detected. Please note that call
      * transcription is used to detect silence and the related charge will be applied. The minimum
@@ -132,6 +146,7 @@ private constructor(
     /**
      * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`, `deepgram/nova-3` -
      * `Deepgram Nova-3`. Note: `deepgram/nova-3` supports only `en` and `en-{Region}` languages.
+     * When `redaction` is set, leave this out or set a Deepgram engine.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -244,6 +259,13 @@ private constructor(
      * Unlike [recordingTrack], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _recordingTrack(): JsonField<RecordingTrack> = body._recordingTrack()
+
+    /**
+     * Returns the raw JSON value of [redaction].
+     *
+     * Unlike [redaction], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _redaction(): JsonField<List<Redaction>> = body._redaction()
 
     /**
      * Returns the raw JSON value of [timeoutSecs].
@@ -498,6 +520,31 @@ private constructor(
         }
 
         /**
+         * Silences spoken details of the given kinds in the recording: `pci` (card number, expiry
+         * date, security code), `pii` (personal details such as names, phone numbers, addresses and
+         * other identifying numbers) and `phi` (health details such as medications, doses and
+         * conditions). Redaction works on English speech only. Redacted recordings are charged at
+         * the Deepgram speech-to-text rate.
+         */
+        fun redaction(redaction: List<Redaction>) = apply { body.redaction(redaction) }
+
+        /**
+         * Sets [Builder.redaction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.redaction] with a well-typed `List<Redaction>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun redaction(redaction: JsonField<List<Redaction>>) = apply { body.redaction(redaction) }
+
+        /**
+         * Adds a single [Redaction] to [Builder.redaction].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addRedaction(redaction: Redaction) = apply { body.addRedaction(redaction) }
+
+        /**
          * The number of seconds that Telnyx will wait for the recording to be stopped if silence is
          * detected. The timer only starts when the speech is detected. Please note that call
          * transcription is used to detect silence and the related charge will be applied. The
@@ -530,7 +577,7 @@ private constructor(
         /**
          * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`, `deepgram/nova-3` -
          * `Deepgram Nova-3`. Note: `deepgram/nova-3` supports only `en` and `en-{Region}`
-         * languages.
+         * languages. When `redaction` is set, leave this out or set a Deepgram engine.
          */
         fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) = apply {
             body.transcriptionEngine(transcriptionEngine)
@@ -813,6 +860,7 @@ private constructor(
         private val maxLength: JsonField<Int>,
         private val playBeep: JsonField<Boolean>,
         private val recordingTrack: JsonField<RecordingTrack>,
+        private val redaction: JsonField<List<Redaction>>,
         private val timeoutSecs: JsonField<Int>,
         private val transcription: JsonField<Boolean>,
         private val transcriptionEngine: JsonField<TranscriptionEngine>,
@@ -849,6 +897,9 @@ private constructor(
             @JsonProperty("recording_track")
             @ExcludeMissing
             recordingTrack: JsonField<RecordingTrack> = JsonMissing.of(),
+            @JsonProperty("redaction")
+            @ExcludeMissing
+            redaction: JsonField<List<Redaction>> = JsonMissing.of(),
             @JsonProperty("timeout_secs")
             @ExcludeMissing
             timeoutSecs: JsonField<Int> = JsonMissing.of(),
@@ -883,6 +934,7 @@ private constructor(
             maxLength,
             playBeep,
             recordingTrack,
+            redaction,
             timeoutSecs,
             transcription,
             transcriptionEngine,
@@ -968,6 +1020,18 @@ private constructor(
             recordingTrack.getOptional("recording_track")
 
         /**
+         * Silences spoken details of the given kinds in the recording: `pci` (card number, expiry
+         * date, security code), `pii` (personal details such as names, phone numbers, addresses and
+         * other identifying numbers) and `phi` (health details such as medications, doses and
+         * conditions). Redaction works on English speech only. Redacted recordings are charged at
+         * the Deepgram speech-to-text rate.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun redaction(): Optional<List<Redaction>> = redaction.getOptional("redaction")
+
+        /**
          * The number of seconds that Telnyx will wait for the recording to be stopped if silence is
          * detected. The timer only starts when the speech is detected. Please note that call
          * transcription is used to detect silence and the related charge will be applied. The
@@ -989,7 +1053,7 @@ private constructor(
         /**
          * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`, `deepgram/nova-3` -
          * `Deepgram Nova-3`. Note: `deepgram/nova-3` supports only `en` and `en-{Region}`
-         * languages.
+         * languages. When `redaction` is set, leave this out or set a Deepgram engine.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1118,6 +1182,15 @@ private constructor(
         fun _recordingTrack(): JsonField<RecordingTrack> = recordingTrack
 
         /**
+         * Returns the raw JSON value of [redaction].
+         *
+         * Unlike [redaction], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("redaction")
+        @ExcludeMissing
+        fun _redaction(): JsonField<List<Redaction>> = redaction
+
+        /**
          * Returns the raw JSON value of [timeoutSecs].
          *
          * Unlike [timeoutSecs], this method doesn't throw if the JSON field has an unexpected type.
@@ -1240,6 +1313,7 @@ private constructor(
             private var maxLength: JsonField<Int> = JsonMissing.of()
             private var playBeep: JsonField<Boolean> = JsonMissing.of()
             private var recordingTrack: JsonField<RecordingTrack> = JsonMissing.of()
+            private var redaction: JsonField<MutableList<Redaction>>? = null
             private var timeoutSecs: JsonField<Int> = JsonMissing.of()
             private var transcription: JsonField<Boolean> = JsonMissing.of()
             private var transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of()
@@ -1261,6 +1335,7 @@ private constructor(
                 maxLength = body.maxLength
                 playBeep = body.playBeep
                 recordingTrack = body.recordingTrack
+                redaction = body.redaction.map { it.toMutableList() }
                 timeoutSecs = body.timeoutSecs
                 transcription = body.transcription
                 transcriptionEngine = body.transcriptionEngine
@@ -1400,6 +1475,38 @@ private constructor(
             }
 
             /**
+             * Silences spoken details of the given kinds in the recording: `pci` (card number,
+             * expiry date, security code), `pii` (personal details such as names, phone numbers,
+             * addresses and other identifying numbers) and `phi` (health details such as
+             * medications, doses and conditions). Redaction works on English speech only. Redacted
+             * recordings are charged at the Deepgram speech-to-text rate.
+             */
+            fun redaction(redaction: List<Redaction>) = redaction(JsonField.of(redaction))
+
+            /**
+             * Sets [Builder.redaction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.redaction] with a well-typed `List<Redaction>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun redaction(redaction: JsonField<List<Redaction>>) = apply {
+                this.redaction = redaction.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Redaction] to [Builder.redaction].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addRedaction(redaction: Redaction) = apply {
+                this.redaction =
+                    (this.redaction ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("redaction", it).add(redaction)
+                    }
+            }
+
+            /**
              * The number of seconds that Telnyx will wait for the recording to be stopped if
              * silence is detected. The timer only starts when the speech is detected. Please note
              * that call transcription is used to detect silence and the related charge will be
@@ -1433,7 +1540,8 @@ private constructor(
             /**
              * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`,
              * `deepgram/nova-3` - `Deepgram Nova-3`. Note: `deepgram/nova-3` supports only `en` and
-             * `en-{Region}` languages.
+             * `en-{Region}` languages. When `redaction` is set, leave this out or set a Deepgram
+             * engine.
              */
             fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) =
                 transcriptionEngine(JsonField.of(transcriptionEngine))
@@ -1593,6 +1701,7 @@ private constructor(
                     maxLength,
                     playBeep,
                     recordingTrack,
+                    (redaction ?: JsonMissing.of()).map { it.toImmutable() },
                     timeoutSecs,
                     transcription,
                     transcriptionEngine,
@@ -1630,6 +1739,7 @@ private constructor(
             maxLength()
             playBeep()
             recordingTrack().ifPresent { it.validate() }
+            redaction().ifPresent { it.forEach { it.validate() } }
             timeoutSecs()
             transcription()
             transcriptionEngine().ifPresent { it.validate() }
@@ -1666,6 +1776,7 @@ private constructor(
                 (if (maxLength.asKnown().isPresent) 1 else 0) +
                 (if (playBeep.asKnown().isPresent) 1 else 0) +
                 (recordingTrack.asKnown().getOrNull()?.validity() ?: 0) +
+                (redaction.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (timeoutSecs.asKnown().isPresent) 1 else 0) +
                 (if (transcription.asKnown().isPresent) 1 else 0) +
                 (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1690,6 +1801,7 @@ private constructor(
                 maxLength == other.maxLength &&
                 playBeep == other.playBeep &&
                 recordingTrack == other.recordingTrack &&
+                redaction == other.redaction &&
                 timeoutSecs == other.timeoutSecs &&
                 transcription == other.transcription &&
                 transcriptionEngine == other.transcriptionEngine &&
@@ -1712,6 +1824,7 @@ private constructor(
                 maxLength,
                 playBeep,
                 recordingTrack,
+                redaction,
                 timeoutSecs,
                 transcription,
                 transcriptionEngine,
@@ -1728,7 +1841,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{channels=$channels, format=$format, clientState=$clientState, commandId=$commandId, customFileName=$customFileName, maxLength=$maxLength, playBeep=$playBeep, recordingTrack=$recordingTrack, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionEngine=$transcriptionEngine, transcriptionLanguage=$transcriptionLanguage, transcriptionMaxSpeakerCount=$transcriptionMaxSpeakerCount, transcriptionMinSpeakerCount=$transcriptionMinSpeakerCount, transcriptionProfanityFilter=$transcriptionProfanityFilter, transcriptionSpeakerDiarization=$transcriptionSpeakerDiarization, trim=$trim, additionalProperties=$additionalProperties}"
+            "Body{channels=$channels, format=$format, clientState=$clientState, commandId=$commandId, customFileName=$customFileName, maxLength=$maxLength, playBeep=$playBeep, recordingTrack=$recordingTrack, redaction=$redaction, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionEngine=$transcriptionEngine, transcriptionLanguage=$transcriptionLanguage, transcriptionMaxSpeakerCount=$transcriptionMaxSpeakerCount, transcriptionMinSpeakerCount=$transcriptionMinSpeakerCount, transcriptionProfanityFilter=$transcriptionProfanityFilter, transcriptionSpeakerDiarization=$transcriptionSpeakerDiarization, trim=$trim, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2153,9 +2266,152 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    class Redaction @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val PCI = of("pci")
+
+            @JvmField val PII = of("pii")
+
+            @JvmField val PHI = of("phi")
+
+            @JvmStatic fun of(value: String) = Redaction(JsonField.of(value))
+        }
+
+        /** An enum containing [Redaction]'s known values. */
+        enum class Known {
+            PCI,
+            PII,
+            PHI,
+        }
+
+        /**
+         * An enum containing [Redaction]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Redaction] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PCI,
+            PII,
+            PHI,
+            /**
+             * An enum member indicating that [Redaction] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PCI -> Value.PCI
+                PII -> Value.PII
+                PHI -> Value.PHI
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                PCI -> Known.PCI
+                PII -> Known.PII
+                PHI -> Known.PHI
+                else -> throw TelnyxInvalidDataException("Unknown Redaction: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws TelnyxInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Redaction = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Redaction && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /**
      * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`, `deepgram/nova-3` -
      * `Deepgram Nova-3`. Note: `deepgram/nova-3` supports only `en` and `en-{Region}` languages.
+     * When `redaction` is set, leave this out or set a Deepgram engine.
      */
     class TranscriptionEngine
     @JsonCreator

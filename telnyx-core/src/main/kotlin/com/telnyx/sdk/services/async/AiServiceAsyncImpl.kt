@@ -41,8 +41,6 @@ import com.telnyx.sdk.services.async.ai.ConversationServiceAsync
 import com.telnyx.sdk.services.async.ai.ConversationServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsync
 import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsyncImpl
-import com.telnyx.sdk.services.async.ai.FineTuningServiceAsync
-import com.telnyx.sdk.services.async.ai.FineTuningServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.IntegrationServiceAsync
 import com.telnyx.sdk.services.async.ai.IntegrationServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.KnowledgeServiceAsync
@@ -91,10 +89,6 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     private val embeddings: EmbeddingServiceAsync by lazy {
         EmbeddingServiceAsyncImpl(clientOptions)
-    }
-
-    private val fineTuning: FineTuningServiceAsync by lazy {
-        FineTuningServiceAsyncImpl(clientOptions)
     }
 
     private val integrations: IntegrationServiceAsync by lazy {
@@ -153,8 +147,6 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     /** Embed documents and perform text searches */
     override fun embeddings(): EmbeddingServiceAsync = embeddings
-
-    override fun fineTuning(): FineTuningServiceAsync = fineTuning
 
     override fun integrations(): IntegrationServiceAsync = integrations
 
@@ -230,10 +222,6 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             EmbeddingServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val fineTuning: FineTuningServiceAsync.WithRawResponse by lazy {
-            FineTuningServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val integrations: IntegrationServiceAsync.WithRawResponse by lazy {
             IntegrationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -306,8 +294,6 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
         /** Embed documents and perform text searches */
         override fun embeddings(): EmbeddingServiceAsync.WithRawResponse = embeddings
-
-        override fun fineTuning(): FineTuningServiceAsync.WithRawResponse = fineTuning
 
         override fun integrations(): IntegrationServiceAsync.WithRawResponse = integrations
 

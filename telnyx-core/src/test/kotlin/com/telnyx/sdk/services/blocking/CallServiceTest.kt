@@ -312,6 +312,8 @@ internal class CallServiceTest {
                     .recordCustomFileName("my_recording_file_name")
                     .recordFormat(CallDialParams.RecordFormat.WAV)
                     .recordMaxLength(1000)
+                    .addRecordRedaction(CallDialParams.RecordRedaction.PCI)
+                    .addRecordRedaction(CallDialParams.RecordRedaction.PII)
                     .recordTimeoutSecs(100)
                     .recordTrack(CallDialParams.RecordTrack.OUTBOUND)
                     .recordTrim(CallDialParams.RecordTrim.TRIM_SILENCE)

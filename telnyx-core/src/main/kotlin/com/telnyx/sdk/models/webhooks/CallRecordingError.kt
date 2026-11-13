@@ -804,6 +804,10 @@ private constructor(
 
                 @JvmField val INTERNAL_SERVER_ERROR = of("Internal server error")
 
+                @JvmField
+                val RECORDING_REDACTION_FAILED_SO_THE_RECORDING_WAS_NOT_SAVED =
+                    of("Recording redaction failed, so the recording was not saved.")
+
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -813,6 +817,7 @@ private constructor(
                 INVALID_CREDENTIALS_JSON,
                 UNSUPPORTED_BACKEND,
                 INTERNAL_SERVER_ERROR,
+                RECORDING_REDACTION_FAILED_SO_THE_RECORDING_WAS_NOT_SAVED,
             }
 
             /**
@@ -829,6 +834,7 @@ private constructor(
                 INVALID_CREDENTIALS_JSON,
                 UNSUPPORTED_BACKEND,
                 INTERNAL_SERVER_ERROR,
+                RECORDING_REDACTION_FAILED_SO_THE_RECORDING_WAS_NOT_SAVED,
                 /**
                  * An enum member indicating that [Reason] was instantiated with an unknown value.
                  */
@@ -849,6 +855,8 @@ private constructor(
                     INVALID_CREDENTIALS_JSON -> Value.INVALID_CREDENTIALS_JSON
                     UNSUPPORTED_BACKEND -> Value.UNSUPPORTED_BACKEND
                     INTERNAL_SERVER_ERROR -> Value.INTERNAL_SERVER_ERROR
+                    RECORDING_REDACTION_FAILED_SO_THE_RECORDING_WAS_NOT_SAVED ->
+                        Value.RECORDING_REDACTION_FAILED_SO_THE_RECORDING_WAS_NOT_SAVED
                     else -> Value._UNKNOWN
                 }
 
@@ -868,6 +876,8 @@ private constructor(
                     INVALID_CREDENTIALS_JSON -> Known.INVALID_CREDENTIALS_JSON
                     UNSUPPORTED_BACKEND -> Known.UNSUPPORTED_BACKEND
                     INTERNAL_SERVER_ERROR -> Known.INTERNAL_SERVER_ERROR
+                    RECORDING_REDACTION_FAILED_SO_THE_RECORDING_WAS_NOT_SAVED ->
+                        Known.RECORDING_REDACTION_FAILED_SO_THE_RECORDING_WAS_NOT_SAVED
                     else -> throw TelnyxInvalidDataException("Unknown Reason: $value")
                 }
 

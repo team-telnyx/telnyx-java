@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.conferences.actions
 
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,6 +17,8 @@ internal class ActionRecordStartParamsTest {
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .customFileName("my_recording_file_name")
             .playBeep(true)
+            .addRedaction(ActionRecordStartParams.Redaction.PCI)
+            .addRedaction(ActionRecordStartParams.Redaction.PII)
             .region(ConferenceRegion.US)
             .trim(ActionRecordStartParams.Trim.TRIM_SILENCE)
             .build()
@@ -44,6 +47,8 @@ internal class ActionRecordStartParamsTest {
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .customFileName("my_recording_file_name")
                 .playBeep(true)
+                .addRedaction(ActionRecordStartParams.Redaction.PCI)
+                .addRedaction(ActionRecordStartParams.Redaction.PII)
                 .region(ConferenceRegion.US)
                 .trim(ActionRecordStartParams.Trim.TRIM_SILENCE)
                 .build()
@@ -55,6 +60,11 @@ internal class ActionRecordStartParamsTest {
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.customFileName()).contains("my_recording_file_name")
         assertThat(body.playBeep()).contains(true)
+        assertThat(body.redaction().getOrNull())
+            .containsExactly(
+                ActionRecordStartParams.Redaction.PCI,
+                ActionRecordStartParams.Redaction.PII,
+            )
         assertThat(body.region()).contains(ConferenceRegion.US)
         assertThat(body.trim()).contains(ActionRecordStartParams.Trim.TRIM_SILENCE)
     }

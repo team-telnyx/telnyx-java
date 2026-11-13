@@ -557,12 +557,15 @@ private constructor(
 
             @JvmField val SONIOX_STT_RT_V4 = of("soniox/stt-rt-v4")
 
+            @JvmField val SONIOX_STT_RT_V6 = of("soniox/stt-rt-v6")
+
             @JvmStatic fun of(value: String) = TranscriptionModel(JsonField.of(value))
         }
 
         /** An enum containing [TranscriptionModel]'s known values. */
         enum class Known {
-            SONIOX_STT_RT_V4
+            SONIOX_STT_RT_V4,
+            SONIOX_STT_RT_V6,
         }
 
         /**
@@ -576,6 +579,7 @@ private constructor(
          */
         enum class Value {
             SONIOX_STT_RT_V4,
+            SONIOX_STT_RT_V6,
             /**
              * An enum member indicating that [TranscriptionModel] was instantiated with an unknown
              * value.
@@ -593,6 +597,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 SONIOX_STT_RT_V4 -> Value.SONIOX_STT_RT_V4
+                SONIOX_STT_RT_V6 -> Value.SONIOX_STT_RT_V6
                 else -> Value._UNKNOWN
             }
 
@@ -608,6 +613,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 SONIOX_STT_RT_V4 -> Known.SONIOX_STT_RT_V4
+                SONIOX_STT_RT_V6 -> Known.SONIOX_STT_RT_V6
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionModel: $value")
             }
 

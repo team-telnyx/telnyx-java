@@ -276,6 +276,8 @@ internal class ActionServiceTest {
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .customFileName("my_recording_file_name")
                     .playBeep(true)
+                    .addRedaction(ActionRecordStartParams.Redaction.PCI)
+                    .addRedaction(ActionRecordStartParams.Redaction.PII)
                     .region(ConferenceRegion.US)
                     .trim(ActionRecordStartParams.Trim.TRIM_SILENCE)
                     .build()

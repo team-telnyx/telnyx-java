@@ -131,6 +131,18 @@ private constructor(
     fun conferenceRecord(): Optional<ConferenceRecord> = body.conferenceRecord()
 
     /**
+     * Silences spoken details of the given kinds in the recording: one or more of `pci` (card
+     * number, expiry date, security code), `pii` (personal details such as names, phone numbers,
+     * addresses and other identifying numbers) and `phi` (health details such as medications, doses
+     * and conditions), separated by commas, for example `pci,pii`. Redaction works on English
+     * speech only. Redacted recordings are charged at the Deepgram speech-to-text rate.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conferenceRecordingRedaction(): Optional<String> = body.conferenceRecordingRedaction()
+
+    /**
      * The URL the conference recording callbacks will be sent to.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -626,6 +638,14 @@ private constructor(
      * type.
      */
     fun _conferenceRecord(): JsonField<ConferenceRecord> = body._conferenceRecord()
+
+    /**
+     * Returns the raw JSON value of [conferenceRecordingRedaction].
+     *
+     * Unlike [conferenceRecordingRedaction], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _conferenceRecordingRedaction(): JsonField<String> = body._conferenceRecordingRedaction()
 
     /**
      * Returns the raw JSON value of [conferenceRecordingStatusCallback].
@@ -1222,6 +1242,29 @@ private constructor(
          */
         fun conferenceRecord(conferenceRecord: JsonField<ConferenceRecord>) = apply {
             body.conferenceRecord(conferenceRecord)
+        }
+
+        /**
+         * Silences spoken details of the given kinds in the recording: one or more of `pci` (card
+         * number, expiry date, security code), `pii` (personal details such as names, phone
+         * numbers, addresses and other identifying numbers) and `phi` (health details such as
+         * medications, doses and conditions), separated by commas, for example `pci,pii`. Redaction
+         * works on English speech only. Redacted recordings are charged at the Deepgram
+         * speech-to-text rate.
+         */
+        fun conferenceRecordingRedaction(conferenceRecordingRedaction: String) = apply {
+            body.conferenceRecordingRedaction(conferenceRecordingRedaction)
+        }
+
+        /**
+         * Sets [Builder.conferenceRecordingRedaction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conferenceRecordingRedaction] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun conferenceRecordingRedaction(conferenceRecordingRedaction: JsonField<String>) = apply {
+            body.conferenceRecordingRedaction(conferenceRecordingRedaction)
         }
 
         /** The URL the conference recording callbacks will be sent to. */
@@ -2203,6 +2246,7 @@ private constructor(
         private val cancelPlaybackOnMachineDetection: JsonField<Boolean>,
         private val coaching: JsonField<Boolean>,
         private val conferenceRecord: JsonField<ConferenceRecord>,
+        private val conferenceRecordingRedaction: JsonField<String>,
         private val conferenceRecordingStatusCallback: JsonField<String>,
         private val conferenceRecordingStatusCallbackEvent: JsonField<String>,
         private val conferenceRecordingStatusCallbackMethod:
@@ -2283,6 +2327,9 @@ private constructor(
             @JsonProperty("ConferenceRecord")
             @ExcludeMissing
             conferenceRecord: JsonField<ConferenceRecord> = JsonMissing.of(),
+            @JsonProperty("ConferenceRecordingRedaction")
+            @ExcludeMissing
+            conferenceRecordingRedaction: JsonField<String> = JsonMissing.of(),
             @JsonProperty("ConferenceRecordingStatusCallback")
             @ExcludeMissing
             conferenceRecordingStatusCallback: JsonField<String> = JsonMissing.of(),
@@ -2420,6 +2467,7 @@ private constructor(
             cancelPlaybackOnMachineDetection,
             coaching,
             conferenceRecord,
+            conferenceRecordingRedaction,
             conferenceRecordingStatusCallback,
             conferenceRecordingStatusCallbackEvent,
             conferenceRecordingStatusCallbackMethod,
@@ -2562,6 +2610,20 @@ private constructor(
          */
         fun conferenceRecord(): Optional<ConferenceRecord> =
             conferenceRecord.getOptional("ConferenceRecord")
+
+        /**
+         * Silences spoken details of the given kinds in the recording: one or more of `pci` (card
+         * number, expiry date, security code), `pii` (personal details such as names, phone
+         * numbers, addresses and other identifying numbers) and `phi` (health details such as
+         * medications, doses and conditions), separated by commas, for example `pci,pii`. Redaction
+         * works on English speech only. Redacted recordings are charged at the Deepgram
+         * speech-to-text rate.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun conferenceRecordingRedaction(): Optional<String> =
+            conferenceRecordingRedaction.getOptional("ConferenceRecordingRedaction")
 
         /**
          * The URL the conference recording callbacks will be sent to.
@@ -3106,6 +3168,16 @@ private constructor(
         fun _conferenceRecord(): JsonField<ConferenceRecord> = conferenceRecord
 
         /**
+         * Returns the raw JSON value of [conferenceRecordingRedaction].
+         *
+         * Unlike [conferenceRecordingRedaction], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("ConferenceRecordingRedaction")
+        @ExcludeMissing
+        fun _conferenceRecordingRedaction(): JsonField<String> = conferenceRecordingRedaction
+
+        /**
          * Returns the raw JSON value of [conferenceRecordingStatusCallback].
          *
          * Unlike [conferenceRecordingStatusCallback], this method doesn't throw if the JSON field
@@ -3582,6 +3654,7 @@ private constructor(
             private var cancelPlaybackOnMachineDetection: JsonField<Boolean> = JsonMissing.of()
             private var coaching: JsonField<Boolean> = JsonMissing.of()
             private var conferenceRecord: JsonField<ConferenceRecord> = JsonMissing.of()
+            private var conferenceRecordingRedaction: JsonField<String> = JsonMissing.of()
             private var conferenceRecordingStatusCallback: JsonField<String> = JsonMissing.of()
             private var conferenceRecordingStatusCallbackEvent: JsonField<String> = JsonMissing.of()
             private var conferenceRecordingStatusCallbackMethod:
@@ -3649,6 +3722,7 @@ private constructor(
                 cancelPlaybackOnMachineDetection = body.cancelPlaybackOnMachineDetection
                 coaching = body.coaching
                 conferenceRecord = body.conferenceRecord
+                conferenceRecordingRedaction = body.conferenceRecordingRedaction
                 conferenceRecordingStatusCallback = body.conferenceRecordingStatusCallback
                 conferenceRecordingStatusCallbackEvent = body.conferenceRecordingStatusCallbackEvent
                 conferenceRecordingStatusCallbackMethod =
@@ -3864,6 +3938,29 @@ private constructor(
             fun conferenceRecord(conferenceRecord: JsonField<ConferenceRecord>) = apply {
                 this.conferenceRecord = conferenceRecord
             }
+
+            /**
+             * Silences spoken details of the given kinds in the recording: one or more of `pci`
+             * (card number, expiry date, security code), `pii` (personal details such as names,
+             * phone numbers, addresses and other identifying numbers) and `phi` (health details
+             * such as medications, doses and conditions), separated by commas, for example
+             * `pci,pii`. Redaction works on English speech only. Redacted recordings are charged at
+             * the Deepgram speech-to-text rate.
+             */
+            fun conferenceRecordingRedaction(conferenceRecordingRedaction: String) =
+                conferenceRecordingRedaction(JsonField.of(conferenceRecordingRedaction))
+
+            /**
+             * Sets [Builder.conferenceRecordingRedaction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.conferenceRecordingRedaction] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun conferenceRecordingRedaction(conferenceRecordingRedaction: JsonField<String>) =
+                apply {
+                    this.conferenceRecordingRedaction = conferenceRecordingRedaction
+                }
 
             /** The URL the conference recording callbacks will be sent to. */
             fun conferenceRecordingStatusCallback(conferenceRecordingStatusCallback: String) =
@@ -4724,6 +4821,7 @@ private constructor(
                     cancelPlaybackOnMachineDetection,
                     coaching,
                     conferenceRecord,
+                    conferenceRecordingRedaction,
                     conferenceRecordingStatusCallback,
                     conferenceRecordingStatusCallbackEvent,
                     conferenceRecordingStatusCallbackMethod,
@@ -4800,6 +4898,7 @@ private constructor(
             cancelPlaybackOnMachineDetection()
             coaching()
             conferenceRecord().ifPresent { it.validate() }
+            conferenceRecordingRedaction()
             conferenceRecordingStatusCallback()
             conferenceRecordingStatusCallbackEvent()
             conferenceRecordingStatusCallbackMethod().ifPresent { it.validate() }
@@ -4875,6 +4974,7 @@ private constructor(
                 (if (cancelPlaybackOnMachineDetection.asKnown().isPresent) 1 else 0) +
                 (if (coaching.asKnown().isPresent) 1 else 0) +
                 (conferenceRecord.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (conferenceRecordingRedaction.asKnown().isPresent) 1 else 0) +
                 (if (conferenceRecordingStatusCallback.asKnown().isPresent) 1 else 0) +
                 (if (conferenceRecordingStatusCallbackEvent.asKnown().isPresent) 1 else 0) +
                 (conferenceRecordingStatusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
@@ -4938,6 +5038,7 @@ private constructor(
                 cancelPlaybackOnMachineDetection == other.cancelPlaybackOnMachineDetection &&
                 coaching == other.coaching &&
                 conferenceRecord == other.conferenceRecord &&
+                conferenceRecordingRedaction == other.conferenceRecordingRedaction &&
                 conferenceRecordingStatusCallback == other.conferenceRecordingStatusCallback &&
                 conferenceRecordingStatusCallbackEvent ==
                     other.conferenceRecordingStatusCallbackEvent &&
@@ -5004,6 +5105,7 @@ private constructor(
                 cancelPlaybackOnMachineDetection,
                 coaching,
                 conferenceRecord,
+                conferenceRecordingRedaction,
                 conferenceRecordingStatusCallback,
                 conferenceRecordingStatusCallbackEvent,
                 conferenceRecordingStatusCallbackMethod,
@@ -5057,7 +5159,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amdStatusCallback=$amdStatusCallback, amdStatusCallbackMethod=$amdStatusCallbackMethod, applicationSid=$applicationSid, beep=$beep, callerId=$callerId, callSidToCoach=$callSidToCoach, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, coaching=$coaching, conferenceRecord=$conferenceRecord, conferenceRecordingStatusCallback=$conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackEvent=$conferenceRecordingStatusCallbackEvent, conferenceRecordingStatusCallbackMethod=$conferenceRecordingStatusCallbackMethod, conferenceRecordingTimeout=$conferenceRecordingTimeout, conferenceStatusCallback=$conferenceStatusCallback, conferenceStatusCallbackEvent=$conferenceStatusCallbackEvent, conferenceStatusCallbackMethod=$conferenceStatusCallbackMethod, conferenceTrim=$conferenceTrim, customHeaders=$customHeaders, earlyMedia=$earlyMedia, endConferenceOnExit=$endConferenceOnExit, from=$from, label=$label, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, maxParticipants=$maxParticipants, muted=$muted, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTrack=$recordingTrack, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, startConferenceOnEnter=$startConferenceOnEnter, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, waitUrl=$waitUrl, additionalProperties=$additionalProperties}"
+            "Body{amdStatusCallback=$amdStatusCallback, amdStatusCallbackMethod=$amdStatusCallbackMethod, applicationSid=$applicationSid, beep=$beep, callerId=$callerId, callSidToCoach=$callSidToCoach, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, coaching=$coaching, conferenceRecord=$conferenceRecord, conferenceRecordingRedaction=$conferenceRecordingRedaction, conferenceRecordingStatusCallback=$conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackEvent=$conferenceRecordingStatusCallbackEvent, conferenceRecordingStatusCallbackMethod=$conferenceRecordingStatusCallbackMethod, conferenceRecordingTimeout=$conferenceRecordingTimeout, conferenceStatusCallback=$conferenceStatusCallback, conferenceStatusCallbackEvent=$conferenceStatusCallbackEvent, conferenceStatusCallbackMethod=$conferenceStatusCallbackMethod, conferenceTrim=$conferenceTrim, customHeaders=$customHeaders, earlyMedia=$earlyMedia, endConferenceOnExit=$endConferenceOnExit, from=$from, label=$label, machineDetection=$machineDetection, machineDetectionBeepMaxFrequency=$machineDetectionBeepMaxFrequency, machineDetectionBeepMinFrequency=$machineDetectionBeepMinFrequency, machineDetectionBeepMinToneDuration=$machineDetectionBeepMinToneDuration, machineDetectionBeepProfile=$machineDetectionBeepProfile, machineDetectionBeepSpectralConfirmation=$machineDetectionBeepSpectralConfirmation, machineDetectionBeepSpectralMinPurity=$machineDetectionBeepSpectralMinPurity, machineDetectionBeepSpectralRejectFaxCng=$machineDetectionBeepSpectralRejectFaxCng, machineDetectionBeepSpectralWindow=$machineDetectionBeepSpectralWindow, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, maxParticipants=$maxParticipants, muted=$muted, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTrack=$recordingTrack, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, startConferenceOnEnter=$startConferenceOnEnter, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, waitUrl=$waitUrl, additionalProperties=$additionalProperties}"
     }
 
     /** HTTP request type used for `AmdStatusCallback`. Defaults to `POST`. */

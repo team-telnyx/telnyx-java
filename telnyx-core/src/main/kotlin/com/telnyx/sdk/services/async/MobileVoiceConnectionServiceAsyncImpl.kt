@@ -56,35 +56,35 @@ internal constructor(private val clientOptions: ClientOptions) : MobileVoiceConn
         params: MobileVoiceConnectionCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MobileVoiceConnectionCreateResponse> =
-        // post /v2/mobile_voice_connections
+        // post /mobile_voice_connections
         withRawResponse().create(params, requestOptions).mapCancellable { it.parse() }
 
     override fun retrieve(
         params: MobileVoiceConnectionRetrieveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MobileVoiceConnectionRetrieveResponse> =
-        // get /v2/mobile_voice_connections/{id}
+        // get /mobile_voice_connections/{id}
         withRawResponse().retrieve(params, requestOptions).mapCancellable { it.parse() }
 
     override fun update(
         params: MobileVoiceConnectionUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MobileVoiceConnectionUpdateResponse> =
-        // patch /v2/mobile_voice_connections/{id}
+        // patch /mobile_voice_connections/{id}
         withRawResponse().update(params, requestOptions).mapCancellable { it.parse() }
 
     override fun list(
         params: MobileVoiceConnectionListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MobileVoiceConnectionListPageAsync> =
-        // get /v2/mobile_voice_connections
+        // get /mobile_voice_connections
         withRawResponse().list(params, requestOptions).mapCancellable { it.parse() }
 
     override fun delete(
         params: MobileVoiceConnectionDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<MobileVoiceConnectionDeleteResponse> =
-        // delete /v2/mobile_voice_connections/{id}
+        // delete /mobile_voice_connections/{id}
         withRawResponse().delete(params, requestOptions).mapCancellable { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -111,7 +111,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobileVoiceConn
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "mobile_voice_connections")
+                    .addPathSegments("mobile_voice_connections")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -147,7 +147,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobileVoiceConn
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "mobile_voice_connections", params._pathParam(0))
+                    .addPathSegments("mobile_voice_connections", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -182,7 +182,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobileVoiceConn
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "mobile_voice_connections", params._pathParam(0))
+                    .addPathSegments("mobile_voice_connections", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -215,7 +215,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobileVoiceConn
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "mobile_voice_connections")
+                    .addPathSegments("mobile_voice_connections")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -258,7 +258,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobileVoiceConn
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "mobile_voice_connections", params._pathParam(0))
+                    .addPathSegments("mobile_voice_connections", params._pathParam(0))
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)

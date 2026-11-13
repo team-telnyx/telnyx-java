@@ -15,12 +15,31 @@ internal class PortingOrdersExceptionTypeTest {
             PortingOrdersExceptionType.builder()
                 .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
                 .description("Entity name does not match that on the CSR")
+                .remediation(
+                    PortingOrdersExceptionType.Remediation.builder()
+                        .action(PortingOrdersExceptionType.Remediation.Action.UPDATE_ORDER_FIELDS)
+                        .addField("end_user.location.postal_code")
+                        .requiredDocument(
+                            PortingOrdersExceptionType.Remediation.RequiredDocument.LOA
+                        )
+                        .retryable(true)
+                        .build()
+                )
                 .build()
 
         assertThat(portingOrdersExceptionType.code())
-            .contains(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
+            .isEqualTo(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
         assertThat(portingOrdersExceptionType.description())
-            .contains("Entity name does not match that on the CSR")
+            .isEqualTo("Entity name does not match that on the CSR")
+        assertThat(portingOrdersExceptionType.remediation())
+            .isEqualTo(
+                PortingOrdersExceptionType.Remediation.builder()
+                    .action(PortingOrdersExceptionType.Remediation.Action.UPDATE_ORDER_FIELDS)
+                    .addField("end_user.location.postal_code")
+                    .requiredDocument(PortingOrdersExceptionType.Remediation.RequiredDocument.LOA)
+                    .retryable(true)
+                    .build()
+            )
     }
 
     @Test
@@ -30,6 +49,16 @@ internal class PortingOrdersExceptionTypeTest {
             PortingOrdersExceptionType.builder()
                 .code(PortingOrdersExceptionType.Code.ENTITY_NAME_MISMATCH)
                 .description("Entity name does not match that on the CSR")
+                .remediation(
+                    PortingOrdersExceptionType.Remediation.builder()
+                        .action(PortingOrdersExceptionType.Remediation.Action.UPDATE_ORDER_FIELDS)
+                        .addField("end_user.location.postal_code")
+                        .requiredDocument(
+                            PortingOrdersExceptionType.Remediation.RequiredDocument.LOA
+                        )
+                        .retryable(true)
+                        .build()
+                )
                 .build()
 
         val roundtrippedPortingOrdersExceptionType =

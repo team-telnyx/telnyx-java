@@ -52,6 +52,18 @@ private constructor(
     fun recordingChannels(): Optional<RecordingChannels> = body.recordingChannels()
 
     /**
+     * Silences spoken details of the given kinds in the recording: one or more of `pci` (card
+     * number, expiry date, security code), `pii` (personal details such as names, phone numbers,
+     * addresses and other identifying numbers) and `phi` (health details such as medications, doses
+     * and conditions), separated by commas, for example `pci,pii`. Redaction works on English
+     * speech only. Redacted recordings are charged at the Deepgram speech-to-text rate.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordingRedaction(): Optional<String> = body.recordingRedaction()
+
+    /**
      * Url where status callbacks will be sent.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -108,6 +120,14 @@ private constructor(
      * type.
      */
     fun _recordingChannels(): JsonField<RecordingChannels> = body._recordingChannels()
+
+    /**
+     * Returns the raw JSON value of [recordingRedaction].
+     *
+     * Unlike [recordingRedaction], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _recordingRedaction(): JsonField<String> = body._recordingRedaction()
 
     /**
      * Returns the raw JSON value of [recordingStatusCallback].
@@ -208,9 +228,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [playBeep]
          * - [recordingChannels]
+         * - [recordingRedaction]
          * - [recordingStatusCallback]
          * - [recordingStatusCallbackEvent]
-         * - [recordingStatusCallbackMethod]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -244,6 +264,29 @@ private constructor(
          */
         fun recordingChannels(recordingChannels: JsonField<RecordingChannels>) = apply {
             body.recordingChannels(recordingChannels)
+        }
+
+        /**
+         * Silences spoken details of the given kinds in the recording: one or more of `pci` (card
+         * number, expiry date, security code), `pii` (personal details such as names, phone
+         * numbers, addresses and other identifying numbers) and `phi` (health details such as
+         * medications, doses and conditions), separated by commas, for example `pci,pii`. Redaction
+         * works on English speech only. Redacted recordings are charged at the Deepgram
+         * speech-to-text rate.
+         */
+        fun recordingRedaction(recordingRedaction: String) = apply {
+            body.recordingRedaction(recordingRedaction)
+        }
+
+        /**
+         * Sets [Builder.recordingRedaction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordingRedaction] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recordingRedaction(recordingRedaction: JsonField<String>) = apply {
+            body.recordingRedaction(recordingRedaction)
         }
 
         /** Url where status callbacks will be sent. */
@@ -488,6 +531,7 @@ private constructor(
     private constructor(
         private val playBeep: JsonField<Boolean>,
         private val recordingChannels: JsonField<RecordingChannels>,
+        private val recordingRedaction: JsonField<String>,
         private val recordingStatusCallback: JsonField<String>,
         private val recordingStatusCallbackEvent: JsonField<String>,
         private val recordingStatusCallbackMethod: JsonField<RecordingStatusCallbackMethod>,
@@ -504,6 +548,9 @@ private constructor(
             @JsonProperty("RecordingChannels")
             @ExcludeMissing
             recordingChannels: JsonField<RecordingChannels> = JsonMissing.of(),
+            @JsonProperty("RecordingRedaction")
+            @ExcludeMissing
+            recordingRedaction: JsonField<String> = JsonMissing.of(),
             @JsonProperty("RecordingStatusCallback")
             @ExcludeMissing
             recordingStatusCallback: JsonField<String> = JsonMissing.of(),
@@ -523,6 +570,7 @@ private constructor(
         ) : this(
             playBeep,
             recordingChannels,
+            recordingRedaction,
             recordingStatusCallback,
             recordingStatusCallbackEvent,
             recordingStatusCallbackMethod,
@@ -548,6 +596,20 @@ private constructor(
          */
         fun recordingChannels(): Optional<RecordingChannels> =
             recordingChannels.getOptional("RecordingChannels")
+
+        /**
+         * Silences spoken details of the given kinds in the recording: one or more of `pci` (card
+         * number, expiry date, security code), `pii` (personal details such as names, phone
+         * numbers, addresses and other identifying numbers) and `phi` (health details such as
+         * medications, doses and conditions), separated by commas, for example `pci,pii`. Redaction
+         * works on English speech only. Redacted recordings are charged at the Deepgram
+         * speech-to-text rate.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordingRedaction(): Optional<String> =
+            recordingRedaction.getOptional("RecordingRedaction")
 
         /**
          * Url where status callbacks will be sent.
@@ -611,6 +673,16 @@ private constructor(
         @JsonProperty("RecordingChannels")
         @ExcludeMissing
         fun _recordingChannels(): JsonField<RecordingChannels> = recordingChannels
+
+        /**
+         * Returns the raw JSON value of [recordingRedaction].
+         *
+         * Unlike [recordingRedaction], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("RecordingRedaction")
+        @ExcludeMissing
+        fun _recordingRedaction(): JsonField<String> = recordingRedaction
 
         /**
          * Returns the raw JSON value of [recordingStatusCallback].
@@ -686,6 +758,7 @@ private constructor(
 
             private var playBeep: JsonField<Boolean> = JsonMissing.of()
             private var recordingChannels: JsonField<RecordingChannels> = JsonMissing.of()
+            private var recordingRedaction: JsonField<String> = JsonMissing.of()
             private var recordingStatusCallback: JsonField<String> = JsonMissing.of()
             private var recordingStatusCallbackEvent: JsonField<String> = JsonMissing.of()
             private var recordingStatusCallbackMethod: JsonField<RecordingStatusCallbackMethod> =
@@ -698,6 +771,7 @@ private constructor(
             internal fun from(body: Body) = apply {
                 playBeep = body.playBeep
                 recordingChannels = body.recordingChannels
+                recordingRedaction = body.recordingRedaction
                 recordingStatusCallback = body.recordingStatusCallback
                 recordingStatusCallbackEvent = body.recordingStatusCallbackEvent
                 recordingStatusCallbackMethod = body.recordingStatusCallbackMethod
@@ -734,6 +808,28 @@ private constructor(
              */
             fun recordingChannels(recordingChannels: JsonField<RecordingChannels>) = apply {
                 this.recordingChannels = recordingChannels
+            }
+
+            /**
+             * Silences spoken details of the given kinds in the recording: one or more of `pci`
+             * (card number, expiry date, security code), `pii` (personal details such as names,
+             * phone numbers, addresses and other identifying numbers) and `phi` (health details
+             * such as medications, doses and conditions), separated by commas, for example
+             * `pci,pii`. Redaction works on English speech only. Redacted recordings are charged at
+             * the Deepgram speech-to-text rate.
+             */
+            fun recordingRedaction(recordingRedaction: String) =
+                recordingRedaction(JsonField.of(recordingRedaction))
+
+            /**
+             * Sets [Builder.recordingRedaction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordingRedaction] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recordingRedaction(recordingRedaction: JsonField<String>) = apply {
+                this.recordingRedaction = recordingRedaction
             }
 
             /** Url where status callbacks will be sent. */
@@ -845,6 +941,7 @@ private constructor(
                 Body(
                     playBeep,
                     recordingChannels,
+                    recordingRedaction,
                     recordingStatusCallback,
                     recordingStatusCallbackEvent,
                     recordingStatusCallbackMethod,
@@ -872,6 +969,7 @@ private constructor(
 
             playBeep()
             recordingChannels().ifPresent { it.validate() }
+            recordingRedaction()
             recordingStatusCallback()
             recordingStatusCallbackEvent()
             recordingStatusCallbackMethod().ifPresent { it.validate() }
@@ -898,6 +996,7 @@ private constructor(
         internal fun validity(): Int =
             (if (playBeep.asKnown().isPresent) 1 else 0) +
                 (recordingChannels.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (recordingRedaction.asKnown().isPresent) 1 else 0) +
                 (if (recordingStatusCallback.asKnown().isPresent) 1 else 0) +
                 (if (recordingStatusCallbackEvent.asKnown().isPresent) 1 else 0) +
                 (recordingStatusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
@@ -912,6 +1011,7 @@ private constructor(
             return other is Body &&
                 playBeep == other.playBeep &&
                 recordingChannels == other.recordingChannels &&
+                recordingRedaction == other.recordingRedaction &&
                 recordingStatusCallback == other.recordingStatusCallback &&
                 recordingStatusCallbackEvent == other.recordingStatusCallbackEvent &&
                 recordingStatusCallbackMethod == other.recordingStatusCallbackMethod &&
@@ -924,6 +1024,7 @@ private constructor(
             Objects.hash(
                 playBeep,
                 recordingChannels,
+                recordingRedaction,
                 recordingStatusCallback,
                 recordingStatusCallbackEvent,
                 recordingStatusCallbackMethod,
@@ -936,7 +1037,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{playBeep=$playBeep, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, additionalProperties=$additionalProperties}"
+            "Body{playBeep=$playBeep, recordingChannels=$recordingChannels, recordingRedaction=$recordingRedaction, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, additionalProperties=$additionalProperties}"
     }
 
     /**
